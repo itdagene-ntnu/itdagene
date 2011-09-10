@@ -1,0 +1,9 @@
+#!/bin/bash
+git describe --all --long HEAD > project/revision.txt
+rm -f `find|grep \\\\.pyc`
+python build/set_settings.py production_debug
+./bin/buildout
+#./bin/django test --noinput
+./bin/django syncdb --noinput
+./bin/django migrate --noinput
+#service apache2 restart
