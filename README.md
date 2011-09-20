@@ -1,1 +1,2 @@
-##README
+#itDAGENE goes django
+##Install development 
