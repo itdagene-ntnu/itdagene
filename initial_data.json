@@ -1,0 +1,38 @@
+[
+     {
+        "pk": 1, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "rolf", 
+            "first_name": "Rolf Erik",
+            "last_name": "Lekang",
+            "is_active": true, 
+            "is_superuser": true, 
+            "is_staff": true, 
+            "last_login": "2010-10-10 10:10:10",
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sha1$8079f$5ce916b13257dc065a9a10d3ca6d7357e5bbdd82", 
+            "email": "me@rolflekang.com", 
+            "date_joined": "2010-10-10"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "auth.user",
+        "fields": {
+            "username": "emil",
+            "first_name": "Emil Taylor",
+            "last_name": "Bye",
+            "is_active": true,
+            "is_superuser": true,
+            "is_staff": true,
+            "last_login": "2010-10-10 10:10:10",
+            "groups": [],
+            "user_permissions": [],
+            "password": "sha1$8079f$5ce916b13257dc065a9a10d3ca6d7357e5bbdd82",
+            "email": "phptph@gmail.com",
+            "date_joined": "2010-10-10"
+        }
+    }
+]
