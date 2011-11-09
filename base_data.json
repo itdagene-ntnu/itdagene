@@ -100,6 +100,16 @@
         }
     },
     {
+        "pk": 11,
+        "model": "core.basemodel",
+        "fields": {
+            "date_created": "2011-10-30 21:42:48",
+            "date_saved": "2011-10-30 21:42:48",
+            "saved_by": 10,
+            "creator": 10
+        }
+    },
+    {
         "pk": 1,
         "model": "profiles.boardposition",
         "fields": {
@@ -172,21 +182,32 @@
         }
     },
     {
-    "pk": 10,
-    "model": "auth.user",
-    "fields": {
-        "username": "anonymous",
-        "first_name": "anonymous",
-        "last_name": "",
-        "is_active": false,
-        "is_superuser": false,
-        "is_staff": false,
-        "groups": [],
-        "last_login": "2010-10-10 10:10:10",
-        "user_permissions": [],
-        "password": "sha1$8079f$5ce916ba9a10d3ca6d7357e5bbdd82",
-        "email": "anonymous@lkng.me",
-        "date_joined": "2010-10-10 10:10:10"
+        "pk": 10,
+        "model": "auth.user",
+        "fields": {
+            "username": "anonymous",
+            "first_name": "anonymous",
+            "last_name": "",
+            "is_active": false,
+            "is_superuser": false,
+            "is_staff": false,
+            "groups": [],
+            "last_login": "2010-10-10 10:10:10",
+            "user_permissions": [],
+            "password": "sha1$8079f$5ce916ba9a10d3ca6d7357e5bbdd82",
+            "email": "anonymous@lkng.me",
+            "date_joined": "2010-10-10 10:10:10"
+        }
+
+    },
+    {
+        "pk": 11,
+        "model": "core.preference",
+        "fields": {
+            "active": true,
+            "year": 2012,
+            "start_date": "2012-09-17 09:00:00",
+            "end_date": "2012-09-18 19:00:00"
+        }
     }
-}
 ]

@@ -22,7 +22,7 @@ Deretter kan man sette opp databasen:
 
     bin/django syncdb
     bin/django migrate
-    bin/django loaddata board_positions.json
+    bin/django loaddata base_data.json
 
 Hvis alt går som det skal så har du nå en itDAGENE-siden.
 
