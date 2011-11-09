@@ -182,7 +182,7 @@
         }
     },
     {
-        "pk": 10,
+        "pk": 1,
         "model": "auth.user",
         "fields": {
             "username": "anonymous",
