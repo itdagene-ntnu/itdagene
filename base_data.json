@@ -16,122 +16,29 @@
             "email": "anonymous@lkng.me",
             "date_joined": "2010-10-10 10:10:10"
         }
-
     },
     {
         "pk": 1,
-        "model": "core.basemodel",
+        "model": "core.preference",
         "fields": {
-            "date_created": "2011-10-30 21:38:11",
-            "date_saved": "2011-10-30 21:38:22",
+            "end_date": "2012-09-18",
+            "creator": 1,
             "saved_by": 1,
-            "creator": 1
-        }
-    },
-    {
-        "pk": 2,
-        "model": "core.basemodel",
-        "fields": {
-            "date_created": "2011-10-30 21:38:38",
-            "date_saved": "2011-10-30 21:38:38",
-            "saved_by": 1,
-            "creator": 1
-        }
-    },
-    {
-        "pk": 3,
-        "model": "core.basemodel",
-        "fields": {
-            "date_created": "2011-10-30 21:40:12",
-            "date_saved": "2011-10-30 21:40:12",
-            "saved_by": 1,
-            "creator": 1
-        }
-    },
-    {
-        "pk": 4,
-        "model": "core.basemodel",
-        "fields": {
-            "date_created": "2011-10-30 21:40:40",
-            "date_saved": "2011-10-30 21:40:40",
-            "saved_by": 1,
-            "creator": 1
-        }
-    },
-    {
-        "pk": 5,
-        "model": "core.basemodel",
-        "fields": {
-            "date_created": "2011-10-30 21:40:52",
-            "date_saved": "2011-10-30 21:40:52",
-            "saved_by": 1,
-            "creator": 1
-        }
-    },
-    {
-        "pk": 6,
-        "model": "core.basemodel",
-        "fields": {
-            "date_created": "2011-10-30 21:41:42",
-            "date_saved": "2011-10-30 21:41:42",
-            "saved_by": 1,
-            "creator": 1
-        }
-    },
-    {
-        "pk": 7,
-        "model": "core.basemodel",
-        "fields": {
-            "date_created": "2011-10-30 21:42:06",
-            "date_saved": "2011-10-30 21:42:06",
-            "saved_by": 1,
-            "creator": 1
-        }
-    },
-    {
-        "pk": 8,
-        "model": "core.basemodel",
-        "fields": {
-            "date_created": "2011-10-30 21:42:29",
-            "date_saved": "2011-10-30 21:42:29",
-            "saved_by": 1,
-            "creator": 1
-        }
-    },
-    {
-        "pk": 9,
-        "model": "core.basemodel",
-        "fields": {
-            "date_created": "2011-10-30 21:42:48",
-            "date_saved": "2011-10-30 21:42:48",
-            "saved_by": 1,
-            "creator": 1
-        }
-    },
-    {
-        "pk": 1,
-        "model": "core.basemodel",
-        "fields": {
-            "date_created": "2011-10-30 21:42:48",
-            "date_saved": "2011-10-30 21:42:48",
-            "saved_by": 1,
-            "creator": 1
-        }
-    },
-    {
-        "pk": 11,
-        "model": "core.basemodel",
-        "fields": {
-            "date_created": "2011-10-30 21:42:48",
-            "date_saved": "2011-10-30 21:42:48",
-            "saved_by": 1,
-            "creator": 1
+            "year": 2012,
+            "active": true,
+            "date_created": "2011-11-11 11:11:11",
+            "date_saved": "2011-11-15 11:11:11",
+            "start_date": "2012-09-17"
         }
     },
     {
         "pk": 1,
         "model": "profiles.boardposition",
         "fields": {
+            "creator": 1,
+            "saved_by": 1,
+            "date_created": "2011-11-11 11:11:11",
+            "date_saved": "2011-11-15 11:11:11",
             "email": "leder@itdagene.no",
             "title": "Leder"
         }
@@ -140,6 +47,10 @@
         "pk": 2,
         "model": "profiles.boardposition",
         "fields": {
+            "creator": 1,
+            "saved_by": 1,
+            "date_created": "2011-11-11 11:11:11",
+            "date_saved": "2011-11-15 11:11:11",
             "email": "nestleder@itdagene.no",
             "title": "Nestleder"
         }
@@ -148,6 +59,10 @@
         "pk": 3,
         "model": "profiles.boardposition",
         "fields": {
+            "creator": 1,
+            "saved_by": 1,
+            "date_created": "2011-11-11 11:11:11",
+            "date_saved": "2011-11-15 11:11:11",
             "email": "",
             "title": "\u00d8konomiansvarlig"
         }
@@ -156,6 +71,10 @@
         "pk": 4,
         "model": "profiles.boardposition",
         "fields": {
+            "creator": 1,
+            "saved_by": 1,
+            "date_created": "2011-11-11 11:11:11",
+            "date_saved": "2011-11-15 11:11:11",
             "email": "bankett@itdagene.no",
             "title": "Bankettansvarlig"
         }
@@ -164,6 +83,10 @@
         "pk": 5,
         "model": "profiles.boardposition",
         "fields": {
+            "creator": 1,
+            "saved_by": 1,
+            "date_created": "2011-11-11 11:11:11",
+            "date_saved": "2011-11-15 11:11:11",
             "email": "pr@itdagene.no",
             "title": "Markedsf\u00f8ring"
         }
@@ -172,6 +95,10 @@
         "pk": 6,
         "model": "profiles.boardposition",
         "fields": {
+            "creator": 1,
+            "saved_by": 1,
+            "date_created": "2011-11-11 11:11:11",
+            "date_saved": "2011-11-15 11:11:11",
             "email": "web@itdagene.no",
             "title": "Webansvarlig"
         }
@@ -180,6 +107,10 @@
         "pk": 7,
         "model": "profiles.boardposition",
         "fields": {
+            "creator": 1,
+            "saved_by": 1,
+            "date_created": "2011-11-11 11:11:11",
+            "date_saved": "2011-11-15 11:11:11",
             "email": "logistikk@itdagene.no",
             "title": "Logistikk"
         }
@@ -188,6 +119,10 @@
         "pk": 8,
         "model": "profiles.boardposition",
         "fields": {
+            "creator": 1,
+            "saved_by": 1,
+            "date_created": "2011-11-11 11:11:11",
+            "date_saved": "2011-11-15 11:11:11",
             "email": "",
             "title": "Bedriftskontaktansvarlig"
         }
@@ -196,18 +131,12 @@
         "pk": 9,
         "model": "profiles.boardposition",
         "fields": {
+            "creator": 1,
+            "saved_by": 1,
+            "date_created": "2011-11-11 11:11:11",
+            "date_saved": "2011-11-15 11:11:11",
             "email": "",
             "title": "Bedriftskontakt"
-        }
-    },
-    {
-        "pk": 11,
-        "model": "core.preference",
-        "fields": {
-            "active": true,
-            "year": 2012,
-            "start_date": "2012-09-17",
-            "end_date": "2012-09-18"
         }
     }
 ]
