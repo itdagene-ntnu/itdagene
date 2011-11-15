@@ -1,12 +1,31 @@
 [
     {
         "pk": 1,
+        "model": "auth.user",
+        "fields": {
+            "username": "anonymous",
+            "first_name": "anonymous",
+            "last_name": "",
+            "is_active": false,
+            "is_superuser": false,
+            "is_staff": false,
+            "groups": [],
+            "last_login": "2010-10-10 10:10:10",
+            "user_permissions": [],
+            "password": "sha1$8079f$5ce916ba9a10d3ca6d7357e5bbdd82",
+            "email": "anonymous@lkng.me",
+            "date_joined": "2010-10-10 10:10:10"
+        }
+
+    },
+    {
+        "pk": 1,
         "model": "core.basemodel",
         "fields": {
             "date_created": "2011-10-30 21:38:11",
             "date_saved": "2011-10-30 21:38:22",
-            "saved_by": 10,
-            "creator": 10
+            "saved_by": 1,
+            "creator": 1
         }
     },
     {
@@ -15,8 +34,8 @@
         "fields": {
             "date_created": "2011-10-30 21:38:38",
             "date_saved": "2011-10-30 21:38:38",
-            "saved_by": 10,
-            "creator": 10
+            "saved_by": 1,
+            "creator": 1
         }
     },
     {
@@ -25,8 +44,8 @@
         "fields": {
             "date_created": "2011-10-30 21:40:12",
             "date_saved": "2011-10-30 21:40:12",
-            "saved_by": 10,
-            "creator": 10
+            "saved_by": 1,
+            "creator": 1
         }
     },
     {
@@ -35,8 +54,8 @@
         "fields": {
             "date_created": "2011-10-30 21:40:40",
             "date_saved": "2011-10-30 21:40:40",
-            "saved_by": 10,
-            "creator": 10
+            "saved_by": 1,
+            "creator": 1
         }
     },
     {
@@ -45,8 +64,8 @@
         "fields": {
             "date_created": "2011-10-30 21:40:52",
             "date_saved": "2011-10-30 21:40:52",
-            "saved_by": 10,
-            "creator": 10
+            "saved_by": 1,
+            "creator": 1
         }
     },
     {
@@ -55,8 +74,8 @@
         "fields": {
             "date_created": "2011-10-30 21:41:42",
             "date_saved": "2011-10-30 21:41:42",
-            "saved_by": 10,
-            "creator": 10
+            "saved_by": 1,
+            "creator": 1
         }
     },
     {
@@ -65,8 +84,8 @@
         "fields": {
             "date_created": "2011-10-30 21:42:06",
             "date_saved": "2011-10-30 21:42:06",
-            "saved_by": 10,
-            "creator": 10
+            "saved_by": 1,
+            "creator": 1
         }
     },
     {
@@ -75,8 +94,8 @@
         "fields": {
             "date_created": "2011-10-30 21:42:29",
             "date_saved": "2011-10-30 21:42:29",
-            "saved_by": 10,
-            "creator": 10
+            "saved_by": 1,
+            "creator": 1
         }
     },
     {
@@ -85,18 +104,18 @@
         "fields": {
             "date_created": "2011-10-30 21:42:48",
             "date_saved": "2011-10-30 21:42:48",
-            "saved_by": 10,
-            "creator": 10
+            "saved_by": 1,
+            "creator": 1
         }
     },
     {
-        "pk": 10,
+        "pk": 1,
         "model": "core.basemodel",
         "fields": {
             "date_created": "2011-10-30 21:42:48",
             "date_saved": "2011-10-30 21:42:48",
-            "saved_by": 10,
-            "creator": 10
+            "saved_by": 1,
+            "creator": 1
         }
     },
     {
@@ -105,8 +124,8 @@
         "fields": {
             "date_created": "2011-10-30 21:42:48",
             "date_saved": "2011-10-30 21:42:48",
-            "saved_by": 10,
-            "creator": 10
+            "saved_by": 1,
+            "creator": 1
         }
     },
     {
@@ -180,25 +199,6 @@
             "email": "",
             "title": "Bedriftskontakt"
         }
-    },
-    {
-        "pk": 1,
-        "model": "auth.user",
-        "fields": {
-            "username": "anonymous",
-            "first_name": "anonymous",
-            "last_name": "",
-            "is_active": false,
-            "is_superuser": false,
-            "is_staff": false,
-            "groups": [],
-            "last_login": "2010-10-10 10:10:10",
-            "user_permissions": [],
-            "password": "sha1$8079f$5ce916ba9a10d3ca6d7357e5bbdd82",
-            "email": "anonymous@lkng.me",
-            "date_joined": "2010-10-10 10:10:10"
-        }
-
     },
     {
         "pk": 11,
