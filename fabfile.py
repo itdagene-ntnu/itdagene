@@ -42,13 +42,14 @@ def deploy_dev():
     if confirm("Do you want to run tests before deploying?"):
         test()
 
-    code_dir = "/home/web/starthjelpa"
+    code_dir = "/home/web/itdagene-dev"
     with cd(code_dir):
         run("git pull origin master")
         run("bin/django syncdb --noinput")
         run("bin/django migrate --merge")
 
-    sudo("touch /etc/uwsgi/apps-available/itdagene-dev.ini", shell=False)
+    #sudo("touch /etc/uwsgi/apps-available/itdagene-dev.ini", shell=False)
+    sudo("touch /django-sites/itdagene-dev.ini", shell=False)
 
 def deploy_prod():
 
@@ -57,10 +58,11 @@ def deploy_prod():
     if confirm("Do you want to run tests before deploying?"):
         test()
 
-    code_dir = "/home/web/starthjelpa"
+    code_dir = "/home/web/itdagene-prod"
     with cd(code_dir):
         run("git pull origin master")
         run("bin/django syncdb --noinput")
         run("bin/django migrate --merge")
 
-    sudo("touch /etc/uwsgi/apps-available/itdagene-prod.ini", shell=False)
+    #sudo("touch /etc/uwsgi/apps-available/itdagene-prod.ini", shell=False)
+    sudo("touch /django-sites/itdagene-prod.ini", shell=False)
