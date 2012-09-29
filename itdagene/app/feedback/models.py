@@ -103,7 +103,7 @@ class Evaluation (models.Model):
                         verbose_name=_('How did the course go?'),
                         
                      )
-    course_improvement = models.TextField(verbose_name=_('What could have been done better at the banquet?'))
+    course_improvement = models.TextField(verbose_name=_('Could the course be handled better?'))
 
     visitors_rating = models.IntegerField(
         choices=RATINGS,
@@ -130,6 +130,8 @@ class Evaluation (models.Model):
     )
     banquet_improvement = models.TextField(blank=True, verbose_name=_('What could have been done better at the banquet?'))
 
+
+    opening_hours = models.TextField(verbose_name=_('Was the opening hours(10-15) ok? If not what would be your choice?'))
     improvement = models.TextField(verbose_name=_('What could have been done better?'))
     other = models.TextField(blank=True, verbose_name=_('Something else you want to comment?'), help_text=_('Do you have any tips?'))
     want_to_come_back = models.BooleanField(verbose_name=_('Interested in being contacted next year?'))
