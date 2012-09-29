@@ -1,0 +1,12 @@
+Django==1.4.1
+Markdown==2.2.0
+PIL==1.1.7
+South==0.7.6
+django-debug-cache-panel==0.0.1
+django-debug-toolbar==0.9.4
+python-dateutil==2.1
+pytidylib==0.2.1
+six==1.2.0
+sorl-thumbnail==11.12
+vobject==0.8.1c
+wsgiref==0.1.2
