@@ -32,7 +32,12 @@ class EvaluationForm (forms.ModelForm):
 #            if isinstance(self.fields[field], ChoiceField):
 #                self.fields[field].widget = RadioSelect()
 
-        if self.instance.pk:
-            if not self.instance.company.mp and not self.instance.company.partner:
+        if self.instance.hash:
+            if not self.instance.hash.company.mp and not self.instance.hash.company.partner:
                 del self.fields['course_rating']
                 del self.fields['course_improvement']
+
+            if self.instance.hash.company.package_id == 6 \
+            or self.instance.hash.company.package_id == 7 :
+                del self.fields['internship_marathon_rating']
+                del self.fields['internship_marathon_improvement']
