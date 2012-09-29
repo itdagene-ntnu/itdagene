@@ -1,0 +1,27 @@
+{% load i18n %}
+<ul>
+    <li><a href="{% url app.admin.views.users.list %}">{% trans "USERS" %}</a></li>
+    {% if t_user.pk %}
+        <li><a href="{% url app.admin.views.users.view t_user.pk %}">{% trans "VIEW USER" %}</a></li>
+        <li><a href="{% url app.admin.views.users.edit t_user.pk %}">{% trans "EDIT USER" %}</a></li>
+    {% endif %}
+    <li><a href="{% url app.admin.views.groups.list %}">{% trans "GROUPS" %}</a></li>
+        {% if group.pk %}
+        <li><a href="{% url app.admin.views.groups.view group.pk %}">{% trans "VIEW GROUP" %}</a></li>
+        <li><a href="{% url app.admin.views.groups.edit group.pk %}">{% trans "EDIT GROUP" %}</a></li>
+    {% endif %}
+    <li><a href="{% url app.admin.views.preferences.view %}">{% trans "PREFERENCES" %}</a></li>
+        {% if pref.pk %}
+        <li><a href="{% url app.admin.views.preferences.view %}">{% trans "VIEW PREFERENCES" %}</a></li>
+        <li><a href="{% url app.admin.views.preferences.edit %}">{% trans "EDIT PREFERENCES" %}</a></li>
+    {% endif %}
+    <li><a href="{% url app.admin.views.log %}">{% trans "LOG" %}</a></li>
+    {% if log %}
+        <!--
+        <li><a href="#" class="filter-list" data-priority="0">{% trans "Log: Low" %}</a></li>
+        <li><a href="#" class="filter-list" data-priority="1">{% trans "Log: Medium" %}</a></li>
+        <li><a href="#" class="filter-list" data-priority="2">{% trans "Log: High" %}</a></li>
+        <li><a href="#" class="filter-list" data-priority="3">{% trans "Log: Very high" %}</a></li>
+        -->
+    {% endif %}
+</ul>

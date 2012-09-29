@@ -1,0 +1,33 @@
+{% extends base_template %}
+{% load i18n %}
+{% load core %}
+{% block include %}{% chosen "id_company" %}{% endblock %}
+{% block content %}
+    <h1>{{ event.title }}</h1>
+    <p>
+        <strong>{% trans "Time" %}:</strong> {{ event.date|date }}: {{ event.time_start }} - {{ event.time_end }}<br/>
+        <strong>{% trans "Type" %}:</strong> {{ event.get_type_display }} <strong>{% trans "Location" %}:</strong> {{ event.location }}
+    </p>
+    <p>
+        {{ event.description }}
+    </p>
+    {% if event.uses_tickets %}
+        <h2>{% trans "Tickets" %}</h2>
+        <table cellspacing="0">
+            <tr>
+                <th></th>
+                <th>{% trans "Name" %}</th>
+                <th>{% trans "Company" %}</th>
+            </tr>
+            {% for ticket in event.tickets.all %}
+                <tr>
+                    <td><a href="{% url edit_ticket ticket.pk %}" class="page-edit icon"></a></td>
+                    <td>{{ ticket.full_name }}</td>
+                    <td>{{ ticket.company }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <h3>{% trans "Add a ticket" %}</h3>
+        {% include "form.html" %}
+    {% endif %}
+{% endblock %}

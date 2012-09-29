@@ -1,0 +1,8 @@
+{% extends "adm/base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <h1>{% trans "User administration" %}</h1>
+            <strong>{{ t_user.profile }}:</strong> {{ t_user }}<br/>
+            {{ t_user.email }} - {% if t_user.is_staff %}{% trans "This user has admin rights" %}{% endif %}
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends base_template %}
+{% load i18n %}
+{% block content %}
+    <h1>{% trans "Permission denied" %}</h1>
+    {% trans "It seems you do not have rights to view this. Please send a email to" %}
+    <a href="mailto:web@itdagene.no?subject={% trans "Missing permission" %}&body={% trans "Permission required" %}:{{ perm }}, {% trans "User" %}:{{ user }}">web@itdagene.no</a><br/>
+    <strong>{% trans "Permission required" %}:</strong>
+    {{ perm }}<br/>
+    <strong>{% trans "User" %}:</strong>
+    {{ user }}<br/>
+{% endblock %}

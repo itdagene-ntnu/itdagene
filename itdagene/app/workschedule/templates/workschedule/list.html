@@ -1,0 +1,28 @@
+{% extends base_template %}
+{% load i18n %}
+{% block content %}
+    <table cellspacing="0">
+        <tr>
+            <th>{% trans "Worker" %}:</th>
+            <th>{% trans "Phone" %}:</th>
+            <th>{% trans "Email" %}:</th>
+            <th>{% trans "Schedules" %}:</th>
+        </tr>
+    {% for worker in workers %}
+        <tr>
+            <td>{{ worker }}</td>
+            <td>{{ worker.phone }}</td>
+            <td>{{ worker.email }}</td>
+            <td>
+                {% for w in worker.schedules %}
+                <p>
+                {{ w.date }} {{ w.start_time }} - {{ w.end_time }}
+                {% if request.user.profile.is_board_member %}{% if w.has_met %}{% trans "Has met" %}{% else %}{% trans "Has not met" %}{% endif %}{% endif %}
+                </p>
+                    {% endfor %}
+            </td>
+        </tr>
+
+    {% endfor %}
+    </table>
+{% endblock %}

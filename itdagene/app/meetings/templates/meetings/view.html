@@ -1,0 +1,44 @@
+{% extends "meetings/base.html" %}
+{% load i18n %}
+{% load markup %}
+{% block content %}
+{% load comments %}
+
+    <aside>
+        <h3>{% trans "Attending" %}</h3>
+        <ul>
+            {% for attendor in meeting.attending %}
+                <li>{{ attendor.user.profile }}</li>
+            {% endfor %}
+        </ul>
+        <h3>{% trans "Not attending" %}</h3>
+        <ul>
+            {% for attendor in meeting.not_attending %}
+                <li>{{ attendor.user.profile }}</li>
+            {% endfor %}
+        </ul>
+        <h3>{% trans "Awaiting reply" %}</h3>
+        <ul>
+            {% for attendor in meeting.awaiting_reply %}
+                <li>{{ attendor.user.profile }}</li>
+            {% endfor %}
+        </ul>
+    </aside>
+
+    <h1>{% trans "Meeting" %}: {{ meeting.date }}</h1>
+    <em>{{ meeting.start_time }} - {{ meeting.end_time }} @{{ meeting.location }} - {% trans "Referee" %}: {{ meeting.referee.profile }}</em>
+    {% if reply and reply.is_attending == None %}
+    <div class="info">
+        <h3>{% trans "You haven't replied to this invite" %}</h3>
+        {% trans "I am" %}
+        <a href="{% url app.meetings.views.attend meeting.pk %}" class="button">{% trans "attending" %}</a>
+        <a href="{% url app.meetings.views.not_attend meeting.pk %}" class="button">{% trans "not attending" %}</a>
+    </div>
+    {% endif %}
+    <div class="abstract">
+        {{ meeting.abstract|markdown }}
+    </div>
+    {% load_comments_form meeting %}
+    {% load_comments meeting %}
+
+{% endblock %}

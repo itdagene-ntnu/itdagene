@@ -1,0 +1,3 @@
+{% for w in workschedule %}
+    {{ w.worker }}{% if not w.has_met %}<a href="/workschedule/has_met/{{  w.id }}/"><img src="/static/icons/check.png" /></a>{% endif %}
+{% endfor %}

@@ -1,0 +1,10 @@
+{% load i18n %}
+
+{% if notifications %}
+<ul class="notifications">
+    <h3>{% trans "Your notifications" %}</h3>
+    {% for n in notifications %}
+    <li>{{ n.message }}<em>{{ n.date|date }}</em></li>
+{% endfor %}
+</ul>
+{% endif %}

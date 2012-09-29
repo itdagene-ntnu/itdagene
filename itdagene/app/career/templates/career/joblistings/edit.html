@@ -1,0 +1,25 @@
+{% extends base_template %}
+{% load markup %}
+{% load i18n %}
+{% load core %}
+
+{% block include %}
+    <script>$(function(){ $("#id_deadline").datepicker({dateFormat: 'yy-mm-dd'}); });</script>
+	{% chosen "id_contact" %}
+	{% chosen "id_towns" %}
+{% endblock %}
+{% block content %}
+    {% if form.instance.pk %}
+    	<h1>{% blocktrans with joblisting.title as title and joblisting.company as company %}{{ title }} at {{ company }}{% endblocktrans %}</h1>
+    {% else %}
+    	<h1>{% blocktrans with joblisting.company.name as name  %}New joblisting for {{ name }}{% endblocktrans %}</h1>
+    {% endif %}
+    <div class="company-description">{% if joblisting.company.logo %}<img src="{{ joblisting.company.logo.url }}"> {% endif %}{{ joblisting.company.description }}</div>
+    <span class="simple-meta">{% trans "The text above is collected from the company profile" %}</span>
+     {% if form.instance.pk %}
+    	<h2>{% trans "Edit joblisting" %}</h2>
+    {% else %}
+    	<h2>{% trans "Add joblisting" %}</h2>
+    {% endif %}
+    {% include "form.html" %}
+{% endblock %}

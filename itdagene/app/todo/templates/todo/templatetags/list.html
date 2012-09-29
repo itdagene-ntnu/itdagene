@@ -1,0 +1,7 @@
+{% load i18n %}
+<h3>{% trans "Todo" %}:</h3>
+<ul id="todos">
+{% for todo in todos %}
+    <li data-id="{{ todo.pk }}">{{ todo }}</li>
+{% endfor %}
+</ul>

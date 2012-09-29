@@ -1,0 +1,21 @@
+{% extends base_template %}
+{% load i18n %}
+{% block content %}
+    <h1>{% trans "Events" %}</h1>
+    <table cellspacing="0">
+        <tr>
+            <th>{% trans "Title" %}</th>
+            <th>{% trans "Tickets" %}</th>
+            <th>{% trans "Date" %}</th>
+            <th>{% trans "Time" %}</th>
+        </tr>
+        {% for event in events %}
+            <tr>
+                <td><a href="{% url view_event event.pk %}">{{ event }}</a></td>
+                <td>{% if event.uses_tickets %}{{ event.tickets.count }}{% if event.max_participants %}/{{ event.max_participants }}{% endif %}{% else %} - {% endif %}</td>
+                <td>{{ event.date|date }}</td>
+                <td>{{ event.time_start|time }} - {{ event.time_end|time }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

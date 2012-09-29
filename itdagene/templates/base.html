@@ -1,0 +1,127 @@
+{% load core menu tinycon i18n thumbnail %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>itDAGENE</title>
+    <link href="/static/style.css" media="screen" rel="stylesheet">
+    <link href="/static/icons.css" media="screen" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="apple-touch-icon" href="/static/img/icon.png">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">
+    {% analytics %}
+    {% if request.user.profile.type == 'b' %}
+        <link href="/static/chosen/chosen.css" rel="stylesheet" />
+        <script type="text/javascript" src="/static/chosen/chosen.jquery.min.js"></script>
+        <script src="/static/js/todo.js"></script>
+        {% include_tinycon %}
+        {% set_notification_bubble %}
+    {% endif %}
+    {% block include %}{% endblock %}
+</head>
+<body>
+    <header>
+        <a href="/"><img src="/static/img/itdagene_logo_white.png" title="itDAGENE"/></a>
+        <div class="userprofile">
+            <ul>
+                <li><a href="#">
+                    {% if profile.photo %}
+                        {% thumbnail profile.photo "30x30" crop="center" as im %}
+                            <img src="{{ im.url }}" style="width:{{ im.width }}px; height:{{ im.height }}px;">
+                        {% endthumbnail %}
+                    {% endif %}
+                    {{ profile }}</a>
+                    <ul>
+                        <li><a href="/profile/">{% trans "Profile" %}</a></li>
+                        <li><a href="{% url core.profiles.views.edit profile.pk %}">{% trans "Edit profile" %}</a></li>
+                        <li><a href="{% url change_password %}">{% trans "Change password" %}</a></li>
+{#                        <li><a href="{% url notifications %}">Messages</a></li>#}
+
+                        <li><a href="/logout/">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </header>
+     <aside>
+         <nav>
+         {% if request.user.is_authenticated %}
+             <ul>
+                 <li {% active request 'fp' %}><a href="{% url frontpage %}" class="icon asterisk_orange">{% trans "Home" %}</a>
+                 {% if perms.pages.change_page %}
+                 <li {% active request 'pages' %}><a href="{% url pages %}" class="icon page_gear">{% trans "Pages" %}</a>
+                     {% include 'pages/submenu.html' %}
+                 </li>
+                {% endif %}
+                {% if perms.news.change_announcement %}
+                 <li {% active request 'news' %}><a href="{% url create_announcement %}" class="icon page_gear">{% trans "Add announcement" %}</a>
+                 </li>
+                {% endif %}
+                {% if perms.frontpage.change_offer %}
+                 <li {% active request 'what-we-offer' %}><a href="{% url edit_what_we_offer %}" class="icon page_world">{% trans "What we offer" %}</a>
+                 </li>
+                {% endif %}
+                {% if perms.company.change_company %}
+                 <li {% active request 'companies' %}><a href="{% url companies  %}" class="icon factory">{% trans "Companies" %}</a>
+                     {% include 'company/submenu.html' %}
+                 </li>
+                {% endif %}
+                {% if perms.company.change_package %}
+                 <li {% active request 'packages' %}><a href="{% url packages %}" class="icon package">{% trans "Packages" %}</a>
+                     {% include 'company/packages/submenu.html' %}
+                 </li>
+                {% endif %}
+                {% if perms.venue.change_stand %}
+                 <li {% active request 'venue' %}><a href="{% url venue %}" class="icon map">{% trans "Venue" %}</a>
+                     {% include 'venue/submenu.html' %}
+                 </li>
+                {% endif %}
+                {% if perms.career.change_joblisting %}
+                 <li {% active request 'joblistings' %}><a href="{% url joblistings %}" class="icon calendar_copy">{% trans "Joblistings" %}</a>
+                     {% include 'career/submenu.html' %}
+                 </li>
+                {% endif %}
+                {% if perms.documents.change_document %}
+                 <li {% active request 'documents' %}><a href="{% url documents %}" class="icon active_sessions">{% trans "Documents" %}</a>
+                     {% include 'documents/submenu.html' %}
+                 </li>
+                {% endif %}
+                {% if perms.events.change_event %}
+                 <li {% active request 'events' %}><a href="{% url events %}" class="icon events">{% trans "Events" %}</a>
+                     {% include 'events/submenu.html' %}
+                 </li>
+                {% endif %}
+                {% if perms.meetings.change_meeting %}
+                 <li {% active request 'meetings' %}><a href="{% url meetings %}" class="icon calendar_view_day">{% trans "Meetings" %}</a>
+                     {% include 'meetings/submenu.html' %}
+                 </li>
+                {% endif %}
+                 <li {% active request 'profiles' %}><a href="{% url profiles %}" class="icon user_red">{% trans "People" %}</a>
+                     {% include 'core/profiles/submenu.html' %}
+                {% if user.is_staff %}
+                 <li {% active request 'admin' %}><a href="{% url admin %}" class="icon administrator">{% trans "Admin" %}</a>
+                     {% include 'adm/submenu.html' %}
+                 </li>
+                {% endif %}
+                 {% if perms.workschedule.view_worker %}
+                 <li {% active request 'workschedules' %}><a href="{% url workschedules %}" class="icon icon-list">{% trans "Workschedules" %}</a>
+{#                     {% include 'adm/submenu.html' %}#}
+                 </li>
+                {% endif %}
+             </ul>
+         {% else %}
+             {% menu request %}
+         {% endif %}
+     </nav>
+         {% block sidebar %}{% endblock %}
+     </aside>
+    <article {% if not request.user.is_authenticated %}class="wide"{% endif %}>
+        {% if message_class %}<div id="message" class="message {{ message_class }}">{{ message_value }}</div>{% endif %}
+        {% block content %}{% endblock %}
+        <div class="break"></div>
+    </article>
+</body>
+</html>

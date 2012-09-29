@@ -1,0 +1,8 @@
+{% extends "pages/base.html" %}
+
+{% load markup pages_filter %}
+
+{% block content %}
+    <h1>{{ page.title }}</h1>
+    <p>{{ page.content|load_thumbnails|markdown }}</p>
+{% endblock %}

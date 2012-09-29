@@ -1,0 +1,23 @@
+{% load i18n thumbnail %}
+
+<div class="chat_messages">
+    <h3>{% trans "Comments" %}</h3>
+    <ul>
+        {% for comment in comments %}
+            <li>
+                <span>{{ comment.date|timesince }}</span>
+                {% if comment.user.profile.photo %}
+                    <a href="#" class="avatar">
+                        {% thumbnail comment.user.profile.photo "40x40" crop="center" as im %}
+                            <img src="{{ im.url }}" style="width:{{ im.width }}px; height:{{ im.height }}px;">
+                        {% endthumbnail %}
+                    </a>
+                {% endif %}
+                <a href="#" class="username">{{ comment.user.profile }}</a>
+
+                <p>{{ comment.comment }}</p>
+            </li>
+        {% endfor %}
+
+    </ul>
+</div>

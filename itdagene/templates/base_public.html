@@ -1,0 +1,165 @@
+{% load i18n %}
+{% load menu core thumbnail cache %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>itDAGENE</title>
+    <link href="/static/reset.css" rel="stylesheet">
+    <!--<script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>-->
+    <link href='http://fonts.googleapis.com/css?family=Jockey+One|Open+Sans:400,300,700,600' rel='stylesheet'
+          type='text/css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="apple-touch-icon" href="/static/img/icon.png">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript"
+            charset="utf-8"></script>
+    <script src="/static/js/frontpage.js" type="text/javascript"></script>
+    <script src="/static/js/tweets.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css"
+          href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">
+
+    <link href="/static/frontpage.css" rel="stylesheet">
+    {% analytics %}
+    {% block include %}{% endblock %}
+</head>
+<body>
+<div class="background"></div>
+<header>
+    <a href="/"><img src="/static/img/itdagene_logo.png" title="itDAGENE"/></a>
+    <nav>
+        {% menu request %}
+    </nav>
+</header>
+<section>
+    {% if request.user.is_authenticated %}<nav>{% block submenu %}{% endblock %}</nav>{% endif %}
+    {% if slider %}
+    <article id="slider" class="block">
+        {% block slider %}
+        <div id="s1">
+            <img src="/static/img/ex1.jpg"/>
+            <h1>Title 1</h1>
+        </div>
+        <div id="s2">
+            <img src="/static/img/ex2.jpg"/>
+            <h1>Title 2</h1>
+        </div>
+        <div id="s3">
+            <img src="/static/img/ex3.jpg"/>
+            <h1>Title 3</h1>
+        </div>
+        <a style="margin-top: 6px;">1</a><a style="margin-top: 32px;">2</a><a style="margin-top: 58px;">3</a>
+        {% endblock %}
+        <hr/>
+    </article>
+    {% endif %}
+
+    <aside id="partners" class="block">
+        {% if pref %}
+{#            {% cache 10000 preference_block %}#}
+            <h1><span class="s1-4">{{ pref.start_date|date:"d" }}.</span> og <span class="s1-4">{{ pref.end_date|date:"d" }}.</span> {{ pref.start_date|date:"M" }} {{ pref.year }}</h1>
+{#            {% endcache %}#}
+        <br>
+        {% endif %}
+        <h2>Hovedsamarbeidspartner</h2>
+        <img src="/static/img/hsp.png" class="hsp-logo"/>
+            </aside>
+       
+    <article id="main" class="block">
+        {% if error_message %}<div id="message" class="error">{{ error_message }}</div>{% endif %}
+        {% if info_message %}<div id="message" class="info">{{ info_message }}</div>{% endif %}
+        {% block content %}
+
+        {% endblock %}
+        <hr/>
+    </article>
+
+    <article id="date">
+{#        {% cache 10000 preference_block %}#}
+            <h1><span class="s1-4">{{ pref.start_date|date:"d" }}.</span> og <span class="s1-4">{{ pref.end_date|date:"d" }}.</span> {{ pref.start_date|date:"M" }} {{ pref.year }}</h1>
+{#        {% endcache %}#}
+    </article>
+
+
+        <aside id="sp" class="block">
+            <h3>Samarbeidspartnere</h3>
+            {% thumbnail "http://itdagene.no/static/img/sp/acando.png" "150" as im %}
+                <div><img src="{{ im.url }}" style="width:{{ im.width }}px;"class="sp-logo"></div>
+            {% endthumbnail %}
+            {% thumbnail "http://itdagene.no/static/img/sp/bouvet.png" "150" as im %}
+                <div><img src="{{ im.url }}" style="width:{{ im.width }}px;"class="sp-logo"></div>
+            {% endthumbnail %}
+            {% thumbnail "http://itdagene.no/static/img/sp/cisco.png" "150" as im %}
+                <div><img src="{{ im.url }}" style="width:{{ im.width }}px;"class="sp-logo"></div>
+            {% endthumbnail %}
+            {% thumbnail "http://itdagene.no/static/img/sp/comoyo.png" "150" as im %}
+                <div><img src="{{ im.url }}" style="width:{{ im.width }}px;"class="sp-logo"></div>
+            {% endthumbnail %}
+            {% thumbnail "http://itdagene.no/static/img/sp/ic.png" "150" as im %}
+                <div><img src="{{ im.url }}" style="width:{{ im.width }}px;"class="sp-logo"></div>
+            {% endthumbnail %}
+            {% thumbnail "http://itdagene.no/static/img/sp/statoil.png" "150" as im %}
+                <div><img src="{{ im.url }}" style="width:{{ im.width }}px;" class="sp-logo"></div>
+            {% endthumbnail %}
+
+        <hr/>
+    </aside>
+
+    {% if joblistings and not hide_joblistings_sidebar %}
+        <aside id="joblistings" class="block">
+            <h3>{% trans "Joblistings" %}</h3>
+            <ul>
+                {% for joblisting in joblistings %}
+                <li><a href="{% url app.career.views.joblistings.view_joblisting joblisting.pk %}">{{ joblisting }}</a> {% trans "for" %} <strong>{{ joblisting.company }}</strong></li>
+                {% endfor %}
+            </ul>
+            <a href="{% url joblistings %}">{% trans "Show more joblistings" %}</a>
+            <hr/>
+        </aside>
+    {% endif %}
+    {% if twitter %}
+    <aside id="social" class="block">
+        <h3>{% trans "itDAGENE on twitter" %}</h3>
+        <ul class="tweets">
+        </ul>
+        <hr/>
+    </aside>
+    {% endif %}
+    <footer>
+        <div id="partners2" class="block">
+            <h2>Hovedsamarbeidspartner</h2>
+            <img src="/static/img/hsp.png" class="hsp-logo"/>
+
+        </div>
+        <div id="sp2" class="block">
+            <h3>Samarbeidspartnere</h3>
+            {% thumbnail "http://itdagene.no/static/img/sp/acando.png" "150" as im %}
+                <div><img src="{{ im.url }}" style="width:{{ im.width }}px;"class="sp-logo"></div>
+            {% endthumbnail %}
+            {% thumbnail "http://itdagene.no/static/img/sp/bouvet.png" "150" as im %}
+                <div><img src="{{ im.url }}" style="width:{{ im.width }}px;"class="sp-logo"></div>
+            {% endthumbnail %}
+            {% thumbnail "http://itdagene.no/static/img/sp/cisco.png" "150" as im %}
+                <div><img src="{{ im.url }}" style="width:{{ im.width }}px;"class="sp-logo"></div>
+            {% endthumbnail %}
+            {% thumbnail "http://itdagene.no/static/img/sp/comoyo.png" "150" as im %}
+                <div><img src="{{ im.url }}" style="width:{{ im.width }}px;"class="sp-logo"></div>
+            {% endthumbnail %}
+            {% thumbnail "http://itdagene.no/static/img/sp/ic.png" "150" as im %}
+                <div><img src="{{ im.url }}" style="width:{{ im.width }}px;"class="sp-logo"></div>
+            {% endthumbnail %}
+            {% thumbnail "http://itdagene.no/static/img/sp/statoil.png" "150" as im %}
+                <div><img src="{{ im.url }}" style="width:{{ im.width }}px;" class="sp-logo"></div>
+            {% endthumbnail %}
+
+        <hr/>
+    </div>
+        <hr>
+        <div class="adress">itDAGENE 2012, Sem Sælands vei 7-9, 7491 TRONDHEIM, bedrift@itdagene.no, org.nr: 997 540 433</div>
+    </footer>
+</section>
+{% if twitter %}
+<script src="https://twitter.com/statuses/user_timeline/itdagene.json?callback=twitterCallback2&count=6" type="text/javascript"></script>
+{% endif %}
+</body>
+</html>

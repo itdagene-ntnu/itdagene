@@ -1,0 +1,8 @@
+{% load i18n %}
+<form name="addtodoforcompany">
+    {% csrf_token %}
+    <div id="ajax-error"></div>
+    {{ form.title }}
+    {{ form.company.as_hidden }}
+    <button>{% trans "Add" %}</button>
+</form>

@@ -1,0 +1,6 @@
+{% extends base_template %}
+{% block content %}
+    {% for worker in workers %}
+            {{ worker.email }}, 
+    {% endfor %}
+{% endblock %}

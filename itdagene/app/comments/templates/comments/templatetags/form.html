@@ -1,0 +1,7 @@
+{% load i18n %}
+
+<form method="post" action="/comments/add/">
+    {% csrf_token %}
+    {{ form }}<br/>
+    <input type="submit" value="{% trans "Save" %}">
+</form>

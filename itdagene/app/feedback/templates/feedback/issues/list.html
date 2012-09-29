@@ -1,0 +1,76 @@
+{% extends "feedback/base.html" %}
+{% load i18n %}
+{% block content %}
+    <h1>{% trans "Issues" %}</h1>
+        <div class="textbox half left">
+            <h2>{% trans "Bugs" %}</h2>
+
+            <div class="textbox_content">
+                {% if bugs.count > 0 %}
+                    <table cellspacing="0" width="100%">
+                        <tr>
+                            <th>{% trans "Title" %}</th>
+                            <th>{% trans "Created by" %}</th>
+                            <th>{% trans "Assigned to" %}</th>
+                        </tr>
+                        {% for issue in bugs %}
+                            <tr>
+                                <td><a href="{% url app.feedback.views.issues.view issue.pk %}">{{ issue.title }}</a>
+                                </td>
+                                <td> {{ issue.creator.profile }}</td>
+                                <td> {{ issue.assigned_user.profile }}
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% endif %}
+            </div>
+        </div>
+        <div class="textbox half right">
+            <h2>{% trans "Features" %}</h2>
+
+            <div class="textbox_content">
+                {% if features.count > 0 %}
+                    <table cellspacing="0" width="100%">
+                        <tr>
+                            <th>{% trans "Title" %}</th>
+                            <th>{% trans "Created by" %}</th>
+                            <th>{% trans "Assigned to" %}</th>
+                        </tr>
+                        {% for issue in features %}
+                            <tr>
+                                <td><a href="{% url app.feedback.views.issues.view issue.pk %}">{{ issue.title }}</a>
+                                </td>
+                                <td> {{ issue.creator.profile }}</td>
+                                <td> {{ issue.assigned_user.profile }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% endif %}
+
+            </div>
+        </div>
+        <div class="textbox half left">
+            <h2>{% trans "Cache-bugs" %}</h2>
+
+            <div class="textbox_content">
+                {% if cache_bugs.count > 0 %}
+                    <table cellspacing="0" width="100%">
+                        <tr>
+                            <th>{% trans "Title" %}</th>
+                            <th>{% trans "Created by" %}</th>
+                            <th>{% trans "Assigned to" %}</th>
+                        </tr>
+                        {% for issue in cache_bugs %}
+                            <tr>
+                                <td><a href="{% url app.feedback.views.issues.view issue.pk %}">{{ issue.title }}</a>
+                                </td>
+                                <td> {{ issue.creator.profile }}</td>
+                                <td> {{ issue.assigned_user.profile }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% endif %}
+            </div>
+        </div>
+
+{% endblock %}

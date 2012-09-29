@@ -1,0 +1,28 @@
+{% extends "adm/base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <h1>{% trans "Group administration" %}</h1>
+    <h2>{{ group }}</h2>
+    <h3>{% trans "Permissions" %}</h3>
+    <ul>
+    {% for perm in group.all_permissions %}
+        <li>{{ perm }}</li>
+    {% endfor %}
+    </ul>
+    {% if members %}
+        <h3>{% trans "Members" %}</h3>
+        <ul id="members">
+        {% for member in members %}
+            <li>{{ member.profile }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    <h3>{% trans "Add a member to the group" %}</h3>
+    <form name="addusertogroup">
+    <div id="ajax-error"></div>
+    {% csrf_token %}
+    {{ form }}
+    <button>{% trans "Add user" %}</button>
+    </form>
+{% endblock %}

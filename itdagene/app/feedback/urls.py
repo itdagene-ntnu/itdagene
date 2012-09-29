@@ -1,0 +1,16 @@
+from django.conf.urls.defaults import url, patterns
+from django.http import HttpResponsePermanentRedirect
+
+urlpatterns = patterns('itdagene.app.feedback.views',
+    url(r'^$', lambda r: HttpResponsePermanentRedirect('/feedback/issues/')),
+)
+
+urlpatterns += patterns('itdagene.app.feedback.views.issues',
+            url(r'^issues/$', 'list', name='issues'),
+            url(r'^issues/solved/$', 'list', {'solved': True}, name='solved_issues'),
+            url(r'^issues/mine/$', 'my_issues'),
+            url(r'^issues/add$', 'edit'),
+            url(r'^issues/(?P<id>\d+)/$', 'view'),
+            url(r'^issues/(?P<id>\d+)/edit$', 'edit'),
+            url(r'^issues/(?P<id>\d+)/solved$', 'solved'),
+)

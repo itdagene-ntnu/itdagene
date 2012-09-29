@@ -1,0 +1,13 @@
+{% load i18n %}
+<form action="{% url book_company form.instance.pk %}" method="post">
+    {% csrf_token %}
+    <h3>{% trans "Book the company" %}</h3>
+    {% for field in form %}
+        <div class="block left">
+            {{ field.label_tag }}{{ field }}
+        </div>
+    {% endfor %}
+    <div style="clear: both; float: none;"></div>
+    <input type="submit" value="{% trans "Save" %}">
+
+</form>

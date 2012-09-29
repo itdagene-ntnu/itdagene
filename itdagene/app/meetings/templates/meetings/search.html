@@ -1,0 +1,16 @@
+{% extends "meetings/base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <h1>{% trans "Search" %}</h1>
+    <form action="{% url app.meetings.views.search %}">
+    {% for field in search_form %}
+        {{ field }}
+    {% endfor %}
+    </form>
+    <ul>
+    {% for meeting in result %}
+        <li><a href="{% url app.meetings.views.meeting meeting.pk %}">{{ meeting.get_type_display }}: {{ meeting }}</a></li>
+    {% endfor %}
+    </ul>
+{% endblock %} 

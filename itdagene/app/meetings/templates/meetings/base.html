@@ -1,0 +1,32 @@
+{% extends base_template %}
+{% load i18n %}
+{% block content %}
+    <aside>
+        {% if penalties %}
+            <h3>{% trans "Penalties" %}</h3>
+            <strong>{{ penalties.beer }} {% trans "bottles of beer" %}</strong><br/>
+            {% for user in penalties.beer_list_users %}
+                {{ user.name }}: {{ user.number }}<br/>
+            {% endfor %}
+            <strong>{{ penalties.wine }} {% trans "bottles of wine" %}</strong><br/>
+            {% for user in penalties.wine_list_users %}
+                {{ user.name }}: {{ user.number }}<br/>
+            {% endfor %}
+        {% endif %}
+    </aside>
+    <h1>{% trans "Meetings" %}</h1>
+    <form action="{% url app.meetings.views.search %}">
+        {% for field in search_form %}
+            <strong>{% trans "Search" %}</strong> {{ field }}
+        {% endfor %}
+    </form>
+    <ul>
+        {% for meeting in meetings %}
+            <li><a href="{% url app.meetings.views.meeting meeting.pk %}">{{ meeting.get_type_display }}: {{ meeting }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block submenu %}
+    {% include "meetings/submenu.html" %}
+{% endblock %}

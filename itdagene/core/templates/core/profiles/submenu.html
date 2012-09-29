@@ -1,0 +1,8 @@
+{% load i18n %}
+
+<ul>
+    <li><a href="{% url core.profiles.views.search %}">{% trans "Search for users" %}</a></li>
+    <li><a href="{% url core.profiles.views.me %}">{% trans "View my profile" %}</a></li>
+    <li><a href="{% url core.profiles.views.edit_me %}">{% trans "Edit my profile" %}</a></li>
+    <li><a href="{% url core.profiles.views.change_password %}">{% trans "Change my password" %}</a></li>
+</ul>

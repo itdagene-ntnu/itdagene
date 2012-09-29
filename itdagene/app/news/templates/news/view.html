@@ -1,0 +1,10 @@
+{% extends base_template %}
+{% load i18n markup thumbnail %}
+
+{% block content %}
+    {% thumbnail announcement.image "1000x400" crop="center" as im %}
+        <img src="{{ im.url }}" style="width:{{ im.width }}px;">
+    {% endthumbnail %}
+    <h1>{{ announcement.title }}</h1>
+    <p>{{ announcement.content|markdown }}</p>
+{% endblock %}

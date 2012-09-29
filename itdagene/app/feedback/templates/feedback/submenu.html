@@ -1,0 +1,11 @@
+{% load i18n %}
+<ul>
+    <li><a href="{% url issues %}">{% trans "ISSUES" %}</a></li>
+    <li><a href="{% url solved_issues %}">{% trans "SOLVED ISSUES" %}</a></li>
+    <li><a href="{% url app.feedback.views.issues.my_issues %}">{% trans "MY ISSUES" %}</a></li>
+    <li><a href="{% url app.feedback.views.issues.edit %}">{% trans "ADD ISSUES" %}</a></li>
+    {% if issue.pk %}
+        <li><a href="{% url app.feedback.views.issues.edit issue.pk %}">{% trans "EDIT ISSUE" %}</a></li>
+        <li><a href="{% url app.feedback.views.issues.solved issue.pk %}">{% trans "MARK ISSUE AS SOLVED" %}</a></li>
+    {% endif %}
+</ul>

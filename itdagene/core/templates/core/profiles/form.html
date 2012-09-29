@@ -1,0 +1,23 @@
+{% extends "core/profiles/base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+
+    <h1>{{ form_title }}</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in user_form %}
+            {{ field.label_tag }}
+            {{ field.errors }}
+            {{ field }}<br/>
+        {% endfor %}
+        {% for field in form %}
+            {{ field.label_tag }}
+            {{ field.errors }}
+            {{ field }}<br/>
+        {% endfor %}
+        <input type="submit" value="{% if form.instance.id %}{% trans "Save" %}{% else %}{% trans "Add" %}{% endif %}">
+    </form>
+
+{% endblock %}
