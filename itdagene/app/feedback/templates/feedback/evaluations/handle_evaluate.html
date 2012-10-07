@@ -53,8 +53,8 @@
                 {{ form.media }}
                 <fieldset>
                     {% for field in form %}
-                        <div class="control-group{% if field.errors %} error{% endif %}{% if forloop.counter == 10 or forloop.counter == 11 %} hidden banquet{% elif forloop.counter == 7 or forloop.counter == 8 %} hidden interview{% endif %}">
-                                <label class="control-label">{{ forloop.counter }}: {{ field.label }}</label>
+                        <div class="control-group{% if field.errors %} error{% endif %}{% if field.name == 'banquet_improvement' or field.name == 'banquet_rating' %} hidden banquet{% elif field.name == 'interview_location_rating' or field.name == 'interview_location_improvement' %} hidden interview{% endif %}">
+                                <label class="control-label">{{ field.label }}</label>
 
                                 <div class="controls">
                                         {{ field }}

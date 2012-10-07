@@ -1,0 +1,7 @@
+{% extends base_template %}
+{% load i18n %}
+
+{% block content %}
+    <h1>{% blocktrans with year=preferences.year %}Evaluationreport for itDAGENE {{ year }}{% endblocktrans %}</h1>
+    <h3>{% blocktrans with number=preferences.count %}{{ number }} companies has answered the evaluation{% endblocktrans %}</h3>
+{% endblock %}

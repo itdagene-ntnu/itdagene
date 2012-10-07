@@ -27,6 +27,9 @@
     <strong>{% trans "Course" %}:</strong> {{ company.course }}<br/>
     {% if company.contact %}<strong>{% trans "itDAGENE contact" %}:</strong> {{ company.contact.profile }}<br/>{% endif %}
     {% if company.payment_address %}<strong>{% trans "Payment address" %}:</strong><br/> {{ company.payment_address|linebreaksbr }}{% endif %}
+    {% if evaluation %}
+        <a href="{% url evaluate evaluation.hash %}">{% trans "View evaluation form" %}</a>
+    {% endif %}
     <div style="clear: both"></div>
 
 

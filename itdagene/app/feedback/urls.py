@@ -3,6 +3,7 @@ from django.http import HttpResponsePermanentRedirect
 
 urlpatterns = patterns('itdagene.app.feedback.views',
     url(r'^$', lambda r: HttpResponsePermanentRedirect('/feedback/issues/')),
+    url(r'^report/$', 'evalutions.report'),
 )
 
 urlpatterns += patterns('itdagene.app.feedback.views.issues',

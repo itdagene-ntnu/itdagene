@@ -10,6 +10,8 @@ from django.forms.models import modelformset_factory
 from django.core.urlresolvers import reverse
 from django.http import Http404
 from itdagene.core.log.models import LogItem
+from itdagene.app.feedback.models import EvaluationHash
+from itdagene.core import Preference
 from django.shortcuts import render
 
 @login_required
@@ -42,9 +44,12 @@ def inactive (request):
 
 @permission_required('company.change_company')
 def view (request,id):
-    company = get_object_or_404(Company, pk=id)
-    return render(request, 'company/view.html',
-                             {'company': company})
+    company = get_object_or_404(Company.objects.select_related(), pk=id)
+    evaluation = EvaluationHash.objects.get_or_create(company=company, preference=Preference.current_preference())[0]
+    return render(request, 'company/view.html', {
+        'company': company,
+        'evaluation': evaluation
+        })
 
 @permission_required('company.change_company')
 def edit (request,id=False):

@@ -1,4 +1,7 @@
 #itDAGENE goes django
+
+[Nettopp fått tilgang? Les her](https://github.com/itdagene-ntnu/itdagene/wiki/Erfaringskriv)
+
 ##Installer
 Klon repoet ned, gå inn i det i terminal
 

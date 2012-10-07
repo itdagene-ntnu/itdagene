@@ -72,7 +72,7 @@ class Issue (BaseModel):
         verbose_name_plural = _('issues')
 
 
-RATINGS = ((0, _('Not applicable')),(1,'1'),(2,'2'),(3,'3'),(4,'4'),(5,'5'))
+RATINGS = ((0, _('Did not use')), (1,_('1: Very bad')),(2,_('2: Bad')),(3,_('3: Not bad or good')),(4,_('4: Good')),(5, _('5: Very good')))
 
 class EvaluationHash (models.Model):
     preference = models.ForeignKey(Preference)
@@ -94,14 +94,14 @@ class Evaluation (models.Model):
     internship_marathon_rating = models.IntegerField(
                         choices=RATINGS,
                         verbose_name=_('How did the internship marathon go?'),
-                        
+                        default=0
                      )
     internship_marathon_improvement = models.TextField(verbose_name=_('What could have been done better at the internship marathon?'))
 
     course_rating = models.IntegerField(
                         choices=RATINGS,
                         verbose_name=_('How did the course go?'),
-                        
+                        default=0
                      )
     course_improvement = models.TextField(verbose_name=_('Could the course be handled better?'))
 
