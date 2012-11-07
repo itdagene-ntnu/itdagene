@@ -1,0 +1,25 @@
+{% extends "company/base.html" %}
+{% load i18n %}
+{% load markup %}
+{% load filters %}
+{% block include %}<script src="/static/js/display_hide.js"></script>{% endblock %}
+
+{% block content %}
+    <h1>{{ package }}</h1>
+    <div class="meta"><strong>{% trans "Price" %}:</strong> {{ package.price }}kr, <strong>{% trans "Number of packages" %}:</strong> {{ package.max }}</div>
+    <div class="description">
+    {{ package.description|markdown }}
+    </div>
+    <h2>{% trans "Companies that has bought this package" %}</h2>
+    <ul class="big-list">
+        {% for company in package.companies.all %}
+            <li>{{ company }}</li>
+        {% endfor %}
+    </ul>
+    <h2>{% trans "Waiting list" %}</h2>
+    <ul class="big-list">
+        {% for company in package.get_waiting_list %}
+            <li>{{ company }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

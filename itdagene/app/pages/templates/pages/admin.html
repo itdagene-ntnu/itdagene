@@ -1,0 +1,13 @@
+{% extends "pages/base.html" %}
+{% load i18n %}
+
+{% load markup %}
+
+{% block content %}
+    <h1>{% trans "Pages admin" %}</h1>
+    <ul>
+    {% for page in pages %}
+        <li><a href="{% url app.pages.views.view_page page.slug %}">{{ page }}</a> <a href="{% url app.pages.views.edit page.slug %}">EDIT</a></li>
+    {% endfor %}
+    </ul>
+{% endblock %}

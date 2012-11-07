@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load i18n filters %}
+{% block include %}
+    <script src="/static/js/economics.js"></script>
+{% endblock %}
+{% block content %}
+    <table cellspacing="0">
+    <tr>
+        <th>{% trans "Company" %}</th>
+        <th>{% trans "Payement address" %}</th>
+        <th>{% trans "Contracts" %}</th>
+        <th>{% trans "Billed" %}</th>
+        <th>{% trans "Paid" %}</th>
+    </tr>
+    {% for company in companies %}
+        <tr>
+            <td>{{ company }}</td>
+            <td>{{ company.payment_address }}</td>
+            <td><a href="{% url download_contract company.pk,company.current_contract.pk %}">{% trans "Contracts" %}</a></td>
+            <td style="text-align: center;"><a class="is-billed-button" data-company-id="{{ company.pk }}">{{ company.current_contract.is_billed|boolean }}</a></td>
+            <td style="text-align: center;"><a class="is-paid-button" data-company-id="{{ company.pk }}">{{ company.current_contract.has_paid|boolean }}</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}

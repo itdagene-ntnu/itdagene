@@ -1,0 +1,25 @@
+<div id="map"></div>
+
+
+<script>
+    map = new OpenLayers.Map("map");
+    map.addLayer(new OpenLayers.Layer.OSM());
+    var markers = new OpenLayers.Layer.Markers("Markers");
+    map.addLayer(markers);
+
+    map.setCenter(new OpenLayers.LonLat(10.4013, 63.41804)
+            .transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject())
+    , 17);
+
+
+    var size = new OpenLayers.Size(10, 17);
+    var offset = new OpenLayers.Pixel(-(size.w / 2), -size.h);
+    var icon = new OpenLayers.Icon('http://boston.openguides.org/markers/AQUA.png', size, offset);
+    {% for stand in stands %}
+        {% if stand.lon and stand.lat  %}
+        markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat({{ stand.lon }}, {{ stand.lat }})
+                .transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject())
+        ), icon);
+        {% endif %}
+    {% endfor %}
+</script>

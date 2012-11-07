@@ -1,0 +1,17 @@
+{% extends "adm/base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <h1>{% trans "User administration" %}</h1>
+    <a href="{% url app.admin.views.users.add %}">{% trans "Create a user" %}</a>
+        <ul class="big-list">
+        {% for t_user in users %}
+            <li>
+                <a href="{% url app.admin.views.users.view t_user.pk %}"><strong>{{ t_user.profile }}:</strong> {{ t_user }}</a>
+                <em><a href="{% url app.admin.views.users.edit t_user.pk %}">{% trans "Edit user" %}</a>
+                <a href="{% url app.admin.views.users.edit_profile t_user.pk %}">{% trans "Edit profile" %}</a></em><br/>
+                <strong>{% trans "User type" %}:</strong> {{ t_user.profile.get_type_display }} {% if t_user.is_staff %} - {% trans "This user has admin rights" %}{% endif %}
+            </li>
+        {% endfor %}
+        </ul>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "emails/notification/company_comments.html" %}
+{% load i18n %}
+{% block content %}
+    <h2>{% trans "There is a new comment on" %} {{ object.company }}</h2>
+    <li>
+    <p>
+        <strong>{{ object.user.profile }}</strong> - <em style="color: gray;">{{ object.timestamp|timesince }}</em>
+        {{ object.content }}
+    </p>
+    <p>
+        <a href="http://itdagene.no{{ object.company.get_absolute_url }}">{% trans "Check it" %}</a>
+    </p>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends base_template %}
+
+{% load map %}
+{% load i18n %}
+{% block include %}{% load_openlayers %}{% endblock %}
+{% block content %}
+    {% if stands %}
+        <h1>{% trans "Stands" %}</h1>
+        <ul class="small-list left">
+            {% for stand in stands %}
+                <li>
+                    <h4>{{ stand }}</h4>
+                    {% if stand.company_day1.pk %}{% trans "Day 1" %}: <a href="{% url app.company.views.view stand.company_day1.pk %}">{{ stand.company_day1 }}</a> - {{ stand.company_day1.contact.profile }}<br/>{% endif %}
+                    {% if stand.company_day2.pk %}{% trans "Day 2" %}: <a href="{% url app.company.views.view stand.company_day2.pk %}">{{ stand.company_day2 }}</a> - {{ stand.company_day2.contact.profile }}<br/>{% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+        {% general_map stands %}
+    {% endif %}
+{% endblock %}
+
+{% block submenu %}
+    {% include "venue/submenu.html" %}
+{% endblock %}

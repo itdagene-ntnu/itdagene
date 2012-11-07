@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <h1>{% trans "Companies per contact" %}</h1>
+    <table cellspacing="0">
+    {% for user in users %}
+            <tr>
+                <th>{{ user.profile }}:</th>
+                <td>{{ user.contact_for.all.count }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

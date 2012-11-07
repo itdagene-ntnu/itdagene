@@ -1,0 +1,13 @@
+{% extends "meetings/base.html" %}
+{% load i18n %}
+{% block content %}
+    <h1>{% trans "Meeting invitation" %}</h1>
+    <h3>{% trans "Message" %}</h3>
+    <pre>{{ message }}</pre>
+    <h3>{% trans "The invitations was sent to:" %}</h3>
+    <ul>
+        {% for i in invited %}
+            <li>{{ i.user.profile }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

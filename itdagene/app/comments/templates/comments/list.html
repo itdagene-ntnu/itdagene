@@ -1,0 +1,23 @@
+{% extends base_template %}
+{% load i18n %}
+{% block content %}
+    <h3>{% trans "All comments" %}</h3>
+    <ul class="big-list">
+        {% for comment in comments %}
+        <li>
+            <strong>{{ comment.user.profile }}:</strong> {% trans "commented on" %}: "{{ comment.object }}"({{ comment.content_type }}[{{ comment.object_id }}])
+            <em>{{ comment.date|timesince }}</em>
+            <p>{{ comment.comment }}</p>
+            {% if comment.replies.all %}
+                <ul class="replies">
+                    {% for reply in comment.replies.all %}
+                        <strong>{{ reply.user.profile }}:</strong>
+                        <em>{{ reply.date|timesince }}</em>
+                        <p>{{ reply.comment }}</p>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

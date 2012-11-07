@@ -1,0 +1,25 @@
+{% extends "company/base.html" %}
+{% load i18n %}
+{% block content %}
+    <h1>{% trans "Companies" %}</h1>
+    <form method="post">
+        {{ formset.management_form }}{% csrf_token %}
+        <table cellspacing="0" class="list">
+            {% for form in formset %}
+                <tr>
+                    <th>{{ form.instance.name }}</th>
+                    <td>
+                        {{ form.contact }}<br/>
+                        {{ form.contact.errors }}
+                        {{ form.id }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <input type="submit" value="{% trans "Save" %}">
+    </form>
+{% endblock %}
+
+{% block submenu %}
+    {% include "company/submenu.html" %}
+{% endblock %}

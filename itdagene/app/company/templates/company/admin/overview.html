@@ -1,0 +1,8 @@
+{% extends base_template %}
+{% load i18n %}
+{% block content %}
+    <h1>{% trans "Overview" %}</h1>
+    <strong>{% trans "Interview rooms" %}:</strong> {{ interview_rooms }}<br/>
+    <strong>{% trans "Joblistings" %}:</strong> {{ joblistings }}<br/>
+    <strong>{% trans "Banquet tickets" %}:</strong> {{ banquet_tickets }}<br/>
+{% endblock %}

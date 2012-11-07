@@ -1,0 +1,33 @@
+{% extends base_template %}
+{% load i18n %}
+{% block content %}
+    <h1>{% trans "Program" %}</h1>
+    <div class="left">
+    <h2>Mandag 24. september</h2>
+    <ul class="unstyled">
+        {% for event in day_one %}
+            <li>
+                <h3>{{ event }}</h3>
+                {% if event.company %}<strong>{{ event.company }}</strong>{% endif %} <em>{{ event.time_start|time }} - {{ event.time_end|time }}</em>
+            </li>
+        {% endfor %}
+    </ul>
+    </div>
+    <div class="right">
+        <h2>Tirsdag 25. september</h2>
+        <ul class="unstyled">
+            {% for event in day_two %}
+                <li>
+                    <h3>{{ event }}</h3>
+                    {% if event.company %}<strong>{{ event.company }}</strong>{% endif %} <em>{{ event.time_start|time }} - {{ event.time_end|time }}</em>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div style="margin: 10px 0;" class="clear"></div>
+    <p style="padding: 20px 0;">
+        <img src="/static/img/standkart-mandag.png" alt="Standkart mandag">
+        <img src="/static/img/standkart-tirsdag.png"alt="Standkart tirsdag">
+    </p>
+
+{% endblock %}

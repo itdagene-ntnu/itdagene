@@ -1,0 +1,16 @@
+{% extends "adm/base.html" %}
+{% load i18n %}
+{% load filters %}
+{% block include %}<script src="/static/js/display_hide.js"></script>{% endblock %}
+
+{% block content %}
+    <h1>{% trans "Log" %}</h1>
+    <table cellspacing="0">
+    {% for logitem in log %}
+            <tr>
+                <th>{{ logitem.user.profile }}:</th> <td>{{ logitem.timestamp|datetime }}</td>
+                <td>{{ logitem.action }}</td><td>{{ logitem.content_type }}({{ logitem.object_id }}): {{ logitem.content_object }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

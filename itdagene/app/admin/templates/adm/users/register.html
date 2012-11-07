@@ -1,0 +1,9 @@
+{% extends "adm/base.html" %}
+{% load i18n %}
+{% block content %}
+    <h1>{% trans "Register" %}</h1>
+    {% if user_already_exists %}
+        {% trans "A user with that username already exists" %}
+    {% endif %}
+    {% include "form.html" %}
+{% endblock %}

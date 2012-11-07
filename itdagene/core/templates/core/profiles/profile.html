@@ -1,0 +1,14 @@
+{% extends "core/profiles/base.html" %}
+
+{% load markup %}
+{% load i18n %}
+
+{% block content %}
+    {% if profile.photo %}<img src="{{ profile.photo.url }}" title="{{ profile }}" id="profile-photo">{% endif %}
+    <h2>{{ profile }}</h2>
+    <p>
+        <strong>{% trans "Phone number" %}:</strong> {{ profile.phone }}<br/>
+        <strong>{% trans "Personal email" %}:</strong> {{ profile.user.email }}<br/>
+        {% if profile.position.email %}<strong>{% trans "Other email" %}:</strong> {{ profile.position.email }}<br/>{% endif %}
+    </p>
+{% endblock %}

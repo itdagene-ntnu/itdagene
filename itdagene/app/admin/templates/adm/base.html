@@ -1,0 +1,16 @@
+{% extends base_template %}
+{% block include %}
+    <script src="/static/js/admin.js"></script>
+{% endblock %}
+
+{% load i18n %}
+{% block content %}
+    <h3>{% trans "User stats" %}:</h3>
+    <strong>{% trans "Company users" %}:</strong> {{ count.c }}<br/>
+    <strong>{% trans "Unknown users" %}:</strong> {% if count.u %}<span style="color:red">{{ count.u }}</span>{% else %}0{% endif %}<br/>
+    <strong>{% trans "Worker users" %}:</strong> {{ count.w }}<br/>
+{% endblock %}
+
+{% block submenu %}
+    {% include "adm/submenu.html" %}
+{% endblock %}

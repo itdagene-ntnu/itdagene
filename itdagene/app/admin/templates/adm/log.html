@@ -1,0 +1,17 @@
+{% extends "adm/base.html" %}
+{% load i18n %}
+{% load filters %}
+{% block include %}<script src="/static/js/display_hide.js"></script>{% endblock %}
+
+{% block content %}
+    <h1>{% trans "Log" %}</h1>
+    <ul class="big-list">
+    {% for logitem in log %}
+        <li>
+            <strong>{{ logitem.user.profile }}:</strong> <em>{{ logitem.timestamp|datetime }}</em><br/>
+            {{ logitem.action }} - {{ logitem.content_type }}({{ logitem.object_id }}): {{ logitem.content_object }}
+        </li>
+    {% endfor %}
+    </ul>
+    {% if previous %}<a href="{% url app.admin.views.log previous %}">{% trans "Previous" %}</a>{% endif %} <a href="{% url app.admin.views.log next %}">{% trans "Next" %}</a>
+{% endblock %}

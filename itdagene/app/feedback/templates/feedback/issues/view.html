@@ -1,0 +1,29 @@
+{% extends "feedback/base.html" %}
+{% load i18n %}
+{% load markup %}
+{% load filters %}
+{% load comments %}
+
+{% block include %}
+    <script src="/static/js/display_hide.js"></script>
+{% endblock %}
+
+{% block content %}
+    <h1>{{ issue }}</h1>
+    <p class="meta">
+        <strong>{% trans "Created by" %}:</strong> {{ issue.creator.profile }}, {{ issue.date_created|date }}<br/>
+        <strong>{% trans "Type" %}:</strong> {{ issue.get_type_display }}<br/>
+        <strong>{% trans "status" %}:</strong> {{ issue.get_status_display }}
+
+    </p>
+    {% if issue.assigned_user %}
+        <strong>{% trans "Assigned user" %}:</strong> {{ issue.assigned_user }}
+    {% endif %}
+    {% if issue.deadline %}<strong>{% trans "Deadline" %}:</strong> {{ issue.deadline }}{% endif %}
+    <div class="abstract">{{ issue.description|markdown }}</div>
+    {% if not issue.assigned_user and request.user.is_staff %}
+        {% include "form.html" %}
+    {% endif %}
+    {% load_comments issue %}
+    {% load_comments_form issue %}
+{% endblock %}

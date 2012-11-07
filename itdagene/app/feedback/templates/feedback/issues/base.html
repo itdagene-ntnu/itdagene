@@ -1,0 +1,16 @@
+{% extends "feedback/base.html" %}
+{% load i18n %}
+{% block content %}
+    <h1>{% trans "Issues" %}</h1>
+    <ul class="big-list">
+    {% for issue in issues %}
+        <li>
+            <a href="{% url app.feedback.views.issues.view issue.pk %}">{{ issue.title }}</a> - {{ issue.creator }}
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block submenu %}
+    {% include "feedback/issues/submenu.html" %}
+{% endblock %}
