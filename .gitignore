@@ -18,3 +18,4 @@ parts
 *.DS_STORE
 build/*
 project/files/uploads/*
+venv/
