@@ -9,10 +9,20 @@ from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext_lazy as _
 
 class Worker (BaseModel):
+    SIZES = (
+        (1, 'XS'),
+        (2, 'S'),
+        (3, 'M'),
+        (4, 'L') ,
+        (5, 'XL'),
+        (6, 'XXL'),
+        (7, 'XXXL'),
+        (8, 'XXXXL'),
+    )
     username = models.CharField(max_length=20, verbose_name=_('username'))
     name = models.CharField(max_length=100, verbose_name=_('name'))
     phone = models.IntegerField(verbose_name=_('phone number'))
-    t_shirt_size = models.IntegerField(verbose_name=_('t-shirt size'))
+    t_shirt_size = models.IntegerField(choices=SIZES, verbose_name=_('t-shirt size'))
     email = models.EmailField(verbose_name=_('email'))
 
     def __unicode__(self):
