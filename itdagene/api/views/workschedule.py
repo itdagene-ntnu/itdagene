@@ -26,9 +26,16 @@ def list(request):
 
     for worker in Worker.objects.all():
         has_met = True
-        for schedule in worker.in_schedules.all():
-            if not schedule.has_met:
-                has_met = False
+
+        if worker.in_schedules.all().count():
+            for schedule in worker.in_schedules.all():
+                if not schedule.has_met:
+                    has_met = False
+        else:
+            
+            has_met = False
+
+
         worker_list.append({
             'username': worker.username,
             'name': worker.name,
