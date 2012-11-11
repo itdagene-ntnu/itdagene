@@ -38,7 +38,7 @@ def list(request):
 
         worker_list.append({
             'username': worker.username,
-            'name': worker.name,
+            'name': unicode(worker.name),
             'has_met': has_met
         })
 
