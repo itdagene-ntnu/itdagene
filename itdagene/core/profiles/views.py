@@ -11,12 +11,13 @@ from itdagene.core.profiles.models import Profile
 from itdagene.core.search import get_query
 from django.core.urlresolvers import reverse
 from django.shortcuts import render
+from itdagene.core.models import Preference
 
 @cache_page
 def public_profiles (request):
     if cache.get('profiles'): profiles = cache.get('profiles')
     else:
-        profiles = list(Profile.objects.filter(type='b', year=date.today().year).order_by('position__pk').select_related('position'))
+        profiles = list(Profile.objects.filter(type='b', year=Preference.current_preference().year).order_by('position__pk').select_related('position'))
         cache.set('profiles', profiles)
 
     if not request.user.is_authenticated():
