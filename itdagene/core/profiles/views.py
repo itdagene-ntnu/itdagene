@@ -29,7 +29,7 @@ def public_profiles (request):
 def profiles (request):
     if cache.get('profiles'): profiles = cache.get('profiles')
     else:
-        profiles = list(Profile.objects.filter(type='b', year=date.today().year).order_by('position__pk').select_related('position'))
+        profiles = list(Profile.objects.filter(type='b', year=Preference.current_preference().year).order_by('position__pk').select_related('position'))
         cache.set('profiles', profiles)
 
     return render(request, 'core/profiles/profiles.html', {'profiles': profiles})
