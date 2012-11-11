@@ -32,7 +32,7 @@ def list(request):
                 if not schedule.has_met:
                     has_met = False
         else:
-            
+
             has_met = False
 
 
