@@ -38,32 +38,36 @@ def silent_run(cmd):
     sys.stdout = sys.__stdout__
     return out
 
+def run_server_updates(code_dir):
+    with cd(code_dir):
+        run("git pull origin master")
+
+        run("venv/bin/pip install -r requirements.txt")
+
+        # Sync the database
+        run("venv/bin/python manage.py syncdb --noinput")
+
+        # Migrate changes to the database
+        run("venv/bin/python manage.py migrate --merge")
+
+
 @task(default=True)
 def deploy_dev():
-
     env.password = silent_run("cat ~/p")
 
-    if confirm("Do you want to run tests before deploying?"):
-        test()
+    #if confirm("Do you want to run tests before deploying?"):
+    #    test()
 
-    code_dir = "/home/web/itdagene-dev"
-    with cd(code_dir):
-        run("git pull origin master")
-        run("bin/django syncdb --noinput")
-        run("bin/django migrate --merge")
+    run_server_updates("/home/web/itdagene-dev")
 
-    sudo("touch /home/web/uwsgi/itdagene-dev.ini", shell=False)
+    sudo("touch  /home/web/uwsgi/itdagene-dev.ini", shell=False)
 
 @task
-def deploy_prod():
+def deploy_prod(run_test=True):
     env.password = silent_run("cat ~/p")
 
-    test()
+    if run_test: test()
 
-    code_dir = "/home/web/itdagene-prod"
-    with cd(code_dir):
-        run("git pull origin master")
-        run("bin/django syncdb --noinput")
-        run("bin/django migrate --merge")
+    run_server_updates("/home/web/itdagene-prod")
 
     sudo("touch /home/web/uwsgi/itdagene-prod.ini", shell=False)
