@@ -2,16 +2,16 @@
 {% load i18n %}
 
 {% block content %}
-    <h1>Tilbakemelding for itDAGENE {{ year }}</h1>
-    <h3>{{ number }} bedrifter har svart på tilbakemelding</h3>
+    <h1>Tilbakemelding for itDAGENE {{ preferences.year }}</h1>
+    <h3>{{ evaluations.count }} bedrifter har svart på tilbakemelding, {{ percentage_want_to_come_back }}% vil tilbake.</h3>
 
     <h4>Gjennomsnittlig vurderinger:</h4>
     <ul>
-        <li><strong>Sommerjobbmaraton:</strong> {{ avg_internship_marathon_rating }}</li>
-        <li><strong>Kurs:</strong> {{ avg_course_rating }}</li>
-        <li><strong>Besøkende:</strong> {{ avg_visitors_rating }}</li>
-        <li><strong>Intervjurom:</strong> {{ avg_interview_location_rating }}</li>
-        <li><strong>Bankett:</strong> {{ avg_banquet_rating }}</li>
+        <li><strong>Sommerjobbmaraton:</strong> {{ avg_internship_marathon_rating }}/5</li>
+        <li><strong>Kurs:</strong> {{ avg_course_rating }}/5</li>
+        <li><strong>Besøkende:</strong> {{ avg_visitors_rating }}/5</li>
+        <li><strong>Intervjurom:</strong> {{ avg_interview_location_rating }}/5</li>
+        <li><strong>Bankett:</strong> {{ avg_banquet_rating }}/5</li>
     </ul>
     <h4>Sommerjobbmaraton</h4>
     {% for eval in evalutions %}
