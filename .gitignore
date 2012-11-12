@@ -19,3 +19,4 @@ parts
 build/*
 project/files/uploads/*
 venv/
+itdagene/settings/local.py

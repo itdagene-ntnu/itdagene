@@ -2,6 +2,43 @@
 {% load i18n %}
 
 {% block content %}
-    <h1>{% blocktrans with year=preferences.year %}Evaluationreport for itDAGENE {{ year }}{% endblocktrans %}</h1>
-    <h3>{% blocktrans with number=preferences.count %}{{ number }} companies has answered the evaluation{% endblocktrans %}</h3>
+    <h1>Tilbakemelding for itDAGENE {{ year }}</h1>
+    <h3>{{ number }} bedrifter har svart på tilbakemelding</h3>
+
+    <h4>Gjennomsnittlig vurderinger:</h4>
+    <ul>
+        <li><strong>Sommerjobbmaraton:</strong> {{ avg_internship_marathon_rating }}</li>
+        <li><strong>Kurs:</strong> {{ avg_course_rating }}</li>
+        <li><strong>Besøkende:</strong> {{ avg_visitors_rating }}</li>
+        <li><strong>Intervjurom:</strong> {{ avg_interview_location_rating }}</li>
+        <li><strong>Bankett:</strong> {{ avg_banquet_rating }}</li>
+    </ul>
+    <h4>Sommerjobbmaraton</h4>
+    {% for eval in evalutions %}
+        {% if eval.internship_marathon_improvement %}<p>{{ eval.internship_marathon_improvement }}</p>{% endif %}
+    {% endfor %}
+    <h4>Kurs</h4>
+    {% for eval in evalutions %}
+        {% if eval.course_improvement %}<p>{{ eval.course_improvement }}</p>{% endif %}
+    {% endfor %}
+    <h4>Intervjurom</h4>
+    {% for eval in evalutions %}
+        {% if eval.interview_location_rating %}<p>{{ eval.interview_location_rating }}</p>{% endif %}
+    {% endfor %}
+    <h4>Bankett</h4>
+    {% for eval in evalutions %}
+        {% if eval.banquet_improvement %}<p>{{ eval.banquet_improvement }}</p>{% endif %}
+    {% endfor %}
+    <h4>Åpningstider</h4>
+    {% for eval in evalutions %}
+        {% if eval.opening_hours %}<p>{{ eval.opening_hours }}</p>{% endif %}
+    {% endfor %}
+    <h4>Generell forbedring</h4>
+    {% for eval in evalutions %}
+        {% if eval.improvement %}<p>{{ eval.improvement }}</p>{% endif %}
+    {% endfor %}
+    <h4>Andre ting</h4>
+    {% for eval in evalutions %}
+        {% if eval.other %}<p>{{ eval.other }}</p>{% endif %}
+    {% endfor %}
 {% endblock %}
