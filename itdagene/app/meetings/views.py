@@ -1,4 +1,6 @@
+from itdagene.core import Preference
 from itdagene.core.decorators import staff_or_404
+from itdagene.core.profiles.models import Profile
 from itdagene.core.search import get_query
 from itdagene.app.meetings.forms import MeetingForm, SearchForm
 from itdagene.app.meetings.models import Meeting, ReplyMeeting, Penalty
@@ -14,12 +16,16 @@ from django.contrib.auth.models import User
 
 @permission_required('meetings.change_meeting')
 def list (request):
-    meetings = Meeting.objects.all().order_by('date')
-    penalties = Penalties()
+    meeting_lists = []
+    penalty_lists = []
+    for pref in Preference.objects.all().order_by('-year'):
+        meeting_lists.append((pref.year, Meeting.objects.filter(date__year=pref.year).order_by('date')))
+        penalty_lists.append(Penalties(pref.year))
+
     search_form = SearchForm()
     return render(request, 'meetings/base.html',
-                             {'meetings': meetings,
-                              'penalties': penalties,
+                             {'meeting_lists': meeting_lists,
+                              'penalty_lists': penalty_lists,
                               'search_form': search_form})
 
 @permission_required('meetings.change_meeting')
@@ -110,30 +116,24 @@ def send_invites(request, id):
                               {'invited': replies})
 
 class Penalties:
-    def __init__(self):
-        self.beer = cache.get('totalpenaltiesbeer')
-        self.wine = cache.get('totalpenaltieswine')
-        if not self.beer:
-            self.beer = 0
-            for p in Penalty.objects.filter(type='beer'):
-                self.beer += p.bottles
-            cache.set('totalpenaltiesbeer', self.beer)
-
-        if not self.wine:
-            self.wine = 0
-            for p in Penalty.objects.filter(type='wine'):
-                self.wine += p.bottles
-            cache.set('totalpenaltieswine', self.wine)
+    def __init__(self, year):
+        self.year = year
+        self.beer = 0
+        self.wine = 0
 
         beer_users = []
-        for u in User.objects.filter(profile__type='b'):
-            count = sum([p.bottles for p in u.penalties.filter(type='beer')])
-            if count: beer_users.append({'name': u.profile, 'number': count})
-        self.beer_list_users = beer_users
-
         wine_users = []
-        for u in User.objects.filter(profile__type='b'):
-            count = sum([p.bottles for p in u.penalties.filter(type='wine')])
-            if count: wine_users.append({'name': u.profile, 'number': count})
-        self.wine_list_users = wine_users
+        print self.year
+        for profile in Profile.objects.filter(type='b', year=self.year):
+            count = sum([p.bottles for p in profile.user.penalties.filter(type='beer')])
+            if count:
+                beer_users.append({'name': profile, 'number': count})
+                self.beer += count
 
+            count = sum([p.bottles for p in profile.user.penalties.filter(type='wine')])
+            if count:
+                wine_users.append({'name': profile, 'number': count})
+                self.wine += count
+
+        self.beer_list_users = beer_users
+        self.wine_list_users = wine_users
