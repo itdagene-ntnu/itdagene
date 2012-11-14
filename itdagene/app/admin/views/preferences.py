@@ -25,7 +25,7 @@ def edit (request, year=None):
         form = PreferenceForm(request.POST,instance=pref)
         if form.is_valid():
             form.save()
-            redirect(reverse('app.admin.views.preferences.view', args=[year]))
+            redirect(reverse('itdagene.app.admin.views.preferences.view', args=[year]))
     return render(request, 'adm/preferences/edit.html',
                              {'pref': pref,
                               'form': form})

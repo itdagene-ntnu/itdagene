@@ -52,7 +52,7 @@ def edit (request, id=None, company_id=None):
         form = JoblistingForm(request.POST, request.FILES,instance=joblisting)
         if form.is_valid():
             form.save()
-            return redirect(reverse('app.career.views.joblistings.view_joblisting', args=[joblisting.pk]))
+            return redirect(reverse('itdagene.app.career.views.joblistings.view_joblisting', args=[joblisting.pk]))
     return render(request, 'career/joblistings/edit.html',
                  {'joblisting':joblisting,
                   'form': form})

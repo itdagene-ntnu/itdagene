@@ -30,7 +30,7 @@ def add (request):
         if form.is_valid():
             group = form.save()
             LogItem.log_it(group,'CREATE', 2)
-            return redirect(reverse('app.admin.views.groups.view', args=[group.pk]))
+            return redirect(reverse('itdagene.app.admin.views.groups.view', args=[group.pk]))
     return edit(request, None)
 
 @permission_required('auth.change_group')
@@ -60,7 +60,7 @@ def edit (request, id):
 #        if form.is_valid():
 #            form.save()
 #            LogItem.log_it(group,'EDIT', 2)
-#            return redirect(reverse('app.admin.views.groups.view', args=[group.pk]))
+#            return redirect(reverse('itdagene.app.admin.views.groups.view', args=[group.pk]))
     return render(request, 'adm/groups/edit.html')
 #        ,
 #                             {'group': group,

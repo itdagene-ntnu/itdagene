@@ -67,4 +67,4 @@ def solved(request, id):
     issue.is_solved = True
     issue.status = 3
     issue.save()
-    return redirect(reverse('app.feedback.views.issues.list'), args=[request])
+    return redirect(reverse('itdagene.app.feedback.views.issues.list'), args=[request])

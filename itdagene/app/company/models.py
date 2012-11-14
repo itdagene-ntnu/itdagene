@@ -24,7 +24,7 @@ class Package(BaseModel):
         return _('Package') + ': ' + self.name
 
     def get_absolute_url(self):
-        return reverse('app.company.views.packages.view', args=[self.pk])
+        return reverse('itdagene.app.company.views.packages.view', args=[self.pk])
 
     def get_waiting_list(self):
         cursor = connection.cursor()
@@ -87,7 +87,7 @@ class Company(BaseModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('app.company.views.view', args=[self.pk])
+        return reverse('itdagene.app.company.views.view', args=[self.pk])
 
     def save(self, *args, **kwargs):
         if not self.pk: action = 'CREATE'

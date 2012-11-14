@@ -30,7 +30,7 @@ def forgot_password (request):
                 user.set_password(password)
                 user.save()
                 send_mail(_('Your password for itDAGENE'),_('Your new password is: ' + password),settings.FROM_ADDRESS,(user.email,))
-                return redirect(reverse('core.profiles.views.me'))
+                return redirect(reverse('itdagene.core.profiles.views.me'))
             except(TypeError, User.DoesNotExist):
                 pass
 

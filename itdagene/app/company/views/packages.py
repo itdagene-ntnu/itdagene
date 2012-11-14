@@ -34,7 +34,7 @@ def edit(request,id=False):
         else: form = PackageForm(request.POST)
         if form.is_valid():
             package = form.save()
-            redirect(reverse('app.company.views.packages.view', args=[package.pk]))
+            redirect(reverse('itdagene.app.company.views.packages.view', args=[package.pk]))
     return render(request, 'company/packages/form.html',
                              {'package': package,
                               'form': form,

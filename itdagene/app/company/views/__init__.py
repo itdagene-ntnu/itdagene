@@ -68,7 +68,7 @@ def edit (request,id=False):
             company = form.save()
             #add_message(request, _('%s was saved') % company.name, 'success')
 
-            return redirect(reverse('app.company.views.view', args=[company.pk]))
+            return redirect(reverse('itdagene.app.company.views.view', args=[company.pk]))
     return render(request, 'company/form.html',
                              {'company': company,
                               'form': form,
@@ -81,7 +81,7 @@ def activate (request, id):
     company.save()
     cache.delete('companies')
     #add_message(request, _('%s was activated') % company.name, 'success')
-    return redirect(reverse('app.company.views.view',args=[company.pk]))
+    return redirect(reverse('itdagene.app.company.views.view',args=[company.pk]))
 
 @permission_required('company.change_company')
 def deactivate (request, id):
@@ -90,7 +90,7 @@ def deactivate (request, id):
     company.save()
     cache.delete('companies')
     #add_message(request, _('%s was deactivated') % company.name, 'success')
-    return redirect(reverse('app.company.views.view',args=[company.pk]))
+    return redirect(reverse('itdagene.app.company.views.view',args=[company.pk]))
 
 @permission_required('company.change_company')
 def set_responsibilities(request):
@@ -103,7 +103,7 @@ def set_responsibilities(request):
             formset.save()
             for u in User.objects.filter(is_active=True):
                 cache.delete('companiesforuser' + str(u.pk))
-            return redirect(reverse('app.company.views.list_companies'))
+            return redirect(reverse('itdagene.app.company.views.list_companies'))
     return render(request, 'company/set_responsibilities.html',
             {'formset': formset})
 
@@ -124,7 +124,7 @@ def book_company (request, id):
             company.status = 3
             company.save()
             #add_message(request, _('%s was booked') % company.name, 'success')
-            return redirect(reverse('app.company.views.view', args=[company.pk]))
+            return redirect(reverse('itdagene.app.company.views.view', args=[company.pk]))
     return render(request, 'company/form.html',
             {'company': company,
              'form': form})

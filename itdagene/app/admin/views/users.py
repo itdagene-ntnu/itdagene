@@ -38,7 +38,7 @@ def add (request):
             user.set_password(password)
             send_mail(_('Your password for itDAGENE'),_('You have now been registered at itDAGENE.no.\n\nYour password is: ' + password),settings.FROM_ADDRESS,(user.email,))
             user.save()
-            return redirect(reverse('app.admin.views.users.view', args=[user.pk]))
+            return redirect(reverse('itdagene.app.admin.views.users.view', args=[user.pk]))
     return render(request, 'adm/users/create.html',
                              {'form': form})
 
@@ -57,7 +57,7 @@ def edit (request, id):
         if form.is_valid():
             user = form.save()
             LogItem.log_it(user,'EDIT', 2)
-            return redirect(reverse('app.admin.views.users.view', args=[user.pk]))
+            return redirect(reverse('itdagene.app.admin.views.users.view', args=[user.pk]))
 
     return render(request, 'adm/users/edit.html',
                              {'t_user': user,
@@ -70,7 +70,7 @@ def edit_profile (request, id):
 
 def register (request):
     if request.user.is_authenticated():
-        return HttpResponsePermanentRedirect(reverse('app.admin.views.users.add'))
+        return HttpResponsePermanentRedirect(reverse('itdagene.app.admin.views.users.add'))
     form = RegisterUserForm()
     if request.method == 'POST':
         form = RegisterUserForm(request.POST)
@@ -94,7 +94,7 @@ def register (request):
                     print unicode(profile)
                     user.save()
                     send_mail(_('Your password for itDAGENE'),_('Thank you for your registration.\n\nYour password is: ' + password),settings.FROM_ADDRESS,(user.email,))
-                    return redirect(reverse('app.frontpage.views.frontpage'))
+                    return redirect(reverse('itdagene.app.frontpage.views.frontpage'))
 
             except IntegrityError:
                 exists = True

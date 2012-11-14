@@ -41,11 +41,11 @@ def profile (request, id):
 
 @login_required
 def me(request):
-    return redirect(reverse('core.profiles.views.profile', args=[request.user.profile.pk]))
+    return redirect(reverse('itdagene.core.profiles.views.profile', args=[request.user.profile.pk]))
 
 @login_required
 def edit_me(request):
-    return redirect(reverse('core.profiles.views.edit', args=[request.user.profile.pk]))
+    return redirect(reverse('itdagene.core.profiles.views.edit', args=[request.user.profile.pk]))
 
 @permission_required('profiles.change_profile')
 def edit (request, id):

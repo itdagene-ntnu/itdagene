@@ -15,7 +15,7 @@ def comment(request):
     if form.is_valid():
         comment = form.save()
         return redirect(
-            reverse('app.company.views.view', args=[comment.company.pk])
+            reverse('itdagene.app.company.views.view', args=[comment.company.pk])
         )
 
 @permission_required('company.change_company')

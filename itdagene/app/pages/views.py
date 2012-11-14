@@ -30,7 +30,7 @@ def add(request):
             page = form.save()
             cache.set('page' + page.language + page.slug, page)
             cache.delete('menu')
-            return redirect(reverse('app.pages.views.view_page', args=[page.slug]))
+            return redirect(reverse('itdagene.app.pages.views.view_page', args=[page.slug]))
         else:
             return render(request, 'pages/form.html',
                              {'form': form})
@@ -49,7 +49,7 @@ def edit (request, slug, lang_code='nb'):
                 form.save()
                 cache.set('page' + page.language + page.slug, page)
                 cache.delete('menu')
-                return redirect(reverse('app.pages.views.view_page',args=[page.slug]))
+                return redirect(reverse('itdagene.app.pages.views.view_page',args=[page.slug]))
 
     return render(request, 'pages/form.html',
                              {'form': form,

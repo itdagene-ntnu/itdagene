@@ -78,7 +78,7 @@ def edit (request, id=False):
         form = MeetingForm(request.POST, instance=meeting)
         if form.is_valid():
             meeting = form.save()
-            return redirect(reverse('app.meetings.views.meeting', args=[meeting.pk]))
+            return redirect(reverse('itdagene.app.meetings.views.meeting', args=[meeting.pk]))
 
     return render(request, 'meetings/form.html',
                              {'meeting': meeting,
@@ -90,14 +90,14 @@ def attend(request, id):
     reply = get_object_or_404(ReplyMeeting, meeting__pk=id, user=request.user)
     reply.is_attending = True
     reply.save()
-    return redirect(reverse('app.meetings.views.meeting', args=[reply.meeting.pk]))
+    return redirect(reverse('itdagene.app.meetings.views.meeting', args=[reply.meeting.pk]))
 
 @login_required
 def not_attend(request, id):
     reply = get_object_or_404(ReplyMeeting, meeting__pk=id, user=request.user)
     reply.is_attending = False
     reply.save()
-    return redirect(reverse('app.meetings.views.meeting', args=[reply.meeting.pk]))
+    return redirect(reverse('itdagene.app.meetings.views.meeting', args=[reply.meeting.pk]))
 
 @staff_or_404
 def send_invites(request, id):

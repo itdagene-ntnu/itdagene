@@ -29,5 +29,5 @@ def edit_announcement (request, id=False):
             form = AnnouncementForm(request.POST, request.FILES)
     if request.method == 'POST' and form.is_valid():
         instance = form.save()
-        return redirect(reverse('app.news.views.view_announcement', args=[instance.pk]))
+        return redirect(reverse('itdagene.app.news.views.view_announcement', args=[instance.pk]))
     return render(request,'news/edit.html',{'form': form})
