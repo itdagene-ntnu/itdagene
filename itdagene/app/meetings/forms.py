@@ -4,10 +4,14 @@ from django.forms.models import ModelForm
 from django.utils.translation import ugettext_lazy as _
 from itdagene.app.meetings.models import Meeting, ReplyMeeting
 from django.contrib.auth.models import User
+from itdagene.core import Preference
+from itdagene.core.profiles.models import Profile
 
 
 class MeetingForm(ModelForm):
-    invites = forms.MultipleChoiceField(label=_('invite'))
+    invites = forms.MultipleChoiceField(label=_('invite'), required=False)
+    invite_current_board = forms.BooleanField(label=_('invite current board'))
+
     class Meta:
         model = Meeting
         exclude = ('is_board_meeting',)
@@ -20,10 +24,15 @@ class MeetingForm(ModelForm):
         self.fields['invites'].widget.attrs['class'] = 'chosen'
 
     def save(self, commit=True):
+        pref = Preference.current_preference()
         meeting = super(MeetingForm, self).save(commit=commit)
 
         for i in self.cleaned_data['invites']:
             ReplyMeeting.objects.get_or_create(meeting=meeting, user_id=i)
+
+        if self.cleaned_data['invite_current_board']:
+            for profile in Profile.objects.filter(year=pref.year, type='b'):
+                ReplyMeeting.objects.get_or_create(meeting=meeting, user_id=profile.user_id)
 
         return meeting
 
