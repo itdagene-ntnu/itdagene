@@ -5,16 +5,19 @@ from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import ugettext_lazy as _
+from itdagene.core import Preference
 
 def public_event_list(request):
-    day_one = Event.objects.filter(date__day=24).order_by('time_start')
-    day_two = Event.objects.filter(date__day=25).order_by('time_start')
+    pref = Preference.current_preference()
+    day_one = Event.objects.filter(date=pref.start_date).order_by('time_start')
+    day_two = Event.objects.filter(date=pref.start_date).order_by('time_start')
     return render(request, 'events/public_list.html', {'day_one': day_one, 'day_two': day_two})
 
 
 @permission_required('events.change_event')
 def list_events (request):
-    events = Event.objects.all()
+    pref = Preference.current_preference()
+    events = Event.objects.filter(date__year=pref.year)
     return render(request, 'events/base.html', {'events': events})
 
 @permission_required('events.change_event')
