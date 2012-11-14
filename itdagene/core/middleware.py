@@ -37,10 +37,14 @@ def preprocessor(request):
 
     if public:
         context['base_template'] = 'base_public.html'
-        if not request.session['django_language']: request.session['django_language'] = 'nb'
-        if not context.has_key('joblistings'): context['joblistings'] = Frontpage.public_joblistings()
-        else: context['hide_joblistings_sidebar'] = True
-        request.session['django_language'] = 'nb'
+        if not 'django_language' in request.session:
+            request.session['django_language'] = 'nb'
+
+        if not 'joblistings' in context:
+            context['joblistings'] = Frontpage.public_joblistings()
+        else:
+            context['hide_joblistings_sidebar'] = True
+
     else:
         context['base_template'] = 'base.html'
     return context
