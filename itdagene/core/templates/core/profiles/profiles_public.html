@@ -1,12 +1,15 @@
 {% extends "core/profiles/base.html" %}
 
-{% load markup %}
-{% load i18n %}
+{% load i18n markup thumbnail %}
 
 {% block content %}
     {% for profile in profiles %}
     <div class="profile" id="{{ profile.pk }}">
-    {% if profile.photo %}<img src="{{ profile.photo.url }}" title="{{ profile }}" id="profile-photo">{% endif %}
+    {% if profile.photo %}
+        {% thumbnail profile.photo "100" as im %}
+            <img src="{{ im.url }}" style="width:{{ im.width }};" class="profile-photo">
+        {% endthumbnail %}
+    {% endif %}
     <h2>{{ profile }}</h2>
     <p>
         <strong>{{ profile.position }}</strong><br/>

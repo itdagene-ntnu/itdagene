@@ -17,6 +17,6 @@ parts
 .installed.cfg
 *.DS_STORE
 build/*
-project/files/uploads/*
+itdagene/files/uploads/
 venv/
 itdagene/settings/local.py
