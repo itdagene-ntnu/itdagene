@@ -33,11 +33,6 @@ class Meeting(BaseModel):
             action = 'CREATE'
         else: action = 'EDIT'
         super(Meeting, self).save(*args, **kwargs)
-        if action == 'CREATE' and self.is_board_meeting:
-            for u in User.objects.filter(profile__type='b', is_active=True):
-                r = ReplyMeeting(meeting=self, user=u)
-                r.save()
-            self.type = 0
         LogItem.log_it(self, action, 1)
 
     def attending(self):
