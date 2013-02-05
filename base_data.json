@@ -1,24 +1,6 @@
 [
     {
         "pk": 1,
-        "model": "auth.user",
-        "fields": {
-            "username": "anonymous",
-            "first_name": "anonymous",
-            "last_name": "",
-            "is_active": false,
-            "is_superuser": false,
-            "is_staff": false,
-            "groups": [],
-            "last_login": "2010-10-10 10:10:10",
-            "user_permissions": [],
-            "password": "sha1$8079f$5ce916ba9a10d3ca6d7357e5bbdd82",
-            "email": "anonymous@lkng.me",
-            "date_joined": "2010-10-10 10:10:10"
-        }
-    },
-    {
-        "pk": 1,
         "model": "core.preference",
         "fields": {
             "end_date": "2012-09-18",
