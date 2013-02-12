@@ -23,7 +23,7 @@ def prepare_deploy():
 def test():
     with settings(warn_only=True):
         print_color_message("Running tests, please wait!", "yellow")
-        result = local("bin/django test --failfast", capture=True)
+        result = local("venv/bin/python manage.py test --failfast", capture=True)
     if result.failed:
         if not confirm("Tests failed, continue anyway?"):
             print_color_message("Aborted deployment!", "red")
