@@ -66,7 +66,7 @@ def deploy_dev():
 def deploy_prod(run_test=True):
     env.password = silent_run("cat ~/p")
 
-    if run_test: test()
+    # if run_test: test()
 
     run_server_updates("/home/web/itdagene-prod")
 
