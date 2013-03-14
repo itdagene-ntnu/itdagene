@@ -40,7 +40,7 @@ def silent_run(cmd):
 
 def run_server_updates(code_dir):
     with cd(code_dir):
-        run("git pull origin temp")
+        run("git pull origin master")
 
         run("venv/bin/pip install -r requirements.txt")
 
