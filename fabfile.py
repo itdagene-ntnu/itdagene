@@ -6,7 +6,7 @@ from fabric.operations import sudo
 from fabric.utils import abort
 import sys, os
 
-env.hosts = ['web@itdagene.no']
+env.hosts = ['itdagene@luke.abakus.no']
 
 def print_color_message(message, color):
     def get_color_code(color):
@@ -40,7 +40,7 @@ def silent_run(cmd):
 
 def run_server_updates(code_dir):
     with cd(code_dir):
-        run("git pull origin master")
+        run("git pull origin temp")
 
         run("venv/bin/pip install -r requirements.txt")
 
@@ -58,9 +58,9 @@ def deploy_dev():
     #if confirm("Do you want to run tests before deploying?"):
     #    test()
 
-    run_server_updates("/home/web/itdagene-dev")
+    run_server_updates("/home/itdagene/itdagene-dev")
 
-    sudo("touch  /home/web/uwsgi/itdagene-dev.ini", shell=False)
+    sudo("touch  /home/itdagene/uwsgi/itdagene-dev.ini", shell=False)
 
 @task
 def deploy_prod(run_test=True):
@@ -68,6 +68,6 @@ def deploy_prod(run_test=True):
 
     # if run_test: test()
 
-    run_server_updates("/home/web/itdagene-prod")
+    run_server_updates("/home/itdagene/itdagene-prod")
 
-    sudo("touch /home/web/uwsgi/itdagene-prod.ini", shell=False)
+    sudo("touch /home/itdagene/uwsgi/itdagene-prod.ini", shell=False)
