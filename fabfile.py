@@ -57,4 +57,4 @@ def deploy_prod(run_test=True):
 
     run_server_updates("/home/itdagene/itdagene")
 
-    sudo("touch /home/itdagene/uwsgi/itdagene-prod.ini", shell=False)
+    sudo("touch /etc/uwsgi/apps-enabled/itdagene.ini", shell=False)
