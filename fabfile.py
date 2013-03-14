@@ -50,24 +50,11 @@ def run_server_updates(code_dir):
         # Migrate changes to the database
         run("venv/bin/python manage.py migrate --merge")
 
-
-@task(default=True)
-def deploy_dev():
-    env.password = silent_run("cat ~/p")
-
-    #if confirm("Do you want to run tests before deploying?"):
-    #    test()
-
-    run_server_updates("/home/itdagene/itdagene-dev")
-
-    sudo("touch  /home/itdagene/uwsgi/itdagene-dev.ini", shell=False)
-
 @task
 def deploy_prod(run_test=True):
-    env.password = silent_run("cat ~/p")
 
     # if run_test: test()
 
-    run_server_updates("/home/itdagene/itdagene-prod")
+    run_server_updates("/home/itdagene/itdagene")
 
     sudo("touch /home/itdagene/uwsgi/itdagene-prod.ini", shell=False)
