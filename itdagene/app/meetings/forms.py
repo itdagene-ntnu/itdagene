@@ -10,7 +10,7 @@ from itdagene.core.profiles.models import Profile
 
 class MeetingForm(ModelForm):
     invites = forms.MultipleChoiceField(label=_('invite'), required=False)
-    invite_current_board = forms.BooleanField(label=_('Invite current board / Apply changes'))
+    invite_current_board = forms.BooleanField(label=_('Invite current board'), required=False)
 
     class Meta:
         model = Meeting
