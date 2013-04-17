@@ -9,3 +9,4 @@ git+git://github.com/relekang/sorl-thumbnail.git#egg=sorl-thumbnail
 django-debug-toolbar
 git+git://github.com/jbalogh/django-debug-cache-panel.git#egg=cache-panel
 psycopg2
+python-memcached
