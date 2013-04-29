@@ -5,7 +5,6 @@
 *~
 *.egg-info
 .*
-*.png
 project.db
 pickle*.txt
 #generated buildout stuff
