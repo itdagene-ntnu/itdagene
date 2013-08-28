@@ -4,7 +4,7 @@
 {% load i18n %}
 
 {% block content %}
-    {% if profile.photo %}<img src="{{ profile.photo.url }}" title="{{ profile }}" id="profile-photo">{% endif %}
+    {% if profile.photo %}<img src="{{ profile.photo.url }}" style="width:250px;" title="{{ profile }}" id="profile-photo">{% endif %}
     <h2>{{ profile }}</h2>
     <p>
         <strong>{% trans "Phone number" %}:</strong> {{ profile.phone }}<br/>
