@@ -6,7 +6,7 @@ from itdagene.app.company.models import CallTeam, Company
 
 @permission_required('company.change_company')
 def view(request):
-    users = User.objects.values('username', 'first_name', 'last_name').filter(is_active = True).exclude(username = "backup-db").annotate(num_contracts = Count('contract_creator')).order_by('-num_contracts')
+    users = User.objects.values('username', 'first_name', 'last_name').filter(is_active = True, profile__type = 'b').exclude(username = "backup-db").annotate(num_contracts = Count('contract_creator')).order_by('-num_contracts')
     userlist = {}
     for user in users:
         userlist[user["username"]] = user["num_contracts"]
