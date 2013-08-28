@@ -9,6 +9,6 @@ admin.site.register(BoardPosition, BoardPositionAdmin)
 
 class ProfileAdmin (ModelAdmin):
     list_display = ('user', 'type', 'phone', 'language')
-    list_filter = ('type', 'position')
+    list_filter = ('type', 'position', 'year')
 
 admin.site.register(Profile, ProfileAdmin)
