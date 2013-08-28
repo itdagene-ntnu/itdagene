@@ -18,7 +18,7 @@ class MeetingForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(MeetingForm, self).__init__(*args, **kwargs)
-        users = User.objects.filter(is_active=True, profile__type='b').order_by('first_name')
+        users = User.objects.filter(is_active=True, profile__type='b', profile__year=Preference.current_preference().year).order_by('first_name')
         self.fields['referee'].choices = [(user.pk, user.get_full_name()) for user in users]
         self.fields['invites'].choices = [(user.pk, user.get_full_name()) for user in users]
         self.fields['invites'].widget.attrs['class'] = 'chosen'
