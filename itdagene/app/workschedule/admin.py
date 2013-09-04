@@ -17,7 +17,6 @@ admin.site.register(Worker, WorkerAdmin)
 
 class WorkScheduleAdmin(ModelAdmin):
     list_display = ('title', 'date', 'start_time', 'end_time', 'workers')
-    list_filter('date', 'title')
     date_hierarchy = ('date')
     inlines = [WorkerInScheduleInline]
 
