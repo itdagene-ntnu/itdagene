@@ -8,6 +8,7 @@ class WorkerInScheduleInline (admin.TabularInline):
 
 class WorkerAdmin(ModelAdmin):
     list_display = ('name', 'email', 'phone')
+    list_filter = ('t_shirt_size',)
     inlines = [WorkerInScheduleInline]
 
 admin.site.register(Worker, WorkerAdmin)
