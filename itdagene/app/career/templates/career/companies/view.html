@@ -1,8 +1,9 @@
 {% extends base_template %}
+{% load markup %}
 {% load i18n %}
 {% block content %}
     <h1>{{ company.name }}</h1>
-    <div class="company-description">{% if company.logo %}<img src="{{ company.logo.url }}"> {% endif %}{{ company.description }}</div>
+    <div class="company-description">{% if company.logo %}<img src="{{ company.logo.url }}"> {% endif %}{{ company.description|markdown }}</div>
     <h3>{% trans "Joblistings" %}</h3>
     <ul>
     {% for joblisting in joblistings %}
