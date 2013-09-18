@@ -1,15 +1,21 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response, get_object_or_404
-from itdagene.app.workschedule.forms import WorkScheduleForm
+from itdagene.app.workschedule.forms import WorkScheduleForm, WorkerForm
 from itdagene.app.workschedule.models import WorkSchedule, Worker
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render
+from itdagene.core.models import Preference
 
 @permission_required('workschedule.view_workschedule')
 def list(request):
     workers = Worker.objects.all()
+    pref = Preference.objects.get(active=True)
 
-    return render(request, 'workschedule/list.html',{'workers': workers})
+    dayOne = WorkSchedule.objects.filter(date=pref.start_date).order_by('title')
+    dayTwo = WorkSchedule.objects.filter(date=pref.end_date).order_by('title')
+    other = WorkSchedule.objects.all().exclude(date=pref.start_date).exclude(date=pref.end_date).order_by('title')
+
+    return render(request, 'workschedule/list.html',{'dayOne': dayOne, 'dayTwo': dayTwo, 'other': other})
 
 @permission_required('workschedule.view_workschedule')
 def email_list(request):
@@ -24,7 +30,7 @@ def has_met(request, id):
     return render(request, 'base.html')
 
 @permission_required('workschedule.view_workschedule')
-def add(request):
+def add_workschedule(request):
     if request.method == 'POST':
         form = WorkScheduleForm(request.POST)
         if form.is_valid():
@@ -33,10 +39,36 @@ def add(request):
         else:
             return render(request, 'workschedule/form.html',
                              {'form': form})
-    return edit(request, None)
+    return edit_workschedule(request, None)
 
 @permission_required('workschedule.view_workschedule')
-def edit (request, id):
+def add_worker(request):
+    if request.method == 'POST':
+        form = WorkerForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return list(request)
+        else:
+            return render(request, 'worker/form.html',
+                             {'form': form})
+    return edit_worker(request, None)
+
+@permission_required('workschedule.view_worker')
+def edit_worker(request, id):
+    form = WorkerForm()
+    if id:
+        ws = get_object_or_404(Worker,pk=id)
+        form = WorkerForm(instance=ws)
+        if request.method == 'POST':
+            form = WorkerForm(request.POST, instance=ws)
+            if form.is_valid():
+                form.save()
+
+    return render(request, 'worker/form.html',
+                             {'form': form})
+
+@permission_required('workschedule.view_workschedule')
+def edit_workschedule (request, id):
     form = WorkScheduleForm()
     if id:
         ws = get_object_or_404(WorkSchedule,pk=id)

@@ -1,28 +1,69 @@
 {% extends base_template %}
 {% load i18n %}
 {% block content %}
+
+    <h1>{% trans "Day One" %}</h1>
     <table cellspacing="0">
         <tr>
-            <th>{% trans "Worker" %}:</th>
-            <th>{% trans "Phone" %}:</th>
-            <th>{% trans "Email" %}:</th>
-            <th>{% trans "Schedules" %}:</th>
+            <th>{% trans "Task" %}</th>
+            <th>{% trans "Start" %}</th>
+            <th>{% trans "End" %}</th>
+            <th>{% trans "Date" %}</th>
+            <th>{% trans "Participants" %}</th>
         </tr>
-    {% for worker in workers %}
+    {% for task in dayOne %}
         <tr>
-            <td>{{ worker }}</td>
-            <td>{{ worker.phone }}</td>
-            <td>{{ worker.email }}</td>
-            <td>
-                {% for w in worker.schedules %}
-                <p>
-                {{ w.date }} {{ w.start_time }} - {{ w.end_time }}
-                {% if request.user.profile.is_board_member %}{% if w.has_met %}{% trans "Has met" %}{% else %}{% trans "Has not met" %}{% endif %}{% endif %}
-                </p>
-                    {% endfor %}
-            </td>
+            <td>{{ task.title }}</td>
+            <td>{{ task.start_time }}</td>
+            <td>{{ task.end_time }}</td>
+            <td>{{ task.date }}</td>
+            <td>{{ task.workers }}</td>
         </tr>
-
     {% endfor %}
     </table>
+
+    <p></p>
+
+    <h1>{% trans "Day Two" %}</h1>
+    <table cellspacing="0">
+        <tr>
+            <th>{% trans "Task" %}</th>
+            <th>{% trans "Start" %}</th>
+            <th>{% trans "End" %}</th>
+            <th>{% trans "Date" %}</th>
+            <th>{% trans "Participants" %}</th>
+        </tr>
+    {% for task in dayTwo %}
+        <tr>
+            <td>{{ task.title }}</td>
+            <td>{{ task.start_time }}</td>
+            <td>{{ task.end_time }}</td>
+            <td>{{ task.date }}</td>
+            <td>{{ task.workers }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+
+    <p></p>
+
+    <h1>{% trans "Other" %}</h1>
+    <table cellspacing="0">
+        <tr>
+            <th>{% trans "Task" %}</th>
+            <th>{% trans "Start" %}</th>
+            <th>{% trans "End" %}</th>
+            <th>{% trans "Date" %}</th>
+            <th>{% trans "Participants" %}</th>
+        </tr>
+    {% for task in other %}
+        <tr>
+            <td>{{ task.title }}</td>
+            <td>{{ task.start_time }}</td>
+            <td>{{ task.end_time }}</td>
+            <td>{{ task.date }}</td>
+            <td>{{ task.workers }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+
 {% endblock %}
