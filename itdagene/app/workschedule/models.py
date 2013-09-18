@@ -19,11 +19,11 @@ class Worker (BaseModel):
         (7, 'XXXL'),
         (8, 'XXXXL'),
     )
-    username = models.CharField(max_length=20, verbose_name=_('username'))
+    username = models.CharField(max_length=20, verbose_name=_('username'), blank=True)
     name = models.CharField(max_length=100, verbose_name=_('name'))
-    phone = models.IntegerField(verbose_name=_('phone number'))
-    t_shirt_size = models.IntegerField(choices=SIZES, verbose_name=_('t-shirt size'))
-    email = models.EmailField(verbose_name=_('email'))
+    phone = models.IntegerField(verbose_name=_('phone number'), default=0)
+    t_shirt_size = models.IntegerField(choices=SIZES, verbose_name=_('t-shirt size'), default=0)
+    email = models.EmailField(verbose_name=_('email'), blank=True)
 
     def __unicode__(self):
         return self.name
