@@ -9,7 +9,7 @@
             <li>
                 <h3>{{ event }}</h3>
                 {% if event.company %}<strong>{{ event.company }}</strong><br>{% endif %}
-                <strong>{{ event.location }}:</strong><em>{{ event.time_start|time }} - {{ event.time_end|time }}</em>
+                <strong>{{ event.location }}: </strong><em>{{ event.time_start|time }} - {{ event.time_end|time }}</em>
             </li>
         {% endfor %}
     </ul>
@@ -21,7 +21,7 @@
                 <li>
                     <h3>{{ event }}</h3>
                     {% if event.company %}<strong>{{ event.company }}</strong><br>{% endif %}
-                    <strong>{{ event.location }}:</strong><em>{{ event.time_start|time }} - {{ event.time_end|time }}</em>
+                    <strong>{{ event.location }}: </strong><em>{{ event.time_start|time }} - {{ event.time_end|time }}</em>
                 </li>
             {% endfor %}
         </ul>
