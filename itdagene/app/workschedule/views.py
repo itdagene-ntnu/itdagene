@@ -11,9 +11,9 @@ def list(request):
     workers = Worker.objects.all()
     pref = Preference.objects.get(active=True)
 
-    dayOne = WorkSchedule.objects.filter(date=pref.start_date).order_by('title')
-    dayTwo = WorkSchedule.objects.filter(date=pref.end_date).order_by('title')
-    other = WorkSchedule.objects.all().exclude(date=pref.start_date).exclude(date=pref.end_date).order_by('title')
+    dayOne = WorkSchedule.objects.filter(date=pref.start_date).order_by('start_time')
+    dayTwo = WorkSchedule.objects.filter(date=pref.end_date).order_by('start_time')
+    other = WorkSchedule.objects.filter(date__year=pref.year).exclude(date=pref.start_date).exclude(date=pref.end_date).order_by('start_time')
 
     return render(request, 'workschedule/list.html',{'dayOne': dayOne, 'dayTwo': dayTwo, 'other': other})
 
