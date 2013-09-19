@@ -4,7 +4,7 @@
 {% block content %}
     {% if joblisting.image %}<img src="{{ joblisting.image.url }}" alt="{{ joblistings }}">{% endif %}
     <h1>{{ joblisting.title }} -  {{ joblisting.company }}</h1>
-    <div class="company-description">{% if joblisting.company.logo %}<img src="{{ joblisting.company.logo.url }}"> {% endif %}{{ joblisting.company.description }}</div>
+    <div class="company-description">{% if joblisting.company.logo %}<img src="{{ joblisting.company.logo.url }}"> {% endif %}{{ joblisting.company.description|markdown }}</div>
     <div class="meta">
         {% if joblisting.deadline %}<strong>{% trans "Deadline" %}:</strong> {{ joblisting.deadline }},{% endif %}
         {% if joblisting.town %} <strong>{% trans "Town" %}:</strong> {% for town in joblisting.town.all %}{{ town }},{% endfor %}{% endif %}
