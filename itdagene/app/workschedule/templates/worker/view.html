@@ -20,30 +20,30 @@
 
     <a href="{% url app.workschedule.views.edit_worker worker.pk %}" class="button">{% trans "Edit" %}</a>
 
-    <h1>{% trans "Tasks" %}</h1>
-    
-    {% for task in worker.schedules %}
+    <br>
+    <br>
 
-    <h1><a href="{% url app.workschedule.views.view_task task.pk %}">{{ task.title }}</a></h1>
+    <h1>{% trans "Tasks" %}</h1>
     <table cellspacing="0">
         <tr>
+            <th>{% trans "Title" %}</th>
             <th>{% trans "Start" %}</th>
             <th>{% trans "End" %}</th>
-            <th>{% trans "Date" %}<th>
+            <th>{% trans "Date" %}</th>
+            <th>{% trans "Description" %}</th>
         </tr>
+        {% for task in worker.schedules %}
         <tr>
+            <td><a href="{% url app.workschedule.views.view_task task.pk %}">{{ task.title }}</a></td>
             <td>{{ task.start_time }}</td>
             <td>{{ task.end_time }}</td>
             <td>{{ task.date }}</td>
+            <td>{{ task.description }}</td>
         </tr>
+        {% endfor %}
     </table>
-    <strong>{% trans "Description" %}</strong>
-    <br>
-    {{task.description}}
-    <br>
-    <br>
 
-    {% endfor %}
+    
 
 
 

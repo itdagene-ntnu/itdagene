@@ -68,5 +68,8 @@
         </tr>
     {% endfor %}
     </table>
+    <br>
+    <a href="{% url app.workschedule.views.add_task %}" class="button">{% trans "Add Task" %}</a>
+    <a href="{% url app.workschedule.views.add_worker %}" class="button">{% trans "Add Worker" %}</a>
 
 {% endblock %}
