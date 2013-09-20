@@ -5,10 +5,10 @@
     <h1>{% trans "Day One" %}</h1>
 
     {% for task in dayOne %}
-        <strong>{% trans "Task" %}:</strong>{{ task.title }}<br>
-        <strong>{% trans "Start" %}:</strong>{{ task.start_time }}
-        <strong>{% trans "End" %}:</strong>{{ task.end_time }}
-        <strong>{% trans "Date" %}:</strong>{{ task.date }}<br>
+        <strong><a href="{% url app.workschedule.views.view_public_task task.pk %}">{{ task.title }}</a></strong><br>
+        <strong>{% trans "Start" %}: </strong>{{ task.start_time }}
+        <strong>{% trans "End" %}: </strong>{{ task.end_time }}
+        <strong>{% trans "Date" %}: </strong>{{ task.date }}<br>
         <strong>{% trans "Participants" %}:</strong>
         {% for worker in task.workers %}{{ worker }}, {% endfor %}
         <br>
