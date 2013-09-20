@@ -4,18 +4,9 @@
 
     <h1>{{ task.title }}</h1>
 
-    <table cellspacing="15">
-        <tr>
-            <th>{% trans "Start" %}  </th>
-            <th>{% trans "End" %}  </th>
-            <th>{% trans "Date" %}</th>
-        </tr>
-        <tr>
-            <td>{{ task.start_time }}  </td>
-            <td>{{ task.end_time }}  </td>
-            <td>{{ task.date }}</td>
-        </tr>
-    </table>
+    <strong>{% trans "Start" %}:</strong> {{ task.start_time }}
+    <strong>{% trans "End" %}:</strong> {{ task.end_time }}
+    <strong>{% trans "Date" %}:</strong> {{ task.date }}
 
     <h1>{% trans "Description" %}</h1>
     <p>{{ task.description }}</p>
