@@ -23,6 +23,16 @@ def email_list(request):
     return render(request, 'workschedule/emaillist.html',{'workers': workers})
 
 @permission_required('workschedule.view_workschedule')
+def view_task(request, id):
+    task = get_object_or_404(WorkSchedule, pk=id)
+    return render(request, 'workschedule/view.html', {'task': task})
+
+@permission_required('workschedule.view_workschedule')
+def view_worker(request, id):
+    worker = get_object_or_404(Worker, pk=id)
+    return render(request, 'worker/view.html', {'worker': worker})
+
+@permission_required('workschedule.view_workschedule')
 def has_met(request, id):
     instance = get_object_or_404(WorkSchedule, id=id)
     instance.has_met = True

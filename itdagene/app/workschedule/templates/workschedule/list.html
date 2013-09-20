@@ -13,7 +13,7 @@
         </tr>
     {% for task in dayOne %}
         <tr>
-            <td>{{ task.title }}</td>
+            <td><a href="{% url app.workschedule.views.view_task task.pk %}">{{ task.title }}</a></td>
             <td>{{ task.start_time }}</td>
             <td>{{ task.end_time }}</td>
             <td>{{ task.date }}</td>
@@ -22,7 +22,7 @@
     {% endfor %}
     </table>
 
-    <p></p>
+    <br>
 
     <h1>{% trans "Day Two" %}</h1>
     <table cellspacing="0">
@@ -35,7 +35,7 @@
         </tr>
     {% for task in dayTwo %}
         <tr>
-            <td>{{ task.title }}</td>
+            <td><a href="{% url app.workschedule.views.view_task task.pk %}">{{ task.title }}</a></td>
             <td>{{ task.start_time }}</td>
             <td>{{ task.end_time }}</td>
             <td>{{ task.date }}</td>
@@ -44,7 +44,7 @@
     {% endfor %}
     </table>
 
-    <p></p>
+    <br>
 
     <h1>{% trans "Else" %}</h1>
     <table cellspacing="0">
@@ -57,7 +57,7 @@
         </tr>
     {% for task in other %}
         <tr>
-            <td>{{ task.title }}</td>
+            <td><a href="{% url app.workschedule.views.view_task task.pk %}">{{ task.title }}</a></td>
             <td>{{ task.start_time }}</td>
             <td>{{ task.end_time }}</td>
             <td>{{ task.date }}</td>
