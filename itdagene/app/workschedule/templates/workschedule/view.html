@@ -26,9 +26,13 @@
             <th>{% trans "Workers" %}</th>
             <th>{% trans "Has met" %}</th>
         </tr>
+        {% for worker in task.workers %}
         <tr>
-            <td>{{ task.workers }}</td>
+            <td><a href="{% url app.workschedule.views.view_worker worker.pk %}">{{ worker }}</a></td>
+            <td>
+            </td>
         </tr>
+        {% endfor %}
     </table>
 
 {% endblock %}

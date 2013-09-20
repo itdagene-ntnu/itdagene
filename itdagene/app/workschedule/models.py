@@ -51,7 +51,7 @@ class WorkSchedule(BaseModel):
         return "%s %s: %s - %s" % (self.title, str(self.date), str(self.start_time), str(self.end_time))
 
     def workers(self):
-        return ', '.join([w.worker.name for w in self.workers_in_schedule.all()])
+        return [w.worker for w in self.workers_in_schedule.all()]
 
     def save(self, *args, **kwargs):
         if self.pk: action = 'EDIT'

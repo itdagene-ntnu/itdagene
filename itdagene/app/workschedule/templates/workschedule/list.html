@@ -17,7 +17,8 @@
             <td>{{ task.start_time }}</td>
             <td>{{ task.end_time }}</td>
             <td>{{ task.date }}</td>
-            <td>{{ task.workers }}</td>
+            <td>{% for worker in task.workers %}
+                <a href="{% url app.workschedule.views.view_worker worker.pk %}">{{ worker }}</a>,{% endfor %}</td>
         </tr>
     {% endfor %}
     </table>
@@ -39,7 +40,8 @@
             <td>{{ task.start_time }}</td>
             <td>{{ task.end_time }}</td>
             <td>{{ task.date }}</td>
-            <td>{{ task.workers }}</td>
+            <td>{% for worker in task.workers %}
+                <a href="{% url app.workschedule.views.view_worker worker.pk %}">{{ worker }}</a>,{% endfor %}</td>
         </tr>
     {% endfor %}
     </table>
@@ -61,7 +63,8 @@
             <td>{{ task.start_time }}</td>
             <td>{{ task.end_time }}</td>
             <td>{{ task.date }}</td>
-            <td>{{ task.workers }}</td>
+            <td>{% for worker in task.workers %}
+                <a href="{% url app.workschedule.views.view_worker worker.pk %}">{{ worker }}</a>,{% endfor %}</td>
         </tr>
     {% endfor %}
     </table>
