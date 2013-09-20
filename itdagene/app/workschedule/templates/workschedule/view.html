@@ -35,4 +35,7 @@
         {% endfor %}
     </table>
 
+    <a href="{% url app.workschedule.views.has_met task.pk %}" class="button">{% trans "Sign attendence" %}</a>
+    <a href="{% url app.workschedule.views.edit_task task.pk %}" class="button">{% trans "Edit" %}</a>
+
 {% endblock %}

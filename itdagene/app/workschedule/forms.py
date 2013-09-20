@@ -39,3 +39,13 @@ class WorkerForm(ModelForm):
 		worker = super(WorkerForm, self).save(commit=commit)
 
 		return worker
+
+class WorkerHasMetForm(ModelForm):
+
+	class Meta:
+		model = WorkSchedule
+
+	def __init__(self, *args, **kwargs):
+		super(WorkerHasMetForm, self).__init__(*args, **kwargs)
+
+

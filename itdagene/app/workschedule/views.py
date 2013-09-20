@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response, get_object_or_404
-from itdagene.app.workschedule.forms import WorkScheduleForm, WorkerForm
+from itdagene.app.workschedule.forms import WorkScheduleForm, WorkerForm, WorkerHasMetForm
 from itdagene.app.workschedule.models import WorkSchedule, Worker
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render
@@ -33,14 +33,7 @@ def view_worker(request, id):
     return render(request, 'worker/view.html', {'worker': worker})
 
 @permission_required('workschedule.view_workschedule')
-def has_met(request, id):
-    instance = get_object_or_404(WorkSchedule, id=id)
-    instance.has_met = True
-    instance.save()
-    return render(request, 'base.html')
-
-@permission_required('workschedule.view_workschedule')
-def add_workschedule(request):
+def add_task(request):
     if request.method == 'POST':
         form = WorkScheduleForm(request.POST)
         if form.is_valid():
@@ -49,7 +42,18 @@ def add_workschedule(request):
         else:
             return render(request, 'workschedule/form.html',
                              {'form': form})
-    return edit_workschedule(request, None)
+    return edit_task(request, None)
+
+@permission_required('workschedule.view_workschedule')
+def has_met(request, id):
+    ws = get_object_or_404(WorkSchedule, pk=id)
+    form = WorkerHasMetForm(instance=ws)
+    if request.method == 'POST':
+        form = WorkerHasMetForm(request.POST, instance=ws)
+        if form.is_valid():
+            form.save()
+
+    return render(request, 'workschedule/form.html', {'form': form})
 
 @permission_required('workschedule.view_workschedule')
 def add_worker(request):
@@ -78,7 +82,7 @@ def edit_worker(request, id):
                              {'form': form})
 
 @permission_required('workschedule.view_workschedule')
-def edit_workschedule (request, id):
+def edit_task (request, id):
     form = WorkScheduleForm()
     if id:
         ws = get_object_or_404(WorkSchedule,pk=id)
