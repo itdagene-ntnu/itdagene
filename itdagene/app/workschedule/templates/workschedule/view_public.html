@@ -9,17 +9,11 @@
     <strong>{% trans "Date" %}:</strong> {{ task.date }}
 
     <h1>{% trans "Description" %}</h1>
-    <p>{{ task.description }}</p>
+    
+    {{ task.description }}
 
     <h2>{% trans "Workers" %}</h2>
-    <table cellspacing="0">
-        <tr>
-            <th>{% trans "Workers" %}</th>
-        </tr>
-        {% for worker in task.workers %}
-        <tr>
-            <td>{{ worker }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+    {% for worker in task.workers %}
+        {{ worker }}
+    {% endfor %}
 {% endblock %}
