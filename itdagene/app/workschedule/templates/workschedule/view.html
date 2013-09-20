@@ -9,15 +9,16 @@
             <th>{% trans "Start" %}</th>
             <th>{% trans "End" %}</th>
             <th>{% trans "Date" %}</th>
-            <th>{% trans "Description" %}</th>
         </tr>
         <tr>
             <td>{{ task.start_time }}</td>
             <td>{{ task.end_time }}</td>
             <td>{{ task.date }}</td>
-            <td>{{ task.description }}</td>
         </tr>
     </table>
+
+    <h1>{% trans "Description" %}</h1>
+    <p>{{ task.description }}</p>
 
     <h2>{% trans "Workers" %}</h2>
     <table cellspacing="0">
