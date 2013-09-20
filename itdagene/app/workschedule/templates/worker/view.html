@@ -44,14 +44,3 @@
     {% endfor %}
 
 {% endblock %}
-
-
-
-
-        {% for worker in task.workers %}
-        <tr>
-            <td><a href="{% url app.workschedule.views.view_worker worker.pk %}">{{ worker }}</a></td>
-            <td>
-            </td>
-        </tr>
-        {% endfor %}
