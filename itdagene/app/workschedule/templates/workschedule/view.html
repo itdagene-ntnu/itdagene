@@ -1,0 +1,33 @@
+{% extends base_template %}
+{% load i18n %}
+{% block content %}
+
+    <h1>{{ task.title }}</h1>
+
+    <table cellspacing="0">
+        <tr>
+            <th>{% trans "Start" %}</th>
+            <th>{% trans "End" %}</th>
+            <th>{% trans "Date" %}</th>
+            <th>{% trans "Description" %}</th>
+        </tr>
+        <tr>
+            <td>{{ task.start_time }}</td>
+            <td>{{ task.end_time }}</td>
+            <td>{{ task.date }}</td>
+            <td>{{ task.description }}</td>
+        </tr>
+    </table>
+
+    <h2>{% trans "Workers" %}</h2>
+    <table cellspacing="0">
+        <tr>
+            <th>{% trans "Workers" %}</th>
+            <th>{% trans "Has met" %}</th>
+        </tr>
+        <tr>
+            <td>{{ task.workers }}</td>
+        </tr>
+    </table>
+
+{% endblock %}
