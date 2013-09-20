@@ -6,6 +6,20 @@ from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render
 from itdagene.core.models import Preference
 
+def public_list(request):
+    workers = Worker.objects.all()
+    pref = Preference.objects.get(active=True)
+
+    dayOne = WorkSchedule.objects.filter(date=pref.start_date).order_by('start_time')
+    dayTwo = WorkSchedule.objects.filter(date=pref.end_date).order_by('start_time')
+    other = WorkSchedule.objects.filter(date__year=pref.year).exclude(date=pref.start_date).exclude(date=pref.end_date).order_by('date')
+
+    return render(request, 'workschedule/public_list.html',{'dayOne': dayOne, 'dayTwo': dayTwo, 'other': other})
+
+def view_public_task(request, id):
+    task = get_object_or_404(WorkSchedule, pk=id)
+    return render(request, 'workschedule/view_public.html', {'task': task})
+
 @permission_required('workschedule.view_workschedule')
 def list(request):
     workers = Worker.objects.all()
@@ -94,3 +108,4 @@ def edit_task (request, id):
 
     return render(request, 'workschedule/form.html',
                              {'form': form})
+

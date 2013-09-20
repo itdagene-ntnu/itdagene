@@ -2,6 +2,8 @@ from django.conf.urls import patterns, url
 
 urlpatterns = patterns('itdagene.app.workschedule.views',
     url(r'^$', 'list', name='workschedules'),
+    (r'^public/(?P<id>\d+)/$', 'view_public_task'),
+    (r'^public/$', 'public_list'),
     (r'^emails$', 'email_list'),
     (r'^add_task$', 'add_task'),
     (r'^add_worker$', 'add_worker'),

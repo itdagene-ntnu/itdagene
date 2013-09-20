@@ -108,7 +108,7 @@
                 {% endif %}
                  {% if perms.workschedule.view_worker %}
                  <li {% active request 'workschedules' %}><a href="{% url workschedules %}" class="icon icon-list">{% trans "Workschedules" %}</a>
-{#                     {% include 'adm/submenu.html' %}#}
+                     {% include 'workschedule/submenu.html' %}
                  </li>
                 {% endif %}
              </ul>

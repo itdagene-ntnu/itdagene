@@ -13,12 +13,11 @@
         </tr>
     {% for task in dayOne %}
         <tr>
-            <td><a href="{% url app.workschedule.views.view_task task.pk %}">{{ task.title }}</a></td>
+            <td><a href="{% url app.workschedule.views.view_public_task task.pk %}">{{ task.title }}</a></td>
             <td>{{ task.start_time }}</td>
             <td>{{ task.end_time }}</td>
             <td>{{ task.date }}</td>
-            <td>{% for worker in task.workers %}
-                <a href="{% url app.workschedule.views.view_worker worker.pk %}">{{ worker }}</a>,{% endfor %}</td>
+            <td>{% for worker in task.workers %}{{ worker }},{% endfor %}</td>
         </tr>
     {% endfor %}
     </table>
@@ -36,12 +35,11 @@
         </tr>
     {% for task in dayTwo %}
         <tr>
-            <td><a href="{% url app.workschedule.views.view_task task.pk %}">{{ task.title }}</a></td>
+            <td><a href="{% url app.workschedule.views.view_public_task task.pk %}">{{ task.title }}</a></td>
             <td>{{ task.start_time }}</td>
             <td>{{ task.end_time }}</td>
             <td>{{ task.date }}</td>
-            <td>{% for worker in task.workers %}
-                <a href="{% url app.workschedule.views.view_worker worker.pk %}">{{ worker }}</a>,{% endfor %}</td>
+            <td>{% for worker in task.workers %}{{ worker }},{% endfor %}</td>
         </tr>
     {% endfor %}
     </table>
@@ -59,12 +57,11 @@
         </tr>
     {% for task in other %}
         <tr>
-            <td><a href="{% url app.workschedule.views.view_task task.pk %}">{{ task.title }}</a></td>
+            <td><a href="{% url app.workschedule.views.view_public_task task.pk %}">{{ task.title }}</a></td>
             <td>{{ task.start_time }}</td>
             <td>{{ task.end_time }}</td>
             <td>{{ task.date }}</td>
-            <td>{% for worker in task.workers %}
-                <a href="{% url app.workschedule.views.view_worker worker.pk %}">{{ worker }}</a>,{% endfor %}</td>
+            <td>{% for worker in task.workers %}{{ worker }},{% endfor %}</td>
         </tr>
     {% endfor %}
     </table>
