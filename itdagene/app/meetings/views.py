@@ -19,7 +19,7 @@ def list (request):
     meeting_lists = []
     penalty_lists = []
     for pref in Preference.objects.all().order_by('-year'):
-        meeting_lists.append((pref.year, Meeting.objects.filter(date__year=pref.year).order_by('date')))
+        meeting_lists.append((pref.year, Meeting.objects.filter(date__year=pref.year).order_by('-date')))
         penalty_lists.append(Penalties(pref.year))
 
     search_form = SearchForm()

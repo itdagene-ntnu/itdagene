@@ -50,5 +50,8 @@ class PenaltyForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(PenaltyForm, self).__init__(*args, **kwargs)
+        pref = Preference.current_preference()
         users = User.objects.filter(is_active=True, profile__type='b').order_by('first_name')
+        meetings = Meeting.objects.filter(date__year=pref.year).order_by('-date')
         self.fields['user'].choices = [(user.pk, user.get_full_name()) for user in users]
+        self.fields['meeting'].choices = [(meeting.pk, meeting) for meeting in meetings]
