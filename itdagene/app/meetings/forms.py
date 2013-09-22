@@ -50,3 +50,5 @@ class PenaltyForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(PenaltyForm, self).__init__(*args, **kwargs)
+        users = User.objects.filter(is_active=True, profile__type='b').order_by('first_name')
+        self.fields['user'].choices = [(user.pk, user.get_full_name()) for user in users]
