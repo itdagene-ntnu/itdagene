@@ -15,6 +15,8 @@ admin.autodiscover()
 #)
 
 urlpatterns = patterns('',
+    url(r'^slaves/$', 'itdagene.app.workschedule.views.public_list'),
+    url(r'^slaves/(?P<id>\d+)$', 'itdagene.app.workschedule.views.view_public_task'),
     url(r'^api/', include('itdagene.api.urls')),
     url(r'^admin/', include('itdagene.app.admin.urls')),
     url(r'^comments/', include('itdagene.app.comments.urls')),
