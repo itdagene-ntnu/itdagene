@@ -2,7 +2,7 @@ from django import forms
 from django.forms.forms import Form
 from django.forms.models import ModelForm
 from django.utils.translation import ugettext_lazy as _
-from itdagene.app.meetings.models import Meeting, ReplyMeeting
+from itdagene.app.meetings.models import Meeting, ReplyMeeting, Penalty
 from django.contrib.auth.models import User
 from itdagene.core import Preference
 from itdagene.core.profiles.models import Profile
@@ -43,3 +43,10 @@ class AbstractForm(ModelForm):
 
 class SearchForm(Form):
     query = forms.CharField()
+
+class PenaltyForm(ModelForm):
+    class Meta:
+        model = Penalty
+
+    def __init__(self, *args, **kwargs):
+        super(PenaltyForm, self).__init__(*args, **kwargs)

@@ -28,7 +28,7 @@
             <h3>{{ year }}</h3>
             <ul>
                 {% for meeting in meetings %}
-                    <li><a href="{% url itdagene.app.meetings.views.meeting meeting.pk %}">{{ meeting.get_type_display }}: {{ meeting }}</a></li>
+                    <li><a href="{% url itdagene.app.meetings.views.meeting meeting.pk %}">{{ meeting.get_type_display }}:</a><strong> {% trans "Date" %}:</strong> {{ meeting.date }} <strong>{% trans "Starts" %}:</strong> {{ meeting.start_time }} <strong>{% trans "Ends" %}:</strong> {{ meeting.end_time }}</li>
                 {% endfor %}
             </ul>
         {% endfor %}

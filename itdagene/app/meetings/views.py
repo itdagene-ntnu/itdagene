@@ -2,7 +2,7 @@ from itdagene.core import Preference
 from itdagene.core.decorators import staff_or_404
 from itdagene.core.profiles.models import Profile
 from itdagene.core.search import get_query
-from itdagene.app.meetings.forms import MeetingForm, SearchForm
+from itdagene.app.meetings.forms import MeetingForm, SearchForm, PenaltyForm
 from itdagene.app.meetings.models import Meeting, ReplyMeeting, Penalty
 from django.contrib.auth.decorators import permission_required, login_required
 from django.shortcuts import render_to_response, get_object_or_404, redirect
@@ -90,6 +90,20 @@ def edit (request, id=False):
                              {'meeting': meeting,
                               'form': form,
                               'form_title': form_title})
+
+@permission_required('meetings.change_meeting')
+def add_penalties(request, id):
+    form = PenaltyForm()
+    if id:
+        meeting = get_object_or_404(Meeting, pk=id)
+        form = PenaltyForm()
+        if request.method == 'POST':
+            form = PenaltyForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect(reverse('itdagene.app.meetings.views.meeting', args=[meeting.pk]))
+
+    return render(request, 'meetings/penalty_form.html', {'form':form})
 
 @login_required
 def attend(request, id):
