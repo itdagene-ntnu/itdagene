@@ -68,7 +68,7 @@ def has_met(request, id):
         form = WorkerHasMetForm(request.POST, task=task, initial={'schedule': task.pk})
         if form.is_valid():
             form.save()
-            return redirect(reverse('itdagene.app.workschedule.views.list'))
+            return redirect(reverse('itdagene.app.workschedule.views.view_task', args=[task.pk]))
 
     return render(request, 'workschedule/has_met_form.html', {'form': form, 'task':task})
 
