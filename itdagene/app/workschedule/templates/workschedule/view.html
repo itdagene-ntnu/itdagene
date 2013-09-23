@@ -26,10 +26,13 @@
             <th>{% trans "Workers" %}</th>
             <th>{% trans "Has met" %}</th>
         </tr>
-        {% for worker in task.workers %}
+        {% for item in attendance %}
         <tr>
-            <td><a href="{% url app.workschedule.views.view_worker worker.pk %}">{{ worker }}</a></td>
-            <td></td>
+            <td><a href="{% url app.workschedule.views.view_worker item.worker.pk %}">{{ item.worker }}</a></td>
+            <td>
+                {% if item.has_met %}{% trans "Yes" %}{% endif %}
+                {% if not item.has_met %}{% trans "No" %}{% endif %}
+            </td>
         </tr>
         {% endfor %}
     </table>

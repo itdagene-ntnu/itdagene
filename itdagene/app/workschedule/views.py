@@ -1,9 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response, get_object_or_404
 from itdagene.app.workschedule.forms import WorkScheduleForm, WorkerForm, WorkerHasMetForm
-from itdagene.app.workschedule.models import WorkSchedule, Worker
+from itdagene.app.workschedule.models import WorkSchedule, Worker, WorkerInSchedule
+from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import permission_required
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from itdagene.core.models import Preference
 
 def public_list(request):
@@ -39,7 +40,8 @@ def email_list(request):
 @permission_required('workschedule.view_workschedule')
 def view_task(request, id):
     task = get_object_or_404(WorkSchedule, pk=id)
-    return render(request, 'workschedule/view.html', {'task': task})
+    attendance = WorkerInSchedule.objects.filter(schedule=task)
+    return render(request, 'workschedule/view.html', {'task': task, 'attendance': attendance})
 
 @permission_required('workschedule.view_workschedule')
 def view_worker(request, id):
@@ -60,14 +62,15 @@ def add_task(request):
 
 @permission_required('workschedule.view_workschedule')
 def has_met(request, id):
-    ws = get_object_or_404(WorkSchedule, pk=id)
-    form = WorkerHasMetForm(instance=ws)
+    task = get_object_or_404(WorkSchedule, pk=id)
+    form = WorkerHasMetForm(task=task, initial={'schedule': task.pk})
     if request.method == 'POST':
-        form = WorkerHasMetForm(request.POST, instance=ws)
+        form = WorkerHasMetForm(request.POST, task=task, initial={'schedule': task.pk})
         if form.is_valid():
             form.save()
+            return redirect(reverse('itdagene.app.workschedule.views.list'))
 
-    return render(request, 'workschedule/form.html', {'form': form})
+    return render(request, 'workschedule/has_met_form.html', {'form': form, 'task':task})
 
 @permission_required('workschedule.view_workschedule')
 def add_worker(request):
