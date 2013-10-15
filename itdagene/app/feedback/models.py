@@ -93,10 +93,10 @@ class Evaluation (models.Model):
 
     internship_marathon_rating = models.IntegerField(
                         choices=RATINGS,
-                        verbose_name=_('How did the internship marathon go?'),
+                        verbose_name=_('How did the kickstart go?'),
                         default=0
                      )
-    internship_marathon_improvement = models.TextField(verbose_name=_('What could have been done better at the internship marathon?'))
+    internship_marathon_improvement = models.TextField(verbose_name=_('What could have been done better at the kickstart?'))
 
     course_rating = models.IntegerField(
                         choices=RATINGS,
@@ -131,7 +131,7 @@ class Evaluation (models.Model):
     banquet_improvement = models.TextField(blank=True, verbose_name=_('What could have been done better at the banquet?'))
 
 
-    opening_hours = models.TextField(verbose_name=_('Was the opening hours(10-15) ok? If not what would be your choice?'))
+    opening_hours = models.TextField(verbose_name=_('Was the opening hours(10-16) ok? If not what would be your choice?'))
     improvement = models.TextField(verbose_name=_('What could have been done better?'))
     other = models.TextField(blank=True, verbose_name=_('Something else you want to comment?'), help_text=_('Do you have any tips?'))
     want_to_come_back = models.BooleanField(verbose_name=_('Interested in being contacted next year?'))
