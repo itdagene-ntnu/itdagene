@@ -6,7 +6,7 @@ from itdagene.core.models import BaseModel
 from django.utils.translation import ugettext_lazy as _
 from itdagene.core.util import expire_page_cache
 
-class Page (BaseModel):
+class Page(BaseModel):
     title = models.CharField(max_length=100, verbose_name=_('title'))
     slug = models.CharField(max_length=100, verbose_name=_('slug'))
     content = models.TextField(verbose_name=_('content'))
