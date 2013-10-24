@@ -1,60 +1,30 @@
-from fabric.api import local, run, cd, env
-from fabric.context_managers import settings
-from fabric.contrib.console import confirm
+import os
+import sys
+
 from fabric.decorators import task
-from fabric.operations import sudo
-from fabric.utils import abort
-import sys, os
+from fabric.state import env
 
-env.hosts = ['itdagene@luke.abakus.no']
+from django_fabric import App
 
-def print_color_message(message, color):
-    def get_color_code(color):
-        colors = {'green':'\033[92m', 'yellow':'\033[93m', 'red':'\033[91m'}
-        if color in colors:
-            return colors[color]
-        return ''
 
-    print get_color_code(color) + message + '\033[0m'
+# This is to make fabric able to read our django settings
+sys.path.append(os.path.dirname(__file__))
 
-def prepare_deploy():
-    local("git status")
+env.user = 'itdagene'
+env.hosts = ['itdagene.no']
 
-def test():
-    with settings(warn_only=True):
-        print_color_message("Running tests, please wait!", "yellow")
-        result = local("venv/bin/python manage.py test --failfast", capture=True)
-    if result.failed:
-        if not confirm("Tests failed, continue anyway?"):
-            print_color_message("Aborted deployment!", "red")
-            abort("")
-    else:
-        print_color_message("All tests OK!", "green")
+site = App(
+    project_paths={
+        'prod': '/home/itdagene/itdagene',
+    },
+    project_package='itdagene',
+    restart_command='touch /etc/uwsgi/apps-enabled/itdagene.ini'
+    requirements = {
+        'prod': 'requirements-prod.txt'
+    }
+)
 
-def silent_run(cmd):
-    f = open(os.devnull, 'w')
-    sys.stdout = f
-    out = run(cmd)
-    sys.stdout = sys.__stdout__
-    return out
-
-def run_server_updates(code_dir):
-    with cd(code_dir):
-        run("git pull origin master")
-
-        run("venv/bin/pip install -r requirements.txt")
-
-        # Sync the database
-        run("venv/bin/python manage.py syncdb --noinput")
-
-        # Migrate changes to the database
-        run("venv/bin/python manage.py migrate --merge")
-
-@task
-def deploy_prod(run_test=True):
-
-    # if run_test: test()
-
-    run_server_updates("/home/itdagene/itdagene")
-
-    sudo("touch /etc/uwsgi/apps-enabled/itdagene.ini", shell=False)
+deploy_dev = task(site.deploy_dev)
+deploy_prod = task(site.deploy_prod)
+clone_prod_data = task(site.clone_prod_data)
+test = task(site.test)
