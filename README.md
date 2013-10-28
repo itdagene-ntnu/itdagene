@@ -19,3 +19,15 @@ Deretter kan man sette opp databasen:
 Hvis alt går som det skal så har du nå en itDAGENE-siden. Kjør utviklingserver med:
 
     python manage.py runserver
+
+
+## Ting som kan gå galt
+
+### Jeg får IOError feil
+
+Dette skjer mest sannsynlig fordi du ikke har en JPEG-encoder installert. PIL har ikke
+innebygd støtte for JPEG, så det må installeres separat. På OS X kan dette gjøres vha.
+Homebrew (du bruker Homebrew, sant?)
+
+    brew install jpeg
+    
