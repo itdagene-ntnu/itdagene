@@ -15,7 +15,7 @@ env.hosts = ['itdagene.no']
 
 site = App(
     project_paths={
-        'prod': '/home/itdagene/itdagene/',
+        'prod': '/home/itdagene/',
     },
     project_package='itdagene',
     restart_command='touch /etc/uwsgi/apps-enabled/itdagene.ini',
