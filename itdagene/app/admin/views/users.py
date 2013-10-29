@@ -104,8 +104,6 @@ def register(request):
 
             except IntegrityError:
                 exists = True
-                return render(request, 'adm/users/register.html',
-                                         {'form': form,
-                                          'user_already_exists': exists})
+                return render(request, 'adm/users/register.html', {'form': form, 'user_already_exists': exists})
     return render(request, 'adm/users/register.html',
                              {'form': form})
