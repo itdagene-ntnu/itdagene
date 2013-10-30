@@ -7,10 +7,12 @@ from django.shortcuts import render
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import redirect, get_object_or_404
 
+
 @permission_required('documents.change_document')
 def list_documents(request):
     documents = Document.objects.all()
     return render(request, 'documents/base.html', {'documents': documents})
+
 
 @permission_required('documents.change_document')
 def edit_document(request, id=None):
@@ -23,8 +25,9 @@ def edit_document(request, id=None):
             return redirect(reverse('documents'))
     return render(request, 'documents/form.html', {'form': form})
 
+
 @permission_required('documents.change_document')
-def download_document (request, id):
+def download_document(request, id):
     import os
     doc = get_object_or_404(Document,pk=id)
     abspath = open(doc.file.path,'r')

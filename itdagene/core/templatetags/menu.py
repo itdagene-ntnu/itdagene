@@ -23,5 +23,5 @@ def menu(request):
 def active(request, pattern):
     import re
     if len(pattern) > 1 and re.search(pattern, request.path):
-        return "class=\"selected\""
+        return "class=\"active\""
     return ""

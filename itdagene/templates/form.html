@@ -15,6 +15,6 @@
         {% endif %}
     {% endfor %}
     <p>
-        <input type="submit" value="{% if form.instance.id %}{% trans "Save" %}{% else %}{% trans "Add" %}{% endif %}">
+        <button type="submit" class="btn btn-default">{% if form.instance.id %}{% trans "Save" %}{% else %}{% trans "Add" %}{% endif %}</button>
     </p>
 </form>
