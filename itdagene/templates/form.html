@@ -1,20 +1,24 @@
-{% load i18n %}
+{% load i18n widget_tweaks %}
 
 <h1>{{ form_title }}</h1>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.non_field_errors }}
     {% for field in form %}
-        {% if not field.is_hidden %}
-            {{ field.label_tag }}
-            {{ field.errors }}
-        {% endif %}
-        {{ field }}
-        {% if not field.is_hidden %}
-            {{ field.help_text }}<br/>
-        {% endif %}
+        <div class="form-group">
+            {% if not field.is_hidden %}
+                {% render_field field.label_tag  %}
+                {{ field.errors }}
+            {% endif %}
+            {% render_field field class="form-control" %}
+            {% if not field.is_hidden %}
+                {{ field.help_text }}<br/>
+            {% endif %}
+        </div>
     {% endfor %}
-    <p>
-        <button type="submit" class="btn btn-default">{% if form.instance.id %}{% trans "Save" %}{% else %}{% trans "Add" %}{% endif %}</button>
-    </p>
+    <div class="form-group">
+        <p>
+            <button type="submit" class="btn btn-default">{% if form.instance.id %}{% trans "Save" %}{% else %}{% trans "Add" %}{% endif %}</button>
+        </p>
+    </div>
 </form>
