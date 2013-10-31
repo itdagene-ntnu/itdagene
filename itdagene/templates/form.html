@@ -1,13 +1,13 @@
 {% load i18n widget_tweaks %}
 
 <h1>{{ form_title }}</h1>
-<form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" class="form-horizontal col-md-6">
     {% csrf_token %}
     {{ form.non_field_errors }}
     {% for field in form %}
         <div class="form-group">
             {% if not field.is_hidden %}
-                {% render_field field.label_tag  %}
+                {% render_field field.label_tag %}
                 {{ field.errors }}
             {% endif %}
             {% render_field field class="form-control" %}
