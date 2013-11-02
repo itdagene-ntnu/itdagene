@@ -12,7 +12,7 @@
         <h3>{% trans "Your responsibility" %}</h3>
         <div class="row">
             {% for company in user_companies %}
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4><a href="{% url app.company.views.view company.pk %}">{{ company }}</a></h4>
@@ -34,12 +34,27 @@
                                         <br/>{% endif %}
                                     {% if company.company_contacts.count > 0 %}
                                         <strong>{% trans "Contacts" %}:</strong>{% endif %}
-                                    <ul>
-                                        {% for contact in company.company_contacts.all %}
+                                    <ul class="list-unstyled">
+                                        {% for contact in company.company_contacts.all|slice:":2" %}
                                             <li>
-                                                {{ contact }}
-                                                {% if contact.phone %} - {{ contact.phone }}{% endif %}
-                                                {% if contact.email %}- {{ contact.email }}</li>{% endif %}
+                                                <div class="row">
+                                                    <div class="col-md-5">
+                                                        {{ contact }}
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        {% if contact.phone %}
+                                                            {{ contact.phone }}
+                                                        {% else %}
+                                                            -
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        {% if contact.email %}
+                                                            <a href="mailto:{{ contact.email }}"><span class="glyphicon glyphicon-envelope"></span></a>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </li>
                                         {% endfor %}
                                     </ul>
                                 </div>

@@ -1,4 +1,31 @@
-{% load i18n %}
+{% load i18n widget_tweaks %}
+
+
+<div class="modal fade" id="comment-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Legg til en kommentar</h4>
+            </div>
+            <form method="post" action="{% url app.company.views.comments.comment %}">
+                <div class="modal-body">
+                    {% csrf_token %}
+                    {{ form.content.errors }}
+                    {%  render_field form.content class="form-control" %}
+                    {{ form.company.as_hidden }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
+                    <button type="submit" class="btn btn-primary">{% if form.instance.id %}{% trans "Save" %}{% else %}{% trans "Add" %}{% endif %}</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+{% comment %}
 
 <h3>{% trans "Comments" %}</h3>
 <form method="post" action="{% url app.company.views.comments.comment %}">
@@ -7,4 +34,4 @@
     {{ form.content }}<br/>
     {{ form.company.as_hidden }}
 <input type="submit" value="{% if form.instance.id %}{% trans "Save" %}{% else %}{% trans "Add" %}{% endif %}">
-</form>
+</form>{% endcomment %}

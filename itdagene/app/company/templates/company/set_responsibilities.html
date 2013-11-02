@@ -5,7 +5,7 @@
     <div class="row">
         <form method="post" class="col-md-4">
             {{ formset.management_form }}{% csrf_token %}
-            <table cellspacing="0" width=20% class="table">
+            <table class="table">
                 {% for form in formset %}
                     <tr>
                         <th>{{ form.instance.name }}</th>

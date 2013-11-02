@@ -20,7 +20,7 @@ def hsp(request):
 
 
 @permission_required('company.change_company')
-def list_companies (request):
+def list_companies(request):
     companies = cache.get('companies')
     if request.user.profile.type == 'b':
         user_companies = cache.get('companiesforuser' + str(request.user.pk))
@@ -37,13 +37,13 @@ def list_companies (request):
                               'user_companies': user_companies})
 
 @permission_required('company.change_company')
-def inactive (request):
+def inactive(request):
     companies = Company.objects.filter(active=False).order_by('name')
     return render(request, 'company/base.html',
             {'companies': companies})
 
 @permission_required('company.change_company')
-def view (request,id):
+def view(request, id):
     company = get_object_or_404(Company.objects.select_related(), pk=id)
     evaluation = EvaluationHash.objects.get_or_create(company=company, preference=Preference.current_preference())[0]
     return render(request, 'company/view.html', {

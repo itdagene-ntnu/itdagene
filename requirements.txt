@@ -1,11 +1,18 @@
 Django==1.4.9
+Fabric==1.8.0
+Markdown==2.3.1
+PIL==1.1.7
+South==0.8.2
+django-debug-cache-panel==0.0.1
+django-debug-toolbar==0.9.4
+django-fabric==1.5.0
+django-widget-tweaks==1.3
+ecdsa==0.10
+paramiko==1.12.0
+psycopg2==2.5.1
+pycrypto==2.6.1
 python-dateutil==1.5
-Markdown
-PIL
-South
-pytidylib
-vobject
--e git+git://github.com/relekang/sorl-thumbnail.git#egg=sorl-thumbnail
-django-debug-toolbar
-git+git://github.com/jbalogh/django-debug-cache-panel.git#egg=cache-panel
-django-fabric
+pytidylib==0.2.1
+-e git://github.com/relekang/sorl-thumbnail.git@2a3f0b2918d32a85749951936600f11da3b740df#egg=sorl_thumbnail-master
+vobject==0.6.6
+wsgiref==0.1.2

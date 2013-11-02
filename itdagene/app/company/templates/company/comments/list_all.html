@@ -2,14 +2,14 @@
 {% load i18n thumbnail %}
 {% block content %}
 <div class="chat_messages">
-    <ul>
+    <ul class="list-unstyled">
         {% for comment in comments %}
             <li>
                 <span>{{ comment.timestamp|timesince }}</span>
                 {% if comment.user.profile.photo %}
                     <a href="#" class="avatar">
                         {% thumbnail comment.user.profile.photo "40x40" crop="center" as im %}
-                            <img src="{{ im.url }}" style="width:{{ im.width }}px; height:{{ im.height }}px;">
+                            <img src="{{ im.url }}" class="img-circle" style="width:{{ im.width }}px; height:{{ im.height }}px;">
                         {% endthumbnail %}
                     </a>
                 {% endif %}
