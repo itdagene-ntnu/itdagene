@@ -8,8 +8,9 @@ from django.contrib.auth.decorators import permission_required
 from itdagene.core.profiles import _vcard_string
 from django.shortcuts import render
 
+
 @permission_required('company.change_companycontact')
-def edit_contact (request, company_id=None, contact_id=None):
+def edit_contact(request, company_id=None, contact_id=None):
     form = None
     if contact_id:
         contact = get_object_or_404(CompanyContact, pk=contact_id)
@@ -26,7 +27,18 @@ def edit_contact (request, company_id=None, contact_id=None):
             contact = form.save()
             return redirect(reverse('view_company', args=[contact.company.pk]))
 
-    return render(request, 'company/contacts/edit.html', {'form': form})
+    return render(request, 'company/contacts/edit.html', {'form': form, 'contact_id': contact_id})
+
+
+@permission_required('company.change_companycontact')
+def delete_contact(request, contact_id=None):
+    if contact_id:
+        company_pk = CompanyContact.objects.get(pk=contact_id).company.pk
+        CompanyContact.objects.get(pk=contact_id).delete()
+        return redirect(reverse('view_company', args=[company_pk]))
+    else:
+        raise Http404
+
 
 def vcard(request, id):
     contact = get_object_or_404(CompanyContact, pk=id)

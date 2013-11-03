@@ -34,6 +34,7 @@ urlpatterns += patterns('itdagene.app.company.views.admin',
 urlpatterns += patterns('itdagene.app.company.views.company_contacts',
             url(r'^contacts/(?P<company_id>\d+)/add/$', 'edit_contact', name='add_company_contact'),
             url(r'^contacts/(?P<contact_id>\d+)/edit/$', 'edit_contact', name='edit_company_contact'),
+            url(r'^contacts/(?P<contact_id>\d+)/delete/', 'delete_contact', name='delete_company_contact'),
             url(r'^contacts/(?P<id>\d+)/vcard$', 'vcard'),
 )
 
