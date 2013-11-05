@@ -2,8 +2,8 @@
 {% load i18n %}
 {% block content %}
     <h1>{% trans "Packages" %}</h1>
-    <table cellspacing="0" class="list">
-        <tr><th>{% trans "Title" %}</th><th>{% trans "Signed/Capacity" %}</th><th>{% trans "Course" %}</th><th>{% trans "Waiting list" %}</th></tr>
+    <table class="table table-hover">
+        <tr class="active"><th>{% trans "Title" %}</th><th>{% trans "Signed/Capacity" %}</th><th>{% trans "Course" %}</th><th>{% trans "Waiting list" %}</th></tr>
     {% for package in packages %}
         <tr>
             <td><a href="{% url app.company.views.packages.view package.pk %}">{{ package.name }}</a></td>
