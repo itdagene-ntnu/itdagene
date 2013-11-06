@@ -11,14 +11,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="/static/img/icon.png">
     <link rel="apple-touch-icon" href="/static/img/icon.png">
-    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://code.jquery.com/jquery.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+{#    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>#}
 {#    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">#}
     {% analytics %}
     {% if request.user.profile.type == 'b' %}
         <link href="/static/chosen/chosen.css" rel="stylesheet" />
-        <script type="text/javascript" src="/static/chosen/chosen.jquery.min.js"></script>
         <script src="/static/js/todo.js"></script>
         {% include_tinycon %}
         {% set_notification_bubble %}
