@@ -126,12 +126,14 @@
                 </ul>
                 <hr/>
                 <div class="panel panel-default">
-                    <a href="#">
+                    <a href="{% url view_profile request.user.pk %}" style="text-decoration: none;">
                         {% if profile.photo %}
                             {% thumbnail profile.photo "30x30" crop="center" as im %}
                                 <img src="{{ im.url }}" style="width:{{ im.width }}px; height:{{ im.height }}px;">
                             {% endthumbnail %}
                         {% endif %}
+                    </a>
+                    <a href="{% url view_profile request.user.pk %}">
                         {{ profile }}
                     </a>
                 </div>
