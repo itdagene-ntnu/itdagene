@@ -1,6 +1,5 @@
 {% load i18n widget_tweaks %}
 
-
 <div class="modal fade" id="comment-modal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -23,15 +22,3 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
-
-{% comment %}
-
-<h3>{% trans "Comments" %}</h3>
-<form method="post" action="{% url app.company.views.comments.comment %}">
-{% csrf_token %}
-    {{ form.content.errors }}
-    {{ form.content }}<br/>
-    {{ form.company.as_hidden }}
-<input type="submit" value="{% if form.instance.id %}{% trans "Save" %}{% else %}{% trans "Add" %}{% endif %}">
-</form>{% endcomment %}

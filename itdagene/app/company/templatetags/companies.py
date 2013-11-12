@@ -1,6 +1,5 @@
 from django.template.base import Library
-from itdagene.app.company.forms import CommentForm, BookCompanyForm
-from itdagene.app.company.models import Comment
+from itdagene.app.company.forms import BookCompanyForm
 
 register = Library()
 

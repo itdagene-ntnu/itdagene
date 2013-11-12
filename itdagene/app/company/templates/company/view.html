@@ -1,10 +1,5 @@
 {% extends "company/base.html" %}
-{% load i18n %}
-{% load markup %}
-{% load core %}
-{% load company_comments %}
-{% load companies %}
-{% load todo %}
+{% load i18n markup core company_contracts company_comments companies todo%}
 
 {% block include %}
     {% chosen "id_waiting_for_package" %}
@@ -106,7 +101,7 @@
         <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4>{% trans "Contracts" %}<a href="{% url add_contract company.pk %}"><span class="glyphicon glyphicon-plus-sign"></span></a></h4>
+                    <h4>{% trans "Contracts" %}<a href="#" data-toggle="modal" data-target="#contract-modal"><span class="glyphicon glyphicon-plus-sign"></span></a></h4>
                 </div>
                 <div class="panel-body">
                     <table class="table">
@@ -127,5 +122,6 @@
             {% comments company %}
         </div>
     </div>
+    {% contract_form company %}
     {% comment_form company %}
 {% endblock %}

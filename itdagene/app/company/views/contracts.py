@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.http import Http404, HttpResponse
 
 @permission_required('company.change_contract')
-def edit_contract (request, company_id, id=False):
+def edit_contract(request, company_id, id=False):
     company = get_object_or_404(Company, pk=company_id)
     contract = Contract(company=company)
     if id:
