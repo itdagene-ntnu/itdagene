@@ -6,5 +6,5 @@ register = Library()
 
 @register.inclusion_tag('company/contracts/form.html')
 def contract_form(company):
-    form = ContractForm(instance=Contract(company=company))
+    form = ContractForm()
     return {'form': form, 'company': company}

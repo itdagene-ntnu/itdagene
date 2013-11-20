@@ -49,7 +49,7 @@ class ResponsibilityForm(ModelForm):
 class CommentForm(ModelForm):
     class Meta:
         model = Comment
-        fields = ('content','company')
+        fields = ('content', 'company')
 
 
 class CompanyContactForm(ModelForm):

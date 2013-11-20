@@ -24,7 +24,7 @@ urlpatterns += patterns('itdagene.app.company.views.packages',
 
 urlpatterns += patterns('itdagene.app.company.views.comments',
             url(r'^comments/$', 'list_comments'),
-            url(r'^comment$', 'comment'),
+            url(r'^comment$', 'comment', name='add_comment'),
 )
 
 urlpatterns += patterns('itdagene.app.company.views.admin',

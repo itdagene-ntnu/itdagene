@@ -52,7 +52,7 @@ def view(request, id):
         })
 
 @permission_required('company.change_company')
-def edit (request,id=False):
+def edit(request, id=False):
     if id:
         form_title = _(' company')
         company = get_object_or_404(Company, pk=id)
@@ -62,8 +62,10 @@ def edit (request,id=False):
         form = CompanyForm()
         company = None
     if request.method == 'POST':
-        if id: form = CompanyForm(request.POST, request.FILES, instance=company)
-        else: form = CompanyForm(request.POST, request.FILES)
+        if id:
+            form = CompanyForm(request.POST, request.FILES, instance=company)
+        else:
+            form = CompanyForm(request.POST, request.FILES)
         if form.is_valid():
             company = form.save()
             #add_message(request, _('%s was saved') % company.name, 'success')
@@ -109,7 +111,7 @@ def set_responsibilities(request):
 
 
 @permission_required('company.change_company')
-def book_company (request, id):
+def book_company(request, id):
     company = get_object_or_404(Company, pk=id)
     form = BookCompanyForm(instance=company)
     if request.method == 'POST':
@@ -130,7 +132,7 @@ def book_company (request, id):
              'form': form})
 
 @permission_required('company.change_company')
-def log_company (request, id):
+def log_company(request, id):
     company = get_object_or_404(Company, pk=id)
     log = LogItem.objects.filter(content_type=ContentType.objects.get_for_model(company), object_id=company.id).reverse()
     return render(request, 'company/log.html', {'log': log, 'company': company})

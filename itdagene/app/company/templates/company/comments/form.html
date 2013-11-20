@@ -7,7 +7,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">Legg til en kommentar</h4>
             </div>
-            <form method="post" action="{% url app.company.views.comments.comment %}">
+            <form method="post" action="{% url add_comment %}">
                 <div class="modal-body">
                     {% csrf_token %}
                     {{ form.content.errors }}
