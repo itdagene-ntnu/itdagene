@@ -51,7 +51,8 @@ def edit_ticket (request, id):
 @permission_required('events.change_event')
 def edit_event (request, id=None):
     event = None
-    if id: event = get_object_or_404(Event, pk=id)
+    if id:
+        event = get_object_or_404(Event, pk=id)
     form = EventForm(instance=event)
     if request.method == 'POST':
         form = EventForm(request.POST, instance=event)
@@ -60,5 +61,5 @@ def edit_event (request, id=None):
             request.session['message'] = {'class': 'success', 'value': _('%s was saved.') % event.title}
             return redirect(reverse('view_event', args=[event.pk]))
         else:
-            request.session['message'] = {'class': 'errormsg', 'value': _('%s could not be saved.') % form['title'].data}
+            request.session['message'] = {'class': 'danger', 'value': _('%s could not be saved.') % form['title'].data}
     return render(request, 'events/form.html', {'event': event, 'form': form})

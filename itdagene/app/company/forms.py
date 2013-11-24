@@ -1,6 +1,7 @@
 from itdagene.app.company.models import Company, Comment, Package, CompanyContact, Contract
 from django.forms.models import ModelForm
 from django.contrib.auth.models import User
+from django.utils.translation import ugettext_lazy as _
 
 
 class PackageForm(ModelForm):
@@ -53,12 +54,22 @@ class CommentForm(ModelForm):
 
 
 class CompanyContactForm(ModelForm):
+    title = _('ADD CONTACT')
+    keyword = 'company_contact'
+
     class Meta:
         model = CompanyContact
         exclude = ('company')
 
 
 class ContractForm(ModelForm):
+    title = _('ADD CONTRACT')
+    keyword = 'contract'
+
     class Meta:
         model = Contract
         exclude = ('company', 'banquet_tickets')
+
+    def __init__(self, *args, **kwargs):
+        super(ContractForm, self).__init__(*args, **kwargs)
+        self.fields['timestamp'].widget.attrs['placeholder'] = 'YYYY-MM-DD HH:MM'

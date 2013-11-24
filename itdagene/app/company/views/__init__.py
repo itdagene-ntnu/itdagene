@@ -4,7 +4,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.cache import cache
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import render_to_response, get_object_or_404, redirect
-from itdagene.app.company.forms import BookCompanyForm, CompanyForm, ResponsibilityForm
+from itdagene.app.company.forms import BookCompanyForm, CompanyForm, ResponsibilityForm, ContractForm, CompanyContactForm
 from itdagene.app.company.models import Company, Package
 from django.forms.models import modelformset_factory
 from django.core.urlresolvers import reverse
@@ -46,9 +46,11 @@ def inactive(request):
 def view(request, id):
     company = get_object_or_404(Company.objects.select_related(), pk=id)
     evaluation = EvaluationHash.objects.get_or_create(company=company, preference=Preference.current_preference())[0]
+    forms = [ContractForm(), CompanyContactForm()]
     return render(request, 'company/view.html', {
         'company': company,
-        'evaluation': evaluation
+        'evaluation': evaluation,
+        'forms': forms
         })
 
 @permission_required('company.change_company')

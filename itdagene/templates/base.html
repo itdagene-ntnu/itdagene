@@ -152,7 +152,12 @@
         {% block sidebar %}{% endblock %}
     </aside>
     <article {% if not request.user.is_authenticated %}class="wide"{% endif %} id="page-content-wrapper">
-        {% if message_class %}<div id="message" class="message {{ message_class }}">{{ message_value }}</div>{% endif %}
+        {% if message_class %}
+            <div class="alert alert-{{ message_class }}">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                {{ message_value }}
+            </div>
+        {% endif %}
         <div class="inset">{% block content %}{% endblock %}</div>
     </article>
 </div>
