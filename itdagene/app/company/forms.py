@@ -11,6 +11,9 @@ class PackageForm(ModelForm):
 
 
 class CompanyForm(ModelForm):
+    title = _('Add company')
+    keyword = 'company'
+
     class Meta:
         model = Company
         exclude = ('package')

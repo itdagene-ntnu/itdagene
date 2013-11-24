@@ -66,7 +66,7 @@
         </div>
         <h3>{% trans "Other companies" %}</h3>
     {% endif %}
-    <div class="filters">
+    <div>
         <strong>{% trans "Status" %}:</strong>
         <select name="status">
             <option value="all" selected="selected">All</option>
@@ -76,6 +76,7 @@
             <option value="2">{% trans "Interested" %}</option>
             <option value="3">{% trans "Signed" %}</option>
         </select>
+        <a href="#" data-toggle="modal" data-target="#company-modal" class="btn btn-primary">{% trans "Add company" %}</a>
     </div>
     <table class="filtered table table-hover company-table">
         <tr class="active">
@@ -97,4 +98,5 @@
             </tr>
         {% endfor %}
     </table>
+    {% include 'form.html' %}
 {% endblock %}

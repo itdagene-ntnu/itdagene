@@ -32,15 +32,19 @@ def list_companies(request):
     if not companies:
         companies = Company.objects.filter(active=True).order_by('name').select_related('contact')
         cache.set('companies', companies)
+    forms = [CompanyForm]
     return render(request, 'company/base.html',
-                             {'companies': companies,
-                              'user_companies': user_companies})
+                  {'companies': companies,
+                   'user_companies': user_companies,
+                   'forms': forms})
+
 
 @permission_required('company.change_company')
 def inactive(request):
     companies = Company.objects.filter(active=False).order_by('name')
     return render(request, 'company/base.html',
-            {'companies': companies})
+                  {'companies': companies})
+
 
 @permission_required('company.change_company')
 def view(request, id):
@@ -50,8 +54,8 @@ def view(request, id):
     return render(request, 'company/view.html', {
         'company': company,
         'evaluation': evaluation,
-        'forms': forms
-        })
+        'forms': forms})
+
 
 @permission_required('company.change_company')
 def edit(request, id=False):
@@ -70,9 +74,8 @@ def edit(request, id=False):
             form = CompanyForm(request.POST, request.FILES)
         if form.is_valid():
             company = form.save()
-            #add_message(request, _('%s was saved') % company.name, 'success')
-
-            return redirect(reverse('itdagene.app.company.views.view', args=[company.pk]))
+            request.session['message'] = {'class': 'success', 'value': _('%s was saved.') % company.name}
+            #return redirect(reverse('itdagene.app.company.views.view', args=[company.pk]))
     return render(request, 'company/form.html',
                              {'company': company,
                               'form': form,
