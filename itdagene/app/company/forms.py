@@ -11,7 +11,7 @@ class PackageForm(ModelForm):
 
 
 class CompanyForm(ModelForm):
-    title = _('Add company')
+    form_title = _('Add company')
     keyword = 'company'
 
     class Meta:
@@ -57,7 +57,7 @@ class CommentForm(ModelForm):
 
 
 class CompanyContactForm(ModelForm):
-    title = _('ADD CONTACT')
+    form_title = _('ADD CONTACT')
     keyword = 'company_contact'
 
     class Meta:
@@ -66,7 +66,7 @@ class CompanyContactForm(ModelForm):
 
 
 class ContractForm(ModelForm):
-    title = _('ADD CONTRACT')
+    form_title = _('ADD CONTRACT')
     keyword = 'contract'
 
     class Meta:

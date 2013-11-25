@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class JoblistingForm (ModelForm):
-    title = _('Add joblisting')
+    form_title = _('Add joblisting')
     keyword = 'joblisting'
 
     def __init__(self, *args, **kwargs):
