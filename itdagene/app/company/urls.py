@@ -1,10 +1,10 @@
-from django.conf.urls.defaults import url, patterns
+from django.conf.urls import url, patterns
 
 urlpatterns = patterns('itdagene.app.company.views',
             url(r'^companies/$', 'list_companies', name='companies'),
             url(r'^companies/inactive/$', 'inactive'),
             url(r'^companies/hsp/$', 'hsp'),
-            url(r'^companies/add/$', 'edit'),
+            url(r'^companies/add/$', 'edit', name='edit_company'),
             url(r'^companies/(?P<id>\d+)/$', 'view', name='view_company'),
             url(r'^companies/(?P<id>\d+)/edit$', 'edit'),
             url(r'^companies/(?P<id>\d+)/activate$', 'activate'),

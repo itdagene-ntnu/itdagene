@@ -33,7 +33,7 @@ def list_companies(request):
     if not companies:
         companies = Company.objects.filter(active=True).order_by('name').select_related('contact')
         cache.set('companies', companies)
-    forms = [CompanyForm]
+    forms = [CompanyForm()]
     return render(request, 'company/base.html',
                   {'companies': companies,
                    'user_companies': user_companies,
@@ -51,7 +51,7 @@ def inactive(request):
 def view(request, id):
     company = get_object_or_404(Company.objects.select_related(), pk=id)
     evaluation = EvaluationHash.objects.get_or_create(company=company, preference=Preference.current_preference())[0]
-    forms = [ContractForm(), CompanyContactForm(), JoblistingForm()]
+    forms = [ContractForm(instance=company), CompanyContactForm(instance=company), JoblistingForm(instance=company)]
     return render(request, 'company/view.html', {
         'company': company,
         'evaluation': evaluation,
@@ -64,10 +64,12 @@ def edit(request, id=False):
         form_title = _(' company')
         company = get_object_or_404(Company, pk=id)
         form = CompanyForm(instance=company)
+        print('has id')
     else:
         form_title = _('Add company')
         form = CompanyForm()
         company = None
+        print('does not have id')
     if request.method == 'POST':
         if id:
             form = CompanyForm(request.POST, request.FILES, instance=company)
@@ -76,7 +78,8 @@ def edit(request, id=False):
         if form.is_valid():
             company = form.save()
             request.session['message'] = {'class': 'success', 'value': _('%s was saved.') % company.name}
-            #return redirect(reverse('itdagene.app.company.views.view', args=[company.pk]))
+            print('is valid')
+            return redirect(reverse('itdagene.app.company.views.view', args=[company.pk]))
     return render(request, 'company/form.html',
                              {'company': company,
                               'form': form,

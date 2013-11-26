@@ -13,6 +13,7 @@ class PackageForm(ModelForm):
 class CompanyForm(ModelForm):
     form_title = _('Add company')
     keyword = 'company'
+    action_url = '/bdb/companies/add/'
 
     class Meta:
         model = Company
@@ -59,15 +60,21 @@ class CommentForm(ModelForm):
 class CompanyContactForm(ModelForm):
     form_title = _('ADD CONTACT')
     keyword = 'company_contact'
+    action_url = ''
 
     class Meta:
         model = CompanyContact
         exclude = ('company')
 
+    def __init__(self, *args, **kwargs):
+        super(CompanyContactForm, self).__init__(*args, **kwargs)
+        self.url = '/bdb/contacts/' + str(self.instance.pk) + '/add/'
+
 
 class ContractForm(ModelForm):
     form_title = _('ADD CONTRACT')
     keyword = 'contract'
+    action_url = ''
 
     class Meta:
         model = Contract
@@ -75,4 +82,5 @@ class ContractForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ContractForm, self).__init__(*args, **kwargs)
+        self.url = '/bdb/contracts/' + str(self.instance.pk) + '/add/'
         self.fields['timestamp'].widget.attrs['placeholder'] = 'YYYY-MM-DD HH:MM'
