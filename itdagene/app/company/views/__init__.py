@@ -64,12 +64,10 @@ def edit(request, id=False):
         form_title = _(' company')
         company = get_object_or_404(Company, pk=id)
         form = CompanyForm(instance=company)
-        print('has id')
     else:
         form_title = _('Add company')
         form = CompanyForm()
         company = None
-        print('does not have id')
     if request.method == 'POST':
         if id:
             form = CompanyForm(request.POST, request.FILES, instance=company)
@@ -78,15 +76,15 @@ def edit(request, id=False):
         if form.is_valid():
             company = form.save()
             request.session['message'] = {'class': 'success', 'value': _('%s was saved.') % company.name}
-            print('is valid')
-            return redirect(reverse('itdagene.app.company.views.view', args=[company.pk]))
+            return redirect(reverse('itdagene.app.company.views.list_companies'))
     return render(request, 'company/form.html',
-                             {'company': company,
-                              'form': form,
-                              'form_title': form_title})
+                  {'company': company,
+                   'form': form,
+                   'form_title': form_title})
+
 
 @permission_required('company.change_company')
-def activate (request, id):
+def activate(request, id):
     company = get_object_or_404(Company, pk=id)
     company.active = True
     company.save()

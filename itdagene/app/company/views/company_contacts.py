@@ -1,12 +1,13 @@
 from datetime import datetime
 from django.http import Http404, HttpResponse
-from itdagene.app.company.forms import CommentForm, CompanyContactForm
-from itdagene.app.company.models import Comment, CompanyContact, Company
+from itdagene.app.company.forms import CompanyContactForm
+from itdagene.app.company.models import CompanyContact, Company
 from django.shortcuts import redirect, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import permission_required
 from itdagene.core.profiles import _vcard_string
 from django.shortcuts import render
+from django.utils.translation import ugettext_lazy as _
 
 
 @permission_required('company.change_companycontact')
@@ -25,6 +26,7 @@ def edit_contact(request, company_id=None, contact_id=None):
         form = CompanyContactForm(request.POST, instance=contact)
         if form.is_valid():
             contact = form.save()
+            request.session['message'] = {'class': 'success', 'value': _('%s was added as contact') % contact.first_name + contact.last_name}
             return redirect(reverse('view_company', args=[contact.company.pk]))
 
     return render(request, 'company/contacts/edit.html', {'form': form, 'contact_id': contact_id})
