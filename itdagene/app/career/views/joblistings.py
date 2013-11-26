@@ -19,7 +19,7 @@ def list_joblistings (request):
     if request.user.is_authenticated():
         joblistings = list(Joblisting.objects.filter(deadline__gt=datetime.now()).order_by('company','deadline'))
         joblistings += list(Joblisting.objects.filter(deadline=None).select_related('company').order_by('deadline','company'))
-        return render(request,'career/joblistings/internal_list.html',{'joblistings':joblistings})
+        return render(request, 'career/joblistings/internal_list.html',{'joblistings':joblistings})
     else:
         joblistings = cache.get('joblistings')
         if not joblistings:
@@ -41,15 +41,15 @@ def list_joblistings (request):
         return render(request,'career/joblistings/list.html',{'joblistings':joblistings, 'towns': towns})
 
 @permission_required('career.change_joblisting')
-def edit (request, id=None, company_id=None):
+def edit(request, id=None, company_id=None):
     if id:
         joblisting = get_object_or_404(Joblisting, pk=id)
     else:
-        company =  get_object_or_404(Company, pk=company_id)
+        company = get_object_or_404(Company, pk=company_id)
         joblisting = Joblisting(company=company)
     form = JoblistingForm(instance=joblisting)
     if request.method == 'POST':
-        form = JoblistingForm(request.POST, request.FILES,instance=joblisting)
+        form = JoblistingForm(request.POST, request.FILES, instance=joblisting)
         if form.is_valid():
             form.save()
             return redirect(reverse('itdagene.app.career.views.joblistings.view_joblisting', args=[joblisting.pk]))
@@ -59,7 +59,7 @@ def edit (request, id=None, company_id=None):
 
 
 @permission_required('career.change_joblisting')
-def deactivate (request, id):
+def deactivate(request, id):
     joblisting = get_object_or_404(Joblisting, pk=id)
     joblisting.deadline = datetime(2010,8,17)
     joblisting.save()

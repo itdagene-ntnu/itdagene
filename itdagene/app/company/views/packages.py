@@ -10,8 +10,10 @@ from django.shortcuts import render
 @permission_required('company.change_package')
 def list(request):
     packages = Package.objects.all()
+    forms = [PackageForm()]
     return render(request, 'company/packages/base.html',
-                  {'packages': packages})
+                  {'packages': packages,
+                   'forms': forms})
 
 
 @permission_required('company.change_package')
@@ -38,7 +40,7 @@ def edit(request, id=False):
             form = PackageForm(request.POST)
         if form.is_valid():
             package = form.save()
-            redirect(reverse('itdagene.app.company.views.packages.view', args=[package.pk]))
+            return redirect(reverse('itdagene.app.company.views.packages.list'))
     return render(request, 'company/packages/form.html',
                              {'package': package,
                               'form': form,

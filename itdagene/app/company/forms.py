@@ -5,6 +5,9 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class PackageForm(ModelForm):
+    form_title = _('Add package')
+    keyword = 'package'
+    action_url = '/bdb/packages/add'
     class Meta:
         model = Package
         exclude = ('is_full')
@@ -21,6 +24,9 @@ class CompanyForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(CompanyForm, self).__init__(*args, **kwargs)
+        for _, field in self.fields.items():
+            if field.widget.is_required:
+                field.widget.attrs['required'] = 'required'
         users = User.objects.filter(is_active=True, profile__type='b').order_by('first_name')
         self.fields['contact'].choices = [('', '----')] + [(user.pk, user.get_full_name()) for user in users]
         waiting_lists = Package.objects.filter(is_full=True, has_waiting_list=True)
@@ -34,6 +40,9 @@ class BookCompanyForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(BookCompanyForm, self).__init__(*args, **kwargs)
+        for _, field in self.fields.items():
+            if field.widget.is_required:
+                field.widget.attrs['required'] = 'required'
         packages = Package.objects.filter(is_full=False)
         self.fields['package'].queryset = packages
         waiting_lists = Package.objects.filter(is_full=True, has_waiting_list=True)
@@ -68,6 +77,9 @@ class CompanyContactForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(CompanyContactForm, self).__init__(*args, **kwargs)
+        for _, field in self.fields.items():
+            if field.widget.is_required:
+                field.widget.attrs['required'] = 'required'
         self.url = '/bdb/contacts/' + str(self.instance.pk) + '/add/'
 
 
@@ -82,5 +94,8 @@ class ContractForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ContractForm, self).__init__(*args, **kwargs)
+        for _, field in self.fields.items():
+            if field.widget.is_required:
+                field.widget.attrs['required'] = 'required'
         self.url = '/bdb/contracts/' + str(self.instance.pk) + '/add/'
-        self.fields['timestamp'].widget.attrs['placeholder'] = 'YYYY-MM-DD HH:MM'
+        self.fields['timestamp'].widget.attrs['placeholder'] = 'YYYY-MM-DD'

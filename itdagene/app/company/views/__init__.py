@@ -90,16 +90,18 @@ def activate(request, id):
     company.save()
     cache.delete('companies')
     #add_message(request, _('%s was activated') % company.name, 'success')
-    return redirect(reverse('itdagene.app.company.views.view',args=[company.pk]))
+    return redirect(reverse('itdagene.app.company.views.view', args=[company.pk]))
+
 
 @permission_required('company.change_company')
-def deactivate (request, id):
+def deactivate(request, id):
     company = get_object_or_404(Company, pk=id)
     company.active = False
     company.save()
     cache.delete('companies')
     #add_message(request, _('%s was deactivated') % company.name, 'success')
-    return redirect(reverse('itdagene.app.company.views.view',args=[company.pk]))
+    return redirect(reverse('itdagene.app.company.views.view', args=[company.pk]))
+
 
 @permission_required('company.change_company')
 def set_responsibilities(request):
@@ -114,7 +116,7 @@ def set_responsibilities(request):
                 cache.delete('companiesforuser' + str(u.pk))
             return redirect(reverse('itdagene.app.company.views.list_companies'))
     return render(request, 'company/set_responsibilities.html',
-            {'formset': formset})
+                  {'formset': formset})
 
 
 @permission_required('company.change_company')
