@@ -36,3 +36,7 @@ def datetime(value, arg=None):
 def boolean(value, arg=None):
     if value: return mark_safe('<span class="glyphicon glyphicon-ok" alt="%s"' % _('Yes'))
     return mark_safe('<span class="glyphicon glyphicon-remove" alt="%s"' % _('No'))
+
+@register.filter
+def divideBy(value, arg=1):
+    return value[0]/arg
