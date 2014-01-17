@@ -9,11 +9,11 @@ from django.core.urlresolvers import reverse
 from django.core.cache import cache
 
 
-
 def view_joblisting (request, id):
     joblisting = get_object_or_404(Joblisting, pk=id)
-    return render(request,'career/joblistings/view.html',
-                             {'joblisting':joblisting})
+    return render(request, 'career/joblistings/view.html',
+                  {'joblisting': joblisting})
+
 
 def list_joblistings (request):
     if request.user.is_authenticated():
@@ -39,6 +39,7 @@ def list_joblistings (request):
             cache.set('townsinuse', towns)
 
         return render(request,'career/joblistings/list.html',{'joblistings':joblistings, 'towns': towns})
+
 
 @permission_required('career.change_joblisting')
 def edit(request, id=None, company_id=None):
