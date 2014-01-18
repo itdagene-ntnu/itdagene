@@ -53,7 +53,7 @@ urlpatterns += patterns('',
     url(r'^accounts/logout/$', 'django.contrib.auth.views.logout'),
     url(r'^accounts/profile/$', lambda r: HttpResponsePermanentRedirect('/profiles/me')),
     url(r'^login/$', 'django.contrib.auth.views.login'),
-    url(r'^logout/$', 'django.contrib.auth.views.logout'),
+    url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
     url(r'^profile/$', lambda r: HttpResponsePermanentRedirect('/profiles/me')),
     url(r'^accounts/$', lambda r: HttpResponsePermanentRedirect('/profiles/me')),
 
