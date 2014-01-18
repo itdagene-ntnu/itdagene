@@ -1,18 +1,21 @@
 {% load i18n %}
 <ul>
-{#    <li><a href="{% url app.company.views.edit %}">{% trans "ADD COMPANY" %}</a></li>#}
-        {% if company %}
-            <li><a href="{% url app.company.views.view company.pk %}">{% trans "VIEW COMPANY" %}</a></li>
-            <li><a href="{% url app.company.views.edit company.pk %}">{% trans "EDIT COMPANY" %}</a></li>
-            <li><a href="{% url app.company.views.log_company company.pk %}">{% trans "LOG" %}</a></li>
-            <li><a href="{% url add_company_contact company.pk %}">{% trans "ADD CONTACT" %}</a></li>
-{#            <li><a href="{% url add_contract company.pk %}">{% trans "ADD CONTRACT" %}</a></li>#}
-            {% if company.active %}
-                <li><a href="{% url app.company.views.deactivate company.pk %}">{% trans "DEACTIVATE" %}</a></li>
-            {% else %}
-                <li><a href="{% url app.company.views.activate company.pk %}">{% trans "ACTIVATE" %}</a></li>
-            {% endif %}
+    {#    <li><a href="{% url app.company.views.edit %}">{% trans "ADD COMPANY" %}</a></li>#}
+    {% if company %}
+        <li><a href="{% url app.company.views.view company.pk %}">{% trans "VIEW COMPANY" %}</a></li>
+        <li><a href="{% url app.company.views.edit company.pk %}">{% trans "EDIT COMPANY" %}</a></li>
+        <li><a href="{% url app.company.views.log_company company.pk %}">{% trans "LOG" %}</a></li>
+        <li><a href="{% url add_company_contact company.pk %}">{% trans "ADD CONTACT" %}</a></li>
+        {#            <li><a href="{% url add_contract company.pk %}">{% trans "ADD CONTRACT" %}</a></li>#}
+        {% if company.active %}
+            <li><a href="{% url app.company.views.deactivate company.pk %}">{% trans "DEACTIVATE" %}</a></li>
+        {% else %}
+            <li><a href="{% url app.company.views.activate company.pk %}">{% trans "ACTIVATE" %}</a></li>
         {% endif %}
-        <li><a href="{% url app.company.views.set_responsibilities %}">{% trans "SET RESPONSIBILITIES" %}</a></li>
-        <li><a href="{% url view_competition %}">{% trans "COMPETITION" %}</a></li>
+    {% endif %}
+    {% if perms.company.change_company %}
+        <li><a href="{% url economic_overview %}">ECONOMIC OVERVIEW</a></li>
+    {% endif %}
+    <li><a href="{% url app.company.views.set_responsibilities %}">{% trans "SET RESPONSIBILITIES" %}</a></li>
+    <li><a href="{% url view_competition %}">{% trans "COMPETITION" %}</a></li>
 </ul>
