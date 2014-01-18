@@ -26,7 +26,7 @@
     <aside id="wrapper-sidebar">
         <nav class="sidebar-nav">
             {% if request.user.is_authenticated %}
-                <a href="/"><img src="/static/img/itdagene_logo.png" title="itDAGENE" style="margin-bottom: 10px;"/></a>
+                <a href="/"><img src="/static/img/itdagene_logo.png" title="itDAGENE" width=245 height=55 style="margin-bottom: 10px;"/></a>
                 <ul class="nav nav-pills nav-stacked" id="sidebar-nav">
                     <li {% active request 'fp' %}>
                         <a href="{% url frontpage %}"><span class="glyphicon glyphicon-home"></span>&nbsp;{% trans "Home" %}</a>
