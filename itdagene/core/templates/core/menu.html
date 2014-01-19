@@ -1,5 +1,5 @@
 {% load menu %}
 
 {% for item in menu %}
-    <a href="{{ item.url }}" {% active request item.url %}>{{ item.title }}</a>
+    <li {% active request item.url %}><a href="{{ item.url }}">{{ item.title }}</a></li>
 {% endfor %}

@@ -4,18 +4,21 @@
 <html>
 <head>
     <title>itDAGENE</title>
-    <link href="/static/reset.css" rel="stylesheet">
+    {#    <link href="/static/reset.css" rel="stylesheet">#}
     <!--<script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>-->
-    <link href='http://fonts.googleapis.com/css?family=Jockey+One|Open+Sans:400,300,700,600' rel='stylesheet'
-          type='text/css'>
+    {#    <link href='http://fonts.googleapis.com/css?family=Jockey+One|Open+Sans:400,300,700,600' rel='stylesheet'#}
+    {# type='text/css'>#}
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="/static/img/icon.png">
     <link rel="apple-touch-icon" href="/static/img/icon.png">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js" type="text/javascript"></script>
+    <script src="//code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript"
             charset="utf-8"></script>
+    <link href="/static/css/bootstrap.min.css" media="screen" rel="stylesheet">
+    <script src="/static/js/bootstrap.min.js"></script>
     <script src="/static/js/frontpage.js" type="text/javascript"></script>
     <script src="/static/js/tweets.js" type="text/javascript"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css"
           href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">
 
@@ -24,34 +27,36 @@
     {% block include %}{% endblock %}
 </head>
 <body>
-<div class="background"></div>
 <header>
-    <a href="/"><img src="/static/img/itdagene_logo.png" width=245 height=55 title="itDAGENE"/></a>
-    <nav>
-        {% menu request %}
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"><img src="/static/img/itdagene_logo.png" width="173" height="41" title="itDAGENE"/></a>
+        </div>
+        <div class="collapse navbar-collapse" id="nav-collapse">
+            <ul class="nav navbar-nav">
+                {% menu request %}
+            </ul>
+        </div>
     </nav>
 </header>
+
+
 <section>
     {% if request.user.is_authenticated %}<nav>{% block submenu %}{% endblock %}</nav>{% endif %}
     {% if slider %}
-    <article id="slider" class="block">
-        {% block slider %}
-        {% endblock %}
-        <hr/>
-    </article>
+        <article id="slider" class="block">
+            {% block slider %}
+            {% endblock %}
+            <hr/>
+        </article>
     {% endif %}
 
-    <aside id="partners" class="block">
-        {% if pref %}
-{#            {% cache 10000 preference_block %}#}
-            <h1><span class="s1-4">{{ pref.start_date|date:"d" }}.</span> og <span class="s1-4">{{ pref.end_date|date:"d" }}.</span> {{ pref.start_date|date:"M" }} {{ pref.year }}</h1>
-{#            {% endcache %}#}
-        <br>
-        {% endif %}
-        <h2>Hovedsamarbeidspartner</h2>
-        <a href="http://www.steria.com/no/"><img src="/static/img/hsp.png" class="hsp-logo"/></a>
-            </aside>
-       
     <article id="main" class="block">
         {% if error_message %}<div id="message" class="error">{{ error_message }}</div>{% endif %}
         {% if info_message %}<div id="message" class="info">{{ info_message }}</div>{% endif %}
@@ -61,30 +66,41 @@
         <hr/>
     </article>
 
-    <article id="date">
-{#        {% cache 10000 preference_block %}#}
+    <aside id="partners" class="block">
+        {% if pref %}
+            {#            {% cache 10000 preference_block %}#}
             <h1><span class="s1-4">{{ pref.start_date|date:"d" }}.</span> og <span class="s1-4">{{ pref.end_date|date:"d" }}.</span> {{ pref.start_date|date:"M" }} {{ pref.year }}</h1>
-{#        {% endcache %}#}
+            {#            {% endcache %}#}
+            <br>
+        {% endif %}
+        <h2>Hovedsamarbeidspartner</h2>
+        <a href="http://www.steria.com/no/"><img src="/static/img/hsp.png" class="hsp-logo"/></a>
+    </aside>
+
+    <article id="date">
+        {#        {% cache 10000 preference_block %}#}
+        <h1><span class="s1-4">{{ pref.start_date|date:"d" }}.</span> og <span class="s1-4">{{ pref.end_date|date:"d" }}.</span> {{ pref.start_date|date:"M" }} {{ pref.year }}</h1>
+        {#        {% endcache %}#}
     </article>
 
 
-        <aside id="sp" class="block">
-            <h3>Samarbeidspartnere</h3>
+    <aside id="sp" class="block">
+        <h3>Samarbeidspartnere</h3>
 
-            {% thumbnail "http://itdagene.no/static/img/sp/acando.png" "150" as im %}
-                <div><a href="http://www.acando.no/"><img src="{{ im.url }}" style="width:{{ im.width }}px;"class="sp-logo"></a></div>
-            {% endthumbnail %}
-            {% thumbnail "http://itdagene.no/static/img/sp/computas.png" "150" as im %}
-                <div><a href="http://www.computas.com/no/"><img src="{{ im.url }}" style="width:{{ im.width }}px;"class="sp-logo"></a></div>
-            {% endthumbnail %}
-                <div><a href="http://www.inmeta.no"><img src="http://itdagene.no/static/img/sp/ic.png" class="sp-logo"></a></div>
-            {% thumbnail "http://itdagene.no/static/img/sp/itverket.png" "150" as im %}
-                <div><a href="http://www.itverket.no/"><img src="{{ im.url }}" style="width:{{ im.width }}px;"class="sp-logo"></a></div>
-            {% endthumbnail %}
-                <div><a href="http://www.telenor.no/privat/"><img src="http://itdagene.no/static/img/sp/telenor.png" class="sp-logo"></a></div>
-            {% thumbnail "http://itdagene.no/static/img/sp/tieto.png" "100" as im %}
-                <div><a href="http://www.tieto.no/"><img src="{{ im.url }}" style="width:{{ im.width }}px;"class="sp-logo"></a></div>
-            {% endthumbnail %}
+        {% thumbnail "http://itdagene.no/static/img/sp/acando.png" "150" as im %}
+            <div><a href="http://www.acando.no/"><img src="{{ im.url }}" style="width:{{ im.width }}px;"class="sp-logo"></a></div>
+        {% endthumbnail %}
+        {% thumbnail "http://itdagene.no/static/img/sp/computas.png" "150" as im %}
+            <div><a href="http://www.computas.com/no/"><img src="{{ im.url }}" style="width:{{ im.width }}px;"class="sp-logo"></a></div>
+        {% endthumbnail %}
+        <div><a href="http://www.inmeta.no"><img src="http://itdagene.no/static/img/sp/ic.png" class="sp-logo"></a></div>
+        {% thumbnail "http://itdagene.no/static/img/sp/itverket.png" "150" as im %}
+            <div><a href="http://www.itverket.no/"><img src="{{ im.url }}" style="width:{{ im.width }}px;"class="sp-logo"></a></div>
+        {% endthumbnail %}
+        <div><a href="http://www.telenor.no/privat/"><img src="http://itdagene.no/static/img/sp/telenor.png" class="sp-logo"></a></div>
+        {% thumbnail "http://itdagene.no/static/img/sp/tieto.png" "100" as im %}
+            <div><a href="http://www.tieto.no/"><img src="{{ im.url }}" style="width:{{ im.width }}px;"class="sp-logo"></a></div>
+        {% endthumbnail %}
 
         <hr/>
     </aside>
@@ -94,7 +110,7 @@
             <h3>{% trans "Joblistings" %}</h3>
             <ul>
                 {% for joblisting in joblistings %}
-                <li><a href="{% url app.career.views.joblistings.view_joblisting joblisting.pk %}">{{ joblisting }}</a> {% trans "for" %} <strong>{{ joblisting.company }}</strong></li>
+                    <li><a href="{% url app.career.views.joblistings.view_joblisting joblisting.pk %}">{{ joblisting }}</a> {% trans "for" %} <strong>{{ joblisting.company }}</strong></li>
                 {% endfor %}
             </ul>
             <a href="{% url joblistings %}">{% trans "Show more joblistings" %}</a>
@@ -102,12 +118,12 @@
         </aside>
     {% endif %}
     {% if twitter %}
-    <aside id="social" class="block">
-        <h3>{% trans "itDAGENE on twitter" %}</h3>
-        <ul class="tweets">
-        </ul>
-        <hr/>
-    </aside>
+        <aside id="social" class="block">
+            <h3>{% trans "itDAGENE on twitter" %}</h3>
+            <ul class="tweets">
+            </ul>
+            <hr/>
+        </aside>
     {% endif %}
     <footer>
         <div id="partners2" class="block">
@@ -124,23 +140,23 @@
             {% thumbnail "http://itdagene.no/static/img/sp/computas.png" "150" as im %}
                 <div><a href="http://www.computas.com/no/"><img src="{{ im.url }}" style="width:{{ im.width }}px;"class="sp-logo"></a></div>
             {% endthumbnail %}
-                <div><a href="http://www.inmeta.no"><img src="http://itdagene.no/static/img/sp/ic.png" class="sp-logo"></a></div>
+            <div><a href="http://www.inmeta.no"><img src="http://itdagene.no/static/img/sp/ic.png" class="sp-logo"></a></div>
             {% thumbnail "http://itdagene.no/static/img/sp/itverket.png" "150" as im %}
                 <div><a href="http://www.itverket.no/"><img src="{{ im.url }}" style="width:{{ im.width }}px;"class="sp-logo"></a></div>
             {% endthumbnail %}
-                <div><a href="http://www.telenor.no/privat/"><img src="http://itdagene.no/static/img/sp/telenor.png" class="sp-logo"></a></div>
+            <div><a href="http://www.telenor.no/privat/"><img src="http://itdagene.no/static/img/sp/telenor.png" class="sp-logo"></a></div>
             {% thumbnail "http://itdagene.no/static/img/sp/tieto.png" "100" as im %}
                 <div><a href="http://www.tieto.no/"><img src="{{ im.url }}" style="width:{{ im.width }}px;"class="sp-logo"></a></div>
             {% endthumbnail %}
 
-        <hr/>
-    </div>
+            <hr/>
+        </div>
         <hr>
         <div class="adress">itDAGENE {% now "Y" %}, Sem Sælands vei 7-9, 7491 TRONDHEIM, bedrift@itdagene.no, org.nr: 997 540 433</div>
     </footer>
 </section>
 {% if twitter %}
-<script src="https://api.twitter.com/1/statuses/user_timeline/itdagene.json?callback=twitterCallback2&count=6" type="text/javascript"></script>
+    <script src="https://api.twitter.com/1/statuses/user_timeline/itdagene.json?callback=twitterCallback2&count=6" type="text/javascript"></script>
 {% endif %}
 </body>
 </html>
