@@ -2,7 +2,7 @@
 {% load i18n %}
 {% block content %}
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-9">
             <h1>{% trans "Meetings" %}</h1>
             <form action="{% url itdagene.app.meetings.views.search %}">
                 {% for field in search_form %}
@@ -18,7 +18,7 @@
                 </ul>
             {% endfor %}
         </div>
-        <div class="col-md4">
+        <div class="col-md-3">
             {% if penalty_lists %}
                 {% for penalties in penalty_lists %}
                     {% if penalties.beer or penalties.wine %}
