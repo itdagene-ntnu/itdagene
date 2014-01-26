@@ -20,3 +20,4 @@ build/*
 itdagene/files/uploads/
 venv/
 itdagene/settings/local.py
+src/

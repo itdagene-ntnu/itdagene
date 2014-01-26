@@ -1,8 +1,5 @@
 {% extends "company/base.html" %}
-{% load i18n %}
-{% load markup %}
-{% load filters %}
-{% block include %}<script src="/static/js/display_hide.js"></script>{% endblock %}
+{% load i18n markup filters %}
 
 {% block content %}
     <h1>{{ package }}</h1>
@@ -13,7 +10,7 @@
     <h2>{% trans "Companies that has bought this package" %}</h2>
     <ul class="big-list">
         {% for company in package.companies.all %}
-            <li>{{ company }}</li>
+            <li><a href="{% url view_company company.pk %}">{{ company }}</a></li>
         {% endfor %}
     </ul>
     <h2>{% trans "Waiting list" %}</h2>

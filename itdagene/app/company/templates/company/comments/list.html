@@ -1,22 +1,23 @@
 {% load i18n thumbnail %}
 
-<div class="chat_messages">
-    <ul>
-        {% for comment in comments %}
-            <li>
-                <span>{{ comment.timestamp|timesince }}</span>
-                {% if comment.user.profile.photo %}
-                    <a href="#" class="avatar">
-                        {% thumbnail comment.user.profile.photo "40x40" crop="center" as im %}
-                            <img src="{{ im.url }}" style="width:{{ im.width }}px; height:{{ im.height }}px;">
-                        {% endthumbnail %}
-                    </a>
-                {% endif %}
-                <a href="#" class="username">{{ comment.user.profile }}</a>
+<ul class="list-unstyled">
+    {% for comment in comments %}
+        <li>
+            <div class="media">
+                <a class="pull-left" href="#">
+                    {% thumbnail comment.user.profile.photo "40x40" crop="center" as im %}
+                        <img src="{{ im.url }}" class="img-circle" style="width:{{ im.width }}px; height:{{ im.height }}px;">
+                    {% endthumbnail %}
+                </a>
+                <div class="media-body">
+                    <div class="media-heading">
+                        <strong><a href="#" class="username">{{ comment.user.profile }}</a></strong>&emsp;<small>{{ comment.timestamp|timesince }}</small>
+                    </div>
+                    <p>{{ comment.content }}</p>
+                </div>
+            </div>
+        </li>
+        <hr/>
+    {% endfor %}
 
-                <p>{{ comment.content }}</p>
-            </li>
-        {% endfor %}
-
-    </ul>
-</div>
+</ul>

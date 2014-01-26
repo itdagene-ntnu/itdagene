@@ -1,10 +1,10 @@
-from django.conf.urls.defaults import url, patterns
+from django.conf.urls import url, patterns
 
 urlpatterns = patterns('itdagene.app.company.views',
             url(r'^companies/$', 'list_companies', name='companies'),
             url(r'^companies/inactive/$', 'inactive'),
             url(r'^companies/hsp/$', 'hsp'),
-            url(r'^companies/add/$', 'edit'),
+            url(r'^companies/add/$', 'edit', name='edit_company'),
             url(r'^companies/(?P<id>\d+)/$', 'view', name='view_company'),
             url(r'^companies/(?P<id>\d+)/edit$', 'edit'),
             url(r'^companies/(?P<id>\d+)/activate$', 'activate'),
@@ -24,7 +24,7 @@ urlpatterns += patterns('itdagene.app.company.views.packages',
 
 urlpatterns += patterns('itdagene.app.company.views.comments',
             url(r'^comments/$', 'list_comments'),
-            url(r'^comment$', 'comment'),
+            url(r'^comment$', 'comment', name='add_comment'),
 )
 
 urlpatterns += patterns('itdagene.app.company.views.admin',
@@ -34,6 +34,7 @@ urlpatterns += patterns('itdagene.app.company.views.admin',
 urlpatterns += patterns('itdagene.app.company.views.company_contacts',
             url(r'^contacts/(?P<company_id>\d+)/add/$', 'edit_contact', name='add_company_contact'),
             url(r'^contacts/(?P<contact_id>\d+)/edit/$', 'edit_contact', name='edit_company_contact'),
+            url(r'^contacts/(?P<contact_id>\d+)/delete/', 'delete_contact', name='delete_company_contact'),
             url(r'^contacts/(?P<id>\d+)/vcard$', 'vcard'),
 )
 

@@ -1,10 +1,5 @@
 {% extends "company/base.html" %}
-{% load i18n %}
-{% load markup %}
-{% load core %}
-{% load company_comments %}
-{% load companies %}
-{% load todo %}
+{% load i18n markup core company_comments companies todo%}
 
 {% block include %}
     {% chosen "id_waiting_for_package" %}
@@ -12,84 +7,126 @@
 {% endblock %}
 
 {% block content %}
-    <aside>
+    {% comment %}<aside>
         {% todos_company company %}
         {% if company.contact == request.user %}
             {% todo_form_company company %}
         {% endif %}
-    </aside>
+    </aside>{% endcomment %}
+
     <h1>{{ company }}</h1>
+    <div class="row">
+        <dl class="dl-horizontal col-md-4">
+            <dt>{% trans "Status" %}</dt>
+            <dd>{{ company.get_status_display }}</dd>
+            {% if company.phone %}
+                <dt>{% trans "Phone number" %}</dt>
+                <dd>{{ company.phone }}</dd>
+            {% endif %}
+            {% if company.fax %}
+                <dt>{% trans "Fax" %}</dt>
+                <dd>{{ company.fax }}
+            {% endif %}
+            <dt>{% trans "Package" %}</dt>
+            {% if company.package %}
+                <dd>{{ company.package.name }}</dd>
+            {% else %}
+                <dd>{% trans "None" %}</dd>
+            {% endif %}
+            <dt>{% trans "Course" %}</dt>
+            <dd>{{ company.course }}</dd>
+            {% if company.contact %}
+                <dt>{% trans "itDAGENE contact" %}</dt>
+                <dd>{{ company.contact.profile }}</dd>
+            {% endif %}
+        </dl>
+        <div class="col-md-4">
+            {% if company.payment_address %}
+                <strong>{% trans "Payment address" %}:</strong><br/>
+                <address>
+                    {{ company.payment_address|linebreaksbr }}
+                </address>
+            {% endif %}
+            {% if evaluation %}
+                <a href="{% url evaluate evaluation.hash %}">{% trans "View evaluation form" %}</a>
+            {% endif %}
+        </div>
+    </div>
 
-    <strong>{% trans "Status" %}:</strong> {{ company.get_status_display }}<br/>
-    {% if company.phone %}<strong>{% trans "Phone number" %}:</strong> {{ company.phone }}<br/>{% endif %}
-    {% if company.fax %}<strong>{% trans "Fax" %}:</strong> {{ company.fax }}<br/>{% endif %}
-    <strong>{% trans "Package" %}:</strong> {% if company.package %}{{ company.package.name }}{% else %}{% trans "None" %}{% endif %}<br/>
-    <strong>{% trans "Course" %}:</strong> {{ company.course }}<br/>
-    {% if company.contact %}<strong>{% trans "itDAGENE contact" %}:</strong> {{ company.contact.profile }}<br/>{% endif %}
-    {% if company.payment_address %}<strong>{% trans "Payment address" %}:</strong><br/> {{ company.payment_address|linebreaksbr }}{% endif %}
-    {% if evaluation %}
-        <a href="{% url evaluate evaluation.hash %}">{% trans "View evaluation form" %}</a>
-    {% endif %}
-    <div style="clear: both"></div>
+    {% if not company.status == 3 %}{% book_form company %}{% endif %}<br/>
 
-
-
-    {% if not company.status == 3 %}{% book_form company %}{% endif %}
-    <div class="textbox half left">
-        <h2>{% trans "Contacts" %}<a href="{% url add_company_contact company.pk %}" class="add-button icon"></a></h2>
-
-        <div class="textbox_content chat_messages">
-            <div class="contacts">
-                {% for contact in company.company_contacts.all %}
-                    <div class="contact">
-                        <h4>{{ contact }}</h4>
-                        {% if contact.position %}<em>{{ contact.position }}</em><br/>{% endif %}
-                        {% if contact.phone %}<strong>{% trans "Phone" %}:</strong> {{ contact.phone }}<br/>{% endif %}
-                        {% if contact.mobile_phone %}<strong>{% trans "Mobile" %}:</strong> {{ contact.mobile_phone }}
-                            <br/>{% endif %}
-                        {% if contact.email %}<strong>{% trans "Email" %}:</strong> {{ contact.email }}
-                            <br/>{% endif %}
-                        <a class="smaller-text no-deco"
-                           href="{% url app.company.views.company_contacts.vcard contact.pk %}">{% trans "Download vcard-file" %}</a>
-                        <a class="smaller-text no-deco"
-                           href="{% url edit_company_contact contact.pk %}">{% trans "Edit" %}</a>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>{% trans "Contacts" %}<a href="#" data-toggle="modal" data-target="#company_contact-modal"><span class="glyphicon glyphicon-plus-sign"></span></a></h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        {% for contact in company.company_contacts.all %}
+                            <div class="col-md-6">
+                                <h4>{{ contact }}</h4>
+                                {% if contact.position %}<em>{{ contact.position }}</em><br/>{% endif %}
+                                {% if contact.phone %}<strong>{% trans "Phone" %}:</strong> {{ contact.phone }}<br/>{% endif %}
+                                {% if contact.mobile_phone %}<strong>{% trans "Mobile" %}:</strong> {{ contact.mobile_phone }}
+                                    <br/>{% endif %}
+                                {% if contact.email %}<strong>{% trans "Email" %}:</strong> {{ contact.email }}
+                                    <br/>{% endif %}
+                                <a href="{% url app.company.views.company_contacts.vcard contact.pk %}">{% trans "Download vcard-file" %}</a>
+                                <a href="{% url edit_company_contact contact.pk %}">{% trans "Edit" %}</a>
+                            </div>
+                        {% endfor %}
                     </div>
-
-                {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>{% trans "Joblistings" %}<a href="#" data-toggle="modal" data-target="#joblisting-modal"><span class="glyphicon glyphicon-plus-sign"></span></a></h4>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-hover">
+                        {% for joblisting in company.joblistings.all %}
+                            <tr>
+                                <td><a href="{% url view_joblisting joblisting.pk %}">{{ joblisting }}</a></td>
+                                <td>{{ joblisting.get_type_display }}</td>
+                                {% if joblisting.deadline %}
+                                    <td>{{ joblisting.deadline }}</td>
+                                {% else %}
+                                    <td>{% trans "No deadline" %}</td>
+                                {% endif %}
+                                <td><a href="{% url edit_joblisting joblisting.pk %}">{% trans "Edit" %}</a></td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>{% trans "Contracts" %}<a href="#" data-toggle="modal" data-target="#contract-modal"><span class="glyphicon glyphicon-plus-sign"></span></a></h4>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-hover">
+                        {% for contract in company.contracts.all %}
+                            <tr><td>{{ contract.timestamp }}</td>{% if contract.file %}<td><a href="{% url download_contract contract.company.pk contract.id %}">{% trans "Download file" %}</a></td>{% endif %}</tr>
+                        {% endfor %}
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-    <div class="textbox half right">
-        <h2>{% trans "Joblistings" %}<a href="{% url add_joblisting company.pk %}" class="add-button icon"></a></h2>
-        <div class="textbox_content">
-        <ul>
-        {% for joblisting in company.joblistings.all %}
-            <li>
-                <a href="{% url view_joblisting joblisting.pk %}">{{ joblisting }}</a>
-                <div class="list-item-meta">{{ joblisting.get_type_display }} -
-                {% if joblisting.deadline %}{{ joblisting.deadline }}{% else %}{% trans "No deadline" %}{% endif %} -
-                <a href="{% url edit_joblisting joblisting.pk %}">{% trans "Edit" %}</a></div></li>
-            {% endfor %}
-        </ul>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>{% trans "Comments" %}<a href="#" data-toggle="modal" data-target="#comment-modal"><span class="glyphicon glyphicon-plus-sign"></span></a></h4>
         </div>
-    </div>
-    <div class="textbox half right">
-        <h2>{% trans "Contracts" %}</h2>
 
-        <div class="textbox_content">
-            <table>
-                {% for contract in company.contracts.all %}
-                    <tr><td>{{ contract.timestamp }}</td>{% if contract.file %}<td><a href="{% url download_contract contract.company.pk contract.id %}">{% trans "Download file" %}</a></td>{% endif %}</tr>
-                {% endfor %}
-            </table>
-        </div>
-    </div>
-    <div class="textbox" style="clear: both;">
-        <h2>{% trans "Comments" %}</h2>
-
-        <div class="textbox_content chat_messages">
-            {% comment_form company %}
+        <div class="panel-body">
             {% comments company %}
         </div>
     </div>
+    {% comment_form company %}
+    {% include 'form.html' %}
 {% endblock %}

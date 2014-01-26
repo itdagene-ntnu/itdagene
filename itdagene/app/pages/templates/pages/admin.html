@@ -5,9 +5,15 @@
 
 {% block content %}
     <h1>{% trans "Pages admin" %}</h1>
-    <ul>
-    {% for page in pages %}
-        <li><a href="{% url app.pages.views.view_page page.slug %}">{{ page }}</a> <a href="{% url app.pages.views.edit page.slug %}">EDIT</a></li>
-    {% endfor %}
-    </ul>
+    <div class="row">
+        <div class="col-md-4">
+            <table class="table table-hover">
+                {% for page in pages %}
+                    <tr>
+                        <td><a href="{% url app.pages.views.view_page page.slug %}">{{ page }}</a></td><td><a href="{% url app.pages.views.edit page.slug %}">EDIT</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
 {% endblock %}

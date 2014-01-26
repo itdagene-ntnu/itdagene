@@ -8,7 +8,7 @@
     <div class="profile" id="{{ profile.pk }}">
     {% if profile.photo %}
         {% thumbnail profile.photo "100" as im %}
-            <img src="{{ im.url }}" style="width:{{ im.width }};" class="profile-photo">
+            <img src="{{ im.url }}" style="width:{{ im.width }};" class="img-circle">
         {% endthumbnail %}
     {% endif %}
     <h2>{{ profile }}</h2>

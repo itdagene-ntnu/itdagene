@@ -1,13 +1,12 @@
-{% load i18n %}
-<form action="{% url book_company form.instance.pk %}" method="post">
+{% load i18n widget_tweaks %}
+<form action="{% url book_company form.instance.pk %}" method="post" class="form-inline">
     {% csrf_token %}
     <h3>{% trans "Book the company" %}</h3>
     {% for field in form %}
-        <div class="block left">
-            {{ field.label_tag }}{{ field }}
+        <div class="form-group">
+            {{ field.label_tag }}{% render_field field class="form-control" %}
         </div>
     {% endfor %}
-    <div style="clear: both; float: none;"></div>
-    <input type="submit" value="{% trans "Save" %}">
+    <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
 
 </form>

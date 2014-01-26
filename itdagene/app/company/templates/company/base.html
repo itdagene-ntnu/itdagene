@@ -10,54 +10,81 @@
     <h1>{% trans "Companies" %}</h1>
     {% if user_companies %}
         <h3>{% trans "Your responsibility" %}</h3>
-        <ul class="details-list">
+        <div class="row">
             {% for company in user_companies %}
-                <li>
-                    <em>{% trans "Todo" %}: {{ company.unfinished_todos.count }}</em>
-                    <h4><a href="{% url app.company.views.view company.pk %}">{{ company }}</a></h4>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4><a href="{% url app.company.views.view company.pk %}">{{ company }}</a></h4>
+                        </div>
+                        <div class="panel-body">
+                            <em>{% trans "Todo" %}: {{ company.unfinished_todos.count }}</em>
 
-                    <div>
-                        <strong>{% trans "Status" %}:</strong> {{ company.get_status_display }}<br/>
+                            <div>
+                                <strong>{% trans "Status" %}:</strong> {{ company.get_status_display }}<br/>
 
-                        <div class="details">
-                            {% if company.package %}<strong>{% trans "Package" %}:</strong>
-                                {% if company.package.all %}{% for p in company.package.all %}{{ p.name }}
-                                    , {% endfor %}{% else %}{% trans "None" %}{% endif %}
-                                <br/>{% endif %}
-                            {% if company.phone %}<strong>{% trans "Phone number" %}:</strong> {{ company.phone }}
-                                <br/>{% endif %}
-                            {% if company.course %}<strong>{% trans "Course" %}:</strong> {{ company.course }}
-                                <br/>{% endif %}
-                            {% if company.company_contacts.count > 0 %}
-                                <strong>{% trans "Contacts" %}:</strong>{% endif %}
-                            <ul>
-                                {% for contact in company.company_contacts.all %}
-                                    <li>
-                                        {{ contact }}
-                                        {% if contact.phone %} - {{ contact.phone }}{% endif %}
-                                        {% if contact.email %}- {{ contact.email }}</li>{% endif %}
-                                {% endfor %}
-                            </ul>
+                                <div>
+                                    {% if company.package %}<strong>{% trans "Package" %}:</strong>
+                                        {% if company.package.all %}{% for p in company.package.all %}{{ p.name }}
+                                            , {% endfor %}{% else %}{% trans "None" %}{% endif %}
+                                        <br/>{% endif %}
+                                    {% if company.phone %}<strong>{% trans "Phone number" %}:</strong> {{ company.phone }}
+                                        <br/>{% endif %}
+                                    {% if company.course %}<strong>{% trans "Course" %}:</strong> {{ company.course }}
+                                        <br/>{% endif %}
+                                    {% if company.company_contacts.count > 0 %}
+                                        <strong>{% trans "Contacts" %}:</strong>{% endif %}
+                                    <ul class="list-unstyled">
+                                        {% for contact in company.company_contacts.all|slice:":2" %}
+                                            <li>
+                                                <div class="row">
+                                                    <div class="col-md-5">
+                                                        {{ contact }}
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        {% if contact.phone %}
+                                                            {{ contact.phone }}
+                                                        {% else %}
+                                                            -
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        {% if contact.email %}
+                                                            <a href="mailto:{{ contact.email }}"><span class="glyphicon glyphicon-envelope"></span></a>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </li>
+                </div>
             {% endfor %}
+<<<<<<< HEAD
         </ul>
         <h3>{% trans "Other companies" %}
+=======
+        </div>
+        <h3>{% trans "Other companies" %}</h3>
+>>>>>>> development
     {% endif %}
-    <div class="filters">
+    <div>
         <strong>{% trans "Status" %}:</strong>
-        <select name="status">
-            <option value="all" selected="selected">---</option>
+        <select id="status"">
+            <option value="all" selected="selected">All</option>
             <option value="0">{% trans "Not contacted" %}</option>
             <option value="4">{% trans "Contacted" %}</option>
             <option value="1">{% trans "Not interested" %}</option>
             <option value="2">{% trans "Interested" %}</option>
             <option value="3">{% trans "Signed" %}</option>
         </select>
+        <a href="#" data-toggle="modal" data-target="#company-modal" class="btn btn-primary">{% trans "Add company" %}</a>
     </div>
-    <table cellspacing="0" width="100%" class="filtered">
-        <tr>
+    <table class="filtered table table-hover company-table">
+        <tr class="active">
             <th>{% trans "Company" %}</th>
             <th>{% trans "Status" %}</th>
             <th>{% trans "Package" %}</th>
@@ -76,4 +103,5 @@
             </tr>
         {% endfor %}
     </table>
+    {% include 'form.html' %}
 {% endblock %}

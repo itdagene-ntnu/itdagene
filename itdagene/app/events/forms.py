@@ -12,6 +12,17 @@ class EventForm (ModelForm):
     class Meta:
         model = Event
 
+    def __init__(self, *args, **kwargs):
+        super(EventForm, self).__init__(*args, **kwargs)
+        for _, field in self.fields.items():
+            if field.widget.is_required:
+                field.widget.attrs['required'] = 'required'
+        self.fields['date'].widget.attrs['type'] = 'date'
+        self.fields['date'].widget.attrs.update({'type': 'date', 'placeholder': 'YYYY-MM-DD'})
+        self.fields['time_start'].widget.attrs.update({'placeholder': 'HH:MM'})
+        self.fields['time_end'].widget.attrs.update({'placeholder': 'HH:MM'})
+
+
 class EventTicketForm (ModelForm):
     class Meta:
         model = Ticket
