@@ -7,6 +7,7 @@ from django.http import HttpResponse, HttpResponsePermanentRedirect
 
 admin.autodiscover()
 
+from itdagene.app.twitter.views import TwitterView
 
 #Robots
 #urlpatterns = patterns('',
@@ -42,6 +43,7 @@ urlpatterns = patterns('',
     url(r'^forgot-password/$', 'itdagene.core.views.forgot_password', name='forgot_password'),
     url(r'^program/$', 'itdagene.app.events.views.public_event_list', name='program'),
     url(r'^evaluate/(?P<hash>[a-zA-Z0-9]+)/$', 'itdagene.app.feedback.views.evalutions.handle_evaluation', name='evaluate'),
+    url(r'^twitter/$', TwitterView.as_view()),
 )
 
 #urlpatterns += ('itdagene.app.company.views',

@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load menu core thumbnail cache %}
+{% load twitter_modules %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -101,14 +102,13 @@
             <hr/>
         </aside>
     {% endif %}
-    {% if twitter %}
+
     <aside id="social" class="block">
-        <h3>{% trans "itDAGENE on twitter" %}</h3>
-        <ul class="tweets">
-        </ul>
-        <hr/>
+        <h3><a href="https://twitter.com/itdagene-ntnu/">{% trans "itDAGENE on twitter" %}</a></h3>
+
+        {% twitter_feed %}
     </aside>
-    {% endif %}
+
     <footer>
         <div id="partners2" class="block">
             <h2>Hovedsamarbeidspartner</h2>
@@ -139,8 +139,5 @@
         <div class="adress">itDAGENE {% now "Y" %}, Sem Sælands vei 7-9, 7491 TRONDHEIM, bedrift@itdagene.no, org.nr: 997 540 433</div>
     </footer>
 </section>
-{% if twitter %}
-<script src="https://api.twitter.com/1/statuses/user_timeline/itdagene.json?callback=twitterCallback2&count=6" type="text/javascript"></script>
-{% endif %}
 </body>
 </html>
