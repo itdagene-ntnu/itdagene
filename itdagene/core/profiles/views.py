@@ -48,7 +48,7 @@ def edit_me(request):
     return redirect(reverse('itdagene.core.profiles.views.edit', args=[request.user.profile.pk]))
 
 @permission_required('profiles.change_profile')
-def edit (request, id):
+def edit(request, id):
     profile = get_object_or_404(Profile, pk=id)
     user = profile.user
     if profile.user.id != request.user.id and not request.user.profile.is_board_member():
@@ -113,7 +113,7 @@ def change_password(request):
 
 
 @permission_required('profiles.change_profile')
-def search (request):
+def search(request):
     search_form = ProfileSearchForm(request.GET)
     if search_form.is_valid():
         q = search_form.data['q']
