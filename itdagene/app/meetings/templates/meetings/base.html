@@ -1,37 +1,41 @@
 {% extends base_template %}
 {% load i18n %}
 {% block content %}
-    <aside>
-        {% if penalty_lists %}
-            {% for penalties in penalty_lists %}
-                {% if penalties.beer or penalties.wine %}
-                    <h3>{% trans "Penalties" %} - {{ penalties.year }}</h3>
-                    <strong>{{ penalties.beer }} {% trans "bottles of beer" %}</strong><br/>
-                    {% for user in penalties.beer_list_users %}
-                        {{ user.name }}: {{ user.number }}<br/>
+    <div class="row">
+        <div class="col-md-8">
+            <h1>{% trans "Meetings" %}</h1>
+            <form action="{% url itdagene.app.meetings.views.search %}">
+                {% for field in search_form %}
+                    <strong>{% trans "Search" %}</strong> {{ field }}
+                {% endfor %}
+            </form>
+            {% for year, meetings in meeting_lists %}
+                <h3>{{ year }}</h3>
+                <ul>
+                    {% for meeting in meetings %}
+                        <li><a href="{% url itdagene.app.meetings.views.meeting meeting.pk %}">{{ meeting.get_type_display }}:</a><strong> {% trans "Date" %}:</strong> {{ meeting.date }} <strong>{% trans "Starts" %}:</strong> {{ meeting.start_time }} <strong>{% trans "Ends" %}:</strong> {{ meeting.end_time }}</li>
                     {% endfor %}
-                    <strong>{{ penalties.wine }} {% trans "bottles of wine" %}</strong><br/>
-                    {% for user in penalties.wine_list_users %}
-                        {{ user.name }}: {{ user.number }}<br/>
-                    {% endfor %}
-                {% endif %}
+                </ul>
             {% endfor %}
-        {% endif %}
-    </aside>
-    <h1>{% trans "Meetings" %}</h1>
-    <form action="{% url itdagene.app.meetings.views.search %}">
-        {% for field in search_form %}
-            <strong>{% trans "Search" %}</strong> {{ field }}
-        {% endfor %}
-    </form>
-    {% for year, meetings in meeting_lists %}
-        <h3>{{ year }}</h3>
-        <ul>
-            {% for meeting in meetings %}
-                <li><a href="{% url itdagene.app.meetings.views.meeting meeting.pk %}">{{ meeting.get_type_display }}:</a><strong> {% trans "Date" %}:</strong> {{ meeting.date }} <strong>{% trans "Starts" %}:</strong> {{ meeting.start_time }} <strong>{% trans "Ends" %}:</strong> {{ meeting.end_time }}</li>
-            {% endfor %}
-        </ul>
-    {% endfor %}
+        </div>
+        <div class="col-md4">
+            {% if penalty_lists %}
+                {% for penalties in penalty_lists %}
+                    {% if penalties.beer or penalties.wine %}
+                        <h3>{% trans "Penalties" %} - {{ penalties.year }}</h3>
+                        <strong>{{ penalties.beer }} {% trans "bottles of beer" %}</strong><br/>
+                        {% for user in penalties.beer_list_users %}
+                            {{ user.name }}: {{ user.number }}<br/>
+                        {% endfor %}
+                        <strong>{{ penalties.wine }} {% trans "bottles of wine" %}</strong><br/>
+                        {% for user in penalties.wine_list_users %}
+                            {{ user.name }}: {{ user.number }}<br/>
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}
 
 {% block submenu %}
