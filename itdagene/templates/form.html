@@ -40,6 +40,8 @@
         </div><!-- /.modal -->
     {% endfor %}
 {% elif form %}
+    <div class="row">
+    <div class="col-md-9">
     <h1>{{ form_title }}</h1>
     <form method="post" enctype="multipart/form-data" class="form-horizontal col-md-6">
         {% csrf_token %}
@@ -62,4 +64,23 @@
             </p>
         </div>
     </form>
+    </div>
+    <div class="col-md-3">
+        <h3>{% trans "Markdown-help" %}</h3>
+        <ul>
+            <li>#{% trans "Header" %} 1</li>
+            <li>##{% trans "Header" %} 2</li>
+            <li>###{% trans "Header" %} 3</li>
+            <li>**{% trans "Bold" %}**</li>
+            <li>*{% trans "Italic" %}*</li>
+            <li>*&nbsp;&nbsp;&nbsp;&nbsp;{% trans "Unnumbered list" %}<br/>
+                *&nbsp;&nbsp;&nbsp;&nbsp;{% trans "Unnumbered list" %}
+            </li>
+            <li>1.&nbsp;&nbsp;&nbsp;&nbsp;{% trans "Numbered list" %}<br/>
+                2.&nbsp;&nbsp;&nbsp;&nbsp;{% trans "Numbered list" %}</li>
+            <li>{% trans "In both list-types it is important to have at least 4 spaces between the symbol and the text" %}</li>
+        </ul>
+        <a href="http://daringfireball.net/projects/markdown/syntax">{% trans "Read more at" %}</a>
+    </div>
+    </div>
 {% endif %}

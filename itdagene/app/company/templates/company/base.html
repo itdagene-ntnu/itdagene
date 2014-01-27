@@ -63,12 +63,13 @@
                     </div>
                 </div>
             {% endfor %}
+        </ul>
         </div>
         <h3>{% trans "Other companies" %}</h3>
     {% endif %}
     <div>
         <strong>{% trans "Status" %}:</strong>
-        <select id="status"">
+        <select id="status">
             <option value="all" selected="selected">All</option>
             <option value="0">{% trans "Not contacted" %}</option>
             <option value="4">{% trans "Contacted" %}</option>
