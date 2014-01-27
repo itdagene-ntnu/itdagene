@@ -18,6 +18,7 @@ from django.contrib.auth.models import User
 def list(request):
     meeting_lists = []
     penalty_lists = []
+    year_list = [pref.year for pref in Preference.objects.all().order_by('-year')]
     for pref in Preference.objects.all().order_by('-year'):
         meeting_lists.append((pref.year, Meeting.objects.filter(date__year=pref.year).order_by('-date')))
         penalty_lists.append(Penalties(pref.year))
@@ -26,7 +27,8 @@ def list(request):
     return render(request, 'meetings/base.html',
                              {'meeting_lists': meeting_lists,
                               'penalty_lists': penalty_lists,
-                              'search_form': search_form})
+                              'search_form': search_form,
+                              'year_list': year_list})
 
 @permission_required('meetings.change_meeting')
 def meeting (request, id):
