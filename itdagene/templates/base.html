@@ -4,16 +4,17 @@
 <html>
 <head>
     <title>itDAGENE</title>
-    <link href="/static/css/bootstrap.min.css" media="screen" rel="stylesheet">
-    <link href="https://code.jquery.com/ui/1.10.4/themes/flick/jquery-ui.css" media="screen" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <link href="/static/css/main.css" media="screen" rel="stylesheet">
     <link href="/static/icons.css" media="screen" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="/static/img/icon.png">
     <link rel="apple-touch-icon" href="/static/img/icon.png">
-    <script src="https://code.jquery.com/jquery.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-    <script src="/static/js/bootstrap.min.js"></script>
     {% analytics %}
     {% if request.user.profile.type == 'b' %}
         <link href="//cdnjs.cloudflare.com/ajax/libs/chosen/1.0/chosen.min.css" rel="stylesheet" />
