@@ -57,7 +57,7 @@ class Meeting(BaseModel):
         return att
 
     def attending_link(self):
-        return 'http://%s/meetings/%s/attend' % (settings.SITE_URL, str(self.pk))
+        return 'http://%s/meetings/%s/' % (settings.SITE_URL, str(self.pk))
 
     def not_attending_link(self):
         return 'http://%s/meetings/%s/not-attend' % (settings.SITE_URL, str(self.pk))
