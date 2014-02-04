@@ -1,7 +1,7 @@
 {% load i18n thumbnail %}
 
 <div class="chat_messages">
-    <h3>{% trans "Comments" %}</h3>
+    <h3>{% trans "Comments" %} <a href="#" data-toggle="modal" data-target="#comment-modal"><span class="glyphicon glyphicon-plus-sign"></span></a></h3>
     <ul>
         {% for comment in comments %}
             <li>

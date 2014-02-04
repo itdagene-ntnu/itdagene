@@ -1,6 +1,7 @@
 from datetime import datetime
 from django.conf import settings
 from django.contrib.auth.decorators import permission_required, login_required
+from django.utils.translation import ugettext_lazy as _
 from django.core.mail import send_mail
 from itdagene.app.comments.forms import CommentForm
 from django.http import HttpResponsePermanentRedirect
@@ -23,6 +24,10 @@ def add (request):
                       settings.FROM_ADDRESS,(instance.object.creator.email,))
 
             return HttpResponsePermanentRedirect(instance.object.get_absolute_url())
+        else:
+            print form.errors
+            request.session['message'] = {'class': 'danger', 'value': _('Could not post comment, error') + ': '}
+            return all(request)
 
 @permission_required('comments.add_comment')
 def all (request):
