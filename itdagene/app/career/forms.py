@@ -4,13 +4,13 @@ from itdagene.app.company.models import CompanyContact
 from django.utils.translation import ugettext_lazy as _
 
 
-class JoblistingForm (ModelForm):
+class JoblistingForm(ModelForm):
     form_title = _('Add joblisting')
     keyword = 'joblisting'
-    action_url = '/career/joblistings/add/'
+    action_url = 'careers/joblistings/add/'
 
     def __init__(self, *args, **kwargs):
-        super(JoblistingForm,self).__init__(*args, **kwargs)
+        super(JoblistingForm, self).__init__(*args, **kwargs)
         for _, field in self.fields.items():
             if field.widget.is_required:
                 field.widget.attrs['required'] = 'required'

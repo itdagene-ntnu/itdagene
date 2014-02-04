@@ -25,7 +25,7 @@ def edit_contact(request, company_id=None, contact_id=None):
         form = CompanyContactForm(request.POST, instance=contact)
         if form.is_valid():
             contact = form.save()
-            request.session['message'] = {'class': 'success', 'value': _('%s was added as contact') % contact.first_name + contact.last_name}
+            request.session['message'] = {'class': 'success', 'value': _('%s was added as contact') % (contact.first_name + ' ' + contact.last_name)}
             return redirect(reverse('view_company', args=[contact.company.pk]))
 
     return render(request, 'company/contacts/edit.html', {'form': form, 'contact_id': contact_id})
@@ -35,7 +35,7 @@ def edit_contact(request, company_id=None, contact_id=None):
 def delete_contact(request, contact_id=None):
     if contact_id:
         contact = CompanyContact.objects.get(pk=contact_id)
-        request.session['message'] = {'class': 'success', 'value': _('%s was deleted') % contact.first_name + contact.last_name}
+        request.session['message'] = {'class': 'success', 'value': _('%s was deleted') % (contact.first_name + ' ' + contact.last_name)}
         company_pk = contact.company.pk
         CompanyContact.objects.get(pk=contact_id).delete()
         return redirect(reverse('view_company', args=[company_pk]))

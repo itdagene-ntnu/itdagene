@@ -35,24 +35,24 @@
 <section>
     {% if request.user.is_authenticated %}<nav>{% block submenu %}{% endblock %}</nav>{% endif %}
     {% if slider %}
-    <article id="slider" class="block">
-        {% block slider %}
-        {% endblock %}
-        <hr/>
-    </article>
+        <article id="slider" class="block">
+            {% block slider %}
+            {% endblock %}
+            <hr/>
+        </article>
     {% endif %}
 
     <aside id="partners" class="block">
         {% if pref %}
-{#            {% cache 10000 preference_block %}#}
+            {#            {% cache 10000 preference_block %}#}
             <h1><span class="s1-4">{{ pref.start_date|date:"d" }}.</span> og <span class="s1-4">{{ pref.end_date|date:"d" }}.</span> {{ pref.start_date|date:"M" }} {{ pref.year }}</h1>
-{#            {% endcache %}#}
-        <br>
+            {#            {% endcache %}#}
+            <br>
         {% endif %}
         <h2>Hovedsamarbeidspartner</h2>
-        <a href="http://www.steria.com/no/"><img src="/static/img/hsp.png" class="hsp-logo"/></a>
-            </aside>
-       
+        <a href="http://www.accenture.com/no-en/"><img src="/static/img/hsp.png" class="hsp-logo"/></a>
+    </aside>
+
     <article id="main" class="block">
         {% if error_message %}<div id="message" class="error">{{ error_message }}</div>{% endif %}
         {% if info_message %}<div id="message" class="info">{{ info_message }}</div>{% endif %}
@@ -63,29 +63,29 @@
     </article>
 
     <article id="date">
-{#        {% cache 10000 preference_block %}#}
-            <h1><span class="s1-4">{{ pref.start_date|date:"d" }}.</span> og <span class="s1-4">{{ pref.end_date|date:"d" }}.</span> {{ pref.start_date|date:"M" }} {{ pref.year }}</h1>
-{#        {% endcache %}#}
+        {#        {% cache 10000 preference_block %}#}
+        <h1><span class="s1-4">{{ pref.start_date|date:"d" }}.</span> og <span class="s1-4">{{ pref.end_date|date:"d" }}.</span> {{ pref.start_date|date:"M" }} {{ pref.year }}</h1>
+        {#        {% endcache %}#}
     </article>
 
 
-        <aside id="sp" class="block">
-            <h3>Samarbeidspartnere</h3>
+    <aside id="sp" class="block">
+        <h3>Samarbeidspartnere</h3>
 
-            {% thumbnail "http://itdagene.no/static/img/sp/acando.png" "150" as im %}
-                <div><a href="http://www.acando.no/"><img src="{{ im.url }}" style="width:{{ im.width }}px;"class="sp-logo"></a></div>
-            {% endthumbnail %}
-            {% thumbnail "http://itdagene.no/static/img/sp/computas.png" "150" as im %}
-                <div><a href="http://www.computas.com/no/"><img src="{{ im.url }}" style="width:{{ im.width }}px;"class="sp-logo"></a></div>
-            {% endthumbnail %}
-                <div><a href="http://www.inmeta.no"><img src="http://itdagene.no/static/img/sp/ic.png" class="sp-logo"></a></div>
-            {% thumbnail "http://itdagene.no/static/img/sp/itverket.png" "150" as im %}
-                <div><a href="http://www.itverket.no/"><img src="{{ im.url }}" style="width:{{ im.width }}px;"class="sp-logo"></a></div>
-            {% endthumbnail %}
-                <div><a href="http://www.telenor.no/privat/"><img src="http://itdagene.no/static/img/sp/telenor.png" class="sp-logo"></a></div>
-            {% thumbnail "http://itdagene.no/static/img/sp/tieto.png" "100" as im %}
-                <div><a href="http://www.tieto.no/"><img src="{{ im.url }}" style="width:{{ im.width }}px;"class="sp-logo"></a></div>
-            {% endthumbnail %}
+        {% comment %}{% thumbnail "http://itdagene.no/static/img/sp/acando.png" "150" as im %}
+            <div><a href="http://www.acando.no/"><img src="{{ im.url }}" style="width:{{ im.width }}px;"class="sp-logo"></a></div>
+        {% endthumbnail %}
+        {% thumbnail "http://itdagene.no/static/img/sp/computas.png" "150" as im %}
+            <div><a href="http://www.computas.com/no/"><img src="{{ im.url }}" style="width:{{ im.width }}px;"class="sp-logo"></a></div>
+        {% endthumbnail %}
+        <div><a href="http://www.inmeta.no"><img src="http://itdagene.no/static/img/sp/ic.png" class="sp-logo"></a></div>
+        {% thumbnail "http://itdagene.no/static/img/sp/itverket.png" "150" as im %}
+            <div><a href="http://www.itverket.no/"><img src="{{ im.url }}" style="width:{{ im.width }}px;"class="sp-logo"></a></div>
+        {% endthumbnail %}
+        <div><a href="http://www.telenor.no/privat/"><img src="http://itdagene.no/static/img/sp/telenor.png" class="sp-logo"></a></div>
+        {% thumbnail "http://itdagene.no/static/img/sp/tieto.png" "100" as im %}
+            <div><a href="http://www.tieto.no/"><img src="{{ im.url }}" style="width:{{ im.width }}px;"class="sp-logo"></a></div>
+        {% endthumbnail %}{% endcomment %}
 
         <hr/>
     </aside>
@@ -95,7 +95,7 @@
             <h3>{% trans "Joblistings" %}</h3>
             <ul>
                 {% for joblisting in joblistings %}
-                <li><a href="{% url app.career.views.joblistings.view_joblisting joblisting.pk %}">{{ joblisting }}</a> {% trans "for" %} <strong>{{ joblisting.company }}</strong></li>
+                    <li><a href="{% url app.career.views.joblistings.view_joblisting joblisting.pk %}">{{ joblisting }}</a> {% trans "for" %} <strong>{{ joblisting.company }}</strong></li>
                 {% endfor %}
             </ul>
             <a href="{% url joblistings %}">{% trans "Show more joblistings" %}</a>
@@ -112,13 +112,13 @@
     <footer>
         <div id="partners2" class="block">
             <h2>Hovedsamarbeidspartner</h2>
-            <a href="http://www.steria.com/no/"><img src="/static/img/hsp.png" class="hsp-logo"/></a>
+            <a href="http://www.accenture.com/no-en/"><img src="/static/img/hsp.png" class="hsp-logo"/></a>
 
         </div>
         <div id="sp2" class="block">
             <h3>Samarbeidspartnere</h3>
 
-            {% thumbnail "http://itdagene.no/static/img/sp/acando.png" "150" as im %}
+            {% comment %}{% thumbnail "http://itdagene.no/static/img/sp/acando.png" "150" as im %}
                 <div><a href="http://www.acando.no/"><img src="{{ im.url }}" style="width:{{ im.width }}px;"class="sp-logo"></a></div>
             {% endthumbnail %}
             {% thumbnail "http://itdagene.no/static/img/sp/computas.png" "150" as im %}
@@ -131,10 +131,10 @@
                 <div><a href="http://www.telenor.no/privat/"><img src="http://itdagene.no/static/img/sp/telenor.png" class="sp-logo"></a></div>
             {% thumbnail "http://itdagene.no/static/img/sp/tieto.png" "100" as im %}
                 <div><a href="http://www.tieto.no/"><img src="{{ im.url }}" style="width:{{ im.width }}px;"class="sp-logo"></a></div>
-            {% endthumbnail %}
+            {% endthumbnail %}{% endcomment %}
 
-        <hr/>
-    </div>
+            <hr/>
+        </div>
         <hr>
         <div class="adress">itDAGENE {% now "Y" %}, Sem Sælands vei 7-9, 7491 TRONDHEIM, bedrift@itdagene.no, org.nr: 997 540 433</div>
     </footer>

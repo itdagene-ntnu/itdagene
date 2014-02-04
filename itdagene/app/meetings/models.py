@@ -5,6 +5,7 @@ from itdagene.core.log.models import LogItem
 from itdagene.core.models import BaseModel
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
+from django.core.urlresolvers import reverse
 
 MEETING_TYPES = (
     (0, _('Board meeting')),
@@ -57,11 +58,13 @@ class Meeting(BaseModel):
         return att
 
     def attending_link(self):
-        return 'http://%s/meetings/%s/attend' % (settings.SITE_URL, str(self.pk))
+        return 'http://%s/meetings/%s/' % (settings.SITE_URL, str(self.pk))
 
     def not_attending_link(self):
         return 'http://%s/meetings/%s/not-attend' % (settings.SITE_URL, str(self.pk))
 
+    def get_absolute_url(self):
+        return reverse('itdagene.app.meetings.views.meeting', args=(self.pk,))
 
     class Meta:
         verbose_name = _('meeting')

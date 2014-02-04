@@ -47,6 +47,7 @@ class BookCompanyForm(ModelForm):
         self.fields['package'].queryset = packages
         waiting_lists = Package.objects.filter(is_full=True, has_waiting_list=True)
         self.fields['waiting_for_package'].queryset = waiting_lists
+        self.action_url = '/bdb/companies/' + str(self.instance.pk) + '/book/'
 
 
 class ResponsibilityForm(ModelForm):
@@ -80,7 +81,7 @@ class CompanyContactForm(ModelForm):
         for _, field in self.fields.items():
             if field.widget.is_required:
                 field.widget.attrs['required'] = 'required'
-        self.url = '/bdb/contacts/' + str(self.instance.pk) + '/add/'
+        self.action_url = '/bdb/contacts/' + str(self.instance.pk) + '/add/'
 
 
 class ContractForm(ModelForm):
@@ -97,5 +98,5 @@ class ContractForm(ModelForm):
         for _, field in self.fields.items():
             if field.widget.is_required:
                 field.widget.attrs['required'] = 'required'
-        self.url = '/bdb/contracts/' + str(self.instance.pk) + '/add/'
+        self.action_url = '/bdb/contracts/' + str(self.instance.pk) + '/add/'
         self.fields['timestamp'].widget.attrs['placeholder'] = 'YYYY-MM-DD'

@@ -89,7 +89,7 @@ def activate(request, id):
     company.active = True
     company.save()
     cache.delete('companies')
-    #add_message(request, _('%s was activated') % company.name, 'success')
+    request.session['message'] = {'class': 'success', 'value': _('%s was activated.') % company.name}
     return redirect(reverse('itdagene.app.company.views.view', args=[company.pk]))
 
 
@@ -100,6 +100,7 @@ def deactivate(request, id):
     company.save()
     cache.delete('companies')
     #add_message(request, _('%s was deactivated') % company.name, 'success')
+    request.session['message'] = {'class': 'success', 'value': _('%s was deactivated.') % company.name}
     return redirect(reverse('itdagene.app.company.views.view', args=[company.pk]))
 
 
