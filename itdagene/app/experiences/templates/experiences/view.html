@@ -1,11 +1,11 @@
 {% extends base_template %}
 {% load i18n %}
-{% load markup %}
+{% load markdown_tool %}
 {% block content %}
 
     <h1>{{ experience.year }} - {{ experience }}</h1>
         <div class="abstract">
-            {{ experience.text|markdown }}
+            {{ experience.text|markdownize }}
         </div>
     <em>{% trans "Last updated" %} {{ experience.last_updated }}</em>
     <br>

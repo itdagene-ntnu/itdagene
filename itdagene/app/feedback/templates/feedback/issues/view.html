@@ -1,6 +1,6 @@
 {% extends "feedback/base.html" %}
 {% load i18n %}
-{% load markup %}
+{% load markdown_tool %}
 {% load filters %}
 {% load comments %}
 
@@ -20,7 +20,7 @@
         <strong>{% trans "Assigned user" %}:</strong> {{ issue.assigned_user }}
     {% endif %}
     {% if issue.deadline %}<strong>{% trans "Deadline" %}:</strong> {{ issue.deadline }}{% endif %}
-    <div class="abstract">{{ issue.description|markdown }}</div>
+    <div class="abstract">{{ issue.description|markdownize }}</div>
     {% if not issue.assigned_user and request.user.is_staff %}
         {% include "form.html" %}
     {% endif %}

@@ -1,11 +1,11 @@
 {% extends "company/base.html" %}
-{% load i18n markup filters %}
+{% load i18n markdown_tool filters %}
 
 {% block content %}
     <h1>{{ package }}</h1>
     <div class="meta"><strong>{% trans "Price" %}:</strong> {{ package.price }}kr, <strong>{% trans "Number of packages" %}:</strong> {{ package.max }}</div>
     <div class="description">
-    {{ package.description|markdown }}
+    {{ package.description|markdownize }}
     </div>
     <h2>{% trans "Companies that has bought this package" %}</h2>
     <ul class="big-list">

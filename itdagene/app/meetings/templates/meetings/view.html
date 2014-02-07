@@ -1,6 +1,6 @@
 {% extends "meetings/base.html" %}
 {% load i18n %}
-{% load markup %}
+{% load markdown_tool %}
 {% load comments %}
 {% block content %}
     <div class="row">
@@ -16,7 +16,7 @@
                 </div>
             {% endif %}
             <div class="abstract">
-                {{ meeting.abstract|markdown }}
+                {{ meeting.abstract|markdownize }}
             </div>
         </div>
         <div class="col-md-3">
