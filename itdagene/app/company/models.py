@@ -9,11 +9,12 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
 
+
 class Package(BaseModel):
     name = models.CharField(max_length=40, verbose_name=_('name'))
     description = models.TextField(verbose_name=_('description'), help_text=_('This field supports markdown'))
     price = models.PositiveIntegerField(verbose_name=_('price'))
-    max = models.PositiveIntegerField(blank=True, null=True,verbose_name=_('number of packages to sell'))
+    max = models.PositiveIntegerField(blank=True, null=True, verbose_name=_('number of packages to sell'))
     has_stand_first_day = models.BooleanField()
     has_stand_last_day = models.BooleanField()
     has_waiting_list = models.BooleanField(default=True, verbose_name=_('has waiting list'))
@@ -48,13 +49,17 @@ class Package(BaseModel):
     @classmethod
     def update_available_spots(cls):
         for package in Package.objects.all():
-            if package.companies.all().count() >= package.max: package.is_full = True
-            else: package.is_full = False
+            if package.companies.all().count() >= package.max:
+                package.is_full = True
+            else:
+                package.is_full = False
             package.save(log_it=False, notify_subscribers=False)
 
     def save(self, log_it=True, *args, **kwargs):
-        if not self.pk: action = 'CREATE'
-        else: action = 'EDIT'
+        if not self.pk:
+            action = 'CREATE'
+        else:
+            action = 'EDIT'
         super(Package, self).save(*args, **kwargs)
         if log_it: LogItem.log_it(self, action, 2)
 

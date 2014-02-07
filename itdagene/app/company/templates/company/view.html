@@ -53,7 +53,7 @@
         </div>
     </div>
 
-    {% if not company.status == 3 %}{% book_form company %}{% endif %}<br/>
+    {% if company.status != 3 %}{% book_form company %}{% status_form company %}{% endif %}<br/>
 
     <div class="row">
         <div class="col-md-6">
