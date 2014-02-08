@@ -14,46 +14,49 @@
         {% endif %}
     </aside>{% endcomment %}
 
-    <h1>{{ company }}</h1>
     <div class="row">
-        <dl class="dl-horizontal col-md-4">
-            <dt>{% trans "Status" %}</dt>
-            <dd>{{ company.get_status_display }}</dd>
-            {% if company.phone %}
-                <dt>{% trans "Phone number" %}</dt>
-                <dd>{{ company.phone }}</dd>
-            {% endif %}
-            {% if company.fax %}
-                <dt>{% trans "Fax" %}</dt>
-                <dd>{{ company.fax }}
-            {% endif %}
-            <dt>{% trans "Package" %}</dt>
-            {% if company.package %}
-                <dd>{{ company.package.name }}</dd>
-            {% else %}
-                <dd>{% trans "None" %}</dd>
-            {% endif %}
-            <dt>{% trans "Course" %}</dt>
-            <dd>{{ company.course }}</dd>
-            {% if company.contact %}
-                <dt>{% trans "itDAGENE contact" %}</dt>
-                <dd>{{ company.contact.profile }}</dd>
-            {% endif %}
-        </dl>
+        <div class="col-md-8">
+            <h1>{{ company }}</h1>
+            <dl class="dl-horizontal col-md-6">
+                <dt>{% trans "Status" %}</dt>
+                <dd>{{ company.get_status_display }}</dd>
+                {% if company.phone %}
+                    <dt>{% trans "Phone number" %}</dt>
+                    <dd>{{ company.phone }}</dd>
+                {% endif %}
+                {% if company.fax %}
+                    <dt>{% trans "Fax" %}</dt>
+                    <dd>{{ company.fax }}
+                {% endif %}
+                <dt>{% trans "Package" %}</dt>
+                {% if company.package %}
+                    <dd>{{ company.package.name }}</dd>
+                {% else %}
+                    <dd>{% trans "None" %}</dd>
+                {% endif %}
+                <dt>{% trans "Course" %}</dt>
+                <dd>{{ company.course }}</dd>
+                {% if company.contact %}
+                    <dt>{% trans "itDAGENE contact" %}</dt>
+                    <dd>{{ company.contact.profile }}</dd>
+                {% endif %}
+            </dl>
+            <div class="col-md-6">
+                {% if company.payment_address %}
+                    <strong>{% trans "Payment address" %}:</strong><br/>
+                    <address>
+                        {{ company.payment_address|linebreaksbr }}
+                    </address>
+                {% endif %}
+                {% if evaluation %}
+                    <a href="{% url evaluate evaluation.hash %}">{% trans "View evaluation form" %}</a>
+                {% endif %}
+            </div>
+        </div>
         <div class="col-md-4">
-            {% if company.payment_address %}
-                <strong>{% trans "Payment address" %}:</strong><br/>
-                <address>
-                    {{ company.payment_address|linebreaksbr }}
-                </address>
-            {% endif %}
-            {% if evaluation %}
-                <a href="{% url evaluate evaluation.hash %}">{% trans "View evaluation form" %}</a>
-            {% endif %}
+            {% if company.status != 3 %}{% book_form company %}{% endif %}{% status_form company %}<br/>
         </div>
     </div>
-
-    {% if company.status != 3 %}{% book_form company %}{% status_form company %}{% endif %}<br/>
 
     <div class="row">
         <div class="col-md-6">

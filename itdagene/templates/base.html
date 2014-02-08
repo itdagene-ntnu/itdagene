@@ -16,8 +16,9 @@
     <script src="/static/js/bootstrap.min.js"></script>
     {% analytics %}
     {% if request.user.profile.type == 'b' %}
-        <link href="/static/chosen/chosen.css" rel="stylesheet" />
-        <script src="/static/js/todo.js"></script>
+        <link href="//cdnjs.cloudflare.com/ajax/libs/chosen/1.0/chosen.min.css" rel="stylesheet" />
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/chosen/1.0/chosen.jquery.min.js"></script>
+        <script type="text/javascript" src="/static/js/todo.js"></script>
         {% include_tinycon %}
         {% set_notification_bubble %}
     {% endif %}
