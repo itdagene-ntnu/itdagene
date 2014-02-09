@@ -50,30 +50,23 @@ def edit_me(request):
 @permission_required('profiles.change_profile')
 def edit(request, id):
     profile = get_object_or_404(Profile, pk=id)
-    user = profile.user
     if profile.user.id != request.user.id and not request.user.profile.is_board_member():
         return render(request, '500.html')
     if request.user.is_superuser:
         form = AdminProfileForm(instance=profile)
-        user_form = StandardUserForm(instance=user)
     else:
         form = StandardProfileForm(instance=profile)
-        user_form = StandardUserForm(instance=user)
     if request.method == "POST":
         if request.user.is_superuser:
             form = AdminProfileForm(request.POST, request.FILES, instance=profile)
-            user_form = StandardUserForm(request.POST, request.FILES, instance=user)
         else:
             form = StandardProfileForm(request.POST, request.FILES,instance=profile)
-            user_form = StandardUserForm(request.POST, request.FILES, instance=user)
-        if form.is_valid() and user_form.is_valid():
+        if form.is_valid():
             form.save()
-            user_form.save()
             request.session['django_language'] = get_current_user().profile.language
 
     return render(request, 'core/profiles/form.html',
                              {'form': form,
-                              'user_form': user_form,
                               'form_title':_('Change your profile')})
 
 #@login_required
