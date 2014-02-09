@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n companies %}
 <ul>
     {#    <li><a href="{% url app.company.views.edit %}">{% trans "ADD COMPANY" %}</a></li>#}
     {% if company %}
@@ -17,5 +17,6 @@
         <li><a href="{% url economic_overview %}">{% trans "ECONOMIC OVERVIEW" %}</a></li>
     {% endif %}
     <li><a href="{% url app.company.views.set_responsibilities %}">{% trans "SET RESPONSIBILITIES" %}</a></li>
+    {% feedback_overview %}
 {#    <li><a href="{% url view_competition %}">{% trans "COMPETITION" %}</a></li>#}
 </ul>

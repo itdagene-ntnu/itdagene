@@ -56,10 +56,8 @@ class Package(BaseModel):
             package.save(log_it=False, notify_subscribers=False)
 
     def save(self, log_it=True, *args, **kwargs):
-        if not self.pk:
-            action = 'CREATE'
-        else:
-            action = 'EDIT'
+        if not self.pk: action = 'CREATE'
+        else: action = 'EDIT'
         super(Package, self).save(*args, **kwargs)
         if log_it: LogItem.log_it(self, action, 2)
 
