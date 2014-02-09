@@ -13,7 +13,7 @@
                         {% endthumbnail %}
                     </a>
                 {% endif %}
-                <a href="{% url view_profile comment.user.pk %}" class="username">{{ comment.user.profile }}</a> {% trans "about" %} <a href="{% url view_company comment.company.pk %}">{{ comment.company.name }}</a>
+                <a href="{% url "view_profile" comment.user.pk %}" class="username">{{ comment.user.profile }}</a> {% trans "about" %} <a href="{% url "view_company" comment.company.pk %}">{{ comment.company.name }}</a>
                 <p>{{ comment.content }}</p>
             </li>
         {% endfor %}

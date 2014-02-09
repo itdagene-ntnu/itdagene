@@ -21,7 +21,7 @@
             </tr>
             {% for ticket in event.tickets.all %}
                 <tr>
-                    <td><a href="{% url edit_ticket ticket.pk %}" class="page-edit icon"></a></td>
+                    <td><a href="{% url "edit_ticket" ticket.pk %}" class="page-edit icon"></a></td>
                     <td>{{ ticket.full_name }}</td>
                     <td>{{ ticket.company }}</td>
                 </tr>

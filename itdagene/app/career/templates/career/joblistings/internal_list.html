@@ -8,7 +8,7 @@
         {% for joblisting in joblistings %}
             <tr>
                 <td>{{ joblisting.company }}</td>
-                <td><a href="{% url app.career.views.joblistings.view_joblisting joblisting.pk %}">{{ joblisting }}</a></td>
+                <td><a href="{% url "app.career.views.joblistings.view_joblisting" joblisting.pk %}">{{ joblisting }}</a></td>
                 <td>{{ joblisting.get_type_display }}</td>
                 <td>{{ joblisting.date_created|date }}</td>
                 <td>{{ joblisting.creator }}</td>

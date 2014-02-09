@@ -2,10 +2,10 @@
 
 {% if request.user.profile.is_board_member %}
 <ul>
-    <li><a href="{% url app.pages.views.add %}">{% trans "ADD PAGE" %}</a></li>
+    <li><a href="{% url "app.pages.views.add" %}">{% trans "ADD PAGE" %}</a></li>
     {% if page %}
-        <li><a href="{% url app.pages.views.view_page page.slug %}">{% trans "VIEW PAGE" %}</a></li>
-        <li><a href="{% url app.pages.views.edit page.slug %}">{% trans "EDIT PAGE" %}</a></li>
+        <li><a href="{% url "app.pages.views.view_page" page.slug %}">{% trans "VIEW PAGE" %}</a></li>
+        <li><a href="{% url "app.pages.views.edit" page.slug %}">{% trans "EDIT PAGE" %}</a></li>
     {% endif %}
 
 </ul>

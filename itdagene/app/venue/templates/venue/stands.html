@@ -9,8 +9,8 @@
         {% for stand in stands %}
             <li>
                 <h4>{{ stand }}</h4>
-                {% if stand.company_day1.contact == request.user %}{% trans "Day 1" %}: <a href="{% url app.company.views.view stand.company_day1.pk %}">{{ stand.company_day1 }}</a><br/>{% endif %}
-                {% if stand.company_day2.contact == request.user %}{% trans "Day 2" %}: <a href="{% url app.company.views.view stand.company_day2.pk %}">{{ stand.company_day2 }}</a><br/>{% endif %}
+                {% if stand.company_day1.contact == request.user %}{% trans "Day 1" %}: <a href="{% url "app.company.views.view" stand.company_day1.pk %}">{{ stand.company_day1 }}</a><br/>{% endif %}
+                {% if stand.company_day2.contact == request.user %}{% trans "Day 2" %}: <a href="{% url "app.company.views.view" stand.company_day2.pk %}">{{ stand.company_day2 }}</a><br/>{% endif %}
             </li>
         {% endfor %}
     </ul>

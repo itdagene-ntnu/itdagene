@@ -1,7 +1,7 @@
 {% load i18n %}
 <ul>
     {% if joblisting.pk %}
-        <li><a href="{% url edit_joblisting joblisting.pk %}">{% trans "EDIT JOBLISTING" %}</a></li>
-        <li><a href="{% url deactivate_joblisting joblisting.pk %}">{% trans "DEACTIVATE JOBLISTING" %}</a></li>
+        <li><a href="{% url "edit_joblisting" joblisting.pk %}">{% trans "EDIT JOBLISTING" %}</a></li>
+        <li><a href="{% url "deactivate_joblisting" joblisting.pk %}">{% trans "DEACTIVATE JOBLISTING" %}</a></li>
     {% endif %}
 </ul>

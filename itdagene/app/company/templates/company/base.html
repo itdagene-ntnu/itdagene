@@ -16,7 +16,7 @@
                 <div class="col-md-4">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><a href="{% url app.company.views.view company.pk %}">{{ company }}</a></h3>
+                            <h3 class="panel-title"><a href="{% url "app.company.views.view" company.pk %}">{{ company }}</a></h3>
                         </div>
                         <div class="panel-body">
                             <em>{% trans "Todo" %}: {{ company.unfinished_todos.count }}</em>
@@ -90,7 +90,7 @@
         </tr>
         {% for company in companies %}
             <tr>
-                <td><a href="{% url app.company.views.view company.pk %}">{{ company }}</a></td>
+                <td><a href="{% url "app.company.views.view" company.pk %}">{{ company }}</a></td>
                 <td {% if company.status == 0 %}class="red-bg"{% endif %}>{{ company.get_status_display }}</td>
                 <td {% if not company.package %}class="red-bg"{% endif %}>
                     {% if company.package %}{{ company.package.name }}{% else %}{% trans "None" %}{% endif %}</td>

@@ -27,7 +27,7 @@
             <tr {% if joblisting.has_deadline_passed %}style="opacity: 0.6;"{% endif %} data-job-type="{{ joblisting.type }}" data-job-place="{% for p in joblisting.towns.all %}{{ p }}{% endfor %}">
                 <td>{{ joblisting.company }}</td>
                 <td>
-                    <a href="{% url app.career.views.joblistings.view_joblisting joblisting.pk %}">{{ joblisting }}</a><br/>
+                    <a href="{% url "app.career.views.joblistings.view_joblisting" joblisting.pk %}">{{ joblisting }}</a><br/>
                     <span><strong>{% trans "Type" %}:</strong> {{ joblisting.get_type_display }}<br/>
                     <strong>{% trans "Deadline" %}:</strong> {% if joblisting.deadline %}{{ joblisting.deadline }}{% else %}{% trans "No deadline" %}{% endif %}</span>
                 </td>

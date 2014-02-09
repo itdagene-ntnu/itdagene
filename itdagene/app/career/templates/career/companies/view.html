@@ -7,7 +7,7 @@
     <h3>{% trans "Joblistings" %}</h3>
     <ul>
     {% for joblisting in joblistings %}
-        <li><a href="{% url view_joblisting joblisting.pk %}">{{ joblisting }}</a></li>
+        <li><a href="{% url "view_joblisting" joblisting.pk %}">{{ joblisting }}</a></li>
     {% endfor %}
     </ul>
 {% endblock %}

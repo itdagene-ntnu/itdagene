@@ -49,7 +49,7 @@
                     </address>
                 {% endif %}
                 {% if evaluation %}
-                    <a href="{% url evaluate evaluation.hash %}">{% trans "View evaluation form" %}</a>
+                    <a href="{% url "evaluate" evaluation.hash %}">{% trans "View evaluation form" %}</a>
                 {% endif %}
             </div>
         </div>
@@ -75,8 +75,8 @@
                                     <br/>{% endif %}
                                 {% if contact.email %}<strong>{% trans "Email" %}:</strong> {{ contact.email }}
                                     <br/>{% endif %}
-                                <a href="{% url app.company.views.company_contacts.vcard contact.pk %}">{% trans "Download vcard-file" %}</a>
-                                <a href="{% url edit_company_contact contact.pk %}">{% trans "Edit" %}</a>
+                                <a href="{% url "app.company.views.company_contacts.vcard" contact.pk %}">{% trans "Download vcard-file" %}</a>
+                                <a href="{% url "edit_company_contact" contact.pk %}">{% trans "Edit" %}</a>
                             </div>
                         {% endfor %}
                     </div>
@@ -92,14 +92,14 @@
                     <table class="table table-hover">
                         {% for joblisting in company.joblistings.all %}
                             <tr>
-                                <td><a href="{% url view_joblisting joblisting.pk %}">{{ joblisting }}</a></td>
+                                <td><a href="{% url "view_joblisting" joblisting.pk %}">{{ joblisting }}</a></td>
                                 <td>{{ joblisting.get_type_display }}</td>
                                 {% if joblisting.deadline %}
                                     <td>{{ joblisting.deadline }}</td>
                                 {% else %}
                                     <td>{% trans "No deadline" %}</td>
                                 {% endif %}
-                                <td><a href="{% url edit_joblisting joblisting.pk %}">{% trans "Edit" %}</a></td>
+                                <td><a href="{% url "edit_joblisting" joblisting.pk %}">{% trans "Edit" %}</a></td>
                             </tr>
                         {% endfor %}
                     </table>
@@ -114,7 +114,7 @@
                 <div class="panel-body">
                     <table class="table table-hover">
                         {% for contract in company.contracts.all %}
-                            <tr><td>{{ contract.timestamp }}</td>{% if contract.file %}<td><a href="{% url download_contract contract.company.pk contract.id %}">{% trans "Download file" %}</a></td>{% endif %}</tr>
+                            <tr><td>{{ contract.timestamp }}</td>{% if contract.file %}<td><a href="{% url "download_contract" contract.company.pk contract.id %}">{% trans "Download file" %}</a></td>{% endif %}</tr>
                         {% endfor %}
                     </table>
                 </div>

@@ -95,10 +95,10 @@
             <h3>{% trans "Joblistings" %}</h3>
             <ul>
                 {% for joblisting in joblistings %}
-                    <li><a href="{% url app.career.views.joblistings.view_joblisting joblisting.pk %}">{{ joblisting }}</a> {% trans "for" %} <strong>{{ joblisting.company }}</strong></li>
+                    <li><a href="{% url "app.career.views.joblistings.view_joblisting" joblisting.pk %}">{{ joblisting }}</a> {% trans "for" %} <strong>{{ joblisting.company }}</strong></li>
                 {% endfor %}
             </ul>
-            <a href="{% url joblistings %}">{% trans "Show more joblistings" %}</a>
+            <a href="{% url "joblistings" %}">{% trans "Show more joblistings" %}</a>
             <hr/>
         </aside>
     {% endif %}

@@ -32,93 +32,93 @@
                 <a href="/"><img src="/static/img/itdagene_logo.png" title="itDAGENE" width=245 height=55 style="margin-bottom: 10px;"/></a>
                 <ul class="nav nav-pills nav-stacked" id="sidebar-nav">
                     <li {% active request 'fp' %}>
-                        <a href="{% url frontpage %}"><span class="glyphicon glyphicon-home"></span>&nbsp;{% trans "Home" %}</a>
+                        <a href="{% url "frontpage" %}"><span class="glyphicon glyphicon-home"></span>&nbsp;{% trans "Home" %}</a>
                     </li>
                     {% if perms.pages.change_page %}
-                        <li {% active request 'pages' %}><a href="{% url pages %}"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;{% trans "Pages" %}</a>
+                        <li {% active request 'pages' %}><a href="{% url "pages" %}"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;{% trans "Pages" %}</a>
                             {% include 'pages/submenu.html' %}
                         </li>
                     {% endif %}
                     {% if perms.news.change_announcement %}
-                        <li {% active request 'news' %}><a href="{% url create_announcement %}"><span class="glyphicon glyphicon-bullhorn"></span>&nbsp;{% trans "Add announcement" %}</a>
+                        <li {% active request 'news' %}><a href="{% url "create_announcement" %}"><span class="glyphicon glyphicon-bullhorn"></span>&nbsp;{% trans "Add announcement" %}</a>
                         </li>
                     {% endif %}
                     {% if perms.frontpage.change_offer %}
-                        <li {% active request 'what-we-offer' %}><a href="{% url edit_what_we_offer %}"><span class="glyphicon glyphicon-magnet"></span>&nbsp;{% trans "What we offer" %}</a>
+                        <li {% active request 'what-we-offer' %}><a href="{% url "edit_what_we_offer" %}"><span class="glyphicon glyphicon-magnet"></span>&nbsp;{% trans "What we offer" %}</a>
                         </li>
                     {% endif %}
                     {% if perms.company.change_company %}
-                        <li {% active request 'companies' %}><a href="{% url companies  %}"><span class="glyphicon glyphicon-briefcase"></span>&nbsp;{% trans "Companies" %}</a>
+                        <li {% active request 'companies' %}><a href="{% url "companies"  %}"><span class="glyphicon glyphicon-briefcase"></span>&nbsp;{% trans "Companies" %}</a>
                             {% include 'company/submenu.html' %}
                         </li>
                     {% endif %}
                     {% if perms.company.change_package %}
-                        <li {% active request 'packages' %}><a href="{% url packages %}"><span class="glyphicon glyphicon-gift"></span>&nbsp;{% trans "Packages" %}</a>
+                        <li {% active request 'packages' %}><a href="{% url "packages" %}"><span class="glyphicon glyphicon-gift"></span>&nbsp;{% trans "Packages" %}</a>
                             {% include 'company/packages/submenu.html' %}
                         </li>
                     {% endif %}
                     {% if perms.venue.change_stand %}
-                        <li {% active request 'venue' %}><a href="{% url venue %}"><span class="glyphicon glyphicon-map-marker"></span>&nbsp;{% trans "Venue" %}</a>
+                        <li {% active request 'venue' %}><a href="{% url "venue" %}"><span class="glyphicon glyphicon-map-marker"></span>&nbsp;{% trans "Venue" %}</a>
                             {% include 'venue/submenu.html' %}
                         </li>
                     {% endif %}
                     {% if perms.career.change_joblisting %}
-                        <li {% active request 'joblistings' %}><a href="{% url joblistings %}"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;{% trans "Joblistings" %}</a>
+                        <li {% active request 'joblistings' %}><a href="{% url "joblistings" %}"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;{% trans "Joblistings" %}</a>
                             {% include 'career/submenu.html' %}
                         </li>
                     {% endif %}
                     {% if perms.documents.change_document %}
-                        <li {% active request 'documents' %}><a href="{% url documents %}"><span class="glyphicon glyphicon-file"></span>&nbsp;{% trans "Documents" %}</a>
+                        <li {% active request 'documents' %}><a href="{% url "documents" %}"><span class="glyphicon glyphicon-file"></span>&nbsp;{% trans "Documents" %}</a>
                             {% include 'documents/submenu.html' %}
                         </li>
                     {% endif %}
                     {% if perms.events.change_event %}
-                        <li {% active request 'events' %}><a href="{% url events %}"><span class="glyphicon glyphicon-calendar"></span>&nbsp;{% trans "Events" %}</a>
+                        <li {% active request 'events' %}><a href="{% url "events" %}"><span class="glyphicon glyphicon-calendar"></span>&nbsp;{% trans "Events" %}</a>
                             {% include 'events/submenu.html' %}
                         </li>
                     {% endif %}
                     {% if perms.meetings.change_meeting %}
-                        <li {% active request 'meetings' %}><a href="{% url meetings %}"><span class="glyphicon glyphicon-comment"></span>&nbsp;{% trans "Meetings" %}</a>
+                        <li {% active request 'meetings' %}><a href="{% url "meetings" %}"><span class="glyphicon glyphicon-comment"></span>&nbsp;{% trans "Meetings" %}</a>
                             {% include 'meetings/submenu.html' %}
                         </li>
                     {% endif %}
-                    <li {% active request 'profiles' %}><a href="{% url profiles %}"><span class="glyphicon glyphicon-user"></span>&nbsp;{% trans "People" %}</a>
+                    <li {% active request 'profiles' %}><a href="{% url "profiles" %}"><span class="glyphicon glyphicon-user"></span>&nbsp;{% trans "People" %}</a>
                         {% include 'core/profiles/submenu.html' %}
                     </li>
                     {% if user.is_staff %}
-                        <li {% active request 'admin' %}><a href="{% url admin %}"><span class="glyphicon glyphicon-tower"></span>&nbsp;{% trans "Admin" %}</a>
+                        <li {% active request 'admin' %}><a href="{% url "admin" %}"><span class="glyphicon glyphicon-tower"></span>&nbsp;{% trans "Admin" %}</a>
                             {% include 'adm/submenu.html' %}
                         </li>
                     {% endif %}
                     {% if perms.workschedule.view_worker %}
-                        <li {% active request 'workschedules' %}><a href="{% url workschedules %}"><span class="glyphicon glyphicon-list"></span>&nbsp;{% trans "Workschedules" %}</a>
+                        <li {% active request 'workschedules' %}><a href="{% url "workschedules" %}"><span class="glyphicon glyphicon-list"></span>&nbsp;{% trans "Workschedules" %}</a>
                             {% include 'workschedule/submenu.html' %}
                         </li>
                     {% endif %}
                     {% if perms.meetings.change_meeting %}
-                        <li {% active request 'experiences' %}><a href="{% url experiences %}"><span class="glyphicon glyphicon-pushpin"></span>&nbsp;Experiences</a>
+                        <li {% active request 'experiences' %}><a href="{% url "experiences" %}"><span class="glyphicon glyphicon-pushpin"></span>&nbsp;Experiences</a>
                             {% include 'experiences/submenu.html' %}
                         </li>
                     {% endif %}
                 </ul>
                 <hr/>
                 <div class="panel panel-default">
-                    <a href="{% url view_profile request.user.pk %}" style="text-decoration: none;">
+                    <a href="{% url "view_profile" request.user.pk %}" style="text-decoration: none;">
                         {% if profile.photo %}
                             {% thumbnail profile.photo "30x30" crop="center" as im %}
                                 <img src="{{ im.url }}" style="width:{{ im.width }}px; height:{{ im.height }}px;">
                             {% endthumbnail %}
                         {% endif %}
                     </a>
-                    <a href="{% url view_profile request.user.pk %}">
+                    <a href="{% url "view_profile" request.user.pk %}">
                         {{ profile }}
                     </a>
                 </div>
                 <ul class="nav nav-pills nav-stacked">
                     <li><a href="/profile/">{% trans "Profile" %}</a></li>
-                    <li><a href="{% url core.profiles.views.edit profile.pk %}">{% trans "Edit profile" %}</a></li>
-                    <li><a href="{% url change_password %}">{% trans "Change password" %}</a></li>
-                    {#                        <li><a href="{% url notifications %}">Messages</a></li>#}
+                    <li><a href="{% url "core.profiles.views.edit" profile.pk %}">{% trans "Edit profile" %}</a></li>
+                    <li><a href="{% url "change_password" %}">{% trans "Change password" %}</a></li>
+                    {#                        <li><a href="{% url "notifications" %}">Messages</a></li>#}
 
                     <li><a href="/logout/">Logout</a></li>
                 </ul>

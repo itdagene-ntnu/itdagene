@@ -4,6 +4,6 @@
 {% block content %}
     <h1>{% trans "Documents" %}</h1>
     {% for doc in documents %}
-        <a href="{% url download_document doc.pk %}">{{ doc }}</a><br/>
+        <a href="{% url "download_document" doc.pk %}">{{ doc }}</a><br/>
     {% endfor %}
 {% endblock %}

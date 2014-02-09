@@ -1,10 +1,10 @@
 {% load i18n %}
 <ul>
-    <li><a href="{% url app.venue.views.venue %}">{% trans "VENUE" %}</a></li>
+    <li><a href="{% url "app.venue.views.venue" %}">{% trans "VENUE" %}</a></li>
     {% if request.user.profile.type == 'c' %}
-        <li><a href="{% url app.venue.views.stands %}">{% trans "YOUR STAND" %}</a></li>
+        <li><a href="{% url "app.venue.views.stands" %}">{% trans "YOUR STAND" %}</a></li>
     {% endif %}
     {% if request.user.profile.type == 'b' %}
-        <li><a href="{% url app.venue.views.stands %}">{% trans "YOUR STANDS" %}</a></li>
+        <li><a href="{% url "app.venue.views.stands" %}">{% trans "YOUR STANDS" %}</a></li>
     {% endif %}
 </ul>

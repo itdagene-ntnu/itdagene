@@ -28,7 +28,7 @@
         </tr>
         {% for item in attendance %}
         <tr>
-            <td><a href="{% url app.workschedule.views.view_worker item.worker.pk %}">{{ item.worker }}</a></td>
+            <td><a href="{% url "app.workschedule.views.view_worker" item.worker.pk %}">{{ item.worker }}</a></td>
             <td>
                 {% if item.has_met %}{% trans "Yes" %}{% endif %}
                 {% if not item.has_met %}{% trans "No" %}{% endif %}
@@ -37,7 +37,7 @@
         {% endfor %}
     </table>
 
-    <a href="{% url app.workschedule.views.has_met task.pk %}" class="button">{% trans "Sign attendance" %}</a>
-    <a href="{% url app.workschedule.views.edit_task task.pk %}" class="button">{% trans "Edit" %}</a>
+    <a href="{% url "app.workschedule.views.has_met" task.pk %}" class="button">{% trans "Sign attendance" %}</a>
+    <a href="{% url "app.workschedule.views.edit_task" task.pk %}" class="button">{% trans "Edit" %}</a>
 
 {% endblock %}

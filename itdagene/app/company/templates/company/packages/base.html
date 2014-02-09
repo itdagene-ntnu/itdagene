@@ -7,7 +7,7 @@
         <tr class="active"><th>{% trans "Title" %}</th><th>{% trans "Signed/Capacity" %}</th><th>{% trans "Course" %}</th><th>{% trans "Waiting list" %}</th></tr>
     {% for package in packages %}
         <tr>
-            <td><a href="{% url app.company.views.packages.view package.pk %}">{{ package.name }}</a></td>
+            <td><a href="{% url "app.company.views.packages.view" package.pk %}">{{ package.name }}</a></td>
             <td>{{ package.companies.all.count }}/{{ package.max }}</td>
             <td>{{ package.includes_course }}</td>
             <td>{% if package.has_waiting_list %}{{ package.waiting_list.all.count }}{% else %}--{% endif %}</td>

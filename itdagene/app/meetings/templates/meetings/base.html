@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-9">
             <h1>{% trans "Meetings" %}</h1>
-            {% comment %}<form action="{% url itdagene.app.meetings.views.search %}">
+            {% comment %}<form action="{% url "itdagene.app.meetings.views.search" %}">
                 {% for field in search_form %}
                     <strong>{% trans "Search" %}</strong> {{ field }}
                 {% endfor %}
@@ -25,7 +25,7 @@
                                 <th><strong>{% trans "Ends" %}:</strong></th>
                             </tr>
                             {% for meeting in meetings %}
-                                <tr><td><a href="{% url itdagene.app.meetings.views.meeting meeting.pk %}">{{ meeting.get_type_display }}:</a></td><td> {{ meeting.date }}</td><td> {{ meeting.start_time }}</td><td>{{ meeting.end_time }}</td></tr>
+                                <tr><td><a href="{% url "itdagene.app.meetings.views.meeting" meeting.pk %}">{{ meeting.get_type_display }}:</a></td><td> {{ meeting.date }}</td><td> {{ meeting.start_time }}</td><td>{{ meeting.end_time }}</td></tr>
                             {% endfor %}
                         </table>
                     </div>

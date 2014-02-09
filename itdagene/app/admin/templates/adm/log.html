@@ -13,5 +13,5 @@
         </li>
     {% endfor %}
     </ul>
-    {% if previous %}<a href="{% url app.admin.views.log previous %}">{% trans "Previous" %}</a>{% endif %} <a href="{% url app.admin.views.log next %}">{% trans "Next" %}</a>
+    {% if previous %}<a href="{% url "app.admin.views.log" previous %}">{% trans "Previous" %}</a>{% endif %} <a href="{% url "app.admin.views.log" next %}">{% trans "Next" %}</a>
 {% endblock %}

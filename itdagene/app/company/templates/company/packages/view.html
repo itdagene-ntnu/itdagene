@@ -10,7 +10,7 @@
     <h2>{% trans "Companies that has bought this package" %}</h2>
     <ul class="big-list">
         {% for company in package.companies.all %}
-            <li><a href="{% url view_company company.pk %}">{{ company }}</a></li>
+            <li><a href="{% url "view_company" company.pk %}">{{ company }}</a></li>
         {% endfor %}
     </ul>
     <h2>{% trans "Waiting list" %}</h2>

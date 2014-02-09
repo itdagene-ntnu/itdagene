@@ -3,11 +3,11 @@
 
 {% block content %}
     <h1>{% trans "Group administration" %}</h1>
-    <a href="{% url app.admin.views.groups.add %}">Add a group</a>
+    <a href="{% url "app.admin.views.groups.add" %}">Add a group</a>
     <ul class="big-list">
     {% for group in groups %}
         <li>
-            <strong><a href="{% url app.admin.views.groups.view group.pk %}">{{ group }}</a></strong> <br/>
+            <strong><a href="{% url "app.admin.views.groups.view" group.pk %}">{{ group }}</a></strong> <br/>
             {% for perm in permissions %}{{ perm }}{% endfor %}
         </li>
     {% endfor %}

@@ -1,9 +1,9 @@
 {% load i18n %}
 <ul>
-    <li><a href="{% url app.company.views.packages.list %}">{% trans "PACKAGES" %}</a></li>
-    <li><a href="{% url app.company.views.packages.edit %}">{% trans "ADD PACKAGE" %}</a></li>
+    <li><a href="{% url "app.company.views.packages.list" %}">{% trans "PACKAGES" %}</a></li>
+    <li><a href="{% url "app.company.views.packages.edit" %}">{% trans "ADD PACKAGE" %}</a></li>
     {% if package.pk %}
-        <li><a href="{% url app.company.views.packages.view package.pk %}">{% trans "VIEW PACKAGE" %}</a></li>
-        <li><a href="{% url app.company.views.packages.edit package.pk %}">{% trans "EDIT PACKAGE" %}</a></li>
+        <li><a href="{% url "app.company.views.packages.view" package.pk %}">{% trans "VIEW PACKAGE" %}</a></li>
+        <li><a href="{% url "app.company.views.packages.edit" package.pk %}">{% trans "EDIT PACKAGE" %}</a></li>
     {% endif %}
 </ul>

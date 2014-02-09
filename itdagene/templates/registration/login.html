@@ -11,14 +11,14 @@
         {% if form.errors %}
             <div class="message errormsg"><p>{% trans "Your username and password didn't match. Please try again." %}</p>
             </div>{% endif %}
-        <form method="post" action="{% url django.contrib.auth.views.login %}">
+        <form method="post" action="{% url "django.contrib.auth.views.login" %}">
             {% csrf_token %}
             {{ form.as_p }}
 
             <p class="formend">
                 <input type="submit" value="{% trans "Log in" %}"/>
                 <input type="hidden" name="next" value="{{ next }}"/>
-                <a href="{% url forgot_password %}" class="button">{% trans "Forgot password" %}</a>
+                <a href="{% url "forgot_password" %}" class="button">{% trans "Forgot password" %}</a>
             </p>
         </form>
     </article>

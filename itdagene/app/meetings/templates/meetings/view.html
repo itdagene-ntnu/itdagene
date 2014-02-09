@@ -11,8 +11,8 @@
                 <div class="info">
                     <h3>{% trans "You haven't replied to this invite" %}</h3>
                     {% trans "I am" %}
-                    <a href="{% url app.meetings.views.attend meeting.pk %}" class="button">{% trans "attending" %}</a>
-                    <a href="{% url app.meetings.views.not_attend meeting.pk %}" class="button">{% trans "not attending" %}</a>
+                    <a href="{% url "app.meetings.views.attend" meeting.pk %}" class="button">{% trans "attending" %}</a>
+                    <a href="{% url "app.meetings.views.not_attend" meeting.pk %}" class="button">{% trans "not attending" %}</a>
                 </div>
             {% endif %}
             <div class="abstract">

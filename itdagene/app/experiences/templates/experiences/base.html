@@ -6,12 +6,12 @@
         <h3>{{ year }}</h3>
         <ul>
             {% for experience in experiences %}
-                <li><a href="{% url itdagene.app.experiences.views.view experience.pk %}">{{ experience }}</a> <em>{% trans "Last updated" %}: {{ experience.last_updated }}</em></li>
+                <li><a href="{% url "itdagene.app.experiences.views.view" experience.pk %}">{{ experience }}</a> <em>{% trans "Last updated" %}: {{ experience.last_updated }}</em></li>
             {% endfor %}
         </ul>
         {% endfor %}
 
         <br>
-        <a href="{% url app.experiences.views.add %}" class="button">{% trans "Add Experience" %}</a>
+        <a href="{% url "app.experiences.views.add" %}" class="button">{% trans "Add Experience" %}</a>
 
 {% endblock %}

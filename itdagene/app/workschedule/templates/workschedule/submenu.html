@@ -1,6 +1,6 @@
 {% load i18n %}
 <ul>
-    <li><a href="{% url app.workschedule.views.add_task %}">{% trans "ADD TASK" %}</a></li>
-    <li><a href="{% url app.workschedule.views.add_worker %}">{% trans "ADD WORKER" %}</a></li>
-    <li><a href="{% url app.workschedule.views.email_list %}">{% trans "EMAILS" %}</a></li>
+    <li><a href="{% url "app.workschedule.views.add_task" %}">{% trans "ADD TASK" %}</a></li>
+    <li><a href="{% url "app.workschedule.views.add_worker" %}">{% trans "ADD WORKER" %}</a></li>
+    <li><a href="{% url "app.workschedule.views.email_list" %}">{% trans "EMAILS" %}</a></li>
 </ul>

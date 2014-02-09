@@ -8,8 +8,8 @@
             <table class="table table-hover">
                 {% for page in pages %}
                     <tr>
-                        <td><a href="{% url app.pages.views.view_page page.slug %}">{{ page }}</a></td>
-                        <td><a href="{% url app.pages.views.edit page.slug %}">EDIT</a></td>
+                        <td><a href="{% url "app.pages.views.view_page" page.slug %}">{{ page }}</a></td>
+                        <td><a href="{% url "app.pages.views.edit" page.slug %}">EDIT</a></td>
                     </tr>
                 {% endfor %}
             </table>
