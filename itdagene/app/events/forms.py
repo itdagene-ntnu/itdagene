@@ -1,14 +1,14 @@
+from django import forms
+from django.core.cache import cache
 from django.forms.models import ModelForm
+from django.forms.util import ErrorList
+from django.utils.translation import ugettext as _
+
 from itdagene.app.company.models import Company
 from itdagene.app.events.models import Event, Ticket
-from django.contrib.auth.models import User
-from django.core.cache import cache
-from django import forms
-from django.utils.translation import ugettext as _
-from django.forms.util import ErrorList
 
 
-class EventForm (ModelForm):
+class EventForm(ModelForm):
     class Meta:
         model = Event
 
@@ -26,7 +26,7 @@ class EventForm (ModelForm):
 class EventTicketForm (ModelForm):
     class Meta:
         model = Ticket
-        exclude = ('user')
+        exclude = ('user', )
 
     def __init__(self, *args, **kwargs):
         super(EventTicketForm, self).__init__(*args, **kwargs)
@@ -56,10 +56,11 @@ class EventTicketForm (ModelForm):
                 self._errors["company"] = ErrorList([_('Company has no extra-tickets left')])
         return cleaned_data
 
+
 class EventTicketUpdateForm (ModelForm):
     class Meta:
         model = Ticket
-        exclude = ('user')
+        exclude = ('user', )
 
     def __init__(self, *args, **kwargs):
         super(EventTicketUpdateForm, self).__init__(*args, **kwargs)
