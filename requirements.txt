@@ -1,6 +1,6 @@
 Django
 Markdown
-PIL
+Pillow
 South
 django-fabric
 django-widget-tweaks
