@@ -4,6 +4,7 @@
 {% block include %}
     <script src="/static/js/details-list.js"></script>
     <script src="/static/js/companies.js"></script>
+    <script src="/static/sortable/sortable.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -79,7 +80,7 @@
         </select>
         <a href="#" data-toggle="modal" data-target="#company-modal" class="btn btn-primary">{% trans "Add company" %}</a>
     </div>
-    <table class="filtered table table-hover company-table">
+    <table id="sortabletable" class="sortable filtered table table-hover company-table">
         <tr class="active">
             <th>{% trans "Company" %}</th>
             <th>{% trans "Status" %}</th>
