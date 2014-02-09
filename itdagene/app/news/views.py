@@ -1,5 +1,4 @@
 from django.shortcuts import redirect, get_object_or_404
-from django.views.decorators.cache import cache_page
 from itdagene.app.news.forms import AnnouncementForm
 from itdagene.app.news.models import Announcement
 from django.contrib.auth.decorators import permission_required

@@ -13,7 +13,7 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render
 from itdagene.core.models import Preference
 
-@cache_page
+@cache_page(600)
 def public_profiles (request):
     if cache.get('profiles'): profiles = cache.get('profiles')
     else:
