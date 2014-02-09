@@ -2,6 +2,7 @@ from django.template.base import Library
 from django.template import loader
 from django.template.context import Context
 from django.conf import settings
+from itdagene.core.models import Preference
 
 register = Library()
 

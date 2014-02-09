@@ -2,15 +2,17 @@ from itdagene.app.company.models import Company, Comment, Package, CompanyContac
 from django.forms.models import ModelForm
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
+from itdagene.app.company import COMPANY_STATUS
 
 
 class PackageForm(ModelForm):
     form_title = _('Add package')
     keyword = 'package'
     action_url = '/bdb/packages/add'
+
     class Meta:
         model = Package
-        exclude = ('is_full')
+        exclude = ('is_full',)
 
 
 class CompanyForm(ModelForm):
@@ -20,7 +22,7 @@ class CompanyForm(ModelForm):
 
     class Meta:
         model = Company
-        exclude = ('package')
+        exclude = ('package',)
 
     def __init__(self, *args, **kwargs):
         super(CompanyForm, self).__init__(*args, **kwargs)
@@ -74,7 +76,7 @@ class CompanyContactForm(ModelForm):
 
     class Meta:
         model = CompanyContact
-        exclude = ('company')
+        exclude = ('company',)
 
     def __init__(self, *args, **kwargs):
         super(CompanyContactForm, self).__init__(*args, **kwargs)
@@ -82,6 +84,19 @@ class CompanyContactForm(ModelForm):
             if field.widget.is_required:
                 field.widget.attrs['required'] = 'required'
         self.action_url = '/bdb/contacts/' + str(self.instance.pk) + '/add/'
+
+
+class CompanyStatusForm(ModelForm):
+    class Meta:
+        model = Company
+        fields = ('status',)
+
+    def __init__(self, *args, **kwargs):
+        super(CompanyStatusForm, self).__init__(*args, **kwargs)
+        for _, field in self.fields.items():
+            if field.widget.is_required:
+                field.widget.attrs['required'] = 'required'
+        self.fields['status'].choices = list(COMPANY_STATUS)
 
 
 class ContractForm(ModelForm):
