@@ -1,16 +1,10 @@
-from random import choice
-import string
-from django.conf import settings
-from itdagene.core.models import Preference
+import json as simplejson
+
 from django.core.serializers import json, serialize
 from django.db.models.query import QuerySet
 from django.http import HttpResponse
-from django.utils import simplejson
-from django.shortcuts import render_to_response
 
-
-
-
+from itdagene.core.models import Preference
 
 
 class JsonResponse(HttpResponse):
