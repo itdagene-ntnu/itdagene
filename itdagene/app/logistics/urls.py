@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import patterns, url
+from django.conf.urls import patterns, url
 
 urlpatterns = patterns('itdagene.app.logistics.views.interview_room',
     url(r'^room-registrations/$', 'overview', name='room_registrations'),

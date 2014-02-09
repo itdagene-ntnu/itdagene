@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import patterns, url
+from django.conf.urls import patterns, url
 
 urlpatterns = patterns('itdagene.app.events.views',
     url(r'^$', 'list_events', name='events'),

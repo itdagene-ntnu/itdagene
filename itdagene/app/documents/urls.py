@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import url, patterns
+from django.conf.urls import url, patterns
 
 urlpatterns = patterns('itdagene.app.documents.views',
     url(r'^$', 'list_documents', name='documents'),

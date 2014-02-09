@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import patterns, url
+from django.conf.urls import patterns, url
 
 urlpatterns = patterns('itdagene.app.todo.views',
     (r'^add/$', 'add_todo'),
