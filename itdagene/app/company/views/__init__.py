@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.core.cache import cache
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext as _
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from itdagene.app.company.forms import BookCompanyForm, CompanyForm, ResponsibilityForm, ContractForm, CompanyContactForm, CompanyStatusForm
 from itdagene.app.career.forms import JoblistingForm

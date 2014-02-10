@@ -18,8 +18,8 @@ class Package(BaseModel):
     has_stand_first_day = models.BooleanField()
     has_stand_last_day = models.BooleanField()
     has_waiting_list = models.BooleanField(default=True, verbose_name=_('has waiting list'))
-    includes_course = models.BooleanField(verbose_name=_('includes course'))
-    is_full = models.BooleanField(verbose_name=_('is full'))
+    includes_course = models.BooleanField(verbose_name=_('includes course'), default=False)
+    is_full = models.BooleanField(verbose_name=_('is full'), default=False)
 
     def __unicode__(self):
         return _('Package') + ': ' + self.name
