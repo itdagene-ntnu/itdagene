@@ -4,7 +4,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.cache import cache
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import render_to_response, get_object_or_404, redirect
-from itdagene.app.company.forms import BookCompanyForm, CompanyForm, ResponsibilityForm, ContractForm, CompanyContactForm, CompanyStatusForm
+from itdagene.app.company.forms import BookCompanyForm, CompanyForm, ResponsibilityForm, ContractForm,\
+    CompanyContactForm, CompanyStatusForm, WaitingListCompanyForm
 from itdagene.app.career.forms import JoblistingForm
 from itdagene.app.company.models import Company, Package
 from django.forms.models import modelformset_factory
@@ -143,9 +144,9 @@ def book_company(request, id):
 @permission_required('company.change_company')
 def waiting_list(request, id):
     company = get_object_or_404(Company, pk=id)
-    form = BookCompanyForm(instance=company)
+    form = WaitingListCompanyForm(instance=company)
     if request.method == 'POST':
-        form = BookCompanyForm(request.POST, instance=company)
+        form = WaitingListCompanyForm(request.POST, instance=company)
         if form.is_valid():
             form.save()
             request.session['message'] = {'class': 'success', 'value': _('Added to waiting list')}

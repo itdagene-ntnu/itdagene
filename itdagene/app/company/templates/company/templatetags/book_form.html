@@ -1,5 +1,5 @@
 {% load i18n widget_tweaks %}
-<form action="{% url book_company form.instance.pk %}" method="post">
+<form class="form-inline" action="{% url book_company form.instance.pk %}" method="post">
     {% csrf_token %}
     <h3>{% trans "Book the company" %}</h3>
     {% for field in form %}
@@ -7,5 +7,5 @@
             {% render_field field class="form-control" %}
         </div>
     {% endfor %}
-    <button type="submit" class="btn btn-primary btn-block">{% trans "Save" %}</button>
+    <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
 </form>

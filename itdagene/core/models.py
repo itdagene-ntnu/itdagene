@@ -8,7 +8,8 @@ from itdagene.core.log.models import LogItem
 from django.contrib.contenttypes.models import ContentType
 from django.conf import settings
 
-class BaseModel (models.Model):
+
+class BaseModel(models.Model):
     creator = models.ForeignKey(User, editable=False, related_name="%(class)s_creator")
     saved_by = models.ForeignKey(User, editable=False, related_name="%(class)s_saved_by")
     date_created = models.DateTimeField(editable=False)
