@@ -1,7 +1,7 @@
 {% load i18n widget_tweaks %}
-<form action="{% url book_company form.instance.pk %}" method="post">
+<form action="{% url waiting_list form.instance.pk %}" method="post">
     {% csrf_token %}
-    <h3>{% trans "Book the company" %}</h3>
+    <h3>{% trans "Waiting list" %}</h3>
     {% for field in form %}
         <div class="form-group">
             {% render_field field class="form-control" %}

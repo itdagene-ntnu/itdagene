@@ -38,7 +38,7 @@ class CompanyForm(ModelForm):
 class BookCompanyForm(ModelForm):
     class Meta:
         model = Company
-        fields = ('package', 'waiting_for_package')
+        fields = ('package',)
 
     def __init__(self, *args, **kwargs):
         super(BookCompanyForm, self).__init__(*args, **kwargs)
@@ -47,9 +47,22 @@ class BookCompanyForm(ModelForm):
                 field.widget.attrs['required'] = 'required'
         packages = Package.objects.filter(is_full=False)
         self.fields['package'].queryset = packages
+        # waiting_lists = Package.objects.filter(is_full=True, has_waiting_list=True)
+        # self.fields['waiting_for_package'].queryset = waiting_lists
+
+
+class WaitingListCompanyForm(ModelForm):
+    class Meta:
+        model = Company
+        fields = ('waiting_for_package',)
+
+    def __init__(self, *args, **kwargs):
+        super(WaitingListCompanyForm, self).__init__(*args, **kwargs)
+        for _, field in self.fields.items():
+            if field.widget.is_required:
+                field.widget.attrs['required'] = 'required'
         waiting_lists = Package.objects.filter(is_full=True, has_waiting_list=True)
         self.fields['waiting_for_package'].queryset = waiting_lists
-        self.action_url = '/bdb/companies/' + str(self.instance.pk) + '/book/'
 
 
 class ResponsibilityForm(ModelForm):

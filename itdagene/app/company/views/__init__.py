@@ -141,6 +141,20 @@ def book_company(request, id):
                    'form': form})
 
 @permission_required('company.change_company')
+def waiting_list(request, id):
+    company = get_object_or_404(Company, pk=id)
+    form = BookCompanyForm(instance=company)
+    if request.method == 'POST':
+        form = BookCompanyForm(request.POST, instance=company)
+        if form.is_valid():
+            form.save()
+            request.session['message'] = {'class': 'success', 'value': _('Added to waiting list')}
+            return redirect(reverse('itdagene.app.company.views.view', args=[company.pk]))
+    return render(request, 'company/form.html',
+                  {'company': company,
+                   'form': form})
+
+@permission_required('company.change_company')
 def set_status(request, id):
     company = get_object_or_404(Company, pk=id)
     form = CompanyStatusForm(instance=company)
