@@ -47,9 +47,7 @@ class BookCompanyForm(ModelForm):
                 field.widget.attrs['required'] = 'required'
         packages = Package.objects.filter(is_full=False)
         self.fields['package'].queryset = packages
-        # waiting_lists = Package.objects.filter(is_full=True, has_waiting_list=True)
-        # self.fields['waiting_for_package'].queryset = waiting_lists
-
+        
 
 class WaitingListCompanyForm(ModelForm):
     class Meta:
