@@ -10,6 +10,8 @@ from django.shortcuts import redirect, get_object_or_404
 
 @permission_required('documents.change_document')
 def list_documents(request):
+    documents = []
+    years = []
     documents = Document.objects.all()
     return render(request, 'documents/base.html', {'documents': documents})
 
