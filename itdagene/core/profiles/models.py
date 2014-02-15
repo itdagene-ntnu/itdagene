@@ -25,8 +25,9 @@ class BoardPosition (BaseModel):
         verbose_name = _('Boardposition')
         verbose_name_plural = _('Boardpositions')
 
+
 class Profile (BaseModel):
-    user = models.ForeignKey(User, related_name='profile',unique=True, verbose_name=_('user'))
+    user = models.OneToOneField(User, related_name='profile', verbose_name=_('user'))
     type = models.CharField(max_length=1, choices=settings.PROFILE_TYPES, default='u', verbose_name=_('type'))
     position = models.ForeignKey(BoardPosition, blank=True, null=True,verbose_name=_('position'))
     year = models.IntegerField(blank=True,null=True,verbose_name=_('year'), help_text=_('The year this person arranged itDAGENE'))
