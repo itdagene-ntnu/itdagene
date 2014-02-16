@@ -58,17 +58,6 @@
         </article>
     {% endif %}
 
-    <aside id="partners" class="block">
-        {% if pref %}
-            {#            {% cache 10000 preference_block %}#}
-            <h1><span class="s1-4">{{ pref.start_date|date:"d" }}.</span> og <span class="s1-4">{{ pref.end_date|date:"d" }}.</span> {{ pref.start_date|date:"M" }} {{ pref.year }}</h1>
-            {#            {% endcache %}#}
-            <br>
-        {% endif %}
-        <h2>Hovedsamarbeidspartner</h2>
-        <a href="http://www.accenture.com/no-en/"><img src="/static/img/hsp.png" class="hsp-logo"/></a>
-    </aside>
-
     <article id="main" class="block">
         {% if error_message %}<div id="message" class="error">{{ error_message }}</div>{% endif %}
         {% if info_message %}<div id="message" class="info">{{ info_message }}</div>{% endif %}
