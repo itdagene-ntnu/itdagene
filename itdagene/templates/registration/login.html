@@ -1,28 +1,45 @@
+{% load i18n widget_tweaks %}
 <!DOCTYPE html>
 <html>
-{% load i18n %}
 <head>
     <title>itDAGENE - {% trans "Login" %}</title>
-    <style type="text/css" media="all"> @import url("/static/style.css"); </style>
+    <link rel="stylesheet"  href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/auth.css">
 </head>
-<body class="loginpage">
-    <article class="loginbox">
-
-        {% if form.errors %}
-            <div class="message errormsg"><p>{% trans "Your username and password didn't match. Please try again." %}</p>
-            </div>{% endif %}
-        <form method="post" action="{% url "django.contrib.auth.views.login" %}">
-            {% csrf_token %}
-            {{ form.as_p }}
-
-            <p class="formend">
-                <input type="submit" value="{% trans "Log in" %}"/>
-                <input type="hidden" name="next" value="{{ next }}"/>
-                <a href="{% url "forgot_password" %}" class="button">{% trans "Forgot password" %}</a>
-            </p>
-        </form>
-    </article>
-
+<body>
+{% if form.errors %}
+    <div class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        {% trans "Your username and password didn't match. Please try again." %}
+    </div>
+{% endif %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title text-center">{% trans "Sign in" %}</h3>
+                </div>
+                <div class="panel-body">
+                    <form method="post" class="form-horizontal" action="{% url "django.contrib.auth.views.login" %}">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="{{ field.auto_id }}">{{ field.label }}</label>
+                                <div class="col-md-10">
+                                    {% render_field field class="form-control" %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <input type="submit" class="btn btn-primary btn-block" value="{% trans "Log in" %}"/>
+                        <input type="hidden" name="next" value="{{ next }}"/>
+                        <p class="text-center" style="margin-top:10px; margin-bottom: -5px;"><a href="{% url "forgot_password" %}" class="button">{% trans "Forgot password" %}</a></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
 
