@@ -57,42 +57,22 @@ class Profile (BaseModel):
 
     @classmethod
     def get_or_create(cls, user):
-        profile = cache.get('profile' + str(user.pk))
-        if not profile:
+        try:
+            profile = Profile.objects.get(user=user)
+        except (TypeError, Profile.DoesNotExist):
             try:
-                profile = Profile.objects.get(user=user)
-            except (TypeError, Profile.DoesNotExist):
-                try:
-                    auser = User.objects.get(pk=1)
-                    profile = Profile(
-                                creator=auser,
-                                saved_by=user,
-                                date_created=datetime.now(),
-                                date_saved=datetime.now(),
-                                user=user,
-                                year=Preference.current_preference().year)
-                    profile.save()
+                anononymous_user = User.objects.get(pk=1)
 
-                    if profile.type == 'b':
-                        cache.set('profile' + str(user.pk), profile, 604800)
-                    else:
-                        #Not board people will only cache profiles for one hour
-                        cache.set('profile' + str(user.pk), profile, 3600)
-                except (TypeError, User.DoesNotExist, Preference.DoesNotExist):
-                    profile = None
+                profile = Profile.objects.create(creator=anononymous_user,
+                                                 saved_by=anononymous_user,
+                                                 date_created=datetime.now(),
+                                                 date_saved=datetime.now(),
+                                                 user=user,
+                                                 year=Preference.current_preference().year)
+            except (TypeError, User.DoesNotExist, Preference.DoesNotExist):
+                profile = None
 
         return profile
-
-    @classmethod
-    def get_count_for_type(cls, type):
-        if type and len(type) == 1:
-            out = cache.get('profilecount' + type)
-            if not out >= 0:
-                out = Profile.objects.filter(type=type,user__is_active=True).count()
-                cache.set('profilecount' + type, out)
-        return out
-
-
 
     class Meta:
         verbose_name = _('Profile')
