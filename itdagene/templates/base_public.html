@@ -19,7 +19,6 @@
     <link rel="stylesheet" type="text/css"
           href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">
     <link href="/static/css/base_public_main.css" rel="stylesheet">
-    <link href="/static/css/frontpage.css" rel="stylesheet">
     {% analytics %}
     {% block include %}{% endblock %}
 </head>
@@ -42,24 +41,13 @@
         </div>
     </nav>
 </header>
-
-
 <section>
-    {% if request.user.is_authenticated %}<nav>{% block submenu %}{% endblock %}</nav>{% endif %}
-    {% if slider %}
-        <article id="slider" class="block">
-            {% block slider %}
-            {% endblock %}
-            <hr/>
-        </article>
-    {% endif %}
-
     <article id="main" class="block">
         {% if error_message %}<div id="message" class="error">{{ error_message }}</div>{% endif %}
         {% if info_message %}<div id="message" class="info">{{ info_message }}</div>{% endif %}
-        {% block content %}
-
-        {% endblock %}
+        <div class="content-container">
+            {% block content %}{% endblock %}
+        <div>
         <hr/>
     </article>
 
@@ -124,7 +112,6 @@
         </aside>
     {% endif %}
 
-    <footer>
         <div id="partners2" class="block">
             <h2>Hovedsamarbeidspartner</h2>
             <a href="http://www.accenture.com/no-en/"><img src="/static/img/hsp.png" class="hsp-logo"/></a>
@@ -151,7 +138,8 @@
             <hr/>
         </div>
         <hr>{% endcomment %}
-        <div class="adress text-center">itDAGENE {% now "Y" %} | Sem Sælands vei 7-9 | 7491 TRONDHEIM | bedrift@itdagene.no | org.nr: 997 540 433</div>
+    <footer>
+        <div class="adress text-center">itDAGENE {% now "Y" %} | Sem Sælands vei 7-9 | 7491 Trondheim | <a href="mailto:bedrift@itdagene.no">bedrift@itdagene.no</a> | org.nr: 997 540 433</div>
     </footer>
 </section>
 </body>
