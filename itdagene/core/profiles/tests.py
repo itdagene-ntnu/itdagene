@@ -7,5 +7,3 @@ class ModelTest(TestCase):
         user = User.objects.create_user('adrian', 'adrian@example.com')
 
         self.assertEqual(user.id, user.profile.user.id)
-
-
