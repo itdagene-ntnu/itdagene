@@ -1,7 +1,9 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User
 from django.core.cache import cache
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
+from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.cache import cache_page
 from django.views.generic.list import ListView
@@ -22,6 +24,21 @@ class ProfileList(ListView):
 
     def get_queryset(self):
         return Profile.objects.filter(type='b', year=Preference.current_preference().year).order_by('position__pk')
+
+
+@login_required
+def profile_detail(request, pk):
+    try:
+        profile = Profile.objects.get(user=pk)
+    except ObjectDoesNotExist:
+        raise Http404()
+
+    context = {
+        'profile': profile,
+        'current_year': Preference.current_preference().year
+    }
+
+    return render(request, 'profiles/profile_detail.html', context)
 
 
 @cache_page(600)

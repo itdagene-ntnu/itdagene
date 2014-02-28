@@ -14,7 +14,7 @@
 
             {% for profile in profile_list %}
             <tr id="profile-{{ profile.pk }}">
-                <td>{{ profile }}</td>
+                <td><a href="{% url 'profile_backend:detail' profile.user.id %}">{{ profile }}</a></td>
                 <td>{{ profile.position }}</td>
                 <td>{{ profile.phone }}</td>
                 <td>{{ profile.user.email }}</td>

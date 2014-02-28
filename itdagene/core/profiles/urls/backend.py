@@ -8,5 +8,10 @@ urlpatterns = patterns(
         regex='^$',
         view=ProfileList.as_view(),
         name='list'
+    ),
+    url(
+        regex='^(?P<pk>\d+)/$',
+        view='itdagene.core.profiles.views.profile_detail',
+        name='detail'
     )
 )
