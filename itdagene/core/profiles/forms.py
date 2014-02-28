@@ -1,15 +1,17 @@
-from itdagene.core.profiles.models import Profile
-from django.forms.widgets import PasswordInput
-from django.forms.models import ModelForm
 from django import forms
-from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
+from django.forms.models import ModelForm
+from django.forms.widgets import PasswordInput
+from django.utils.translation import ugettext_lazy as _
+
+from itdagene.core.profiles.models import Profile
+
 
 class StandardProfileForm(ModelForm):
 
     class Meta:
         model = Profile
-        exclude = ('user','type', 'position','year')
+        exclude = ('user', 'type', 'position','year')
 
 class StandardUserForm(ModelForm):
     class Meta:
