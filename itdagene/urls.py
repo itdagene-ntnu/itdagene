@@ -44,6 +44,10 @@ urlpatterns = patterns('',
     url(r'^program/$', 'itdagene.app.events.views.public_event_list', name='program'),
     url(r'^evaluate/(?P<hash>[a-zA-Z0-9]+)/$', 'itdagene.app.feedback.views.evalutions.handle_evaluation', name='evaluate'),
     url(r'^twitter/$', TwitterView.as_view()),
+    url(
+        regex='^backend/profile/',
+        view=include('itdagene.core.profiles.urls.backend', namespace='profile_backend')
+    ),
 )
 
 #urlpatterns += ('itdagene.app.company.views',

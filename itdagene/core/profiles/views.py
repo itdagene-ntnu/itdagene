@@ -1,17 +1,28 @@
-from datetime import date
 from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth.models import User, check_password
+from django.contrib.auth.models import User
 from django.core.cache import cache
-from django.shortcuts import render_to_response, get_object_or_404, redirect
-from django.utils.translation import ugettext_lazy as _
+from django.core.urlresolvers import reverse
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.cache import cache_page
+from django.views.generic.list import ListView
+from django.utils.decorators import method_decorator
+from django.utils.translation import ugettext_lazy as _
+
 from itdagene.core.auth import get_current_user
+from itdagene.core.models import Preference
 from itdagene.core.profiles.forms import StandardProfileForm, PasswordForm, ProfileSearchForm, AdminProfileForm, StandardUserForm
 from itdagene.core.profiles.models import Profile
 from itdagene.core.search import get_query
-from django.core.urlresolvers import reverse
-from django.shortcuts import render
-from itdagene.core.models import Preference
+
+
+class ProfileList(ListView):
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(ProfileList, self).dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return Profile.objects.filter(type='b', year=Preference.current_preference().year).order_by('position__pk')
+
 
 @cache_page(600)
 def public_profiles (request):

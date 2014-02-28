@@ -82,7 +82,7 @@
                             {% include 'meetings/submenu.html' %}
                         </li>
                     {% endif %}
-                    <li {% active request 'profiles' %}><a href="{% url "profiles" %}"><span class="glyphicon glyphicon-user"></span>&nbsp;{% trans "People" %}</a>
+                    <li {% active request 'profile' %}><a href="{% url "profile_backend:list" %}"><span class="glyphicon glyphicon-user"></span>&nbsp;{% trans "People" %}</a>
                         {% include 'core/profiles/submenu.html' %}
                     </li>
                     {% if user.is_staff %}
