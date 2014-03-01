@@ -9,14 +9,17 @@ from django.views.decorators.cache import cache_page
 from django.utils.translation import ugettext_lazy as _
 
 from itdagene.core.auth import get_current_user
+from itdagene.core.log.models import LogItem
 from itdagene.core.models import Preference
 from itdagene.core.profiles.forms import StandardProfileForm, PasswordForm, ProfileSearchForm, AdminProfileForm, StandardUserForm
 from itdagene.core.profiles.models import Profile
 from itdagene.core.search import get_query
 
+from .forms import CreateUserForm
+
 
 @login_required
-def list(request):
+def profile_list(request):
     profiles = Profile.objects.filter(type='b', year=Preference.current_preference().year).order_by('position__pk')
 
     context = {
@@ -27,7 +30,7 @@ def list(request):
 
 
 @login_required
-def detail(request, pk):
+def profile_detail(request, pk):
     try:
         profile = Profile.objects.get(user=pk)
     except ObjectDoesNotExist:
@@ -39,6 +42,21 @@ def detail(request, pk):
     }
 
     return render(request, 'profiles/profile_detail.html', context)
+
+
+@permission_required('auth.add_user')
+def user_create(request):
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+
+        if form.is_valid():
+            user = form.save()
+            LogItem.log_it(user, 'CREATE', 2)
+            return redirect(reverse('profile_backend:detail', args=[user.profile.user.pk]))
+    else:
+        form = CreateUserForm()
+
+    return render(request, 'profiles/user_create.html', {'form': form})
 
 
 @cache_page(600)

@@ -4,12 +4,17 @@ urlpatterns = patterns(
     '',
     url(
         regex='^$',
-        view='itdagene.core.profiles.views.list',
+        view='itdagene.core.profiles.views.profile_list',
         name='list'
     ),
     url(
+        regex='^create/$',
+        view='itdagene.core.profiles.views.user_create',
+        name='user_create'
+    ),
+    url(
         regex='^(?P<pk>\d+)/$',
-        view='itdagene.core.profiles.views.detail',
+        view='itdagene.core.profiles.views.profile_detail',
         name='detail'
-    )
+    ),
 )

@@ -1,6 +1,11 @@
 {% load i18n %}
 
 <ul>
+    <li>
+        {% if perms.auth.add_user %}
+        <a href="{% url 'profile_backend:user_create' %}">Opprett ny bruker</a>
+        {% endif %}
+    </li>
     <li><a href="{% url "core.profiles.views.search" %}">{% trans "Search for users" %}</a></li>
     <li><a href="{% url "core.profiles.views.me" %}">{% trans "View my profile" %}</a></li>
     <li><a href="{% url "core.profiles.views.edit_me" %}">{% trans "Edit my profile" %}</a></li>
