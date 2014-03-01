@@ -9,10 +9,6 @@ class UserForm (ModelForm):
         model = User
         exclude = ('username', 'password', 'user_permissions', 'last_login', 'date_joined')
 
-class CreateUserForm (ModelForm):
-    class Meta:
-        model = User
-        exclude = ('user_permissions', 'last_login', 'date_joined', 'is_superuser', 'password')
 
 class RegisterUserForm(forms.Form):
     username = forms.CharField(max_length=8)

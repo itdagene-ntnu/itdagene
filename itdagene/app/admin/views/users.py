@@ -1,7 +1,7 @@
 from django.core.cache import cache
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect
-from itdagene.app.admin.forms import UserForm, CreateUserForm, RegisterUserForm
+from itdagene.app.admin.forms import UserForm, RegisterUserForm
 from itdagene.core.auth import generate_password
 from django.contrib.auth.decorators import permission_required
 from itdagene.core.log.models import LogItem
@@ -26,24 +26,6 @@ def list(request):
 def list_all(request):
     users = User.objects.all().order_by('last_name')
     return render(request, 'adm/users/list.html', {'users': users})
-
-
-@permission_required('auth.change_user')
-def add(request):
-    form = CreateUserForm()
-    if request.method == 'POST':
-        form = CreateUserForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            LogItem.log_it(user, 'CREATE', 2)
-            password = generate_password()
-            user.set_password(password)
-            send_mail(_('Your password for itDAGENE'),
-                      _('You have now been registered at itDAGENE.no.\n\nYour password is: ' + password),
-                      settings.FROM_ADDRESS, (user.email,))
-            user.save()
-            return redirect(reverse('itdagene.app.admin.views.users.view', args=[user.pk]))
-    return render(request, 'adm/users/create.html', {'form': form})
 
 
 @permission_required('auth.change_user')
