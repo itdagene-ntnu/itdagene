@@ -41,11 +41,12 @@ def boolean(value, arg=None):
 
 
 @register.filter
-def is_contract_for_current_year(value, arg=None):
+def has_contract_for_current_year(value, arg=None):
     """
     Returns True if the contract passed as value is from current year
     """
     from datetime import datetime
-    if value.timestamp.year == datetime.now().year:
-        return True
+    for contract in value:
+        if contract.timestamp.year == datetime.now().year:
+            return True
     return False
