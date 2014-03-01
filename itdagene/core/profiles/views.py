@@ -29,6 +29,16 @@ def profile_list(request):
     return render(request, 'profiles/profile_list.html', context)
 
 
+def profile_list_all(request):
+    users = User.objects.filter(is_active=True).order_by('first_name')
+
+    context = {
+        'user_list': users,
+    }
+
+    return render(request, 'profiles/profile_list_all.html', context)
+
+
 @login_required
 def profile_detail(request, pk):
     try:

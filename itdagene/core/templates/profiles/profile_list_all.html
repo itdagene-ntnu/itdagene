@@ -1,0 +1,31 @@
+{% extends "core/profiles/base.html" %}
+
+{% block content %}
+    <div class="profiles">
+        <h1>Alle profiler</h1>
+
+        <p>
+            <a href="{% url 'profile_backend:list' %}">
+                <button type="button" class="btn btn-default">Vis bare sittende styre</button>
+            </a>
+        </p>
+
+        <table class="table table-striped">
+            <tr>
+                <th>Navn</th>
+                <th>E-post</th>
+            </tr>
+
+            {% for user in user_list %}
+            <tr id="profile-{{ user.pk }}">
+                <td><a href="{% url 'profile_backend:detail' user.id %}">{{ user.profile }}</a></td>
+                <td>{{ user.email }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">Ingen profiler å vise</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

@@ -1,25 +1,30 @@
 from django.conf.urls import patterns, url
 
 urlpatterns = patterns(
-    '',
+    'itdagene.core.profiles.views',
     url(
         regex='^$',
-        view='itdagene.core.profiles.views.profile_list',
+        view='profile_list',
         name='list'
     ),
     url(
+        regex='^all/$',
+        view='profile_list_all',
+        name='list_all'
+    ),
+    url(
         regex='^create/$',
-        view='itdagene.core.profiles.views.user_create',
+        view='user_create',
         name='user_create'
     ),
     url(
         regex='^me/$',
-        view='itdagene.core.profiles.views.profile_detail_me',
+        view='profile_detail_me',
         name='me'
     ),
     url(
         regex='^(?P<pk>\d+)/$',
-        view='itdagene.core.profiles.views.profile_detail',
+        view='profile_detail',
         name='detail'
     ),
 )
