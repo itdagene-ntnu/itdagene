@@ -13,6 +13,11 @@ urlpatterns = patterns(
         name='user_create'
     ),
     url(
+        regex='^me/$',
+        view='itdagene.core.profiles.views.profile_detail_me',
+        name='me'
+    ),
+    url(
         regex='^(?P<pk>\d+)/$',
         view='itdagene.core.profiles.views.profile_detail',
         name='detail'

@@ -44,6 +44,11 @@ def profile_detail(request, pk):
     return render(request, 'profiles/profile_detail.html', context)
 
 
+@login_required
+def profile_detail_me(request):
+    return redirect(reverse('profile_backend:detail', args=[request.user.pk]))
+
+
 @permission_required('auth.add_user')
 def user_create(request):
     if request.method == 'POST':
@@ -84,10 +89,6 @@ def profiles (request):
 def profile (request, id):
     profile = get_object_or_404(Profile, pk=id)
     return render(request, 'core/profiles/profile.html', {'profile': profile})
-
-@login_required
-def me(request):
-    return redirect(reverse('itdagene.core.profiles.views.profile', args=[request.user.profile.pk]))
 
 @login_required
 def edit_me(request):
