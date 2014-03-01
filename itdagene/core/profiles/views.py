@@ -6,8 +6,6 @@ from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.cache import cache_page
-from django.views.generic.list import ListView
-from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
 
 from itdagene.core.auth import get_current_user
@@ -17,17 +15,19 @@ from itdagene.core.profiles.models import Profile
 from itdagene.core.search import get_query
 
 
-class ProfileList(ListView):
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(ProfileList, self).dispatch(request, *args, **kwargs)
+@login_required
+def list(request):
+    profiles = Profile.objects.filter(type='b', year=Preference.current_preference().year).order_by('position__pk')
 
-    def get_queryset(self):
-        return Profile.objects.filter(type='b', year=Preference.current_preference().year).order_by('position__pk')
+    context = {
+        'profile_list': profiles,
+    }
+
+    return render(request, 'profiles/profile_list.html', context)
 
 
 @login_required
-def profile_detail(request, pk):
+def detail(request, pk):
     try:
         profile = Profile.objects.get(user=pk)
     except ObjectDoesNotExist:

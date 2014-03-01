@@ -1,17 +1,15 @@
 from django.conf.urls import patterns, url
 
-from ..views import ProfileList
-
 urlpatterns = patterns(
     '',
     url(
         regex='^$',
-        view=ProfileList.as_view(),
+        view='itdagene.core.profiles.views.list',
         name='list'
     ),
     url(
         regex='^(?P<pk>\d+)/$',
-        view='itdagene.core.profiles.views.profile_detail',
+        view='itdagene.core.profiles.views.detail',
         name='detail'
     )
 )
