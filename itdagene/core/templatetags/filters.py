@@ -7,7 +7,6 @@ register = Library()
 
 @register.filter
 def datetime(value, arg=None):
-
     """
     returns a date with timeleft and the datetime format from the settingsfile. A js will animate between the two types on mouseover.
     """
@@ -34,9 +33,19 @@ def datetime(value, arg=None):
 
 @register.filter
 def boolean(value, arg=None):
+    """
+    Returns HTML markup for a Glyphicon based on the truthiness of the value
+    """
     if value: return mark_safe('<span class="glyphicon glyphicon-ok" alt="%s"' % _('Yes'))
     return mark_safe('<span class="glyphicon glyphicon-remove" alt="%s"' % _('No'))
 
+
 @register.filter
-def divideBy(value, arg=1):
-    return value[0]/arg
+def is_contract_for_current_year(value, arg=None):
+    """
+    Returns True if the contract passed as value is from current year
+    """
+    from datetime import datetime
+    if value.timestamp.year == datetime.now().year:
+        return True
+    return False

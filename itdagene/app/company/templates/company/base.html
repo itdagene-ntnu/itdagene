@@ -93,7 +93,7 @@
                 <td {% if not company.package %}class="red-bg"{% endif %}>
                     {% if company.package %}{{ company.package.name }}{% else %}{% trans "None" %}{% endif %}</td>
                 <td>{% if company.contact %}{{ company.contact.profile }}{% endif %}</td>
-                <td>{% if company.contracts.all %}{{ "True"|boolean }}{% else %}{{ ""|boolean }}{% endif %}</td>
+                <td>{% if contract|is_contract_for_current_year %}{{ "True"|boolean }}{% else %}{{ ""|boolean }}{% endif %}</td>
 
             </tr>
         {% endfor %}
