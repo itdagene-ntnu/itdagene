@@ -1,5 +1,5 @@
 {% extends "company/base.html" %}
-{% load i18n core company_comments companies todo%}
+{% load i18n core filters company_comments companies todo%}
 
 {% block include %}
     {% chosen "id_waiting_for_package" %}
@@ -91,16 +91,18 @@
                 <div class="panel-body">
                     <table class="table table-hover">
                         {% for joblisting in company.joblistings.all %}
-                            <tr>
-                                <td><a href="{% url view_joblisting joblisting.pk %}">{{ joblisting }}</a></td>
-                                <td>{{ joblisting.get_type_display }}</td>
-                                {% if joblisting.deadline %}
-                                    <td>{{ joblisting.deadline }}</td>
-                                {% else %}
-                                    <td>{% trans "No deadline" %}</td>
-                                {% endif %}
-                                <td><a href="{% url edit_joblisting joblisting.pk %}">{% trans "Edit" %}</a></td>
-                            </tr>
+                            {% if joblisting.deadline|date_is_not_expired %}
+                                <tr>
+                                    <td><a href="{% url view_joblisting joblisting.pk %}">{{ joblisting }}</a></td>
+                                    <td>{{ joblisting.get_type_display }}</td>
+                                    {% if joblisting.deadline %}
+                                        <td>{{ joblisting.deadline }}</td>
+                                    {% else %}
+                                        <td>{% trans "No deadline" %}</td>
+                                    {% endif %}
+                                    <td><a href="{% url edit_joblisting joblisting.pk %}">{% trans "Edit" %}</a></td>
+                                </tr>
+                            {% endif %}
                         {% endfor %}
                     </table>
                 </div>
