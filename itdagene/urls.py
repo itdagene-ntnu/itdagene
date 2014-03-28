@@ -49,7 +49,7 @@ urlpatterns = patterns('',
         view=include('itdagene.core.profiles.urls.backend', namespace='profile_backend')
     ),
     url(
-        regex='^backend/usersprofile/',
+        regex='^backend/users/',
         view=include('itdagene.app.users.urls', namespace='users')
     ),
 )
