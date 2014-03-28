@@ -48,6 +48,10 @@ urlpatterns = patterns('',
         regex='^backend/profile/',
         view=include('itdagene.core.profiles.urls.backend', namespace='profile_backend')
     ),
+    url(
+        regex='^backend/usersprofile/',
+        view=include('itdagene.app.users.urls', namespace='users')
+    ),
 )
 
 #urlpatterns += ('itdagene.app.company.views',
