@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
 
+from itdagene.core.profiles.models import Profile
+
 
 class UserCreateForm(forms.ModelForm):
     password1 = forms.CharField(label='Passord', widget=forms.PasswordInput)
@@ -36,3 +38,15 @@ class UserEditForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'first_name', 'last_name')
+
+
+class UserEditProfileAdminForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('type', 'position', 'year', 'phone', 'language', 'photo', 'mail_notification')
+
+
+class UserEditProfileStandardForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('phone', 'language', 'photo', 'mail_notification')

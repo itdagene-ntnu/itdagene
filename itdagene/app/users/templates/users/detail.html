@@ -35,6 +35,7 @@
 
                 {% if perms.auth.change_user or user.pk == person.pk %}
                 <a href="{% url 'users:edit' person.pk %}" class="btn btn-primary">Rediger bruker</a>
+                <a href="{% url 'users:edit_profile' person.pk %}" class="btn btn-primary">Rediger profil</a>
                 {% endif %}
 
                 {% if perms.auth.delete_user %}

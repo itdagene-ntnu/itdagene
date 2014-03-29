@@ -22,11 +22,11 @@ urlpatterns = patterns(
         view='user_edit',
         name='edit'
     ),
-    #url(
-    #    regex=r'^(?P<pk>\d+)/edit/profile/$',
-    #    view='user_edit_profile',
-    #    name='edit_profile'
-    #),
+    url(
+        regex=r'^(?P<pk>\d+)/edit/profile/$',
+        view='user_edit_profile',
+        name='edit_profile'
+    ),
     url(
         regex=r'^(?P<pk>\d+)/delete/$',
         view='user_delete',

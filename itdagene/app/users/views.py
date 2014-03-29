@@ -5,8 +5,9 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 from itdagene.core.log.models import LogItem
 from itdagene.core.models import Preference
+from itdagene.core.profiles.models import Profile
 
-from .forms import UserCreateForm, UserEditForm
+from .forms import UserCreateForm, UserEditForm, UserEditProfileAdminForm, UserEditProfileStandardForm
 
 
 @login_required
@@ -55,6 +56,31 @@ def user_edit(request, pk):
         form = UserEditForm(instance=person)
 
     return render(request, 'users/edit.html', {'form': form, 'person': person})
+
+
+@login_required
+def user_edit_profile(request, pk):
+    if not request.user.has_perm('auth.change_user') and not request.user.pk == int(pk):
+        return redirect(reverse('users:list'))
+
+    person = get_object_or_404(Profile, user=pk)
+
+    if request.method == 'POST':
+        if request.user.has_perm('auth.change_user'):
+            form = UserEditProfileAdminForm(request.POST, request.FILES, instance=person)
+        else:
+            form = UserEditProfileStandardForm(request.POST, request.FILES, instance=person)
+
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('users:detail', kwargs={'pk': person.user.pk}))
+    else:
+        if request.user.has_perm('auth.change_user'):
+            form = UserEditProfileAdminForm(instance=person)
+        else:
+            form = UserEditProfileStandardForm(instance=person)
+
+    return render(request, 'users/edit_profile.html', {'person': person, 'form': form})
 
 
 @permission_required('auth.delete_user')
