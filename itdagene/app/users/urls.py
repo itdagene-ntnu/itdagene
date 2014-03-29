@@ -7,11 +7,11 @@ urlpatterns = patterns(
         view='user_list',
         name='list'
     ),
-    #url(
-    #    regex=r'^create/$',
-    #    view='user_create',
-    #    name='create'
-    #),
+    url(
+        regex=r'^create/$',
+        view='user_create',
+        name='create'
+    ),
     #url(
     #    regex=r'^(?P<pk>\d+)/$',
     #    view='user_detail',
