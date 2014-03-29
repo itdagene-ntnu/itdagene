@@ -23,6 +23,11 @@ urlpatterns = patterns(
         name='edit'
     ),
     url(
+        regex=r'^(?P<pk>\d+)/edit/password/$',
+        view='user_edit_password',
+        name='edit_password'
+    ),
+    url(
         regex=r'^(?P<pk>\d+)/edit/profile/$',
         view='user_edit_profile',
         name='edit_profile'

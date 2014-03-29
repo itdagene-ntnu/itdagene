@@ -7,7 +7,8 @@ from itdagene.core.log.models import LogItem
 from itdagene.core.models import Preference
 from itdagene.core.profiles.models import Profile
 
-from .forms import UserCreateForm, UserEditForm, UserEditProfileAdminForm, UserEditProfileStandardForm
+from .forms import UserCreateForm, UserEditForm, UserEditProfileAdminForm, UserEditProfileStandardForm, \
+    UserEditPasswordForm
 
 
 @login_required
@@ -57,6 +58,36 @@ def user_edit(request, pk):
 
     return render(request, 'users/edit.html', {'form': form, 'person': person})
 
+
+@login_required
+def user_edit_password(request, pk):
+    if not request.user.has_perm('auth.change_user') and not request.user.pk == int(pk):
+        return redirect(reverse('users:list'))
+
+    person = get_object_or_404(User, pk=pk)
+
+    if request.method == 'POST':
+        form = UserEditPasswordForm(request.POST)
+
+        if form.is_valid():
+            old = form.data['old']
+            new1 = form.data['new1']
+            new2 = form.data['new2']
+
+            if new1 == new2:
+                if request.user.check_password(old):
+                    person.set_password(new1)
+                    person.save()
+
+                    return reverse('users:detail', person.pk)
+                else:
+                    form.error_messages = 'Nytt passord stemmer ikke med bekreftet passord'
+            else:
+                form.error_messages = 'Det gamle passordet var ikke korrekt'
+    else:
+        form = UserEditPasswordForm()
+
+    return render(request, 'users/edit_password.html', {'person': person, 'form': form})
 
 @login_required
 def user_edit_profile(request, pk):

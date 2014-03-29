@@ -8,5 +8,5 @@
     </li>
     <li><a href="{% url 'users:edit' user.pk %}">Endre min bruker</a></li>
     <li><a href="{% url 'users:edit_profile' user.pk %}">Endre min profil</a></li>
-    <li><a href="{% url "core.profiles.views.change_password" %}">{% trans "Change my password" %}</a></li>
+    <li><a href="{% url 'users:edit_password' user.pk %}">Endre mitt passord</a></li>
 </ul>

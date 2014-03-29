@@ -1,5 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.forms.widgets import PasswordInput
+from django.utils.translation import ugettext_lazy as _
 
 from itdagene.core.profiles.models import Profile
 
@@ -38,6 +40,12 @@ class UserEditForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'first_name', 'last_name')
+
+
+class UserEditPasswordForm(forms.Form):
+    old = forms.CharField(widget=PasswordInput, label=_('Old password'))
+    new1 = forms.CharField(widget=PasswordInput, label=_('New password'))
+    new2 = forms.CharField(widget=PasswordInput, label=_('New password again'), required=True)
 
 
 class UserEditProfileAdminForm(forms.ModelForm):

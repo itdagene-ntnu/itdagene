@@ -32,6 +32,7 @@
                 <span class="btn-group">
                     <a href="{% url 'users:edit' person.pk %}" class="btn btn-xs btn-primary">Rediger bruker</a>
                     <a href="{% url 'users:edit_profile' person.pk %}" class="btn btn-xs btn-primary">Rediger profil</a>
+                    <a href="{% url 'users:edit_password' person.pk %}" class="btn btn-xs btn-primary">Endre passord</a>
                     <a href="{% url 'users:delete' person.pk %}" class="btn btn-xs btn-danger">Slett</a>
                 </span>
             </td>
