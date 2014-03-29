@@ -103,7 +103,7 @@
                 </ul>
                 <hr/>
                 <div class="panel panel-default">
-                    <a href="{% url "view_profile" request.user.pk %}" style="text-decoration: none;">
+                    <a href="{% url "users:detail" request.user.pk %}" style="text-decoration: none;">
                         {% if profile.photo %}
                             {% thumbnail profile.photo "30x30" crop="center" as im %}
                                 <img src="{{ im.url }}" style="width:{{ im.width }}px; height:{{ im.height }}px;">

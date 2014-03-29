@@ -6,14 +6,6 @@ urlpatterns = patterns('itdagene.app.admin.views',
     (r'^log/(?P<first_object>\d+)$', 'log' ),
 )
 
-urlpatterns += patterns('itdagene.app.admin.views.users',
-    (r'^users/$', 'list' ),
-    (r'^users/all$', 'list_all' ),
-    url(r'^users/(?P<id>\d+)/$', 'view', name='view_profile' ),
-    (r'^users/(?P<id>\d+)/edit$', 'edit' ),
-    (r'^users/(?P<id>\d+)/edit/profile$', 'edit_profile' ),
-)
-
 urlpatterns += patterns('itdagene.app.admin.views.groups',
     (r'^groups/$', 'list' ),
     (r'^groups/add$', 'add' ),
