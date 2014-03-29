@@ -44,10 +44,6 @@ urlpatterns = patterns('',
     url(r'^evaluate/(?P<hash>[a-zA-Z0-9]+)/$', 'itdagene.app.feedback.views.evalutions.handle_evaluation', name='evaluate'),
     url(r'^twitter/$', TwitterView.as_view()),
     url(
-        regex='^backend/profile/',
-        view=include('itdagene.core.profiles.urls.backend', namespace='profile_backend')
-    ),
-    url(
         regex='^backend/users/',
         view=include('itdagene.app.users.urls', namespace='users')
     ),
@@ -60,11 +56,11 @@ urlpatterns = patterns('',
 urlpatterns += patterns('',
     url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
     url(r'^accounts/logout/$', 'django.contrib.auth.views.logout'),
-    url(r'^accounts/profile/$', lambda r: HttpResponsePermanentRedirect('/profiles/me')),
+    url(r'^accounts/profile/$', lambda r: HttpResponsePermanentRedirect('/backend/users/me/')),
     url(r'^login/$', 'django.contrib.auth.views.login'),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
-    url(r'^profile/$', lambda r: HttpResponsePermanentRedirect('/profiles/me')),
-    url(r'^accounts/$', lambda r: HttpResponsePermanentRedirect('/profiles/me')),
+    url(r'^profile/$', lambda r: HttpResponsePermanentRedirect('/backend/users/me/')),
+    url(r'^accounts/$', lambda r: HttpResponsePermanentRedirect('/backend/users/me/')),
 
     #redirects
     url(r'^jobb/$', lambda r: HttpResponsePermanentRedirect(reverse('joblistings'))),
