@@ -10,7 +10,7 @@ from .forms import UserCreateForm
 
 @login_required
 def user_list(request):
-    users = User.objects.all()
+    users = User.objects.filter(is_active=True).order_by('username')
     return render(request, 'users/list.html', {'users': users})
 
 
