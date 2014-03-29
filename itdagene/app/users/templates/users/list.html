@@ -1,0 +1,29 @@
+{% extends "core/profiles/base.html" %}
+
+{% block content %}
+<section id="users">
+    <h1>Brukere</h1>
+
+    <table class="table">
+        <tr class="active">
+            <th>Brukernavn</th>
+            <th>Navn</th>
+            <th>Tittel</th>
+            <th>År</th>
+            <th>E-post</th>
+            <th>Telefon</th>
+        </tr>
+
+        {% for user in users %}
+        <tr>
+            <td>{{ user.username }}</td>
+            <td>{{ user.get_full_name }}</td>
+            <td>{{ user.profile.position }}</td>
+            <td>{{ user.profile.year }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.profile.phone }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</section>
+{% endblock %}
