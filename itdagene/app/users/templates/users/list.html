@@ -4,6 +4,12 @@
 <section id="users">
     <h1>Brukere</h1>
 
+    <p>
+        <a href="{% url 'users:create' %}">
+            <button type="button" class="btn btn-primary">Opprett ny bruker</button>
+        </a>
+    </p>
+
     <table class="table">
         <tr class="active">
             <th>Brukernavn</th>
