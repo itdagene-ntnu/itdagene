@@ -12,11 +12,11 @@ urlpatterns = patterns(
         view='user_create',
         name='create'
     ),
-    #url(
-    #    regex=r'^(?P<pk>\d+)/$',
-    #    view='user_detail',
-    #    name='detail'
-    #),
+    url(
+        regex=r'^(?P<pk>\d+)/$',
+        view='user_detail',
+        name='detail'
+    ),
     #url(
     #    regex=r'^(?P<pk>\d+)/edit/$',
     #    view='user_edit',
@@ -27,9 +27,9 @@ urlpatterns = patterns(
     #    view='user_edit_profile',
     #    name='edit_profile'
     #),
-    #url(
-    #    regex=r'^(?P<pk>\d+)/delete/$',
-    #    view='user_delete',
-    #    name='delete'
-    #),
+    url(
+        regex=r'^(?P<pk>\d+)/delete/$',
+        view='user_delete',
+        name='delete'
+    ),
 )

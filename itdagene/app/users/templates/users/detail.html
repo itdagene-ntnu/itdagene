@@ -1,0 +1,53 @@
+{% extends "core/profiles/base.html" %}
+
+{% load i18n thumbnail  %}
+
+{% block content %}
+<section id="user-{{ person.pk }}">
+    <header>
+        <h1>{{ person.get_full_name }}</h1>
+
+        {% if person.profile.type == 'b' %}
+        <p>
+            <em>
+                {% if person.profile.year != current_year %} Pang {{ person.profile.year }} -{% endif %}
+                {{ person.profile.position }}
+            </em>
+        </p>
+        {% endif %}
+    </header>
+
+    <div class="row">
+        <div class="col-md-10">
+            <dl class="dl-horizontal">
+                <dt>Telefonnummer</dt>
+                <dd>{{ person.profile.phone }}</dd>
+
+                <dt>E-post</dt>
+                <dd>
+                    {% if person.profile.position.email %}{{ person.profile.position.email }}<br/>{% endif %}
+                    {{ person.profile.user.email }}
+                </dd>
+            </dl>
+
+            <div class="btn-group">
+                <a href="{% url 'users:list' %}" class="btn btn-default">Tilbake</a>
+                {% if perms.auth.delete_user %}
+                <a href="{% url 'users:delete' person.pk %}" class="btn btn-danger">Slett bruker</a>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            {% if person.profile.photo %}
+            {% thumbnail person.profile.photo "200" as im %}
+            <p style="text-align: center">
+                <img src="{{ im.url }}" style="width:100%; max-width: 150px;" class="img-circle">
+            </p>
+            {% endthumbnail %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}
