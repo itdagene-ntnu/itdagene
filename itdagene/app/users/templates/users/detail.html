@@ -32,6 +32,11 @@
 
             <div class="btn-group">
                 <a href="{% url 'users:list' %}" class="btn btn-default">Tilbake</a>
+
+                {% if perms.auth.change_user or user.pk == person.pk %}
+                <a href="{% url 'users:edit' person.pk %}" class="btn btn-primary">Rediger bruker</a>
+                {% endif %}
+
                 {% if perms.auth.delete_user %}
                 <a href="{% url 'users:delete' person.pk %}" class="btn btn-danger">Slett bruker</a>
                 {% endif %}

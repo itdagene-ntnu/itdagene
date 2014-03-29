@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from itdagene.core.log.models import LogItem
 from itdagene.core.models import Preference
 
-from .forms import UserCreateForm
+from .forms import UserCreateForm, UserEditForm
 
 
 @login_required
@@ -35,6 +35,26 @@ def user_detail(request, pk):
     person = get_object_or_404(User, pk=pk)
     current_year = Preference.current_preference().year
     return render(request, 'users/detail.html', {'person': person, 'current_year': current_year})
+
+
+@login_required
+def user_edit(request, pk):
+    if not request.user.has_perm('auth.change_user') and not request.user.pk == int(pk):
+        return redirect(reverse('users:list'))
+
+    person = get_object_or_404(User, pk=pk)
+
+    if request.method == 'POST':
+        form = UserEditForm(request.POST, instance=person)
+
+        if form.is_valid():
+            person = form.save()
+            LogItem.log_it(person, 'EDIT', 2)
+            return redirect(reverse('users:detail', kwargs={'pk': person.pk}))
+    else:
+        form = UserEditForm(instance=person)
+
+    return render(request, 'users/edit.html', {'form': form, 'person': person})
 
 
 @permission_required('auth.delete_user')
