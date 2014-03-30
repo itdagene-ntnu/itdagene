@@ -1,10 +1,5 @@
 {% load i18n %}
 <ul>
-    <li><a href="{% url "app.admin.views.users.list" %}">{% trans "USERS" %}</a></li>
-    {% if t_user.pk %}
-        <li><a href="{% url "app.admin.views.users.view" t_user.pk %}">{% trans "VIEW USER" %}</a></li>
-        <li><a href="{% url "app.admin.views.users.edit" t_user.pk %}">{% trans "EDIT USER" %}</a></li>
-    {% endif %}
     <li><a href="{% url "app.admin.views.groups.list" %}">{% trans "GROUPS" %}</a></li>
         {% if group.pk %}
         <li><a href="{% url "app.admin.views.groups.view" group.pk %}">{% trans "VIEW GROUP" %}</a></li>

@@ -1,8 +1,12 @@
 {% load i18n %}
 
 <ul>
-    <li><a href="{% url "core.profiles.views.search" %}">{% trans "Search for users" %}</a></li>
-    <li><a href="{% url "core.profiles.views.me" %}">{% trans "View my profile" %}</a></li>
-    <li><a href="{% url "core.profiles.views.edit_me" %}">{% trans "Edit my profile" %}</a></li>
-    <li><a href="{% url "core.profiles.views.change_password" %}">{% trans "Change my password" %}</a></li>
+    <li>
+        {% if perms.auth.add_user %}
+        <a href="{% url 'users:create' %}">Opprett ny bruker</a>
+        {% endif %}
+    </li>
+    <li><a href="{% url 'users:edit' user.pk %}">Endre min bruker</a></li>
+    <li><a href="{% url 'users:edit_profile' user.pk %}">Endre min profil</a></li>
+    <li><a href="{% url 'users:edit_password' user.pk %}">Endre mitt passord</a></li>
 </ul>

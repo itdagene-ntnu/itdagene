@@ -1,0 +1,44 @@
+{% extends "core/profiles/base.html" %}
+
+{% block content %}
+<section id="users">
+    <h1>Brukere</h1>
+
+    <p>
+        <a href="{% url 'users:create' %}">
+            <button type="button" class="btn btn-primary">Opprett ny bruker</button>
+        </a>
+    </p>
+
+    <table class="table">
+        <tr class="active">
+            <th>Brukernavn</th>
+            <th>Navn</th>
+            <th>Tittel</th>
+            <th>År</th>
+            {% if perms.auth.delete_user or perms.auth.change_user %}
+            <th></th>
+            {% endif %}
+        </tr>
+
+        {% for person in persons %}
+        <tr>
+            <td><a href="{% url 'users:detail' person.pk %}">{{ person.username }}</a></td>
+            <td>{{ person.get_full_name }}</td>
+            <td>{{ person.profile.position }}</td>
+            <td>{{ person.profile.year }}</td>
+            {% if perms.auth.delete_user or perms.auth.change_user %}
+            <td style="text-align: right;">
+                <span class="btn-group">
+                    <a href="{% url 'users:edit' person.pk %}" class="btn btn-xs btn-primary">Rediger bruker</a>
+                    <a href="{% url 'users:edit_profile' person.pk %}" class="btn btn-xs btn-primary">Rediger profil</a>
+                    <a href="{% url 'users:edit_password' person.pk %}" class="btn btn-xs btn-primary">Endre passord</a>
+                    <a href="{% url 'users:delete' person.pk %}" class="btn btn-xs btn-danger">Slett</a>
+                </span>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+</section>
+{% endblock %}
