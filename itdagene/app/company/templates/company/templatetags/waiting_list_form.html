@@ -1,5 +1,5 @@
 {% load i18n widget_tweaks %}
-<form class="form-inline" action="{% url waiting_list form.instance.pk %}" method="post">
+<form class="form-inline" action="{% url "waiting_list" form.instance.pk %}" method="post">
     {% csrf_token %}
     <h3>{% trans "Waiting list" %}</h3>
     {% for field in form %}
