@@ -7,12 +7,6 @@
     <link rel="stylesheet" href="/static/css/auth.css">
 </head>
 <body>
-{% if form.errors %}
-    <div class="alert alert-danger alert-dismissable">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        {% trans "Your username and password didn't match. Please try again." %}
-    </div>
-{% endif %}
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
@@ -21,6 +15,12 @@
                     <h3 class="panel-title text-center">{% trans "Sign in" %}</h3>
                 </div>
                 <div class="panel-body">
+                    {% if form.errors %}
+                        <div class="alert alert-danger alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            {% trans "Your username and password didn't match. Please try again." %}
+                        </div>
+                    {% endif %}
                     <form method="post" class="form-horizontal" action="{% url "django.contrib.auth.views.login" %}">
                         {% csrf_token %}
                         {% for field in form %}
