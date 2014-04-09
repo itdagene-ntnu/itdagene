@@ -13,7 +13,7 @@
             {% for event in day_one %}
                 <div class="well well-sm text-center">
                     <h4>{{ event.get_type_display }}: {{ event }}</h4>
-                    {% if event.company %}<strong>Arrangør: {{ event.company }}</strong>{% endif %}<br>
+                    {% if event.company %}<strong>Hvem: {{ event.company }}</strong>{% endif %}<br>
                     <strong>Hvor: </strong>{{ event.location }}<br>
                     <em>{{ event.time_start|time }} - {{ event.time_end|time }}</em>
                 </div>
