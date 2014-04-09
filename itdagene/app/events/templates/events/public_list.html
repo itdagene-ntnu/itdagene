@@ -2,34 +2,35 @@
 {% load i18n %}
 {% block content %}
     <h1>{% trans "Program" %}</h1>
-    <div class="left">
-    <h2>Onsdag 25. september</h2>
-    <ul class="unstyled">
-        {% for event in day_one %}
-            <li>
-                <h3>{{ event }}</h3>
-                {% if event.company %}<strong>{{ event.company }}</strong><br>{% endif %}
-                <strong>{{ event.location }}: </strong><em>{{ event.time_start|time }} - {{ event.time_end|time }}</em>
-            </li>
-        {% endfor %}
-    </ul>
-    </div>
-    <div class="right">
-        <h2>Torsdag 26. september</h2>
-        <ul class="unstyled">
-            {% for event in day_two %}
-                <li>
-                    <h3>{{ event }}</h3>
-                    {% if event.company %}<strong>{{ event.company }}</strong><br>{% endif %}
-                    <strong>{{ event.location }}: </strong><em>{{ event.time_start|time }} - {{ event.time_end|time }}</em>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div style="margin: 10px 0;" class="clear"></div>
+{#    <div class="left">#}
+{#    <h2>Onsdag 08. oktober</h2>#}
+{#    <ul class="unstyled">#}
+{#        {% for event in day_one %}#}
+{#            <li>#}
+{#                <h3>{{ event }}</h3>#}
+{#                {% if event.company %}<strong>{{ event.company }}</strong><br>{% endif %}#}
+{#                <strong>{{ event.location }}: </strong><em>{{ event.time_start|time }} - {{ event.time_end|time }}</em>#}
+{#            </li>#}
+{#        {% endfor %}#}
+{#    </ul>#}
+{#    </div>#}
+{#    <div class="right">#}
+{#        <h2>Torsdag 09. oktober</h2>#}
+{#        <ul class="unstyled">#}
+{#            {% for event in day_two %}#}
+{#                <li>#}
+{#                    <h3>{{ event }}</h3>#}
+{#                    {% if event.company %}<strong>{{ event.company }}</strong><br>{% endif %}#}
+{#                    <strong>{{ event.location }}: </strong><em>{{ event.time_start|time }} - {{ event.time_end|time }}</em>#}
+{#                </li>#}
+{#            {% endfor %}#}
+{#        </ul>#}
+{#    </div>#}
+{#    <div style="margin: 10px 0;" class="clear"></div>#}
     <p style="padding: 20px 0;">
-        <img src="/static/img/standkart-onsdag.png" alt="Standkart onsdag">
-        <img src="/static/img/standkart-torsdag.png"alt="Standkart torsdag">
+{#        <img src="/static/img/standkart-onsdag.png" alt="Standkart onsdag">#}
+{#        <img src="/static/img/standkart-torsdag.png"alt="Standkart torsdag">#}
+        <h1 style="text-align: center">Under planlegging</h1>
     </p>
 
 {% endblock %}

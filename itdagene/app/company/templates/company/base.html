@@ -25,9 +25,7 @@
                                 <strong>{% trans "Status" %}:</strong> {{ company.get_status_display }}<br/>
 
                                 <div>
-                                    {% if company.package %}<strong>{% trans "Package" %}:</strong>
-                                        {% if company.package.all %}{% for p in company.package.all %}{{ p.name }}
-                                            , {% endfor %}{% else %}{% trans "None" %}{% endif %}
+                                    {% if company.package %}<strong>{% trans "Package" %}:</strong> {{ company.package.name }}
                                         <br/>{% endif %}
                                     {% if company.phone %}<strong>{% trans "Phone number" %}:</strong> {{ company.phone }}
                                         <br/>{% endif %}
@@ -95,8 +93,7 @@
                 <td {% if not company.package %}class="red-bg"{% endif %}>
                     {% if company.package %}{{ company.package.name }}{% else %}{% trans "None" %}{% endif %}</td>
                 <td>{% if company.contact %}{{ company.contact.profile }}{% endif %}</td>
-                <td>{% if company.contracts.all %}{{ "True"|boolean }}{% else %}{{ ""|boolean }}{% endif %}</td>
-
+                <td>{% if company.contracts.all|has_contract_for_current_year %}{{ "True"|boolean }}{% else %}{{ ""|boolean }}{% endif %}</td>
             </tr>
         {% endfor %}
     </table>

@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 class JoblistingForm(ModelForm):
     form_title = _('Add joblisting')
     keyword = 'joblisting'
-    action_url = 'careers/joblistings/add/'
+    action_url = '/career/joblistings/add/'
 
     def __init__(self, *args, **kwargs):
         super(JoblistingForm, self).__init__(*args, **kwargs)
