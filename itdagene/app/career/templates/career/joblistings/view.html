@@ -3,13 +3,15 @@
 {% load i18n %}
 {% block content %}
     {% if joblisting.image %}<img src="{{ joblisting.image.url }}" alt="{{ joblistings }}">{% endif %}
-    <h1>{{ joblisting.title }} -  {{ joblisting.company }}</h1>
+    <h1 class="text-center">{{ joblisting.title }} -  {{ joblisting.company }}</h1>
     <div class="company-description">{% if joblisting.company.logo %}<img src="{{ joblisting.company.logo.url }}"> {% endif %}{{ joblisting.company.description|markdownize }}</div>
-    <div class="meta">
-        {% if joblisting.deadline %}<strong>{% trans "Deadline" %}:</strong> {{ joblisting.deadline }},{% endif %}
-        {% if joblisting.town %} <strong>{% trans "Town" %}:</strong> {% for town in joblisting.town.all %}{{ town }},{% endfor %}{% endif %}
-         <strong>{% trans "Wants" %}:</strong> {% if joblisting.from_year == joblisting.to_year %}5. klasse{% else %}{{ joblisting.from_year }}.-{{ joblisting.to_year }}. klasse{% endif %}
-        {% if joblisting.url %} <a href="{{ joblisting.url }}">Link til søknad</a>{% endif %}
+    <div class="well well-sm">
+        <div class="row text-center">
+            <div class="col-md-3">{% if joblisting.deadline %}<strong>{% trans "Deadline" %}:</strong> {{ joblisting.deadline }}{% else %}<strong>{% trans "No deadline" %}</strong>,{% endif %}</div>
+            <div class="col-md-3"style="word-wrap: break-word">{% if joblisting.town %} <strong>{% trans "Town" %}:</strong> {% for town in joblisting.town.all %}{{ town }},{% endfor %}{% endif %}</div>
+            <div class="col-md-3"><strong>{% trans "Wants" %}:</strong> {% if joblisting.from_year == joblisting.to_year %}5. klasse{% else %}{{ joblisting.from_year }}.-{{ joblisting.to_year }}. klasse{% endif %}</div>
+            <div class="col-md-3">{% if joblisting.url %} <a href="{{ joblisting.url }}">Link til søknad</a>{% endif %}</div>
+        </div>
     </div>
     <div class="job-description">{{ joblisting.description|markdownize }}</div>
 {% endblock %}
