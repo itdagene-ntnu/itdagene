@@ -2,6 +2,10 @@
 
 {% load markdown_tool pages_filter %}
 
+{% block include %}
+    <link href="/static/css/pages.css" media="screen" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
     <h1 class="text-center">{{ page.title }}</h1>
     <p>{{ page.content|load_thumbnails|markdownize }}</p>
