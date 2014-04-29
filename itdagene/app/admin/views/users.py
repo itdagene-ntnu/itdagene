@@ -83,7 +83,7 @@ def register(request):
             last_name = form.cleaned_data['last_name']
             phone = form.cleaned_data['phone']
             if cache.get('pref'):
-	            pref = cache.get('pref')
+                pref = cache.get('pref')
             else:
                 pref = Preference.objects.get(active=True)
                 cache.set('pref', pref)
