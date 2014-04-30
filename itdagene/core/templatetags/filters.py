@@ -37,8 +37,9 @@ def boolean(value, arg=None):
     """
     Returns HTML markup for a Glyphicon based on the truthiness of the value
     """
-    if value: return mark_safe('<span class="glyphicon glyphicon-ok" alt="%s"' % _('Yes'))
-    return mark_safe('<span class="glyphicon glyphicon-remove" alt="%s"' % _('No'))
+    if value:
+        return mark_safe('<span class="glyphicon glyphicon-ok" alt="yes">')
+    return mark_safe('<span class="glyphicon glyphicon-remove" alt="no">')
 
 
 @register.filter
