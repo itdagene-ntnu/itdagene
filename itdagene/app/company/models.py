@@ -137,6 +137,7 @@ class Company(BaseModel):
         c = Contract.objects.filter(company=self, timestamp__year=datetime.today().year)
         if c.count() > 0:
             return c[0]
+        return None
 
 
 
