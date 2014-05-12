@@ -1,21 +1,24 @@
-{% extends "core/profiles/base.html" %}
+{% extends "base_public_not_frontpage.html" %}
 
 {% load i18n thumbnail %}
 
 {% block content %}
+    <h1 class="text-center">{% trans "The Board" %}</h1>
     {% for profile in profiles %}
-    <div class="profile" id="{{ profile.pk }}">
-    {% if profile.photo %}
-        {% thumbnail profile.photo "100" as im %}
-            <img src="{{ im.url }}" style="width:{{ im.width }};" class="profile-photo">
-        {% endthumbnail %}
-    {% endif %}
-    <h2>{{ profile }}</h2>
-    <p>
-        <strong>{{ profile.position }}</strong><br/>
-        {% if request.user.is_authenticated %}<strong>{% trans "Phone number" %}:</strong> {{ profile.phone }}<br/>{% endif %}
-        <strong>{% trans "Email" %}:</strong> {% if profile.position.email %}{{ profile.position.email }}{% else %}{{ profile.user.email }}{% endif %}<br/>
-    </p>
-    </div>
+        <div class="col-md-4 col-sm-6 text-center" id="{{ profile.pk }}">
+            <h2>{{ profile }}</h2>
+            {% if profile.photo %}
+                {% thumbnail profile.photo "100" as im %}
+                    <img src="{{ im.url }}" style="width:{{ im.width }};" class="img-responsive img-circle center-block">
+                {% endthumbnail %}
+            {% else %}
+                <img src="/static/img/user_blank.png" width="100px" class="img-responsive img-circle center-block"/>
+            {% endif %}
+            <p>
+                <strong>{{ profile.position }}</strong><br/>
+                {% if request.user.is_authenticated %}<strong>{% trans "Phone number" %}:</strong> {{ profile.phone }}<br/>{% endif %}
+                <strong>{% trans "Email" %}:</strong> {% if profile.position.email %}{{ profile.position.email }}{% else %}{{ profile.user.email }}{% endif %}<br/>
+            </p>
+        </div>
     {% endfor %}
 {% endblock %}
