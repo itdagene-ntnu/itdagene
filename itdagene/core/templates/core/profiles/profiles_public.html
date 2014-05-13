@@ -7,13 +7,11 @@
     {% for profile in profiles %}
         <div class="col-md-4 col-sm-6 text-center" id="{{ profile.pk }}">
             <h2>{{ profile }}</h2>
-            {% if profile.photo %}
-                {% thumbnail profile.photo "100" as im %}
-                    <img src="{{ im.url }}" style="width:{{ im.width }};" class="img-responsive img-circle center-block">
-                {% endthumbnail %}
-            {% else %}
-                <img src="/static/img/user_blank.png" width="100px" class="img-responsive img-circle center-block"/>
-            {% endif %}
+            {% thumbnail profile.photo "180x180" as im %}
+                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-responsive img-circle center-block">
+            {% empty %}
+                <img src="/static/img/user_blank.png" width="180px" class="img-responsive img-circle center-block"/>
+            {% endthumbnail %}
             <p>
                 <strong>{{ profile.position }}</strong><br/>
                 {% if request.user.is_authenticated %}<strong>{% trans "Phone number" %}:</strong> {{ profile.phone }}<br/>{% endif %}
