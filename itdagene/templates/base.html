@@ -80,7 +80,7 @@
                             {% include 'meetings/submenu.html' %}
                         </li>
                     {% endif %}
-                    <li {% active request 'profiles' %}><a href="{% url "profiles" %}"><span class="glyphicon glyphicon-user"></span>&nbsp;{% trans "People" %}</a>
+                    <li {% active request 'users' %}><a href="{% url 'users:list' %}"><span class="glyphicon glyphicon-user"></span>&nbsp;Brukere</a>
                         {% include 'core/profiles/submenu.html' %}
                     </li>
                     {% if user.is_staff %}
@@ -101,24 +101,21 @@
                 </ul>
                 <hr/>
                 <div class="panel panel-default">
-                    <a href="{% url "view_profile" request.user.pk %}" style="text-decoration: none;">
+                    <a href="{% url "users:detail" request.user.pk %}" style="text-decoration: none;">
                         {% if profile.photo %}
                             {% thumbnail profile.photo "30x30" crop="center" as im %}
                                 <img src="{{ im.url }}" style="width:{{ im.width }}px; height:{{ im.height }}px;">
                             {% endthumbnail %}
                         {% endif %}
                     </a>
-                    <a href="{% url "view_profile" request.user.pk %}">
+
+                    <a href="{% url 'users:detail' user.pk %}">
                         {{ profile }}
                     </a>
                 </div>
-                <ul class="nav nav-pills nav-stacked">
-                    <li><a href="/profile/">{% trans "Profile" %}</a></li>
-                    <li><a href="{% url "core.profiles.views.edit" profile.pk %}">{% trans "Edit profile" %}</a></li>
-                    <li><a href="{% url "change_password" %}">{% trans "Change password" %}</a></li>
-                    {#                        <li><a href="{% url "notifications" %}">Messages</a></li>#}
 
-                    <li><a href="/logout/">Logout</a></li>
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a href="/logout/">Logg ut</a></li>
                 </ul>
             {% else %}
                 {% menu request %}

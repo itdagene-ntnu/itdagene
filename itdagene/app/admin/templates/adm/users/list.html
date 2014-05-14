@@ -3,7 +3,6 @@
 
 {% block content %}
     <h1>{% trans "User administration" %}</h1>
-    <a href="{% url "app.admin.views.users.add" %}">{% trans "Create a user" %}</a>
         <ul class="big-list">
         {% for t_user in users %}
             <li>

@@ -1,5 +1,6 @@
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
+from itdagene.core import Preference
 from itdagene.app.documents.forms import DocumentForm
 from itdagene.app.documents.models import Document
 from django.contrib.auth.decorators import permission_required
@@ -10,8 +11,14 @@ from django.shortcuts import redirect, get_object_or_404
 
 @permission_required('documents.change_document')
 def list_documents(request):
-    documents = Document.objects.all()
-    return render(request, 'documents/base.html', {'documents': documents})
+    document_list = []
+    years = []
+    for pref in Preference.objects.all().order_by('-year'):
+        years.append(pref.year)
+        document_list.append((pref.year, Document.objects.filter(date_created__year=pref.year).order_by('-date_created')))
+    return render(request, 'documents/base.html',
+                  {'document_list': document_list,
+                   'years': years})
 
 
 @permission_required('documents.change_document')

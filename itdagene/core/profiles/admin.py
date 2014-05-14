@@ -1,14 +1,27 @@
 from django.contrib import admin
 from django.contrib.admin.options import ModelAdmin
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
+
 from itdagene.core.profiles.models import Profile, BoardPosition
+
+
+class ProfileInline(admin.StackedInline):
+    model = Profile
+    can_delete = False
+    verbose_name_plural = 'profiles'
+    fk_name = 'user'
+
 
 class BoardPositionAdmin (ModelAdmin):
     list_display = ('title', 'email')
 
+
+class NewUserAdmin(UserAdmin):
+    inlines = (ProfileInline, )
+
+
 admin.site.register(BoardPosition, BoardPositionAdmin)
 
-class ProfileAdmin (ModelAdmin):
-    list_display = ('user', 'type', 'phone', 'language')
-    list_filter = ('type', 'position', 'year')
-
-admin.site.register(Profile, ProfileAdmin)
+admin.site.unregister(User)
+admin.site.register(User, NewUserAdmin)

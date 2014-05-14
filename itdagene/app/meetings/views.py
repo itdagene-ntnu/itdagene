@@ -18,8 +18,9 @@ from django.contrib.auth.models import User
 def list(request):
     meeting_lists = []
     penalty_lists = []
-    year_list = [pref.year for pref in Preference.objects.all().order_by('-year')]
+    year_list = []
     for pref in Preference.objects.all().order_by('-year'):
+        year_list.append(pref.year)
         meeting_lists.append((pref.year, Meeting.objects.filter(date__year=pref.year).order_by('-date')))
         penalty_lists.append(Penalties(pref.year))
 
