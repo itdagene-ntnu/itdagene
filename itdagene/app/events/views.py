@@ -11,7 +11,8 @@ def public_event_list(request):
     pref = Preference.current_preference()
     day_one = Event.objects.filter(date=pref.start_date).order_by('time_start')
     day_two = Event.objects.filter(date=pref.end_date).order_by('time_start')
-    return render(request, 'events/public_list.html', {'day_one': day_one, 'day_two': day_two})
+    return render(request, 'events/public_list.html', {'day_one': day_one, 'day_two': day_two,
+                                                       'day_one_date': pref.start_date, 'day_two_date': pref.end_date})
 
 
 @permission_required('events.change_event')
