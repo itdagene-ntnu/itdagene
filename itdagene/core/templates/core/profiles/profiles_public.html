@@ -2,11 +2,15 @@
 
 {% load i18n thumbnail %}
 
+{% block include %}
+    <link rel="stylesheet" href="/static/css/profile_public.css">
+{% endblock %}
+
 {% block content %}
     <h1 class="text-center">{% trans "The Board" %}</h1>
     {% for profile in profiles %}
         <div class="col-md-4 col-sm-6 text-center" id="{{ profile.pk }}">
-            <h3>{{ profile }}</h3>
+            <div class="profile-name"><h3>{{ profile }}</h3></div>
             {% thumbnail profile.photo "180x180" as im %}
                 <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-responsive img-circle center-block">
             {% empty %}
