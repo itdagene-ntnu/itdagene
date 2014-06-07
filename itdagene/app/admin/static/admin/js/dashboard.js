@@ -12,7 +12,9 @@ $(document).ready(function() {
                 url: '/api/admin/cache/flush'
             }).success(function(data) {
                 flashMessage("Cache cleared", "success");
-            });
+            }).error(function(data) {
+                flashMessage("Something went wrong: " + data, "danger");
+            })
         }
     });
 });
