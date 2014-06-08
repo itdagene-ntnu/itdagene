@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from itdagene.core.log.models import LogItem
 from itdagene.core.models import BaseModel, Preference
-from itdagene.core.util import expire_page_cache
+from itdagene.core.util.cache import expire_page_cache
 
 
 class BoardPosition (BaseModel):

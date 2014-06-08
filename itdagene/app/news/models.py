@@ -1,7 +1,7 @@
 from django.utils.translation import ugettext_lazy as _
 from itdagene.core.models import BaseModel
 from django.db import models
-from itdagene.core.util import expire_page_cache
+from itdagene.core.util.cache import expire_page_cache
 
 class Announcement (BaseModel):
     title = models.CharField(max_length=100, verbose_name=_('title'))

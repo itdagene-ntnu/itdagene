@@ -1,16 +1,17 @@
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render
+from itdagene.core.util.cache import get_stats
 
 from itdagene.core.log.models import LogItem
 
 
 @permission_required('log.change_log')
 def landing_page(request):
-    return render(request, 'adm/base.html')
+    return render(request, 'adm/dashboard.html', {'cache_stats': get_stats()})
 
 
 @permission_required('log.change_log')
-def log (request, first_object=0):
+def log(request, first_object=0):
     if int(first_object) > 40:
         previous = int(first_object) - 40
     else:
