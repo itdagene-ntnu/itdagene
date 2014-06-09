@@ -92,7 +92,7 @@
                         </li>
                     {% endif %}
                     {% if perms.meetings.change_meeting %}
-                        <li {% active request 'experiences' %}><a href="{% url "experiences" %}"><span class="glyphicon glyphicon-pushpin"></span>&nbsp;Experiences</a>
+                        <li {% active request 'experiences' %}><a href="{% url "experiences" %}"><span class="glyphicon glyphicon-pushpin"></span>&nbsp;{% trans "Experiences" %}</a>
                             {% include 'experiences/submenu.html' %}
                         </li>
                     {% endif %}
