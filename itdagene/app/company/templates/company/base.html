@@ -2,9 +2,8 @@
 {% load i18n filters %}
 
 {% block include %}
-    <script src="/static/js/details-list.js"></script>
-    <script src="/static/js/companies.js"></script>
-    <script src="/static/sortable/sortable.js"></script>
+    <script src="{{ STATIC_URL }}company/js/companies.js"></script>
+    <script src="{{ STATIC_URL }}company/lib/sortable/sortable.js"></script>
 {% endblock %}
 
 {% block content %}

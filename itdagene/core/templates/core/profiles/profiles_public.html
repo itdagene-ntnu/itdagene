@@ -3,7 +3,7 @@
 {% load i18n thumbnail %}
 
 {% block include %}
-    <link rel="stylesheet" href="/static/css/profile_public.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}profiles/css/profile_public.css">
 {% endblock %}
 
 {% block content %}
@@ -14,7 +14,7 @@
             {% thumbnail profile.photo "180x180" as im %}
                 <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-responsive img-circle center-block">
             {% empty %}
-                <img src="/static/img/user_blank.png" width="180px" class="img-responsive img-circle center-block"/>
+                <img src="{{ STATIC_URL }}img/user_blank.png" width="180px" class="img-responsive img-circle center-block"/>
             {% endthumbnail %}
             <p>
                 <strong>{{ profile.position }}</strong><br/>
