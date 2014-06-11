@@ -23,4 +23,4 @@ itdagene/uploads/
 venv/
 itdagene/settings/local.py
 src/
-static/
+/static/
