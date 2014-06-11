@@ -1,9 +1,11 @@
 from django.http import HttpResponse
 from itdagene.app.company.models import Company, Contract
 from django.contrib.auth.decorators import permission_required
+from django.views.decorators.http import require_GET, require_POST
 from django.shortcuts import render
 
 
+@require_GET
 @permission_required('company.change_contract')
 def economic_overview(request):
     companies = Company.objects.filter(active=True, status=3).exclude(contracts=None).select_related()
@@ -11,6 +13,7 @@ def economic_overview(request):
                   {'companies': companies})
 
 
+@require_POST
 @permission_required('company.change_contract')
 def billed(request, company_id):
     c = Company.objects.get(pk=company_id).current_contract()
@@ -19,6 +22,7 @@ def billed(request, company_id):
     return HttpResponse()
 
 
+@require_POST
 @permission_required('company.change_contract')
 def not_billed(request, company_id):
     c = Company.objects.get(pk=company_id).current_contract()
@@ -27,6 +31,7 @@ def not_billed(request, company_id):
     return HttpResponse()
 
 
+@require_POST
 @permission_required('company.change_contract')
 def paid(request, company_id):
     c = Company.objects.get(pk=company_id).current_contract()
@@ -35,6 +40,7 @@ def paid(request, company_id):
     return HttpResponse()
 
 
+@require_POST
 @permission_required('company.change_contract')
 def not_paid(request, company_id):
     c = Company.objects.get(pk=company_id).current_contract()
