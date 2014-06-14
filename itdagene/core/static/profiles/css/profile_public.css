@@ -1,0 +1,10 @@
+#main .profile-name {
+  line-height: 60px;
+  height: 60px;
+}
+#main .profile-name h3 {
+  line-height: normal;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0;
+}

@@ -2,6 +2,12 @@
 
 [Nettopp fått tilgang? Les her](https://github.com/itdagene-ntnu/itdagene/wiki/Erfaringskriv)
 
+##Avhengigheter
+
+Vi bruker [bower](http://bower.io) for å holde styr på statiske filer. Installeres med npm:
+
+    npm install -g bower
+
 ##Installer
 Klon repoet ned, gå inn i det i terminal
 
@@ -15,8 +21,12 @@ Deretter kan man sette opp databasen:
 
     python manage.py syncdb
     python manage.py migrate
+    
+Installer frontend biblioteker
+    
+    bower install
 
-Hvis alt går som det skal så har du nå en itDAGENE-siden. Kjør utviklingserver med:
+Hvis alt går som det skal så har du nå en itDAGENE-side. Kjør utviklingserver med:
 
     python manage.py runserver
 

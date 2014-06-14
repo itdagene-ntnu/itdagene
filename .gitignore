@@ -4,7 +4,7 @@
 *.orig
 *~
 *.egg-info
-.*
+.idea
 project.db
 pickle*.txt
 #generated buildout stuff
@@ -18,8 +18,9 @@ parts
 *.DS_STORE
 build/*
 itdagene/files/uploads/
+itdagene/files/static/lib/
 itdagene/uploads/
 venv/
 itdagene/settings/local.py
 src/
-static/
+/static/
