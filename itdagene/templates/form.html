@@ -1,5 +1,10 @@
 {% load i18n widget_tweaks %}
 
+{% block include %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}lib/bootstrap-datepicker/css/datepicker3.css">
+    <script type="text/javascript" src="{{ STATIC_URL }}lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+{% endblock %}
+
 {% if forms %}
     {% for form in forms %}
         <div class="modal fade" id="{{ form.keyword }}-modal">
