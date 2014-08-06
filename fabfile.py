@@ -14,10 +14,12 @@ site = App(
         'production': 'http://itdagene.no'
     },
     restart_command={
-        'production': 'sudo service uwsgi restart'
+        'production': 'service uwsgi restart'
     },
     project_package='itdagene',
-    
+    requirements={
+        'production': 'requirements-prod.txt'
+    }
 )
 
 deploy = task(site.deploy)

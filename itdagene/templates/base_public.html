@@ -5,123 +5,48 @@
 <html>
 <head>
     <title>itDAGENE</title>
-    <link href="/static/reset.css" rel="stylesheet">
-    <!--<script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>-->
-    <link href='http://fonts.googleapis.com/css?family=Jockey+One|Open+Sans:400,300,700,600' rel='stylesheet'
-          type='text/css'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="/static/img/icon.png">
-    <link rel="apple-touch-icon" href="/static/img/icon.png">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js" type="text/javascript"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript"
-            charset="utf-8"></script>
-    <script src="/static/js/frontpage.js" type="text/javascript"></script>
-    <script src="/static/js/tweets.js" type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css"
-          href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">
-
-    <link href="/static/frontpage.css" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ STATIC_URL }}img/icon.png">
+    <link rel="apple-touch-icon" href="{{ STATIC_URL }}img/icon.png">
+    <script src="{{ STATIC_URL }}lib/jquery/dist/jquery.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="{{ STATIC_URL }}lib/bootstrap/dist/css/bootstrap.min.css">
+    <script src="{{ STATIC_URL }}lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ STATIC_URL }}css/base_public_main.css" rel="stylesheet">
     {% analytics %}
     {% block include %}{% endblock %}
 </head>
 <body>
-<div class="background"></div>
 <header>
-    <a href="/"><img src="/static/img/itdagene_logo.png" width=245 height=55 title="itDAGENE"/></a>
-    <nav>
-        {% menu request %}
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"><img src="{{ STATIC_URL }}img/itdagene_logo.png" width="173" height="41" title="itDAGENE"/></a>
+        </div>
+        <div class="collapse navbar-collapse" id="nav-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                {% menu request %}
+            </ul>
+        </div>
     </nav>
 </header>
 <section>
-    {% if request.user.is_authenticated %}<nav>{% block submenu %}{% endblock %}</nav>{% endif %}
-    {% if slider %}
-        <article id="slider" class="block">
-            {% block slider %}
-            {% endblock %}
-            <hr/>
-        </article>
-    {% endif %}
-
-    <aside id="partners" class="block">
-        {% if pref %}
-            {#            {% cache 10000 preference_block %}#}
-            <h1><span class="s1-4">{{ pref.start_date|date:"d" }}.</span> og <span class="s1-4">{{ pref.end_date|date:"d" }}.</span> {{ pref.start_date|date:"M" }} {{ pref.year }}</h1>
-            {#            {% endcache %}#}
-            <br>
-        {% endif %}
-        <h2>Hovedsamarbeidspartner</h2>
-        <a href="http://www.accenture.com/no-en/"><img src="/static/img/hsp.png" class="hsp-logo"/></a>
-    </aside>
-
     <article id="main" class="block">
         {% if error_message %}<div id="message" class="error">{{ error_message }}</div>{% endif %}
         {% if info_message %}<div id="message" class="info">{{ info_message }}</div>{% endif %}
-        {% block content %}
-
-        {% endblock %}
-        <hr/>
-    </article>
-
-    <article id="date">
-        {#        {% cache 10000 preference_block %}#}
-        <h1><span class="s1-4">{{ pref.start_date|date:"d" }}.</span> og <span class="s1-4">{{ pref.end_date|date:"d" }}.</span> {{ pref.start_date|date:"M" }} {{ pref.year }}</h1>
-        {#        {% endcache %}#}
-    </article>
-
-
-    <aside id="sp" class="block">
-        <h3>Samarbeidspartnere</h3>
-
-        <div><a href="http://www.acando.no/"><img src="/static/img/sp/acando.png" class="sp-logo"></a></div>
-        <div><a href="http://www.bouvet.no"><img src="/static/img/sp/bouvet.png" class="sp-logo"></a></div>
-        <div><a href="http://www.visma.no"><img src="/static/img/sp/visma.png" class="sp-logo"></a></div>
-        <div><a href="http://www.dips.no/"><img src="/static/img/sp/dips.png" class="sp-logo"></a></div>
-        <div><a href="http://www.steria.no"><img src="/static/img/sp/steria.png" class="sp-logo"></a></div>
-        <div><a href="http://www.tieto.no/"><img src="/static/img/sp/tieto.png" class="sp-logo"></a></div>
-
-        <hr/>
-    </aside>
-
-    {% if joblistings and not hide_joblistings_sidebar %}
-        <aside id="joblistings" class="block">
-            <h3>{% trans "Joblistings" %}</h3>
-            <ul>
-                {% for joblisting in joblistings %}
-                    <li><a href="{% url "app.career.views.joblistings.view_joblisting" joblisting.pk %}">{{ joblisting }}</a> {% trans "for" %} <strong>{{ joblisting.company }}</strong></li>
-                {% endfor %}
-            </ul>
-            <a href="{% url "joblistings" %}">{% trans "Show more joblistings" %}</a>
-            <hr/>
-        </aside>
-    {% endif %}
-
-    <aside id="social" class="block">
-        <h3><a href="https://twitter.com/itdagene-ntnu/">{% trans "itDAGENE on twitter" %}</a></h3>
-
-        {% twitter_feed %}
-    </aside>
-
-    <footer>
-        <div id="partners2" class="block">
-            <h2>Hovedsamarbeidspartner</h2>
-            <a href="http://www.accenture.com/no-en/"><img src="/static/img/hsp.png" class="hsp-logo"/></a>
-
+        <div class="content-container">
+            {% block content %}{% endblock %}
         </div>
-        <div id="sp2" class="block">
-            <h3>Samarbeidspartnere</h3>
-
-            <div><a href="http://www.acando.no/"><img src="/static/img/sp/acando.png" class="sp-logo"></a></div>
-            <div><a href="http://www.bouvet.no"><img src="/static/img/sp/bouvet.png" class="sp-logo"></a></div>
-            <div><a href="http://www.visma.no"><img src="/static/img/sp/visma.png" class="sp-logo"></a></div>
-            <div><a href="http://www.dips.no/"><img src="/static/img/sp/dips.png" class="sp-logo"></a></div>
-            <div><a href="http://www.steria.no"><img src="/static/img/sp/steria.png" class="sp-logo"></a></div>
-            <div><a href="http://www.tieto.no/"><img src="/static/img/sp/tieto.png" class="sp-logo"></a></div>
-
-            <hr/>
-        </div>
-        <hr>
-        <div class="adress">itDAGENE {% now "Y" %}, Sem Sælands vei 7-9, 7491 TRONDHEIM, bedrift@itdagene.no, org.nr: 912 601 625</div>
-    </footer>
+    </article>
 </section>
+<footer class="navbar-fixed-bottom">
+    <hr/>
+    <div class="adress text-center">itDAGENE {% now "Y" %} | Sem Sælands vei 7-9 | 7491 Trondheim | <a href="mailto:bedrift@itdagene.no">bedrift@itdagene.no</a> | org.nr: 912 601 625</div>
+</footer>
 </body>
 </html>

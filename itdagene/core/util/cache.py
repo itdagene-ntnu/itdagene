@@ -2,6 +2,9 @@ from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.http import HttpRequest
 from django.utils.cache import get_cache_key
+from django.core.cache.backends.dummy import DummyCache
+from django.core.cache.backends.memcached import BaseMemcachedCache
+
 
 def expire_page_cache(view, args=None):
     """
@@ -19,3 +22,21 @@ def expire_page_cache(view, args=None):
     key = get_cache_key(request)
     if cache.has_key(key):
         cache.delete(key)
+
+
+def get_stats():
+    """
+    Returns cache backend stats if available
+    """
+    if type(cache) is DummyCache:
+        return
+    return cache._cache.get_stats()
+
+
+def flush_cache():
+    """
+    Flushes entire cache
+    """
+    if type(cache) is DummyCache:
+        return
+    cache._cache.flush_all()

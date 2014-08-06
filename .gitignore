@@ -4,7 +4,7 @@
 *.orig
 *~
 *.egg-info
-.*
+.idea
 project.db
 pickle*.txt
 #generated buildout stuff
@@ -23,3 +23,4 @@ itdagene/uploads/
 venv/
 itdagene/settings/local.py
 src/
+/static/

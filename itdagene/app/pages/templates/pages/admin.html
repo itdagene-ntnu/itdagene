@@ -1,4 +1,4 @@
-{% extends "pages/base.html" %}
+{% extends "base.html" %}
 {% load i18n %}
 
 {% block content %}
@@ -15,4 +15,8 @@
             </table>
         </div>
     </div>
+{% endblock %}
+
+{% block submenu %}
+    {% include "pages/submenu.html" %}
 {% endblock %}

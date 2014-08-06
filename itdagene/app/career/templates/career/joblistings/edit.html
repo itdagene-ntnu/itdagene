@@ -3,7 +3,8 @@
 {% load core %}
 
 {% block include %}
-    <script>$(function(){ $("#id_deadline").datepicker({dateFormat: 'yy-mm-dd'}); });</script>
+    <script src="{{ STATIC_URL }}lib/chosen/chosen.jquery.min.js"></script>
+    <link rel="{{ STATIC_URL }}lib/chosen/chosen.min.css">
 	{% chosen "id_contact" %}
 	{% chosen "id_towns" %}
 {% endblock %}

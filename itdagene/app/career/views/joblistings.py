@@ -9,13 +9,13 @@ from django.core.urlresolvers import reverse
 from django.core.cache import cache
 
 
-def view_joblisting (request, id):
+def view_joblisting(request, id):
     joblisting = get_object_or_404(Joblisting, pk=id)
     return render(request, 'career/joblistings/view.html',
                   {'joblisting': joblisting})
 
 
-def list_joblistings (request):
+def list_joblistings(request):
     if request.user.is_authenticated():
         joblistings = list(Joblisting.objects.filter(deadline__gt=datetime.now()).order_by('company','deadline'))
         joblistings += list(Joblisting.objects.filter(deadline=None).select_related('company').order_by('deadline','company'))
