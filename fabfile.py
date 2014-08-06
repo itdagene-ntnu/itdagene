@@ -18,16 +18,10 @@ site = App(
         'prod': '/home/itdagene/itdagene/',
     },
     project_package='itdagene',
-    restart_command='touch /etc/uwsgi/apps-enabled/itdagene.ini',
+    restart_command='sudo service itdagene restart',
     requirements={
         'prod': 'requirements-prod.txt'
     }
 )
 
-
-@task
-def deploy():
-    return site.deploy_prod()
-
-clone_prod_data = task(site.clone_prod_data)
-test = task(site.test)
+deploy = task(site.deploy)

@@ -1,9 +1,9 @@
 {% extends "base_public_not_frontpage.html" %}
 {% load i18n %}
 {% block include %}
-    <script src="/static/js/lightbox.min.js"></script>
-    <link rel="stylesheet" href="/static/css/program.css">
-    <link rel="stylesheet" href="/static/css/lightbox.css"/>
+    <script src="{{ STATIC_URL }}lib/lightbox2/js/lightbox.min.js"></script>
+    <link rel="stylesheet" href="{{ STATIC_URL }}events/css/program.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}lib/lightbox2/css/lightbox.css"/>
 {% endblock %}
 {% block content %}
     <h1 class="text-center">{% trans "Program" %}</h1>

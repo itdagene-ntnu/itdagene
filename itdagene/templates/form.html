@@ -1,9 +1,5 @@
 {% load i18n widget_tweaks %}
 
-{% block include %}
-    <script>$(function(){ $("#id_timestamp").datepicker({dateFormat: 'yy-mm-dd'}); });</script>
-{% endblock %}
-
 {% if forms %}
     {% for form in forms %}
         <div class="modal fade" id="{{ form.keyword }}-modal">
