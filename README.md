@@ -6,30 +6,38 @@
 
 Vi bruker [bower](http://bower.io) for å holde styr på statiske filer. Installeres med npm:
 
-    npm install -g bower
+    $ npm install -g bower
 
 ##Installer
 Klon repoet ned, gå inn i det i terminal
 
 Kjør:
 
-    virtualenv venv
-    source venv/bin/activate
-    pip install -r requirements.txt
+    $ virtualenv venv
+    $ source venv/bin/activate
+    $ pip install -r requirements.txt
 
 Deretter kan man sette opp databasen:
 
-    python manage.py syncdb
-    python manage.py migrate
+    $ python manage.py syncdb
+    $ python manage.py migrate
     
 Installer frontend biblioteker
     
-    bower install
+    $ bower install
 
 Hvis alt går som det skal så har du nå en itDAGENE-side. Kjør utviklingserver med:
 
-    python manage.py runserver
+    $ python manage.py runserver
 
+##Deploy
+
+Vi bruker [django-fabric](http://github.com/mocco/django-fabric) til å deploye.
+
+
+    $ fab deploy:production
+    
+Denne kommandoen deployer fra `master`.
 
 ## Ting som kan gå galt
 
