@@ -3,6 +3,11 @@
 {% block include %}
     <link rel="stylesheet" href="{{ STATIC_URL }}lib/bootstrap-datepicker/css/datepicker3.css">
     <script type="text/javascript" src="{{ STATIC_URL }}lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script>$(function(){ $("#id_date").datepicker({format: 'yyyy-mm-dd'}); });</script>
+    <script>$(function(){ $("#id_deadline").datepicker({format: 'yyyy-mm-dd'}); });</script>
+    <script>$(function(){ $("#id_timestamp").datepicker({format: 'yyyy-mm-dd'}); });</script>
+    <script>$(function(){ $("#id_start_date").datepicker({format: 'yyyy-mm-dd'}); });</script>
+    <script>$(function(){ $("#id_end_date").datepicker({format: 'yyyy-mm-dd'}); });</script>
 {% endblock %}
 
 {% if forms %}
