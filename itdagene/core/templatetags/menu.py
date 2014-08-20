@@ -12,7 +12,7 @@ def menu(request):
             {'title': _('Program'), 'url': reverse('itdagene.app.events.views.public_event_list')},
             {'title': _('About itDAGENE'), 'url': reverse('itdagene.app.pages.views.view_page', args=['om-oss'])},
             {'title': _('Joblistings'), 'url': reverse('itdagene.app.career.views.joblistings.list_joblistings')},
-            {'title': _('For attendees'), 'url': reverse('itdagene.app.pages.views.view_page', args=['for-bedriften'])},
+            {'title': _('For attendees'), 'url': reverse('itdagene.app.pages.views.view_page', args=['for-bedrifter'])},
             {'title': _('Attending companies'), 'url': reverse('itdagene.app.pages.views.view_page', args=['deltakende_bedrifter'])},
 #            {'title': _('Login'), 'url': '/login/?next=/'},
     ]
