@@ -14,7 +14,7 @@ def analytics():
     """
     analytics_id = settings.ANALYTICS
     if not settings.DEBUG:
-        t = loader.get_template ('analytics.html')
+        t = loader.get_template('analytics.html')
         c = Context({'code': analytics_id})
         return t.render(c)
 
@@ -25,3 +25,7 @@ def analytics():
 @register.simple_tag
 def chosen(oid):
     return '<script type="text/javascript">$(document).ready(function(){ $("#%s").chosen(); });</script>' % oid
+
+@register.simple_tag
+def active_year():
+    return Preference.current_preference().year
