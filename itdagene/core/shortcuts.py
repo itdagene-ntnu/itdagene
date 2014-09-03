@@ -1,4 +1,5 @@
 from datetime import date, datetime
+from random import shuffle
 from django.conf import settings
 from django.core.mail.message import EmailMessage
 from django.core.urlresolvers import reverse
@@ -151,6 +152,7 @@ class Frontpage:
             joblistings += list(Joblisting.objects.filter(company__mp=True, deadline=None).select_related('company'))
             joblistings += list(Joblisting.objects.filter(company__partner=True, deadline__gt=datetime.now()).select_related('company'))
             joblistings += list(Joblisting.objects.filter(company__partner=True, deadline=None).select_related('company'))
+            shuffle(joblistings)
             joblistings += list(Joblisting.objects.filter(deadline__gt=date.today(), company__mp=False, company__partner=False).select_related(
                 'company').order_by('?'))
             joblistings += list(
