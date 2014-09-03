@@ -61,11 +61,11 @@ class Package(BaseModel):
         super(Package, self).save(*args, **kwargs)
         if log_it: LogItem.log_it(self, action, 2)
 
-
     class Meta:
         ordering = ('name',)
         verbose_name = _('package')
         verbose_name_plural = _('packages')
+
 
 class Company(BaseModel):
     user = models.ForeignKey(User, related_name='company', blank=True, null=True, verbose_name=_('user'))
@@ -99,8 +99,6 @@ class Company(BaseModel):
         LogItem.log_it(self, action, 1)
         Package.update_available_spots()
         cache.delete("companies")
-
-
 
     def unfinished_todos(self):
         return self.todos.filter(finished=False)
@@ -140,10 +138,6 @@ class Company(BaseModel):
         return None
 
 
-
-
-
-
 class CompanyContact(BaseModel):
     company = models.ForeignKey(Company, related_name='company_contacts', verbose_name=_('company'))
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
@@ -156,16 +150,18 @@ class CompanyContact(BaseModel):
     def __unicode__(self):
         return self.first_name + ' ' + self.last_name
 
-
     def save(self, *args, **kwargs):
-        if not self.pk: action = 'CREATE'
-        else: action = 'EDIT'
+        if not self.pk:
+            action = 'CREATE'
+        else:
+            action = 'EDIT'
         super(CompanyContact, self).save(*args, **kwargs)
         LogItem.log_it(self, action, 1)
 
     class Meta:
         verbose_name = _('company contact')
         verbose_name_plural = _('company contacts')
+
 
 class Contract(BaseModel):
     company = models.ForeignKey(Company, related_name='contracts', verbose_name=_('company'))
@@ -193,10 +189,10 @@ class Contract(BaseModel):
                 raise ValidationError('Cannot add more tickets to this company.')
         super(Contract, self).clean_fields(exclude=exclude)
 
-
     class Meta:
         verbose_name = _('contract')
         verbose_name_plural = _('contracts')
+
 
 class Comment(models.Model):
     """
@@ -226,6 +222,7 @@ class Comment(models.Model):
     class Meta:
         verbose_name = _('comment')
         verbose_name_plural = _('comments')
+
 
 class CallTeam (BaseModel):
     users = models.ManyToManyField(User, verbose_name=_('users'))
