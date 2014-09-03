@@ -1,6 +1,9 @@
 {% extends "base_public_not_frontpage.html" %}
 {% load markdown_tool %}
 {% load i18n %}
+
+{% block include %}<link rel="stylesheet" href="{{ STATIC_URL }}career/css/career.css">{% endblock %}
+
 {% block content %}
     {% if joblisting.image %}<img src="{{ joblisting.image.url }}" alt="{{ joblistings }}">{% endif %}
     <h1 class="text-center">{{ joblisting.title }} -  {{ joblisting.company }}</h1>
