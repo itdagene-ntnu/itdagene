@@ -31,7 +31,6 @@ class Joblisting (BaseModel):
     towns = models.ManyToManyField(Town, null=True, blank=True, verbose_name=_('town'))
     url = models.URLField(blank=True, verbose_name=_('url'))
 
-
     def __unicode__(self):
         return self.title
 
