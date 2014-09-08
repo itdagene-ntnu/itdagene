@@ -9,11 +9,10 @@ register = Library()
 def menu(request):
     menu = [
             {'title': _('Home'), 'url': reverse('frontpage')},
-#            {'title': _('What we offer'), 'url': reverse('itdagene.app.pages.views.view_page', args=['what-we-offer'])},
             {'title': _('Program'), 'url': reverse('itdagene.app.events.views.public_event_list')},
             {'title': _('About itDAGENE'), 'url': reverse('itdagene.app.pages.views.view_page', args=['om-oss'])},
             {'title': _('Joblistings'), 'url': reverse('itdagene.app.career.views.joblistings.list_joblistings')},
-            {'title': _('Board'), 'url': reverse('itdagene.core.profiles.views.public_profiles')},
+            {'title': _('For attendees'), 'url': reverse('itdagene.app.pages.views.view_page', args=['for-bedrifter'])},
             {'title': _('Attending companies'), 'url': reverse('itdagene.app.pages.views.view_page', args=['deltakende_bedrifter'])},
 #            {'title': _('Login'), 'url': '/login/?next=/'},
     ]
