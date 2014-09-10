@@ -5,8 +5,6 @@ from django.views.decorators.cache import cache_page
 from itdagene.core.models import Preference
 from itdagene.core.profiles.models import Profile
 
-
-@cache_page(600)
 def public_profiles (request):
     if cache.get('profiles'): profiles = cache.get('profiles')
     else:
