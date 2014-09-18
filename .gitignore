@@ -24,3 +24,4 @@ venv/
 itdagene/settings/local.py
 src/
 /static/
+.DS_Store
