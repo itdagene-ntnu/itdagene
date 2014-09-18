@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.conf.urls import url, patterns, include
-
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponsePermanentRedirect
@@ -46,7 +46,8 @@ urlpatterns = patterns('',
         regex='^backend/users/',
         view=include('itdagene.app.users.urls', namespace='users')
     ),
-)
+)+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
+ + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 #urlpatterns += ('itdagene.app.company.views',
 #    url(r'^hsp/$', 'hsp')
@@ -64,13 +65,6 @@ urlpatterns += patterns('',
     #redirects
     url(r'^jobb/$', lambda r: HttpResponsePermanentRedirect(reverse('joblistings'))),
 )
-if settings.DEBUG:
-    urlpatterns += patterns('',
-        (r'^static/(?P<path>.*)$', 'django.views.static.serve',
-         {'document_root': settings.MEDIA_ROOT}),
-        (r'^uploads/(?P<path>.*)$', 'django.views.static.serve',
-         {'document_root': settings.MEDIA_ROOT}),
-    )
 
 #Must be the last one
 urlpatterns += patterns('', url(r'^', include('itdagene.app.pages.urls')),)
