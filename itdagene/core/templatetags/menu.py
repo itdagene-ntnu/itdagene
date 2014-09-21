@@ -22,7 +22,7 @@ def menu(request):
 def active(request, pattern):
     import re
     if len(pattern) > 1 and re.search(pattern, request.path):
-        return "class=\"active\""
+        return " active "
     elif request.path == '/' and pattern == '/':
-        return "class=\"active\""
+        return " active "
     return ""

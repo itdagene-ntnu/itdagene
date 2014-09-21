@@ -1,5 +1,5 @@
 {% load i18n %}
-<ul>
+<ul class="treeview-menu">
     <li><a href="{% url "app.meetings.views.add" %}">{% trans "ADD MEETING" %}</a></li>
     {% if meeting.pk %}
         <li><a href="{% url "app.meetings.views.meeting" meeting.pk %}">{% trans "VIEW MEETING" %}</a></li>

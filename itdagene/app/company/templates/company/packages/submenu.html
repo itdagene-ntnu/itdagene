@@ -1,5 +1,5 @@
 {% load i18n %}
-<ul>
+<ul class="treeview-menu">
     <li><a href="{% url "app.company.views.packages.list" %}">{% trans "PACKAGES" %}</a></li>
     <li><a href="{% url "app.company.views.packages.edit" %}">{% trans "ADD PACKAGE" %}</a></li>
     {% if package.pk %}

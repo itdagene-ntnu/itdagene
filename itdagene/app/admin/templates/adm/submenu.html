@@ -1,5 +1,5 @@
 {% load i18n %}
-<ul>
+<ul class="treeview-menu">
     <li><a href="{% url "app.admin.views.groups.list" %}">{% trans "GROUPS" %}</a></li>
         {% if group.pk %}
         <li><a href="{% url "app.admin.views.groups.view" group.pk %}">{% trans "VIEW GROUP" %}</a></li>

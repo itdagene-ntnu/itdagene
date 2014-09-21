@@ -1,5 +1,5 @@
 {% load i18n companies %}
-<ul>
+<ul class="treeview-menu">
     {#    <li><a href="{% url "app.company.views.edit" %}">{% trans "ADD COMPANY" %}</a></li>#}
     {% if company %}
         <li><a href="{% url "app.company.views.view" company.pk %}">{% trans "VIEW COMPANY" %}</a></li>

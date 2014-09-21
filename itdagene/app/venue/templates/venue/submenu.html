@@ -1,5 +1,5 @@
 {% load i18n %}
-<ul>
+<ul class="treeview-menu">
     <li><a href="{% url "app.venue.views.venue" %}">{% trans "VENUE" %}</a></li>
     {% if request.user.profile.type == 'c' %}
         <li><a href="{% url "app.venue.views.stands" %}">{% trans "YOUR STAND" %}</a></li>

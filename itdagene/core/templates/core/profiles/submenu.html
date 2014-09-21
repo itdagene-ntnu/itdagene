@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<ul>
+<ul class="treeview-menu">
     <li>
         {% if perms.auth.add_user %}
         <a href="{% url 'users:create' %}">Opprett ny bruker</a>
