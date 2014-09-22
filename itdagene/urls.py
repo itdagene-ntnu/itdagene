@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.conf.urls import url, patterns, include
 from django.conf.urls.static import static
-from django.contrib import admin
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponsePermanentRedirect
 
@@ -56,12 +55,6 @@ urlpatterns += patterns('',
 )
 """
 
-# Django admin in debug mode
-if settings.DEBUG:
-    admin.autodiscover()
-    urlpatterns += patterns('',
-        url(r'^dadmin/', include(admin.site.urls)),
-    )
 
 #Must be the last one
 urlpatterns += patterns('',

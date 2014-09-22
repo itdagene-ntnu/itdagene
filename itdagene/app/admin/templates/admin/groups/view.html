@@ -1,0 +1,23 @@
+{% extends "base_admin.html" %}
+{% load i18n %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-4">
+            <h3>{% trans "Permissions" %}</h3>
+            <ul>
+            {% for perm in group.permissions.all %}
+                <li>{{ perm }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <h3>{% trans "Members" %}</h3>
+            <ul id="members">
+                {% for member in members %}
+                    <li>{{ member.get_full_name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

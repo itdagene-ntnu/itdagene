@@ -4,6 +4,7 @@
 
 Prosess:
 * pages app er ferdig i admin panelet
+* admin app er ferdig i admin panelet
 
 ##Avhengigheter
 

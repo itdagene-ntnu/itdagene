@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.http import Http404
+from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import redirect
 
 try:
@@ -36,3 +36,10 @@ def dev_or_login_required(view_func):
                 return redirect("/accounts/login/?next=%s" % (request.path))
 
     return wraps(view_func)(_checklogin)
+
+
+
+def superuser_required(login_url=None, raise_exception=False):
+    def check_perms(user):
+        return user.is_superuser
+    return user_passes_test(check_perms, login_url=login_url)

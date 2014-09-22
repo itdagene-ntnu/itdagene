@@ -131,11 +131,6 @@
                     <li class="{% active request 'users' %} treeview"><a href="#"><span class="glyphicon glyphicon-user"></span> {% trans "Users" %} <i class="fa fa-angle-left pull-right"></i> </a>
                         {% include 'core/profiles/submenu.html' %}
                     </li>
-                    {% if user.is_staff %}
-                        <li class="{% active request 'admin' %} treeview"><a href="#"><span class="glyphicon glyphicon-tower"></span> {% trans "Admin" %} <i class="fa fa-angle-left pull-right"></i> </a>
-                            {% include 'adm/submenu.html' %}
-                        </li>
-                    {% endif %}
                     {% if perms.workschedule.view_worker %}
                         <li class="{% active request 'workschedules' %} treeview"><a href="#"><span class="glyphicon glyphicon-list"></span> {% trans "Workschedules" %} <i class="fa fa-angle-left pull-right"></i> </a>
                             {% include 'workschedule/submenu.html' %}
@@ -144,6 +139,11 @@
                     {% if perms.meetings.change_meeting %}
                         <li class="{% active request 'experiences' %} treeview"><a href="{% url "experiences" %}"><span class="glyphicon glyphicon-pushpin"></span> {% trans "Experiences" %} <i class="fa fa-angle-left pull-right"></i> </a>
                             {% include 'experiences/submenu.html' %}
+                        </li>
+                    {% endif %}
+                    {% if request.user.is_superuser %}
+                        <li class="{% active request 'admin' %} treeview"><a href="#"><span class="glyphicon glyphicon-tower"></span> {% trans "Admin" %} <i class="fa fa-angle-left pull-right"></i> </a>
+                            {% include 'admin/submenu.html' %}
                         </li>
                     {% endif %}
                 </ul>

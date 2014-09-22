@@ -1,9 +1,7 @@
-{% extends "adm/base.html" %}
+{% extends "base_admin.html" %}
 {% load i18n %}
 
 {% block content %}
-    <h1>{% trans "Group administration" %}</h1>
-    <a href="{% url "app.admin.views.groups.add" %}">Add a group</a>
     <ul class="big-list">
     {% for group in groups %}
         <li>

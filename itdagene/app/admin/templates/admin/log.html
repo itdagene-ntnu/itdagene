@@ -1,9 +1,8 @@
-{% extends "adm/base.html" %}
+{% extends "base_admin.html" %}
 {% load i18n %}
 {% load filters %}
 
 {% block content %}
-    <h1>{% trans "Log" %}</h1>
     <ul class="big-list">
     {% for logitem in log %}
         <li>

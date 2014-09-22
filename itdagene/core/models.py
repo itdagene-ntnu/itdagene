@@ -1,11 +1,10 @@
 from datetime import datetime
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser
 from django.contrib.contenttypes.models import ContentType
 from django.core.cache import cache
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-
 from itdagene.core.auth import get_current_user
 from itdagene.core.log.models import LogItem
 

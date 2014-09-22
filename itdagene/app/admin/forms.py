@@ -19,7 +19,6 @@ class RegisterUserForm(forms.Form):
 class GroupForm (ModelForm):
     class Meta:
         model = Group
-        fields = ('name',)
 
 class AddUserToGroupForm(Form):
     username = forms.CharField()
