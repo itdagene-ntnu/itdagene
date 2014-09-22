@@ -3,8 +3,8 @@ from django.contrib.contenttypes import generic
 from django.db import models
 from django.utils import translation
 from django.utils.translation import ugettext as _
-from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
+from itdagene.core.models import User
 from django.shortcuts import get_object_or_404
 from itdagene.core.auth import get_current_user
 from itdagene.core.shortcuts import send_language_specific_mail
@@ -23,7 +23,7 @@ class Notification (models.Model):
     object_id = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey('content_type', 'object_id')
     send_mail = models.BooleanField(default=True, verbose_name=_('send mail'))
-    sent_mail = models.BooleanField(verbose_name=_('sent mail'))
+    sent_mail = models.BooleanField(verbose_name=_('sent mail'), default=False)
     read = models.BooleanField(default=True)
 
     def __unicode__(self):

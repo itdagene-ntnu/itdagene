@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ChoiceField, RadioSelect, IntegerField
 from itdagene.app.feedback.models import Issue, Evaluation
 from django.forms.models import ModelForm
-from django.contrib.auth.models import User
+from itdagene.core.models import User
 
 class IssueForm(ModelForm):
     class Meta:

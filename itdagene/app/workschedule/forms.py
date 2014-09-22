@@ -4,7 +4,8 @@ from itdagene.core import Preference
 from django.utils.translation import ugettext_lazy as _
 from django import forms
 from itdagene.app.workschedule.models import WorkSchedule, Worker, WorkerInSchedule
-from django.contrib.auth.models import User
+from itdagene.core.models import User
+
 
 class WorkScheduleForm (ModelForm):
 	invites = forms.MultipleChoiceField(label=_('Add worker'), required=False)

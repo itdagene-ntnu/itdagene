@@ -1,7 +1,7 @@
 from random import choice
 import string
 from django.conf import settings
-from django.contrib.auth.models import User, AnonymousUser
+from django.contrib.auth.models import AnonymousUser
 
 USER_ATTR_NAME = getattr(settings, 'LOCAL_USER_ATTR_NAME', '_current_user')
 
@@ -30,6 +30,7 @@ class LocalUserMiddleware(object):
             request.session['django_language'] = 'nb'
 
 def get_current_user():
+    from models import User
     try:
         current_user = getattr(_thread_locals, USER_ATTR_NAME, None)
         return current_user() if current_user else current_user

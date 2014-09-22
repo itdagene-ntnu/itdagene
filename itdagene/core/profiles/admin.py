@@ -1,8 +1,7 @@
 from django.contrib import admin
 from django.contrib.admin.options import ModelAdmin
 from django.contrib.auth.admin import UserAdmin
-from django.contrib.auth.models import User
-
+from itdagene.core.models import User
 from itdagene.core.profiles.models import Profile, BoardPosition
 
 

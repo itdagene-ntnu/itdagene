@@ -1,10 +1,9 @@
 from datetime import datetime
 
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-
+from itdagene.core.models import User
 from itdagene.core.log.models import LogItem
 from itdagene.core.models import BaseModel, Preference
 from itdagene.core.util.cache import expire_page_cache

@@ -5,8 +5,8 @@ from itdagene.app.company import COMPANY_STATUS
 from itdagene.core.log.models import LogItem
 from itdagene.core.models import BaseModel
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from itdagene.core.models import User
 from django.core.exceptions import ValidationError
 
 
@@ -15,8 +15,8 @@ class Package(BaseModel):
     description = models.TextField(verbose_name=_('description'), help_text=_('This field supports markdown'))
     price = models.PositiveIntegerField(verbose_name=_('price'))
     max = models.PositiveIntegerField(blank=True, null=True, verbose_name=_('number of packages to sell'))
-    has_stand_first_day = models.BooleanField()
-    has_stand_last_day = models.BooleanField()
+    has_stand_first_day = models.BooleanField(default=False)
+    has_stand_last_day = models.BooleanField(default=False)
     has_waiting_list = models.BooleanField(default=True, verbose_name=_('has waiting list'))
     includes_course = models.BooleanField(verbose_name=_('includes course'), default=False)
     is_full = models.BooleanField(verbose_name=_('is full'), default=False)
@@ -82,9 +82,9 @@ class Company(BaseModel):
     payment_address = models.TextField(blank=True, verbose_name=_('payment address'))
     fax = models.CharField(max_length=20,blank=True, null=True)
     active = models.BooleanField(default=True, verbose_name=_('active'))
-    has_public_profile = models.BooleanField(verbose_name=_('profile'))
-    mp = models.BooleanField(verbose_name=_('Main partner'))
-    partner = models.BooleanField(verbose_name=_('Partner'))
+    has_public_profile = models.BooleanField(verbose_name=_('profile'), default=False)
+    mp = models.BooleanField(verbose_name=_('Main partner'), default=False)
+    partner = models.BooleanField(verbose_name=_('Partner'), default=False)
 
     def __unicode__(self):
         return self.name
@@ -170,8 +170,8 @@ class Contract(BaseModel):
     banquet_tickets = models.PositiveIntegerField(default=1,verbose_name=_('banquet tickets'))
     joblistings = models.PositiveIntegerField(default=2, verbose_name=_('joblistings'))
     interview_room = models.PositiveIntegerField(default=0, verbose_name=_('interview room'))
-    is_billed = models.BooleanField(verbose_name=_("is billed"))
-    has_paid = models.BooleanField(verbose_name=_("has paid"))
+    is_billed = models.BooleanField(verbose_name=_("is billed"), default=False)
+    has_paid = models.BooleanField(verbose_name=_("has paid"), default=False)
 
     def __unicode__(self):
         return self.company.name

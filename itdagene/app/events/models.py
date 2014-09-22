@@ -3,8 +3,8 @@ from django.db import models
 from itdagene.app.company.models import Company
 from itdagene.core.models import BaseModel
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.models import User
 from django import forms
+from itdagene.core.models import User
 
 EVENT_TYPES = (
     (0, _('Course')),
@@ -20,9 +20,9 @@ class Event(BaseModel):
     description = models.TextField(verbose_name=_('description'))
     type = models.PositiveIntegerField(choices=EVENT_TYPES, verbose_name=_('type'))
     location = models.CharField(max_length=30, verbose_name=_('location'))
-    is_internal = models.BooleanField(verbose_name=_('internal event'))
+    is_internal = models.BooleanField(verbose_name=_('internal event'), default=False)
     company = models.ForeignKey(Company, null=True, blank=True,verbose_name=_('hosting company'))
-    uses_tickets = models.BooleanField(verbose_name=_('uses tickets'))
+    uses_tickets = models.BooleanField(verbose_name=_('uses tickets'), default=False)
     max_participants = models.PositiveIntegerField(null=True, blank=True,verbose_name=_('max nr of participants'))
 
     def __unicode__(self):

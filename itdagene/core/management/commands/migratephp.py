@@ -5,8 +5,7 @@ import MySQLdb
 from datetime import datetime
 from itdagene.app.career.models import Town, Joblisting
 from itdagene.app.company.models import Company, Comment, CompanyContact
-
-from django.contrib.auth.models import User
+from itdagene.core.models import User
 
 def safe_unicode(obj):
     string = str(obj)

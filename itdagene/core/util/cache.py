@@ -24,15 +24,6 @@ def expire_page_cache(view, args=None):
         cache.delete(key)
 
 
-def get_stats():
-    """
-    Returns cache backend stats if available
-    """
-    if type(cache) is DummyCache:
-        return
-    return cache._cache.get_stats()
-
-
 def flush_cache():
     """
     Flushes entire cache

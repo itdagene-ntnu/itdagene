@@ -1,12 +1,12 @@
 from datetime import datetime
 from django.db import models
 from django.utils.translation import ugettext as _
-from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from django.core.mail import send_mail
 from itdagene.core.auth import get_current_user
 from django.conf import settings
+from itdagene.core.models import User
 
 class LogItem (models.Model):
 
@@ -41,7 +41,7 @@ class LogItem (models.Model):
     def log_it(cls, object, action, priority):
         user = get_current_user()
         if not user or  not user.is_authenticated():
-            user = User.objects.get(pk=1) #dummy user
+            user = User.objects.get(pk=1)
         l = LogItem(
             user=user,
             priority=priority,

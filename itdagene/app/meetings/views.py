@@ -12,7 +12,7 @@ from django.core.cache import cache
 from django.shortcuts import render
 from itdagene.core.shortcuts import send_language_specific_mail
 
-from django.contrib.auth.models import User
+
 
 @permission_required('meetings.change_meeting')
 def list(request):

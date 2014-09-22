@@ -5,8 +5,9 @@ from itdagene.core.auth import generate_password
 from itdagene.core.log.models import LogItem
 from itdagene.core.models import BaseModel, Preference
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from itdagene.core.models import User
+
 
 APPS = (
     ('all', _('All')),
@@ -48,7 +49,7 @@ class Issue (BaseModel):
     type = models.PositiveIntegerField(default=1,choices=TYPES, verbose_name=_('type'))
     status = models.PositiveIntegerField(default=0, choices=STATUS, verbose_name=_('status'))
     description = models.TextField(verbose_name=_('description'))
-    is_solved = models.BooleanField(verbose_name=_('is solved'))
+    is_solved = models.BooleanField(verbose_name=_('is solved'), default=False)
     assigned_user = models.ForeignKey(User, related_name='assigned_issues', blank=True, null=True, verbose_name=_('assigned user'))
     deadline = models.DateTimeField(blank=True, null=True, verbose_name=_('deadline'))
     solved_date = models.DateTimeField(blank=True, null=True, verbose_name=_('solved date'))
@@ -111,7 +112,7 @@ class Evaluation (models.Model):
         
     )
 
-    has_interview_location = models.BooleanField(verbose_name=_('Did you use interview rooms?'))
+    has_interview_location = models.BooleanField(verbose_name=_('Did you use interview rooms?'), default=False)
     interview_location_rating = models.IntegerField(
                         choices=RATINGS,
                         verbose_name=_('How was the interview room?'),
@@ -122,7 +123,7 @@ class Evaluation (models.Model):
 
 
 
-    has_banquet = models.BooleanField(verbose_name=_('Where you at the banquet?'))
+    has_banquet = models.BooleanField(verbose_name=_('Where you at the banquet?'), default=False)
     banquet_rating = models.IntegerField(
         choices=RATINGS,
         verbose_name=_('How did the banquet go?'),
@@ -134,5 +135,5 @@ class Evaluation (models.Model):
     opening_hours = models.TextField(verbose_name=_('Was the opening hours(10-16) ok? If not what would be your choice?'))
     improvement = models.TextField(verbose_name=_('What could have been done better?'))
     other = models.TextField(blank=True, verbose_name=_('Something else you want to comment?'), help_text=_('Do you have any tips?'))
-    want_to_come_back = models.BooleanField(verbose_name=_('Interested in being contacted next year?'))
+    want_to_come_back = models.BooleanField(verbose_name=_('Interested in being contacted next year?'), default=False)
 

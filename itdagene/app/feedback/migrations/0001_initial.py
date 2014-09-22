@@ -1,89 +1,87 @@
-# encoding: utf-8
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
-class Migration(SchemaMigration):
-
-    def forwards(self, orm):
-        
-        # Adding model 'Issue'
-        db.create_table('feedback_issue', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('creator', self.gf('django.db.models.fields.related.ForeignKey')(related_name='issue_creator', to=orm['auth.User'])),
-            ('saved_by', self.gf('django.db.models.fields.related.ForeignKey')(related_name='issue_saved_by', to=orm['auth.User'])),
-            ('date_created', self.gf('django.db.models.fields.DateTimeField')()),
-            ('date_saved', self.gf('django.db.models.fields.DateTimeField')()),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('app', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('description', self.gf('django.db.models.fields.TextField')()),
-            ('is_solved', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('assigned_user', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='assigned_issues', null=True, to=orm['auth.User'])),
-            ('deadline', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
-            ('solved_date', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
-        ))
-        db.send_create_signal('feedback', ['Issue'])
+from django.db import models, migrations
+from django.conf import settings
 
 
-    def backwards(self, orm):
-        
-        # Deleting model 'Issue'
-        db.delete_table('feedback_issue')
+class Migration(migrations.Migration):
 
+    dependencies = [
+        ('company', '0001_initial'),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('core', '0001_initial'),
+    ]
 
-    models = {
-        'auth.group': {
-            'Meta': {'object_name': 'Group'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '80'}),
-            'permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'})
-        },
-        'auth.permission': {
-            'Meta': {'ordering': "('content_type__app_label', 'content_type__model', 'codename')", 'unique_together': "(('content_type', 'codename'),)", 'object_name': 'Permission'},
-            'codename': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['contenttypes.ContentType']"}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
-        },
-        'auth.user': {
-            'Meta': {'object_name': 'User'},
-            'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Group']", 'symmetrical': 'False', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
-            'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
-        },
-        'contenttypes.contenttype': {
-            'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
-            'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        'feedback.issue': {
-            'Meta': {'object_name': 'Issue'},
-            'app': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
-            'assigned_user': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'assigned_issues'", 'null': 'True', 'to': "orm['auth.User']"}),
-            'creator': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'issue_creator'", 'to': "orm['auth.User']"}),
-            'date_created': ('django.db.models.fields.DateTimeField', [], {}),
-            'date_saved': ('django.db.models.fields.DateTimeField', [], {}),
-            'deadline': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            'description': ('django.db.models.fields.TextField', [], {}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_solved': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'saved_by': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'issue_saved_by'", 'to': "orm['auth.User']"}),
-            'solved_date': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        }
-    }
-
-    complete_apps = ['feedback']
+    operations = [
+        migrations.CreateModel(
+            name='Evaluation',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('internship_marathon_rating', models.IntegerField(default=0, verbose_name='How did the kickstart go?', choices=[(0, 'Did not use'), (1, '1: Very bad'), (2, '2: Bad'), (3, '3: Not bad or good'), (4, '4: Good'), (5, '5: Very good')])),
+                ('internship_marathon_improvement', models.TextField(verbose_name='What could have been done better at the kickstart?')),
+                ('course_rating', models.IntegerField(default=0, verbose_name='How did the course go?', choices=[(0, 'Did not use'), (1, '1: Very bad'), (2, '2: Bad'), (3, '3: Not bad or good'), (4, '4: Good'), (5, '5: Very good')])),
+                ('course_improvement', models.TextField(verbose_name='Could the course be handled better?')),
+                ('visitors_rating', models.IntegerField(verbose_name='Are you satisfied with the number of people that visited your stand?', choices=[(0, 'Did not use'), (1, '1: Very bad'), (2, '2: Bad'), (3, '3: Not bad or good'), (4, '4: Good'), (5, '5: Very good')])),
+                ('has_interview_location', models.BooleanField(default=False, verbose_name='Did you use interview rooms?')),
+                ('interview_location_rating', models.IntegerField(default=0, verbose_name='How was the interview room?', choices=[(0, 'Did not use'), (1, '1: Very bad'), (2, '2: Bad'), (3, '3: Not bad or good'), (4, '4: Good'), (5, '5: Very good')])),
+                ('interview_location_improvement', models.TextField(verbose_name='What could have been done better?', blank=True)),
+                ('has_banquet', models.BooleanField(default=False, verbose_name='Where you at the banquet?')),
+                ('banquet_rating', models.IntegerField(default=0, verbose_name='How did the banquet go?', choices=[(0, 'Did not use'), (1, '1: Very bad'), (2, '2: Bad'), (3, '3: Not bad or good'), (4, '4: Good'), (5, '5: Very good')])),
+                ('banquet_improvement', models.TextField(verbose_name='What could have been done better at the banquet?', blank=True)),
+                ('opening_hours', models.TextField(verbose_name='Was the opening hours(10-16) ok? If not what would be your choice?')),
+                ('improvement', models.TextField(verbose_name='What could have been done better?')),
+                ('other', models.TextField(help_text='Do you have any tips?', verbose_name='Something else you want to comment?', blank=True)),
+                ('want_to_come_back', models.BooleanField(default=False, verbose_name='Interested in being contacted next year?')),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='EvaluationHash',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('hash', models.CharField(unique=True, max_length=250)),
+                ('company', models.ForeignKey(to='company.Company')),
+                ('preference', models.ForeignKey(to='core.Preference')),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Issue',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('date_created', models.DateTimeField(editable=False)),
+                ('date_saved', models.DateTimeField(editable=False)),
+                ('title', models.CharField(max_length=100, verbose_name='title')),
+                ('app', models.CharField(max_length=50, verbose_name='app', choices=[(b'all', 'All'), (b'admin', 'Admin'), (b'company', 'BDB'), (b'career', 'Career'), (b'core', 'Core'), (b'documents', 'Documents'), (b'events', 'Events'), (b'feedback', 'Feedback'), (b'frontpage', 'Frontpage'), (b'logistics', 'Logistics'), (b'meetings', 'Meetings'), (b'news', 'News'), (b'notifications', 'Notifications'), (b'pages', 'Pages'), (b'profiles', 'Profiles'), (b'todo', 'Todo'), (b'venue', 'Venue'), (b'workschedule', 'Workschedule')])),
+                ('type', models.PositiveIntegerField(default=1, verbose_name='type', choices=[(0, 'Bug'), (1, 'Feature'), (2, 'Cache problem')])),
+                ('status', models.PositiveIntegerField(default=0, verbose_name='status', choices=[(0, 'New'), (1, 'In progress'), (2, 'Needs feedback'), (3, 'Finished')])),
+                ('description', models.TextField(verbose_name='description')),
+                ('is_solved', models.BooleanField(default=False, verbose_name='is solved')),
+                ('deadline', models.DateTimeField(null=True, verbose_name='deadline', blank=True)),
+                ('solved_date', models.DateTimeField(null=True, verbose_name='solved date', blank=True)),
+                ('assigned_user', models.ForeignKey(related_name=b'assigned_issues', verbose_name='assigned user', blank=True, to=settings.AUTH_USER_MODEL, null=True)),
+                ('creator', models.ForeignKey(related_name=b'issue_creator', editable=False, to=settings.AUTH_USER_MODEL)),
+                ('saved_by', models.ForeignKey(related_name=b'issue_saved_by', editable=False, to=settings.AUTH_USER_MODEL)),
+            ],
+            options={
+                'verbose_name': 'issue',
+                'verbose_name_plural': 'issues',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.AlterUniqueTogether(
+            name='evaluationhash',
+            unique_together=set([('preference', 'company')]),
+        ),
+        migrations.AddField(
+            model_name='evaluation',
+            name='hash',
+            field=models.ForeignKey(to='feedback.EvaluationHash'),
+            preserve_default=True,
+        ),
+    ]

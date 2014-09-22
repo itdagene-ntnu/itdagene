@@ -1,6 +1,6 @@
 from itdagene.app.company.models import Company, Comment, Package, CompanyContact, Contract
 from django.forms.models import ModelForm
-from django.contrib.auth.models import User
+from itdagene.core.models import User
 from django.utils.translation import ugettext_lazy as _
 from itdagene.app.company import COMPANY_STATUS
 

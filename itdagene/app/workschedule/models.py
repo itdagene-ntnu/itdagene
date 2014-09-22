@@ -3,9 +3,6 @@ from datetime import datetime
 from django.db import models
 from itdagene.core.log.models import LogItem
 from itdagene.core.models import BaseModel
-from django.contrib.auth.models import User
-from itdagene.core.notifications.models import Notification
-from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext_lazy as _
 
 class Worker (BaseModel):
@@ -79,7 +76,7 @@ class WorkSchedule(BaseModel):
 class WorkerInSchedule (BaseModel):
     schedule = models.ForeignKey(WorkSchedule, related_name='workers_in_schedule', verbose_name=_('schedule'))
     worker = models.ForeignKey(Worker, related_name='in_schedules', verbose_name=_('worker'))
-    has_met = models.BooleanField(verbose_name=_('has met'))
+    has_met = models.BooleanField(verbose_name=_('has met'), default=False)
 
     def __unicode__(self):
         return "%s: %s" % (unicode(self.schedule), self.worker.name)

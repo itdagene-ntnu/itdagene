@@ -1,12 +1,14 @@
 from datetime import datetime
-
-from django.contrib.auth.models import User, AbstractUser
+from django.contrib.auth.models import AbstractUser
 from django.contrib.contenttypes.models import ContentType
 from django.core.cache import cache
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from itdagene.core.auth import get_current_user
-from itdagene.core.log.models import LogItem
+
+
+class User(AbstractUser):
+    pass
 
 
 class BaseModel(models.Model):
@@ -34,6 +36,7 @@ class BaseModel(models.Model):
         self.date_saved = datetime.now()
 
         super(BaseModel, self).save(*args, **kwargs)
+        from itdagene.core.notifications.models import Subscription
         Subscription.subscribe(self, user)
 
         if notify_subscribers:
@@ -68,7 +71,7 @@ class BaseModel(models.Model):
 
 
 class Preference(BaseModel):
-    active = models.BooleanField(verbose_name=_('active'))
+    active = models.BooleanField(verbose_name=_('active'), default=False)
     year = models.IntegerField(blank=True, null=True, verbose_name=_('year'))
     start_date = models.DateField(verbose_name=_('start date'))
     end_date = models.DateField(verbose_name=_('end date'))
@@ -83,6 +86,7 @@ class Preference(BaseModel):
         action = 'EDIT' if self.pk else 'CREATE'
 
         super(Preference, self).save(*args, **kwargs)
+        from log.models import LogItem
         LogItem.log_it(self, action, 3)
 
         if self.active:
@@ -117,5 +121,3 @@ class UserProxy(User):
             'first_name': self.first_name,
             'last_name': self.last_name,
         }
-
-from itdagene.core.notifications.models import Subscription

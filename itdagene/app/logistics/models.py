@@ -9,7 +9,7 @@ class RoomRegistration(BaseModel):
     date = models.DateField(verbose_name=_('date'))
     time_start = models.TimeField(_('start time'))
     time_end = models.TimeField(verbose_name=_('end time'))
-    confirmed = models.BooleanField(verbose_name=_('confirmed'))
+    confirmed = models.BooleanField(verbose_name=_('confirmed'), default=False)
     receipt = models.TextField(blank=True,verbose_name=_('receipt'))
 
 

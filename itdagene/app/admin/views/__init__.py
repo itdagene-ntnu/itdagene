@@ -1,6 +1,5 @@
 from django.contrib.auth.decorators import permission_required, login_required
 from django.shortcuts import render
-from itdagene.core.util.cache import get_stats
 from itdagene.core.log.models import LogItem
 from itdagene.core.decorators import superuser_required
 from django.utils.translation import ugettext_lazy as _
@@ -8,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 
 @superuser_required()
 def landing_page(request):
-    return render(request, 'admin/dashboard.html', {'cache_stats': get_stats(), 'title':_('Admin')})
+    return render(request, 'admin/dashboard.html', { 'title':_('Admin')})
 
 
 @superuser_required()

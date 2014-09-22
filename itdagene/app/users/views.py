@@ -1,8 +1,7 @@
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, redirect, render
-
+from itdagene.core.models import User
 from itdagene.core.log.models import LogItem
 from itdagene.core.models import Preference
 from itdagene.core.profiles.models import Profile

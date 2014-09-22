@@ -1,4 +1,5 @@
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import Group
+from itdagene.core.models import User
 from django.forms.forms import Form
 from django.forms.models import ModelForm
 from itdagene.core.models import Preference

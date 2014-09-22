@@ -3,7 +3,7 @@ from django.core.cache import cache
 from django.db import models
 from itdagene.core.log.models import LogItem
 from itdagene.core.models import BaseModel
-from django.contrib.auth.models import User
+from itdagene.core.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 
@@ -75,7 +75,7 @@ class Meeting(BaseModel):
 class ReplyMeeting(BaseModel):
     meeting = models.ForeignKey(Meeting, related_name='replies',verbose_name=_('meeting'))
     user = models.ForeignKey(User, verbose_name=_('user'))
-    is_attending = models.NullBooleanField(verbose_name=_('attending'))
+    is_attending = models.NullBooleanField(verbose_name=_('attending'), default=False)
     
     def __unicode__(self):
         return unicode(self.meeting) + ': ' + self.user.username

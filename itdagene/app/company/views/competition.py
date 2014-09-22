@@ -1,5 +1,5 @@
-from django.contrib.auth.models import User
 from django.db.models import Count
+from itdagene.core.models import User
 from django.shortcuts import render
 from django.contrib.auth.decorators import permission_required
 from itdagene.app.company.models import CallTeam, Company

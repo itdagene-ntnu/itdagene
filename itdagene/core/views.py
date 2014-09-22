@@ -5,8 +5,8 @@ from django.template.context import RequestContext
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from itdagene.core.auth import generate_password
 from django.shortcuts import render
-from django.contrib.auth.models import User
 from django.core.mail import send_mail
+from itdagene.core.models import User
 from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.core import management

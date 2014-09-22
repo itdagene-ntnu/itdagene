@@ -3,8 +3,8 @@ from django.forms.forms import Form
 from django.forms.models import ModelForm
 from django.utils.translation import ugettext_lazy as _
 from itdagene.app.meetings.models import Meeting, ReplyMeeting, Penalty
-from django.contrib.auth.models import User
 from itdagene.core import Preference
+from itdagene.core.models import User
 from itdagene.core.profiles.models import Profile
 
 

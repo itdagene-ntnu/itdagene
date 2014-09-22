@@ -1,5 +1,5 @@
-from django.contrib.auth.models import User
 from django.test import TestCase
+from itdagene.core.models import User
 
 
 class ModelTest(TestCase):
