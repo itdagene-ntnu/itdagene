@@ -4,17 +4,22 @@ from itdagene.app.news.models import Announcement
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
-
+from django.utils.translation import ugettext_lazy as _
 
 def view_announcement(request, id):
     announcement = get_object_or_404(Announcement, pk=id)
     return render(request,'news/view.html',{'announcement': announcement})
 
 
-@permission_required('news.change_announcement')
+@permission_required('news.add_announcement')
 def create_announcement(request):
-    return edit_announcement(request)
-
+    form = AnnouncementForm()
+    if request.method == 'POST':
+        form = AnnouncementForm(request.POST, request.FILES)
+        if form.is_valid():
+            announcement = form.save()
+            return redirect(reverse('itdagene.app.news.views.view_announcement', args=[announcement.pk]))
+    return render(request, 'news/edit.html', {'form': form, 'title': _('Add Announcement')})
 
 @permission_required('news.change_announcement')
 def edit_announcement(request, id=False):
@@ -30,4 +35,4 @@ def edit_announcement(request, id=False):
     if request.method == 'POST' and form.is_valid():
         instance = form.save()
         return redirect(reverse('itdagene.app.news.views.view_announcement', args=[instance.pk]))
-    return render(request,'news/edit.html',{'form': form})
+    return render(request,'news/edit.html',{'form': form, 'title': _('Edit Announcement')})

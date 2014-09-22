@@ -1,11 +1,10 @@
-{% extends "meetings/base.html" %}
+{% extends "base_admin.html" %}
 {% load i18n %}
 
-{% block include %}
+{% block scripts %}
     <script>$(function(){ $("#id_date").datepicker({dateFormat: 'yy-mm-dd'}); });</script>
 {% endblock %}
 
 {% block content %}
-    <h1>{% if form.instance.pk %}{% trans "Change announcement" %}{% else %}{% trans "Create announcement" %}{% endif %}</h1>
     {% include "form.html" %}
 {% endblock %}
