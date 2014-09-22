@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.http import HttpResponsePermanentRedirect
 from itdagene.app.pages.forms import PageForm
 from itdagene.app.pages.models import Page
-from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.decorators import permission_required, login_required
 from django.shortcuts import render
 from django.utils.translation import ugettext_lazy as _
 
@@ -20,13 +20,11 @@ def view_page(request, lang_code='nb', slug='itdagene'):
             page = get_object_or_404(Page, slug=slug, active=True)
             messages.error = _('The page is not available in your language.')
     if page.need_auth and not request.user.is_authenticated():
-        return HttpResponsePermanentRedirect('/accounts/login/?next=/' + page.slug + '/')
-    return render(request,
-                  'pages/page.html',
-                  {'page': page, })
+        return "%s?next=/%s/" % (reverse('django.contrib.auth.views.login'), page.slug)
+    return render(request, 'pages/page.html', {'page': page, })
 
 
-@permission_required('pages.change_page')
+@permission_required('pages.add_page')
 def add(request):
     if request.method == 'POST':
         form = PageForm(request.POST)
@@ -36,10 +34,9 @@ def add(request):
             cache.delete('menu')
             return redirect(reverse('itdagene.app.pages.views.view_page', args=[page.slug]))
         else:
-            return render(request,
-                          'pages/form.html',
-                          {'form': form})
-    return edit(request, None)
+            return render(request, 'pages/form.html', { 'form': form })
+    form = PageForm()
+    return render(request, 'pages/form.html', { 'form':form, 'title':_('Add Page') })
 
 
 @permission_required('pages.change_page')
@@ -57,15 +54,11 @@ def edit(request, slug, lang_code='nb'):
                 cache.delete('menu')
                 return redirect(reverse('itdagene.app.pages.views.view_page', args=[page.slug]))
 
-    return render(request,
-                  'pages/form.html',
-                  {'form': form, 'page': page})
+    return render(request, 'pages/form.html', {'form': form, 'page': page, 'title': _('Edit Page'), 'description': page.title})
 
 
-@permission_required('pages.change_page')
+@login_required()
 def admin(request):
     pages = Page.objects.all().order_by('menu', 'active')
 
-    return render(request,
-                  'pages/admin.html',
-                  {'pages': pages})
+    return render(request, 'pages/admin.html', {'pages': pages, 'title': _('Pages admin')})

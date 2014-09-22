@@ -2,12 +2,17 @@
 
 <ul class="treeview-menu">
     <li><a href="{% url "pages" %}" class="treeview-menu">{% trans "Pages" %}</a></li>
-    {% if request.user.profile.is_board_member %}
-    <li><a href="{% url "app.pages.views.add" %}">{% trans "Add Page" %}</a></li>
+
+    {% if perms.pages.add_page %}
+        <li><a href="{% url "app.pages.views.add" %}">{% trans "Add Page" %}</a></li>
+    {% endif %}
+
     {% if page %}
+        {% if perms.pages.add_page %}
+            <li><a href="{% url "app.pages.views.edit" page.slug %}">{% trans "Edit Page" %}</a></li>
+        {% endif %}
         <li><a href="{% url "app.pages.views.view_page" page.slug %}">{% trans "View Page" %}</a></li>
-        <li><a href="{% url "app.pages.views.edit" page.slug %}">{% trans "Edit Page" %}</a></li>
     {% endif %}
-    {% endif %}
+
 </ul>
 

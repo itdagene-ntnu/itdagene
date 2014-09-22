@@ -2,6 +2,9 @@
 
 [Nettopp fått tilgang? Les her](https://github.com/itdagene-ntnu/itdagene/wiki/Erfaringskriv)
 
+Prosess:
+* pages app er ferdig i admin panelet
+
 ##Avhengigheter
 
 Vi bruker [bower](http://bower.io) for å holde styr på statiske filer. Installeres med npm:

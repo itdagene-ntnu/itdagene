@@ -1,7 +1,10 @@
 {% load i18n widget_tweaks %}
+{% load crispy_forms_tags %}
 
-{% block include %}
+{% block styles %}
     <link rel="stylesheet" href="{{ STATIC_URL }}lib/bootstrap-datepicker/css/datepicker3.css">
+{% endblock %}
+{% block scripts %}
     <script type="text/javascript" src="{{ STATIC_URL }}lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
     <script>$(function(){ $("#id_date").datepicker({format: 'yyyy-mm-dd'}); });</script>
     <script>$(function(){ $("#id_deadline").datepicker({format: 'yyyy-mm-dd'}); });</script>
@@ -22,19 +25,7 @@
                     <form method="post" enctype="multipart/form-data" action="{{ form.action_url }}">
                         <div class="modal-body">
                             {% csrf_token %}
-                            {{ form.content.errors }}
-                            {% for field in form %}
-                                <div class="form-group">
-                                    {% if not field.is_hidden %}
-                                        {% render_field field.label_tag %}
-                                        {{ field.errors }}
-                                    {% endif %}
-                                    {% render_field field class="form-control" %}
-                                    {% if not field.is_hidden %}
-                                        {{ field.help_text }}<br/>
-                                    {% endif %}
-                                </div>
-                            {% endfor %}
+                            {{ form|crispy }}
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
@@ -49,21 +40,9 @@
     <div class="row">
         <div class="col-md-9">
             <h1>{{ form_title }}</h1>
-            <form method="post" enctype="multipart/form-data" class="form-horizontal col-md-6">
+            <form method="post" enctype="multipart/form-data" class="form-horizontal col-md-12">
                 {% csrf_token %}
-                {{ form.non_field_errors }}
-                {% for field in form %}
-                    <div class="form-group">
-                        {% if not field.is_hidden %}
-                            {% render_field field.label_tag %}
-                            {{ field.errors }}
-                        {% endif %}
-                        {% render_field field class="form-control" %}
-                        {% if not field.is_hidden %}
-                            {{ field.help_text }}<br/>
-                        {% endif %}
-                    </div>
-                {% endfor %}
+                {{ form|crispy }}
                 <div class="form-group">
                     <p>
                         <button type="submit" class="form-control btn btn-primary">{% if form.instance.id %}{% trans "Save" %}{% else %}{% trans "Add" %}{% endif %}</button>
@@ -72,21 +51,7 @@
             </form>
         </div>
         <div class="col-md-3">
-            <h3>{% trans "Markdown-help" %}</h3>
-            <ul>
-                <li>#{% trans "Header" %} 1</li>
-                <li>##{% trans "Header" %} 2</li>
-                <li>###{% trans "Header" %} 3</li>
-                <li>**{% trans "Bold" %}**</li>
-                <li>*{% trans "Italic" %}*</li>
-                <li>*&nbsp;&nbsp;&nbsp;&nbsp;{% trans "Unnumbered list" %}<br/>
-                    *&nbsp;&nbsp;&nbsp;&nbsp;{% trans "Unnumbered list" %}
-                </li>
-                <li>1.&nbsp;&nbsp;&nbsp;&nbsp;{% trans "Numbered list" %}<br/>
-                    2.&nbsp;&nbsp;&nbsp;&nbsp;{% trans "Numbered list" %}</li>
-                <li>{% trans "In both list-types it is important to have at least 4 spaces between the symbol and the text" %}</li>
-            </ul>
-            <a href="http://daringfireball.net/projects/markdown/syntax">{% trans "Read more at" %}</a>
+            {% include "markdown_help.html" %}
         </div>
     </div>
 {% endif %}
