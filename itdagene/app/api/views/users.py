@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.utils.translation import ugettext_lazy as _
-from itdagene.api.util import login_or_token_required, render_json
+from itdagene.app.api.util import login_or_token_required, render_json
 from itdagene.core.models import UserProxy as User
 
 @login_or_token_required()

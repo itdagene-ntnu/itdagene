@@ -1,0 +1,8 @@
+{% if formset.non_form_errors %}
+    <div class="callout callout-danger">
+        {% if formset_error_title %}<h4>{{ formset_error_title }}</h4>{% endif %}
+        {% for error in formset.non_form_errors %}
+            <p>{{ error }}</p>
+        {% endfor %}
+    </div>
+{% endif %}

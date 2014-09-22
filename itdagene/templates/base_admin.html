@@ -83,7 +83,7 @@
                         <a href="{% url "frontpage" %}"><span class="glyphicon glyphicon-home"></span> {% trans "Home" %}</a>
                     </li>
                     {% if perms.pages.change_page %}
-                        <li class="{% active request 'pages' %} treeview"><a href="{% url "pages" %}"><span class="glyphicon glyphicon-bookmark"></span> {% trans "Pages" %} <i class="fa fa-angle-left pull-right"></i> </a>
+                        <li class="{% active request 'pages' %} treeview"><a href="#"><span class="glyphicon glyphicon-bookmark"></span> {% trans "Pages" %} <i class="fa fa-angle-left pull-right"></i> </a>
                             {% include 'pages/submenu.html' %}
                         </li>
                     {% endif %}
@@ -96,50 +96,50 @@
                         </li>
                     {% endif %}
                     {% if perms.company.change_company %}
-                        <li class="{% active request 'companies' %} treeview"><a href="{% url "companies"  %}"><span class="glyphicon glyphicon-briefcase"></span> {% trans "Companies" %} <i class="fa fa-angle-left pull-right"></i> </a>
+                        <li class="{% active request 'companies' %} treeview"><a href="#"><span class="glyphicon glyphicon-briefcase"></span> {% trans "Companies" %} <i class="fa fa-angle-left pull-right"></i> </a>
                             {% include 'company/submenu.html' %}
                         </li>
                     {% endif %}
                     {% if perms.company.change_package %}
-                        <li class="{% active request 'packages' %} treeview"><a href="{% url "packages" %}"><span class="glyphicon glyphicon-gift"></span> {% trans "Packages" %} <i class="fa fa-angle-left pull-right"></i> </a>
+                        <li class="{% active request 'packages' %} treeview"><a href="#"><span class="glyphicon glyphicon-gift"></span> {% trans "Packages" %} <i class="fa fa-angle-left pull-right"></i> </a>
                             {% include 'company/packages/submenu.html' %}
                         </li>
                     {% endif %}
                     {% if perms.venue.change_stand %}
-                        <li class="{% active request 'venue' %} treeview"><a href="{% url "venue" %}"><span class="glyphicon glyphicon-map-marker"></span> {% trans "Venue" %} <i class="fa fa-angle-left pull-right"></i> </a>
+                        <li class="{% active request 'venue' %} treeview"><a href="#"><span class="glyphicon glyphicon-map-marker"></span> {% trans "Venue" %} <i class="fa fa-angle-left pull-right"></i> </a>
                             {% include 'venue/submenu.html' %}
                         </li>
                     {% endif %}
                     {% if perms.career.change_joblisting %}
-                        <li class="{% active request 'joblistings' %} treeview"><a href="{% url "joblistings" %}"><span class="glyphicon glyphicon-list-alt"></span> {% trans "Joblistings" %} <i class="fa fa-angle-left pull-right"></i> </a>
+                        <li class="{% active request 'joblistings' %} treeview"><a href="#"><span class="glyphicon glyphicon-list-alt"></span> {% trans "Joblistings" %} <i class="fa fa-angle-left pull-right"></i> </a>
                             {% include 'career/submenu.html' %}
                         </li>
                     {% endif %}
                     {% if perms.documents.change_document %}
-                        <li class="{% active request 'documents' %} treeview"><a href="{% url "documents" %}"><span class="glyphicon glyphicon-file"></span> {% trans "Documents" %} <i class="fa fa-angle-left pull-right"></i> </a>
+                        <li class="{% active request 'documents' %} treeview"><a href="#"><span class="glyphicon glyphicon-file"></span> {% trans "Documents" %} <i class="fa fa-angle-left pull-right"></i> </a>
                             {% include 'documents/submenu.html' %}
                         </li>
                     {% endif %}
                     {% if perms.events.change_event %}
-                        <li class="{% active request 'events' %} treeview"><a href="{% url "events" %}"><span class="glyphicon glyphicon-calendar"></span> {% trans "Events" %} <i class="fa fa-angle-left pull-right"></i> </a>
+                        <li class="{% active request 'events' %} treeview"><a href="#"><span class="glyphicon glyphicon-calendar"></span> {% trans "Events" %} <i class="fa fa-angle-left pull-right"></i> </a>
                             {% include 'events/submenu.html' %}
                         </li>
                     {% endif %}
                     {% if perms.meetings.change_meeting %}
-                        <li class="{% active request 'meetings' %} treeview"><a href="{% url "meetings" %}"><span class="glyphicon glyphicon-comment"></span> {% trans "Meetings" %} <i class="fa fa-angle-left pull-right"></i> </a>
+                        <li class="{% active request 'meetings' %} treeview"><a href="#"><span class="glyphicon glyphicon-comment"></span> {% trans "Meetings" %} <i class="fa fa-angle-left pull-right"></i> </a>
                             {% include 'meetings/submenu.html' %}
                         </li>
                     {% endif %}
-                    <li class="{% active request 'users' %} treeview"><a href="{% url 'users:list' %}"><span class="glyphicon glyphicon-user"></span> {% trans "Users" %} <i class="fa fa-angle-left pull-right"></i> </a>
+                    <li class="{% active request 'users' %} treeview"><a href="#"><span class="glyphicon glyphicon-user"></span> {% trans "Users" %} <i class="fa fa-angle-left pull-right"></i> </a>
                         {% include 'core/profiles/submenu.html' %}
                     </li>
                     {% if user.is_staff %}
-                        <li class="{% active request 'admin' %} treeview"><a href="{% url "admin" %}"><span class="glyphicon glyphicon-tower"></span> {% trans "Admin" %} <i class="fa fa-angle-left pull-right"></i> </a>
+                        <li class="{% active request 'admin' %} treeview"><a href="#"><span class="glyphicon glyphicon-tower"></span> {% trans "Admin" %} <i class="fa fa-angle-left pull-right"></i> </a>
                             {% include 'adm/submenu.html' %}
                         </li>
                     {% endif %}
                     {% if perms.workschedule.view_worker %}
-                        <li class="{% active request 'workschedules' %} treeview"><a href="{% url "workschedules" %}"><span class="glyphicon glyphicon-list"></span> {% trans "Workschedules" %} <i class="fa fa-angle-left pull-right"></i> </a>
+                        <li class="{% active request 'workschedules' %} treeview"><a href="#"><span class="glyphicon glyphicon-list"></span> {% trans "Workschedules" %} <i class="fa fa-angle-left pull-right"></i> </a>
                             {% include 'workschedule/submenu.html' %}
                         </li>
                     {% endif %}

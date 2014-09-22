@@ -1,45 +1,40 @@
-{% load i18n widget_tweaks %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>itDAGENE - {% trans "Login" %}</title>
-    <link rel="stylesheet"  href="{{ STATIC_URL }}lib/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/auth.css">
-</head>
-<body>
-<div class="container">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title text-center">{% trans "Sign in" %}</h3>
-                </div>
-                <div class="panel-body">
-                    {% if form.errors %}
-                        <div class="alert alert-danger alert-dismissable">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            {% trans "Your username and password didn't match. Please try again." %}
-                        </div>
-                    {% endif %}
-                    <form method="post" class="form-horizontal" action="{% url "django.contrib.auth.views.login" %}">
-                        {% csrf_token %}
-                        {% for field in form %}
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label" for="{{ field.auto_id }}">{{ field.label }}</label>
-                                <div class="col-md-10">
-                                    {% render_field field class="form-control" %}
-                                </div>
-                            </div>
-                        {% endfor %}
-                        <input type="submit" class="btn btn-primary btn-block" value="{% trans "Log in" %}"/>
-                        <input type="hidden" name="next" value="{{ next }}"/>
-{#                        <p class="text-center" style="margin-top:10px; margin-bottom: -5px;"><a href="{% url "forgot_password" %}" class="button">{% trans "Forgot password" %}</a></p>#}
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</body>
-</html>
+{% extends "newbase.html" %}
 
+{% load static i18n %}
+{% load core thumbnail menu widget_tweaks %}
+{% load crispy_forms_tags %}
+
+{% block styles %}
+{% endblock %}
+
+
+{% block body_class %}
+    skin-itdagene bg-black
+{% endblock %}
+
+
+{% block body %}
+
+    <div class="form-box" id="login-box">
+        <div class="header">
+            <img src="{% static "img/itdagenelogoflat.png" %}">
+        </div>
+        <form action="{% url "django.contrib.auth.views.login" %}" method="post">
+            <div class="body">
+                {% csrf_token %}
+
+                {{ form|crispy }}
+
+            </div>
+            <div class="footer">
+                <button type="submit" class="btn btn-primary btn-block">{% trans "Log in" %}</button>
+                <input type="hidden" name="next" value="{{ next }}"/>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
+
+
+{% block scripts %}
+{% endblock %}

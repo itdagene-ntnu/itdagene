@@ -2,7 +2,7 @@
 from django.contrib.auth.models import User
 from django.http import Http404
 from django.utils.translation import ugettext_lazy as _
-from itdagene.api.util import render_json, login_or_token_required
+from itdagene.app.api.util import render_json, login_or_token_required
 from itdagene.app.workschedule.models import Worker
 
 def get(request, username):

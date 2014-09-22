@@ -1319,7 +1319,7 @@ body > .header .logo .icon {
   bottom: 5px;
   right: 5px;
   z-index: 0;
-  font-size: 90px;
+  font-size: 80px;
   color: rgba(0, 0, 0, 0.15);
 }
 .small-box:hover {
@@ -1345,18 +1345,18 @@ body > .header .logo .icon {
 }
 @keyframes tansformAnimation {
   from {
-    font-size: 90px;
+    font-size: 80px;
   }
   to {
-    font-size: 100px;
+    font-size: 90px;
   }
 }
 @-webkit-keyframes tansformAnimation {
   from {
-    font-size: 90px;
+    font-size: 80px;
   }
   to {
-    font-size: 100px;
+    font-size: 90px;
   }
 }
 @media screen and (max-width: 480px) {
@@ -2408,7 +2408,7 @@ Component: timeline
   border-top-right-radius: 4px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
-  background: #3d9970;
+  background: #607d8b;
   box-shadow: inset 0px -3px 0px rgba(0, 0, 0, 0.2);
   padding: 20px 10px;
   text-align: center;
@@ -2876,7 +2876,6 @@ Component: timeline
   background-image: url('/static/img/itdagenelogoflat.png');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: cover;
   text-indent: -9999px;
   outline: none;
 }

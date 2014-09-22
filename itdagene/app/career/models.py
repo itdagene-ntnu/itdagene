@@ -4,6 +4,7 @@ from itdagene.app.company.models import Company, CompanyContact
 from itdagene.core.models import BaseModel
 from django.db import models
 from django.core.urlresolvers import reverse
+from managers import JoblistingManager
 
 class Town (BaseModel):
     name = models.CharField(max_length=100, verbose_name=_('name'))
@@ -12,6 +13,8 @@ class Town (BaseModel):
         return self.name
 
 class Joblisting (BaseModel):
+
+    objects = JoblistingManager()
 
     JOB_TYPES = (
         ('si',_('Summer internship')),

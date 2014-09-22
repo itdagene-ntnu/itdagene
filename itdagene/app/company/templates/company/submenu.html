@@ -1,22 +1,23 @@
 {% load i18n companies %}
 <ul class="treeview-menu">
+    <li><a href="{% url "companies"  %}">{% trans "Companies" %}</a></li>
     {#    <li><a href="{% url "app.company.views.edit" %}">{% trans "ADD COMPANY" %}</a></li>#}
     {% if company %}
-        <li><a href="{% url "app.company.views.view" company.pk %}">{% trans "VIEW COMPANY" %}</a></li>
-        <li><a href="{% url "app.company.views.edit" company.pk %}">{% trans "EDIT COMPANY" %}</a></li>
-        <li><a href="{% url "app.company.views.log_company" company.pk %}">{% trans "LOG" %}</a></li>
-        <li><a href="{% url "add_company_contact" company.pk %}">{% trans "ADD CONTACT" %}</a></li>
+        <li><a href="{% url "app.company.views.view" company.pk %}">{% trans "View Company" %}</a></li>
+        <li><a href="{% url "app.company.views.edit" company.pk %}">{% trans "Edit Company" %}</a></li>
+        <li><a href="{% url "app.company.views.log_company" company.pk %}">{% trans "Log" %}</a></li>
+        <li><a href="{% url "add_company_contact" company.pk %}">{% trans "Add Contact" %}</a></li>
         {#            <li><a href="{% url "add_contract" company.pk %}">{% trans "ADD CONTRACT" %}</a></li>#}
         {% if company.active %}
-            <li><a href="{% url "app.company.views.deactivate" company.pk %}">{% trans "DEACTIVATE" %}</a></li>
+            <li><a href="{% url "app.company.views.deactivate" company.pk %}">{% trans "Deactivate" %}</a></li>
         {% else %}
-            <li><a href="{% url "app.company.views.activate" company.pk %}">{% trans "ACTIVATE" %}</a></li>
+            <li><a href="{% url "app.company.views.activate" company.pk %}">{% trans "Activate" %}</a></li>
         {% endif %}
     {% endif %}
     {% if perms.company.change_contract %}
-        <li><a href="{% url "economic_overview" %}">{% trans "ECONOMIC OVERVIEW" %}</a></li>
+        <li><a href="{% url "economic_overview" %}">{% trans "Economic Overview" %}</a></li>
     {% endif %}
-    <li><a href="{% url "app.company.views.set_responsibilities" %}">{% trans "SET RESPONSIBILITIES" %}</a></li>
+    <li><a href="{% url "app.company.views.set_responsibilities" %}">{% trans "Set Responsibilities" %}</a></li>
     {% feedback_overview %}
-{#    <li><a href="{% url "view_competition" %}">{% trans "COMPETITION" %}</a></li>#}
+    {# <li><a href="{% url "view_competition" %}">{% trans "COMPETITION" %}</a></li> #}
 </ul>

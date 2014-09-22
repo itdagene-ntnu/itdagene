@@ -1,6 +1,23 @@
-{% extends "base_public.html" %}
-{% load i18n %}
+{% extends "newbase.html" %}
 
-{% block content %}
-    <h1>{% trans "You logged out." %}</h1>
+{% load static i18n %}
+{% load core thumbnail menu%}
+
+{% block styles %}
+{% endblock %}
+
+
+{% block body_class %}
+    skin-itdagene
+{% endblock %}
+
+
+{% block body %}
+
+    <h2>{% trans "You logged out!" %}</h2>
+
+{% endblock %}
+
+
+{% block scripts %}
 {% endblock %}
