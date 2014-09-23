@@ -1,0 +1,19 @@
+{% extends "base_admin.html" %}
+{% load i18n %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-4">
+            <table class="table table-hover">
+                {% for announcement in announcements %}
+                    <tr>
+                        <td><a href="{% url "app.news.views.view_announcement" announcement.id %}">{{ announcement }}</a></td>
+                        {% if perms.news.change_announcement %}
+                            <td><a href="{% url "app.news.views.edit_announcement" announcement.id %}">{% trans "Edit" %}</a></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}

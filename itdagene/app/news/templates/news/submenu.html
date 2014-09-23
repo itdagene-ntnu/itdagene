@@ -1,0 +1,18 @@
+{% load i18n %}
+
+<ul class="treeview-menu">
+    <li><a href="{% url "app.news.views.admin" %}" class="treeview-menu">{% trans "Announcements" %}</a></li>
+
+    {% if perms.news.add_announcement %}
+        <li><a href="{% url "app.news.views.create_announcement" %}">{% trans "Add Announcement" %}</a></li>
+    {% endif %}
+
+    {% if announcement %}
+        {% if perms.news.change_announcement %}
+            <li><a href="{% url "app.news.views.edit_announcement" announcement.id %}">{% trans "Edit Announcement" %}</a></li>
+        {% endif %}
+        <li><a href="{% url "app.news.views.view_announcement" announcement.id %}">{% trans "View Announcement" %}</a></li>
+    {% endif %}
+
+</ul>
+

@@ -61,4 +61,4 @@ def edit(request, slug, lang_code='nb'):
 def admin(request):
     pages = Page.objects.all().order_by('menu', 'active')
 
-    return render(request, 'pages/admin.html', {'pages': pages, 'title': _('Pages admin')})
+    return render(request, 'pages/admin.html', {'pages': pages, 'title': _('Pages Admin')})
