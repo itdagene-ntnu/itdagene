@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from datetime import datetime
 from django.contrib.auth.models import AbstractUser
 from django.contrib.contenttypes.models import ContentType
@@ -112,6 +113,9 @@ class Preference(BaseModel):
 
 
 class UserProxy(User):
+    """
+    Brukes av api for å generere liste med brukere.
+    """
     class Meta:
         proxy = True
 
