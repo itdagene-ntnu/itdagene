@@ -17,7 +17,7 @@ class Notification (models.Model):
 
     user = models.ForeignKey(User, verbose_name=_('user'))
     priority = models.PositiveIntegerField(choices=PRIORITIES, default=1,verbose_name=_('priority'))
-    date = models.DateTimeField(default=datetime.now(), verbose_name=_('date'))
+    date = models.DateTimeField(auto_now=True, verbose_name=_('date'))
     message = models.TextField(verbose_name=_('message'))
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()

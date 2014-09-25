@@ -1,18 +1,20 @@
-{% extends "core/profiles/base.html" %}
+{% extends "base_admin.html" %}
+
+{% load i18n %}
 
 {% block content %}
-<section id="user-{{ person.pk }}">
-    <header>
-        <h1>Slett bruker</h1>
-    </header>
+<div class="row">
+<div class="col-lg-12">
 
-    <form method="post" action="{% url 'users:delete' person.pk %}">
+    <form method="post" action="{% url 'app.users.views.user_delete' person.pk %}">
         {% csrf_token %}
 
-        <p>Er du sikker på at du vil slette brukeren "{{ person.get_full_name }}?</p>
+        <p>{% blocktrans with user=person.get_full_name %}Are you sure you want to delete the user {{ user }}?{% endblocktrans %}</p>
 
-        <p><button type="submit" class="btn btn-danger">Bekreft sletting</button></p>
+        <p><button type="submit" class="btn btn-danger">{% trans "Delete user" %}</button></p>
     </form>
-</section>
+
+</div>
+</div>
 
 {% endblock %}

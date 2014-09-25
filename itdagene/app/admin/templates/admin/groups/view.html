@@ -15,7 +15,19 @@
             <h3>{% trans "Members" %}</h3>
             <ul id="members">
                 {% for member in members %}
-                    <li>{{ member.get_full_name }}</li>
+                    <li><a href="{% url "app.users.views.user_detail" member.pk %}">{{ member.get_full_name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-lg-4">
+            <h3>{% trans "Mail Mappings" %}</h3>
+            <ul id="mail-mappings">
+                {% for mail_mapping in mail_mappings %}
+                    {% if perms.mail.change_mailmapping %}
+                    <li><a href="{% url "app.mail.views.view_mailmapping" mail_mapping.pk %}">{{ mail_mapping }}</a></li>
+                    {% else %}
+                        <li>{{ mail_mapping }}</li>
+                    {% endif %}
                 {% endfor %}
             </ul>
         </div>

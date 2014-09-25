@@ -9,7 +9,8 @@ from itdagene.core.auth import get_current_user
 
 
 class User(AbstractUser):
-    pass
+    phone = models.IntegerField(blank=True, null=True, verbose_name=_('phone number'))
+    photo = models.ImageField(upload_to='photos/users/', blank=True, null=True)
 
 
 class BaseModel(models.Model):

@@ -11,6 +11,9 @@ urlpatterns = patterns('',
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
     url(r'^$', 'itdagene.app.frontpage.views.frontpage', name='frontpage'),
     url(r'^frontpage/$', 'itdagene.app.frontpage.views.public'),
+    url(r'^mail/', include('itdagene.app.mail.urls')),
+    url(r'^users/', include('itdagene.app.users.urls')),
+
 
     url(r'^experiences/', include('itdagene.app.experiences.urls')),
     url(r'^quiz/', include('itdagene.app.quiz.urls')),
@@ -37,10 +40,6 @@ urlpatterns = patterns('',
     url(r'^program/$', 'itdagene.app.events.views.public_event_list', name='program'),
     url(r'^evaluate/(?P<hash>[a-zA-Z0-9]+)/$', 'itdagene.app.feedback.views.evalutions.handle_evaluation', name='evaluate'),
     url(r'^twitter/$', TwitterView.as_view()),
-    url(r'^backend/users/', include('itdagene.app.users.urls', namespace='users'),
-
-
-    ),
 )+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

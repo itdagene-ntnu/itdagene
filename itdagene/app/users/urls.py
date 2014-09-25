@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url
 
 urlpatterns = patterns(
-    'itdagene.app.users.views',
+    'app.users.views',
     url(
         regex=r'^$',
         view='user_list',
@@ -26,11 +26,6 @@ urlpatterns = patterns(
         regex=r'^(?P<pk>\d+)/edit/password/$',
         view='user_edit_password',
         name='edit_password'
-    ),
-    url(
-        regex=r'^(?P<pk>\d+)/edit/profile/$',
-        view='user_edit_profile',
-        name='edit_profile'
     ),
     url(
         regex=r'^(?P<pk>\d+)/delete/$',

@@ -1,44 +1,32 @@
-{% extends "core/profiles/base.html" %}
+{% extends "base_admin.html" %}
+
+{% load i18n %}
 
 {% block content %}
-<section id="users">
-    <h1>Brukere</h1>
+    <div class="row">
+        <div class="col-lg-12">
 
-    <p>
-        <a href="{% url 'users:create' %}">
-            <button type="button" class="btn btn-primary">Opprett ny bruker</button>
-        </a>
-    </p>
+            <table class="table">
+                <tr class="active">
+                    <th>{% trans "Username" %}</th>
+                    <th>{% trans "Name" %}</th>
+                    {% if perms.core.delete_user or perms.core.change_user %}
+                    <th></th>
+                    {% endif %}
+                </tr>
 
-    <table class="table">
-        <tr class="active">
-            <th>Brukernavn</th>
-            <th>Navn</th>
-            <th>Tittel</th>
-            <th>År</th>
-            {% if perms.auth.delete_user or perms.auth.change_user %}
-            <th></th>
-            {% endif %}
-        </tr>
+                {% for person in persons %}
+                <tr>
+                    <td><a href="{% url "app.users.views.user_detail" person.pk %}">{{ person.username }}</a></td>
+                    <td>{{ person.get_full_name }}</td>
+                    <td style="text-align: right;">
+                        <span class="btn-group">
+                        </span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
 
-        {% for person in persons %}
-        <tr>
-            <td><a href="{% url 'users:detail' person.pk %}">{{ person.username }}</a></td>
-            <td>{{ person.get_full_name }}</td>
-            <td>{{ person.profile.position }}</td>
-            <td>{{ person.profile.year }}</td>
-            {% if perms.auth.delete_user or perms.auth.change_user %}
-            <td style="text-align: right;">
-                <span class="btn-group">
-                    <a href="{% url 'users:edit' person.pk %}" class="btn btn-xs btn-primary">Rediger bruker</a>
-                    <a href="{% url 'users:edit_profile' person.pk %}" class="btn btn-xs btn-primary">Rediger profil</a>
-                    <a href="{% url 'users:edit_password' person.pk %}" class="btn btn-xs btn-primary">Endre passord</a>
-                    <a href="{% url 'users:delete' person.pk %}" class="btn btn-xs btn-danger">Slett</a>
-                </span>
-            </td>
-            {% endif %}
-        </tr>
-        {% endfor %}
-    </table>
-</section>
+        </div>
+    </div>
 {% endblock %}

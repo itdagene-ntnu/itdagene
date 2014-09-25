@@ -34,21 +34,21 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li class="user-header bg-black">
-                                {% if profile.photo %}
-                                    {% thumbnail profile.photo "100x100" crop="center" as im %}
+                                {% if request.user.photo %}
+                                    {% thumbnail request.user.photo "100x100" crop="center" as im %}
                                         <img src="{{ im.url }}" class="img-circle">
                                     {% endthumbnail %}
                                 {% else %}
                                     <img src="{% static "img/user_blank.png" %}" class="img-circle" />
                                 {% endif %}
                                 <p>
-                                    {{ request.user.get_full_name }} - {{ profile.position.title }}
+                                    {{ request.user.get_full_name }}
                                     <small>{% blocktrans with date=request.user.date_joined|timesince %}Joined {{ date }} ago{% endblocktrans %}</small>
                                 </p>
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="{% url 'users:detail' user.pk %}" class="btn btn-default btn-flat">{% trans "Profile" %}</a>
+                                    <a href="{% url 'app.users.views.user_detail' user.pk %}" class="btn btn-default btn-flat">{% trans "Profile" %}</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="/logout" class="btn btn-default btn-flat">{% trans "Logout" %}</a>
@@ -65,8 +65,8 @@
             <section class="sidebar">
                 <div class="user-panel">
                     <div class="pull-left image">
-                        {% if profile.photo %}
-                            {% thumbnail profile.photo "50x50" crop="center" as im %}
+                        {% if user.photo %}
+                            {% thumbnail user.photo "50x50" crop="center" as im %}
                                 <img src="{{ im.url }}" class="img-circle">
                             {% endthumbnail %}
                         {% else %}
@@ -87,6 +87,14 @@
                     </li>
                     <li class="{% active request 'news' %} treeview"><a href="#"><span class="glyphicon glyphicon-bullhorn"></span> {% trans "Announcements" %} <i class="fa fa-angle-left pull-right"></i> </a>
                         {% include 'news/submenu.html' %}
+                    </li>
+                    {% if perms.mail.mail_access %}
+                        <li class="{% active request 'mail' %} treeview"><a href="#"><i class="fa fa-envelope"></i> {% trans "Email" %} <i class="fa fa-angle-left pull-right"></i> </a>
+                            {% include 'mail/submenu.html' %}
+                        </li>
+                    {% endif %}
+                    <li class="{% active request 'users' %} treeview"><a href="#"><span class="glyphicon glyphicon-user"></span> {% trans "Users" %} <i class="fa fa-angle-left pull-right"></i> </a>
+                        {% include 'users/submenu.html' %}
                     </li>
                     {% if request.user.is_superuser %}
                         <li class="{% active request 'admin' %} treeview"><a href="#"><span class="glyphicon glyphicon-tower"></span> {% trans "Admin" %} <i class="fa fa-angle-left pull-right"></i> </a>
@@ -135,9 +143,6 @@
                             {% include 'meetings/submenu.html' %}
                         </li>
                     {% endif %}
-                    <li class="{% active request 'users' %} treeview"><a href="#"><span class="glyphicon glyphicon-user"></span> {% trans "Users" %} <i class="fa fa-angle-left pull-right"></i> </a>
-                        {% include 'core/profiles/submenu.html' %}
-                    </li>
                     {% if perms.workschedule.view_worker %}
                         <li class="{% active request 'workschedules' %} treeview"><a href="#"><span class="glyphicon glyphicon-list"></span> {% trans "Workschedules" %} <i class="fa fa-angle-left pull-right"></i> </a>
                             {% include 'workschedule/submenu.html' %}

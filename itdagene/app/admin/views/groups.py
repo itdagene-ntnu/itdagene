@@ -6,6 +6,7 @@ from django.shortcuts import render_to_response, get_object_or_404, redirect
 from itdagene.core.log.models import LogItem
 from django.contrib.auth.models import Group
 from itdagene.core.models import User
+from itdagene.app.mail.models import MailMapping
 from django.shortcuts import render
 from itdagene.core.decorators import superuser_required
 from django.utils.translation import ugettext_lazy as _
@@ -20,7 +21,8 @@ def list (request):
 def view (request, id):
     group = get_object_or_404(Group, pk=id)
     members = User.objects.filter(groups=group)
-    return render(request, 'admin/groups/view.html', {'group': group, 'members': members, 'title':_('View Group'), 'description': group.name})
+    mail_mappings = MailMapping.get_group_mappings(group)
+    return render(request, 'admin/groups/view.html', {'group': group, 'members': members, 'mail_mappings': mail_mappings, 'title':_('View Group'), 'description': group.name})
 
 @permission_required('auth.add_group')
 def add (request):

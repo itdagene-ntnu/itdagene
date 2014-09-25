@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import datetime
 from django.conf import settings
 
 
@@ -19,7 +18,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('priority', models.PositiveIntegerField(default=1, verbose_name='prioritet', choices=[(0, b'Low'), (1, b'Medium'), (2, b'High')])),
-                ('date', models.DateTimeField(default=datetime.datetime(2014, 9, 23, 0, 7, 7, 220940), verbose_name='dato')),
+                ('date', models.DateTimeField(auto_now=True, verbose_name='dato')),
                 ('message', models.TextField(verbose_name='melding')),
                 ('object_id', models.PositiveIntegerField()),
                 ('send_mail', models.BooleanField(default=True, verbose_name='send epost')),

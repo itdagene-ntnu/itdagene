@@ -17,7 +17,7 @@ class LogItem (models.Model):
 
     user = models.ForeignKey(User, verbose_name=_('user'))
     priority = models.PositiveIntegerField(choices=PRIORITIES, default=1,verbose_name=_('priority'))
-    timestamp = models.DateTimeField(default=datetime.now(), verbose_name=_('date'))
+    timestamp = models.DateTimeField(auto_now=True, verbose_name=_('date'))
     action = models.CharField(max_length=16,verbose_name=_('action'))
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
