@@ -1,0 +1,23 @@
+{% extends "base_admin.html" %}
+
+{% load i18n thumbnail i18n %}
+
+{% block content %}
+
+    <div class="row">
+
+        <div class="col-lg-9" id="top">
+            {% block documentation %}
+            {% endblock %}
+        </div>
+
+        <div class="col-lg-3">
+            <h2>{% trans "Menu" %}</h2>
+            <ul class="nav nav-pills nav-stacked">
+                {% block menu %}{% endblock %}
+            </ul>
+        </div>
+
+    </div>
+
+{% endblock %}

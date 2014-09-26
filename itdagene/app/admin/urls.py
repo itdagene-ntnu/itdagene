@@ -15,6 +15,5 @@ urlpatterns += patterns('itdagene.app.admin.views.groups',
 )
 
 urlpatterns += patterns('itdagene.app.admin.views.preferences',
-    (r'^preferences/$', 'view' ),
-    (r'^preferences/edit$', 'edit' ),
+    (r'^preferences/$', 'edit' ),
 )

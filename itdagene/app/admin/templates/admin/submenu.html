@@ -3,10 +3,9 @@
     {% if request.user.is_superuser %}
         <li><a href="{% url "app.admin.views.landing_page" %}">{% trans "Admin" %}</a> </li>
         <li><a href="{% url "app.admin.views.log" %}">{% trans "Log" %}</a></li>
-        <li><a href="{% url "app.admin.views.preferences.view" %}">{% trans "Preferences" %}</a></li>
     {% endif %}
-    {% if perms.core.change_preference %}
-        <li><a href="{% url "app.admin.views.preferences.edit" %}">{% trans "Edit Preferences" %}</a></li>
+    {% if perms.core.change_preference or request.user.is_superuser %}
+        <li><a href="{% url "app.admin.views.preferences.edit" %}">{% trans "Preferences" %}</a></li>
     {% endif %}
     {% if request.user.is_superuser %}
         <li><a href="{% url "app.admin.views.groups.list" %}">{% trans "Groups" %}</a></li>

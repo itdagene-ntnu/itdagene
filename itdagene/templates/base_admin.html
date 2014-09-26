@@ -79,9 +79,14 @@
                     </div>
                 </div>
                 <ul class="sidebar-menu">
-                    <li class="{% active request 'fp' %}">
+                    <li>
                         <a href="{% url "frontpage" %}"><span class="glyphicon glyphicon-home"></span> {% trans "Home" %}</a>
                     </li>
+                    {% if preferences.display_getting_started %}
+                        <li class="{% active request 'documentation' %} treeview"><a href="#"><i class="fa fa-book"></i> {% trans "Getting Started" %} <i class="fa fa-angle-left pull-right"></i> </a>
+                            {% include 'documentation/submenu.html' %}
+                        </li>
+                    {% endif %}
                     <li class="{% active request 'pages' %} treeview"><a href="#"><span class="glyphicon glyphicon-bookmark"></span> {% trans "Pages" %} <i class="fa fa-angle-left pull-right"></i> </a>
                         {% include 'pages/submenu.html' %}
                     </li>

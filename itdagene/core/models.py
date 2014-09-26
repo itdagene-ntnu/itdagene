@@ -73,6 +73,8 @@ class BaseModel(models.Model):
 
 
 class Preference(BaseModel):
+    display_getting_started = models.BooleanField(default=True, verbose_name=_('Display getting started in admin menu'), help_text=_('When this setting is enabled a getting started element is visible in the admin menu. This contains usefull information about how to use this site.'))
+
     active = models.BooleanField(verbose_name=_('active'), default=False)
     year = models.IntegerField(blank=True, null=True, verbose_name=_('year'))
     start_date = models.DateField(verbose_name=_('start date'))

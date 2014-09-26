@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
     url(r'^$', 'itdagene.app.frontpage.views.frontpage', name='frontpage'),
     url(r'^frontpage/$', 'itdagene.app.frontpage.views.public'),
+    url(r'^documentation/', include('itdagene.app.documentation.urls', namespace='documentation')),
     url(r'^mail/', include('itdagene.app.mail.urls')),
     url(r'^users/', include('itdagene.app.users.urls')),
 
