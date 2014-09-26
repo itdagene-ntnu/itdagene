@@ -4,16 +4,30 @@
 {% block content %}
     <div class="row">
         <div class="col-md-4">
-            <table class="table table-hover">
-                {% for page in pages %}
-                    <tr>
-                        <td><a href="{% url "app.pages.views.view_page" page.slug %}">{{ page }}</a></td>
-                        {% if perms.pages.change_page %}
-                            <td><a href="{% url "app.pages.views.edit" page.slug %}">{% trans "Edit" %}</a></td>
-                        {% endif %}
-                    </tr>
-                {% endfor %}
-            </table>
+        <div class="box box-primary">
+            <div class="box-body no-padding">
+                <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>{% trans "Page" %}</th>
+                    {% if perms.pages.change_page %}
+                    <th>{% trans "Actions" %}</th>
+                    {% endif %}
+                </tr>
+                </thead>
+                <tbody>
+                    {% for page in pages %}
+                        <tr>
+                            <td><a href="{% url "app.pages.views.view_page" page.slug %}">{{ page }}</a></td>
+                            {% if perms.pages.change_page %}
+                                <td><a href="{% url "app.pages.views.edit" page.slug %}">{% trans "Edit" %}</a></td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+            </div>
+        </div>
         </div>
     </div>
 {% endblock %}

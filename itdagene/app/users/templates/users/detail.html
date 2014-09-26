@@ -5,26 +5,38 @@
 {% block content %}
 
     <div class="row">
-        <div class="col-md-10">
-            <dl class="dl-horizontal">
-                <dt>{% trans "Phone" %}</dt>
-                <dd>{{ person.phone }}</dd>
-                <dt>{% trans "Email" %}</dt>
-                <dd>
-                    <a href="mailto:{{ person.email }}">{{ person.email }}</a>
-                </dd>
-            </dl>
-
-            <h4>{% trans "Groups" %}</h4>
-            <dl>
-                {% for group in person.groups.all %}
-                    {% if perms.auth.change_group %}
-                        <dt><a href="{% url "app.admin.views.groups.view" group.pk %}">{{ group }}</a></dt>
-                    {% else %}
-                        <li>{{ group }}</li>
-                    {% endif %}
-                {% endfor %}
-            </dl>
+        <div class="col-md-5">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">{% trans "General" %}</h3>
+                </div>
+                <div class="box-body no-padding">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <td>{% trans "Parameter" %}</td>
+                                <td>{% trans "Value" %}</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{% trans "Email" %}</td>
+                                <td><a href="mailto:{{ person.email }}">{{ person.email }}</a></td>
+                            </tr>
+                            {% for mapping in person.mail_mappings %}
+                                <tr>
+                                    <td></td>
+                                    <td><a href="mailto:{{ mapping }}">{{ mapping }}</a></td>
+                                </tr>
+                            {% endfor %}
+                            <tr>
+                                <td>{% trans "Phone" %}</td>
+                                <td><a href="tel:{{ person.phone }}">{{ person.phone }}</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
             <div class="btn-group">
                 <a href="{% url 'app.users.views.user_list' %}" class="btn btn-default">{% trans "Go Back" %}</a>
@@ -39,13 +51,43 @@
             <div class="clearfix" style=" padding-bottom: 20px;"></div>
         </div>
 
+        <div class="col-md-5">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">{% trans "Groups" %}</h3>
+                </div>
+                <div class="box-body no-padding">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>{% trans "Name" %}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for group in person.groups.all %}
+                                {% if perms.auth.change_group %}
+                                    <tr><td><a href="{% url "app.admin.views.groups.view" group.pk %}">{{ group }}</a></td></tr>
+                                {% else %}
+                                    <tr><td>{{ group }}</td></tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
         <div class="col-md-2">
             {% if person.photo %}
+            <div class="box box-primary">
+            <div class="box-body">
             {% thumbnail person.photo "200" as im %}
             <p style="text-align: center">
                 <img src="{{ im.url }}" style="width:100%; max-width: 150px;" class="img-thumbnail">
             </p>
             {% endthumbnail %}
+            </div>
+            </div>
             {% endif %}
         </div>
     </div>

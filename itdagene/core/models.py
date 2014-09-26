@@ -12,6 +12,10 @@ class User(AbstractUser):
     phone = models.IntegerField(blank=True, null=True, verbose_name=_('phone number'))
     photo = models.ImageField(upload_to='photos/users/', blank=True, null=True)
 
+    def mail_mappings(self):
+        from itdagene.app.mail.models import MailMapping
+        return MailMapping.get_user_mappings(self)
+
 
 class BaseModel(models.Model):
     creator = models.ForeignKey(User, editable=False, related_name="%(class)s_creator")

@@ -4,10 +4,9 @@ from django.shortcuts import get_object_or_404, redirect, render, Http404
 from itdagene.core.models import User
 from itdagene.core.log.models import LogItem
 from itdagene.core.models import Preference
-from itdagene.core.profiles.models import Profile
 from django.utils.translation import ugettext_lazy as _
-from .forms import UserCreateForm, UserEditForm, SimpleUserEditForm, UserEditProfileAdminForm, UserEditProfileStandardForm
-from django.contrib.auth.forms import PasswordChangeForm
+from .forms import UserCreateForm, UserEditForm, SimpleUserEditForm
+from django.contrib.auth.forms import PasswordChangeForm, SetPasswordForm
 from django.db.models import Q
 
 @login_required
@@ -77,14 +76,20 @@ def user_edit_password(request, pk):
     person = get_object_or_404(User, pk=pk, is_active=True)
 
     if request.method == 'POST':
-        form = PasswordChangeForm(user=person, data=request.POST)
+        if request.user.is_superuser:
+            form = SetPasswordForm(user=person, data=request.POST)
+        else:
+            form = PasswordChangeForm(user=person, data=request.POST)
 
         if form.is_valid():
             form.save()
             return redirect(reverse('app.users.views.user_detail', args=[person.pk]))
 
     else:
-        form = PasswordChangeForm(person)
+        if request.user.is_superuser:
+            form = SetPasswordForm(person)
+        else:
+            form = PasswordChangeForm(person)
 
     return render(request, 'users/edit_password.html', {'person': person, 'form': form, 'title': _('Change Password'), 'description': person.get_full_name()})
 
@@ -102,38 +107,3 @@ def user_create(request):
         form = UserCreateForm()
 
     return render(request, 'users/create.html', {'form': form, 'title': _('Create User')})
-
-
-
-
-
-
-
-
-
-
-@login_required
-def user_edit_profile(request, pk):
-    if not request.user.has_perm('auth.change_user') and not request.user.pk == int(pk):
-        return redirect(reverse('users:list'))
-
-    person = get_object_or_404(Profile, user=pk)
-
-    if request.method == 'POST':
-        if request.user.has_perm('auth.change_user'):
-            form = UserEditProfileAdminForm(request.POST, request.FILES, instance=person)
-        else:
-            form = UserEditProfileStandardForm(request.POST, request.FILES, instance=person)
-
-        if form.is_valid():
-            form.save()
-            return redirect(reverse('users:detail', kwargs={'pk': person.user.pk}))
-    else:
-        if request.user.has_perm('auth.change_user'):
-            form = UserEditProfileAdminForm(instance=person)
-        else:
-            form = UserEditProfileStandardForm(instance=person)
-
-    return render(request, 'users/edit_profile.html', {'person': person, 'form': form})
-
-

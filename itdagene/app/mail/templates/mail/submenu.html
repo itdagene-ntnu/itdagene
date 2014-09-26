@@ -6,7 +6,7 @@
             <li><a href="{% url "app.mail.views.list_mailmapping" %}">{% trans "Mappings" %}</a></li>
         {% endif %}
         {% if perms.mail.add_mailmapping %}
-            <li><a href="{% url "app.mail.views.add_mailmapping" %}">{% trans "Add Mailmapping" %}</a></li>
+            <li><a href="{% url "app.mail.views.add_mailmapping" %}">{% trans "Add Mail Mapping" %}</a></li>
         {% endif %}
         {% if mapping.pk %}
             {% if perms.mail.change_mailmapping %}

@@ -7,8 +7,8 @@ from django.db.models import Q
 
 class MailMapping(models.Model):
     address = models.CharField(max_length=100, verbose_name=_("Address"), unique=True)
-    users = models.ManyToManyField(User, blank=True, null=True, verbose_name=_('Users'), related_name='mail_mappings')
-    groups = models.ManyToManyField(Group, blank=True, null=True, verbose_name=_('Groups'), related_name='mail_mappings')
+    users = models.ManyToManyField(User, blank=True, null=True, verbose_name=_('Users'), related_name='user_mail_mappings')
+    groups = models.ManyToManyField(Group, blank=True, null=True, verbose_name=_('Groups'), related_name='group_mail_mappings')
     recived_emails = models.IntegerField(max_length=9999999, verbose_name=_('Recived emails'), default=0)
 
     class Meta:
@@ -19,7 +19,12 @@ class MailMapping(models.Model):
 
     @classmethod
     def get_group_mappings(cls, group):
-        return cls.objects.filter(groups=group).order_by('address')
+        return cls.objects.filter(groups__in=[group]).order_by('address')
+
+
+    @classmethod
+    def get_user_mappings(cls, user):
+        return cls.objects.filter(Q(users__in=[user]) | Q(groups__in=[group for group in user.groups.all()])).distinct().order_by('address')
 
 
     def all_users(self):
@@ -28,7 +33,6 @@ class MailMapping(models.Model):
         for group in groups:
             [users.append(user) for user in group.user_set.all()]
         [users.append(user) for user in self.users.all()]
-
         return set(users)
 
 

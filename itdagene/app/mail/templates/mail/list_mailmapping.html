@@ -5,43 +5,48 @@
 {% block content %}
     <div class="row">
         <div class="col-lg-12">
-
-            <table class="table">
-                <tr class="active">
-                    <th>{% trans "Address" %}</th>
-                    <th>{% trans "Users" %}</th>
-                    <th>{% trans "Groups" %}</th>
-                </tr>
-
-                {% for map in mappings %}
-                <tr>
-                    {% if perms.mail.change_mailmapping %}
-                    <td><a href="{% url "app.mail.views.view_mailmapping" map.pk %}">{{ map }}</a></td>
-                    {% else %}
-                    <td>{{ map }}</td>
-                    {% endif %}
-                    <td>
-                        <ul>
-                            {% for user in map.users.all %}
-                                <li><a href="{% url "app.users.views.user_detail" user.pk %}">{{ user.get_full_name }}</a></li>
-                            {% endfor %}
-                        </ul>
-                    </td>
-                    <td>
-                        <ul>
-                            {% for group in map.groups.all %}
-                                {% if perms.auth.change_group %}
-                                <li><a href="{% url "app.admin.views.groups.view" group.pk %}">{{ group }}</a></li>
-                                {% else %}
-                                <li>{{ group }}</li>
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
-                    </td>
-                </tr>
-                {% endfor %}
-            </table>
-
+            <div class="box box-primary">
+                <div class="box-body no-padding">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>{% trans "Address" %}</th>
+                            <th>{% trans "Users" %}</th>
+                            <th>{% trans "Groups" %}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for map in mappings %}
+                        <tr>
+                            {% if perms.mail.change_mailmapping %}
+                            <td><a href="{% url "app.mail.views.view_mailmapping" map.pk %}">{{ map }}</a></td>
+                            {% else %}
+                            <td>{{ map }}</td>
+                            {% endif %}
+                            <td>
+                                <ul class="list-unstyled">
+                                    {% for user in map.users.all %}
+                                        <li><a href="{% url "app.users.views.user_detail" user.pk %}">{{ user.get_full_name }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                            <td>
+                                <ul class="list-unstyled">
+                                    {% for group in map.groups.all %}
+                                        {% if perms.auth.change_group %}
+                                        <li><a href="{% url "app.admin.views.groups.view" group.pk %}">{{ group }}</a></li>
+                                        {% else %}
+                                        <li>{{ group }}</li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
