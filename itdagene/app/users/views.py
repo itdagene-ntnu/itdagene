@@ -1,6 +1,6 @@
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required, permission_required
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, redirect, render, Http404
 from itdagene.core.models import User
 from itdagene.core.log.models import LogItem
 from itdagene.core.models import Preference
@@ -8,23 +8,33 @@ from itdagene.core.profiles.models import Profile
 from django.utils.translation import ugettext_lazy as _
 from .forms import UserCreateForm, UserEditForm, SimpleUserEditForm, UserEditProfileAdminForm, UserEditProfileStandardForm
 from django.contrib.auth.forms import PasswordChangeForm
+from django.db.models import Q
 
 @login_required
 def user_list(request):
-    persons = User.objects.filter(is_active=True).order_by('username')
+    if not request.user.is_staff:
+        persons = User.objects.filter(Q(is_staff=True) | Q(id=request.user.id)).filter(is_active=True).order_by('username')
+    else:
+        persons = User.objects.filter(is_active=True).order_by('username')
     return render(request, 'users/list.html', {'persons': persons, 'title': _('User Admin')})
 
 
 @login_required
 def user_detail(request, pk):
-    person = get_object_or_404(User, pk=pk)
+    try:
+        if not request.user.is_staff:
+            person = User.objects.filter(Q(is_staff=True) | Q(id=request.user.id)).filter(is_active=True).get(pk=pk)
+        else:
+            person = User.objects.filter(is_active=True).order_by('username').get(pk=pk)
+    except:
+        raise Http404
     current_year = Preference.current_preference().year
     return render(request, 'users/detail.html', {'person': person, 'current_year': current_year, 'title':_('User Detail'), 'description':person.get_full_name()})
 
 
 @permission_required('core.delete_user')
 def user_delete(request, pk):
-    person = get_object_or_404(User, pk=pk)
+    person = get_object_or_404(User, pk=pk, is_active=True)
 
     if request.method == 'POST':
         person.is_active = False
@@ -39,7 +49,7 @@ def user_edit(request, pk):
     if not request.user.has_perm('core.change_user') and not request.user.pk == int(pk):
         return redirect(reverse('app.users.views.user_list'))
 
-    person = get_object_or_404(User, pk=pk)
+    person = get_object_or_404(User, pk=pk, is_active=True)
 
     if request.method == 'POST':
         if request.user.is_superuser:
@@ -64,7 +74,7 @@ def user_edit_password(request, pk):
     if not request.user.has_perm('core.change_user') and not request.user.pk == int(pk):
         return redirect(reverse('app.users.views.user_list'))
 
-    person = get_object_or_404(User, pk=pk)
+    person = get_object_or_404(User, pk=pk, is_active=True)
 
     if request.method == 'POST':
         form = PasswordChangeForm(user=person, data=request.POST)

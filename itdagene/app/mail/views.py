@@ -12,7 +12,10 @@ def add_mailmapping(request):
         form = MailMappingForm(request.POST, request.FILES)
         if form.is_valid():
             mapping = form.save()
-            return redirect(reverse('app.mail.views.view_mailmapping', args=[mapping.pk]))
+            if request.user.has_perm('mail.change_mailmapping'):
+                return redirect(reverse('app.mail.views.view_mailmapping', args=[mapping.pk]))
+            else:
+                return redirect(reverse('app.mail.views.add_mailmapping'))
     else:
         form = MailMappingForm()
     return render(request, 'mail/add_mailmapping.html', {'form': form, 'title':_('Add Mail Mapping')})
