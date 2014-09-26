@@ -3,6 +3,7 @@ from optparse import make_option
 import email
 import os
 import sys
+from itdagene.app.mail.logic import handle_mail
 
 class Command(BaseCommand):
 
@@ -17,4 +18,4 @@ class Command(BaseCommand):
     def handle(self, sender, *recipients, **options):
         msg = email.message_from_file(sys.stdin)
         for recipient in recipients:
-            print(msg, sender, recipient)
+            handle_mail(msg, sender, recipient)

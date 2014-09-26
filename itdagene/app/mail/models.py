@@ -36,6 +36,28 @@ class MailMapping(models.Model):
         return set(users)
 
 
+    @classmethod
+    def get_destinations_and_headers(cls, address, domain):
+        mappings = cls.objects.filter(address=address)
+        result = {}
+
+        for mapping in mappings:
+            for user in mapping.users.all():
+                if not user.email in result.keys():
+                    result[user.email] = {}
+
+            for group in mapping.groups.all():
+                for user in group.user_set.all():
+                    result[user.email] = {
+                        'Precedence': 'List',
+                        'List-Id': "%s@%s" % (address, domain),
+                        'X-Mail-Processor': '%s mail' % (settings.SITE['name'], ),
+                        'List-Unsubscribe': '<http://%s> - Contact admin to disable mail.' % (settings.SITE['domain'], ),
+                        'List-Post': "<mailto:%s@%s>" % (address, domain)
+                    }
+        return result
+
+
     def __unicode__(self):
         return '%s@%s' % (self.address, settings.SITE['domain'])
 
