@@ -4,32 +4,77 @@
 {% block content %}
     <div class="row">
         <div class="col-md-4">
-            <h3>{% trans "Permissions" %}</h3>
-            <ul>
-            {% for perm in group.permissions.all %}
-                <li>{{ perm }}</li>
-            {% endfor %}
-            </ul>
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">{% trans "Permissions" %}</h3>
+                </div>
+                <div class="box-body no-padding">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>{% trans "Permission" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for perm in group.permissions.all %}
+                                <tr>
+                                <td>{{ perm }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
         <div class="col-md-4">
-            <h3>{% trans "Members" %}</h3>
-            <ul id="members">
-                {% for member in members %}
-                    <li><a href="{% url "app.users.views.user_detail" member.pk %}">{{ member.get_full_name }}</a></li>
-                {% endfor %}
-            </ul>
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">{% trans "Members" %}</h3>
+                </div>
+                <div class="box-body no-padding">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>{% trans "User" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for member in members %}
+                                {% if request.user.is_staff %}
+                                    <tr><td><a href="{% url "app.users.views.user_detail" member.pk %}">{{ member.get_full_name }}</a></td></tr>
+                                {% else %}
+                                    <tr><td>{{ member.get_full_name }}</td></tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
         <div class="col-lg-4">
-            <h3>{% trans "Mail Mappings" %}</h3>
-            <ul id="mail-mappings">
-                {% for mail_mapping in mail_mappings %}
-                    {% if perms.mail.change_mailmapping %}
-                    <li><a href="{% url "app.mail.views.view_mailmapping" mail_mapping.pk %}">{{ mail_mapping }}</a></li>
-                    {% else %}
-                        <li>{{ mail_mapping }}</li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">{% trans "Mail Mappings" %}</h3>
+                </div>
+                <div class="box-body no-padding">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>{% trans "Mapping" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for mail_mapping in mail_mappings %}
+                                {% if perms.mail.change_mailmapping %}
+                                    <tr><td><a href="{% url "app.mail.views.view_mailmapping" mail_mapping.pk %}">{{ mail_mapping }}</a></td></tr>
+                                {% else %}
+                                    <tr><td>{{ mail_mapping }}</td></tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

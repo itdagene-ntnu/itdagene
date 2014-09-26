@@ -39,16 +39,20 @@
 {% elif form %}
     <div class="row">
         <div class="col-md-9">
-            <h1>{{ form_title }}</h1>
-            <form method="post" enctype="multipart/form-data" class="form-horizontal col-md-12">
-                {% csrf_token %}
-                {{ form|crispy }}
-                <div class="form-group">
-                    <p>
-                        <button type="submit" class="form-control btn btn-primary">{% if form.instance.id %}{% trans "Save" %}{% else %}{% trans "Add" %}{% endif %}</button>
-                    </p>
+            <div class="box box-primary">
+                <div class="box-body">
+                    <form method="post" enctype="multipart/form-data" class="form-horizontal col-md-12">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <div class="form-group">
+                            <p>
+                                <button type="submit" class="form-control btn btn-primary">{% if form.instance.id %}{% trans "Save" %}{% else %}{% trans "Add" %}{% endif %}</button>
+                            </p>
+                        </div>
+                    </form>
+                    <div class="clearfix"></div>
                 </div>
-            </form>
+            </div>
         </div>
         <div class="col-md-3">
             {% include "markdown_help.html" %}

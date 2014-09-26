@@ -3,13 +3,32 @@
 {% load filters %}
 
 {% block content %}
-    <ul class="big-list">
-    {% for logitem in log %}
-        <li>
-            <strong>{{ logitem.user.profile }}:</strong> <em>{{ logitem.timestamp|datetime }}</em><br/>
-            {{ logitem.action }} - {{ logitem.content_type }}({{ logitem.object_id }}): {{ logitem.content_object }}
-        </li>
-    {% endfor %}
-    </ul>
-    {% if previous %}<a href="{% url "app.admin.views.log" previous %}">{% trans "Previous" %}</a>{% endif %} <a href="{% url "app.admin.views.log" next %}">{% trans "Next" %}</a>
+    <div class="box box-primary">
+        <div class="box-body no-padding">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>{% trans "User" %}</th>
+                    <th>{% trans "Timestamp" %}</th>
+                    <th>{% trans "Action" %}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for logitem in log %}
+                <tr>
+                    <td><a href="{% url "app.users.views.user_detail" logitem.user.pk %}">{{ logitem.user.get_full_name }}</a></td>
+                <td>{{ logitem.timestamp|timesince }} {% trans "ago" %}</td>
+                <td>{{ logitem.action }} - {{ logitem.content_type }}({{ logitem.object_id }}): {{ logitem.content_object }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+        <div class="box-footer">
+            <div class="btn-group">
+                {% if previous %}<a href="{% url "app.admin.views.log" previous %}" class="btn btn-primary">{% trans "Previous" %}</a>{% endif %} <a href="{% url "app.admin.views.log" next %}" class="btn btn-primary">{% trans "Next" %}</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}
