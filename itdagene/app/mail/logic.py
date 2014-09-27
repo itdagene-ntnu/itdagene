@@ -19,7 +19,7 @@ def fix_headers(message, headers):
 
 
 def sendmail(args, msg):
-    if not settings.EMAIL_BACKEND=='django.core.mail.backends.locmem.EmailBackend':
+    if settings.EMAIL_BACKEND=='django.core.mail.backends.locmem.EmailBackend':
         msg['X-args']=unicode(args[1:])
 
         if not hasattr(msg, 'message'):
@@ -27,15 +27,16 @@ def sendmail(args, msg):
 
         djangomail.get_connection(fail_silently=False).send_messages((msg,))
     else:
+        print(args)
         process = subprocess.Popen(args,stdin=subprocess.PIPE, close_fds=True)
         process.stdin.write(msg.as_string())
         process.stdin.close()
 
 
 def send_message(message, addresses, sender):
-    common_arguments = [settings.MAIL_SENDMAIL_EXECUTABLE, '-G', '-i', '-f', str(sender)]
+    common_arguments = [settings.MAIL_SENDMAIL_EXECUTABLE, '-G', '-i', '-f', sender]
     for i in xrange(0,len(addresses),settings.MAIL_BATCH_LENGTH):
-        current_addresses = str(addresses[i : i+settings.MAIL_BATCH_LENGTH])
+        current_addresses = addresses[i : i+settings.MAIL_BATCH_LENGTH]
         current_arguments = copy(common_arguments)
         current_arguments.extend(current_addresses)
         sendmail(current_arguments, message)
@@ -56,7 +57,7 @@ def handle_mail(msg, sender, recipient):
                     headers = recipients[recipient]
                     current_message = copy(msg)
                     fix_headers(current_message, headers)
-                    send_message(current_message, [recipient], settings.SERVER_EMAIL)
+                    send_message(current_message, [ recipient ], settings.SERVER_EMAIL)
         else:
             mail_contents = render_to_string('mail/backend/bounce.html', {'sender': sender, 'recipient': recipient, 'prefix': prefix, 'domain': domain})
             message = Message()
@@ -65,4 +66,4 @@ def handle_mail(msg, sender, recipient):
             message['Sender'] = settings.SERVER_EMAIL
             message['To'] = sender
             message['X-bounce'] = 'True'
-            send_message(message, [sender], settings.SERVER_EMAIL)
+            send_message(message, [ sender ], settings.SERVER_EMAIL)
