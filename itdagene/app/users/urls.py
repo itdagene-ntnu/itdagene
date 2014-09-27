@@ -1,7 +1,6 @@
 from django.conf.urls import patterns, url
 
-urlpatterns = patterns(
-    'app.users.views',
+urlpatterns = patterns('itdagene.app.users.views',
     url(
         regex=r'^$',
         view='user_list',

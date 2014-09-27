@@ -48,7 +48,7 @@
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="{% url 'app.users.views.user_detail' user.pk %}" class="btn btn-default btn-flat">{% trans "Profile" %}</a>
+                                    <a href="{% url "itdagene.app.users.views.user_detail" user.pk %}" class="btn btn-default btn-flat">{% trans "Profile" %}</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="/logout" class="btn btn-default btn-flat">{% trans "Logout" %}</a>

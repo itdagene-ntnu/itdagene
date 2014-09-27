@@ -5,7 +5,7 @@
     <ul class="big-list">
     {% for issue in issues %}
         <li>
-            <a href="{% url "app.feedback.views.issues.view" issue.pk %}">{{ issue.title }}</a> - {{ issue.creator }}
+            <a href="{% url "itdagene.app.feedback.views.issues.view" issue.pk %}">{{ issue.title }}</a> - {{ issue.creator }}
         </li>
     {% endfor %}
     </ul>

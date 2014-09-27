@@ -1,10 +1,10 @@
 {% load i18n %}
 <ul class="treeview-menu">
-    <li><a href="{% url "app.venue.views.venue" %}">{% trans "Venue" %}</a></li>
+    <li><a href="{% url "itdagene.app.venue.views.venue" %}">{% trans "Venue" %}</a></li>
     {% if request.user.profile.type == 'c' %}
-        <li><a href="{% url "app.venue.views.stands" %}">{% trans "Your Stand" %}</a></li>
+        <li><a href="{% url "itdagene.app.venue.views.stands" %}">{% trans "Your Stand" %}</a></li>
     {% endif %}
     {% if request.user.profile.type == 'b' %}
-        <li><a href="{% url "app.venue.views.stands" %}">{% trans "Your Stands" %}</a></li>
+        <li><a href="{% url "itdagene.app.venue.views.stands" %}">{% trans "Your Stands" %}</a></li>
     {% endif %}
 </ul>

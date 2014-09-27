@@ -1,11 +1,11 @@
 {% load i18n %}
 <ul class="treeview-menu">
     <li><a href="{% url "meetings" %}">{% trans "Meetings" %}</a> </li>
-    <li><a href="{% url "app.meetings.views.add" %}">{% trans "Add Meeting" %}</a></li>
+    <li><a href="{% url "itdagene.app.meetings.views.add" %}">{% trans "Add Meeting" %}</a></li>
     {% if meeting.pk %}
-        <li><a href="{% url "app.meetings.views.meeting" meeting.pk %}">{% trans "View Meeting" %}</a></li>
-        <li><a href="{% url "app.meetings.views.add_penalties" meeting.pk %}">{% trans "Add Penalties" %}</a></li>
-        <li><a href="{% url "app.meetings.views.edit" meeting.pk %}">{% trans "Edit Meeting" %}</a></li>
-        <li><a href="{% url "app.meetings.views.send_invites" meeting.pk %}">{% trans "Send Invites" %}</a></li>
+        <li><a href="{% url "itdagene.app.meetings.views.meeting" meeting.pk %}">{% trans "View Meeting" %}</a></li>
+        <li><a href="{% url "itdagene.app.meetings.views.add_penalties" meeting.pk %}">{% trans "Add Penalties" %}</a></li>
+        <li><a href="{% url "itdagene.app.meetings.views.edit" meeting.pk %}">{% trans "Edit Meeting" %}</a></li>
+        <li><a href="{% url "itdagene.app.meetings.views.send_invites" meeting.pk %}">{% trans "Send Invites" %}</a></li>
     {% endif %}
 </ul>

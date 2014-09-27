@@ -1,13 +1,13 @@
 {% load i18n %}
 
 <ul class="treeview-menu">
-    <li><a href="{% url 'app.users.views.user_list' %}">{% trans "Users" %}</a> </li>
+    <li><a href="{% url "itdagene.app.users.views.user_list" %}">{% trans "Users" %}</a> </li>
     {% if perms.core.add_user %}
-        <li><a href="{% url "app.users.views.user_create" %}">{% trans "Create User" %}</a></li>
+        <li><a href="{% url "itdagene.app.users.views.user_create" %}">{% trans "Create User" %}</a></li>
     {% endif %}
     {% if person.pk %}
         {% if perms.core.delete_user %}
-            <li><a href="{% url "app.users.views.user_delete" person.pk %}">{% trans "Delete User" %}</a></li>
+            <li><a href="{% url "itdagene.app.users.views.user_delete" person.pk %}">{% trans "Delete User" %}</a></li>
         {% endif %}
     {% endif %}
 </ul>

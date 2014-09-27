@@ -1,9 +1,9 @@
 {% load i18n %}
 <ul class="treeview-menu">
     <li><a href="{% url "packages" %}">{% trans "Packages" %}</a></li>
-    <li><a href="{% url "app.company.views.packages.edit" %}">{% trans "Add Package" %}</a></li>
+    <li><a href="{% url "itdagene.app.company.views.packages.edit" %}">{% trans "Add Package" %}</a></li>
     {% if package.pk %}
-        <li><a href="{% url "app.company.views.packages.view" package.pk %}">{% trans "View Package" %}</a></li>
-        <li><a href="{% url "app.company.views.packages.edit" package.pk %}">{% trans "Edit Package" %}</a></li>
+        <li><a href="{% url "itdagene.app.company.views.packages.view" package.pk %}">{% trans "View Package" %}</a></li>
+        <li><a href="{% url "itdagene.app.company.views.packages.edit" package.pk %}">{% trans "Edit Package" %}</a></li>
     {% endif %}
 </ul>

@@ -18,9 +18,9 @@
                 <tbody>
                     {% for announcement in announcements %}
                         <tr>
-                            <td><a href="{% url "app.news.views.view_announcement" announcement.id %}">{{ announcement }}</a></td>
+                            <td><a href="{% url "itdagene.app.news.views.view_announcement" announcement.id %}">{{ announcement }}</a></td>
                             {% if perms.news.change_announcement %}
-                                <td><a href="{% url "app.news.views.edit_announcement" announcement.id %}">{% trans "Edit" %}</a></td>
+                                <td><a href="{% url "itdagene.app.news.views.edit_announcement" announcement.id %}">{% trans "Edit" %}</a></td>
                             {% endif %}
                         </tr>
                     {% endfor %}

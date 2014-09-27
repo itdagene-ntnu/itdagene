@@ -45,7 +45,7 @@
                     </thead>
                     <tbody>
                     {% for user in mapping.all_users %}
-                        <tr><td><a href="{% url "app.users.views.user_detail" user.pk %}">{{ user.get_full_name }}</a></td></tr>
+                        <tr><td><a href="{% url "itdagene.app.users.views.user_detail" user.pk %}">{{ user.get_full_name }}</a></td></tr>
                     {% endfor %}
                     </tbody>
                 </table>

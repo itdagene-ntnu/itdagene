@@ -39,13 +39,13 @@
             </div>
 
             <div class="btn-group">
-                <a href="{% url 'app.users.views.user_list' %}" class="btn btn-default">{% trans "Go Back" %}</a>
+                <a href="{% url "itdagene.app.users.views.user_list" %}" class="btn btn-default">{% trans "Go Back" %}</a>
                 {% if perms.core.change_user or user.pk == person.pk %}
-                <a href="{% url 'app.users.views.user_edit' person.pk %}" class="btn btn-primary">{% trans "Edit User" %}</a>
-                <a href="{% url 'app.users.views.user_edit_password' person.pk %}" class="btn btn-primary">{% trans "Edit Password" %}</a>
+                <a href="{% url "itdagene.app.users.views.user_edit" person.pk %}" class="btn btn-primary">{% trans "Edit User" %}</a>
+                <a href="{% url "itdagene.app.users.views.user_edit_password" person.pk %}" class="btn btn-primary">{% trans "Edit Password" %}</a>
                 {% endif %}
                 {% if perms.core.delete_user %}
-                <a href="{% url 'app.users.views.user_delete' person.pk %}" class="btn btn-danger">{% trans "Delete User" %}</a>
+                <a href="{% url "itdagene.app.users.views.user_delete" person.pk %}" class="btn btn-danger">{% trans "Delete User" %}</a>
                 {% endif %}
             </div>
             <div class="clearfix" style=" padding-bottom: 20px;"></div>
@@ -66,7 +66,7 @@
                         <tbody>
                             {% for group in person.groups.all %}
                                 {% if perms.auth.change_group %}
-                                    <tr><td><a href="{% url "app.admin.views.groups.view" group.pk %}">{{ group }}</a></td></tr>
+                                    <tr><td><a href="{% url "itdagene.app.admin.views.groups.view" group.pk %}">{{ group }}</a></td></tr>
                                 {% else %}
                                     <tr><td>{{ group }}</td></tr>
                                 {% endif %}

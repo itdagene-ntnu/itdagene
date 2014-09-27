@@ -1,8 +1,8 @@
 {% load i18n %}
 <ul class="treeview-menu">
     <li><a href="{% url "experiences" %}">{% trans "Experiences" %}</a> </li>
-    <li><a href="{% url "app.experiences.views.add" %}">{% trans "Add Experience" %}</a></li>
+    <li><a href="{% url "itdagene.app.experiences.views.add" %}">{% trans "Add Experience" %}</a></li>
     {% if experience.pk %}
-        <li><a href="{% url "app.experiences.views.edit" experience.pk %}">{% trans "Edit Experience" %}</a></li>
+        <li><a href="{% url "itdagene.app.experiences.views.edit" experience.pk %}">{% trans "Edit Experience" %}</a></li>
     {% endif %}
 </ul>

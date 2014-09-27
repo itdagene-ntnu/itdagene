@@ -18,7 +18,7 @@
         </tr>
     </table>
 
-    <a href="{% url "app.workschedule.views.edit_worker" worker.pk %}" class="button">{% trans "Edit" %}</a>
+    <a href="{% url "itdagene.app.workschedule.views.edit_worker" worker.pk %}" class="button">{% trans "Edit" %}</a>
 
     <br>
     <br>
@@ -34,7 +34,7 @@
         </tr>
         {% for task in worker.schedules %}
         <tr>
-            <td><a href="{% url "app.workschedule.views.view_task" task.pk %}">{{ task.title }}</a></td>
+            <td><a href="{% url "itdagene.app.workschedule.views.view_task" task.pk %}">{{ task.title }}</a></td>
             <td>{{ task.start_time }}</td>
             <td>{{ task.end_time }}</td>
             <td>{{ task.date }}</td>

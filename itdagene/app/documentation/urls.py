@@ -12,7 +12,7 @@ class DocumentationContextTemplateView(TemplateView):
         return context
 
 
-urlpatterns = patterns('app.documentation',
+urlpatterns = patterns('itdagene.app.documentation',
 
     url(r'^$', DocumentationContextTemplateView.as_view(template_name='documentation/overview.html', extra_context={
         "title":_('Overview'),

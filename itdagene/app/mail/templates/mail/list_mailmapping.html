@@ -19,14 +19,14 @@
                         {% for map in mappings %}
                         <tr>
                             {% if perms.mail.change_mailmapping %}
-                            <td><a href="{% url "app.mail.views.view_mailmapping" map.pk %}">{{ map }}</a></td>
+                            <td><a href="{% url "itdagene.app.mail.views.view_mailmapping" map.pk %}">{{ map }}</a></td>
                             {% else %}
                             <td>{{ map }}</td>
                             {% endif %}
                             <td>
                                 <ul class="list-unstyled">
                                     {% for user in map.users.all %}
-                                        <li><a href="{% url "app.users.views.user_detail" user.pk %}">{{ user.get_full_name }}</a></li>
+                                        <li><a href="{% url "itdagene.app.users.views.user_detail" user.pk %}">{{ user.get_full_name }}</a></li>
                                     {% endfor %}
                                 </ul>
                             </td>
@@ -34,7 +34,7 @@
                                 <ul class="list-unstyled">
                                     {% for group in map.groups.all %}
                                         {% if perms.auth.change_group %}
-                                        <li><a href="{% url "app.admin.views.groups.view" group.pk %}">{{ group }}</a></li>
+                                        <li><a href="{% url "itdagene.app.admin.views.groups.view" group.pk %}">{{ group }}</a></li>
                                         {% else %}
                                         <li>{{ group }}</li>
                                         {% endif %}

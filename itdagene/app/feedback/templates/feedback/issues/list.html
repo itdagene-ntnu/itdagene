@@ -15,7 +15,7 @@
                         </tr>
                         {% for issue in bugs %}
                             <tr>
-                                <td><a href="{% url "app.feedback.views.issues.view" issue.pk %}">{{ issue.title }}</a>
+                                <td><a href="{% url "itdagene.app.feedback.views.issues.view" issue.pk %}">{{ issue.title }}</a>
                                 </td>
                                 <td> {{ issue.creator.profile }}</td>
                                 <td> {{ issue.assigned_user.profile }}
@@ -38,7 +38,7 @@
                         </tr>
                         {% for issue in features %}
                             <tr>
-                                <td><a href="{% url "app.feedback.views.issues.view" issue.pk %}">{{ issue.title }}</a>
+                                <td><a href="{% url "itdagene.app.feedback.views.issues.view" issue.pk %}">{{ issue.title }}</a>
                                 </td>
                                 <td> {{ issue.creator.profile }}</td>
                                 <td> {{ issue.assigned_user.profile }}</td>
@@ -62,7 +62,7 @@
                         </tr>
                         {% for issue in cache_bugs %}
                             <tr>
-                                <td><a href="{% url "app.feedback.views.issues.view" issue.pk %}">{{ issue.title }}</a>
+                                <td><a href="{% url "itdagene.app.feedback.views.issues.view" issue.pk %}">{{ issue.title }}</a>
                                 </td>
                                 <td> {{ issue.creator.profile }}</td>
                                 <td> {{ issue.assigned_user.profile }}</td>

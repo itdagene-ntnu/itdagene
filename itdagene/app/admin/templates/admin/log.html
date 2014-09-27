@@ -16,7 +16,7 @@
                 <tbody>
                 {% for logitem in log %}
                 <tr>
-                    <td><a href="{% url "app.users.views.user_detail" logitem.user.pk %}">{{ logitem.user.get_full_name }}</a></td>
+                    <td><a href="{% url "itdagene.app.users.views.user_detail" logitem.user.pk %}">{{ logitem.user.get_full_name }}</a></td>
                 <td>{{ logitem.timestamp|timesince }} {% trans "ago" %}</td>
                 <td>{{ logitem.action }} - {{ logitem.content_type }}({{ logitem.object_id }}): {{ logitem.content_object }}</td>
                 </tr>
@@ -27,7 +27,7 @@
         </div>
         <div class="box-footer">
             <div class="btn-group">
-                {% if previous %}<a href="{% url "app.admin.views.log" previous %}" class="btn btn-primary">{% trans "Previous" %}</a>{% endif %} <a href="{% url "app.admin.views.log" next %}" class="btn btn-primary">{% trans "Next" %}</a>
+                {% if previous %}<a href="{% url "itdagene.app.admin.views.log" previous %}" class="btn btn-primary">{% trans "Previous" %}</a>{% endif %} <a href="{% url "itdagene.app.admin.views.log" next %}" class="btn btn-primary">{% trans "Next" %}</a>
             </div>
         </div>
     </div>

@@ -17,7 +17,7 @@
                             {% for group in groups %}
                                 <tr>
                                     {% if perms.auth.change_group %}
-                                        <td><a href="{% url "app.admin.views.groups.view" group.pk %}">{{ group }}</a></td>
+                                        <td><a href="{% url "itdagene.app.admin.views.groups.view" group.pk %}">{{ group }}</a></td>
                                     {% else %}
                                         <td>{{ group }}</td>
                                     {% endif %}
