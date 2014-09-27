@@ -2,7 +2,7 @@ from django.test import TestCase
 from itdagene.app.mail.models import MailMapping
 from itdagene.core.models import User
 from django.contrib.auth.models import Group
-from itdagene.app.mail.logic import handle_mail
+from itdagene.app.mail.gg import handle_mail
 import email
 
 class MailTestCase(TestCase):

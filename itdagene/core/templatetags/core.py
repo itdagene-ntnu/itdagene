@@ -12,7 +12,7 @@ def analytics():
     """
     returns the analytics id from the settingsfile, if debug is false
     """
-    analytics_id = settings.ANALYTICS
+    analytics_id = settings.SITE['analytics']
     if not settings.DEBUG:
         t = loader.get_template('analytics.html')
         c = Context({'code': analytics_id})

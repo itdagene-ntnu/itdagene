@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import permission_required
 from itdagene.app.mail.forms import MailMappingForm
 from itdagene.app.mail.models import MailMapping
 from django.core.urlresolvers import reverse
@@ -44,4 +44,15 @@ def change_mailmapping(request, pk):
 def view_mailmapping(request, pk):
     mapping = get_object_or_404(MailMapping, pk=pk)
     return render(request, 'mail/view_mailmapping.html', {'mapping':mapping, 'title': _('Mail Mapping'), 'description': mapping})
+
+
+@permission_required('mail.delete_mailmapping')
+def delete_mailmapping(request, pk):
+    mapping = get_object_or_404(MailMapping, pk=pk)
+
+    if request.method == 'POST':
+        mapping.delete()
+        return redirect(reverse('app.mail.views.list_mailmapping'))
+
+    return render(request, 'mail/delete_mailmapping.html', {'mapping': mapping, 'title': _('Delete Mail Mapping'), 'description': mapping})
 

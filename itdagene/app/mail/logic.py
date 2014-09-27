@@ -1,39 +1,34 @@
 # -*- coding: utf-8 -*-
 from django.conf import settings
-from itdagene.app.mail.models import MailMapping
-from copy import copy
 from django.core import mail as djangomail
 import subprocess
 from django.template.loader import render_to_string
 from email.message import Message
 from email.mime.text import MIMEText
-
-
-
+from copy import copy
+from itdagene.app.mail.models import MailMapping
+from django.utils.translation import ugettext_lazy as _
 def fix_headers(message, headers):
+    """Replace or set headers in a message working around some peculiarities in the email-module"""
     for key, val in headers.iteritems():
-        if key in message:
+        if key  in message:
             message.replace_header(key, val)
         else:
             message[key] = val
 
-
 def sendmail(args, msg):
-    if settings.EMAIL_BACKEND=='django.core.mail.backends.locmem.EmailBackend':
-        msg['X-args']=unicode(args[1:])
+    """ Do call sendmail with args and message
+    Security breack if not the first argument is whitelisted
+    and the resulting program uses the rest of the arguments wisely
+    """
 
-        if not hasattr(msg, 'message'):
-            msg.message = lambda: None
-
-        djangomail.get_connection(fail_silently=False).send_messages((msg,))
-    else:
-        print(args)
-        process = subprocess.Popen(args,stdin=subprocess.PIPE, close_fds=True)
-        process.stdin.write(msg.as_string())
-        process.stdin.close()
+    process = subprocess.Popen(args,stdin=subprocess.PIPE, close_fds=True)
+    process.stdin.write(msg.as_string())
+    process.stdin.close()
 
 
 def send_message(message, addresses, sender):
+    """Send message via sendmail; splitting up in MAIL_BATCH_LENGTH batches"""
     common_arguments = [settings.MAIL_SENDMAIL_EXECUTABLE, '-G', '-i', '-f', sender]
     for i in xrange(0,len(addresses),settings.MAIL_BATCH_LENGTH):
         current_addresses = addresses[i : i+settings.MAIL_BATCH_LENGTH]
@@ -41,29 +36,64 @@ def send_message(message, addresses, sender):
         current_arguments.extend(current_addresses)
         sendmail(current_arguments, message)
 
-
 def handle_mail(msg, sender, recipient):
     prefix, domain = recipient.split('@')
-    prefix, domain = prefix.lower(), domain.lower()
+    prefix = prefix.lower()
+    try:
+        if domain in settings.MAIL_DESTINATION:
 
+            aliases = MailMapping.get_destinations_and_headers(prefix, domain)
 
-    if domain in settings.MAIL_DESTINATION:
-        recipients = MailMapping.get_destinations_and_headers(prefix, domain)
+            if len(aliases['addresses']) == 0 and not sender == recipient:
 
-        if len(recipients.keys()) > 0:
-            for recipient in recipients.keys():
-                if '@' in recipient and len(recipient) > 3:
-                    # Send message to recipient
-                    headers = recipients[recipient]
-                    current_message = copy(msg)
-                    fix_headers(current_message, headers)
-                    send_message(current_message, [ recipient ], settings.SERVER_EMAIL)
-        else:
-            mail_contents = render_to_string('mail/backend/bounce.html', {'sender': sender, 'recipient': recipient, 'prefix': prefix, 'domain': domain})
+                #send bounce
+                mail_contents = render_to_string('mail/backend/bounce.html', {
+                                                 'sender': sender,
+                                                 'recipient': recipient,
+                                                 'prefix': prefix,
+                                                 'domain': domain})
+                message = Message()
+                message.set_payload(str(MIMEText(mail_contents.encode('iso-8859-1'))))
+                message['Subject'] = _('Mail address does not exist')
+                message['Sender'] = '%s@%s' % ('bounce', settings.SITE['domain'])
+                message['To'] = sender
+                message['X-bounce'] = 'True'
+                send_message(message, [sender], '%s@%s' % ('bounce', settings.SITE['domain']))
+
+                if (settings.MAIL_LOST_PREFIX is not None and not prefix == settings.MAIL_LOST_PREFIX):
+                    handle_mail(msg, "%s@%s"% (settings.MAIL_LOST_PREFIX, settings.SITE['domain']), "%s@%s"% (settings.MAIL_LOST_PREFIX, settings.SITE['domain']))
+
+            elif not len(aliases['addresses']) == 0:
+                current_message = copy(msg)
+                fix_headers(current_message, aliases['headers'])
+                send_message(current_message, aliases['addresses'], settings.SITE['email'])
+
+    except Exception as ex:
+        try:
+            msg_data = msg.as_string()
+        except TypeError as ex:
+            msg_data = "TypeError:" + repr(ex)
+
+        mail_contents = render_to_string('mail/backend/exception.html', {'ex': ex,
+                                         'sender': sender,
+                                         'recipient': recipient,
+                                         'message': msg_data,
+                                         'prefix': prefix,
+                                         'domain': domain})
+        #send to sender
+        message = Message()
+        message.set_payload(str(MIMEText(mail_contents.encode('iso-8859-1'))))
+        message['Subject'] = _('Exception while sending mail')
+        message['From'] = settings.SITE['email']
+        message['To'] = sender
+        message['X-bounce'] = 'True'
+        send_message(message, [sender], settings.SITE['email'])
+
+        if (settings.MAIL_EXCEPTION_PREFIX is not None and not prefix == settings.MAIL_EXCEPTION_PREFIX):#Send to lost mail prefix
             message = Message()
             message.set_payload(str(MIMEText(mail_contents.encode('iso-8859-1'))))
-            message['Subject'] = 'Mail address does not exist'
-            message['Sender'] = settings.SERVER_EMAIL
-            message['To'] = sender
-            message['X-bounce'] = 'True'
-            send_message(message, [ sender ], settings.SERVER_EMAIL)
+            message['Subject'] = _('Exception while sending mail')
+            message['From'] = settings.SITE['email']
+            message['To'] = "%s@%s" % (settings.MAIL_EXCEPTION_PREFIX, settings.SITE['domain'])
+
+            handle_mail(message, "%s@%s" % (settings.MAIL_EXCEPTION_PREFIX, settings.SITE['domain']), "%s@%s" % (settings.MAIL_EXCEPTION_PREFIX, settings.SITE['domain']))

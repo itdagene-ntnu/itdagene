@@ -12,6 +12,9 @@
             {% if perms.mail.change_mailmapping %}
                 <li><a href="{% url "app.mail.views.change_mailmapping" mapping.pk %}">{% trans "Change Mail Mapping" %}</a></li>
             {% endif %}
+            {% if perms.mail.delete_mailmapping %}
+                <li><a href="{% url "app.mail.views.delete_mailmapping" mapping.pk %}">{% trans "Delete Mail Mapping" %}</a></li>
+            {% endif %}
         {% endif %}
     {% endif %}
 </ul>

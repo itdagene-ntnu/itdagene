@@ -1,0 +1,21 @@
+{% load i18n %}
+{% blocktrans %}
+An exception occured when trying to send an e-mail to {{ recipient }}. This should not happend
+and indicates a fault in our mail relaying system. 
+
+This mail has been forwarded to sysadmin, and we'll try to fix your propblem
+as soon as possible.
+
+---------------------------------------------------
+
+Techincal data:
+Sender:		{{ sender }}
+Recipient:	{{ recipient}}
+Prefix:		{{ prefix }}
+Domain:		{{ domain }}
+
+Exception:	{{ ex }} 
+
+Original message: 
+{{message}}
+{% endblocktrans %}name '_payload' is not defined
