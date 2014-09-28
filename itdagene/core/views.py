@@ -10,6 +10,7 @@ from itdagene.core.models import User
 from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.core import management
+from itdagene.core.models import Preference
 
 def permission_denied (request, args=None):
     """
@@ -45,4 +46,5 @@ def error500(request):
     return render(request, 'static/500.html', {'title': _('Internal Server Error')})
 
 def under_development(request):
-    return render(request, 'static/under_development.html', {'title': _('Under Development')})
+    year = Preference.current_preference().year
+    return render(request, 'static/under_development.html', {'title': _('Under Development'), 'year': year})

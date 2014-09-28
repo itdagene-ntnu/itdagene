@@ -1,6 +1,10 @@
 from django.conf import settings
 from itdagene.core import Preference
 from itdagene.core.shortcuts import Frontpage
+from itdagene.core.models import Preference
+from django.shortcuts import HttpResponseRedirect
+from django.core.urlresolvers import reverse
+
 
 class ForceDefaultLanguageMiddleware(object):
     """
@@ -48,3 +52,15 @@ def preprocessor(request):
     else:
         context['base_template'] = 'base.html'
     return context
+
+
+class UnderDevelopmentMiddleware(object):
+    def process_request(self, request):
+        if request.path == reverse('itdagene.core.views.under_development') or 'login' in request.path: return
+        development =  Preference.current_preference().development_mode
+        if development:
+            if request.user.is_authenticated():
+                if not request.user.is_staff:
+                    return HttpResponseRedirect(reverse('itdagene.core.views.under_development'))
+            else:
+                return HttpResponseRedirect(reverse('itdagene.core.views.under_development'))

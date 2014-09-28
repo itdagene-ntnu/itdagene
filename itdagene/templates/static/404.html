@@ -1,7 +1,11 @@
 {% extends "newbase.html" %}
-{% load i18n %}
+{% load i18n static %}
 
 {% block body_class %}public{% endblock %}
+
+{% block styles %}
+<link href="{% static "css/admin/AdminLTE.css" %}" rel="stylesheet" type="text/css" />
+{% endblock %}
 
 {% block body %}
 

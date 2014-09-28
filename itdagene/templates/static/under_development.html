@@ -1,1 +1,34 @@
 {% extends "newbase.html" %}
+
+{% load i18n static %}
+
+{% block styles %}
+<link href="{% static "css/admin/AdminLTE.css" %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block body_class %}public under_development{% endblock %}
+
+{% block body %}
+
+    <section class="content">
+
+        <div class="error-page">
+            <h2 class="headline text-black"><i class="fa fa-wrench"></i></h2>
+            <div class="error-content">
+                <h3><img src="{% static "img/itdagenelogoutkast@2x.png" %}"></h3>
+                <p>
+                {% blocktrans with year=year %}
+                    <p>itDAGENE is under development. Please visit this page later.</p>
+
+                    <p>itDagene is scheduled to held in early October {{ year }}. <br/>
+                       Those who are member of itDagene can already login.</p>
+
+                {% endblocktrans %}
+                </p>
+                <a href="/login" class="btn btn-lg btn-success btn-block"><i class="fa fa-user"></i> {% trans "Login" %}</a>
+            </div>
+        </div>
+
+    </section>
+
+{% endblock %}

@@ -3,19 +3,19 @@
 {% load static i18n %}
 {% load core thumbnail menu%}
 
-{% block styles %}
-{% endblock %}
-
-
 {% block body_class %}
     skin-itdagene
+{% endblock %}
+
+{% block styles %}
+<link href="{% static "css/admin/AdminLTE.css" %}" rel="stylesheet" type="text/css" />
 {% endblock %}
 
 
 {% block body %}
     {% if request.user.is_authenticated %}
     <header class="header">
-        <a href="/" class="logo">
+        <a href="{% url "itdagene.app.frontpage.views.inside" %}" class="logo">
             {{ site.name }}
         </a>
         <nav class="navbar navbar-static-top" role="navigation">
@@ -80,7 +80,10 @@
                 </div>
                 <ul class="sidebar-menu">
                     <li>
-                        <a href="{% url "frontpage" %}"><span class="glyphicon glyphicon-home"></span> {% trans "Home" %}</a>
+                        <a href="{% url "itdagene.app.frontpage.views.public" %}"><i class="fa fa-home  "></i> {% trans "Frontpage" %}</a>
+                    </li>
+                    <li>
+                        <a href="{% url "itdagene.app.frontpage.views.inside" %}"><i class="fa fa-dashboard"></i> {% trans "Dashboard" %}</a>
                     </li>
                     {% if user.is_staff %}
                     {% if preferences.display_getting_started %}

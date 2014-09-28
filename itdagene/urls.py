@@ -11,12 +11,21 @@ handler500 = 'itdagene.core.views.error500'
 
 urlpatterns = patterns('',
     url(r'^login/$', 'django.contrib.auth.views.login'),
-    url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
-    url(r'^$', 'itdagene.app.frontpage.views.frontpage', name='frontpage'),
+    url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': 'itdagene.app.frontpage.views.inside'}),
+    url(r'^$', 'itdagene.app.frontpage.views.frontpage'),
     url(r'^frontpage/$', 'itdagene.app.frontpage.views.public'),
+    url(r'^dashboard/$', 'itdagene.app.frontpage.views.inside'),
     url(r'^documentation/', include('itdagene.app.documentation.urls', namespace='documentation')),
     url(r'^mail/', include('itdagene.app.mail.urls')),
     url(r'^users/', include('itdagene.app.users.urls')),
+
+
+
+    url(r'^errors/error403/$', 'itdagene.core.views.error403'),
+    url(r'^errors/error404/$', 'itdagene.core.views.error404'),
+    url(r'^errors/error500/$', 'itdagene.core.views.error500'),
+    url(r'^under-development/$', 'itdagene.core.views.under_development'),
+
 
 
     url(r'^experiences/', include('itdagene.app.experiences.urls')),
