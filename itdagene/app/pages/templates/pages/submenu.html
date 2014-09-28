@@ -1,7 +1,9 @@
 {% load i18n %}
 
 <ul class="treeview-menu">
-    <li><a href="{% url "pages" %}" class="treeview-menu">{% trans "Pages" %}</a></li>
+    {% if user.is_staff %}
+        <li><a href="{% url "pages" %}" class="treeview-menu">{% trans "Pages" %}</a></li>
+    {% endif %}
 
     {% if perms.pages.add_page %}
         <li><a href="{% url "itdagene.app.pages.views.add" %}">{% trans "Add Page" %}</a></li>

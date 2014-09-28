@@ -12,13 +12,11 @@
                 </div>
                 <div class="box-body no-padding">
                     <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <td>{% trans "Parameter" %}</td>
-                                <td>{% trans "Value" %}</td>
-                            </tr>
-                        </thead>
                         <tbody>
+                            <tr>
+                                <td>{% trans "itDagene Mail" %}</td>
+                                <td><a href="mailto:{{ person.mail_prefix }}@itdagene.no">{{ person.mail_prefix }}@itdagene.no</a></td>
+                            </tr>
                             <tr>
                                 <td>{% trans "Email" %}</td>
                                 <td><a href="mailto:{{ person.email }}">{{ person.email }}</a></td>
@@ -33,22 +31,14 @@
                                 <td>{% trans "Phone" %}</td>
                                 <td><a href="tel:{{ person.phone }}">{{ person.phone }}</a></td>
                             </tr>
+                            <tr>
+                                <td>{% trans "Language" %}</td>
+                                <td>{{ person.get_language_display }}</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-
-            <div class="btn-group">
-                <a href="{% url "itdagene.app.users.views.user_list" %}" class="btn btn-default">{% trans "Go Back" %}</a>
-                {% if perms.core.change_user or user.pk == person.pk %}
-                <a href="{% url "itdagene.app.users.views.user_edit" person.pk %}" class="btn btn-primary">{% trans "Edit User" %}</a>
-                <a href="{% url "itdagene.app.users.views.user_edit_password" person.pk %}" class="btn btn-primary">{% trans "Edit Password" %}</a>
-                {% endif %}
-                {% if perms.core.delete_user %}
-                <a href="{% url "itdagene.app.users.views.user_delete" person.pk %}" class="btn btn-danger">{% trans "Delete User" %}</a>
-                {% endif %}
-            </div>
-            <div class="clearfix" style=" padding-bottom: 20px;"></div>
         </div>
 
         <div class="col-md-5">
@@ -90,6 +80,27 @@
             </div>
             {% endif %}
         </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+        <div class="btn-group">
+            <a href="{% url "itdagene.app.users.views.user_list" %}" class="btn btn-default">{% trans "Go Back" %}</a>
+            <a href="{% url "itdagene.app.users.views.vcard" person.pk %}" class="btn btn-default">{% trans "vCard" %}</a>
+            {% if perms.core.change_user or user.pk == person.pk %}
+            <a href="{% url "itdagene.app.users.views.user_edit" person.pk %}" class="btn btn-primary">{% trans "Edit User" %}</a>
+            <a href="{% url "itdagene.app.users.views.user_edit_password" person.pk %}" class="btn btn-primary">{% trans "Edit Password" %}</a>
+            {% endif %}
+            {% if perms.core.send_welcome_email %}
+            <a href="{% url "itdagene.app.users.views.send_welcome_email" person.pk %}" class="btn btn-primary">{% trans "Send welcome email" %}</a>
+            {% endif %}
+            {% if perms.core.delete_user %}
+            <a href="{% url "itdagene.app.users.views.user_delete" person.pk %}" class="btn btn-danger">{% trans "Delete User" %}</a>
+        {% endif %}
+        </div>
+        </div>
+        <div class="clearfix" style=" padding-bottom: 20px;"></div>
+
     </div>
 
 {% endblock %}

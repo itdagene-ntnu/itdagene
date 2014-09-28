@@ -8,6 +8,9 @@ from email.mime.text import MIMEText
 from copy import copy
 from itdagene.app.mail.models import MailMapping
 from django.utils.translation import ugettext_lazy as _
+from django.core.mail import mail_admins
+
+
 def fix_headers(message, headers):
     """Replace or set headers in a message working around some peculiarities in the email-module"""
     for key, val in headers.iteritems():
@@ -60,8 +63,11 @@ def handle_mail(msg, sender, recipient):
                 message['X-bounce'] = 'True'
                 send_message(message, [sender], '%s@%s' % ('bounce', settings.SITE['domain']))
 
-                if (settings.MAIL_LOST_PREFIX is not None and not prefix == settings.MAIL_LOST_PREFIX):
-                    handle_mail(msg, "%s@%s"% (settings.MAIL_LOST_PREFIX, settings.SITE['domain']), "%s@%s"% (settings.MAIL_LOST_PREFIX, settings.SITE['domain']))
+                for a in settings.ADMINS:
+                    if prefix == a[1].split('@')[0]:
+                        return
+
+                mail_admins(_('Bounce Mail'), msg.as_string())
 
             elif not len(aliases['addresses']) == 0:
                 current_message = copy(msg)
@@ -89,11 +95,8 @@ def handle_mail(msg, sender, recipient):
         message['X-bounce'] = 'True'
         send_message(message, [sender], settings.SITE['email'])
 
-        if (settings.MAIL_EXCEPTION_PREFIX is not None and not prefix == settings.MAIL_EXCEPTION_PREFIX):#Send to lost mail prefix
-            message = Message()
-            message.set_payload(str(MIMEText(mail_contents.encode('iso-8859-1'))))
-            message['Subject'] = _('Exception while sending mail')
-            message['From'] = settings.SITE['email']
-            message['To'] = "%s@%s" % (settings.MAIL_EXCEPTION_PREFIX, settings.SITE['domain'])
+        for a in settings.ADMINS:
+            if prefix == a[1].split('@')[0]:
+                return
 
-            handle_mail(message, "%s@%s" % (settings.MAIL_EXCEPTION_PREFIX, settings.SITE['domain']), "%s@%s" % (settings.MAIL_EXCEPTION_PREFIX, settings.SITE['domain']))
+        mail_admins(_('Exception while sending mail'), mail_contents)

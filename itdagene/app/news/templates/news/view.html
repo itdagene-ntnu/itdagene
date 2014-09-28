@@ -1,10 +1,1 @@
-{% extends "base_public_not_frontpage.html" %}
-{% load i18n markdown_tool thumbnail %}
-
-{% block content %}
-    <h1>{{ announcement.title }}</h1>
-    {% thumbnail announcement.image "1000x400" crop="center" as im %}
-        <img src="{{ im.url }}" style="width:{{ im.width }}px;" class="pull-right">
-    {% endthumbnail %}
-    <p>{{ announcement.content|markdownize }}</p>
-{% endblock %}
+news

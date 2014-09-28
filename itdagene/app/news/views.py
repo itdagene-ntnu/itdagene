@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import permission_required, login_required
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
+from itdagene.core.decorators import staff_or_404
 
 def view_announcement(request, id):
     announcement = get_object_or_404(Announcement, pk=id)
@@ -38,7 +39,7 @@ def edit_announcement(request, id=False):
     return render(request,'news/edit.html',{'form': form, 'title': _('Edit Announcement')})
 
 
-@login_required()
+@staff_or_404
 def admin(request):
     announcements =  Announcement.objects.order_by('id').reverse()
     return render(request, 'news/admin.html', {'announcements': announcements, 'title': _('Announcement Admin')})

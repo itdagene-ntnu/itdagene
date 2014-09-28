@@ -13,9 +13,9 @@ def add_mailmapping(request):
         if form.is_valid():
             mapping = form.save()
             if request.user.has_perm('mail.change_mailmapping'):
-                return redirect(reverse('app.mail.views.view_mailmapping', args=[mapping.pk]))
+                return redirect(reverse('itdagene.app.mail.views.view_mailmapping', args=[mapping.pk]))
             else:
-                return redirect(reverse('app.mail.views.add_mailmapping'))
+                return redirect(reverse('itdagene.app.mail.views.add_mailmapping'))
     else:
         form = MailMappingForm()
     return render(request, 'mail/add_mailmapping.html', {'form': form, 'title':_('Add Mail Mapping')})
@@ -34,7 +34,7 @@ def change_mailmapping(request, pk):
         form = MailMappingForm(request.POST, request.FILES, instance=mapping)
         if form.is_valid():
             form.save()
-            return redirect(reverse('app.mail.views.view_mailmapping', args=[mapping.pk]))
+            return redirect(reverse('itdagene.app.mail.views.view_mailmapping', args=[mapping.pk]))
     else:
         form = MailMappingForm(instance=mapping)
     return render(request, 'mail/change_mailmapping.html', {'mapping': mapping, 'form': form, 'title':_('Change Mail Mapping'), 'description': mapping})
@@ -52,7 +52,7 @@ def delete_mailmapping(request, pk):
 
     if request.method == 'POST':
         mapping.delete()
-        return redirect(reverse('app.mail.views.list_mailmapping'))
+        return redirect(reverse('itdagene.app.mail.views.list_mailmapping'))
 
     return render(request, 'mail/delete_mailmapping.html', {'mapping': mapping, 'title': _('Delete Mail Mapping'), 'description': mapping})
 

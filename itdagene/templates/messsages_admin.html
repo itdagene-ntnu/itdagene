@@ -1,0 +1,30 @@
+
+{% load i18n %}
+
+
+{% if messages %}
+
+    <section class="content">
+
+    {% for message in messages %}
+      <div class="alert alert-block fade in {% if message.tags %}{{ message.tags }}{% endif %}">
+        {% if message.tags == 'alert-success' %}
+          <i class="fa fa-info-circle"></i>
+          <b>{% trans "Success!" %}</b>
+        {% elif message.tags == 'alert-info' %}
+          <i class="fa fa-info-circle"></i>
+          <b>{% trans "Information!" %}</b>
+        {% elif message.tags == 'alert-warning' %}
+          <i class="fa fa-exclamation-circle"></i>
+          <b>{% trans "Warning!" %}</b>
+        {% elif message.tags == 'alert-danger' %}
+          <i class="fa fa-ban"></i>
+          <b>{% trans "Error!" %}</b>
+        {% endif %}
+        {{ message }}
+      </div>
+    {% endfor %}
+
+    </section>
+
+{% endif %}

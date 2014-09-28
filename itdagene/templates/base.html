@@ -39,10 +39,6 @@
                         <li {% active request 'news' %}><a href="{% url "create_announcement" %}"><span class="glyphicon glyphicon-bullhorn"></span>&nbsp;{% trans "Add announcement" %}</a>
                         </li>
                     {% endif %}
-                    {% if perms.frontpage.change_offer %}
-                        <li {% active request 'what-we-offer' %}><a href="{% url "edit_what_we_offer" %}"><span class="glyphicon glyphicon-magnet"></span>&nbsp;{% trans "What we offer" %}</a>
-                        </li>
-                    {% endif %}
                     {% if perms.company.change_company %}
                         <li {% active request 'companies' %}><a href="{% url "companies"  %}"><span class="glyphicon glyphicon-briefcase"></span>&nbsp;{% trans "Companies" %}</a>
                             {% include 'company/submenu.html' %}

@@ -3,8 +3,11 @@ from django.conf.urls import url, patterns, include
 from django.conf.urls.static import static
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponsePermanentRedirect
-
 from itdagene.app.twitter.views import TwitterView
+
+handler403 = 'itdagene.core.views.error403'
+handler404 = 'itdagene.core.views.error404'
+handler500 = 'itdagene.core.views.error500'
 
 urlpatterns = patterns('',
     url(r'^login/$', 'django.contrib.auth.views.login'),
@@ -30,8 +33,6 @@ urlpatterns = patterns('',
     url(r'^meetings/', include('itdagene.app.meetings.urls')),
     url(r'^news/', include('itdagene.app.news.urls')),
     url(r'^profiles/', include('itdagene.core.profiles.urls')),
-    url(r'^what-we-offer/$', 'itdagene.app.frontpage.views.what_we_offer', name='what_we_offer'),
-    url(r'^(?P<lang_code>[a-z][a-z])/what-we-offer/$', 'itdagene.app.frontpage.views.what_we_offer'),
     url(r'^bdb/', include('itdagene.app.company.urls')),
     url(r'^career/', include('itdagene.app.career.urls')),
     url(r'^todo/', include('itdagene.app.todo.urls')),

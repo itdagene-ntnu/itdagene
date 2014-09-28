@@ -72,12 +72,6 @@ class Frontpage:
                  'children': None,
                  'visible': u.has_permission(u, 'CREATE', Announcement)},
 
-                {'title': _('What we offer'),
-                 'url': reverse('edit_what_we_offer'),
-                 'icon': 'page_world',
-                 'children': None,
-                 'visible': True},
-
                 {'title': _('Companies'),
                  'url': reverse('companies'),
                  'icon': 'factory',

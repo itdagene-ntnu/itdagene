@@ -35,7 +35,7 @@
                         <ul class="dropdown-menu">
                             <li class="user-header bg-black">
                                 {% if request.user.photo %}
-                                    {% thumbnail request.user.photo "100x100" crop="center" as im %}
+                                    {% thumbnail request.user.photo "100x100" as im %}
                                         <img src="{{ im.url }}" class="img-circle">
                                     {% endthumbnail %}
                                 {% else %}
@@ -66,7 +66,7 @@
                 <div class="user-panel">
                     <div class="pull-left image">
                         {% if user.photo %}
-                            {% thumbnail user.photo "50x50" crop="center" as im %}
+                            {% thumbnail user.photo "50x50" as im %}
                                 <img src="{{ im.url }}" class="img-circle">
                             {% endthumbnail %}
                         {% else %}
@@ -82,17 +82,21 @@
                     <li>
                         <a href="{% url "frontpage" %}"><span class="glyphicon glyphicon-home"></span> {% trans "Home" %}</a>
                     </li>
+                    {% if user.is_staff %}
                     {% if preferences.display_getting_started %}
                         <li class="{% active request 'documentation' %} treeview"><a href="#"><i class="fa fa-book"></i> {% trans "Getting Started" %} <i class="fa fa-angle-left pull-right"></i> </a>
                             {% include 'documentation/submenu.html' %}
                         </li>
                     {% endif %}
+                    {% endif %}
+                    {% if user.is_staff %}
                     <li class="{% active request 'pages' %} treeview"><a href="#"><span class="glyphicon glyphicon-bookmark"></span> {% trans "Pages" %} <i class="fa fa-angle-left pull-right"></i> </a>
                         {% include 'pages/submenu.html' %}
                     </li>
                     <li class="{% active request 'news' %} treeview"><a href="#"><span class="glyphicon glyphicon-bullhorn"></span> {% trans "Announcements" %} <i class="fa fa-angle-left pull-right"></i> </a>
                         {% include 'news/submenu.html' %}
                     </li>
+                    {% endif %}
                     {% if perms.mail.mail_access %}
                         <li class="{% active request 'mail' %} treeview"><a href="#"><i class="fa fa-envelope"></i> {% trans "Email" %} <i class="fa fa-angle-left pull-right"></i> </a>
                             {% include 'mail/submenu.html' %}
@@ -109,10 +113,6 @@
 
                     <li>-----------</li>
 
-                    {% if perms.frontpage.change_offer %}
-                        <li class="{% active request 'what-we-offer' %}"><a href="{% url "edit_what_we_offer" %}"><span class="glyphicon glyphicon-magnet"></span> {% trans "What we offer" %}</a>
-                        </li>
-                    {% endif %}
                     {% if perms.company.change_company %}
                         <li class="{% active request 'companies' %} treeview"><a href="#"><span class="glyphicon glyphicon-briefcase"></span> {% trans "Companies" %} <i class="fa fa-angle-left pull-right"></i> </a>
                             {% include 'company/submenu.html' %}
@@ -163,6 +163,9 @@
         </aside>
 
         <aside class="right-side">
+
+            {% include "messsages_admin.html" %}
+
             {% if title %}
             <section class="content-header">
                 <h1>

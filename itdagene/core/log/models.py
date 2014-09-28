@@ -3,7 +3,7 @@ from django.db import models
 from django.utils.translation import ugettext as _
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
-from django.core.mail import send_mail
+from django.core.mail import send_mail, mail_admins
 from itdagene.core.auth import get_current_user
 from django.conf import settings
 from itdagene.core.models import User
@@ -30,10 +30,8 @@ class LogItem (models.Model):
 
     def save(self, *args, **kwargs):
         if self.priority == 3:
-                send_mail('[itDAGENE] Log: ' + unicode(self),
-                          unicode(self) + '\n read more at http://itdagene.no',
-                          settings.FROM_ADDRESS,
-                          settings.ADMIN_EMAILS)
+                mail_admins('Log: ' + unicode(self),
+                          unicode(self) + '\n read more at http://%s' % (settings.SITE['domain'], ))
                 self.sent_mail = True
         super(LogItem, self).save(*args, **kwargs)
 

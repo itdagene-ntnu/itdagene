@@ -6,6 +6,12 @@
         <li><a href="{% url "itdagene.app.users.views.user_create" %}">{% trans "Create User" %}</a></li>
     {% endif %}
     {% if person.pk %}
+        {% if perms.core.send_welcome_email %}
+            <li><a href="{% url "itdagene.app.users.views.send_welcome_email" person.pk %}">{% trans "Send welcome email" %}</a></li>
+        {% endif %}
+        {% if perms.core.change_user %}
+            <li><a href="{% url "itdagene.app.users.views.user_edit" person.pk %}">{% trans "Edit User" %}</a></li>
+        {% endif %}
         {% if perms.core.delete_user %}
             <li><a href="{% url "itdagene.app.users.views.user_delete" person.pk %}">{% trans "Delete User" %}</a></li>
         {% endif %}

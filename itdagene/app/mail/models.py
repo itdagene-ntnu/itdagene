@@ -50,6 +50,17 @@ class MailMapping(models.Model):
             }
         }
 
+        # Check private usermails
+        try:
+            user_with_mapping = User.objects.get(mail_prefix=address)
+            if user_with_mapping:
+                if user_with_mapping.mail_prefix:
+                    result['addresses'] = [ user_with_mapping.email ]
+                    return result
+        except:
+            pass
+
+        # User mail not match someone, return mappings
         for mapping in mappings:
             for user_addresses in mapping.all_users():
                 result['addresses'].append(user_addresses.email)

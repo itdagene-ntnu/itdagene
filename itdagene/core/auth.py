@@ -24,8 +24,8 @@ class LocalUserMiddleware(object):
         # request.user closure; asserts laziness; memoization is implemented in
         # request.user (non-data descriptor)
         _do_set_current_user(lambda self: getattr(request, 'user', None))
-        if get_current_user().is_authenticated() and get_current_user().profile:
-            request.session['django_language'] = get_current_user().profile.language
+        if get_current_user().is_authenticated():
+            request.session['django_language'] = get_current_user().language
         else:
             request.session['django_language'] = 'nb'
 

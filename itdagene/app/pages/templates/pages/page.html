@@ -1,12 +1,1 @@
-{% extends "base_public_not_frontpage.html" %}
-
-{% load markdown_tool pages_filter %}
-
-{% block include %}
-    <link href="{{ STATIC_URL }}pages/css/pages.css" media="screen" rel="stylesheet">
-{% endblock %}
-
-{% block content %}
-    <h1 class="text-center">{{ page.title }}</h1>
-    <p>{{ page.content|load_thumbnails|markdownize }}</p>
-{% endblock %}
+PAGEE

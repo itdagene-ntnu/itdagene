@@ -1,0 +1,15 @@
+{% extends "mail/mail/base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<p>{% trans "You have been added to the itdagene webpage. Your user details is listed bellow. Please login and change the password." %}</p>
+
+<strong>{% trans "User" %}</strong><br/>
+{% trans "Username" %}: <strong>{{ user.username }}</strong><br/>
+{% trans "Full name" %}: <strong>{{ user.get_full_name }}</strong><br/>
+{% trans "Password" %}: <strong>{{ password }}</strong><br/>
+
+<p>{% trans "You can login at http://itdagene.no/login" %}</p>
+
+{% endblock %}

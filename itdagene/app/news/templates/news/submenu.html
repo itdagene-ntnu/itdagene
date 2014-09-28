@@ -1,7 +1,9 @@
 {% load i18n %}
 
 <ul class="treeview-menu">
-    <li><a href="{% url "itdagene.app.news.views.admin" %}" class="treeview-menu">{% trans "Announcements" %}</a></li>
+    {% if user.is_staff %}
+        <li><a href="{% url "itdagene.app.news.views.admin" %}" class="treeview-menu">{% trans "Announcements" %}</a></li>
+    {% endif %}
 
     {% if perms.news.add_announcement %}
         <li><a href="{% url "itdagene.app.news.views.create_announcement" %}">{% trans "Add Announcement" %}</a></li>

@@ -17,6 +17,14 @@ urlpatterns = patterns('itdagene.app.users.views',
         name='detail'
     ),
     url(
+        regex=r'^(?P<pk>\d+)/welcome_email/$',
+        view='send_welcome_email'
+    ),
+    url(
+        regex=r'^(?P<pk>\d+)/vcard/$',
+        view='vcard'
+    ),
+    url(
         regex=r'^(?P<pk>\d+)/edit/$',
         view='user_edit',
         name='edit'

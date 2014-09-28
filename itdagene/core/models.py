@@ -6,15 +6,37 @@ from django.core.cache import cache
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from itdagene.core.auth import get_current_user
+from django.conf import settings
 
 
 class User(AbstractUser):
     phone = models.IntegerField(blank=True, null=True, verbose_name=_('phone number'))
     photo = models.ImageField(upload_to='photos/users/', blank=True, null=True)
+    language = models.CharField(max_length=3, default=settings.DEFAULT_LANGUAGE, choices=settings.LANGUAGES)
+    mail_prefix = models.CharField(max_length=40, default="", verbose_name=_('Mail prefix'), help_text=_('This is a mail prefix for your itdagene mail. The address will be value@itdagene.no. This is typicaly you name or username. Don\'t use a group name.'), unique=True)
+
 
     def mail_mappings(self):
         from itdagene.app.mail.models import MailMapping
         return MailMapping.get_user_mappings(self)
+
+    class Meta(AbstractUser.Meta):
+        permissions = (("send_welcome_email", "Can send welcome emails"),)
+
+
+class UserProxy(User):
+    """
+    Brukes av api for å generere liste med brukere.
+    """
+    class Meta:
+        proxy = True
+
+    def as_dict(self):
+        return {
+            'username': self.username,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+        }
 
 
 class BaseModel(models.Model):
@@ -78,6 +100,7 @@ class BaseModel(models.Model):
 
 class Preference(BaseModel):
     display_getting_started = models.BooleanField(default=True, verbose_name=_('Display getting started in admin menu'), help_text=_('When this setting is enabled a getting started element is visible in the admin menu. This contains usefull information about how to use this site.'))
+    development_mode = models.BooleanField(default=False, verbose_name=_('Development Mode'), help_text=_('This option puts the site in development mode. The public page will be disabled.'))
 
     active = models.BooleanField(verbose_name=_('active'), default=False)
     year = models.IntegerField(blank=True, null=True, verbose_name=_('year'))
@@ -117,18 +140,3 @@ class Preference(BaseModel):
                                                  start_date='%s-09-10' % year, end_date='%s-09-11' % year)
             cache.set('pref', pref)
         return pref
-
-
-class UserProxy(User):
-    """
-    Brukes av api for å generere liste med brukere.
-    """
-    class Meta:
-        proxy = True
-
-    def as_dict(self):
-        return {
-            'username': self.username,
-            'first_name': self.first_name,
-            'last_name': self.last_name,
-        }

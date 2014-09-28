@@ -52,19 +52,18 @@ class Notification (models.Model):
 
     @classmethod
     def notify(cls, object, user, template=None):
-        pass
-#        s_mail=bool(object.notification_priority())
-#        content_type = ContentType.objects.get_for_model(object)
-#        if not user == core.get_current_user():
-#            n = Notification(user=user,
-#                priority=object.notification_priority(),
-#                message=object.notification_message(),
-#                content_type=content_type,
-#                object_id=object.pk,
-#                send_mail=s_mail,
-#                read=False,
-#            )
-#            n.save(mail_template=template)
+        s_mail=bool(object.notification_priority())
+        content_type = ContentType.objects.get_for_model(object)
+        if not user == get_current_user():
+            n = Notification(user=user,
+                priority=object.notification_priority(),
+                message=object.notification_message(),
+                content_type=content_type,
+                object_id=object.pk,
+                send_mail=s_mail,
+                read=False,
+            )
+            n.save(mail_template=template)
 
 class Subscription (models.Model):
     content_type = models.ForeignKey(ContentType)
