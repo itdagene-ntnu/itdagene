@@ -71,7 +71,7 @@ class MailMapping(BaseModel):
                 added_addresses = True
             if added_addresses:
                 mapping.recived_emails += 1
-                mapping.save()
+                mapping.save(notify_subscribers=False)
         return result
 
 
