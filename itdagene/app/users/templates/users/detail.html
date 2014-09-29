@@ -14,6 +14,10 @@
                     <table class="table table-hover">
                         <tbody>
                             <tr>
+                                <td>{% trans "Username" %}</td>
+                                <td>{{ person.username }}</td>
+                            </tr>
+                            <tr>
                                 <td>{% trans "itDagene Mail" %}</td>
                                 <td><a href="mailto:{{ person.mail_prefix }}@{{ site.domain }}">{{ person.mail_prefix }}@{{ site.domain }}</a></td>
                             </tr>
