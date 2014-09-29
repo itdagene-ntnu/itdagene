@@ -7,6 +7,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from itdagene.core.auth import get_current_user
 from django.conf import settings
+from django.core.urlresolvers import reverse
 
 
 class User(AbstractUser):
@@ -22,6 +23,9 @@ class User(AbstractUser):
 
     class Meta(AbstractUser.Meta):
         permissions = (("send_welcome_email", "Can send welcome emails"),)
+
+    def get_absolute_url(self):
+        return reverse('itdagene.app.users.views.user_detail', args=[self.pk])
 
 
 class UserProxy(User):
@@ -141,3 +145,6 @@ class Preference(BaseModel):
                                                  start_date='%s-09-10' % year, end_date='%s-09-11' % year)
             cache.set('pref', pref)
         return pref
+
+    def get_absolute_url(self):
+        return reverse('itdagene.app.admin.views.preferences.edit')
