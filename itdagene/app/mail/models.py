@@ -38,7 +38,7 @@ class MailMapping(models.Model):
 
     @classmethod
     def get_destinations_and_headers(cls, address, domain):
-        mappings = cls.objects.filter(address=address)
+
         result = {
             'addresses': [],
             'headers': {
@@ -60,10 +60,16 @@ class MailMapping(models.Model):
         except:
             pass
 
+        mappings = cls.objects.filter(address=address)
         # User mail not match someone, return mappings
         for mapping in mappings:
+            added_addresses = False
             for user_addresses in mapping.all_users():
                 result['addresses'].append(user_addresses.email)
+                added_addresses = True
+            if added_addresses:
+                mapping.recived_emails += 1
+                mapping.save()
         return result
 
 
