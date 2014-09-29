@@ -10,5 +10,5 @@ def notification_list(request):
     """
     returns the notificationlist
     """
-    notifications = Notification.objects.filter(user=request.user).order_by('date')
+    notifications = Notification.objects.filter(user=request.user,read=False).order_by('date')
     return {'notifications': notifications}

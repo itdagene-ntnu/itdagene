@@ -1,0 +1,11 @@
+{% extends "mail/mail/base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+{{ notification.message }}
+
+{{ base_url }}{{ notification.content_object.get_absolute_url }}
+{% trans "Priority" %}: {{ notification.get_priority_display }}
+
+{% endblock %}

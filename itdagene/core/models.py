@@ -14,7 +14,7 @@ class User(AbstractUser):
     photo = models.ImageField(upload_to='photos/users/', blank=True, null=True)
     language = models.CharField(max_length=3, default=settings.DEFAULT_LANGUAGE, choices=settings.LANGUAGES)
     mail_prefix = models.CharField(max_length=40, default="", verbose_name=_('Mail prefix'), help_text=_('This is a mail prefix for your itdagene mail. The address will be value@itdagene.no. This is typicaly you name or username. Don\'t use a group name.'), unique=True)
-
+    mail_notification = models.BooleanField(default=True, verbose_name=_('Send mail notifications'))
 
     def mail_mappings(self):
         from itdagene.app.mail.models import MailMapping
@@ -79,9 +79,6 @@ class BaseModel(models.Model):
 
     def notification_message(self):
         return '%s was changed' % str(self)
-
-    def notification_template(self):
-        return 'emails/notifications/base.html'
 
     def notification_object(self):
         return self

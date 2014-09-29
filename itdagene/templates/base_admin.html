@@ -1,7 +1,7 @@
 {% extends "newbase.html" %}
 
 {% load static i18n %}
-{% load core thumbnail menu%}
+{% load core thumbnail menu notifications %}
 
 {% block body_class %}
     skin-itdagene
@@ -27,6 +27,9 @@
             </a>
             <div class="navbar-right">
                 <ul class="nav navbar-nav">
+
+                    {% notification_list request %}
+
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="glyphicon glyphicon-user"></i>

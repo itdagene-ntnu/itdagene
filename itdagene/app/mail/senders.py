@@ -3,6 +3,8 @@ from django.core.mail import get_connection, EmailMultiAlternatives
 from django.conf import settings
 from django.utils.translation import ugettext as _
 from itdagene.core.auth import generate_password
+from django.utils import translation
+from itdagene.core.auth import get_current_user
 
 
 def send_email(recipients, subject, template, template_html, params, sender=settings.SERVER_EMAIL):
@@ -24,7 +26,22 @@ def send_email(recipients, subject, template, template_html, params, sender=sett
 
 
 def users_send_welcome_email(user):
+    translation.activate(user.language)
     new_password = generate_password()
     user.set_password(new_password)
     user.save()
-    return send_email([user.email], '%s %s' % (_('Welcome to'), settings.SITE['name']), 'users/welcome_mail.txt', 'users/welcome_mail.html', { 'title': '%s %s' % (_('Welcome to'), settings.SITE['name']), 'user': user, 'password': new_password})
+    result = send_email([user.email], '%s %s' % (_('Welcome to'), settings.SITE['name']), 'users/welcome_mail.txt', 'users/welcome_mail.html', { 'title': '%s %s' % (_('Welcome to'), settings.SITE['name']), 'user': user, 'password': new_password})
+    translation.activate(get_current_user().language)
+    return result
+
+def notifications_send_email(notification):
+    translation.activate(notification.user.language)
+    context = {
+        'title': _('You have a new notification'),
+        'notification': notification,
+        'base_url': 'http://%s' % (settings.SITE['domain'])
+    }
+    template, template_html = 'notifications/notification_mail.txt', 'notifications/notification_mail.html'
+    result = send_email([notification.user.email], _('You have a new notification'), template, template_html, context)
+    translation.activate(get_current_user().language)
+    return result

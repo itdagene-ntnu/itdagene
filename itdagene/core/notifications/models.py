@@ -23,35 +23,30 @@ class Notification (models.Model):
     object_id = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey('content_type', 'object_id')
     send_mail = models.BooleanField(default=True, verbose_name=_('send mail'))
-    sent_mail = models.BooleanField(verbose_name=_('sent mail'), default=False)
-    read = models.BooleanField(default=True)
+    sent_mail = models.BooleanField(default=False, verbose_name=_('sent mail'))
+    read = models.BooleanField(default=False)
 
     def __unicode__(self):
         if len(self.message) > 100:
             return '%s: %s...' % (self.user, self.message[0:100])
         return '%s: %s' % (self.user.username, self.message)
 
-    def save(self, mail_template=None, *args, **kwargs):
+    def save(self, *args, **kwargs):
         if self.send_mail and not self.sent_mail:
-            translation.activate(self.user.profile.language)
-            if self.user.profile.mail_notification and self.user.email:
-                if not mail_template: mail_template=self.content_object.notification_template()
-                send_language_specific_mail(
-                    subject=_('[itDAGENE] You have a new notification'),
-                    user_list=[self.user],
-                    template=mail_template,
-                    context={'object': self.content_object},
-                )
+            translation.activate(self.user.language)
+            if self.user.mail_notification and self.user.email:
+                from itdagene.app.mail.senders import notifications_send_email
+                notifications_send_email(self)
                 self.sent_mail=True
         super(Notification, self).save(*args, **kwargs)
-        translation.activate(get_current_user().profile.language)
+        translation.activate(get_current_user().language)
 
-    def read(self):
+    def read_notification(self):
         self.read = True
         self.save()
 
     @classmethod
-    def notify(cls, object, user, template=None):
+    def notify(cls, object, user):
         s_mail=bool(object.notification_priority())
         content_type = ContentType.objects.get_for_model(object)
         if not user == get_current_user():
@@ -63,7 +58,7 @@ class Notification (models.Model):
                 send_mail=s_mail,
                 read=False,
             )
-            n.save(mail_template=template)
+            n.save()
 
 class Subscription (models.Model):
     content_type = models.ForeignKey(ContentType)
@@ -76,7 +71,7 @@ class Subscription (models.Model):
         n_object = ContentType.objects.get_for_model(object.notification_object())
         subscription = get_object_or_404(Subscription, content_type=n_object, object_id=object.notification_object().id)
         for subscriber in subscription.subscribers.all():
-            Notification.notify(object, subscriber, template=object.notification_template())
+            Notification.notify(object, subscriber)
 
     @classmethod
     def subscribe (cls, object, user):

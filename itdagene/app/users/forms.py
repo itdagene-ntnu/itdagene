@@ -8,7 +8,7 @@ from itdagene.core.profiles.models import Profile
 class UserCreateForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ('username', 'password1', 'password2', 'first_name', 'last_name', 'email', 'mail_prefix', 'phone', 'language', 'photo', 'is_superuser', 'is_staff', 'groups', 'user_permissions')
+        fields = ('username', 'password1', 'password2', 'first_name', 'last_name', 'email', 'mail_prefix', 'phone', 'language', 'mail_notification', 'photo', 'is_superuser', 'is_staff', 'groups', 'user_permissions')
 
     def clean_username(self):
         username = self.cleaned_data["username"]
@@ -25,13 +25,13 @@ class UserCreateForm(UserCreationForm):
 class UserEditForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email', 'mail_prefix', 'phone', 'language', 'photo', 'is_superuser', 'is_staff', 'groups', 'user_permissions')
+        fields = ('first_name', 'last_name', 'email', 'mail_prefix', 'phone', 'language', 'mail_notification', 'photo', 'is_superuser', 'is_staff', 'groups', 'user_permissions')
 
 
 class SimpleUserEditForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email', 'mail_prefix', 'phone', 'language', 'photo')
+        fields = ('first_name', 'last_name', 'email', 'mail_prefix', 'phone', 'language', 'mail_notification', 'photo')
 
 
 

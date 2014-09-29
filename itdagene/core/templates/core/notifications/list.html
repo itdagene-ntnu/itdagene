@@ -1,10 +1,26 @@
 {% load i18n %}
 
-{% if notifications %}
-<ul class="notifications">
-    <h3>{% trans "Your notifications" %}</h3>
-    {% for n in notifications %}
-    <li>{{ n.message }}<em>{{ n.date|date }}</em></li>
-{% endfor %}
-</ul>
-{% endif %}
+<li class="dropdown notifications-menu">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <i class="fa fa-rss"></i>
+        {% if notifications %}
+            <span class="label label-warning">{{ notifications|length }}</span>
+        {% endif %}
+    </a>
+    <ul class="dropdown-menu">
+        <li class="header">{% blocktrans with notification_count=notifications|length %}You have {{ notification_count }} notifications{% endblocktrans %}</li>
+        <li>
+            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;"><ul class="menu" style="overflow: hidden; width: 100%; height: 200px;">
+                {% for notification in notifications %}
+                    <li>
+                        <a href="{{ notification.content_object.get_absolute_url }}">
+                            <i class="fa fa-rss {% if notification.priority == 0 %}success{% elif notification.priority == 1 %}warning{% else %}danger{% endif %}"></i>
+                            {{ notification.message }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul><div class="slimScrollBar" style="width: 3px; position: absolute; top: 0px; opacity: 0.4; display: block; border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; z-index: 99; right: 1px; background: rgb(0, 0, 0);"></div><div class="slimScrollRail" style="width: 3px; height: 100%; position: absolute; top: 0px; display: none; border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div>
+        </li>
+        <!--<li class="footer"><a href="#">{% trans "View All" %}</a></li>-->
+    </ul>
+</li>

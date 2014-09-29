@@ -4,8 +4,10 @@ from itdagene.core.models import BaseModel, User
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from django.db.models import Q
+from django.core.urlresolvers import reverse
 
-class MailMapping(models.Model):
+
+class MailMapping(BaseModel):
     address = models.CharField(max_length=100, verbose_name=_("Address"), unique=True)
     users = models.ManyToManyField(User, blank=True, null=True, verbose_name=_('Users'), related_name='user_mail_mappings')
     groups = models.ManyToManyField(Group, blank=True, null=True, verbose_name=_('Groups'), related_name='group_mail_mappings')
@@ -72,6 +74,9 @@ class MailMapping(models.Model):
                 mapping.save()
         return result
 
+
+    def get_absolute_url(self):
+        return reverse('itdagene.app.mail.views.view_mailmapping', args=[self.pk])
 
     def __unicode__(self):
         return '%s@%s' % (self.address, settings.SITE['domain'])
