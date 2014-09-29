@@ -24,21 +24,18 @@ class LogItem (models.Model):
     content_object = generic.GenericForeignKey('content_type', 'object_id')
 
     def __unicode__(self):
-        return self.user.username + '-' + \
-               self.action + '-' + \
-               ' (' + str(self.content_type) + ')'
+        return self.action + ' - ' + \
+               '(' + str(self.content_type) + ': ' + str(self.content_object) + ')'
 
     def save(self, *args, **kwargs):
         if self.priority == 3:
-                mail_admins('Log: ' + unicode(self),
-                          unicode(self) + '\n read more at http://%s' % (settings.SITE['domain'], ))
-                self.sent_mail = True
+                mail_admins('Log: ' + unicode(self), unicode(self) + '\n Read more at http://%s%s' % (settings.SITE['domain'], self.content_object.get_absolute_url))
         super(LogItem, self).save(*args, **kwargs)
 
     @classmethod
     def log_it(cls, object, action, priority):
         user = get_current_user()
-        if not user or  not user.is_authenticated():
+        if not user or not user.is_authenticated():
             user = User.objects.get(pk=1)
         l = LogItem(
             user=user,

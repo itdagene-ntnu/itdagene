@@ -48,8 +48,9 @@ class BaseModel(models.Model):
     def __unicode__(self):
         return self.creator.username + ' ' + str(self.id)
 
-    def save(self, notify_subscribers=True, *args, **kwargs):
+    def save(self, notify_subscribers=True, log_it=True, log_priority=0, *args, **kwargs):
         user = get_current_user()
+        action = 'EDIT' if self.pk else 'CREATE'
 
         if not user or not user.is_authenticated():
             user = User.objects.get(pk=1)
@@ -69,6 +70,9 @@ class BaseModel(models.Model):
 
         if notify_subscribers:
             Subscription.notify_subscribers(self)
+
+        from itdagene.core.log.models import LogItem
+        LogItem.log_it(self, action, log_priority)
 
     def get_absolute_url(self):
         c_type = ContentType.objects.get_for_model(self)

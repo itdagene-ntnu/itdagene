@@ -17,8 +17,8 @@
                 {% for logitem in log %}
                 <tr>
                     <td><a href="{% url "itdagene.app.users.views.user_detail" logitem.user.pk %}">{{ logitem.user.get_full_name }}</a></td>
-                <td>{{ logitem.timestamp|timesince }} {% trans "ago" %}</td>
-                <td>{{ logitem.action }} - {{ logitem.content_type }}({{ logitem.object_id }}): {{ logitem.content_object }}</td>
+                    <td>{{ logitem.timestamp|timesince }} {% trans "ago" %}</td>
+                    <td><a href="{{ logitem.content_object.get_absolute_url }}">{{ logitem }}</a></td>
                 </tr>
                 {% endfor %}
                 </tbody>

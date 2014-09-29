@@ -4,3 +4,8 @@ body.public .error-page {
 body.public.under_development .error-page > .error-content {
   margin-left: 130px;
 }
+@media (max-width: 768px) {
+  body.public.under_development .error-page > .error-content {
+    margin-left: 0px;
+  }
+}
