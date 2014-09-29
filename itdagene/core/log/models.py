@@ -25,7 +25,7 @@ class LogItem (models.Model):
 
     def __unicode__(self):
         return self.action + ' - ' + \
-               '(' + str(self.content_type) + ': ' + str(self.content_object) + ')'
+               '(' + unicode(self.content_type) + ': ' + unicode(self.content_object) + ')'
 
     def save(self, *args, **kwargs):
         if self.priority == 3:
