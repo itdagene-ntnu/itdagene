@@ -18,7 +18,7 @@ urlpatterns = patterns('',
     url(r'^documentation/', include('itdagene.app.documentation.urls', namespace='documentation')),
     url(r'^mail/', include('itdagene.app.mail.urls')),
     url(r'^users/', include('itdagene.app.users.urls')),
-
+    url(r'^todo/', include('itdagene.app.todo.urls')),
 
 
     url(r'^errors/error403/$', 'itdagene.core.views.error403'),
@@ -44,7 +44,6 @@ urlpatterns = patterns('',
     url(r'^profiles/', include('itdagene.core.profiles.urls')),
     url(r'^bdb/', include('itdagene.app.company.urls')),
     url(r'^career/', include('itdagene.app.career.urls')),
-    url(r'^todo/', include('itdagene.app.todo.urls')),
     url(r'^venue/', include('itdagene.app.venue.urls')),
     url(r'^workschedules/', include('itdagene.app.workschedule.urls')),
     url(r'^logistics/', include('itdagene.app.logistics.urls')),

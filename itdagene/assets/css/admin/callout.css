@@ -29,6 +29,10 @@
   background-color: #f0f7fd;
   border-color: #d0e3f0;
 }
+.callout.callout-success {
+  background-color: #ecfde6;
+  border-color: #dbf0cd;
+}
 .callout.callout-danger h4 {
   color: #B94A48;
 }
@@ -37,4 +41,7 @@
 }
 .callout.callout-info h4 {
   color: #3A87AD;
+}
+.callout.callout-success h4 {
+  color: #4ead68;
 }

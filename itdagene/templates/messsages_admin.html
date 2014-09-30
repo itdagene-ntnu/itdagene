@@ -7,22 +7,20 @@
     <section class="content">
 
     {% for message in messages %}
-      <div class="alert alert-block fade in {% if message.tags %}{{ message.tags }}{% endif %}">
-        {% if message.tags == 'alert-success' %}
-          <i class="fa fa-info-circle"></i>
-          <b>{% trans "Success!" %}</b>
-        {% elif message.tags == 'alert-info' %}
-          <i class="fa fa-info-circle"></i>
-          <b>{% trans "Information!" %}</b>
-        {% elif message.tags == 'alert-warning' %}
-          <i class="fa fa-exclamation-circle"></i>
-          <b>{% trans "Warning!" %}</b>
-        {% elif message.tags == 'alert-danger' %}
-          <i class="fa fa-ban"></i>
-          <b>{% trans "Error!" %}</b>
-        {% endif %}
-        {{ message }}
-      </div>
+    <div class="callout callout-{% if message.tags %}{{ message.tags }}{% endif %}">
+        <h4>
+            {% if message.tags == 'success' %}
+                {% trans "Success" %}
+            {% elif message.tags == 'info' %}
+                {% trans "Information" %}
+            {% elif message.tags == 'warning' %}
+                {% trans "Warning" %}
+            {% elif message.tags == 'danger' %}
+                {% trans "Error" %}
+            {% endif %}
+        </h4>
+        <p>{{ message }}</p>
+    </div>
     {% endfor %}
 
     </section>

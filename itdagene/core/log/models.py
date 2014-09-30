@@ -1,6 +1,6 @@
 from datetime import datetime
 from django.db import models
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from django.core.mail import send_mail, mail_admins

@@ -27,6 +27,11 @@ class User(AbstractUser):
     def get_absolute_url(self):
         return reverse('itdagene.app.users.views.user_detail', args=[self.pk])
 
+    def __unicode__(self):
+        if self.get_full_name():
+            return self.get_full_name()
+        return self.username
+
 
 class UserProxy(User):
     """
@@ -69,14 +74,17 @@ class BaseModel(models.Model):
         self.date_saved = datetime.now()
 
         super(BaseModel, self).save(*args, **kwargs)
+
         from itdagene.core.notifications.models import Subscription
         Subscription.subscribe(self, user)
 
         if notify_subscribers:
             Subscription.notify_subscribers(self)
 
-        from itdagene.core.log.models import LogItem
-        LogItem.log_it(self, action, log_priority)
+        if log_it:
+            from itdagene.core.log.models import LogItem
+            LogItem.log_it(self, action, log_priority)
+
 
     def get_absolute_url(self):
         c_type = ContentType.objects.get_for_model(self)
