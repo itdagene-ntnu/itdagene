@@ -116,6 +116,9 @@
                             {% include 'admin/submenu.html' %}
                         </li>
                     {% endif %}
+                    <li class="{% active request 'feedback' %} treeview"><a href="#"><i class="fa fa-reply"></i> {% trans "Feedback" %} <i class="fa fa-angle-left pull-right"></i> </a>
+                        {% include 'feedback/submenu.html' %}
+                    </li>
 
                     <li>-----------</li>
 

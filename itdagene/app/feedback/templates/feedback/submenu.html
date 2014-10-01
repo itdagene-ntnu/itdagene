@@ -1,11 +1,23 @@
 {% load i18n %}
-<ul>
-    <li><a href="{% url "issues" %}">{% trans "ISSUES" %}</a></li>
-    <li><a href="{% url "solved_issues" %}">{% trans "SOLVED ISSUES" %}</a></li>
-    <li><a href="{% url "itdagene.app.feedback.views.issues.my_issues" %}">{% trans "MY ISSUES" %}</a></li>
-    <li><a href="{% url "itdagene.app.feedback.views.issues.edit" %}">{% trans "ADD ISSUES" %}</a></li>
-    {% if issue.pk %}
-        <li><a href="{% url "itdagene.app.feedback.views.issues.edit" issue.pk %}">{% trans "EDIT ISSUE" %}</a></li>
-        <li><a href="{% url "itdagene.app.feedback.views.issues.solved" issue.pk %}">{% trans "MARK ISSUE AS SOLVED" %}</a></li>
+
+<ul class="treeview-menu">
+    {% if request.user.is_staff %}
+        <li><a href="{% url "itdagene.app.feedback.views.issues.list" %}">{% trans "Issues" %}</a></li>
+        <li><a href="{% url "itdagene.app.feedback.views.issues.solved_list" %}">{% trans "Solved Issues" %}</a></li>
     {% endif %}
+    <li><a href="{% url "itdagene.app.feedback.views.issues.my_issues" %}">{% trans "My issues" %}</a></li>
+    {% if perms.feedback.add_issue %}
+        <li><a href="{% url "itdagene.app.feedback.views.issues.add" %}">{% trans "Add issue" %}</a></li>
+    {% endif %}
+    {% if issue.pk %}
+        {% if perms.feedback.change_issue %}
+            <li><a href="{% url "itdagene.app.feedback.views.issues.edit" issue.pk %}">{% trans "Edit issue" %}</a></li>
+            <li><a href="{% url "itdagene.app.feedback.views.issues.solved" issue.pk %}">{% trans "Mark issue as solved" %}</a></li>
+        {% endif %}
+    {% endif %}
+
+    {% if request.user.is_staff %}
+        <li><a href="{% url "itdagene.app.feedback.views.evalutions.report" %}">{% trans "Company evalutions" %}</a></li>
+    {% endif %}
+
 </ul>

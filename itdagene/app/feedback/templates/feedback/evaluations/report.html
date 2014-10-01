@@ -1,45 +1,92 @@
-{% extends base_template %}
+{% extends "base_admin.html" %}
 {% load i18n %}
 
 {% block content %}
-    <h1>Tilbakemelding for itDAGENE {{ preferences.year }}</h1>
-    <h3>{{ evaluations.count }} bedrifter har svart på tilbakemelding, {{ percentage_want_to_come_back }}% vil tilbake.</h3>
 
-    <h2>Gjennomsnittlig vurderinger:</h2>
-    <ul>
-        <li><strong>Sommerjobbmaraton:</strong> {{ avg_internship_marathon_rating }}/5</li>
-        <li><strong>Kurs:</strong> {{ avg_course_rating }}/5</li>
-        <li><strong>Besøkende:</strong> {{ avg_visitors_rating }}/5</li>
-        <li><strong>Intervjurom:</strong> {{ avg_interview_location_rating }}/5</li>
-        <li><strong>Bankett:</strong> {{ avg_banquet_rating }}/5</li>
-    </ul>
-    <h2>Forbedringsmuligheter</h2>
-    <h4>Sommerjobbmaraton</h4>
-    {% for eval in evaluations %}
-        {% if eval.internship_marathon_improvement %}<p>{{ eval.internship_marathon_improvement }}</p>{% endif %}
-    {% endfor %}
-    <h4>Kurs</h4>
-    {% for eval in evaluations %}
-        {% if eval.course_improvement %}<p>{{ eval.course_improvement }}</p>{% endif %}
-    {% endfor %}
-    <h4>Intervjurom</h4>
-    {% for eval in evaluations %}
-        {% if eval.interview_location_improvement %}<p>{{ eval.interview_location_improvement }}</p>{% endif %}
-    {% endfor %}
-    <h4>Bankett</h4>
-    {% for eval in evaluations %}
-        {% if eval.banquet_improvement %}<p>{{ eval.banquet_improvement }}</p>{% endif %}
-    {% endfor %}
-    <h4>Åpningstider</h4>
-    {% for eval in evaluations %}
-        {% if eval.opening_hours %}<p>{{ eval.opening_hours }}</p>{% endif %}
-    {% endfor %}
-    <h4>Generell forbedring</h4>
-    {% for eval in evaluations %}
-        {% if eval.improvement %}<p>{{ eval.improvement }}</p>{% endif %}
-    {% endfor %}
-    <h4>Andre ting</h4>
-    {% for eval in evaluations %}
-        {% if eval.other %}<p>{{ eval.other }}</p>{% endif %}
-    {% endfor %}
+    <div class="row">
+    <div class="col-lg-12">
+        <div class="box box-primary">
+            <div class="box-body">
+                <strong>{% blocktrans with evaluations_count=evaluations.count percentage_want_to_come_back=percentage_want_to_come_back %}
+                    {{ evaluations_count }} companies has answered the feedback, {{ percentage_want_to_come_back }} will come back.
+                {% endblocktrans %}</strong>
+            </div>
+        </div>
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3 class="box-title">{% trans "Average ratings" %}</h3>
+            </div>
+            <div class="box-body">
+                <dl class="dl-horizontal">
+                    <dt>{% trans "Internship marathon" %}</dt>
+                    <dd>{{ avg_internship_marathon_rating }}</dd>
+
+                    <dt>{% trans "Course" %}</dt>
+                    <dd>{{ avg_course_rating }}</dd>
+
+                    <dt>{% trans "Visitors" %}</dt>
+                    <dd>{{ avg_visitors_rating }}</dd>
+
+                    <dt>{% trans "Interview location" %}</dt>
+                    <dd>{{ avg_interview_location_rating }}</dd>
+
+                    <dt>{% trans "Banquet" %}</dt>
+                    <dd>{{ avg_banquet_rating }}</dd>
+               </dl>
+            </div>
+        </div>
+         <div class="box box-primary">
+            <div class="box-header">
+                <h3 class="box-title">{% trans "Improvement Opportunities" %}</h3>
+            </div>
+            <div class="box-body">
+
+                <h4>{% trans "Internship marathon" %}</h4>
+                {% for eval in evaluations %}
+                    <ul>
+                    {% if eval.internship_marathon_improvement %}<li>{{ eval.internship_marathon_improvement }}</li>{% endif %}
+                    </ul>
+                {% endfor %}
+                <h4>{% trans "Course" %}</h4>
+                {% for eval in evaluations %}
+                    <ul>
+                    {% if eval.course_improvement %}<li>{{ eval.course_improvement }}</li>{% endif %}
+                    </ul>
+                {% endfor %}
+                <h4>{% trans "Interview location" %}</h4>
+                {% for eval in evaluations %}
+                    <ul>
+                    {% if eval.interview_location_improvement %}<li>{{ eval.interview_location_improvement }}</li>{% endif %}
+                    </ul>
+                {% endfor %}
+                <h4>{% trans "Banquet" %}</h4>
+                {% for eval in evaluations %}
+                    <ul>
+                    {% if eval.banquet_improvement %}<li>{{ eval.banquet_improvement }}</li>{% endif %}
+                    </ul>
+                {% endfor %}
+                <h4>{% trans "Opening Hours" %}</h4>
+                {% for eval in evaluations %}
+                    <ul>
+                    {% if eval.opening_hours %}<li>{{ eval.opening_hours }}</li>{% endif %}
+                    </ul>
+                {% endfor %}
+                <h4>{% trans "General improvement" %}</h4>
+                {% for eval in evaluations %}
+                    <ul>
+                    {% if eval.improvement %}<li>{{ eval.improvement }}</li>{% endif %}
+                    </ul>
+                {% endfor %}
+                <h4>{% trans "Other" %}</h4>
+                {% for eval in evaluations %}
+                    <ul>
+                    {% if eval.other %}<li>{{ eval.other }}</li>{% endif %}
+                    </ul>
+                {% endfor %}
+
+            </div>
+         </div>
+    </div>
+    </div>
+
 {% endblock %}

@@ -6,7 +6,9 @@ from itdagene.core.log.models import LogItem
 from itdagene.core.models import BaseModel, Preference
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
-from itdagene.core.models import User
+from itdagene.core.models import User, Preference
+from itdagene.app.company.models import Company
+
 
 
 APPS = (
@@ -20,6 +22,7 @@ APPS = (
     ('feedback',_('Feedback')),
     ('frontpage',_('Frontpage')),
     ('logistics',_('Logistics')),
+    ('mail',_('Mail')),
     ('meetings',_('Meetings')),
     ('news',_('News')),
     ('notifications',_('Notifications')),
@@ -75,22 +78,11 @@ class Issue (BaseModel):
 
 RATINGS = ((0, _('Did not use')), (1,_('1: Very bad')),(2,_('2: Bad')),(3,_('3: Not bad or good')),(4,_('4: Good')),(5, _('5: Very good')))
 
-class EvaluationHash (models.Model):
-    preference = models.ForeignKey(Preference)
-    company = models.ForeignKey(Company)
-    hash = models.CharField(max_length=250, unique=True)
-
-    class Meta:
-        unique_together = ('preference', 'company')
-
-    def save(self, *args, **kwargs):
-        if not self.hash:
-            self.hash = generate_password()
-        super(EvaluationHash, self).save(*args, **kwargs)
 
 class Evaluation (models.Model):
 
-    hash = models.ForeignKey(EvaluationHash)
+    company = models.ForeignKey(Company, verbose_name='Company')
+    preference = models.ForeignKey(Preference, verbose_name='Preference')
 
     internship_marathon_rating = models.IntegerField(
                         choices=RATINGS,
@@ -109,7 +101,6 @@ class Evaluation (models.Model):
     visitors_rating = models.IntegerField(
         choices=RATINGS,
         verbose_name=_('Are you satisfied with the number of people that visited your stand?'),
-        
     )
 
     has_interview_location = models.BooleanField(verbose_name=_('Did you use interview rooms?'), default=False)

@@ -1,0 +1,60 @@
+{% load i18n widget_tweaks %}
+{% load crispy_forms_tags static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}lib/bootstrap-datepicker/css/datepicker3.css">
+    <link rel="stylesheet" href="{% static "lib/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" %}">
+{% endblock %}
+{% block scripts %}
+    <script type="text/javascript" src="{{ STATIC_URL }}lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="{% static "lib/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js" %}"></script>
+    <script>$(function(){ $("#id_date").datepicker({format: 'yyyy-mm-dd'}); });</script>
+    <script>$(function(){ $("#id_deadline").datetimepicker({ format:'YYYY-MM-DD HH:mm' });});</script>
+    <script>$(function(){ $("#id_timestamp").datepicker({format: 'yyyy-mm-dd'}); });</script>
+    <script>$(function(){ $("#id_start_date").datepicker({format: 'yyyy-mm-dd'}); });</script>
+    <script>$(function(){ $("#id_end_date").datepicker({format: 'yyyy-mm-dd'}); });</script>
+{% endblock %}
+
+{% if forms %}
+    {% for form in forms %}
+        <div class="modal fade" id="{{ form.keyword }}-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">{{ form.form_title }}</h4>
+                    </div>
+                    <form method="post" enctype="multipart/form-data" action="{{ form.action_url }}">
+                        <div class="modal-body">
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
+                            <button type="submit" class="btn btn-primary">{% if form.instance.id %}{% trans "Save" %}{% else %}{% trans "Add" %}{% endif %}</button>
+                        </div>
+                    </form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    {% endfor %}
+{% elif form %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-body">
+                    <form method="post" enctype="multipart/form-data" class="form-horizontal col-md-12">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <div class="form-group">
+                            <p>
+                                <button type="submit" class="form-control btn btn-primary">{% if form.instance.id %}{% trans "Save" %}{% else %}{% trans "Add" %}{% endif %}</button>
+                            </p>
+                        </div>
+                    </form>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

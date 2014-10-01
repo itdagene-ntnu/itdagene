@@ -7,7 +7,7 @@ from itdagene.core.models import User
 class IssueForm(ModelForm):
     class Meta:
         model = Issue
-        exclude = ('is_solved', 'solved_date', 'deadline','assigned_user')
+        exclude = ('is_solved', 'solved_date', 'assigned_user')
 
 class IssueAssignForm(ModelForm):
     class Meta:
@@ -16,8 +16,8 @@ class IssueAssignForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(IssueAssignForm, self).__init__(*args, **kwargs)
-        users = User.objects.filter(is_active=True, profile__type='b').order_by('first_name')
-        self.fields['assigned_user'].choices = [(user.pk, user.get_full_name()) for user in users]
+        users = User.objects.filter(is_active=True, is_staff=True).order_by('first_name')
+        self.fields['assigned_user'].queryset = users
 
 
 class EvaluationForm (forms.ModelForm):

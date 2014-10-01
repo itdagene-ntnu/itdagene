@@ -1,47 +1,46 @@
 # -*- coding: utf-8 -*-
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, get_list_or_404, Http404
 from django.utils.translation import ugettext_lazy as _, activate
 from itdagene.app.feedback.forms import EvaluationForm
-from itdagene.app.feedback.models import Evaluation, EvaluationHash
+from itdagene.app.feedback.models import Evaluation
 from itdagene.core import Preference
+from itdagene.core.decorators import staff_required
+from django.conf import settings
+from itdagene.app.company.models import Company
 
 EN = [1065]
 
-def handle_evaluation(request, hash):
-    hash = get_object_or_404(EvaluationHash, hash=hash)
-    try:
-        instance = Evaluation.objects.get(hash=hash)
-    except (TypeError, Evaluation.DoesNotExist):
-        instance = Evaluation(hash=hash)
 
-    if hash.company_id in EN:
-        activate('en')
-    else:
-        activate('nb')
+def handle_evaluation(request, company):
+    companies = get_list_or_404(Company, pk=company, user=request.user)
+    for company_object in companies:
+        if company_object.pk == int(company):
 
-    form = EvaluationForm(instance=instance)
-    if request.method == 'POST':
-        form = EvaluationForm(request.POST, instance=instance)
-        if form.is_valid():
-            form.save()
-            messages.success(request, _('Thank you'))
+            """
+            # TODO:
+            Finn bedrift og lag skjema eller si at dette er besvart
+            Legg til link på bdrifft siden ig gjør det mulig for admin å sende evaluation til alle bvedrifter i current år.
 
-            return render(request, 'feedback/evaluations/handle_evaluate.html')
+            """
 
-    return render(request, 'feedback/evaluations/handle_evaluate.html',{
-        'form': form,
-        'company': instance.hash.company
-    })
+            return render(request, 'feedback/evaluations/handle_evaluate.html',{
+                'title': _('Evaluate'),
+                'description': settings.SITE['name'] + ' ' + str(Preference.current_preference().year)
+            })
 
-@login_required
+        else:
+            raise Http404
+
+
+@staff_required()
 def report (request, year=None):
     if year is None:
         preferences = Preference.current_preference()
     else:
         preferences = get_object_or_404(Preference, year=year)
-    evaluations = Evaluation.objects.filter(hash__preference=preferences)
+    evaluations = Evaluation.objects.filter(preference=preferences)
 
     if evaluations.count():
         if evaluations.exclude(internship_marathon_rating=0).count():
@@ -60,5 +59,8 @@ def report (request, year=None):
             avg_banquet_rating = sum([e.banquet_rating for e in evaluations])/evaluations.exclude(banquet_rating=0).count()
 
         percentage_want_to_come_back = (evaluations.filter(want_to_come_back=True).count()/evaluations.count())*100
+
+    title = _('Evaluation of itDAGENE')
+    description = preferences.year
 
     return render(request, 'feedback/evaluations/report.html', locals())

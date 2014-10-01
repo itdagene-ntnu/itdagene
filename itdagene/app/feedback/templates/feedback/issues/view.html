@@ -4,26 +4,63 @@
 {% load filters %}
 {% load comments %}
 
-{% block include %}
-    <script src="/static/js/display_hide.js"></script>
-{% endblock %}
-
 {% block content %}
-    <h1>{{ issue }}</h1>
-    <p class="meta">
-        <strong>{% trans "Created by" %}:</strong> {{ issue.creator.profile }}, {{ issue.date_created|date }}<br/>
-        <strong>{% trans "Type" %}:</strong> {{ issue.get_type_display }}<br/>
-        <strong>{% trans "status" %}:</strong> {{ issue.get_status_display }}
+    <div class="row">
+    <div class="col-lg-6">
+        <div class="box {% if issue.is_solved %}box-success{% else %}box-danger{% endif %}">
+            <div class="box-header">
+                <h3 class="box-title">{% trans "Metadata" %}</h3>
+            </div>
+            <div class="box-body">
+                <dl class="dl-horizontal">
+                    <dt>{% trans "Created by" %}</dt>
+                    <dd><a href="{% url "itdagene.app.users.views.user_detail" issue.creator.pk %}">{{ issue.creator }}</a>, {{ issue.date_created|timesince }} {% trans "ago" %}</dd>
+                    <dt>{% trans "Type" %}</dt>
+                    <dd>{{ issue.get_type_display }}</dd>
+                    <dt>{% trans "status" %}</dt>
+                    <dd>{{ issue.get_status_display }}</dd>
+                    <dt>{% trans "Solved" %}</dt>
+                    <dd>{{ issue.is_solved|yesno|capfirst }}</dd>
+                    {% if issue.assigned_user %}
+                        <dt>{% trans "Assigned user" %}</dt>
+                        <dd><a href="{% url "itdagene.app.users.views.user_detail" issue.assigned_user.pk %}">{{ issue.assigned_user }}</a></dd>
+                    {% endif %}
+                    {% if issue.deadline %}
+                        <dt>{% trans "Deadline" %}</dt>
+                        <dd>{{ issue.deadline|datetime }}</dd>
+                    {% endif %}
+                </dl>
+            </div>
+        </div>
 
-    </p>
-    {% if issue.assigned_user %}
-        <strong>{% trans "Assigned user" %}:</strong> {{ issue.assigned_user }}
-    {% endif %}
-    {% if issue.deadline %}<strong>{% trans "Deadline" %}:</strong> {{ issue.deadline }}{% endif %}
-    <div class="abstract">{{ issue.description|markdownize }}</div>
-    {% if not issue.assigned_user and request.user.is_staff %}
-        {% include "form.html" %}
-    {% endif %}
-    {% load_comments issue %}
-    {% load_comments_form issue %}
+        {% if not issue.assigned_user and request.user.is_staff %}
+            {% include "form_clean.html" %}
+        {% endif %}
+
+    </div>
+
+    <div class="col-lg-6">
+        <div class="box {% if issue.is_solved %}box-success{% else %}box-danger{% endif %}">
+            <div class="box-header">
+                <h3 class="box-title">
+                    {% trans "Description" %}
+                </h3>
+            </div>
+            <div class="box-body">
+                {{ issue.description|markdownize }}
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+    <div class="row">
+    <div class="col-lg-12">
+
+        {% load_comments issue %}
+        {% load_comments_form issue %}
+
+    </div>
+    </div>
+
 {% endblock %}
