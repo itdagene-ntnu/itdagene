@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404, get_list_or_404, Http404
+from django.shortcuts import render, get_object_or_404, get_list_or_404, Http404, redirect
 from django.utils.translation import ugettext_lazy as _, activate
 from itdagene.app.feedback.forms import EvaluationForm
 from itdagene.app.feedback.models import Evaluation
@@ -9,29 +9,28 @@ from itdagene.core import Preference
 from itdagene.core.decorators import staff_required
 from django.conf import settings
 from itdagene.app.company.models import Company
+from django.contrib.messages import *
+from django.core.urlresolvers import reverse
 
 EN = [1065]
 
 
 def handle_evaluation(request, company):
-    companies = get_list_or_404(Company, pk=company, user=request.user)
-    for company_object in companies:
-        if company_object.pk == int(company):
+    company = get_object_or_404(Company, pk=company, user=request.user)
+    (created, evaluation) = Evaluation.get_or_create(company=company, preference=Preference.current_preference())
+    form = EvaluationForm(instance=evaluation)
+    if request.method == 'POST':
+        form = EvaluationForm(request.POST, instance=evaluation)
+        if form.is_valid():
+            form.save()
+            add_message(request, SUCCESS, _('Thank you for your evaluation.'))
+            return redirect(reverse('itdagene.app.frontpage.views.inside'))
 
-            """
-            # TODO:
-            Finn bedrift og lag skjema eller si at dette er besvart
-            Legg til link på bdrifft siden ig gjør det mulig for admin å sende evaluation til alle bvedrifter i current år.
-
-            """
-
-            return render(request, 'feedback/evaluations/handle_evaluate.html',{
-                'title': _('Evaluate'),
-                'description': settings.SITE['name'] + ' ' + str(Preference.current_preference().year)
-            })
-
-        else:
-            raise Http404
+    return render(request, 'feedback/evaluations/handle_evaluate.html',{
+        'title': _('Evaluate'),
+        'description': settings.SITE['name'] + ' ' + str(Preference.current_preference().year),
+        'form': form
+    })
 
 
 @staff_required()
