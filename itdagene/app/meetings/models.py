@@ -3,7 +3,7 @@ from django.core.cache import cache
 from django.db import models
 from itdagene.core.log.models import LogItem
 from itdagene.core.models import BaseModel
-from itdagene.core.models import User
+from itdagene.core.models import User, Preference
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 
@@ -26,6 +26,7 @@ class Meeting(BaseModel):
     abstract = models.TextField(blank=True, null=True, verbose_name=_('abstract'))
     is_board_meeting = models.BooleanField(default=True, verbose_name=_('is board meeting'))
     referee = models.ForeignKey(User, related_name='refereed_meetings', null=True, blank=True, verbose_name=_('referee'))
+    preference = models.ForeignKey(Preference, verbose_name='Preference', blank=True, null=True)
 
     def __unicode__(self):
         return self.get_type_display()

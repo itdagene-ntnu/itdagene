@@ -19,7 +19,7 @@ def list(request):
     year_list = []
     for pref in Preference.objects.all().order_by('-year'):
         year_list.append(pref.year)
-        meeting_lists.append((pref.year, Meeting.objects.filter(date__year=pref.year).order_by('-date')))
+        meeting_lists.append((pref.year, Meeting.objects.filter(preference=pref).order_by('-date')))
         penalty_lists.append(Penalties(pref.year))
 
     return render(request, 'meetings/list.html',
@@ -35,7 +35,9 @@ def add (request):
     if request.method == 'POST':
         form = MeetingForm(request.POST)
         if form.is_valid():
-            form.save()
+            meeting = form.save(commit=False)
+            meeting.preference = Preference.current_preference()
+            meeting.save()
             add_message(request, SUCCESS, _('Meeting added.'))
             return redirect(reverse('itdagene.app.meetings.views.list'))
     return render(request, 'meetings/form.html', {'form': form, 'title': _('Add Meeting')})

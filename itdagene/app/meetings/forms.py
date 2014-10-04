@@ -15,7 +15,7 @@ class MeetingForm(ModelForm):
 
     class Meta:
         model = Meeting
-        exclude = ('is_board_meeting',)
+        exclude = ('is_board_meeting', 'preference')
 
     def __init__(self, *args, **kwargs):
         super(MeetingForm, self).__init__(*args, **kwargs)

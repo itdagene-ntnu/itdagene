@@ -10,6 +10,6 @@
 {% trans "Location" %}: {{ meeting.location }}
 {% if meeting.referee %}{% trans "Referee" %}: {{ meeting.referee }}{% endif %}
 
-{% trans "More informations" %}: {{ base_url }}{{ meeting.get_absolute_url }} %}
+{% trans "More information" %}: {{ base_url }}{{ meeting.get_absolute_url }} %}
 
 {% endblock %}
