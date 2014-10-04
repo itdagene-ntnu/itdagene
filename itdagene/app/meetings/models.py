@@ -22,19 +22,16 @@ class Meeting(BaseModel):
     end_time = models.TimeField(blank=True, null=True, verbose_name=_('to time'))
     type = models.PositiveIntegerField(choices=MEETING_TYPES, default=0, verbose_name=_('type'))
     location = models.CharField(max_length=40,blank=True, verbose_name=_('location'))
+    agenda = models.TextField(blank=True, null=True, verbose_name=_('Meeting Agenda'))
     abstract = models.TextField(blank=True, null=True, verbose_name=_('abstract'))
     is_board_meeting = models.BooleanField(default=True, verbose_name=_('is board meeting'))
     referee = models.ForeignKey(User, related_name='refereed_meetings', null=True, blank=True, verbose_name=_('referee'))
 
     def __unicode__(self):
-        return str(self.date) + ' ' + str(self.start_time)
+        return self.get_type_display()
 
     def save(self, *args, **kwargs):
-        if not self.pk:
-            action = 'CREATE'
-        else: action = 'EDIT'
         super(Meeting, self).save(*args, **kwargs)
-        LogItem.log_it(self, action, 1)
 
     def attending(self):
         att = cache.get('meetingsattending' + str(self.id))
@@ -58,10 +55,10 @@ class Meeting(BaseModel):
         return att
 
     def attending_link(self):
-        return 'http://%s/meetings/%s/' % (settings.SITE_URL, str(self.pk))
+        return 'http://%s/meetings/%s/' % (settings.SITE['domain'], reverse('itdagene.app.meetings.views.attend', args=[self.pk]))
 
     def not_attending_link(self):
-        return 'http://%s/meetings/%s/not-attend' % (settings.SITE_URL, str(self.pk))
+        return 'http://%s/meetings/%s/not-attend' % (settings.SITE['domain'], reverse('itdagene.app.meetings.views.not_attend', args=[self.pk]))
 
     def get_absolute_url(self):
         return reverse('itdagene.app.meetings.views.meeting', args=(self.pk,))
@@ -71,20 +68,16 @@ class Meeting(BaseModel):
         verbose_name_plural = _('meetings')
 
 
-
 class ReplyMeeting(BaseModel):
     meeting = models.ForeignKey(Meeting, related_name='replies',verbose_name=_('meeting'))
     user = models.ForeignKey(User, verbose_name=_('user'))
-    is_attending = models.NullBooleanField(verbose_name=_('attending'), default=False)
+    is_attending = models.NullBooleanField(verbose_name=_('attending'), null=True, blank=True)
     
     def __unicode__(self):
         return unicode(self.meeting) + ': ' + self.user.username
 
     def save(self, *args, **kwargs):
-        if self.pk: action = 'EDIT'
-        else: action = 'CREATE'
         super(ReplyMeeting, self).save()
-        LogItem.log_it(self, action, 1)
         cache.delete('meetingsatteding' + str(self.meeting_id))
         cache.delete('meetingsnotatteding' + str(self.meeting_id))
         cache.delete('meetingsawaiting' + str(self.meeting_id))

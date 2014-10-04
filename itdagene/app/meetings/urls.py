@@ -3,7 +3,6 @@ from django.conf.urls import url, patterns
 urlpatterns = patterns('itdagene.app.meetings.views',
             url(r'^$', 'list', name='meetings'),
             url(r'^add$', 'add'),
-            url(r'^search', 'search'),
             url(r'^(?P<id>\d+)/$', 'meeting', name="view_meeting"),
             url(r'^(?P<id>\d+)/add-penalty$', 'add_penalties'),
             url(r'^(?P<id>\d+)/edit$', 'edit'),

@@ -6,10 +6,11 @@ from itdagene.app.meetings.models import Meeting, ReplyMeeting, Penalty
 from itdagene.core import Preference
 from itdagene.core.models import User
 from itdagene.core.profiles.models import Profile
+from django.shortcuts import get_object_or_404, get_list_or_404
 
 
 class MeetingForm(ModelForm):
-    invites = forms.MultipleChoiceField(label=_('invite'), required=False)
+    invites = forms.MultipleChoiceField(label=_('Invite'), required=False)
     invite_current_board = forms.BooleanField(label=_('Invite current board'), required=False)
 
     class Meta:
@@ -18,21 +19,23 @@ class MeetingForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(MeetingForm, self).__init__(*args, **kwargs)
-        users = User.objects.filter(is_active=True, profile__type='b').order_by('first_name')
-        self.fields['referee'].choices = [(user.pk, user.get_full_name()) for user in users]
+        pref = Preference.current_preference()
+        users = User.objects.filter(is_active=True, is_staff=True, year=pref.year)
+
+        self.fields['referee'].queryset = users
         self.fields['invites'].choices = [(user.pk, user.get_full_name()) for user in users]
-        self.fields['invites'].widget.attrs['class'] = 'chosen'
 
     def save(self, commit=True):
         pref = Preference.current_preference()
         meeting = super(MeetingForm, self).save(commit=commit)
 
         for i in self.cleaned_data['invites']:
-            ReplyMeeting.objects.get_or_create(meeting=meeting, user_id=i)
+            user = get_object_or_404(User, id=i, is_staff=True, is_active=True, year=pref.year)
+            ReplyMeeting.objects.get_or_create(meeting=meeting, user_id=user.id)
 
         if self.cleaned_data['invite_current_board']:
-            for profile in Profile.objects.filter(year=pref.year, type='b'):
-                ReplyMeeting.objects.get_or_create(meeting=meeting, user_id=profile.user_id)
+            for user in User.objects.filter(year=pref.year, is_staff=True, is_active=True):
+                ReplyMeeting.objects.get_or_create(meeting=meeting, user_id=user.id)
 
         return meeting
 
@@ -41,17 +44,13 @@ class AbstractForm(ModelForm):
         model = Meeting
         exclude = ('date', 'start_time', 'end_time', 'is_board_member')
 
-class SearchForm(Form):
-    query = forms.CharField()
-
 class PenaltyForm(ModelForm):
     class Meta:
         model = Penalty
+        exclude = ('meeting', )
 
     def __init__(self, *args, **kwargs):
         super(PenaltyForm, self).__init__(*args, **kwargs)
         pref = Preference.current_preference()
-        users = User.objects.filter(is_active=True, profile__type='b').order_by('first_name')
-        meetings = Meeting.objects.filter(date__year=pref.year).order_by('-date')
-        self.fields['user'].choices = [(user.pk, user.get_full_name()) for user in users]
-        self.fields['meeting'].choices = [(meeting.pk, meeting) for meeting in meetings]
+        users = User.objects.filter(is_active=True, is_staff=True, year=pref.year)
+        self.fields['user'].queryset = users

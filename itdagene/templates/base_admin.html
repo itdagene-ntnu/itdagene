@@ -108,6 +108,11 @@
                             {% include 'mail/submenu.html' %}
                         </li>
                     {% endif %}
+                    {% if request.user.is_staff %}
+                        <li class="{% active request 'meetings' %} treeview"><a href="#"><span class="glyphicon glyphicon-comment"></span> {% trans "Meetings" %} <i class="fa fa-angle-left pull-right"></i> </a>
+                            {% include 'meetings/submenu.html' %}
+                        </li>
+                    {% endif %}
                     <li class="{% active request 'users' %} treeview"><a href="#"><span class="glyphicon glyphicon-user"></span> {% trans "Users" %} <i class="fa fa-angle-left pull-right"></i> </a>
                         {% include 'users/submenu.html' %}
                     </li>
@@ -150,11 +155,6 @@
                     {% if perms.events.change_event %}
                         <li class="{% active request 'events' %} treeview"><a href="#"><span class="glyphicon glyphicon-calendar"></span> {% trans "Events" %} <i class="fa fa-angle-left pull-right"></i> </a>
                             {% include 'events/submenu.html' %}
-                        </li>
-                    {% endif %}
-                    {% if perms.meetings.change_meeting %}
-                        <li class="{% active request 'meetings' %} treeview"><a href="#"><span class="glyphicon glyphicon-comment"></span> {% trans "Meetings" %} <i class="fa fa-angle-left pull-right"></i> </a>
-                            {% include 'meetings/submenu.html' %}
                         </li>
                     {% endif %}
                     {% if perms.workschedule.view_worker %}

@@ -45,3 +45,16 @@ def notifications_send_email(notification):
     result = send_email([notification.user.email], _('You have a new notification'), template, template_html, context)
     translation.activate(get_current_user().language)
     return result
+
+def meeting_send_invite(users, meeting):
+    for user in users:
+        translation.activate(user.language)
+        context = {
+            'title': _('Meeting Invitation'),
+            'meeting': meeting,
+            'base_url': 'http://%s' % (settings.SITE['domain'], )
+        }
+        template, template_html = 'meetings/invite.txt', 'meetings/invite.html'
+        result = send_email([user.email], _('Meeting Invite'), template, template_html, context)
+        translation.activate(get_current_user().language)
+    return True
