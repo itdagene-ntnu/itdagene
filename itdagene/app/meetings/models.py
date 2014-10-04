@@ -56,10 +56,10 @@ class Meeting(BaseModel):
         return att
 
     def attending_link(self):
-        return 'http://%s/meetings/%s/' % (settings.SITE['domain'], reverse('itdagene.app.meetings.views.attend', args=[self.pk]))
+        return 'http://%s%s' % (settings.SITE['domain'], reverse('itdagene.app.meetings.views.attend', args=[self.pk]))
 
     def not_attending_link(self):
-        return 'http://%s/meetings/%s/not-attend' % (settings.SITE['domain'], reverse('itdagene.app.meetings.views.not_attend', args=[self.pk]))
+        return 'http://%s%s' % (settings.SITE['domain'], reverse('itdagene.app.meetings.views.not_attend', args=[self.pk]))
 
     def get_absolute_url(self):
         return reverse('itdagene.app.meetings.views.meeting', args=(self.pk,))
