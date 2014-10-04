@@ -151,8 +151,9 @@ class Preference(BaseModel):
                 pref = Preference.objects.get(active=True)
             except Preference.DoesNotExist:
                 year = datetime.now().year
-                pref = Preference.objects.create(active=True, year=year,
-                                                 start_date='%s-09-10' % year, end_date='%s-09-11' % year)
+                pref, created = Preference.objects.get_or_create(year=year, defaults={'active':True, 'start_date':'%s-09-10' % year, 'end_date':'%s-09-11' % year})
+                pref.active = True
+                pref.save()
             cache.set('pref', pref)
         return pref
 

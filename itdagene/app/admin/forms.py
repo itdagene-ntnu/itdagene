@@ -27,6 +27,7 @@ class AddUserToGroupForm(Form):
 class PreferenceForm (ModelForm):
     class Meta:
         model = Preference
+        exclude = ('active',)
 
 class PermissionForm (ModelForm):
     class Meta:
