@@ -35,7 +35,7 @@ def add (request):
     if request.method == 'POST':
         form = MeetingForm(request.POST)
         if form.is_valid():
-            meeting = form.save(commit=False)
+            meeting = form.save()
             meeting.preference = Preference.current_preference()
             meeting.save()
             add_message(request, SUCCESS, _('Meeting added.'))
