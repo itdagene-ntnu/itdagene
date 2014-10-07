@@ -17,7 +17,7 @@ BOARD_POSITION = (
 
 
 class Experience(BaseModel):
-    year = models.DateField(auto_now_add=True)
+    year = models.ForeignKey(Preference, verbose_name=_('Preference'))
     position = models.PositiveIntegerField(choices=BOARD_POSITION, default=8, verbose_name=_('Position'))
     last_updated = models.DateField(auto_now=True)
     text = models.TextField(blank=True, null=True, verbose_name=_('Experiences'))

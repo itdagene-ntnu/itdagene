@@ -124,6 +124,11 @@
                     <li class="{% active request 'feedback' %} treeview"><a href="#"><i class="fa fa-reply"></i> {% trans "Feedback" %} <i class="fa fa-angle-left pull-right"></i> </a>
                         {% include 'feedback/submenu.html' %}
                     </li>
+                    {% if request.user.is_staff %}
+                        <li class="{% active request 'experiences' %} treeview"><a href="#"><span class="glyphicon glyphicon-pushpin"></span> {% trans "Experiences" %} <i class="fa fa-angle-left pull-right"></i> </a>
+                            {% include 'experiences/submenu.html' %}
+                        </li>
+                    {% endif %}
 
                     <li>-----------</li>
 
@@ -160,11 +165,6 @@
                     {% if perms.workschedule.view_worker %}
                         <li class="{% active request 'workschedules' %} treeview"><a href="#"><span class="glyphicon glyphicon-list"></span> {% trans "Workschedules" %} <i class="fa fa-angle-left pull-right"></i> </a>
                             {% include 'workschedule/submenu.html' %}
-                        </li>
-                    {% endif %}
-                    {% if perms.meetings.change_meeting %}
-                        <li class="{% active request 'experiences' %} treeview"><a href="{% url "experiences" %}"><span class="glyphicon glyphicon-pushpin"></span> {% trans "Experiences" %} <i class="fa fa-angle-left pull-right"></i> </a>
-                            {% include 'experiences/submenu.html' %}
                         </li>
                     {% endif %}
                 </ul>

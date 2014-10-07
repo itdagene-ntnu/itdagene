@@ -3,13 +3,20 @@
 {% load markdown_tool %}
 {% block content %}
 
-    <h1>{{ experience.year }} - {{ experience }}</h1>
-        <div class="abstract">
-            {{ experience.text|markdownize }}
+        <div class="row">
+        <div class="col-lg-12">
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3 class="box-title">{% trans "Description" %}</h3>
+                <div class="box-tools pull-right">
+                    <div class="label bg-aqua"><em>{% trans "Last updated" %} {{ experience.last_updated }}</em></div>
+                </div>
+            </div>
+            <div class="box-body">
+                {{ experience.text|markdownize }}
+            </div>
         </div>
-    <em>{% trans "Last updated" %} {{ experience.last_updated }}</em>
-    <br>
-    <br>
-    <a href="{% url "itdagene.app.experiences.views.edit" experience.pk %}" class="button">{% trans "Edit" %}</a>
+        </div>
+        </div>
 
 {% endblock %}

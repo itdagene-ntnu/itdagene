@@ -157,5 +157,17 @@ class Preference(BaseModel):
             cache.set('pref', pref)
         return pref
 
+    @classmethod
+    def get_preference_by_year(cls, year):
+        try:
+            pref = cls.objects.get(year=int(year), active=True)
+            return pref
+        except:
+            year = datetime.now().year
+            pref, created = Preference.objects.get_or_create(year=year, defaults={'active':True, 'start_date':'%s-09-10' % year, 'end_date':'%s-09-11' % year})
+            pref.active = True
+            pref.save()
+            return pref
+
     def get_absolute_url(self):
         return reverse('itdagene.app.admin.views.preferences.edit')
