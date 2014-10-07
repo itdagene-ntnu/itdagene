@@ -20,6 +20,8 @@ def user_list(request):
         persons = User.objects.filter(Q(is_staff=True) | Q(id=request.user.id)).filter(is_active=True).order_by('username')
     else:
         persons = User.objects.filter(is_active=True).order_by('username')
+
+    persons = persons.order_by('username', 'year')
     return render(request, 'users/list.html', {'persons': persons, 'title': _('User Admin')})
 
 

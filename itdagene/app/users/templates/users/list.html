@@ -12,6 +12,7 @@
                         <tr>
                             <th>{% trans "Username" %}</th>
                             <th>{% trans "Name" %}</th>
+                            <th>{% trans "Year" %}</th>
                             <th>{% trans "Email" %}</th>
                             <th>{% trans "Phone" %}</th>
                             {% if perms.core.delete_user or perms.core.change_user %}
@@ -24,6 +25,7 @@
                         <tr>
                             <td><a href="{% url "itdagene.app.users.views.user_detail" person.pk %}">{{ person.username }}</a></td>
                             <td>{{ person.get_full_name }}</td>
+                            <td>{{ person.year }}</td>
                             <td><a href="mailto:{{ person.email }}">{{ person.email }}</a></td>
                             <td><a href="tel:{{ person.phone }}">{{ person.phone }}</a></td>
                             {% if perms.core.delete_user or perms.core.change_user %}
