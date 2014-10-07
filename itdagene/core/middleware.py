@@ -50,7 +50,7 @@ def preprocessor(request):
             context['hide_joblistings_sidebar'] = True
 
     else:
-        context['base_template'] = 'base.html'
+        context['base_template'] = 'base_admin.html'
     return context
 
 

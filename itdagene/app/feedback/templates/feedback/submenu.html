@@ -5,8 +5,8 @@
         <li><a href="{% url "itdagene.app.feedback.views.issues.list" %}">{% trans "Issues" %}</a></li>
         <li><a href="{% url "itdagene.app.feedback.views.issues.solved_list" %}">{% trans "Solved Issues" %}</a></li>
     {% endif %}
-    <li><a href="{% url "itdagene.app.feedback.views.issues.my_issues" %}">{% trans "My issues" %}</a></li>
     {% if perms.feedback.add_issue %}
+        <li><a href="{% url "itdagene.app.feedback.views.issues.my_issues" %}">{% trans "My issues" %}</a></li>
         <li><a href="{% url "itdagene.app.feedback.views.issues.add" %}">{% trans "Add issue" %}</a></li>
     {% endif %}
     {% if issue.pk %}

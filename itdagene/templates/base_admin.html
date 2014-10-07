@@ -121,9 +121,11 @@
                             {% include 'admin/submenu.html' %}
                         </li>
                     {% endif %}
+                    {% if request.user.is_staff or perms.feedback.add_issue or perms.feedback.change_issue %}
                     <li class="{% active request 'feedback' %} treeview"><a href="#"><i class="fa fa-reply"></i> {% trans "Feedback" %} <i class="fa fa-angle-left pull-right"></i> </a>
                         {% include 'feedback/submenu.html' %}
                     </li>
+                    {% endif %}
                     {% if request.user.is_staff %}
                         <li class="{% active request 'experiences' %} treeview"><a href="#"><span class="glyphicon glyphicon-pushpin"></span> {% trans "Experiences" %} <i class="fa fa-angle-left pull-right"></i> </a>
                             {% include 'experiences/submenu.html' %}

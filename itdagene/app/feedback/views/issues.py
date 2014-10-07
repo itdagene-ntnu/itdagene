@@ -90,7 +90,7 @@ def edit (request, id=None):
                               'form': form})
 
 
-@login_required()
+@permission_required('feedback.add_issue')
 def my_issues (request):
     assigned = Issue.objects.filter(assigned_user=request.user).order_by('is_solved')
     created = Issue.objects.filter(creator=request.user).order_by('is_solved')
