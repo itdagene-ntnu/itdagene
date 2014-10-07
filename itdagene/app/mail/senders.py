@@ -31,7 +31,8 @@ def users_send_welcome_email(user):
     user.set_password(new_password)
     user.save()
     result = send_email([user.email], '%s %s' % (_('Welcome to'), settings.SITE['name']), 'users/welcome_mail.txt', 'users/welcome_mail.html', { 'title': '%s %s' % (_('Welcome to'), settings.SITE['name']), 'user': user, 'password': new_password})
-    translation.activate(get_current_user().language)
+    if not get_current_user().is_anonymous():
+        translation.activate(get_current_user().language)
     return result
 
 def notifications_send_email(notification):
@@ -43,7 +44,8 @@ def notifications_send_email(notification):
     }
     template, template_html = 'notifications/notification_mail.txt', 'notifications/notification_mail.html'
     result = send_email([notification.user.email], _('You have a new notification'), template, template_html, context)
-    translation.activate(get_current_user().language)
+    if not get_current_user().is_anonymous():
+        translation.activate(get_current_user().language)
     return result
 
 def meeting_send_invite(users, meeting):
@@ -56,5 +58,6 @@ def meeting_send_invite(users, meeting):
         }
         template, template_html = 'meetings/invite.txt', 'meetings/invite.html'
         result = send_email([user.email], _('Meeting Invite'), template, template_html, context)
-        translation.activate(get_current_user().language)
+        if not get_current_user().is_anonymous():
+            translation.activate(get_current_user().language)
     return True

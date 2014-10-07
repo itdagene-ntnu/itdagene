@@ -39,7 +39,8 @@ class Notification (models.Model):
                 notifications_send_email(self)
                 self.sent_mail=True
         super(Notification, self).save(*args, **kwargs)
-        translation.activate(get_current_user().language)
+        if not  get_current_user().is_anonymous():
+            translation.activate(get_current_user().language)
 
     def read_notification(self):
         self.read = True
@@ -76,7 +77,8 @@ class Subscription (models.Model):
     @classmethod
     def subscribe (cls, object, user):
         subscription = Subscription.get_or_create(object)
-        if not user in subscription.subscribers.all(): subscription.subscribers.add(user)
+        if not user.is_anonymous():
+            if not user in subscription.subscribers.all(): subscription.subscribers.add(user)
         subscription.save()
 
     @classmethod

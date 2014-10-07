@@ -153,7 +153,7 @@ class Preference(BaseModel):
                 year = datetime.now().year
                 pref, created = Preference.objects.get_or_create(year=year, defaults={'active':True, 'start_date':'%s-09-10' % year, 'end_date':'%s-09-11' % year})
                 pref.active = True
-                pref.save()
+                pref.save(notify_subscribers=False, log_it=False)
             cache.set('pref', pref)
         return pref
 
@@ -166,7 +166,7 @@ class Preference(BaseModel):
             year = datetime.now().year
             pref, created = Preference.objects.get_or_create(year=year, defaults={'active':True, 'start_date':'%s-09-10' % year, 'end_date':'%s-09-11' % year})
             pref.active = True
-            pref.save()
+            pref.save(notify_subscribers=False, log_it=False)
             return pref
 
     def get_absolute_url(self):
