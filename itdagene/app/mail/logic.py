@@ -64,7 +64,7 @@ def handle_mail(msg, sender, recipient):
                 send_message(message, [sender], '%s@%s' % ('bounce', settings.SITE['domain']))
 
                 for a in settings.ADMINS:
-                    if prefix == a[1].split('@')[0]:
+                    if sender == a[1]:
                         return
 
                 mail_admins(_('Bounce Mail'), msg.as_string())
@@ -96,7 +96,7 @@ def handle_mail(msg, sender, recipient):
         send_message(message, [sender], settings.SITE['email'])
 
         for a in settings.ADMINS:
-            if prefix == a[1].split('@')[0]:
+            if sender == a[1]:
                 return
 
         mail_admins(_('Exception while sending mail'), mail_contents)

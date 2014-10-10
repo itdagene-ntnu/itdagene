@@ -1,43 +1,64 @@
 {% extends base_template %}
-{% load i18n %}
+{% load i18n markdown_tool %}
 {% block content %}
 
-    <h1>{{ task.title }}</h1>
-
-    <table cellspacing="0">
-        <tr>
-            <th>{% trans "Start" %}</th>
-            <th>{% trans "End" %}</th>
-            <th>{% trans "Date" %}</th>
-        </tr>
-        <tr>
-            <td>{{ task.start_time }}</td>
-            <td>{{ task.end_time }}</td>
-            <td>{{ task.date }}</td>
-        </tr>
-    </table>
-
-    <h1>{% trans "Description" %}</h1>
-    <p>{{ task.description }}</p>
-
-    <h2>{% trans "Workers" %}</h2>
-    <table cellspacing="0">
-        <tr>
-            <th>{% trans "Workers" %}</th>
-            <th>{% trans "Has met" %}</th>
-        </tr>
-        {% for item in attendance %}
-        <tr>
-            <td><a href="{% url "itdagene.app.workschedule.views.view_worker" item.worker.pk %}">{{ item.worker }}</a></td>
-            <td>
-                {% if item.has_met %}{% trans "Yes" %}{% endif %}
-                {% if not item.has_met %}{% trans "No" %}{% endif %}
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
-
-    <a href="{% url "itdagene.app.workschedule.views.has_met" task.pk %}" class="button">{% trans "Sign attendance" %}</a>
-    <a href="{% url "itdagene.app.workschedule.views.edit_task" task.pk %}" class="button">{% trans "Edit" %}</a>
+    <div class="row">
+    <div class="col-md-6">
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3 class="box-title">{% trans "Meta" %}</h3>
+            </div>
+            <div class="box-body">
+                <dl class="dl-horizontal">
+                    <dt>{% trans "Start" %}</dt>
+                    <dd>{{ task.start_time }}</dd>
+                    <dt>{% trans "End" %}</dt>
+                    <dd>{{ task.end_time }}</dd>
+                    <dt>{% trans "Date" %}</dt>
+                    <dd>{{ task.date }}</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3 class="box-title">{% trans "Description" %}</h3>
+            </div>
+            <div class="box-body">
+                {{ task.description|markdownize }}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3 class="box-title">{% trans "Workers" %}</h3>
+            </div>
+            <div class="box-body no-padding">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>{% trans "Worker" %}</th>
+                        <th>{% trans "Has met" %}</th>
+                        <th>{% trans "Actions" %}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in attendance %}
+                    <tr>
+                        <td>{% if perms.workschedule.view_worker %}<a href="{% url "itdagene.app.workschedule.views.view_worker" item.worker.pk %}">{{ item.worker }}</a>{% else %}{{ item.worker }}{% endif %}</td>
+                        <td>{{ item.has_met|yesno|capfirst }}</td>
+                        <td>
+                            {% if perms.workschedule.change_worker %}
+                                <a href="{% url "" %}">{% trans "Change Attendance" %}</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
 
 {% endblock %}

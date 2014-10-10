@@ -1,7 +1,25 @@
 {% load i18n %}
 <ul class="treeview-menu">
+    {% if perms.workschedule.view_workschedule %}
     <li><a href="{% url "workschedules" %}">{% trans "Workschedules" %}</a></li>
+    {% endif %}
+    {% if perms.workschedule.add_workschedule %}
     <li><a href="{% url "itdagene.app.workschedule.views.add_task" %}">{% trans "Add Task" %}</a></li>
+    {% endif %}
+    {% if task.pk %}
+    {% if perms.workschedule.change_workschedule %}
+        <li><a href="{% url "itdagene.app.workschedule.views.edit_task" task.pk %}">{% trans "Edit Task" %}</a></li>
+    {% endif %}
+    {% endif %}
+    {% if perms.workschedule.add_worker %}
     <li><a href="{% url "itdagene.app.workschedule.views.add_worker" %}">{% trans "Add Worker" %}</a></li>
+    {% endif %}
+    {% if worker.pk %}
+    {% if perms.workschedule.change_worker %}
+        <li><a href="{% url "itdagene.app.workschedule.views.edit_worker" worker.pk %}">{% trans "Edit Worker" %}</a></li>
+    {% endif %}
+    {% endif %}
+    {% if perms.workschedule.view_workschedule %}
     <li><a href="{% url "itdagene.app.workschedule.views.email_list" %}">{% trans "Emails" %}</a></li>
+    {% endif %}
 </ul>

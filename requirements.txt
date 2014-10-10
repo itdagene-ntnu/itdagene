@@ -13,3 +13,4 @@ twython
 django-crispy-forms
 django-debug-toolbar
 django-cache-panel
+dateutil

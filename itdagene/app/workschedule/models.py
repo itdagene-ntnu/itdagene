@@ -16,7 +16,7 @@ class Worker (BaseModel):
         (7, 'XXXL'),
         (8, 'XXXXL'),
     )
-    username = models.CharField(max_length=20, verbose_name=_('username'), blank=True)
+
     name = models.CharField(max_length=100, verbose_name=_('name'))
     phone = models.IntegerField(verbose_name=_('phone number'), default=0)
     t_shirt_size = models.IntegerField(choices=SIZES, verbose_name=_('t-shirt size'), default=0)
@@ -30,12 +30,16 @@ class Worker (BaseModel):
 
     def as_dict(self):
         return {
-            'username': self.username,
             'name': unicode(self.name),
             'phone': self.phone,
             't_shirt_size': self.t_shirt_size,
             'email': self.email,
         }
+
+    class Meta:
+        permissions = (
+            ("view_worker", "Can see worker"),
+        )
 
 class WorkSchedule(BaseModel):
     title = models.CharField(max_length=80, verbose_name=_('title'))
@@ -71,7 +75,7 @@ class WorkSchedule(BaseModel):
         verbose_name_plural = _('work schedules')
         permissions = (
             ("view_workschedule", "Can see workschedule"),
-            )
+        )
 
 class WorkerInSchedule (BaseModel):
     schedule = models.ForeignKey(WorkSchedule, related_name='workers_in_schedule', verbose_name=_('schedule'))

@@ -29,3 +29,8 @@ def chosen(oid):
 @register.simple_tag
 def active_year():
     return Preference.current_preference().year
+
+
+@register.filter(name='lookup')
+def cut(value, arg):
+    return value[arg]

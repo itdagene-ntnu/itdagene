@@ -39,7 +39,6 @@ class WorkerForm(ModelForm):
 	def save(self, commit=True):
 		pref = Preference.current_preference()
 		worker = super(WorkerForm, self).save(commit=commit)
-
 		return worker
 
 class WorkerHasMetForm(ModelForm):

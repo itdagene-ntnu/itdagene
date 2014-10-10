@@ -1,73 +1,76 @@
 {% extends base_template %}
-{% load i18n %}
+{% load i18n core humanize %}
 {% block content %}
 
-    <h1>{% trans "Day One" %}</h1>
-    <table cellspacing="0">
-        <tr>
-            <th>{% trans "Task" %}</th>
-            <th>{% trans "Start" %}</th>
-            <th>{% trans "End" %}</th>
-            <th>{% trans "Date" %}</th>
-            <th>{% trans "Participants" %}</th>
-        </tr>
-    {% for task in dayOne %}
-        <tr>
-            <td><a href="{% url "itdagene.app.workschedule.views.view_task" task.pk %}">{{ task.title }}</a></td>
-            <td>{{ task.start_time }}</td>
-            <td>{{ task.end_time }}</td>
-            <td>{{ task.date }}</td>
-            <td>{% for worker in task.workers %}
-                <a href="{% url "itdagene.app.workschedule.views.view_worker" worker.pk %}">{{ worker }}</a>,{% endfor %}</td>
-        </tr>
-    {% endfor %}
-    </table>
-
-    <br>
-
-    <h1>{% trans "Day Two" %}</h1>
-    <table cellspacing="0">
-        <tr>
-            <th>{% trans "Task" %}</th>
-            <th>{% trans "Start" %}</th>
-            <th>{% trans "End" %}</th>
-            <th>{% trans "Date" %}</th>
-            <th>{% trans "Participants" %}</th>
-        </tr>
-    {% for task in dayTwo %}
-        <tr>
-            <td><a href="{% url "itdagene.app.workschedule.views.view_task" task.pk %}">{{ task.title }}</a></td>
-            <td>{{ task.start_time }}</td>
-            <td>{{ task.end_time }}</td>
-            <td>{{ task.date }}</td>
-            <td>{% for worker in task.workers %}
-                <a href="{% url "itdagene.app.workschedule.views.view_worker" worker.pk %}">{{ worker }}</a>,{% endfor %}</td>
-        </tr>
-    {% endfor %}
-    </table>
-
-    <br>
-
-    <h1>{% trans "Else" %}</h1>
-    <table cellspacing="0">
-        <tr>
-            <th>{% trans "Task" %}</th>
-            <th>{% trans "Start" %}</th>
-            <th>{% trans "End" %}</th>
-            <th>{% trans "Date" %}</th>
-            <th>{% trans "Participants" %}</th>
-        </tr>
-    {% for task in other %}
-        <tr>
-            <td><a href="{% url "itdagene.app.workschedule.views.view_task" task.pk %}">{{ task.title }}</a></td>
-            <td>{{ task.start_time }}</td>
-            <td>{{ task.end_time }}</td>
-            <td>{{ task.date }}</td>
-            <td>{% for worker in task.workers %}
-                <a href="{% url "itdagene.app.workschedule.views.view_worker" worker.pk %}">{{ worker }}</a>,{% endfor %}</td>
-        </tr>
-    {% endfor %}
-    </table>
-    <br>
+    <div class="row">
+    <div class="col-md-6">
+        {% for day in days %}
+            {% with day_dict=day %}
+            <div class="box box-success">
+            <div class="box-header">
+                <h3 class="box-title">{% trans "Day" %} {% with day_number=day_dict|lookup:"number" %}{{ day_number|apnumber }}{% endwith %}</h3>
+            </div>
+            <div class="box-body no-padding">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>{% trans "Task" %}</th>
+                            <th>{% trans "Start" %}</th>
+                            <th>{% trans "End" %}</th>
+                            <th>{% trans "Date" %}</th>
+                            <th>{% trans "Participants" %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% with workschedules=day_dict|lookup:"list" %}
+                    {% for task in workschedules %}
+                        <tr>
+                        <td><a href="{% url "itdagene.app.workschedule.views.view_task" task.pk %}">{{ task.title }}</a></td>
+                        <td>{{ task.start_time }}</td>
+                        <td>{{ task.end_time }}</td>
+                        <td>{{ task.date }}</td>
+                        <td>{{ task.workers_in_schedule.count }}</td>
+                        </tr>
+                    {% endfor %}
+                    {% endwith %}
+                    </tbody>
+                </table>
+            </div>
+            </div>
+            {% endwith %}
+        {% endfor %}
+    </div>
+    <div class="col-md-6">
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3 class="box-title">{% trans "Other Days" %}</h3>
+            </div>
+            <div class="box-body no-padding">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>{% trans "Task" %}</th>
+                            <th>{% trans "Start" %}</th>
+                            <th>{% trans "End" %}</th>
+                            <th>{% trans "Date" %}</th>
+                            <th>{% trans "Participants" %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for task in other %}
+                        <tr>
+                        <td><a href="{% url "itdagene.app.workschedule.views.view_task" task.pk %}">{{ task.title }}</a></td>
+                        <td>{{ task.start_time }}</td>
+                        <td>{{ task.end_time }}</td>
+                        <td>{{ task.date }}</td>
+                        <td>{{ task.workers_in_schedule.count }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
 
 {% endblock %}
