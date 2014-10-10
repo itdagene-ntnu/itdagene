@@ -43,13 +43,20 @@ def handle_mail(msg, sender, recipient):
     prefix, domain = recipient.split('@')
     prefix = prefix.lower()
     try:
+
+        if sender == settings.SITE['email']: return # No-Reply mail
+
         if domain in settings.MAIL_DESTINATION:
 
             aliases = MailMapping.get_destinations_and_headers(prefix, domain)
 
             if len(aliases['addresses']) == 0 and not sender == recipient:
 
-                #send bounce
+                if sender == '%s@%s' % ('bounce', settings.SITE['domain']):
+                    # The mail admin mail does not a valid mail mapping!
+                    return
+
+                # Send bounce
                 mail_contents = render_to_string('mail/backend/bounce.html', {
                                                  'sender': sender,
                                                  'recipient': recipient,
@@ -93,8 +100,6 @@ def handle_mail(msg, sender, recipient):
         message['From'] = settings.SITE['email']
         message['To'] = sender
         message['X-bounce'] = 'True'
-
-        if sender == settings.SITE['email']: return
 
         send_message(message, [sender], settings.SITE['email'])
 
