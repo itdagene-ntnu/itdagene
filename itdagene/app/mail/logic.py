@@ -93,6 +93,9 @@ def handle_mail(msg, sender, recipient):
         message['From'] = settings.SITE['email']
         message['To'] = sender
         message['X-bounce'] = 'True'
+
+        if sender == settings.SITE['email']: return
+
         send_message(message, [sender], settings.SITE['email'])
 
         for a in settings.ADMINS:
