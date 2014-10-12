@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response, get_object_or_404
-from itdagene.app.workschedule.forms import WorkScheduleForm, WorkerForm, WorkerHasMetForm
+from itdagene.app.workschedule.forms import WorkScheduleForm, WorkerForm
 from itdagene.app.workschedule.models import WorkSchedule, Worker, WorkerInSchedule
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import permission_required
@@ -67,7 +67,7 @@ def edit_task (request, id):
 
 @permission_required('workschedule.view_workschedule')
 def list(request):
-    workers = Worker.objects.all()
+    workers = Worker.objects.filter(preference=Preference.current_preference().year)
     pref = Preference.current_preference()
     start_date = pref.start_date
     end_date = pref.end_date
@@ -79,7 +79,7 @@ def list(request):
         number += 1
 
     other = WorkSchedule.objects.filter(date__year=pref.year).exclude(date__gte=start_date, date__lte=end_date).order_by('date')
-    return render(request, 'workschedule/list.html',{'other': other, 'days':days, 'title': _('Work Schedule')})
+    return render(request, 'workschedule/list.html',{'other': other, 'days':days, 'title': _('Work Schedule'), 'workers': workers})
 
 
 @permission_required('workschedule.view_workschedule')
@@ -90,39 +90,20 @@ def view_task(request, id):
 
 
 @permission_required('workschedule.change_worker')
-def has_met(request, id):
-    task = get_object_or_404(WorkSchedule, pk=id)
-    form = WorkerHasMetForm(task=task, initial={'schedule': task.pk})
-    if request.method == 'POST':
-        form = WorkerHasMetForm(request.POST, task=task, initial={'schedule': task.pk})
-        if form.is_valid():
-            form.save()
-            return redirect(reverse('itdagene.app.workschedule.views.view_task', args=[task.pk]))
-
-    return render(request, 'workschedule/has_met_form.html', {'form': form, 'task':task})
-
-
-
-
-
-
-
-
-
+def change_attendance(request, id):
+    worker = get_object_or_404(WorkerInSchedule, pk=id)
+    worker.has_met = not worker.has_met
+    worker.save()
+    return redirect(reverse('itdagene.app.workschedule.views.view_task', args=[worker.schedule.pk]))
 
 
 @permission_required('workschedule.view_workschedule')
-def email_list(request):
-    workers = Worker.objects.exclude(in_schedules=None)
-    return render(request, 'workschedule/emaillist.html',{'workers': workers})
-
-
-
-
-@permission_required('workschedule.view_worker')
 def view_worker(request, id):
     worker = get_object_or_404(Worker, pk=id)
-    return render(request, 'worker/view.html', {'worker': worker})
+    return render(request, 'worker/view.html', {'worker': worker, 'title': _('Worker'), 'description':worker.name })
+
+
+
 
 
 

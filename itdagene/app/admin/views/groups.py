@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponse
-from itdagene.app.admin.forms import GroupForm, AddUserToGroupForm, PermissionForm
+from itdagene.app.admin.forms import GroupForm, AddUserToGroupForm
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from itdagene.core.log.models import LogItem
 from django.contrib.auth.models import Group

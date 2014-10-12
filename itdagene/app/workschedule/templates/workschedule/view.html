@@ -49,7 +49,7 @@
                         <td>{{ item.has_met|yesno|capfirst }}</td>
                         <td>
                             {% if perms.workschedule.change_worker %}
-                                <a href="{% url "" %}">{% trans "Change Attendance" %}</a>
+                                <a href="{% url "itdagene.app.workschedule.views.change_attendance" item.pk %}">{% trans "Change Attendance" %}</a>
                             {% endif %}
                         </td>
                     </tr>

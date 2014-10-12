@@ -2,7 +2,7 @@
 from datetime import datetime
 from django.db import models
 from itdagene.core.log.models import LogItem
-from itdagene.core.models import BaseModel
+from itdagene.core.models import BaseModel, Preference
 from django.utils.translation import ugettext_lazy as _
 
 class Worker (BaseModel):
@@ -21,12 +21,13 @@ class Worker (BaseModel):
     phone = models.IntegerField(verbose_name=_('phone number'), default=0)
     t_shirt_size = models.IntegerField(choices=SIZES, verbose_name=_('t-shirt size'), default=0)
     email = models.EmailField(verbose_name=_('email'), blank=True)
+    preference = models.PositiveIntegerField(verbose_name=_('year'))
 
     def __unicode__(self):
         return self.name
 
     def schedules(self):
-        return [i.schedule for i in self.in_schedules.all()]
+        return [i.schedule for i in self.in_schedules.all().order_by('schedule__date', 'schedule__start_time')]
 
     def as_dict(self):
         return {
@@ -49,7 +50,7 @@ class WorkSchedule(BaseModel):
     description = models.TextField(blank=True)
 
     def __unicode__(self):
-        return "%s %s: %s - %s" % (self.title, str(self.date), str(self.start_time), str(self.end_time))
+        return self.title
 
     def workers(self):
         return [w.worker for w in self.workers_in_schedule.all()]

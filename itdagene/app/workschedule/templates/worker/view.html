@@ -2,49 +2,60 @@
 {% load i18n %}
 {% block content %}
 
-    <h1>{% trans "Worker" %}</h1>
-    <table cellspacing="0">
-        <tr>
-            <th>{% trans "Name" %}</th>
-            <th>{% trans "Phone" %}</th>
-            <th>{% trans "Email" %}</th>
-            <th>{% trans "T-Shirt" %}</th>
-        </tr>
-        <tr>
-            <td>{{ worker.name }}</a></td>
-            <td>{{ worker.phone }}</td>
-            <td>{{ worker.email }}</td>
-            <td>{{ worker.t_shirt_size }}</td>
-        </tr>
-    </table>
+    <div class="row">
 
-    <a href="{% url "itdagene.app.workschedule.views.edit_worker" worker.pk %}" class="button">{% trans "Edit" %}</a>
+    <div class="col-md-6">
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3 class="box-title">{% trans "Meta" %}</h3>
+            </div>
+            <div class="box-body">
+                <dl class="dl-horizontal">
+                    <dt>{% trans "Name" %}</dt>
+                    <dd>{{ worker.name }}</dd>
+                    <dt>{% trans "Phone" %}</dt>
+                    <dd>{{ worker.phone }}</dd>
+                    <dt>{% trans "Mail" %}</dt>
+                    <dd>{{ worker.email }}</dd>
+                    <dt>{% trans "T-shirt" %}</dt>
+                    <dd>{{ worker.get_t_shirt_size_display }}</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
 
-    <br>
-    <br>
+    <div class="col-md-6">
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3 class="box-title">{% trans "Tasks" %}</h3>
+            </div>
+            <div class="box-body no-padding">
+                <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>{% trans "Title" %}</th>
+                        <th>{% trans "Start" %}</th>
+                        <th>{% trans "End" %}</th>
+                        <th>{% trans "Date" %}</th>
+                        <th>{% trans "Description" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in worker.schedules %}
+                    <tr>
+                        <td><a href="{% url "itdagene.app.workschedule.views.view_task" task.pk %}">{{ task.title }}</a></td>
+                        <td>{{ task.start_time }}</td>
+                        <td>{{ task.end_time }}</td>
+                        <td>{{ task.date }}</td>
+                        <td>{{ task.description }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
-    <h1>{% trans "Tasks" %}</h1>
-    <table cellspacing="0">
-        <tr>
-            <th>{% trans "Title" %}</th>
-            <th>{% trans "Start" %}</th>
-            <th>{% trans "End" %}</th>
-            <th>{% trans "Date" %}</th>
-            <th>{% trans "Description" %}</th>
-        </tr>
-        {% for task in worker.schedules %}
-        <tr>
-            <td><a href="{% url "itdagene.app.workschedule.views.view_task" task.pk %}">{{ task.title }}</a></td>
-            <td>{{ task.start_time }}</td>
-            <td>{{ task.end_time }}</td>
-            <td>{{ task.date }}</td>
-            <td>{{ task.description }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-
-    
-
-
+    </div>
 
 {% endblock %}

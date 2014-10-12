@@ -29,11 +29,3 @@ class PreferenceForm (ModelForm):
         model = Preference
         exclude = ('active',)
 
-class PermissionForm (ModelForm):
-    class Meta:
-        model = Preference
-        
-    create = forms.BooleanField()
-    edit = forms.BooleanField()
-    view = forms.BooleanField()
-    delete = forms.BooleanField()

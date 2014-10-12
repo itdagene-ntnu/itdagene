@@ -19,10 +19,6 @@ def add(request):
             instance.date = datetime.now()
             instance.save()
 
-            send_mail('[itDAGENE] Someone commented on a ' + str(instance.content_type),
-                      'Hi\n\nSomeone commented on a '+ str(instance.content_type) + ' that you created: ' + str(instance.object),
-                      settings.FROM_ADDRESS,(instance.object.creator.email,))
-
             return HttpResponsePermanentRedirect(instance.object.get_absolute_url())
         else:
             print form.errors
