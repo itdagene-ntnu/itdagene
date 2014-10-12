@@ -3,6 +3,5 @@ from django.conf.urls import patterns, include, url
 from django.conf import settings
 
 urlpatterns = patterns('itdagene.app.comments.views',
-     url(r'^$', 'all'),
-     url(r'^add/$', 'add'),
+    url(r'^add/$', 'add'),
 )

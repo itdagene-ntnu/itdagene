@@ -1,12 +1,10 @@
 from datetime import datetime
-from django.conf import settings
-from django.contrib.auth.decorators import permission_required, login_required
+from django.contrib.auth.decorators import permission_required
 from django.utils.translation import ugettext_lazy as _
-from django.core.mail import send_mail
 from itdagene.app.comments.forms import CommentForm
 from django.http import HttpResponsePermanentRedirect
-from itdagene.app.comments.models import Comment
-from django.shortcuts import render
+from django.contrib.messages import *
+from django.shortcuts import redirect
 
 
 @permission_required('comments.add_comment')
@@ -19,15 +17,9 @@ def add(request):
             instance.date = datetime.now()
             instance.save()
 
-            return HttpResponsePermanentRedirect(instance.object.get_absolute_url())
+            return redirect(instance.object.get_absolute_url())
         else:
             print form.errors
-            request.session['message'] = {'class': 'danger', 'value': _('Could not post comment, error') + ': ' + ': '.join([k + ': ' + v for k, v in form.errors])}
-            return all(request)
-
-
-@permission_required('comments.add_comment')
-def all(request):
-    comments = Comment.objects.filter(reply_to=None).select_related('replies')
-    return render(request,'comments/list.html',
-                             {'comments': comments})
+            add_message(request, ERROR, _('Could not post comment'))
+            object = form.instance.object
+            return redirect(object.get_absolute_url())

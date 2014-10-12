@@ -1,23 +1,43 @@
-{% load i18n thumbnail %}
-<h3>{% trans "Comments" %} <a href="#" data-toggle="modal" data-target="#comment-modal"><span class="glyphicon glyphicon-plus-sign"></span></a></h3>
-<ul class="list-unstyled">
-    {% for comment in comments %}
-        <li>
-            <div class="media">
-                <a class="pull-left" href="#">
-                    {% thumbnail comment.user.profile.photo "40x40" crop="center" as im %}
-                        <img src="{{ im.url }}" class="img-circle" style="width:{{ im.width }}px; height:{{ im.height }}px;">
-                    {% endthumbnail %}
-                </a>
-                <div class="media-body">
-                    <div class="media-heading">
-                        <strong><a href="#" class="username">{{ comment.user.profile }}</a></strong>&emsp;<small>{{ comment.timestamp|timesince }}</small>
-                    </div>
-                    <p>{{ comment.comment }}</p>
-                </div>
-            </div>
-        </li>
-        <hr/>
-    {% endfor %}
+{% load i18n thumbnail crispy_forms_tags static %}
 
-</ul>
+<div class="box box-success">
+    <div class="box-header">
+        <i class="fa fa-comments-o"></i>
+        <h3 class="box-title">Comments</h3>
+    </div>
+    <div class="box-body chat" id="chat-box">
+        {% for comment in comments %}
+
+        <div class="item">
+
+            {% if comment.user.photo %}
+                {% thumbnail comment.user.photo "50x50" as im %}
+                    <img src="{{ im.url }}" class="img-circle">
+                {% endthumbnail %}
+            {% else %}
+                <img src="{% static "img/user_blank.png" %}" class="img-circle" />
+            {% endif %}
+
+            <p class="message">
+                <a href="{{ comment.user.get_absolute_url }}" class="name">
+                    <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> {{ comment.date|timesince }} {% trans "ago" %}</small>
+                    {{ comment.user }}
+                </a>
+                {{ comment.comment }}
+            </p>
+        </div>
+
+        {% endfor %}
+    </div>
+    <div class="box-footer" style="height: 180px">
+
+        <form action="{% url "itdagene.app.comments.views.add" %}" method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <div class="pull-right">
+                <button class="btn btn-success">{% trans "Add Comment" %}</button>
+            </div>
+        </form>
+
+    </div>
+</div>

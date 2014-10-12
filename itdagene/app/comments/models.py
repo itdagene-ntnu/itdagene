@@ -4,6 +4,7 @@ from django.db import models
 from itdagene.core.models import User
 from django.utils.translation import ugettext_lazy as _
 
+
 class Comment (models.Model):
     user = models.ForeignKey(User, verbose_name=_('user'))
     comment = models.TextField(verbose_name=_('comment'))

@@ -10,11 +10,5 @@ def load_comments(object):
     type = ContentType.objects.get_for_model(object)
     id = object.id
     comments = Comment.objects.filter(content_type=type, object_id=id)
-    return {'comments': comments}
-
-@register.inclusion_tag('comments/templatetags/form.html')
-def load_comments_form(object):
-    type = ContentType.objects.get_for_model(object)
-    id = object.id
     form = CommentForm(instance=Comment(content_type=type, object_id=id))
-    return {'form': form}
+    return {'comments': comments, 'form': form}
