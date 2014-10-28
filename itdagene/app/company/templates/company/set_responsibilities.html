@@ -1,24 +1,33 @@
 {% extends "company/base.html" %}
 {% load i18n %}
 {% block content %}
-    <h1>{% trans "Companies" %}</h1>
     <div class="row">
-        <form method="post" class="col-md-4">
-            {{ formset.management_form }}{% csrf_token %}
-            <table class="table">
-                {% for form in formset %}
-                    <tr>
-                        <th>{{ form.instance.name }}</th>
-                        <td>
-                            {{ form.contact }}<br/>
-                            {{ form.contact.errors }}
-                            {{ form.id }}
-                        </td>
-                    </tr>
-                {% endfor %}
-            </table>
-            <button class="btn btn-primary" type="submit">{% trans "Save" %}</button>
-        </form>
+        <div class="col-lg-12">
+            <div class="box box-primary">
+                <form method="post">
+                <div class="box-body no-padding">
+                    {{ formset.management_form }}{% csrf_token %}
+                    <table class="table table-hover">
+                        {% for form in formset %}
+                            {% if form.instance.pk %}
+                            <tr>
+                                <th>{{ form.instance.name }}</th>
+                                <td>
+                                    {{ form.contact }}<br/>
+                                    {{ form.contact.errors }}
+                                    {{ form.id }}
+                                </td>
+                            </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </table>
+                </div>
+                <div class="box-footer">
+                    <button class="btn btn-primary" type="submit">{% trans "Save" %}</button>
+                </div>
+                </form>
+            </div>
+        </div>
     </div>
 {% endblock %}
 

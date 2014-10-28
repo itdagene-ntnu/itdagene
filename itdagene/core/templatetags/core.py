@@ -24,7 +24,7 @@ def analytics():
 
 @register.simple_tag
 def chosen(oid):
-    return '<script type="text/javascript">$(document).ready(function(){ $("#%s").chosen(); });</script>' % oid
+    return '<script type="text/javascript">$(document).ready(function(){ $("' + oid + '").chosen({ width: \'100%\' }); });</script>'
 
 @register.simple_tag
 def active_year():
@@ -34,3 +34,13 @@ def active_year():
 @register.filter(name='lookup')
 def cut(value, arg):
     return value[arg]
+
+@register.filter
+def date_is_not_expired(value, arg=None):
+    """
+    Returns True if the date passed as value is later than today
+    """
+    if value:
+        from datetime import date
+        return date(value.year, value.month, value.day) >= date.today()
+    return True

@@ -30,7 +30,7 @@ def list(request):
 
 
 @permission_required('meetings.add_meeting')
-def add (request):
+def add(request):
     form = MeetingForm()
     if request.method == 'POST':
         form = MeetingForm(request.POST)
@@ -44,7 +44,7 @@ def add (request):
 
 
 @staff_required()
-def meeting (request, id):
+def meeting(request, id):
     meeting = get_object_or_404(Meeting, pk=id)
     try:
         reply = ReplyMeeting.objects.get(meeting=meeting, user=request.user)
@@ -100,7 +100,7 @@ def not_attend(request, id):
 
 
 @permission_required('meetings.change_meeting')
-def edit (request, id=False):
+def edit(request, id=False):
     meeting = get_object_or_404(Meeting, pk=id)
     form = MeetingForm(instance=meeting)
     if request.method == 'POST':
@@ -114,6 +114,7 @@ def edit (request, id=False):
                               'form': form,
                               'title': _('Edit Meeting'),
                               'description': str(meeting)})
+
 
 class Penalties:
     def __init__(self, year):

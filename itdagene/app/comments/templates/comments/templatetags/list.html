@@ -29,6 +29,7 @@
 
         {% endfor %}
     </div>
+    {% if form %}
     <div class="box-footer" style="height: 180px">
 
         <form action="{% url "itdagene.app.comments.views.add" %}" method="POST">
@@ -40,4 +41,5 @@
         </form>
 
     </div>
+    {% endif %}
 </div>

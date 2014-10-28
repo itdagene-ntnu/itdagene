@@ -46,9 +46,9 @@ def has_contract_for_current_year(value, arg=None):
     """
     Returns True if the contract passed as value is from current year
     """
-    from datetime import datetime
+    from itdagene.core.models import Preference
     for contract in value:
-        if contract.timestamp.year == datetime.now().year:
+        if contract.timestamp.year == Preference.current_preference().year:
             return True
     return False
 

@@ -9,7 +9,6 @@ from django.template.context import RequestContext, Context
 from django.utils import translation
 from itdagene.app.career.models import Joblisting
 from itdagene.app.company.models import Company, Package
-from itdagene.app.documents.models import Document
 from itdagene.app.events.models import Event
 from itdagene.app.feedback.models import Issue
 from itdagene.app.meetings.models import Meeting
@@ -96,11 +95,6 @@ class Frontpage:
                  'children': 'career/submenu.html',
                  'visible': u.has_permission('VIEW', Joblisting)},
 
-                {'title': _('Documents'),
-                 'url': reverse('documents'),
-                 'icon': 'active_sessions',
-                 'children': 'documents/submenu.html',
-                 'visible': u.has_permission('VIEW', Document)},
 
                 {'title': _('Events'),
                  'url': reverse('events'),

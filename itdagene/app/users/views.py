@@ -17,7 +17,7 @@ from django.utils.text import slugify
 @login_required
 def user_list(request):
     if not request.user.is_staff:
-        persons = User.objects.filter(Q(is_staff=True) | Q(id=request.user.id)).filter(is_active=True).order_by('username')
+        persons = User.objects.filter(Q(is_staff=True) | Q(id=request.user.id)).filter(is_active=True, year=request.user.year).order_by('username')
     else:
         persons = User.objects.filter(is_active=True).order_by('username')
 
@@ -29,7 +29,7 @@ def user_list(request):
 def user_detail(request, pk):
     try:
         if not request.user.is_staff:
-            person = User.objects.filter(Q(is_staff=True) | Q(id=request.user.id)).filter(is_active=True).get(pk=pk)
+            person = User.objects.filter(Q(is_staff=True) | Q(id=request.user.id)).filter(is_active=True, year=request.user.year).get(pk=pk)
         else:
             person = User.objects.filter(is_active=True).order_by('username').get(pk=pk)
     except:
@@ -126,6 +126,7 @@ def send_welcome_email(request, pk):
     return render(request, 'users/send_welcome_email.html', {'person': user, 'title': _('Send welcome email'), 'description': user.get_full_name()})
 
 
+@login_required()
 def vcard(request, pk):
     try:
         if not request.user.is_staff:

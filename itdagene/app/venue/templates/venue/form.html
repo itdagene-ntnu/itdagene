@@ -1,11 +1,5 @@
-{% extends "venue/base.html" %}
-{% load core %}
+{% extends "base_admin.html" %}
 
-{% block include %}
-    {% chosen "id_company_day1" %}
-    {% chosen "id_company_day2" %}
-{% endblock %}
 {% block content %}
-    <h1>{{ title }}</h1>
     {% include "form.html" %}
 {% endblock %}

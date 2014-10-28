@@ -5,43 +5,48 @@ from itdagene.app.company.forms import PackageForm
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render
+from itdagene.core.decorators import staff_required
+from django.contrib.messages import *
 
 
-@permission_required('company.change_package')
+@staff_required()
 def list(request):
     packages = Package.objects.all()
-    forms = [PackageForm()]
     return render(request, 'company/packages/base.html',
                   {'packages': packages,
-                   'forms': forms})
+                   'title': _('Packages')})
 
 
-@permission_required('company.change_package')
+@staff_required()
 def view(request, id):
     package = get_object_or_404(Package, pk=id)
     return render(request, 'company/packages/view.html',
-                  {'package': package})
+                  {'package': package, 'title': _('Package'), 'description': package})
+
 
 @permission_required('company.change_package')
-def edit(request, id=False):
-
-    if id:
-        form_title = _('Edit package')
-        package = get_object_or_404(Package, pk=id)
-        form = PackageForm(instance=package)
-    else:
-        form_title = _('Add package')
-        package = None
-        form = PackageForm()
+def add(request):
+    form = PackageForm()
     if request.method == 'POST':
-        if id:
-            form = PackageForm(request.POST, instance=package)
-        else:
-            form = PackageForm(request.POST)
+        form = PackageForm(request.POST)
         if form.is_valid():
             package = form.save()
+            add_message(request, SUCCESS, _('Package added.'))
             return redirect(reverse('itdagene.app.company.views.packages.list'))
-    return render(request, 'company/packages/form.html',
-                             {'package': package,
-                              'form': form,
-                              'form_title': form_title})
+    return render(request, 'company/form.html', {'form': form, 'title': _('Add Package')})
+
+
+@permission_required('company.change_package')
+def edit(request, id):
+    package = get_object_or_404(Package, pk=id)
+    form = PackageForm(instance=package)
+
+    if request.method == 'POST':
+        form = PackageForm(request.POST, instance=package)
+        if form.is_valid():
+            package = form.save()
+            add_message(request, SUCCESS, _('Package saved.'))
+            return redirect(reverse('itdagene.app.company.views.packages.list'))
+    return render(request, 'company/form.html', {'package': package, 'form': form,
+                                                 'title': _('Edit Package'),
+                                                 'description': package})

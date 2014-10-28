@@ -1,6 +1,5 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.contenttypes.models import ContentType
-from django.core.cache import cache
 from itdagene.core.models import User
 from django.utils.translation import ugettext as _
 from django.shortcuts import render_to_response, get_object_or_404, redirect
@@ -15,117 +14,39 @@ from itdagene.core.log.models import LogItem
 from itdagene.app.feedback.models import Evaluation
 from itdagene.core import Preference
 from django.shortcuts import render
-
-@login_required
-def hsp(request):
-    raise Http404
+from itdagene.core.decorators import staff_required
+from django.contrib.messages import *
 
 
-@permission_required('company.change_company')
+@staff_required()
 def list_companies(request):
-    companies = cache.get('companies')
-    if request.user.profile.type == 'b':
-        user_companies = cache.get('companiesforuser' + str(request.user.pk))
-        if not user_companies:
-            user_companies = Company.objects.filter(contact=request.user)\
-            .order_by('status', 'name').select_related('package','contact', 'company_contacts','contracts')
-            cache.set('companiesforuser' + str(request.user.pk), user_companies)
-    else: user_companies = None
-    if not companies:
-        companies = Company.objects.filter(active=True).order_by('name').select_related('contact')
-        cache.set('companies', companies)
-    forms = [CompanyForm()]
+    if request.user.is_staff:
+        user_companies = Company.objects.filter(contact=request.user)\
+            .order_by('status', 'name').select_related('package', 'contact', 'company_contacts', 'contracts')
+    else:
+        user_companies = None
+    companies = Company.objects.filter(active=True).order_by('name').select_related('contact')
     return render(request, 'company/base.html',
                   {'companies': companies,
                    'user_companies': user_companies,
-                   'forms': forms})
+                   'title': _('Companies')})
 
 
-@permission_required('company.change_company')
-def inactive(request):
-    companies = Company.objects.filter(active=False).order_by('name')
-    return render(request, 'company/base.html',
-                  {'companies': companies})
-
-
-@permission_required('company.change_company')
+@staff_required()
 def view(request, id):
     company = get_object_or_404(Company.objects.select_related(), pk=id)
-    evaluation = Evaluation.objects.get_or_create(company=company, preference=Preference.current_preference())[0]
-    forms = [ContractForm(instance=company), CompanyContactForm(instance=company), JoblistingForm(instance=company)]
+    evaluation = Evaluation.objects.get_or_create(company=company, preference=Preference.current_preference())
     return render(request, 'company/view.html', {
         'company': company,
         'evaluation': evaluation,
-        'forms': forms})
+        'title': _('Company'),
+        'description': company})
 
 
-@permission_required('company.change_company')
-def edit(request, id=False):
-    if id:
-        form_title = _(' company')
-        company = get_object_or_404(Company, pk=id)
-        form = CompanyForm(instance=company)
-    else:
-        form_title = _('Add company')
-        form = CompanyForm()
-        company = None
-    if request.method == 'POST':
-        if id:
-            form = CompanyForm(request.POST, request.FILES, instance=company)
-        else:
-            form = CompanyForm(request.POST, request.FILES)
-        if form.is_valid():
-            company = form.save()
-            request.session['message'] = {'class': 'success', 'value': _('%s was saved.') % company.name}
-            return redirect(reverse('itdagene.app.company.views.list_companies'))
-    return render(request, 'company/form.html',
-                  {'company': company,
-                   'form': form,
-                   'form_title': form_title})
-
-
-@permission_required('company.change_company')
-def activate(request, id):
-    company = get_object_or_404(Company, pk=id)
-    company.active = True
-    company.save()
-    cache.delete('companies')
-    request.session['message'] = {'class': 'success', 'value': _('%s was activated.') % company.name}
-    return redirect(reverse('itdagene.app.company.views.view', args=[company.pk]))
-
-
-@permission_required('company.change_company')
-def deactivate(request, id):
-    company = get_object_or_404(Company, pk=id)
-    company.active = False
-    company.save()
-    cache.delete('companies')
-    #add_message(request, _('%s was deactivated') % company.name, 'success')
-    request.session['message'] = {'class': 'success', 'value': _('%s was deactivated.') % company.name}
-    return redirect(reverse('itdagene.app.company.views.view', args=[company.pk]))
-
-
-@permission_required('company.change_company')
-def set_responsibilities(request):
-    companies = Company.objects.filter(active=True)
-    FormSet = modelformset_factory(Company, form=ResponsibilityForm)
-    formset = FormSet(queryset=companies)
-    if request.method == 'POST':
-        formset = FormSet(request.POST,queryset=companies)
-        if formset.is_valid():
-            formset.save()
-            for u in User.objects.filter(is_active=True):
-                cache.delete('companiesforuser' + str(u.pk))
-            return redirect(reverse('itdagene.app.company.views.list_companies'))
-    return render(request, 'company/set_responsibilities.html',
-                  {'formset': formset})
-
-
-@permission_required('company.change_company')
+@staff_required()
 def book_company(request, id):
-    company = get_object_or_404(Company, pk=id)
-    form = BookCompanyForm(instance=company)
     if request.method == 'POST':
+        company = get_object_or_404(Company, pk=id)
         form = BookCompanyForm(request.POST, instance=company)
         if form.is_valid():
             Package.update_available_spots()
@@ -135,47 +56,82 @@ def book_company(request, id):
                     company.waiting_list.add(company.package)
                     company.package = None
             company.save()
-            request.session['message'] = {'class': 'success', 'value': _('%s was booked.') % company.name}
-            return redirect(reverse('itdagene.app.company.views.view', args=[company.pk]))
-    return render(request, 'company/form.html',
-                  {'company': company,
-                   'form': form})
+            add_message(request, SUCCESS, _('%s was booked.') % company.name)
 
-@permission_required('company.change_company')
+        return redirect(company.get_absolute_url())
+    else:
+        raise Http404
+
+
+@staff_required()
 def waiting_list(request, id):
-    company = get_object_or_404(Company, pk=id)
-    form = WaitingListCompanyForm(instance=company)
     if request.method == 'POST':
+        company = get_object_or_404(Company, pk=id)
         form = WaitingListCompanyForm(request.POST, instance=company)
         if form.is_valid():
             form.save()
-            request.session['message'] = {'class': 'success', 'value': _('Added to waiting list')}
-            return redirect(reverse('itdagene.app.company.views.view', args=[company.pk]))
-    return render(request, 'company/form.html',
-                  {'company': company,
-                   'form': form})
+            add_message(request, SUCCESS, _('Added to waiting list'))
 
-@permission_required('company.change_company')
+        return redirect(company.get_absolute_url())
+    else:
+        raise Http404
+
+
+@staff_required()
 def set_status(request, id):
-    company = get_object_or_404(Company, pk=id)
-    form = CompanyStatusForm(instance=company)
     if request.method == 'POST':
+        company = get_object_or_404(Company, pk=id)
         form = CompanyStatusForm(request.POST, instance=company)
         if form.is_valid():
             form.save()
-            request.session['message'] = {'class': 'success', 'value': _('Status changed')}
-            return redirect(reverse('itdagene.app.company.views.view', args=[company.pk]))
+            add_message(request, SUCCESS, _('Status changed'))
+
+        return redirect(company.get_absolute_url())
+    else:
+        raise Http404
+
+
+@permission_required('company.add_company')
+def add(request):
+    form = CompanyForm()
+    if request.method == 'POST':
+        form = CompanyForm(request.POST, request.FILES)
+        if form.is_valid():
+            company = form.save()
+            add_message(request, SUCCESS, _('Company saved.'))
+            return redirect(company.get_absolute_url())
+    return render(request, 'company/form.html', {'title': _('Add Company'), 'form': form})
+
+
+@permission_required('company.change_company')
+def edit(request, id=False):
+    company = get_object_or_404(Company, pk=id)
+    form = CompanyForm(instance=company)
+    if request.method == 'POST':
+        form = CompanyForm(request.POST, request.FILES, instance=company)
+        if form.is_valid():
+            company = form.save()
+            add_message(request, SUCCESS, _('Comapny saved'))
+            return redirect(company.get_absolute_url())
     return render(request, 'company/form.html',
                   {'company': company,
-                   'form': form})
+                   'form': form,
+                   'title': _('Change Company'),
+                   'description': company})
+
 
 @permission_required('company.change_company')
-def log_company(request, id):
-    company = get_object_or_404(Company, pk=id)
-    log = LogItem.objects.filter(content_type=ContentType.objects.get_for_model(company), object_id=company.id).reverse()
-    return render(request, 'company/log.html', {'log': log, 'company': company})
+def set_responsibilities(request):
+    companies = Company.objects.filter(active=True)
+    form_set = modelformset_factory(Company, form=ResponsibilityForm)
+    formset = form_set(queryset=companies)
+    if request.method == 'POST':
+        formset = form_set(request.POST, queryset=companies)
+        if formset.is_valid():
+            formset.save()
+            add_message(request, SUCCESS, _('Changed responsibilities.'))
+            return redirect(reverse('itdagene.app.company.views.list_companies'))
+    return render(request, 'company/set_responsibilities.html',
+                  {'formset': formset, 'title': _('Set Responsibilities')})
 
-@permission_required('company.change_company')
-def view_contact_count(request):
-    users = User.objects.filter(is_active=True, profile__type='b').select_related('companies')
-    return render(request, 'company/contact_count.html',{'users':users})
+

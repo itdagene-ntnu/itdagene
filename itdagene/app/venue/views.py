@@ -1,4 +1,5 @@
 from django.core.cache import cache
+from itdagene.core.decorators import staff_required
 from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.shortcuts import redirect
@@ -7,39 +8,33 @@ from itdagene.app.venue.forms import StandForm
 from itdagene.app.venue.models import Stand
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render
+from django.utils.translation import ugettext_lazy as _
 
-@permission_required('venue.change_stand')
+
+@staff_required()
 def venue(request):
     stands = Stand.objects.all()
-    return render(request, 'venue/base.html',
-                             {'stands': stands})
-@permission_required('venue.change_stand')
-def stands(request):
-    stands = None
-    if request.user.profile.type == 'b':
-        stands = cache.get('standsforuser' + str(request.user.pk))
-        if not stands: stands = create_stand_cache(request)
-    #elif request.user.profile.type == 'c':
-        #stands = Stand.objects.filter()
-    else:
-        raise Http404
-    return render(request, 'venue/stands.html',
-                             {'stands': stands})
+    user_stands = Stand.objects.filter(stand_companies__company__contact=request.user)
+    return render(request, 'venue/base.html', {'stands': stands, 'user_stands': user_stands,
+                                               'title': _('Venue')})
+
+
+@staff_required()
+def view_stand(request, pk):
+    pass
+
+
+@permission_required('venue.add_stand')
+def add_stand(request):
+    pass
+
+
 @permission_required('venue.change_stand')
 def edit_stand(request, id=None):
-    form = StandForm()
-    title = ugettext_lazy('Add stand')
-    if id:
-        pass
-    if request.method == 'POST':
-        form = StandForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect(reverse('venue'))
+    pass
 
-    return render(request, 'venue/form.html', {'form': form, 'title': title})
 
-def create_stand_cache(request):
-    stands = Stand.objects.filter(company_day1__contact=request.user,company_day2__contact=request.user).select_related('user', 'package')
-    cache.set('standsforuser' + str(request.user.pk), list(stands))
-    return stands
+@permission_required('venue.delete_stand')
+def delete_stand(request, id=None):
+    pass
+

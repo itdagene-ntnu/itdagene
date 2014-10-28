@@ -1,35 +1,42 @@
-{% extends "base.html" %}
+{% extends "base_admin.html" %}
 {% load i18n filters %}
-{% block include %}
-    <script src="{{ STATIC_URL }}company/js/economics.js"></script>
-{% endblock %}
 {% block content %}
-    <div class="col-md-6">
-        <table class="table">
-            <tr>
-                <th>{% trans "Company" %}</th>
-                <th>{% trans "Payement address" %}</th>
-                <th>{% trans "Contract" %}</th>
-                <th>{% trans "Billed" %}</th>
-                <th>{% trans "Paid" %}</th>
-            </tr>
-            {% for company in companies %}
-                <tr>
-                    <td><a href="{% url "view_company" company.pk %}">{{ company }}</a></td>
-                    <td>{{ company.payment_address }}</td>
-                    <td><a href="{% url "download_contract" company.pk company.current_contract.pk %}">{% trans "Download" %}</a></td>
-                    {% if company.current_contract.is_billed %}
-                        <td style="text-align: center;"><a class="is-billed-button btn btn-xs btn-success" data-company-id="{{ company.pk }}">{{ company.current_contract.is_billed|boolean }}</a></td>
-                    {% else %}
-                        <td style="text-align: center;"><a class="is-billed-button btn btn-xs btn-danger" data-company-id="{{ company.pk }}">{{ company.current_contract.is_billed|boolean }}</a></td>
-                    {% endif %}
-                    {% if company.current_contract.has_paid %}
-                        <td style="text-align: center;"><a class="is-paid-button btn btn-xs btn-success" data-company-id="{{ company.pk }}">{{ company.current_contract.has_paid|boolean }}</a></td>
-                    {% else %}
-                        <td style="text-align: center;"><a class="is-paid-button btn btn-xs btn-danger" data-company-id="{{ company.pk }}">{{ company.current_contract.has_paid|boolean }}</a></td>
-                    {% endif %}
-                </tr>
-            {% endfor %}
-        </table>
+    <div class="col-lg-12">
+        <div class="box box-primary">
+            <div class="box-body no-padding">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>{% trans "Company" %}</th>
+                        <th>{% trans "Payement address" %}</th>
+                        <th>{% trans "Contract" %}</th>
+                        <th>{% trans "Billed" %}</th>
+                        <th>{% trans "Paid" %}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for company in companies %}
+                        <tr>
+                            <td><a href="{% url "view_company" company.pk %}">{{ company }}</a></td>
+                            <td>{{ company.payment_address }}</td>
+                            <td><a href="">{% trans "Download" %}</a></td>
+
+                            {% if company.current_contract.is_billed %}
+                                <td><span class="label label-success">{{ company.current_contract.is_billed|boolean }}</span></td>
+                            {% else %}
+                                <td><span class="label label-danger">{{ company.current_contract.is_billed|boolean }}</span></td>
+                            {% endif %}
+
+                            {% if company.current_contract.has_paid %}
+                                <td><span class="label label-success">{{ company.current_contract.has_paid|boolean }}</span></td>
+                            {% else %}
+                                <td><span class="label label-danger">{{ company.current_contract.has_paid|boolean }}</span></td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 {% endblock %}

@@ -1,11 +1,5 @@
-{% load i18n widget_tweaks %}
-<form action="{% url "set_status" form.instance.pk %}" method="post" class="form-inline">
+{% load i18n widget_tweaks crispy_forms_tags %}
+<form action="{% url "itdagene.app.company.views.set_status" form.instance.pk %}" method="post">
     {% csrf_token %}
-    <h3>{% trans "Set company status" %}</h3>
-    {% for field in form %}
-        <div class="form-group">
-            {% render_field field class="form-control" %}
-        </div>
-    {% endfor %}
-    <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+    {% crispy form %}
 </form>

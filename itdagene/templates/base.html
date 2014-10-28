@@ -59,11 +59,6 @@
                             {% include 'career/submenu.html' %}
                         </li>
                     {% endif %}
-                    {% if perms.documents.change_document %}
-                        <li {% active request 'documents' %}><a href="{% url "documents" %}"><span class="glyphicon glyphicon-file"></span>&nbsp;{% trans "Documents" %}</a>
-                            {% include 'documents/submenu.html' %}
-                        </li>
-                    {% endif %}
                     {% if perms.events.change_event %}
                         <li {% active request 'events' %}><a href="{% url "events" %}"><span class="glyphicon glyphicon-calendar"></span>&nbsp;{% trans "Events" %}</a>
                             {% include 'events/submenu.html' %}

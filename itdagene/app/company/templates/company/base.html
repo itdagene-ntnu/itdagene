@@ -1,100 +1,104 @@
-{% extends base_template %}
+{% extends "base_admin.html" %}
 {% load i18n filters %}
 
-{% block include %}
-    <script src="{{ STATIC_URL }}company/js/companies.js"></script>
-    <script src="{{ STATIC_URL }}company/lib/sortable/sortable.js"></script>
-{% endblock %}
 
 {% block content %}
-    <h1>{% trans "Companies" %}</h1>
-    {% if user_companies %}
-        <h3>{% trans "Your responsibility" %}</h3>
-        <div class="row">
-            {% for company in user_companies %}
-                <div class="col-md-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><a href="{% url "itdagene.app.company.views.view" company.pk %}">{{ company }}</a></h3>
-                        </div>
-                        <div class="panel-body">
-                            <em>{% trans "Todo" %}: {{ company.unfinished_todos.count }}</em>
 
-                            <div>
-                                <strong>{% trans "Status" %}:</strong> {{ company.get_status_display }}<br/>
+    <div class="row">
+        <div class="{% if user_companies %}col-lg-6{% else %}col-lg-12{% endif %}">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">{% trans "Companies" %}</h3>
+                </div>
+                <div class="box-body no-padding">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>{% trans "Company" %}</th>
+                            <th>{% trans "Status" %}</th>
+                            <th>{% trans "Package" %}</th>
+                            <th>{% trans "Assigned to" %}</th>
+                            <th>{% trans "Contracts" %}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for company in companies %}
+                            <tr>
+                                <td><a href="{% url "itdagene.app.company.views.view" company.pk %}">{{ company }}</a></td>
+                                <td {% if company.status == 0 %}class="danger"{% endif %}>{{ company.get_status_display }}</td>
+                                <td {% if not company.package %}class="danger"{% endif %}>
+                                    {% if company.package %}{{ company.package.name }}{% else %}{% trans "None" %}{% endif %}</td>
+                                <td>{% if company.contact %}{{ company.contact }}{% else %}{% trans "None" %}{% endif %}</td>
+                                <td>{% if company.contracts.all|has_contract_for_current_year %}{{ "True"|boolean }}{% else %}{{ ""|boolean }}{% endif %}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
 
-                                <div>
-                                    {% if company.package %}<strong>{% trans "Package" %}:</strong> {{ company.package.name }}
-                                        <br/>{% endif %}
-                                    {% if company.phone %}<strong>{% trans "Phone number" %}:</strong> {{ company.phone }}
-                                        <br/>{% endif %}
-                                    {% if company.course %}<strong>{% trans "Course" %}:</strong> {{ company.course }}
-                                        <br/>{% endif %}
-                                    {% if company.company_contacts.count > 0 %}
-                                        <strong>{% trans "Contacts" %}:</strong>{% endif %}
-                                    <ul class="list-unstyled">
-                                        {% for contact in company.company_contacts.all|slice:":2" %}
-                                            <li>
-                                                <div class="row">
-                                                    <div class="col-md-5">
-                                                        {{ contact }}
-                                                    </div>
-                                                    <div class="col-md-5">
-                                                        {% if contact.phone %}
-                                                            {{ contact.phone }}
-                                                        {% else %}
-                                                            -
-                                                        {% endif %}
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        {% if contact.email %}
-                                                            <a href="mailto:{{ contact.email }}"><span class="glyphicon glyphicon-envelope"></span></a>
-                                                        {% endif %}
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        {% endfor %}
-                                    </ul>
+        {% if user_companies %}
+            <div class="col-lg-6">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">{% trans "Your Companies" %}</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+
+                        {% for company in user_companies %}
+                            <div class="col-md-4">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title"><a href="{% url "itdagene.app.company.views.view" company.pk %}">{{ company }}</a></h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <strong>{% trans "Status" %}:</strong> {{ company.get_status_display }}<br/>
+                                        <div>
+                                            {% if company.package %}<strong>{% trans "Package" %}:</strong> {{ company.package.name }}
+                                                <br/>{% endif %}
+                                            {% if company.phone %}<strong>{% trans "Phone number" %}:</strong> {{ company.phone }}
+                                                <br/>{% endif %}
+                                            {% if company.course %}<strong>{% trans "Course" %}:</strong> {{ company.course }}
+                                                <br/>{% endif %}
+                                            {% if company.company_contacts.count > 0 %}
+                                                <strong>{% trans "Contacts" %}:</strong>{% endif %}
+                                            <ul class="list-unstyled">
+                                                {% for contact in company.company_contacts.all|slice:":2" %}
+                                                    <li>
+                                                        <div class="row">
+                                                            <div class="col-md-5">
+                                                                {{ contact }}
+                                                            </div>
+                                                            <div class="col-md-5">
+                                                                {% if contact.phone %}
+                                                                    {{ contact.phone }}
+                                                                {% else %}
+                                                                    -
+                                                                {% endif %}
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                {% if contact.email %}
+                                                                    <a href="mailto:{{ contact.email }}"><span class="glyphicon glyphicon-envelope"></span></a>
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                        {% endfor %}
+
                         </div>
                     </div>
                 </div>
-            {% endfor %}
-        </ul>
-        </div>
-        <h3>{% trans "Other companies" %}</h3>
-    {% endif %}
-    <div>
-        <strong>{% trans "Status" %}:</strong>
-        <select id="status">
-            <option value="all" selected="selected">All</option>
-            <option value="0">{% trans "Not contacted" %}</option>
-            <option value="4">{% trans "Contacted" %}</option>
-            <option value="1">{% trans "Not interested" %}</option>
-            <option value="2">{% trans "Interested" %}</option>
-            <option value="3">{% trans "Signed" %}</option>
-        </select>
-        <a href="#" data-toggle="modal" data-target="#company-modal" class="btn btn-primary">{% trans "Add company" %}</a>
+            </div>
+        {% endif %}
     </div>
-    <table id="sortabletable" class="sortable filtered table table-hover company-table">
-        <tr class="active">
-            <th>{% trans "Company" %}</th>
-            <th>{% trans "Status" %}</th>
-            <th>{% trans "Package" %}</th>
-            <th>{% trans "Assigned to" %}</th>
-            <th>{% trans "Contracts" %}</th>
-        </tr>
-        {% for company in companies %}
-            <tr>
-                <td><a href="{% url "itdagene.app.company.views.view" company.pk %}">{{ company }}</a></td>
-                <td {% if company.status == 0 %}class="red-bg"{% endif %}>{{ company.get_status_display }}</td>
-                <td {% if not company.package %}class="red-bg"{% endif %}>
-                    {% if company.package %}{{ company.package.name }}{% else %}{% trans "None" %}{% endif %}</td>
-                <td>{% if company.contact %}{{ company.contact.profile }}{% endif %}</td>
-                <td>{% if company.contracts.all|has_contract_for_current_year %}{{ "True"|boolean }}{% else %}{{ ""|boolean }}{% endif %}</td>
-            </tr>
-        {% endfor %}
-    </table>
-    {% include 'form.html' %}
+
+
 {% endblock %}

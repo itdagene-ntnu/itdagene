@@ -17,7 +17,6 @@ APPS = (
     ('company',_('BDB')),
     ('career',_('Career')),
     ('core',_('Core')),
-    ('documents',_('Documents')),
     ('events',_('Events')),
     ('feedback',_('Feedback')),
     ('frontpage',_('Frontpage')),
@@ -101,6 +100,7 @@ class Evaluation (models.Model):
     visitors_rating = models.IntegerField(
         choices=RATINGS,
         verbose_name=_('Are you satisfied with the number of people that visited your stand?'),
+        default=0
     )
 
     has_interview_location = models.BooleanField(verbose_name=_('Did you use interview rooms?'), default=False)

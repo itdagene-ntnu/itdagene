@@ -3,47 +3,11 @@ from itdagene.app.company.models import Company, Contract
 from django.contrib.auth.decorators import permission_required
 from django.views.decorators.http import require_GET, require_POST
 from django.shortcuts import render
+from django.utils.translation import ugettext_lazy as _
 
 
-@require_GET
 @permission_required('company.change_contract')
 def economic_overview(request):
     companies = Company.objects.filter(active=True, status=3).exclude(contracts=None).select_related()
     return render(request, 'company/economics/base.html',
-                  {'companies': companies})
-
-
-@require_POST
-@permission_required('company.change_contract')
-def billed(request, company_id):
-    c = Company.objects.get(pk=company_id).current_contract()
-    c.is_billed = True
-    c.save()
-    return HttpResponse()
-
-
-@require_POST
-@permission_required('company.change_contract')
-def not_billed(request, company_id):
-    c = Company.objects.get(pk=company_id).current_contract()
-    c.is_billed = False
-    c.save()
-    return HttpResponse()
-
-
-@require_POST
-@permission_required('company.change_contract')
-def paid(request, company_id):
-    c = Company.objects.get(pk=company_id).current_contract()
-    c.has_paid = True
-    c.save()
-    return HttpResponse()
-
-
-@require_POST
-@permission_required('company.change_contract')
-def not_paid(request, company_id):
-    c = Company.objects.get(pk=company_id).current_contract()
-    c.has_paid = False
-    c.save()
-    return HttpResponse()
+                  {'companies': companies, 'title': _('Economic Overview')})

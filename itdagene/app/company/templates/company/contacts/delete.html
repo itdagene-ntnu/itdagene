@@ -1,0 +1,23 @@
+{% extends "base_admin.html" %}
+
+{% load i18n %}
+
+{% block content %}
+<div class="row">
+<div class="col-lg-12">
+    <div class="box box-danger box-solid">
+        <div class="box-header">
+            <h3 class="box-title">{% trans "Danger Zone" %}</h3>
+        </div>
+        <div class="box-body">
+             <form method="post" action="{% url "itdagene.app.company.views.company_contacts.delete_contact" contact.pk %}">
+                {% csrf_token %}
+                <p>{% blocktrans with contact=contact %}Are you sure you want to delete the contact "{{ contact }}"?{% endblocktrans %}</p>
+                <p><button type="submit" class="btn btn-danger">{% trans "Delete Contact" %}</button></p>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}

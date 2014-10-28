@@ -1,9 +1,8 @@
 from datetime import datetime
-from django.core.cache import cache
 from django.db import models, connection
 from itdagene.app.company import COMPANY_STATUS
 from itdagene.core.log.models import LogItem
-from itdagene.core.models import BaseModel
+from itdagene.core.models import BaseModel, Preference
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from itdagene.core.models import User
@@ -22,28 +21,13 @@ class Package(BaseModel):
     is_full = models.BooleanField(verbose_name=_('is full'), default=False)
 
     def __unicode__(self):
-        return _('Package') + ': ' + self.name
+        return self.name
 
     def get_absolute_url(self):
         return reverse('itdagene.app.company.views.packages.view', args=[self.pk])
 
     def get_waiting_list(self):
-        cursor = connection.cursor()
-        waiting_list = Company.objects.raw('SELECT "company_company"."id", "company_company"."creator_id", '
-                                      '"company_company"."saved_by_id", "company_company"."date_created", '
-                                      '"company_company"."date_saved", "company_company"."user_id", '
-                                      '"company_company"."name", "company_company"."url", "company_company"."phone",'
-                                      ' "company_company"."logo", "company_company"."status", '
-                                      '"company_company"."contact_id", "company_company"."description", '
-                                      '"company_company"."package_id", "company_company"."address", '
-                                      '"company_company"."payment_address", "company_company"."fax", '
-                                      '"company_company"."active", "company_company"."has_public_profile", '
-                                      '"company_company"."mp", "company_company"."partner" FROM "company_company" '
-                                      'INNER JOIN "company_company_waiting_for_package" ON '
-                                      '("company_company"."id" = "company_company_waiting_for_package"."company_id") '
-                                      'WHERE "company_company_waiting_for_package"."package_id" = %d '
-                                      'ORDER BY "company_company_waiting_for_package"."id" ASC' % self.id)
-#        waiting_list = self.waiting_list.all()
+        waiting_list = self.waiting_list.all()
         return waiting_list
 
     @classmethod
@@ -68,7 +52,6 @@ class Package(BaseModel):
 
 
 class Company(BaseModel):
-    user = models.ForeignKey(User, related_name='company', blank=True, null=True, verbose_name=_('user'))
     name = models.CharField(max_length=140, verbose_name=_('name'))
     url = models.URLField(blank=True, null=True, verbose_name=_('url'))
     phone = models.CharField(max_length=20,blank=True, null=True)
@@ -93,12 +76,8 @@ class Company(BaseModel):
         return reverse('itdagene.app.company.views.view', args=[self.pk])
 
     def save(self, *args, **kwargs):
-        if not self.pk: action = 'CREATE'
-        else: action = 'EDIT'
         super(Company, self).save(*args, **kwargs)
-        LogItem.log_it(self, action, 1)
         Package.update_available_spots()
-        cache.delete("companies")
 
     def unfinished_todos(self):
         return self.todos.filter(finished=False)
@@ -127,12 +106,8 @@ class Company(BaseModel):
             return self.contracts.all().order_by('timestamp').reverse()[0]
         return None
 
-    def reset_cache(self):
-        cache.set('companies', list(Company.objects.filter(active=True)))
-        if self.contact: cache.set('companiesforuser%s' % self.contact.pk, list(Company.objects.filter(active=True, contact=self.contact)))
-
     def current_contract(self):
-        c = Contract.objects.filter(company=self, timestamp__year=datetime.today().year)
+        c = Contract.objects.filter(company=self, timestamp__year=Preference.current_preference().year)
         if c.count() > 0:
             return c[0]
         return None
@@ -165,7 +140,7 @@ class CompanyContact(BaseModel):
 
 class Contract(BaseModel):
     company = models.ForeignKey(Company, related_name='contracts', verbose_name=_('company'))
-    timestamp = models.DateTimeField(verbose_name=_('date'), help_text=_('Signing date, not uploaded date'))
+    timestamp = models.DateField(verbose_name=_('date'), help_text=_('Signing date, not uploaded date'))
     file = models.FileField(upload_to='contracts/', blank=True, null=True, verbose_name=_('file'))
     banquet_tickets = models.PositiveIntegerField(default=1,verbose_name=_('banquet tickets'))
     joblistings = models.PositiveIntegerField(default=2, verbose_name=_('joblistings'))
@@ -174,17 +149,13 @@ class Contract(BaseModel):
     has_paid = models.BooleanField(verbose_name=_("has paid"), default=False)
 
     def __unicode__(self):
-        return self.company.name
+        return str(self.timestamp)
 
     def save(self, *args, **kwargs):
-        if not self.pk: action = 'CREATE'
-        else: action = 'EDIT'
         super(Contract, self).save(*args, **kwargs)
-        LogItem.log_it(self, action, 2)
 
     def clean_fields(self, exclude=None):
-        print '%s, %s' % (self.company.tickets.all().count(), self.company.nr_of_banquet_tickets)
-        if self.company:
+        if getattr(self, 'company', False):
             if self.company.tickets.all().count() >= self.company.nr_of_banquet_tickets:
                 raise ValidationError('Cannot add more tickets to this company.')
         super(Contract, self).clean_fields(exclude=exclude)
@@ -192,36 +163,6 @@ class Contract(BaseModel):
     class Meta:
         verbose_name = _('contract')
         verbose_name_plural = _('contracts')
-
-
-class Comment(models.Model):
-    """
-    Comments specially made for companies.
-    """
-    company = models.ForeignKey(Company, verbose_name=_('company'))
-    user = models.ForeignKey(User, related_name='company_comment', verbose_name=_('user'))
-    timestamp = models.DateTimeField(verbose_name=_('timestamp'))
-    content = models.TextField(verbose_name=_('content'))
-    reply_to = models.ForeignKey('self', blank=True, null=True, related_name='replies', verbose_name=_('reply to'))
-
-    def __unicode__(self):
-        return self.content
-    
-    def save(self, *args, **kwargs):
-        if not self.pk:
-            self.timestamp = datetime.now()
-            action = 'CREATE'
-        else:
-            action = 'EDIT'
-        super(Comment, self).save(*args, **kwargs)
-        LogItem.log_it(self, action, 0)
-
-    def notification_object(self):
-        return self.company
-
-    class Meta:
-        verbose_name = _('comment')
-        verbose_name_plural = _('comments')
 
 
 class CallTeam (BaseModel):

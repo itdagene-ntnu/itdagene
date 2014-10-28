@@ -5,10 +5,12 @@ from itdagene.app.comments.models import Comment
 
 register = Library()
 
-@register.inclusion_tag('comments/templatetags/list.html')
-def load_comments(object):
+@register.inclusion_tag('comments/templatetags/list.html', takes_context=True)
+def load_comments(context, object):
     type = ContentType.objects.get_for_model(object)
     id = object.id
     comments = Comment.objects.filter(content_type=type, object_id=id)
-    form = CommentForm(instance=Comment(content_type=type, object_id=id))
+    form = False
+    if context['request'].user.has_perm('comments.add_comment'):
+        form = CommentForm(instance=Comment(content_type=type, object_id=id))
     return {'comments': comments, 'form': form}

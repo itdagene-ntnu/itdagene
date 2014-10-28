@@ -19,7 +19,3 @@ def waiting_list_form(company):
 def status_form(company):
     form = CompanyStatusForm(instance=company)
     return {'form': form}
-
-@register.simple_tag
-def feedback_overview():
-    return '''<li><a href="/feedback/report/%d/" >%s</a></li>''' % ((Preference.current_preference().year -1), _("FEEDBACK OVERVIEW"))

@@ -1,10 +1,9 @@
 from django.conf import settings
-from django.core.cache import cache
 from django.db import models
 from itdagene.core.log.models import LogItem
 from itdagene.core.models import BaseModel
 from itdagene.core.models import User, Preference
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, ugettext
 from django.core.urlresolvers import reverse
 
 MEETING_TYPES = (
@@ -35,24 +34,15 @@ class Meeting(BaseModel):
         super(Meeting, self).save(*args, **kwargs)
 
     def attending(self):
-        att = cache.get('meetingsattending' + str(self.id))
-        if not att:
-            att = list(self.replies.filter(is_attending=True))
-            cache.set('meetingsattending' + str(self.id), att)
+        att = list(self.replies.filter(is_attending=True))
         return att
 
     def not_attending(self):
-        att = cache.get('meetingsnotattending' + str(self.id))
-        if not att:
-            att = list(self.replies.filter(is_attending=False))
-            cache.set('meetingsnotattending' + str(self.id), att)
+        att = list(self.replies.filter(is_attending=False))
         return att
 
     def awaiting_reply(self):
-        att = cache.get('meetingsawaiting' + str(self.id))
-        if not att:
-            att = list(self.replies.filter(is_attending=None))
-            cache.set('meetingsawaiting' + str(self.id), att)
+        att = list(self.replies.filter(is_attending=None))
         return att
 
     def attending_link(self):
@@ -75,13 +65,13 @@ class ReplyMeeting(BaseModel):
     is_attending = models.NullBooleanField(verbose_name=_('attending'), null=True, blank=True)
     
     def __unicode__(self):
-        return unicode(self.meeting) + ': ' + self.user.username
+        return ugettext('Meeting participation: %s' % self.user)
+
+    def get_absolute_url(self):
+        return reverse('itdagene.app.meetings.views.meeting', args=(self.meeting.pk,))
 
     def save(self, *args, **kwargs):
         super(ReplyMeeting, self).save()
-        cache.delete('meetingsatteding' + str(self.meeting_id))
-        cache.delete('meetingsnotatteding' + str(self.meeting_id))
-        cache.delete('meetingsawaiting' + str(self.meeting_id))
 
 
 class Penalty(BaseModel):
@@ -103,4 +93,3 @@ class Penalty(BaseModel):
         else: action = 'CREATE'
         super(Penalty, self).save(*args, **kwargs)
         LogItem.log_it(self, action, 1)
-        cache.delete('totalpenalties' + self.type)
