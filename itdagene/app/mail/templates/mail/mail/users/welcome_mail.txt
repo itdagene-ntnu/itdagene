@@ -9,5 +9,5 @@
 {% trans "Full name" %}: {{ user.get_full_name }}
 {% trans "Password" %}: {{ password }}
 
-{% trans "You can login at http://itdagene.no/login" %}
+<p>{% blocktrans with domain=site.domain %}You can login at http://{{ domain }}/login{% endblocktrans %}</p>
 {% endblock %}
