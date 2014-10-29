@@ -60,12 +60,12 @@ class Meeting(BaseModel):
 
 
 class ReplyMeeting(BaseModel):
-    meeting = models.ForeignKey(Meeting, related_name='replies',verbose_name=_('meeting'))
+    meeting = models.ForeignKey(Meeting, related_name='replies', verbose_name=_('meeting'))
     user = models.ForeignKey(User, verbose_name=_('user'))
     is_attending = models.NullBooleanField(verbose_name=_('attending'), null=True, blank=True)
     
     def __unicode__(self):
-        return ugettext('Meeting participation: %s' % self.user)
+        return ugettext('Meeting participation: %(user)s') % {'user': unicode(self.user)}
 
     def get_absolute_url(self):
         return reverse('itdagene.app.meetings.views.meeting', args=(self.meeting.pk,))
