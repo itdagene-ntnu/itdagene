@@ -10,6 +10,7 @@
                 <tr>
                     <th>{% trans "User" %}</th>
                     <th>{% trans "Timestamp" %}</th>
+                    <th>{% trans "Object" %}</th>
                     <th>{% trans "Action" %}</th>
                 </tr>
                 </thead>
@@ -18,6 +19,7 @@
                 <tr>
                     <td><a href="{% url "itdagene.app.users.views.user_detail" logitem.user.pk %}">{{ logitem.user.get_full_name }}</a></td>
                     <td>{{ logitem.timestamp|timesince }} {% trans "ago" %}</td>
+                    <td>({{ logitem.content_type }}): {{ logitem.content_object }}</td>
                     <td><a href="{{ logitem.content_object.get_absolute_url }}">{{ logitem }}</a></td>
                 </tr>
                 {% endfor %}

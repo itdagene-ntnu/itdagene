@@ -24,8 +24,7 @@ class LogItem (models.Model):
     content_object = generic.GenericForeignKey('content_type', 'object_id')
 
     def __unicode__(self):
-        return self.action + ' - ' + \
-               '(' + unicode(self.content_type) + ': ' + unicode(self.content_object) + ')'
+        return self.action
 
     def save(self, *args, **kwargs):
         if self.priority == 3:
