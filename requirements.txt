@@ -14,3 +14,4 @@ django-crispy-forms
 django-debug-toolbar
 django-cache-panel
 django-extensions
+ipython
