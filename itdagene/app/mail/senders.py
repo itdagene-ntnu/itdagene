@@ -11,8 +11,8 @@ def send_email(recipients, subject, template, template_html, params, sender=sett
 
     params['site'] = settings.SITE
 
-    mail_contents = render_to_string('mail/mail/%s' % (template, ), params)
-    mail_contents_html = render_to_string('mail/mail/%s' % (template_html, ), params)
+    mail_contents = render_to_string('mail/%s' % (template, ), params)
+    mail_contents_html = render_to_string('mail/%s' % (template_html, ), params)
 
     connection = get_connection(fail_silently=True)
 
