@@ -1,10 +1,5 @@
-{% extends base_template %}
-{% load i18n %}
-
-{% block include %}
-<script>$(function(){ $("#id_date").datepicker({format: 'yyyy-mm-dd'}); });</script>
-{% endblock %}
+{% extends "base_admin.html" %}
 
 {% block content %}
-    {% include "form.html" %}
+    {% include 'form.html' %}
 {% endblock %}

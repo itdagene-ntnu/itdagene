@@ -5,12 +5,15 @@ from itdagene.core.models import BaseModel
 from django.utils.translation import ugettext_lazy as _
 from django import forms
 from itdagene.core.models import User
+from django.core.urlresolvers import reverse
+
 
 EVENT_TYPES = (
     (0, _('Course')),
     (1, _('Company presentation')),
     (2, _('Banquet')),
 )
+
 
 class Event(BaseModel):
     title = models.CharField(max_length=80, verbose_name=_('title'))
@@ -28,38 +31,22 @@ class Event(BaseModel):
     def __unicode__(self):
         return self.title
 
-
+    def get_absolute_url(self):
+        return reverse('itdagene.app.events.views.view_event', args=[self.pk])
 
 
 class Ticket(BaseModel):
     event = models.ForeignKey(Event, related_name='tickets', verbose_name=_('event'))
-    company = models.ForeignKey(Company, related_name='tickets', null=True, blank=True,verbose_name=_('company'))
-    user = models.ForeignKey(User, null=True, blank=True, verbose_name=_('user'), help_text=_('If the person does not have a user, use the fields below.'))
+    company = models.ForeignKey(Company, related_name='tickets', null=True, blank=True, verbose_name=_('company'))
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
     email = models.EmailField(_('e-mail address'), blank=True)
 
     class Meta:
-        ordering = ('company__name'),
+        ordering = ('last_name',)
 
     def __unicode__(self):
         return '%s: %s' % (self.event.title, self.full_name())
 
     def full_name(self):
-        if self.user: return self.user.profile
-        else: return '%s %s' % (self.first_name, self.last_name)
-
-
-
-    @classmethod
-    def extra_tickets_used(cls, event):
-        companies = [ticket.company for ticket in cls.objects.filter(event=event)]
-        checked_companies = {}
-        out = 0
-        for company in companies:
-            if company in checked_companies:
-                continue
-            checked_companies[company] = True
-            if not company.mp and ((company.partner and Ticket.objects.filter(event=event, company=company).count() > 3) or (not company.partner and Ticket.objects.filter(event=event, company=company).count() > 1)):
-                out += 1
-        return out
+        return '%s %s' % (self.first_name, self.last_name)

@@ -7,16 +7,16 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('venue', '0002_auto_20141013_1316'),
+        ('events', '0001_initial'),
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='stand',
-            name='company_day1',
+        migrations.AlterModelOptions(
+            name='ticket',
+            options={'ordering': ('last_name',)},
         ),
         migrations.RemoveField(
-            model_name='stand',
-            name='company_day2',
+            model_name='ticket',
+            name='user',
         ),
     ]

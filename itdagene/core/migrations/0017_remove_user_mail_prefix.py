@@ -7,16 +7,12 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('venue', '0001_initial'),
+        ('core', '0016_auto_20141007_2055'),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='stand',
-            name='lat',
-        ),
-        migrations.RemoveField(
-            model_name='stand',
-            name='lon',
+            model_name='user',
+            name='mail_prefix',
         ),
     ]

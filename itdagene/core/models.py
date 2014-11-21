@@ -15,13 +15,8 @@ class User(AbstractUser):
     phone = models.IntegerField(blank=True, null=True, verbose_name=_('phone number'))
     photo = models.ImageField(upload_to='photos/users/', blank=True, null=True)
     language = models.CharField(max_length=3, default=settings.DEFAULT_LANGUAGE, choices=settings.LANGUAGES)
-    mail_prefix = models.CharField(max_length=40, default="", verbose_name=_('Mail prefix'), help_text=_('This is a mail prefix for your itdagene mail. The address will be value@itdagene.no. This is typicaly you name or username. Don\'t use a group name.'), unique=True)
     mail_notification = models.BooleanField(default=True, verbose_name=_('Send mail notifications'))
     year = models.PositiveIntegerField(verbose_name=_('Active Year'), help_text=_('Year the user was active.'), max_length=3000, default=date.today().year, blank=True, null=True)
-
-    def mail_mappings(self):
-        from itdagene.app.mail.models import MailMapping
-        return MailMapping.get_user_mappings(self)
 
     class Meta(AbstractUser.Meta):
         permissions = (("send_welcome_email", "Can send welcome emails"),)

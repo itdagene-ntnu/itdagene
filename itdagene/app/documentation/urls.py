@@ -19,8 +19,4 @@ urlpatterns = patterns('itdagene.app.documentation',
         'description':settings.SITE['project_name']
     }), name='overview'),
 
-    url(r'^1/$', DocumentationContextTemplateView.as_view(template_name='documentation/mail.html', extra_context={
-        "title":_('Mail')
-    }), name='mail'),
-
 )

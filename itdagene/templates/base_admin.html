@@ -105,9 +105,9 @@
                         {% include 'news/submenu.html' %}
                     </li>
                     {% endif %}
-                    {% if perms.mail.mail_access %}
-                        <li class="{% active request 'mail' %} treeview"><a href="#"><i class="fa fa-envelope"></i> {% trans "Email" %} <i class="fa fa-angle-left pull-right"></i> </a>
-                            {% include 'mail/submenu.html' %}
+                    {% if request.user.is_staff %}
+                        <li class="{% active request 'events' %} treeview"><a href="#"><span class="glyphicon glyphicon-calendar"></span> {% trans "Events" %} <i class="fa fa-angle-left pull-right"></i> </a>
+                            {% include 'events/submenu.html' %}
                         </li>
                     {% endif %}
                     {% if request.user.is_staff %}
@@ -154,21 +154,6 @@
                         </li>
                     {% endif %}
 
-
-                    {% if request.user.is_superuser %}
-                    <li>-----------</li>
-                    {% if perms.venue.change_stand %}
-                        <li class="{% active request 'venue' %} treeview"><a href="#"><span class="glyphicon glyphicon-map-marker"></span> {% trans "Venue" %} <i class="fa fa-angle-left pull-right"></i> </a>
-                            {% include 'venue/submenu.html' %}
-                        </li>
-                    {% endif %}
-
-                    {% if perms.events.change_event %}
-                        <li class="{% active request 'events' %} treeview"><a href="#"><span class="glyphicon glyphicon-calendar"></span> {% trans "Events" %} <i class="fa fa-angle-left pull-right"></i> </a>
-                            {% include 'events/submenu.html' %}
-                        </li>
-                    {% endif %}
-                    {% endif %}
                 </ul>
             </section>
         </aside>

@@ -14,7 +14,6 @@ from itdagene.app.feedback.models import Issue
 from itdagene.app.meetings.models import Meeting
 from itdagene.app.news.models import Announcement
 from itdagene.app.pages.models import Page
-from itdagene.app.venue.models import Stand
 from itdagene.core.models import Preference
 from django.utils.translation import ugettext_lazy as _
 from django.core.cache import cache
@@ -83,11 +82,6 @@ class Frontpage:
                  'children': 'company/packages/submenu.html',
                  'visible': u.has_permission('VIEW', Package)},
 
-                {'title': _('Venue'),
-                 'url': reverse('venue'),
-                 'icon': 'map',
-                 'children': None,
-                 'visible': u.has_permission('VIEW', Stand)},
 
                 {'title': _('Joblistings'),
                  'url': reverse('joblistings'),
