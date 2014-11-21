@@ -1,4 +1,4 @@
-{% extends "mail/mail/base.html" %}
+{% extends "mail/base.html" %}
 {% load i18n %}
 
 {% block content %}

@@ -35,6 +35,7 @@ def users_send_welcome_email(user):
         translation.activate(get_current_user().language)
     return result
 
+
 def notifications_send_email(notification):
     translation.activate(notification.user.language)
     context = {
