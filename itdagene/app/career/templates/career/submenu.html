@@ -1,8 +1,18 @@
 {% load i18n %}
 <ul class="treeview-menu">
-    <li><a href="{% url "joblistings" %}">{% trans "joblistings" %}</a></li>
+    <li><a href="{% url "itdagene.app.career.views.list" %}">{% trans "joblistings" %}</a></li>
+    {% if perms.career.add_joblisting %}
+        <li><a href="{% url "itdagene.app.career.views.add" %}">{% trans "Add joblisting" %}</a></li>
+    {% endif %}
     {% if joblisting.pk %}
-        <li><a href="{% url "edit_joblisting" joblisting.pk %}">{% trans "Edit Joblisting" %}</a></li>
-        <li><a href="{% url "deactivate_joblisting" joblisting.pk %}">{% trans "Deactivate Joblisting" %}</a></li>
+        {% if perms.career.change_joblisting %}
+            <li><a href="{% url "itdagene.app.career.views.edit" joblisting.pk %}">{% trans "Edit joblisting" %}</a></li>
+        {% endif %}
+        {% if perms.career.delete_joblisting %}
+            <li><a href="{% url "itdagene.app.career.views.delete" joblisting.pk %}">{% trans "Delete joblisting" %}</a></li>
+        {% endif %}
+    {% endif %}
+    {% if perms.career.add_town %}
+        <li><a href="{% url "itdagene.app.career.views.add_town" %}">{% trans "Add town" %}</a></li>
     {% endif %}
 </ul>

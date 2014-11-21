@@ -30,7 +30,6 @@ urlpatterns = patterns('',
 
     url(r'^experiences/', include('itdagene.app.experiences.urls')),
     url(r'^quiz/', include('itdagene.app.quiz.urls')),
-    url(r'^api/', include('itdagene.app.api.urls')),
     url(r'^admin/', include('itdagene.app.admin.urls')),
     url(r'^comments/', include('itdagene.app.comments.urls')),
     url(r'^events/', include('itdagene.app.events.urls')),

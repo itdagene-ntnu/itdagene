@@ -116,6 +116,11 @@
                         </li>
                     {% endif %}
                     {% if request.user.is_staff %}
+                        <li class="{% active request 'joblistings' %} treeview"><a href="#"><span class="glyphicon glyphicon-list-alt"></span> {% trans "Joblistings" %} <i class="fa fa-angle-left pull-right"></i> </a>
+                            {% include 'career/submenu.html' %}
+                        </li>
+                    {% endif %}
+                    {% if request.user.is_staff %}
                         <li class="{% active request 'packages' %} treeview"><a href="#"><span class="glyphicon glyphicon-gift"></span> {% trans "Packages" %} <i class="fa fa-angle-left pull-right"></i> </a>
                             {% include 'company/packages/submenu.html' %}
                         </li>
@@ -155,11 +160,6 @@
                     {% if perms.venue.change_stand %}
                         <li class="{% active request 'venue' %} treeview"><a href="#"><span class="glyphicon glyphicon-map-marker"></span> {% trans "Venue" %} <i class="fa fa-angle-left pull-right"></i> </a>
                             {% include 'venue/submenu.html' %}
-                        </li>
-                    {% endif %}
-                    {% if perms.career.change_joblisting %}
-                        <li class="{% active request 'joblistings' %} treeview"><a href="#"><span class="glyphicon glyphicon-list-alt"></span> {% trans "Joblistings" %} <i class="fa fa-angle-left pull-right"></i> </a>
-                            {% include 'career/submenu.html' %}
                         </li>
                     {% endif %}
 

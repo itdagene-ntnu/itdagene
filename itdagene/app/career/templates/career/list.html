@@ -1,0 +1,37 @@
+{% extends "base_admin.html" %}
+{% load i18n %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-primary">
+                <div class="box-body no-padding">
+                    <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>{% trans "Company" %}</th>
+                            <th>{% trans "Title" %}</th>
+                            <th>{% trans "Type" %}</th>
+                            <th>{% trans "Deadline" %}</th>
+                            <th>{% trans "Created" %}</th>
+                            <th>{% trans "Creator" %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for joblisting in joblistings %}
+                            <tr>
+                                <td><a href="{{ joblisting.company.get_absolute_url }}">{{ joblisting.company }}</a></td>
+                                <td><a href="{% url "itdagene.app.career.views.view" joblisting.pk %}">{{ joblisting }}</a></td>
+                                <td>{{ joblisting.get_type_display }}</td>
+                                <td>{% if joblisting.deadline %}{{ joblisting.deadline }}{% endif %}</td>
+                                <td>{{ joblisting.date_created|date }}</td>
+                                <td>{{ joblisting.creator }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

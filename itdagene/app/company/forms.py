@@ -25,7 +25,7 @@ class CompanyForm(ModelForm):
 
     class Meta:
         model = Company
-        exclude = ('package',)
+        exclude = ('package', 'active')
 
     def __init__(self, *args, **kwargs):
         super(CompanyForm, self).__init__(*args, **kwargs)

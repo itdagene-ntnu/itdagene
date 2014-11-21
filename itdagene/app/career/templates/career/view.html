@@ -1,0 +1,59 @@
+{% extends "base_admin.html" %}
+{% load i18n markdown_tool %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-primary">
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td>{% trans "Company" %}</td>
+                            <td><a href="{{ joblisting.company.get_absolute_url }}">{{ joblisting.company }}</a></td>
+                        </tr>
+                        <tr>
+                            <td>{% trans "Title" %}</td>
+                            <td>{{ joblisting.title }}</td>
+                        </tr>
+                        <tr>
+                            <td>{% trans "Type" %}</td>
+                            <td>{{ joblisting.get_type_display }}</td>
+                        </tr>
+                        <tr>
+                            <td>{% trans "Description" %}</td>
+                            <td>{{ joblisting.description|markdownize }}</td>
+                        </tr>
+                        {% if joblisting.contact %}
+                        <tr>
+                            <td>{% trans "Contact" %}</td>
+                            <td>{{ joblisting.contact }} {% if joblisting.contact.email %}<a href="mailto:{{ joblisting.company.email }}">{{ joblisting.contact.email }}</a>{% endif %}</td>
+                        </tr>
+                        {% endif %}
+                        <tr>
+                            <td>{% trans "Deadline" %}</td>
+                            <td>{{ joblisting.deadline }}</td>
+                        </tr>
+                        <tr>
+                            <td>{% trans "From Year" %}</td>
+                            <td>{{ joblisting.from_year }}</td>
+                        </tr>
+                        <tr>
+                            <td>{% trans "To Year" %}</td>
+                            <td>{{ joblisting.to_year }}</td>
+                        </tr>
+                        <tr>
+                            <td>{% trans "Towns" %}</td>
+                            <td>{{ joblisting.towns.all|join:", " }}</td>
+                        </tr>
+                        <tr>
+                            <td>{% trans "Link" %}</td>
+                            <td><a href="{{ joblisting.url }}">{{ joblisting.url }}</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

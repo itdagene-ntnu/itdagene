@@ -34,7 +34,7 @@ def handle_evaluation(request, company):
 
 
 @staff_required()
-def report (request, year=None):
+def report(request, year=None):
     if year is None:
         preferences = Preference.current_preference()
     else:

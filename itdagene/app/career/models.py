@@ -6,11 +6,13 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from managers import JoblistingManager
 
+
 class Town (BaseModel):
     name = models.CharField(max_length=100, verbose_name=_('name'))
 
     def __unicode__(self):
         return self.name
+
 
 class Joblisting (BaseModel):
 
@@ -26,13 +28,14 @@ class Joblisting (BaseModel):
     title = models.CharField(max_length=160, verbose_name=_('title'))
     type = models.CharField(max_length=20, choices=JOB_TYPES, verbose_name=_('type'))
     description = models.TextField()
-    contact = models.ForeignKey(CompanyContact,null=True,blank=True, verbose_name=_('contact'))
+    contact = models.ForeignKey(CompanyContact, null=True,blank=True, verbose_name=_('contact'))
     image = models.ImageField(upload_to='joblistings/', null=True, blank=True, verbose_name=_('image'))
-    deadline = models.DateField(null=True, blank=True, verbose_name=_('deadline'))
+    deadline = models.DateTimeField(null=True, blank=True, verbose_name=_('deadline'))
     from_year = models.PositiveIntegerField(default=1)
     to_year = models.PositiveIntegerField(default=5)
     towns = models.ManyToManyField(Town, null=True, blank=True, verbose_name=_('town'))
     url = models.URLField(blank=True, verbose_name=_('url'))
+    is_active = models.BooleanField(verbose_name=_('active'), default=True)
 
     def __unicode__(self):
         return self.title
@@ -42,3 +45,6 @@ class Joblisting (BaseModel):
 
     def has_deadline_passed(self):
         return self.deadline < date.today()
+
+    class Meta:
+        ordering = ('-deadline', )

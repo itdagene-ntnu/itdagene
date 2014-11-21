@@ -66,8 +66,6 @@ class Company(BaseModel):
     fax = models.CharField(max_length=20,blank=True, null=True)
     active = models.BooleanField(default=True, verbose_name=_('active'))
     has_public_profile = models.BooleanField(verbose_name=_('profile'), default=False)
-    mp = models.BooleanField(verbose_name=_('Main partner'), default=False)
-    partner = models.BooleanField(verbose_name=_('Partner'), default=False)
 
     def __unicode__(self):
         return self.name
