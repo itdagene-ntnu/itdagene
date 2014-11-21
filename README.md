@@ -1,6 +1,6 @@
-#itDAGENE goes django
+#itDAGENE
 
-[Nettopp fått tilgang? Les her](https://github.com/itdagene-ntnu/itdagene/wiki/Erfaringskriv)
+[Nettopp fått tilgang? Les her](https://github.com/itdagene-ntnu/itdagene/wiki)
 
 ##Avhengigheter
 
@@ -19,11 +19,10 @@ Kjør:
 
 Deretter kan man sette opp databasen:
 
-    $ python manage.py syncdb
     $ python manage.py migrate
-    
+
 Installer frontend biblioteker
-    
+
     $ bower install
 
 Hvis alt går som det skal så har du nå en itDAGENE-side. Kjør utviklingserver med:
@@ -34,9 +33,8 @@ Hvis alt går som det skal så har du nå en itDAGENE-side. Kjør utviklingserve
 
 Vi bruker [django-fabric](http://github.com/mocco/django-fabric) til å deploye.
 
-
     $ fab deploy:production
-    
+
 Denne kommandoen deployer fra `master`.
 
 ## Ting som kan gå galt
