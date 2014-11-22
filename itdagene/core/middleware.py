@@ -44,11 +44,6 @@ def preprocessor(request):
         if not 'django_language' in request.session:
             request.session['django_language'] = 'nb'
 
-        if not 'joblistings' in context:
-            context['joblistings'] = Frontpage.public_joblistings()
-        else:
-            context['hide_joblistings_sidebar'] = True
-
     else:
         context['base_template'] = 'base_admin.html'
     return context

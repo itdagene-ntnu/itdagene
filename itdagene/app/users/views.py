@@ -17,11 +17,11 @@ from django.utils.text import slugify
 @login_required
 def user_list(request):
     if not request.user.is_staff:
-        persons = User.objects.filter(Q(is_staff=True) | Q(id=request.user.id)).filter(is_active=True, year=request.user.year).order_by('username')
+        persons = User.objects.filter(Q(is_staff=True) | Q(id=request.user.id)).filter(is_active=True, year=request.user.year)
     else:
-        persons = User.objects.filter(is_active=True).order_by('username')
+        persons = User.objects.filter(is_active=True)
 
-    persons = persons.order_by('username', 'year')
+    persons = persons.order_by('-year', 'username')
     return render(request, 'users/list.html', {'persons': persons, 'title': _('User Admin')})
 
 
