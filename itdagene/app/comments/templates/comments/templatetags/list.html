@@ -5,9 +5,23 @@
         <i class="fa fa-comments-o"></i>
         <h3 class="box-title">Comments</h3>
     </div>
+
+    {% if form %}
+    <div class="box-body" style="height: 180px">
+
+        <form action="{% url "itdagene.app.comments.views.add" %}" method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <div class="pull-right">
+                <button class="btn btn-success">{% trans "Add Comment" %}</button>
+            </div>
+        </form>
+
+    </div>
+    {% endif %}
+
     <div class="box-body chat" id="chat-box">
         {% for comment in comments %}
-
         <div class="item">
 
             {% if comment.user.photo %}
@@ -29,17 +43,4 @@
 
         {% endfor %}
     </div>
-    {% if form %}
-    <div class="box-footer" style="height: 180px">
-
-        <form action="{% url "itdagene.app.comments.views.add" %}" method="POST">
-            {% csrf_token %}
-            {{ form|crispy }}
-            <div class="pull-right">
-                <button class="btn btn-success">{% trans "Add Comment" %}</button>
-            </div>
-        </form>
-
-    </div>
-    {% endif %}
 </div>
