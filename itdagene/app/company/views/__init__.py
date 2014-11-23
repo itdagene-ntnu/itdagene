@@ -12,7 +12,7 @@ from django.core.urlresolvers import reverse
 from django.http import Http404
 from itdagene.core.log.models import LogItem
 from itdagene.app.feedback.models import Evaluation
-from itdagene.core import Preference
+from itdagene.core.models import Preference
 from django.shortcuts import render
 from itdagene.core.decorators import staff_required
 from django.contrib.messages import *

@@ -1,5 +1,7 @@
 from django.conf import settings
 from itdagene.core.models import Preference
+
+
 def site_processor(request):
     """
     Return site information in templates.

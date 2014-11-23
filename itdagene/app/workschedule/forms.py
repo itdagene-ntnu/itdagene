@@ -1,6 +1,6 @@
 from django.forms.models import ModelForm
 from django.forms.forms import Form
-from itdagene.core import Preference
+from itdagene.core.models import Preference
 from django.utils.translation import ugettext_lazy as _
 from django import forms
 from itdagene.app.workschedule.models import WorkSchedule, Worker, WorkerInSchedule

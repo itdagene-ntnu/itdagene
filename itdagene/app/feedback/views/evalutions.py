@@ -5,7 +5,7 @@ from django.shortcuts import render, get_object_or_404, get_list_or_404, Http404
 from django.utils.translation import ugettext_lazy as _, activate
 from itdagene.app.feedback.forms import EvaluationForm
 from itdagene.app.feedback.models import Evaluation
-from itdagene.core import Preference
+from itdagene.core.models import Preference
 from itdagene.core.decorators import staff_required
 from django.conf import settings
 from itdagene.app.company.models import Company

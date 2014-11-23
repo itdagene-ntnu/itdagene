@@ -1,4 +1,4 @@
-from itdagene.core import Preference
+from itdagene.core.models import Preference
 from itdagene.app.experiences.forms import ExperienceForm
 from itdagene.app.experiences.models import Experience
 from django.contrib.auth.decorators import permission_required

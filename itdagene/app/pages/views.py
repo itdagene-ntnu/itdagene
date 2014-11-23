@@ -8,7 +8,7 @@ from itdagene.app.pages.models import Page
 from django.contrib.auth.decorators import permission_required, login_required
 from django.shortcuts import render
 from django.utils.translation import ugettext_lazy as _
-from itdagene.core.decorators import staff_or_404
+from itdagene.core.decorators import staff_required
 
 
 def view_page(request, lang_code='nb', slug='itdagene'):
@@ -58,7 +58,7 @@ def edit(request, slug, lang_code='nb'):
     return render(request, 'pages/form.html', {'form': form, 'page': page, 'title': _('Edit Page'), 'description': page.title})
 
 
-@staff_or_404
+@staff_required()
 def admin(request):
     pages = Page.objects.all().order_by('menu', 'active')
     return render(request, 'pages/admin.html', {'pages': pages, 'title': _('Pages Admin')})

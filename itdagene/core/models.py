@@ -30,21 +30,6 @@ class User(AbstractUser):
         return self.username
 
 
-class UserProxy(User):
-    """
-    Brukes av api for å generere liste med brukere.
-    """
-    class Meta:
-        proxy = True
-
-    def as_dict(self):
-        return {
-            'username': self.username,
-            'first_name': self.first_name,
-            'last_name': self.last_name,
-        }
-
-
 class BaseModel(models.Model):
     creator = models.ForeignKey(User, editable=False, related_name="%(class)s_creator")
     saved_by = models.ForeignKey(User, editable=False, related_name="%(class)s_saved_by")

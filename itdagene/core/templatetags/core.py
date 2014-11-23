@@ -23,18 +23,15 @@ def analytics():
         return ""
 
 
+@register.filter(name='lookup')
+def cut(value, arg):
+    return value[arg]
+
+
 @register.simple_tag
 def chosen(oid):
     return '<script type="text/javascript">$(document).ready(function(){ $("' + oid + '").chosen({ width: \'100%\' }); });</script>'
 
-@register.simple_tag
-def active_year():
-    return Preference.current_preference().year
-
-
-@register.filter(name='lookup')
-def cut(value, arg):
-    return value[arg]
 
 @register.filter
 def date_is_not_expired(value, arg=None):

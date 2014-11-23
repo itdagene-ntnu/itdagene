@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import ugettext_lazy as _
-from itdagene.core import Preference
+from itdagene.core.models import Preference
 from itdagene.core.decorators import staff_required
 from django.contrib.messages import add_message, SUCCESS
 

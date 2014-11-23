@@ -4,12 +4,11 @@ from itdagene.app.company.models import CompanyContact, Company
 from django.shortcuts import redirect, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import permission_required
-from itdagene.core.profiles import _vcard_string
 from django.shortcuts import render
 from django.utils.translation import ugettext_lazy as _
 from itdagene.core.decorators import staff_required
 from django.contrib.messages import *
-
+from itdagene.core import vcard_string
 
 @permission_required('company.add_companycontact')
 def add_contact(request, company):
@@ -60,7 +59,7 @@ def vcard(request, id):
     person.last_name = contact.last_name
     person.email = contact.email
     person.phone = contact.phone
-    output = _vcard_string(person)
+    output = vcard_string(person)
     filename = "%s%s.vcf" % (person.first_name, person.last_name)
     response = HttpResponse(output, content_type='text/x-vCard')
     response['Content-Disposition'] = 'attachment; filename=%s' % filename

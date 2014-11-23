@@ -1,7 +1,0 @@
-{% load i18n %}
-
-<h2>{% trans "You have been invited to a meeting." %}</h2>
-<strong>{% trans "Date" %}:</strong> {{ meeting.date }}<br/>
-<strong>{% trans "Time" %}:</strong> {{ meeting.start_time }} - {{ meeting.end_time }}<br/>
-<strong>{% trans "Location" %}:</strong> {{ meeting.location }}<br/>
-<strong>{% trans "RSVP here" %}:</strong> <a href="{{ meeting.attending_link }}">{{ meeting.attending_link }}</a><br/>

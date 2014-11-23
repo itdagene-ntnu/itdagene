@@ -1,6 +1,3 @@
-from django.conf import settings
-from itdagene.core import Preference
-from itdagene.core.shortcuts import Frontpage
 from itdagene.core.models import Preference
 from django.shortcuts import HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -19,34 +16,6 @@ class ForceDefaultLanguageMiddleware(object):
     def process_request(self, request):
         if request.META.has_key('HTTP_ACCEPT_LANGUAGE'):
             del request.META['HTTP_ACCEPT_LANGUAGE']
-
-
-def preprocessor(request):
-    context = {}
-    public = False
-    pref = Preference.current_preference()
-    context['pref'] = pref
-    context['twitter'] = settings.VIEW_TWITTER_BOX
-
-    if 'message' in request.session:
-        if 'class' in request.session['message'] and 'value' in request.session['message']:
-            context['message_class'] = request.session['message']['class']
-            context['message_value'] = request.session['message']['value']
-        del request.session['message']
-
-    if not request.user.is_authenticated():
-        public = True
-    else:
-        context['profile'] = request.user.profile
-
-    if public:
-        context['base_template'] = 'base_public.html'
-        if not 'django_language' in request.session:
-            request.session['django_language'] = 'nb'
-
-    else:
-        context['base_template'] = 'base_admin.html'
-    return context
 
 
 class UnderDevelopmentMiddleware(object):

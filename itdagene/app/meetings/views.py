@@ -1,4 +1,4 @@
-from itdagene.core import Preference
+from itdagene.core.models import Preference
 from itdagene.app.meetings.forms import MeetingForm, PenaltyForm
 from itdagene.app.meetings.models import Meeting, ReplyMeeting, Penalty
 from django.contrib.auth.decorators import permission_required, login_required

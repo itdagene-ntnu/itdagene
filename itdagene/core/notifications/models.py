@@ -7,7 +7,6 @@ from django.contrib.contenttypes.models import ContentType
 from itdagene.core.models import User
 from django.shortcuts import get_object_or_404
 from itdagene.core.auth import get_current_user
-from itdagene.core.shortcuts import send_language_specific_mail
 
 class Notification (models.Model):
 

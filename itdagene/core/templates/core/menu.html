@@ -1,5 +1,0 @@
-{% load menu %}
-
-{% for item in menu %}
-    <li {% active request item.url %}><a href="{{ item.url }}">{{ item.title }}</a></li>
-{% endfor %}
