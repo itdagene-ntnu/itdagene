@@ -5,7 +5,7 @@ urlpatterns = patterns('itdagene.app.feedback.views',
     url(r'^$', lambda r: HttpResponsePermanentRedirect('/feedback/issues/')),
     url(r'^report/$', 'evalutions.report'),
     url(r'^report/(?P<year>\d{4})/$', 'evalutions.report', name='report'),
-    url(r'^evaluate/(?P<company>\d+)/$', 'evalutions.handle_evaluation'),
+    url(r'^evaluate/(?P<hash>.+)/$', 'evalutions.handle_evaluation'),
 )
 
 urlpatterns += patterns('itdagene.app.feedback.views.issues',

@@ -23,10 +23,8 @@ class IssueAssignForm(ModelForm):
 class EvaluationForm (forms.ModelForm):
     class Meta:
         model = Evaluation
+        exclude = ('hash', 'company', 'has_answers', 'preference')
 
-
-    def __init__(self, *args, **kwargs):
-        super(EvaluationForm, self).__init__(*args, **kwargs)
-#        for field in self.fields:
-#            if isinstance(self.fields[field], ChoiceField):
-#                self.fields[field].widget = RadioSelect()
+    def save(self, commit=True, *args, **kwargs):
+        self.instance.has_answers = True
+        super(EvaluationForm, self).save(*args, **kwargs)

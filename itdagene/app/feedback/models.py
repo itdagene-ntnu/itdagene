@@ -1,3 +1,5 @@
+import string
+import random
 from datetime import datetime
 from django.db import models
 from itdagene.app.company.models import Company
@@ -82,20 +84,22 @@ class Evaluation (models.Model):
 
     company = models.ForeignKey(Company, verbose_name='Company')
     preference = models.ForeignKey(Preference, verbose_name='Preference')
+    hash = models.CharField(max_length=100, verbose_name=_('Hash'), unique=True)
+    has_answers = models.BooleanField(default=False, verbose_name=_('has answers'))
 
     internship_marathon_rating = models.IntegerField(
                         choices=RATINGS,
                         verbose_name=_('How did the kickstart go?'),
                         default=0
                      )
-    internship_marathon_improvement = models.TextField(verbose_name=_('What could have been done better at the kickstart?'))
+    internship_marathon_improvement = models.TextField(blank=True, verbose_name=_('What could have been done better at the kickstart?'))
 
     course_rating = models.IntegerField(
                         choices=RATINGS,
                         verbose_name=_('How did the course go?'),
                         default=0
                      )
-    course_improvement = models.TextField(verbose_name=_('Could the course be handled better?'))
+    course_improvement = models.TextField(blank=True, verbose_name=_('Could the course be handled better?'))
 
     visitors_rating = models.IntegerField(
         choices=RATINGS,
@@ -128,3 +132,11 @@ class Evaluation (models.Model):
     other = models.TextField(blank=True, verbose_name=_('Something else you want to comment?'), help_text=_('Do you have any tips?'))
     want_to_come_back = models.BooleanField(verbose_name=_('Interested in being contacted next year?'), default=False)
 
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.hash = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(50))
+
+        super(Evaluation, self).save(*args, **kwargs)
+
+    def __unicode__(self):
+        return self.hash
