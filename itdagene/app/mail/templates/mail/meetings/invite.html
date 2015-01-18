@@ -1,0 +1,35 @@
+{% extends "mail/base.html" %}
+{% load i18n markdown_tool %}
+
+{% block content %}
+
+<p>{% trans "You are invited to a meeting. The details is listed bellow." %}</p>
+
+<strong>{{ meeting }}</strong><br/>
+{% trans "Date" %}: {{ meeting.date }}<br/>
+{% trans "Time" %}: {% if meeting.end_time %}{{ meeting.start_time }} - {{ meeting.end_time }}{% else %}{{ meeting.start_time }}{% endif %}<br/>
+{% trans "Location" %}: {{ meeting.location }}<br/>
+{% if meeting.referee %}
+    {% trans "Referee" %}: {{ meeting.referee }}<br/>
+{% endif %}
+
+    <br/>
+
+    <p>{% trans "I am" %}
+    <a href="{{ meeting.attending_link }}">{% trans "attending" %}</a> /
+    <a href="{{ meeting.not_attending_link }}">{% trans "not attending" %}</a>
+    </p>
+
+    <br/>
+    <br/>
+
+        <h3>{% trans "Agenda" %}</h3>
+
+        {{ meeting.agenda|markdownize }}
+
+    <br/>
+    <br/>
+
+<a href="{{ base_url }}{{ meeting.get_absolute_url }}">{% trans "More information" %}</a>
+
+{% endblock %}

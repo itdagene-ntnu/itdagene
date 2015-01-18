@@ -5,4 +5,4 @@
 {% endblock %}
 
 
-{{ site.name }} {% now "Y" %} / {{ site.address }}, {{ site.zip_code }} {{ site.town }} / {{ site.contact_email }} / org.nr: {{ site.organization_number }}
+{{ site.name }} {% now "Y" %} / {{ site.contact_email }} / org.nr: {{ site.organization_number }}

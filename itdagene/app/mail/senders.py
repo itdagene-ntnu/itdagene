@@ -49,6 +49,7 @@ def notifications_send_email(notification):
         translation.activate(get_current_user().language)
     return result
 
+
 def meeting_send_invite(users, meeting):
     for user in users:
         translation.activate(user.language)
