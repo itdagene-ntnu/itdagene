@@ -1,0 +1,35 @@
+{
+  "name": "itDAGENE",
+  "version": "1.0.0",
+  "description": "itDAGENE",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eirsyl/itdagene.git"
+  },
+  "keywords": [
+    "itDAGENE",
+    "students"
+  ],
+  "author": "Eirik Martiniussen Sylliaas",
+  "license": "Proprietary",
+  "bugs": {
+    "url": "https://github.com/itdagene-ntnu/itdagene/issues"
+  },
+  "homepage": "https://github.com/itdagene-ntnu/itdagenee",
+  "dependencies": {
+    "browserify": "^7.0.0",
+    "moment": "^2.8.4",
+    "nib": "^1.0.4",
+    "react": "^0.12.1",
+    "react-bootstrap": "^0.13.0",
+    "reactify": "^0.17.1",
+    "stylus": "^0.49.3",
+    "superagent": "^0.21.0",
+    "uglify-js": "^2.4.15",
+    "watchify": "^2.1.1"
+  }
+}
