@@ -4,6 +4,7 @@
 
 ##Avhengigheter
 
+Vi bruker nodejs og npm. Dette må installeres.
 Vi bruker [bower](http://bower.io) for å holde styr på statiske filer. Installeres med npm:
 
     $ npm install -g bower
@@ -16,35 +17,22 @@ Kjør:
     $ virtualenv venv
     $ source venv/bin/activate
     $ pip install -r requirements.txt
+    $ npm install
+    $ bower install
+    $ make all
+
+Fiks settings/local.py:
+    Eksempel ligger i settings/local_example.py
 
 Deretter kan man sette opp databasen:
 
     $ python manage.py migrate
 
-Installer frontend biblioteker
-
-    $ bower install
-
 Hvis alt går som det skal så har du nå en itDAGENE-side. Kjør utviklingserver med:
 
     $ python manage.py runserver
 
-##Deploy
 
-Vi bruker [django-fabric](http://github.com/mocco/django-fabric) til å deploye.
+Lytte på endringer når man utvikler på frontenden:
 
-    $ fab deploy:production
-
-Denne kommandoen deployer fra `master`.
-
-## Ting som kan gå galt
-
-### Jeg får IOError feil
-
-Dette skjer mest sannsynlig fordi du ikke har en JPEG-encoder installert. PIL har ikke
-innebygd støtte for JPEG, så det må installeres separat. På OS X kan dette gjøres vha.
-[Homebrew](http://brew.sh/) (du bruker Homebrew, sant?). Etter at du har sourcet venv:
-
-    pip uninstall PIL
-    brew install jpeg
-    pip install PIL
+    $ make watch
