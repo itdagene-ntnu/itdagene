@@ -21,7 +21,6 @@ class Joblisting (BaseModel):
     JOB_TYPES = (
         ('si',_('Summer internship')),
         ('pp',_('Permanent position')),
-        ('bi',_('Bad import')),
     )
 
     company = models.ForeignKey(Company, related_name='joblistings', verbose_name=_('company'))

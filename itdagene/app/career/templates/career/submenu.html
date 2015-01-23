@@ -1,6 +1,6 @@
 {% load i18n %}
 <ul class="treeview-menu">
-    <li><a href="{% url "itdagene.app.career.views.list" %}">{% trans "joblistings" %}</a></li>
+    <li><a href="{% url "itdagene.app.career.views.list" %}">{% trans "Joblistings" %}</a></li>
     {% if perms.career.add_joblisting %}
         <li><a href="{% url "itdagene.app.career.views.add" %}">{% trans "Add joblisting" %}</a></li>
     {% endif %}
