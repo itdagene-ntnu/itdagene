@@ -15,7 +15,7 @@ def add_contract(request, company_id):
     company = get_object_or_404(Company, pk=company_id)
     form = ContractForm()
     if request.method == 'POST':
-        form = ContractForm(request.POST)
+        form = ContractForm(request.POST, request.FILES)
         if form.is_valid():
             contract = form.save(commit=False)
             contract.company = company
