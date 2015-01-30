@@ -1,6 +1,14 @@
 /** @jsx React.DOM */
 
 var React = require('react');
-var moment = require('moment');
-var request = require('superagent');
-var react_bootstrap = require('react-bootstrap');
+
+$(document).ready(function() {
+    $(window).scroll(function () {
+        console.log($(".navbar").offset().top);
+        if ($(".navbar").offset().top > 50) {
+            $(".navbar-fixed-top").addClass("top-nav-collapse");
+        } else {
+            $(".navbar-fixed-top").removeClass("top-nav-collapse");
+        }
+    });
+});
