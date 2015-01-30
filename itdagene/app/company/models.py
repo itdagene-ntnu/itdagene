@@ -139,7 +139,7 @@ class CompanyContact(BaseModel):
 class Contract(BaseModel):
     company = models.ForeignKey(Company, related_name='contracts', verbose_name=_('company'))
     timestamp = models.DateField(verbose_name=_('date'), help_text=_('Signing date, not uploaded date'))
-    file = models.FileField(upload_to='contracts/', blank=True, null=True, verbose_name=_('file'))
+    file = models.FileField(upload_to='contracts/', verbose_name=_('file'))
     banquet_tickets = models.PositiveIntegerField(default=1,verbose_name=_('banquet tickets'))
     joblistings = models.PositiveIntegerField(default=2, verbose_name=_('joblistings'))
     interview_room = models.PositiveIntegerField(default=0, verbose_name=_('interview room'))
