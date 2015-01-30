@@ -47,7 +47,7 @@ class WorkSchedule(BaseModel):
     date = models.DateField(verbose_name=_('date'))
     start_time = models.TimeField(verbose_name=_('start time'))
     end_time = models.TimeField(verbose_name=_('end time'))
-    description = models.TextField(blank=True)
+    description = models.TextField(blank=True, verbose_name=_('Description'))
 
     def __unicode__(self):
         return self.title

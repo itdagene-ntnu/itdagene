@@ -54,7 +54,7 @@ class Package(BaseModel):
 class Company(BaseModel):
     name = models.CharField(max_length=140, verbose_name=_('name'))
     url = models.URLField(blank=True, null=True, verbose_name=_('url'))
-    phone = models.CharField(max_length=20,blank=True, null=True)
+    phone = models.CharField(max_length=20,blank=True, null=True, verbose_name=_('Phone'))
     logo = models.ImageField(upload_to='company_logos/', null=True, blank=True, verbose_name=_('logo'))
     status = models.PositiveIntegerField(choices=COMPANY_STATUS, default=0, verbose_name=_('status'))
     contact = models.ForeignKey(User, related_name='contact_for',blank=True, null=True,verbose_name=_('itDAGENE contact'))

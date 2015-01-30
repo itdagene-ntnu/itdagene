@@ -13,10 +13,12 @@ from datetime import date
 
 class User(AbstractUser):
     phone = models.IntegerField(blank=True, null=True, verbose_name=_('phone number'))
-    photo = models.ImageField(upload_to='photos/users/', blank=True, null=True)
-    language = models.CharField(max_length=3, default=settings.DEFAULT_LANGUAGE, choices=settings.LANGUAGES)
+    photo = models.ImageField(upload_to='photos/users/', blank=True, null=True,verbose_name=_('Photo'))
+    language = models.CharField(max_length=3, default=settings.DEFAULT_LANGUAGE,
+                                choices=settings.LANGUAGES, verbose_name=_('Language'))
     mail_notification = models.BooleanField(default=True, verbose_name=_('Send mail notifications'))
-    year = models.PositiveIntegerField(verbose_name=_('Active Year'), help_text=_('Year the user was active.'), max_length=3000, default=date.today().year, blank=True, null=True)
+    year = models.PositiveIntegerField(verbose_name=_('Active Year'), help_text=_('Year the user was active.'),
+                                       max_length=3000, default=date.today().year, blank=True, null=True)
 
     class Meta(AbstractUser.Meta):
         permissions = (("send_welcome_email", "Can send welcome emails"),)
