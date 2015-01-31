@@ -6,14 +6,41 @@
 
 @import url("http://fonts.googleapis.com/css?family=Open+Sans")
 @import url("http://fonts.googleapis.com/css?family=Slabo+27px")
+@import url("http://fonts.googleapis.com/css?family=Lato")
+@import url("http://fonts.googleapis.com/css?family=Marvel")
 
 header-font = 'Open Sans', sans-serif
 footer-font = header-font
 hsp-font = 'Slabo 27px', serif
+banner-font = 'Lato', sans-serif
+inline-header-font = 'Marvel', sans-serif
+logo-color = #4287C2
 
 @import "navbar.styl";
 @import "banner.styl";
+@import "timeline.styl";
+@import "board.styl";
 @import "footer.styl";
 
 a
   transition 0.3s
+
+.section
+  padding-bottom 20px
+
+  h2.header
+    font-family inline-header-font
+    font-size 30px
+    margin 0
+    padding 0
+    padding-top 30px
+    text-transform uppercase
+
+    &::after
+      width 100px
+      border-bottom 3px solid logo-color
+      margin 4px auto 20px
+      content ""
+      height 0
+      display block
+      position relative
