@@ -42,7 +42,7 @@ class BookCompanyForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(BookCompanyForm, self).__init__(*args, **kwargs)
-        packages = Package.objects.filter(Q(companies=self.instance) | Q(is_full=False))
+        packages = Package.objects.filter(Q(is_full=False) or Q(companies=self.instance))
         self.fields['package'].queryset = packages
 
         self.helper = FormHelper()
