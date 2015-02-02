@@ -42,10 +42,13 @@ TRANSFORMS = -t [ reactify --harmony ]
 
 all: $(BUILD_CSS) $(BUILD_JS)
 
-install: node_modules
+install: node_modules bower
 
 node_modules: package.json
 	@npm install
+
+bower: bower.json
+	@bower install
 
 #
 # Build CSS files
