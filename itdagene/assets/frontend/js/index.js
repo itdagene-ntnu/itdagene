@@ -1,23 +1,25 @@
 /** @jsx React.DOM */
 
 var React = require('react');
-var moment = require('moment');
-var request = require('superagent');
-var react_bootstrap = require('react-bootstrap');
 
+$(document).ready(function() {
 
-var App = React.createClass({
+    $(window).scroll(function () {
+        if ($(".navbar").offset().top > 50) {
+            $(".navbar-fixed-top").addClass("top-nav-collapse");
+        } else {
+            $(".navbar-fixed-top").removeClass("top-nav-collapse");
+        }
+    });
 
-    render: function(){
-
-        return (
-            <div></div>
-            );
+    var companiesContainer = $('.companies-holder');
+    if (companiesContainer.length == 1) {
+        var buttons = $('.btn-days');
+        buttons.click(function(e) {
+            var self = $(this);
+            buttons.removeClass('active');
+            self.addClass('active');
+        });
     }
 
 });
-
-React.render(
-  <App />,
-  document.getElementById('app')
-);

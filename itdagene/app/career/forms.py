@@ -16,7 +16,8 @@ class JoblistingForm(ModelForm):
             'to_year',
             'url',
             'towns',
-            'image')
+            'image',
+            'frontpage')
 
 
 class JoblistingTownForm(ModelForm):

@@ -1,0 +1,71 @@
+navbar-height = 70px
+navbar-color = rgba(0,0,0,0)
+navbar-color-collapsed = rgba(38,38,38,0.8)
+
+nav
+
+  @media (max-width: 767px)
+    &.navbar-inverse
+      background-color navbar-color-collapsed !important
+
+      &.top-nav-collapse
+        background-color darken(navbar-color-collapsed, 20) !important
+
+  &.navbar-inverse
+
+    min-height navbar-height
+    border none
+    background-color navbar-color
+    transition background-color .5s ease-in-out
+
+
+    .navbar-brand
+      height navbar-height
+      padding-top 0
+      padding-bottom 0
+
+      .img-brand
+        height 55px
+        margin-top 8px
+        transition 0.3s
+
+      @media (max-width: 580px)
+        .img-brand
+          height 30px
+          margin-top 20px
+
+    .navbar-toggle
+      margin 0
+      padding 0
+      height navbar-height
+      width navbar-height
+      color #FFF
+      border none
+      border-radius 0px
+
+      &:hover, &:active, &:focus
+        background-color transparent
+
+      &:hover
+        color darken(#FFF, 20)
+
+
+    @media (min-width: 768px)
+      .nav.navbar-nav
+        &>li>a
+          height navbar-height
+          line-height navbar-height
+          padding-top 0
+          padding-bottom 0
+          color #ffffff
+
+          &:hover, &:focus, &:active
+            background-color navbar-color
+            color #a2a2a2
+        &>.active>a
+          background-color navbar-color
+
+
+    &.top-nav-collapse
+      background-color darken(navbar-color-collapsed, 20)
+

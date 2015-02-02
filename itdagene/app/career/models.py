@@ -35,6 +35,7 @@ class Joblisting (BaseModel):
     towns = models.ManyToManyField(Town, null=True, blank=True, verbose_name=_('town'))
     url = models.URLField(blank=True, verbose_name=_('url'))
     is_active = models.BooleanField(verbose_name=_('active'), default=True)
+    frontpage = models.BooleanField(_('Frontpage'), default=False)
 
     def __unicode__(self):
         return self.title
@@ -44,6 +45,18 @@ class Joblisting (BaseModel):
 
     def has_deadline_passed(self):
         return self.deadline < date.today()
+
+    def get_towns(self):
+        def get_name(town):
+            return town.name
+
+        towns = map(get_name, self.towns.all())
+        return ', '.join(towns)
+
+    def get_classes(self):
+        if self.from_year != self.to_year:
+            return '%s-%s' % (self.from_year, self.to_year)
+        return self.to_year
 
     class Meta:
         ordering = ('-deadline', )

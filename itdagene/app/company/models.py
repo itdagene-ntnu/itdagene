@@ -110,6 +110,28 @@ class Company(BaseModel):
             return c[0]
         return None
 
+    @classmethod
+    def get_signed_with_packages(cls):
+        return cls.objects.filter(status=3).exclude(package=None).order_by('?')
+
+    @classmethod
+    def get_first_day(cls):
+
+        def filter_images(company):
+            return bool(company.logo != '')
+
+        return filter(filter_images, cls.get_signed_with_packages().select_related('package')
+                      .filter(package__has_stand_first_day=True))
+
+    @classmethod
+    def get_last_day(cls):
+
+        def filter_images(company):
+            return bool(company.logo != '')
+
+        return filter(filter_images, cls.get_signed_with_packages().select_related('package')
+                      .filter(package__has_stand_last_day=True))
+
 
 class CompanyContact(BaseModel):
     company = models.ForeignKey(Company, related_name='company_contacts', verbose_name=_('company'))
