@@ -18,7 +18,7 @@ def send_email(recipients, subject, template, template_html, params, sender=sett
 
     messages = []
     for recipient in recipients:
-        message = EmailMultiAlternatives(str(subject), mail_contents, sender, [recipient])
+        message = EmailMultiAlternatives(subject, mail_contents, sender, [recipient])
         message.attach_alternative(mail_contents_html, 'text/html')
         messages.append(message)
 
