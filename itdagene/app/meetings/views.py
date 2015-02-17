@@ -9,7 +9,7 @@ from django.shortcuts import render
 from itdagene.core.models import User
 from itdagene.core.decorators import staff_required
 from django.contrib.messages import *
-from itdagene.app.mail.senders import meeting_send_invite
+from itdagene.app.mail.tasks import meeting_send_invite
 
 
 @staff_required()
@@ -78,8 +78,8 @@ def send_invites(request, id):
     meeting = get_object_or_404(Meeting, pk=id)
     replies = ReplyMeeting.objects.filter(meeting__pk=id, is_attending=None)
     users = [r.user for r in replies]
-    meeting_send_invite(users, meeting)
-    add_message(request, SUCCESS, _('All participants have recived an invite.'))
+    meeting_send_invite.delay(users, meeting)
+    add_message(request, SUCCESS, _('All participants will receive a mail shortly.'))
     return redirect(reverse('itdagene.app.meetings.views.meeting', args=[meeting.pk]))
 
 

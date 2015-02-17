@@ -16,3 +16,5 @@ django-extensions
 ipython
 tweepy
 python-instagram
+django-celery
+redis

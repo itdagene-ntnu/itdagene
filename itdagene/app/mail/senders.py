@@ -1,3 +1,5 @@
+from celery import task
+
 from django.template.loader import render_to_string
 from django.core.mail import get_connection, EmailMultiAlternatives
 from django.conf import settings
@@ -50,8 +52,10 @@ def notifications_send_email(notification):
     return result
 
 
+@task
 def meeting_send_invite(users, meeting):
     for user in users:
+
         translation.activate(user.language)
         context = {
             'title': _('Meeting Invitation'),
@@ -60,6 +64,12 @@ def meeting_send_invite(users, meeting):
         }
         template, template_html = 'meetings/invite.txt', 'meetings/invite.html'
         result = send_email([user.email], _('Meeting Invite'), template, template_html, context)
-        if not get_current_user().is_anonymous():
-            translation.activate(get_current_user().language)
+
+        current_user = get_current_user()
+        if current_user:
+            try:
+                if not current_user.is_anonymous():
+                    translation.activate(current_user.language)
+            except AttributeError:
+                pass
     return True
