@@ -41,7 +41,7 @@ class BaseModel(models.Model):
     def __unicode__(self):
         return self.creator.username + ' ' + str(self.id)
 
-    def save(self, notify_subscribers=True, log_it=True, log_priority=0, *args, **kwargs):
+    def save(self, notify_subscribers=False, log_it=True, log_priority=0, *args, **kwargs):
         user = get_current_user()
         action = 'EDIT' if self.pk else 'CREATE'
 
