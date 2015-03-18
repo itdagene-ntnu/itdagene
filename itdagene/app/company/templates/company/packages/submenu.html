@@ -1,14 +1,14 @@
 {% load i18n %}
 <ul class="treeview-menu">
     {% if request.user.is_staff %}
-    <li><a href="{% url "itdagene.app.company.views.packages.list" %}">{% trans "Packages" %}</a></li>
+    <li><a href="{% url "itdagene.app.company.views.packages.list" %}"><i class="fa fa-circle-o"></i> {% trans "Packages" %}</a></li>
     {% endif %}
     {% if perms.company.add_package %}
-    <li><a href="{% url "itdagene.app.company.views.packages.add" %}">{% trans "Add Package" %}</a></li>
+    <li><a href="{% url "itdagene.app.company.views.packages.add" %}"><i class="fa fa-circle-o"></i> {% trans "Add Package" %}</a></li>
     {% endif %}
     {% if package.pk %}
         {% if perms.company.change_package %}
-        <li><a href="{% url "itdagene.app.company.views.packages.edit" package.pk %}">{% trans "Edit Package" %}</a></li>
+        <li><a href="{% url "itdagene.app.company.views.packages.edit" package.pk %}"><i class="fa fa-circle-o"></i> {% trans "Edit Package" %}</a></li>
         {% endif %}
     {% endif %}
 </ul>

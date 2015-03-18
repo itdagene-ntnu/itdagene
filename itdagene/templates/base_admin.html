@@ -4,186 +4,226 @@
 {% load core thumbnail menu notifications %}
 
 {% block body_class %}
-    skin-itdagene
+    skin-black
 {% endblock %}
 
 {% block styles %}
-<link href="{% static "css/admin/AdminLTE.css" %}" rel="stylesheet" type="text/css" />
-<link href="{% static "css/chosen.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "css/admin/AdminLTE.css" %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static "css/admin/skins/skin-black.css" %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static "css/chosen.css" %}" rel="stylesheet" type="text/css"/>
     {% block inline-styles %}{% endblock %}
 {% endblock %}
 
 
 {% block body %}
     {% if request.user.is_authenticated %}
-    <header class="header">
-        <a href="{% url "itdagene.app.frontpage.views.inside" %}" class="logo">
-            {{ site.name }}
-        </a>
-        <nav class="navbar navbar-static-top" role="navigation">
-            <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
+        <header class="main-header">
+            <a href="{% url "itdagene.app.frontpage.views.inside" %}" class="logo">
+                <img src="{% static "img/itdagene_flat.png" %}">
             </a>
-            <div class="navbar-right">
-                <ul class="nav navbar-nav">
+            <nav class="navbar navbar-static-top" role="navigation">
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
 
-                    {# notification_list request #}
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
 
-                    <li class="dropdown user user-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="glyphicon glyphicon-user"></i>
-                            <span>{{ request.user.first_name }} {{ request.user.last_name }} <i class="caret"></i></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="user-header bg-black">
-                                {% if request.user.photo %}
-                                    {% thumbnail request.user.photo "100x100" as im %}
-                                        <img src="{{ im.url }}" class="img-circle">
-                                    {% endthumbnail %}
-                                {% else %}
-                                    <img src="{% static "img/user_blank.png" %}" class="img-circle" />
-                                {% endif %}
-                                <p>
-                                    {{ request.user.get_full_name }}
-                                    <small>{% blocktrans with date=request.user.date_joined|timesince %}Joined {{ date }} ago{% endblocktrans %}</small>
-                                </p>
-                            </li>
-                            <li class="user-footer">
-                                <div class="pull-left">
-                                    <a href="{% url "itdagene.app.users.views.user_detail" user.pk %}" class="btn btn-default btn-flat">{% trans "Profile" %}</a>
-                                </div>
-                                <div class="pull-right">
-                                    <a href="/logout" class="btn btn-default btn-flat">{% trans "Logout" %}</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-    <div class="wrapper row-offcanvas row-offcanvas-left">
-        <aside class="left-side sidebar-offcanvas">
-            <section class="sidebar">
-                <div class="user-panel">
-                    <div class="pull-left image">
-                        {% if user.photo %}
-                            {% thumbnail user.photo "50x50" as im %}
-                                <img src="{{ im.url }}" class="img-circle">
-                            {% endthumbnail %}
-                        {% else %}
-                            <img src="{% static "img/user_blank.png" %}" class="img-circle" />
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="glyphicon glyphicon-user"></i>
+                                <span>{{ request.user.first_name }} {{ request.user.last_name }} <i
+                                        class="caret"></i></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="user-header bg-black">
+                                    {% if request.user.photo %}
+                                        {% thumbnail request.user.photo "100x100" as im %}
+                                            <img src="{{ im.url }}" class="img-circle">
+                                        {% endthumbnail %}
+                                    {% else %}
+                                        <img src="{% static "img/user_blank.png" %}"
+                                             class="img-circle"/>
+                                    {% endif %}
+                                    <p>
+                                        {{ request.user.get_full_name }}
+                                        <small>
+                                            {% blocktrans with date=request.user.date_joined|timesince %}
+                                                Joined {{ date }} ago{% endblocktrans %}</small>
+                                    </p>
+                                </li>
+                                <li class="user-footer">
+                                    <div class="pull-left">
+                                        <a href="{% url "itdagene.app.users.views.user_detail" user.pk %}"
+                                           class="btn btn-default btn-flat">{% trans "Profile" %}</a>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="/logout"
+                                           class="btn btn-default btn-flat">{% trans "Logout" %}</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <div class="wrapper row-offcanvas row-offcanvas-left">
+            <aside class="left-side sidebar-offcanvas">
+                <section class="sidebar">
+                    <div class="user-panel">
+                        <div class="pull-left image">
+                            {% if user.photo %}
+                                {% thumbnail user.photo "50x50" as im %}
+                                    <img src="{{ im.url }}" class="img-circle">
+                                {% endthumbnail %}
+                            {% else %}
+                                <img src="{% static "img/user_blank.png" %}" class="img-circle"/>
+                            {% endif %}
+                        </div>
+                        <div class="pull-left info">
+                            <p>{{ request.user.first_name }}</p>
+
+                            <p>{{ request.user.last_name }}</p>
+                        </div>
+                    </div>
+                    <ul class="sidebar-menu">
+                        <li class="header">{% trans "MAIN NAVIGATION" %}</li>
+                        <li>
+                            <a href="{% url "itdagene.app.frontpage.views.public" %}"><i
+                                    class="fa fa-home  "></i> {% trans "Frontpage" %}</a>
+                        </li>
+                        <li>
+                            <a href="{% url "itdagene.app.frontpage.views.inside" %}"><i
+                                    class="fa fa-dashboard"></i> {% trans "Dashboard" %}</a>
+                        </li>
+                        {% if user.is_staff %}
+                            {% if preferences.display_getting_started %}
+                                <li class="{% active request 'documentation' %} treeview"><a
+                                        href="#"><i
+                                        class="fa fa-book"></i> {% trans "Getting Started" %} <i
+                                        class="fa fa-angle-left pull-right"></i> </a>
+                                    {% include 'documentation/submenu.html' %}
+                                </li>
+                            {% endif %}
                         {% endif %}
+                        {% if user.is_staff %}
+                            <li class="{% active request 'pages' %} treeview"><a href="#"><span
+                                    class="glyphicon glyphicon-bookmark"></span> {% trans "Pages" %}
+                                <i class="fa fa-angle-left pull-right"></i></a>
+                                {% include 'pages/submenu.html' %}
+                            </li>
+                            <li class="{% active request 'news' %} treeview"><a href="#"><span
+                                    class="glyphicon glyphicon-bullhorn"></span> {% trans "Announcements" %}
+                                <i class="fa fa-angle-left pull-right"></i> </a>
+                                {% include 'news/submenu.html' %}
+                            </li>
+                        {% endif %}
+                        {% if request.user.is_staff %}
+                            <li class="{% active request 'events' %} treeview"><a href="#"><span
+                                    class="glyphicon glyphicon-calendar"></span> {% trans "Events" %}
+                                <i class="fa fa-angle-left pull-right"></i> </a>
+                                {% include 'events/submenu.html' %}
+                            </li>
+                        {% endif %}
+                        {% if request.user.is_staff %}
+                            <li class="{% active request 'bdb' %} treeview"><a href="#"><span
+                                    class="glyphicon glyphicon-briefcase"></span> {% trans "Companies" %}
+                                <i class="fa fa-angle-left pull-right"></i> </a>
+                                {% include 'company/submenu.html' %}
+                            </li>
+                        {% endif %}
+                        {% if request.user.is_staff %}
+                            <li class="{% active request 'joblistings' %} treeview"><a
+                                    href="#"><span
+                                    class="glyphicon glyphicon-list-alt"></span> {% trans "Joblistings" %}
+                                <i class="fa fa-angle-left pull-right"></i> </a>
+                                {% include 'career/submenu.html' %}
+                            </li>
+                        {% endif %}
+                        {% if request.user.is_staff %}
+                            <li class="{% active request 'packages' %} treeview"><a href="#"><span
+                                    class="glyphicon glyphicon-gift"></span> {% trans "Packages" %}
+                                <i class="fa fa-angle-left pull-right"></i> </a>
+                                {% include 'company/packages/submenu.html' %}
+                            </li>
+                        {% endif %}
+                        {% if request.user.is_staff %}
+                            <li class="{% active request 'meetings' %} treeview"><a href="#"><span
+                                    class="glyphicon glyphicon-comment"></span> {% trans "Meetings" %}
+                                <i class="fa fa-angle-left pull-right"></i> </a>
+                                {% include 'meetings/submenu.html' %}
+                            </li>
+                        {% endif %}
+                        {% if perms.workschedule.view_worker %}
+                            <li class="{% active request 'workschedules' %} treeview"><a
+                                    href="#"><span
+                                    class="glyphicon glyphicon-list"></span> {% trans "Workschedules" %}
+                                <i class="fa fa-angle-left pull-right"></i> </a>
+                                {% include 'workschedule/submenu.html' %}
+                            </li>
+                        {% endif %}
+                        <li class="{% active request 'users' %} treeview"><a href="#"><span
+                                class="glyphicon glyphicon-user"></span> {% trans "Users" %} <i
+                                class="fa fa-angle-left pull-right"></i> </a>
+                            {% include 'users/submenu.html' %}
+                        </li>
+                        {% if request.user.is_superuser %}
+                            <li class="{% active request 'admin' %} treeview"><a href="#"><span
+                                    class="glyphicon glyphicon-tower"></span> {% trans "Admin" %} <i
+                                    class="fa fa-angle-left pull-right"></i> </a>
+                                {% include 'admin/submenu.html' %}
+                            </li>
+                        {% endif %}
+                        {% if request.user.is_staff or perms.feedback.add_issue or perms.feedback.change_issue %}
+                            <li class="{% active request 'feedback' %} treeview"><a href="#"><i
+                                    class="fa fa-reply"></i> {% trans "Feedback" %} <i
+                                    class="fa fa-angle-left pull-right"></i> </a>
+                                {% include 'feedback/submenu.html' %}
+                            </li>
+                        {% endif %}
+                        {% if request.user.is_staff %}
+                            <li class="{% active request 'experiences' %} treeview"><a
+                                    href="#"><span
+                                    class="glyphicon glyphicon-pushpin"></span> {% trans "Experiences" %}
+                                <i class="fa fa-angle-left pull-right"></i> </a>
+                                {% include 'experiences/submenu.html' %}
+                            </li>
+                        {% endif %}
+
+                    </ul>
+                </section>
+            </aside>
+
+            <aside class="right-side">
+
+                {% include "messsages_admin.html" %}
+
+                {% if title %}
+                    <section class="content-header">
+                        <h1>
+                            {{ title }}
+                            <small>{{ description }}</small>
+                        </h1>
+                    </section>
+                {% endif %}
+                <section class="content">
+
+                    {% block content %}
+                    {% endblock %}
+
+                    <div class="row">
+                        <footer class="col-lg-12 footer">
+                            {{ site.name }} &copy; {% now "Y" %} &bullet; <a
+                                href="mailto:{{ site.contact_email }}">{{ site.contact_email }}</a>
+                        </footer>
                     </div>
-                    <div class="pull-left info">
-                        <p>{{ request.user.first_name }}</p>
-                        <p>{{ request.user.last_name }}</p>
-                    </div>
-                </div>
-                <ul class="sidebar-menu">
-                    <li>
-                        <a href="{% url "itdagene.app.frontpage.views.public" %}"><i class="fa fa-home  "></i> {% trans "Frontpage" %}</a>
-                    </li>
-                    <li>
-                        <a href="{% url "itdagene.app.frontpage.views.inside" %}"><i class="fa fa-dashboard"></i> {% trans "Dashboard" %}</a>
-                    </li>
-                    {% if user.is_staff %}
-                    {% if preferences.display_getting_started %}
-                        <li class="{% active request 'documentation' %} treeview"><a href="#"><i class="fa fa-book"></i> {% trans "Getting Started" %} <i class="fa fa-angle-left pull-right"></i> </a>
-                            {% include 'documentation/submenu.html' %}
-                        </li>
-                    {% endif %}
-                    {% endif %}
-                    {% if user.is_staff %}
-                    <li class="{% active request 'pages' %} treeview"><a href="#"><span class="glyphicon glyphicon-bookmark"></span> {% trans "Pages" %} <i class="fa fa-angle-left pull-right"></i> </a>
-                        {% include 'pages/submenu.html' %}
-                    </li>
-                    <li class="{% active request 'news' %} treeview"><a href="#"><span class="glyphicon glyphicon-bullhorn"></span> {% trans "Announcements" %} <i class="fa fa-angle-left pull-right"></i> </a>
-                        {% include 'news/submenu.html' %}
-                    </li>
-                    {% endif %}
-                    {% if request.user.is_staff %}
-                        <li class="{% active request 'events' %} treeview"><a href="#"><span class="glyphicon glyphicon-calendar"></span> {% trans "Events" %} <i class="fa fa-angle-left pull-right"></i> </a>
-                            {% include 'events/submenu.html' %}
-                        </li>
-                    {% endif %}
-                    {% if request.user.is_staff %}
-                        <li class="{% active request 'bdb' %} treeview"><a href="#"><span class="glyphicon glyphicon-briefcase"></span> {% trans "Companies" %} <i class="fa fa-angle-left pull-right"></i> </a>
-                            {% include 'company/submenu.html' %}
-                        </li>
-                    {% endif %}
-                    {% if request.user.is_staff %}
-                        <li class="{% active request 'joblistings' %} treeview"><a href="#"><span class="glyphicon glyphicon-list-alt"></span> {% trans "Joblistings" %} <i class="fa fa-angle-left pull-right"></i> </a>
-                            {% include 'career/submenu.html' %}
-                        </li>
-                    {% endif %}
-                    {% if request.user.is_staff %}
-                        <li class="{% active request 'packages' %} treeview"><a href="#"><span class="glyphicon glyphicon-gift"></span> {% trans "Packages" %} <i class="fa fa-angle-left pull-right"></i> </a>
-                            {% include 'company/packages/submenu.html' %}
-                        </li>
-                    {% endif %}
-                    {% if request.user.is_staff %}
-                        <li class="{% active request 'meetings' %} treeview"><a href="#"><span class="glyphicon glyphicon-comment"></span> {% trans "Meetings" %} <i class="fa fa-angle-left pull-right"></i> </a>
-                            {% include 'meetings/submenu.html' %}
-                        </li>
-                    {% endif %}
-                    {% if perms.workschedule.view_worker %}
-                        <li class="{% active request 'workschedules' %} treeview"><a href="#"><span class="glyphicon glyphicon-list"></span> {% trans "Workschedules" %} <i class="fa fa-angle-left pull-right"></i> </a>
-                            {% include 'workschedule/submenu.html' %}
-                        </li>
-                    {% endif %}
-                    <li class="{% active request 'users' %} treeview"><a href="#"><span class="glyphicon glyphicon-user"></span> {% trans "Users" %} <i class="fa fa-angle-left pull-right"></i> </a>
-                        {% include 'users/submenu.html' %}
-                    </li>
-                    {% if request.user.is_superuser %}
-                        <li class="{% active request 'admin' %} treeview"><a href="#"><span class="glyphicon glyphicon-tower"></span> {% trans "Admin" %} <i class="fa fa-angle-left pull-right"></i> </a>
-                            {% include 'admin/submenu.html' %}
-                        </li>
-                    {% endif %}
-                    {% if request.user.is_staff or perms.feedback.add_issue or perms.feedback.change_issue %}
-                    <li class="{% active request 'feedback' %} treeview"><a href="#"><i class="fa fa-reply"></i> {% trans "Feedback" %} <i class="fa fa-angle-left pull-right"></i> </a>
-                        {% include 'feedback/submenu.html' %}
-                    </li>
-                    {% endif %}
-                    {% if request.user.is_staff %}
-                        <li class="{% active request 'experiences' %} treeview"><a href="#"><span class="glyphicon glyphicon-pushpin"></span> {% trans "Experiences" %} <i class="fa fa-angle-left pull-right"></i> </a>
-                            {% include 'experiences/submenu.html' %}
-                        </li>
-                    {% endif %}
 
-                </ul>
-            </section>
-        </aside>
-
-        <aside class="right-side">
-
-            {% include "messsages_admin.html" %}
-
-            {% if title %}
-            <section class="content-header">
-                <h1>
-                    {{ title }}
-                    <small>{{ description }}</small>
-                </h1>
-            </section>
-            {% endif %}
-            <section class="content">
-
-                {% block content %}
-                {% endblock %}
-
-                <div class="row">
-                    <footer class="col-lg-12 footer">
-                        {{ site.name }} &copy; {% now "Y" %} &bullet; <a href="mailto:{{ site.contact_email }}">{{ site.contact_email }}</a>
-                    </footer>
-                </div>
-
-            </section>
-        </aside>
-    </div>
+                </section>
+            </aside>
+        </div>
     {% endif %}
 {% endblock %}
 

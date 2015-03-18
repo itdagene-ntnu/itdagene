@@ -1,12 +1,12 @@
 {% load i18n %}
 <ul class="treeview-menu">
-    <li><a href="{% url "itdagene.app.events.views.list_events" %}">{% trans "Events" %}</a></li>
+    <li><a href="{% url "itdagene.app.events.views.list_events" %}"><i class="fa fa-circle-o"></i> {% trans "Events" %}</a></li>
     {% if perms.events.add_event %}
-        <li><a href="{% url "itdagene.app.events.views.add_event" %}">{% trans "Add Event" %}</a></li>
+        <li><a href="{% url "itdagene.app.events.views.add_event" %}"><i class="fa fa-circle-o"></i> {% trans "Add Event" %}</a></li>
     {% endif %}
     {% if event.pk %}
         {% if perms.events.change_event %}
-            <li><a href="{% url "itdagene.app.events.views.edit_event" event.pk %}">{% trans "Edit Event" %}</a></li>
+            <li><a href="{% url "itdagene.app.events.views.edit_event" event.pk %}"><i class="fa fa-circle-o"></i> {% trans "Edit Event" %}</a></li>
         {% endif %}
     {% endif %}
 </ul>

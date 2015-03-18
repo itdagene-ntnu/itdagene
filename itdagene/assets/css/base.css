@@ -1,11 +1,11 @@
 .no-underline {
   text-decoration: none;
 }
-body.skin-itdagene .issue-stats .issue-number {
+body .issue-stats .issue-number {
   font-size: 40px;
   display: block;
 }
-body.skin-itdagene .issue-stats .issue-descritpion {
+body .issue-stats .issue-descritpion {
   font-size: 20px;
   display: block;
 }

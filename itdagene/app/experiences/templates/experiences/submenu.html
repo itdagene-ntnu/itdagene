@@ -2,13 +2,13 @@
 <ul class="treeview-menu">
 
     {% if request.user.is_staff %}
-    <li><a href="{% url "itdagene.app.experiences.views.list" %}">{% trans "Experiences" %}</a> </li>
+    <li><a href="{% url "itdagene.app.experiences.views.list" %}"><i class="fa fa-circle-o"></i> {% trans "Experiences" %}</a> </li>
     {% if perms.experiences.add_experience %}
-        <li><a href="{% url "itdagene.app.experiences.views.add" %}">{% trans "Add Experience" %}</a></li>
+        <li><a href="{% url "itdagene.app.experiences.views.add" %}"><i class="fa fa-circle-o"></i> {% trans "Add Experience" %}</a></li>
     {% endif %}
     {% if experience.pk %}
         {% if perms.experiences.change_experience %}
-        <li><a href="{% url "itdagene.app.experiences.views.edit" experience.pk %}">{% trans "Edit Experience" %}</a></li>
+        <li><a href="{% url "itdagene.app.experiences.views.edit" experience.pk %}"><i class="fa fa-circle-o"></i> {% trans "Edit Experience" %}</a></li>
         {% endif %}
     {% endif %}
     {% endif %}

@@ -2,18 +2,18 @@
 
 <ul class="treeview-menu">
     {% if user.is_staff %}
-        <li><a href="{% url "itdagene.app.news.views.admin" %}" class="treeview-menu">{% trans "Announcements" %}</a></li>
+        <li><a href="{% url "itdagene.app.news.views.admin" %}"><i class="fa fa-circle-o"></i> {% trans "Announcements" %}</a></li>
     {% endif %}
 
     {% if perms.news.add_announcement %}
-        <li><a href="{% url "itdagene.app.news.views.create_announcement" %}">{% trans "Add Announcement" %}</a></li>
+        <li><a href="{% url "itdagene.app.news.views.create_announcement" %}"><i class="fa fa-circle-o"></i> {% trans "Add Announcement" %}</a></li>
     {% endif %}
 
     {% if announcement %}
         {% if perms.news.change_announcement %}
-            <li><a href="{% url "itdagene.app.news.views.edit_announcement" announcement.id %}">{% trans "Edit Announcement" %}</a></li>
+            <li><a href="{% url "itdagene.app.news.views.edit_announcement" announcement.id %}"><i class="fa fa-circle-o"></i> {% trans "Edit Announcement" %}</a></li>
         {% endif %}
-        <li><a href="{% url "itdagene.app.news.views.view_announcement" announcement.id %}">{% trans "View Announcement" %}</a></li>
+        <li><a href="{% url "itdagene.app.news.views.view_announcement" announcement.id %}"><i class="fa fa-circle-o"></i> {% trans "View Announcement" %}</a></li>
     {% endif %}
 
 </ul>

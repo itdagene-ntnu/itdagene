@@ -1,19 +1,18 @@
 {% load i18n %}
 
 <ul class="treeview-menu">
-    {% if user.is_staff %}
-        <li><a href="{% url "pages" %}" class="treeview-menu">{% trans "Pages" %}</a></li>
+    {% if user.is_staff %}<li><a href="{% url "pages" %}"><i class="fa fa-circle-o"></i> {% trans "Pages" %}</a></li>
     {% endif %}
 
     {% if perms.pages.add_page %}
-        <li><a href="{% url "itdagene.app.pages.views.add" %}">{% trans "Add Page" %}</a></li>
+        <li><a href="{% url "itdagene.app.pages.views.add" %}"><i class="fa fa-circle-o"></i> {% trans "Add Page" %}</a></li>
     {% endif %}
 
     {% if page %}
         {% if perms.pages.add_page %}
-            <li><a href="{% url "itdagene.app.pages.views.edit" page.slug %}">{% trans "Edit Page" %}</a></li>
+            <li><a href="{% url "itdagene.app.pages.views.edit" page.slug %}"><i class="fa fa-circle-o"></i> {% trans "Edit Page" %}</a></li>
         {% endif %}
-        <li><a href="{% url "itdagene.app.pages.views.view_page" page.slug %}">{% trans "View Page" %}</a></li>
+        <li><a href="{% url "itdagene.app.pages.views.view_page" page.slug %}"><i class="fa fa-circle-o"></i> {% trans "View Page" %}</a></li>
     {% endif %}
 
 </ul>
