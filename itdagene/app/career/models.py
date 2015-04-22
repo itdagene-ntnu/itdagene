@@ -3,10 +3,10 @@ from datetime import date
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from managers import JoblistingManager
 
 from itdagene.app.company.models import Company, CompanyContact
 from itdagene.core.models import BaseModel
-from managers import JoblistingManager
 
 
 class Town(BaseModel):

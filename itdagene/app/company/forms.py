@@ -6,8 +6,7 @@ from django.forms.models import ModelForm
 from django.utils.translation import ugettext_lazy as _
 
 from itdagene.app.company import COMPANY_STATUS
-from itdagene.app.company.models import (Company, CompanyContact, Contract,
-                                         Package)
+from itdagene.app.company.models import Company, CompanyContact, Contract, Package
 from itdagene.core.models import Preference, User
 
 

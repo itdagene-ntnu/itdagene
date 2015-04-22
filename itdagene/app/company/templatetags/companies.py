@@ -1,7 +1,6 @@
 from django.template.base import Library
 
-from itdagene.app.company.forms import (BookCompanyForm, CompanyStatusForm,
-                                        WaitingListCompanyForm)
+from itdagene.app.company.forms import BookCompanyForm, CompanyStatusForm, WaitingListCompanyForm
 
 register = Library()
 
