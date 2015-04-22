@@ -37,22 +37,15 @@ urlpatterns = patterns('',
 )+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-"""
-urlpatterns += patterns('',
-    url(r'^accounts/logout/$', 'django.contrib.auth.views.logout'),
-    url(r'^accounts/profile/$', lambda r: HttpResponsePermanentRedirect('/backend/users/me/')),
-    url(r'^login/$', 'django.contrib.auth.views.login'),
-    url(r'^profile/$', lambda r: HttpResponsePermanentRedirect('/backend/users/me/')),
-    url(r'^accounts/$', lambda r: HttpResponsePermanentRedirect('/backend/users/me/')),
-    #redirects
-    url(r'^jobb/$', lambda r: HttpResponsePermanentRedirect(reverse('joblistings'))),
-)
-"""
 
-
-#Must be the last one
+# Redirects
 urlpatterns += patterns('',
-    url(r'^', include('itdagene.app.pages.urls')),
-)
+                        url(r'^jobb/$', lambda r: HttpResponsePermanentRedirect(reverse('itdagene.app.frontpage.views.joblistings'))),
+                        )
+
+# Must be the last one
+urlpatterns += patterns('',
+                        url(r'^', include('itdagene.app.pages.urls')),
+                        )
 
 

@@ -19,8 +19,8 @@ class Joblisting (BaseModel):
     objects = JoblistingManager()
 
     JOB_TYPES = (
-        ('si',_('Summer internship')),
-        ('pp',_('Permanent position')),
+        ('si', _('Summer internship')),
+        ('pp', _('Permanent position')),
     )
 
     company = models.ForeignKey(Company, related_name='joblistings', verbose_name=_('company'))
