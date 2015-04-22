@@ -1,12 +1,11 @@
 from celery import task
-
-from django.template.loader import render_to_string
-from django.core.mail import get_connection, EmailMultiAlternatives
 from django.conf import settings
-from django.utils.translation import ugettext as _
-from itdagene.core.auth import generate_password
+from django.core.mail import EmailMultiAlternatives, get_connection
+from django.template.loader import render_to_string
 from django.utils import translation
-from itdagene.core.auth import get_current_user
+from django.utils.translation import ugettext as _
+
+from itdagene.core.auth import generate_password, get_current_user
 
 
 def send_email(recipients, subject, template, template_html, params, sender=settings.SERVER_EMAIL):

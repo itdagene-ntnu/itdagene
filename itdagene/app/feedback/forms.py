@@ -1,8 +1,10 @@
 from django import forms
-from django.forms import ChoiceField, RadioSelect, IntegerField
-from itdagene.app.feedback.models import Issue, Evaluation
+from django.forms import ChoiceField, IntegerField, RadioSelect
 from django.forms.models import ModelForm
+
+from itdagene.app.feedback.models import Evaluation, Issue
 from itdagene.core.models import User
+
 
 class IssueForm(ModelForm):
     class Meta:

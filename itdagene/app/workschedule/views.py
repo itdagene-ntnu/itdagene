@@ -1,13 +1,14 @@
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render_to_response, get_object_or_404
-from itdagene.app.workschedule.forms import WorkScheduleForm, WorkerForm
-from itdagene.app.workschedule.models import WorkSchedule, Worker, WorkerInSchedule
+from dateutil.rrule import DAILY, rrule
+from django.contrib.auth.decorators import login_required, permission_required
 from django.core.urlresolvers import reverse
-from django.contrib.auth.decorators import permission_required
-from django.shortcuts import render, redirect
-from itdagene.core.models import Preference
+from django.shortcuts import (get_object_or_404, redirect, render,
+                              render_to_response)
 from django.utils.translation import ugettext_lazy as _
-from dateutil.rrule import rrule, DAILY
+
+from itdagene.app.workschedule.forms import WorkerForm, WorkScheduleForm
+from itdagene.app.workschedule.models import (Worker, WorkerInSchedule,
+                                              WorkSchedule)
+from itdagene.core.models import Preference
 
 
 @permission_required('workschedule.add_worker')
@@ -101,13 +102,3 @@ def change_attendance(request, id):
 def view_worker(request, id):
     worker = get_object_or_404(Worker, pk=id)
     return render(request, 'worker/view.html', {'worker': worker, 'title': _('Worker'), 'description':worker.name })
-
-
-
-
-
-
-
-
-
-

@@ -1,9 +1,10 @@
+from django import forms
 from django.contrib.auth.models import Group
-from itdagene.core.models import User
 from django.forms.forms import Form
 from django.forms.models import ModelForm
-from itdagene.core.models import Preference
-from django import forms
+
+from itdagene.core.models import Preference, User
+
 
 class UserForm (ModelForm):
     class Meta:
@@ -28,4 +29,3 @@ class PreferenceForm (ModelForm):
     class Meta:
         model = Preference
         exclude = ('active',)
-

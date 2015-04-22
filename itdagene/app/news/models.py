@@ -1,6 +1,7 @@
-from django.utils.translation import ugettext_lazy as _
-from itdagene.core.models import BaseModel
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
+
+from itdagene.core.models import BaseModel
 
 
 class Announcement (BaseModel):

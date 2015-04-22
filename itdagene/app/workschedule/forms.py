@@ -1,10 +1,11 @@
-from django.forms.models import ModelForm
-from django.forms.forms import Form
-from itdagene.core.models import Preference
-from django.utils.translation import ugettext_lazy as _
 from django import forms
-from itdagene.app.workschedule.models import WorkSchedule, Worker, WorkerInSchedule
-from itdagene.core.models import User
+from django.forms.forms import Form
+from django.forms.models import ModelForm
+from django.utils.translation import ugettext_lazy as _
+
+from itdagene.app.workschedule.models import (Worker, WorkerInSchedule,
+                                              WorkSchedule)
+from itdagene.core.models import Preference, User
 
 
 class WorkScheduleForm (ModelForm):

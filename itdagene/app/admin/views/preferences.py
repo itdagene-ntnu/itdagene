@@ -1,11 +1,12 @@
-from django.core.urlresolvers import reverse
-from itdagene.app.admin.forms import PreferenceForm
 from django.contrib.auth.decorators import permission_required
-from itdagene.core.models import Preference
 from django.core.cache import cache
-from django.shortcuts import render_to_response, get_object_or_404, redirect
-from django.shortcuts import render
+from django.core.urlresolvers import reverse
+from django.shortcuts import (get_object_or_404, redirect, render,
+                              render_to_response)
 from django.utils.translation import ugettext_lazy as _
+
+from itdagene.app.admin.forms import PreferenceForm
+from itdagene.core.models import Preference
 
 
 @permission_required('core.change_preference')

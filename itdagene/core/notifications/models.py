@@ -1,12 +1,15 @@
 from datetime import datetime
+
 from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.shortcuts import get_object_or_404
 from django.utils import translation
 from django.utils.translation import ugettext as _
-from django.contrib.contenttypes.models import ContentType
-from itdagene.core.models import User
-from django.shortcuts import get_object_or_404
+
 from itdagene.core.auth import get_current_user
+from itdagene.core.models import User
+
 
 class Notification (models.Model):
 

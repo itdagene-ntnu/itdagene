@@ -1,13 +1,13 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required, permission_required
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
-from django.shortcuts import get_object_or_404, redirect
 from django.http import HttpResponsePermanentRedirect
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.translation import ugettext_lazy as _
+
 from itdagene.app.pages.forms import PageForm
 from itdagene.app.pages.models import Page
-from django.contrib.auth.decorators import permission_required, login_required
-from django.shortcuts import render
-from django.utils.translation import ugettext_lazy as _
 from itdagene.core.decorators import staff_required
 
 

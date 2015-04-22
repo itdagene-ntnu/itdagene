@@ -1,15 +1,15 @@
-from itdagene.core.models import Preference
-from itdagene.app.meetings.forms import MeetingForm, PenaltyForm
-from itdagene.app.meetings.models import Meeting, ReplyMeeting, Penalty
-from django.contrib.auth.decorators import permission_required, login_required
-from django.shortcuts import render_to_response, get_object_or_404, redirect, Http404
-from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext_lazy as _
-from django.shortcuts import render
-from itdagene.core.models import User
-from itdagene.core.decorators import staff_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.messages import *
+from django.core.urlresolvers import reverse
+from django.shortcuts import (Http404, get_object_or_404, redirect, render,
+                              render_to_response)
+from django.utils.translation import ugettext_lazy as _
+
 from itdagene.app.mail.tasks import meeting_send_invite
+from itdagene.app.meetings.forms import MeetingForm, PenaltyForm
+from itdagene.app.meetings.models import Meeting, Penalty, ReplyMeeting
+from itdagene.core.decorators import staff_required
+from itdagene.core.models import Preference, User
 
 
 @staff_required()

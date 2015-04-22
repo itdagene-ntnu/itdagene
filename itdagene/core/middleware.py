@@ -1,6 +1,7 @@
-from itdagene.core.models import Preference
-from django.shortcuts import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.shortcuts import HttpResponseRedirect
+
+from itdagene.core.models import Preference
 
 
 class ForceDefaultLanguageMiddleware(object):

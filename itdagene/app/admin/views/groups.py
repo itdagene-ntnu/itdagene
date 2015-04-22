@@ -1,14 +1,15 @@
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.models import Group
 from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponse
-from itdagene.app.admin.forms import GroupForm, AddUserToGroupForm
-from django.shortcuts import render_to_response, get_object_or_404, redirect
-from itdagene.core.log.models import LogItem
-from django.contrib.auth.models import Group
-from itdagene.core.models import User
-from django.shortcuts import render
-from itdagene.core.decorators import superuser_required
+from django.shortcuts import (get_object_or_404, redirect, render,
+                              render_to_response)
 from django.utils.translation import ugettext_lazy as _
+
+from itdagene.app.admin.forms import AddUserToGroupForm, GroupForm
+from itdagene.core.decorators import superuser_required
+from itdagene.core.log.models import LogItem
+from itdagene.core.models import User
 
 
 @superuser_required()

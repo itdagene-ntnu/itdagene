@@ -1,17 +1,19 @@
-from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required, permission_required
-from django.shortcuts import get_object_or_404, redirect, render, Http404, HttpResponse
-from itdagene.core.models import User
-from itdagene.core.log.models import LogItem
-from itdagene.core.models import Preference
-from django.utils.translation import ugettext_lazy as _
-from .forms import UserCreateForm, UserEditForm, SimpleUserEditForm
 from django.contrib.auth.forms import PasswordChangeForm, SetPasswordForm
-from django.db.models import Q
 from django.contrib.messages import *
+from django.core.urlresolvers import reverse
+from django.db.models import Q
+from django.shortcuts import (Http404, HttpResponse, get_object_or_404,
+                              redirect, render)
+from django.utils.text import slugify
+from django.utils.translation import ugettext_lazy as _
+
 from itdagene.app.mail.senders import users_send_welcome_email
 from itdagene.app.users import vcard_string
-from django.utils.text import slugify
+from itdagene.core.log.models import LogItem
+from itdagene.core.models import Preference, User
+
+from .forms import SimpleUserEditForm, UserCreateForm, UserEditForm
 
 
 @login_required

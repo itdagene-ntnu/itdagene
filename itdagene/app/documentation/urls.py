@@ -1,7 +1,7 @@
-from django.conf.urls import patterns, url
-from django.views.generic import TemplateView
-from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
+from django.conf.urls import patterns, url
+from django.utils.translation import ugettext_lazy as _
+from django.views.generic import TemplateView
 
 
 class DocumentationContextTemplateView(TemplateView):

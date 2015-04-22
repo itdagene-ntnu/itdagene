@@ -1,10 +1,11 @@
 from django.conf import settings
-from django.db import models
-from itdagene.core.log.models import LogItem
-from itdagene.core.models import BaseModel
-from itdagene.core.models import User, Preference
-from django.utils.translation import ugettext_lazy as _, ugettext
 from django.core.urlresolvers import reverse
+from django.db import models
+from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext
+
+from itdagene.core.log.models import LogItem
+from itdagene.core.models import BaseModel, Preference, User
 
 MEETING_TYPES = (
     (0, _('Board meeting')),

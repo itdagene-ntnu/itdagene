@@ -1,5 +1,6 @@
 from django.contrib.contenttypes.models import ContentType
 from django.template.base import Library
+
 from itdagene.app.comments.forms import CommentForm
 from itdagene.app.comments.models import Comment
 

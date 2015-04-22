@@ -1,5 +1,6 @@
-from django.db import models
 from datetime import date
+
+from django.db import models
 
 
 class JoblistingManager(models.Manager):

@@ -1,13 +1,14 @@
-from itdagene.app.company.models import Company, Package, CompanyContact, Contract
-from django.forms.models import ModelForm
-from itdagene.core.models import User
-from django.utils.translation import ugettext_lazy as _
-from itdagene.app.company import COMPANY_STATUS
-from itdagene.core.models import Preference
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit
 from crispy_forms.bootstrap import FieldWithButtons, StrictButton
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import ButtonHolder, Fieldset, Layout, Submit
 from django.db.models import Q
+from django.forms.models import ModelForm
+from django.utils.translation import ugettext_lazy as _
+
+from itdagene.app.company import COMPANY_STATUS
+from itdagene.app.company.models import (Company, CompanyContact, Contract,
+                                         Package)
+from itdagene.core.models import Preference, User
 
 
 class PackageForm(ModelForm):

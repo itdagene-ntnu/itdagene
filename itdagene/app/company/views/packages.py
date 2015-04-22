@@ -1,12 +1,12 @@
-from django.core.urlresolvers import reverse
-from django.shortcuts import get_object_or_404, redirect
-from itdagene.app.company.models import Package
-from itdagene.app.company.forms import PackageForm
-from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.decorators import permission_required
-from django.shortcuts import render
-from itdagene.core.decorators import staff_required
 from django.contrib.messages import *
+from django.core.urlresolvers import reverse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.translation import ugettext_lazy as _
+
+from itdagene.app.company.forms import PackageForm
+from itdagene.app.company.models import Package
+from itdagene.core.decorators import staff_required
 
 
 @staff_required()

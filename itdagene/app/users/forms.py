@@ -1,6 +1,7 @@
 from django import forms
-from itdagene.core.models import User
 from django.contrib.auth.forms import UserCreationForm
+
+from itdagene.core.models import User
 
 
 class UserCreateForm(UserCreationForm):
@@ -30,4 +31,3 @@ class SimpleUserEditForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'email', 'phone', 'language', 'mail_notification', 'photo')
-

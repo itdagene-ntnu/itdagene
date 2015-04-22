@@ -1,5 +1,6 @@
-from itdagene.app.pages.models import Page
 from django.forms.models import ModelForm
+
+from itdagene.app.pages.models import Page
 
 
 class PageForm(ModelForm):

@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.conf.urls import url, patterns, include
+from django.conf.urls import include, patterns, url
 from django.conf.urls.static import static
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponsePermanentRedirect
@@ -47,5 +47,3 @@ urlpatterns += patterns('',
 urlpatterns += patterns('',
                         url(r'^', include('itdagene.app.pages.urls')),
                         )
-
-

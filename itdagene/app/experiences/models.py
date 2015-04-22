@@ -1,7 +1,7 @@
 from django.db import models
-from itdagene.core.models import BaseModel
 from django.utils.translation import ugettext_lazy as _
-from itdagene.core.models import Preference
+
+from itdagene.core.models import BaseModel, Preference
 
 BOARD_POSITION = (
     (0, 'Leder'),

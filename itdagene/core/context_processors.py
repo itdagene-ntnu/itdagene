@@ -1,7 +1,8 @@
 from django.conf import settings
+
+from itdagene.core.instagram_helper import get_tag_images
 from itdagene.core.models import Preference
 from itdagene.core.twitter import get_latest_tweet
-from itdagene.core.instagram_helper import get_tag_images
 
 
 def site_processor(request):

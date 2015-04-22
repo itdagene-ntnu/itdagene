@@ -1,17 +1,15 @@
-import string
 import random
+import string
 from datetime import datetime
+
+from django.core.urlresolvers import reverse
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
+
 from itdagene.app.company.models import Company
 from itdagene.core.auth import generate_password
 from itdagene.core.log.models import LogItem
-from itdagene.core.models import BaseModel, Preference
-from django.utils.translation import ugettext_lazy as _
-from django.core.urlresolvers import reverse
-from itdagene.core.models import User, Preference
-from itdagene.app.company.models import Company
-
-
+from itdagene.core.models import BaseModel, Preference, User
 
 APPS = (
     ('all', _('All')),

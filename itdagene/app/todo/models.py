@@ -1,9 +1,9 @@
-from itdagene.app.company.models import Company
-from itdagene.core.models import BaseModel
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from itdagene.core.models import User
-from django.core.urlresolvers import reverse
+
+from itdagene.app.company.models import Company
+from itdagene.core.models import BaseModel, User
 
 
 class Todo (BaseModel):

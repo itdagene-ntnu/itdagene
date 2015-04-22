@@ -1,14 +1,15 @@
-from django.http import Http404, HttpResponse
-from itdagene.app.company.forms import CompanyContactForm
-from itdagene.app.company.models import CompanyContact, Company
-from django.shortcuts import redirect, get_object_or_404
-from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import permission_required
-from django.shortcuts import render
-from django.utils.translation import ugettext_lazy as _
-from itdagene.core.decorators import staff_required
 from django.contrib.messages import *
+from django.core.urlresolvers import reverse
+from django.http import Http404, HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.translation import ugettext_lazy as _
+
+from itdagene.app.company.forms import CompanyContactForm
+from itdagene.app.company.models import Company, CompanyContact
 from itdagene.core import vcard_string
+from itdagene.core.decorators import staff_required
+
 
 @permission_required('company.add_companycontact')
 def add_contact(request, company):

@@ -1,12 +1,12 @@
-from django.core.urlresolvers import reverse
-from itdagene.app.company.forms import ContractForm
-from itdagene.app.company.models import Contract, Company
 from django.contrib.auth.decorators import permission_required
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404, redirect
-from django.http import Http404, HttpResponse
 from django.contrib.messages import *
+from django.core.urlresolvers import reverse
+from django.http import Http404, HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import ugettext_lazy as _
+
+from itdagene.app.company.forms import ContractForm
+from itdagene.app.company.models import Company, Contract
 from itdagene.core.decorators import staff_required
 
 

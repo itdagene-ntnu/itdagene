@@ -1,16 +1,19 @@
 # -*- coding: utf-8 -*-
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404, get_list_or_404, Http404, redirect, HttpResponse
-from django.utils.translation import ugettext_lazy as _, activate
-from itdagene.app.feedback.forms import EvaluationForm
-from itdagene.app.feedback.models import Evaluation
-from itdagene.core.models import Preference
-from itdagene.core.decorators import staff_required
-from django.conf import settings
-from itdagene.app.company.models import Company
 from django.contrib.messages import *
 from django.core.urlresolvers import reverse
+from django.shortcuts import (Http404, HttpResponse, get_list_or_404,
+                              get_object_or_404, redirect, render)
+from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import activate
+
+from itdagene.app.company.models import Company
+from itdagene.app.feedback.forms import EvaluationForm
+from itdagene.app.feedback.models import Evaluation
+from itdagene.core.decorators import staff_required
+from itdagene.core.models import Preference
 
 EN = [1065]
 

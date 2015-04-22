@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 import json
 import os
-from django.core.management.base import BaseCommand
-from django.conf import settings
 import time
+
+from django.conf import settings
+from django.core.management.base import BaseCommand
+
 from itdagene.app.workschedule.models import Worker
+
 
 def safe_unicode(obj):
     string = str(obj)

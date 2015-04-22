@@ -1,5 +1,4 @@
-from django.conf.urls import url, patterns
-
+from django.conf.urls import patterns, url
 
 urlpatterns = patterns('itdagene.app.career.views',
     url(r'^joblistings/$', 'list'),
@@ -9,4 +8,3 @@ urlpatterns = patterns('itdagene.app.career.views',
     url(r'^joblistings/(?P<pk>\d+)/delete/$', 'delete'),
     url(r'^joblistings/add_town/$', 'add_town')
 )
-

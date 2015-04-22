@@ -1,12 +1,13 @@
+from django.contrib.auth.decorators import permission_required
+from django.contrib.messages import SUCCESS, add_message
+from django.core.urlresolvers import reverse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.translation import ugettext_lazy as _
+
 from itdagene.app.career.forms import JoblistingForm, JoblistingTownForm
 from itdagene.app.career.models import Joblisting
-from django.shortcuts import get_object_or_404, redirect
-from django.contrib.auth.decorators import permission_required
-from django.shortcuts import render
-from django.core.urlresolvers import reverse
 from itdagene.core.decorators import staff_required
-from django.utils.translation import ugettext_lazy as _
-from django.contrib.messages import add_message, SUCCESS
+
 
 @staff_required()
 def list(request):

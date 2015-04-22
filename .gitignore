@@ -30,3 +30,6 @@ itdagene/assets/lib
 node_modules/
 itdagene/assets/frontend/itdagene.css
 itdagene/assets/frontend/itdagene.js
+.coverage
+.tox/
+coverage.xml

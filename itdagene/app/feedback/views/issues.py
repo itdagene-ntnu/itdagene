@@ -1,16 +1,16 @@
 from datetime import datetime
-from django.contrib.auth.decorators import login_required
-from django.template.context import RequestContext
-from itdagene.app.feedback.forms import IssueForm, IssueAssignForm
-from itdagene.app.feedback.models import Issue
-from django.shortcuts import get_object_or_404, render_to_response, redirect
-from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.decorators import permission_required
-from django.core.urlresolvers import reverse
-from django.shortcuts import render
-from itdagene.core.decorators import staff_required
-from datetime import datetime
+
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.messages import *
+from django.core.urlresolvers import reverse
+from django.shortcuts import (get_object_or_404, redirect, render,
+                              render_to_response)
+from django.template.context import RequestContext
+from django.utils.translation import ugettext_lazy as _
+
+from itdagene.app.feedback.forms import IssueAssignForm, IssueForm
+from itdagene.app.feedback.models import Issue
+from itdagene.core.decorators import staff_required
 
 
 @staff_required()

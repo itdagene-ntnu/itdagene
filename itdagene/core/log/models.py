@@ -1,12 +1,15 @@
 from datetime import datetime
+
+from django.conf import settings
+from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.models import ContentType
+from django.core.mail import mail_admins, send_mail
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.contenttypes.models import ContentType
-from django.contrib.contenttypes import generic
-from django.core.mail import send_mail, mail_admins
+
 from itdagene.core.auth import get_current_user
-from django.conf import settings
 from itdagene.core.models import User
+
 
 class LogItem (models.Model):
 

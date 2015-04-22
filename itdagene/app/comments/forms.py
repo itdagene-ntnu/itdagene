@@ -1,7 +1,8 @@
-from django.forms.widgets import HiddenInput
-from itdagene.app.comments.models import Comment
-from django.forms.models import ModelForm
 from django import forms
+from django.forms.models import ModelForm
+from django.forms.widgets import HiddenInput
+
+from itdagene.app.comments.models import Comment
 
 
 class CommentForm (ModelForm):

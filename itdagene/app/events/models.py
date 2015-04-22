@@ -1,12 +1,12 @@
 from datetime import datetime
-from django.db import models
-from itdagene.app.company.models import Company
-from itdagene.core.models import BaseModel
-from django.utils.translation import ugettext_lazy as _
-from django import forms
-from itdagene.core.models import User
-from django.core.urlresolvers import reverse
 
+from django import forms
+from django.core.urlresolvers import reverse
+from django.db import models
+from django.utils.translation import ugettext_lazy as _
+
+from itdagene.app.company.models import Company
+from itdagene.core.models import BaseModel, User
 
 EVENT_TYPES = (
     (0, _('Course')),

@@ -1,12 +1,13 @@
 from datetime import datetime
-from django.db import models, connection
+
+from django.core.exceptions import ValidationError
+from django.core.urlresolvers import reverse
+from django.db import connection, models
+from django.utils.translation import ugettext_lazy as _
+
 from itdagene.app.company import COMPANY_STATUS
 from itdagene.core.log.models import LogItem
-from itdagene.core.models import BaseModel, Preference
-from django.utils.translation import ugettext_lazy as _
-from django.core.urlresolvers import reverse
-from itdagene.core.models import User
-from django.core.exceptions import ValidationError
+from itdagene.core.models import BaseModel, Preference, User
 
 
 class Package(BaseModel):

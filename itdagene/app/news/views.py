@@ -1,10 +1,10 @@
-from django.shortcuts import redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required, permission_required
+from django.core.urlresolvers import reverse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.translation import ugettext_lazy as _
+
 from itdagene.app.news.forms import AnnouncementForm
 from itdagene.app.news.models import Announcement
-from django.contrib.auth.decorators import permission_required, login_required
-from django.shortcuts import render
-from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext_lazy as _
 from itdagene.core.decorators import staff_required
 
 

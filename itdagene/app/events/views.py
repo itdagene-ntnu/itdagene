@@ -1,13 +1,12 @@
-from django.core.urlresolvers import reverse
+from django.contrib.auth.decorators import permission_required
+from django.contrib.messages import SUCCESS, add_message
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.translation import ugettext_lazy as _
+
 from itdagene.app.events.forms import EventForm, EventTicketForm
 from itdagene.app.events.models import Event, Ticket
-from django.contrib.auth.decorators import permission_required
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404, redirect
-from django.utils.translation import ugettext_lazy as _
-from itdagene.core.models import Preference
 from itdagene.core.decorators import staff_required
-from django.contrib.messages import add_message, SUCCESS
+from itdagene.core.models import Preference
 
 
 @staff_required()
@@ -67,5 +66,3 @@ def edit_ticket(request, pk):
             return redirect(ticket.event.get_absolute_url())
 
     return render(request, 'events/form.html', {'form': form, 'title': _('Edit Ticket'), 'description': str(ticket)})
-
-

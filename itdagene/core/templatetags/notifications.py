@@ -1,5 +1,6 @@
 from django.core import cache
 from django.template.base import Library
+
 from itdagene.core.notifications.models import Notification
 
 register = Library()

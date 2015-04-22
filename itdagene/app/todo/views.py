@@ -1,12 +1,13 @@
-from itdagene.app.todo.forms import TodoForm
-from django.contrib.messages import *
-from django.utils.translation import ugettext_lazy as _
-from django.shortcuts import render, redirect
-from django.core.urlresolvers import reverse
-from django.contrib.auth.decorators import permission_required
-from itdagene.app.todo.models import Todo
-from django.shortcuts import get_object_or_404
 from datetime import datetime
+
+from django.contrib.auth.decorators import permission_required
+from django.contrib.messages import *
+from django.core.urlresolvers import reverse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.translation import ugettext_lazy as _
+
+from itdagene.app.todo.forms import TodoForm
+from itdagene.app.todo.models import Todo
 
 
 @permission_required('todo.add_todo')

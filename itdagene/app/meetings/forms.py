@@ -1,11 +1,11 @@
 from django import forms
 from django.forms.forms import Form
 from django.forms.models import ModelForm
+from django.shortcuts import get_list_or_404, get_object_or_404
 from django.utils.translation import ugettext_lazy as _
-from itdagene.app.meetings.models import Meeting, ReplyMeeting, Penalty
-from itdagene.core.models import Preference
-from itdagene.core.models import User
-from django.shortcuts import get_object_or_404, get_list_or_404
+
+from itdagene.app.meetings.models import Meeting, Penalty, ReplyMeeting
+from itdagene.core.models import Preference, User
 
 
 class MeetingForm(ModelForm):
