@@ -1,9 +1,10 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 
-urlpatterns = patterns('itdagene.app.career.views',
-                       url(r'^joblistings/$', 'list'),
-                       url(r'^joblistings/add/$', 'add'),
-                       url(r'^joblistings/(?P<pk>\d+)/$', 'view'),
-                       url(r'^joblistings/(?P<pk>\d+)/edit/$', 'edit'),
-                       url(r'^joblistings/(?P<pk>\d+)/delete/$', 'delete'),
-                       url(r'^joblistings/add_town/$', 'add_town'))
+urlpatterns = [
+    url(r'^joblistings/$', 'itdagene.app.career.views.list'),
+    url(r'^joblistings/add/$', 'itdagene.app.career.views.add'),
+    url(r'^joblistings/(?P<pk>\d+)/$', 'itdagene.app.career.views.view'),
+    url(r'^joblistings/(?P<pk>\d+)/edit/$', 'itdagene.app.career.views.edit'),
+    url(r'^joblistings/(?P<pk>\d+)/delete/$', 'itdagene.app.career.views.delete'),
+    url(r'^joblistings/add_town/$', 'itdagene.app.career.views.add_town')
+]

@@ -1,21 +1,13 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 
-urlpatterns = patterns(
-    'itdagene.app.users.views', url(regex=r'^$',
-                                    view='user_list',
-                                    name='list'), url(regex=r'^create/$',
-                                                      view='user_create',
-                                                      name='create'),
-    url(regex=r'^(?P<pk>\d+)/$',
-        view='user_detail',
-        name='detail'), url(regex=r'^(?P<pk>\d+)/welcome_email/$',
-                            view='send_welcome_email'),
-    url(regex=r'^(?P<pk>\d+)/vcard/$',
-        view='vcard'), url(regex=r'^(?P<pk>\d+)/edit/$',
-                           view='user_edit',
-                           name='edit'),
-    url(regex=r'^(?P<pk>\d+)/edit/password/$',
-        view='user_edit_password',
-        name='edit_password'), url(regex=r'^(?P<pk>\d+)/delete/$',
-                                   view='user_delete',
-                                   name='delete'), )
+urlpatterns = [
+    url(r'^$', 'itdagene.app.users.views.user_list', name='list'),
+    url(r'^create/$', 'itdagene.app.users.views.user_create', name='create'),
+    url(r'^(?P<pk>\d+)/$', 'itdagene.app.users.views.user_detail', name='detail'),
+    url(r'^(?P<pk>\d+)/welcome_email/$', 'itdagene.app.users.views.send_welcome_email'),
+    url(r'^(?P<pk>\d+)/vcard/$', 'itdagene.app.users.views.vcard'),
+    url(r'^(?P<pk>\d+)/edit/$', 'itdagene.app.users.views.user_edit', name='edit'),
+    url(r'^(?P<pk>\d+)/edit/password/$', 'itdagene.app.users.views.user_edit_password',
+        name='edit_password'),
+    url(r'^(?P<pk>\d+)/delete/$', 'itdagene.app.users.views.user_delete', name='delete'),
+]
