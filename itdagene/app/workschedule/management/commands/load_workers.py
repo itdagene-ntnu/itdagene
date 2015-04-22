@@ -22,7 +22,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         path = args[0]
         if not os.path.exists(path):
-            print "First argument should be the path to the file with worker info"
+            print("First argument should be the path to the file with worker info")
             return
 
         json_data = open(path)
@@ -62,4 +62,4 @@ class Command(BaseCommand):
             w.save()
             count += 1
 
-        print "Added %d workers" % count
+        print("Added %d workers" % count)
