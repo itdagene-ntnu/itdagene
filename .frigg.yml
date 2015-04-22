@@ -1,0 +1,6 @@
+tasks:
+  - flake8
+
+services:
+  - postgresql
+
