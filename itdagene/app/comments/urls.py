@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 
-urlpatterns = patterns('itdagene.app.comments.views',
-                       url(r'^add/$', 'add'), )
+urlpatterns = [
+    url(r'^add/$', 'itdagene.app.comments.views.add'),
+]

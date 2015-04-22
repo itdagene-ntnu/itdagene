@@ -1,11 +1,12 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 
-urlpatterns = patterns(
-    'itdagene.app.workschedule.views', url(r'^$', 'list',
-                                           name='workschedules'),
-    (r'^add_task$', 'add_task'), (r'^add_worker$', 'add_worker'),
-    (r'^task/(?P<id>\d+)/$', 'view_task'),
-    (r'^task/(?P<id>\d+)/edit$', 'edit_task'),
-    (r'^worker/(?P<id>\d+)/$', 'view_worker'),
-    (r'^worker/(?P<id>\d+)/edit$', 'edit_worker'),
-    (r'^task/attendance/(?P<id>\d+)$', 'change_attendance'), )
+urlpatterns = [
+    url(r'^$', 'itdagene.app.workschedule.views.list', name='workschedules'),
+    url(r'^add_task$', 'itdagene.app.workschedule.views.add_task'),
+    url(r'^add_worker$', 'itdagene.app.workschedule.views.add_worker'),
+    url(r'^task/(?P<id>\d+)/$', 'itdagene.app.workschedule.views.view_task'),
+    url(r'^task/(?P<id>\d+)/edit$', 'itdagene.app.workschedule.views.edit_task'),
+    url(r'^worker/(?P<id>\d+)/$', 'itdagene.app.workschedule.views.view_worker'),
+    url(r'^worker/(?P<id>\d+)/edit$', 'itdagene.app.workschedule.views.edit_worker'),
+    url(r'^task/attendance/(?P<id>\d+)$', 'itdagene.app.workschedule.views.change_attendance'),
+]

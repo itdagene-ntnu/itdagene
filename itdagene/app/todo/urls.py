@@ -1,7 +1,9 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 
-urlpatterns = patterns('itdagene.app.todo.views', url(r'add/$', 'add_todo'),
-                       url(r'^(?P<pk>\d+)/change/$', 'change_todo'),
-                       url(r'^(?P<pk>\d+)/delete/$', 'delete_todo'),
-                       url(r'^(?P<pk>\d+)/change/status/$', 'change_status'),
-                       url(r'^(?P<pk>\d+)/$', 'view_todo'), )
+urlpatterns = [
+    url(r'add/$', 'itdagene.app.todo.views.add_todo'),
+    url(r'^(?P<pk>\d+)/change/$', 'itdagene.app.todo.views.change_todo'),
+    url(r'^(?P<pk>\d+)/delete/$', 'itdagene.app.todo.views.delete_todo'),
+    url(r'^(?P<pk>\d+)/change/status/$', 'itdagene.app.todo.views.change_status'),
+    url(r'^(?P<pk>\d+)/$', 'itdagene.app.todo.views.view_todo'),
+]

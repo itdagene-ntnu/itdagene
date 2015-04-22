@@ -100,16 +100,6 @@
                                     class="fa fa-dashboard"></i> {% trans "Dashboard" %}</a>
                         </li>
                         {% if user.is_staff %}
-                            {% if preferences.display_getting_started %}
-                                <li class="{% active request 'documentation' %} treeview"><a
-                                        href="#"><i
-                                        class="fa fa-book"></i> {% trans "Getting Started" %} <i
-                                        class="fa fa-angle-left pull-right"></i> </a>
-                                    {% include 'documentation/submenu.html' %}
-                                </li>
-                            {% endif %}
-                        {% endif %}
-                        {% if user.is_staff %}
                             <li class="{% active request 'pages' %} treeview"><a href="#"><span
                                     class="glyphicon glyphicon-bookmark"></span> {% trans "Pages" %}
                                 <i class="fa fa-angle-left pull-right"></i></a>

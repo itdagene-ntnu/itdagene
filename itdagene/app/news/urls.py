@@ -1,6 +1,7 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 
-urlpatterns = patterns('itdagene.app.news.views',
-                       url(r'^add/$', 'create_announcement',
-                           name='create_announcement'), url(r'^$', 'admin'),
-                       url(r'^(?P<id>\d+)/edit/$', 'edit_announcement'), )
+urlpatterns = [
+    url(r'^add/$', 'itdagene.app.news.views.create_announcement', name='create_announcement'),
+    url(r'^$', 'itdagene.app.news.views.admin'),
+    url(r'^(?P<id>\d+)/edit/$', 'itdagene.app.news.views.edit_announcement'),
+]
