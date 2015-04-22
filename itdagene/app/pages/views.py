@@ -1,8 +1,7 @@
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import permission_required
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
-from django.http import HttpResponsePermanentRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import ugettext_lazy as _
 
@@ -17,11 +16,12 @@ def view_page(request, lang_code='nb', slug='itdagene'):
         try:
             page = Page.objects.get(language=lang_code, slug=slug, active=True)
             cache.set('page' + lang_code + slug, page)
-        except(TypeError, Page.DoesNotExist):
+        except (TypeError, Page.DoesNotExist):
             page = get_object_or_404(Page, slug=slug, active=True)
             messages.error = _('The page is not available in your language.')
     if page.need_auth and not request.user.is_authenticated():
-        return "%s?next=/%s/" % (reverse('django.contrib.auth.views.login'), page.slug)
+        return "%s?next=/%s/" % (reverse('django.contrib.auth.views.login'),
+                                 page.slug)
     return render(request, 'pages/page.html', {'page': page, })
 
 
@@ -33,11 +33,14 @@ def add(request):
             page = form.save()
             cache.set('page' + page.language + page.slug, page)
             cache.delete('menu')
-            return redirect(reverse('itdagene.app.pages.views.view_page', args=[page.slug]))
+            return redirect(reverse('itdagene.app.pages.views.view_page',
+                                    args=[page.slug]))
         else:
-            return render(request, 'pages/form.html', { 'form': form })
+            return render(request, 'pages/form.html', {'form': form})
     form = PageForm()
-    return render(request, 'pages/form.html', { 'form':form, 'title':_('Add Page') })
+    return render(request, 'pages/form.html',
+                  {'form': form,
+                   'title': _('Add Page')})
 
 
 @permission_required('pages.change_page')
@@ -53,12 +56,20 @@ def edit(request, slug, lang_code='nb'):
                 form.save()
                 cache.set('page' + page.language + page.slug, page)
                 cache.delete('menu')
-                return redirect(reverse('itdagene.app.pages.views.view_page', args=[page.slug]))
+                return redirect(reverse('itdagene.app.pages.views.view_page',
+                                        args=[page.slug]))
 
-    return render(request, 'pages/form.html', {'form': form, 'page': page, 'title': _('Edit Page'), 'description': page.title})
+    return render(request, 'pages/form.html', {
+        'form': form,
+        'page': page,
+        'title': _('Edit Page'),
+        'description': page.title
+    })
 
 
 @staff_required()
 def admin(request):
     pages = Page.objects.all().order_by('menu', 'active')
-    return render(request, 'pages/admin.html', {'pages': pages, 'title': _('Pages Admin')})
+    return render(request, 'pages/admin.html',
+                  {'pages': pages,
+                   'title': _('Pages Admin')})

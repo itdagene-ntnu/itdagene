@@ -8,18 +8,21 @@ from django.utils.translation import ugettext as _
 from itdagene.core.auth import generate_password, get_current_user
 
 
-def send_email(recipients, subject, template, template_html, params, sender=settings.SERVER_EMAIL):
+def send_email(recipients, subject, template, template_html, params,
+               sender=settings.SERVER_EMAIL):
 
     params['site'] = settings.SITE
 
     mail_contents = render_to_string('mail/%s' % (template, ), params)
-    mail_contents_html = render_to_string('mail/%s' % (template_html, ), params)
+    mail_contents_html = render_to_string('mail/%s' % (template_html, ),
+                                          params)
 
     connection = get_connection(fail_silently=True)
 
     messages = []
     for recipient in recipients:
-        message = EmailMultiAlternatives(subject, mail_contents, sender, [recipient])
+        message = EmailMultiAlternatives(subject, mail_contents, sender,
+                                         [recipient])
         message.attach_alternative(mail_contents_html, 'text/html')
         messages.append(message)
 
@@ -31,7 +34,13 @@ def users_send_welcome_email(user):
     new_password = generate_password()
     user.set_password(new_password)
     user.save()
-    result = send_email([user.email], '%s %s' % (_('Welcome to'), settings.SITE['name']), 'users/welcome_mail.txt', 'users/welcome_mail.html', { 'title': '%s %s' % (_('Welcome to'), settings.SITE['name']), 'user': user, 'password': new_password})
+    result = send_email(
+        [user.email], '%s %s' % (_('Welcome to'), settings.SITE['name']),
+        'users/welcome_mail.txt', 'users/welcome_mail.html', {
+            'title': '%s %s' % (_('Welcome to'), settings.SITE['name']),
+            'user': user,
+            'password': new_password
+        })
     if not get_current_user().is_anonymous():
         translation.activate(get_current_user().language)
     return result
@@ -44,8 +53,11 @@ def notifications_send_email(notification):
         'notification': notification,
         'base_url': 'http://%s' % (settings.SITE['domain'])
     }
-    template, template_html = 'notifications/notification_mail.txt', 'notifications/notification_mail.html'
-    result = send_email([notification.user.email], _('You have a new notification'), template, template_html, context)
+    template, template_html = 'notifications/notification_mail.txt', \
+                              'notifications/notification_mail.html'
+    result = send_email([notification.user.email],
+                        _('You have a new notification'), template,
+                        template_html, context)
     if not get_current_user().is_anonymous():
         translation.activate(get_current_user().language)
     return result
@@ -62,7 +74,7 @@ def meeting_send_invite(users, meeting):
             'base_url': 'http://%s' % (settings.SITE['domain'], )
         }
         template, template_html = 'meetings/invite.txt', 'meetings/invite.html'
-        result = send_email([user.email], _('Meeting Invite'), template, template_html, context)
+        send_email([user.email], _('Meeting Invite'), template, template_html, context)
 
         current_user = get_current_user()
         if current_user:

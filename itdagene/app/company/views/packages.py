@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import permission_required
-from django.contrib.messages import *
+from django.contrib.messages import SUCCESS, add_message
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import ugettext_lazy as _
@@ -20,8 +20,11 @@ def list(request):
 @staff_required()
 def view(request, id):
     package = get_object_or_404(Package, pk=id)
-    return render(request, 'company/packages/view.html',
-                  {'package': package, 'title': _('Package'), 'description': package})
+    return render(
+        request, 'company/packages/view.html',
+        {'package': package,
+         'title': _('Package'),
+         'description': package})
 
 
 @permission_required('company.change_package')
@@ -30,10 +33,12 @@ def add(request):
     if request.method == 'POST':
         form = PackageForm(request.POST)
         if form.is_valid():
-            package = form.save()
+            form.save()
             add_message(request, SUCCESS, _('Package added.'))
             return redirect(reverse('itdagene.app.company.views.packages.list'))
-    return render(request, 'company/form.html', {'form': form, 'title': _('Add Package')})
+    return render(request, 'company/form.html',
+                  {'form': form,
+                   'title': _('Add Package')})
 
 
 @permission_required('company.change_package')
@@ -44,9 +49,12 @@ def edit(request, id):
     if request.method == 'POST':
         form = PackageForm(request.POST, instance=package)
         if form.is_valid():
-            package = form.save()
+            form.save()
             add_message(request, SUCCESS, _('Package saved.'))
             return redirect(reverse('itdagene.app.company.views.packages.list'))
-    return render(request, 'company/form.html', {'package': package, 'form': form,
-                                                 'title': _('Edit Package'),
-                                                 'description': package})
+    return render(request, 'company/form.html', {
+        'package': package,
+        'form': form,
+        'title': _('Edit Package'),
+        'description': package
+    })

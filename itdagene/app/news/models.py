@@ -4,10 +4,11 @@ from django.utils.translation import ugettext_lazy as _
 from itdagene.core.models import BaseModel
 
 
-class Announcement (BaseModel):
+class Announcement(BaseModel):
     title = models.CharField(max_length=100, verbose_name=_('title'))
     content = models.TextField(verbose_name=_('content'))
-    image = models.ImageField(upload_to='announcements/', verbose_name=_('image'))
+    image = models.ImageField(upload_to='announcements/',
+                              verbose_name=_('image'))
     public = models.BooleanField(default=False, verbose_name=_('public'))
 
     class Meta:

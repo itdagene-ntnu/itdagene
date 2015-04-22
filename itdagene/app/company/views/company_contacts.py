@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import permission_required
-from django.contrib.messages import *
+from django.contrib.messages import SUCCESS, add_message
 from django.core.urlresolvers import reverse
-from django.http import Http404, HttpResponse
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import ugettext_lazy as _
 
@@ -22,8 +22,12 @@ def add_contact(request, company):
             contact.company = company
             contact.save()
             return redirect(company.get_absolute_url())
-    return render(request, "company/form.html", {'title': _('Add Contact'), 'description': company,
-                                                 'form': form, 'company': company})
+    return render(request, "company/form.html", {
+        'title': _('Add Contact'),
+        'description': company,
+        'form': form,
+        'company': company
+    })
 
 
 @permission_required('company.delete_companycontact')
@@ -34,7 +38,12 @@ def delete_contact(request, contact_id):
         contact.delete()
         return redirect(company.get_absolute_url())
     else:
-        return render(request, 'company/contacts/delete.html', {'contact': contact, 'company': contact.company, 'title': _('Delete Contact'), 'description': contact})
+        return render(request, 'company/contacts/delete.html', {
+            'contact': contact,
+            'company': contact.company,
+            'title': _('Delete Contact'),
+            'description': contact
+        })
 
 
 @permission_required('company.change_companycontact')
@@ -49,7 +58,12 @@ def edit_contact(request, contact_id):
             add_message(request, SUCCESS, _('Company contect saved.'))
             return redirect(reverse('view_company', args=[contact.company.pk]))
 
-    return render(request, 'company/form.html', {'form': form, 'company': contact.company, 'title': _('Change Contact'), 'description': contact})
+    return render(request, 'company/form.html', {
+        'form': form,
+        'company': contact.company,
+        'title': _('Change Contact'),
+        'description': contact
+    })
 
 
 @staff_required()

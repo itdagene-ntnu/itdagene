@@ -1,8 +1,7 @@
 from datetime import datetime
 
 from django.contrib.auth.decorators import permission_required
-from django.contrib.messages import *
-from django.http import HttpResponsePermanentRedirect
+from django.contrib.messages import ERROR, add_message
 from django.shortcuts import redirect
 from django.utils.translation import ugettext_lazy as _
 

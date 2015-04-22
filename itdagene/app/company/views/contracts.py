@@ -1,6 +1,5 @@
 from django.contrib.auth.decorators import permission_required
-from django.contrib.messages import *
-from django.core.urlresolvers import reverse
+from django.contrib.messages import SUCCESS, add_message
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import ugettext_lazy as _
@@ -22,7 +21,11 @@ def add_contract(request, company_id):
             contract.save()
             add_message(request, SUCCESS, _('Contract added.'))
             return redirect(company.get_absolute_url())
-    return render(request, 'company/form.html', {'title': _('Add Contract'), 'form': form, 'company': company })
+    return render(
+        request, 'company/form.html',
+        {'title': _('Add Contract'),
+         'form': form,
+         'company': company})
 
 
 @permission_required('company.change_contract')
@@ -36,18 +39,23 @@ def edit_contract(request, company_id, id):
     if request.method == 'POST':
         form = ContractForm(request.POST, request.FILES, instance=contract)
         if form.is_valid():
-            contract = form.save()
+            form.save()
             return redirect(company.get_absolute_url())
-    return render(request, 'company/form.html', {'form': form, 'company': company, 'title': _('Change Contract'), 'description': contract})
+    return render(request, 'company/form.html', {
+        'form': form,
+        'company': company,
+        'title': _('Change Contract'),
+        'description': contract
+    })
 
 
 @staff_required()
 def download_contract(request, company_id, id):
     import os
-    contract = get_object_or_404(Contract,pk=id, company__id=company_id)
-    abspath = open(contract.file.path,'r')
+    contract = get_object_or_404(Contract, pk=id, company__id=company_id)
+    abspath = open(contract.file.path, 'r')
     response = HttpResponse(content=abspath.read())
-    response['Content-Type']= 'application/octet-stream'
-    response['Content-Disposition'] = 'attachment; filename=%s'\
-    % os.path.basename(contract.file.path)
+    response['Content-Type'] = 'application/octet-stream'
+    response['Content-Disposition'] = 'attachment; filename=%s' % os.path.\
+        basename(contract.file.path)
     return response

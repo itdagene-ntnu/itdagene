@@ -1,46 +1,48 @@
-from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.contenttypes.models import ContentType
-from itdagene.core.models import User
+from django.contrib.auth.decorators import permission_required
 from django.utils.translation import ugettext as _
-from django.shortcuts import render_to_response, get_object_or_404, redirect
-from itdagene.app.company.forms import BookCompanyForm, CompanyForm, ResponsibilityForm, ContractForm,\
-    CompanyContactForm, CompanyStatusForm, WaitingListCompanyForm
-from itdagene.app.career.forms import JoblistingForm
+from django.shortcuts import get_object_or_404, redirect
+from itdagene.app.company.forms import BookCompanyForm, CompanyForm, ResponsibilityForm, \
+    CompanyStatusForm, WaitingListCompanyForm
 from itdagene.app.company.models import Company, Package
 from django.forms.models import modelformset_factory
 from django.core.urlresolvers import reverse
 from django.http import Http404
-from itdagene.core.log.models import LogItem
 from itdagene.app.feedback.models import Evaluation
 from itdagene.core.models import Preference
 from django.shortcuts import render
 from itdagene.core.decorators import staff_required
-from django.contrib.messages import *
+from django.contrib.messages import add_message, SUCCESS
 
 
 @staff_required()
 def list_companies(request):
     if request.user.is_staff:
         user_companies = Company.objects.filter(contact=request.user)\
-            .order_by('status', 'name').select_related('package', 'contact', 'company_contacts', 'contracts')
+            .order_by('status', 'name').select_related('package', 'contact', 'company_contacts',
+                                                       'contracts')
     else:
         user_companies = None
-    companies = Company.objects.filter(active=True).order_by('name').select_related('contact')
-    return render(request, 'company/base.html',
-                  {'companies': companies,
-                   'user_companies': user_companies,
-                   'title': _('Companies')})
+    companies = Company.objects.filter(active=True).order_by(
+        'name').select_related('contact')
+    return render(request, 'company/base.html', {
+        'companies': companies,
+        'user_companies': user_companies,
+        'title': _('Companies')
+    })
 
 
 @staff_required()
 def view(request, id):
     company = get_object_or_404(Company.objects.select_related(), pk=id)
-    evaluation, created = Evaluation.objects.get_or_create(company=company, preference=Preference.current_preference())
+    evaluation, created = Evaluation.objects.get_or_create(
+        company=company,
+        preference=Preference.current_preference())
     return render(request, 'company/view.html', {
         'company': company,
         'evaluation': evaluation,
         'title': _('Company'),
-        'description': company})
+        'description': company
+    })
 
 
 @staff_required()
@@ -100,7 +102,9 @@ def add(request):
             company = form.save()
             add_message(request, SUCCESS, _('Company saved.'))
             return redirect(company.get_absolute_url())
-    return render(request, 'company/form.html', {'title': _('Add Company'), 'form': form})
+    return render(request, 'company/form.html',
+                  {'title': _('Add Company'),
+                   'form': form})
 
 
 @permission_required('company.change_company')
@@ -113,11 +117,12 @@ def edit(request, id=False):
             company = form.save()
             add_message(request, SUCCESS, _('Comapny saved'))
             return redirect(company.get_absolute_url())
-    return render(request, 'company/form.html',
-                  {'company': company,
-                   'form': form,
-                   'title': _('Change Company'),
-                   'description': company})
+    return render(request, 'company/form.html', {
+        'company': company,
+        'form': form,
+        'title': _('Change Company'),
+        'description': company
+    })
 
 
 @permission_required('company.change_company')
@@ -130,8 +135,8 @@ def set_responsibilities(request):
         if formset.is_valid():
             formset.save()
             add_message(request, SUCCESS, _('Changed responsibilities.'))
-            return redirect(reverse('itdagene.app.company.views.list_companies'))
+            return redirect(
+                reverse('itdagene.app.company.views.list_companies'))
     return render(request, 'company/set_responsibilities.html',
-                  {'formset': formset, 'title': _('Set Responsibilities')})
-
-
+                  {'formset': formset,
+                   'title': _('Set Responsibilities')})

@@ -14,18 +14,23 @@ class ForceDefaultLanguageMiddleware(object):
     Should be installed *before* any middleware that checks request.META['HTTP_ACCEPT_LANGUAGE'],
     namely django.middleware.locale.LocaleMiddleware
     """
+
     def process_request(self, request):
-        if request.META.has_key('HTTP_ACCEPT_LANGUAGE'):
+        if 'HTTP_ACCEPT_LANGUAGE' in request.META:
             del request.META['HTTP_ACCEPT_LANGUAGE']
 
 
 class UnderDevelopmentMiddleware(object):
     def process_request(self, request):
-        if request.path == reverse('itdagene.core.views.under_development') or 'login' in request.path: return
-        development =  Preference.current_preference().development_mode
+        if request.path == reverse('itdagene.core.views.under_development') or 'login' in \
+                request.path:
+            return
+        development = Preference.current_preference().development_mode
         if development:
             if request.user.is_authenticated():
                 if not request.user.is_staff:
-                    return HttpResponseRedirect(reverse('itdagene.core.views.under_development'))
+                    return HttpResponseRedirect(
+                        reverse('itdagene.core.views.under_development'))
             else:
-                return HttpResponseRedirect(reverse('itdagene.core.views.under_development'))
+                return HttpResponseRedirect(
+                    reverse('itdagene.core.views.under_development'))

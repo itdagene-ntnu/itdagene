@@ -6,13 +6,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('workschedule', '0001_initial'),
-    ]
+    dependencies = [('workschedule', '0001_initial'), ]
 
-    operations = [
-        migrations.RemoveField(
-            model_name='worker',
-            name='username',
-        ),
-    ]
+    operations = [migrations.RemoveField(model_name='worker',
+                                         name='username', ), ]

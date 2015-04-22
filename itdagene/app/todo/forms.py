@@ -5,8 +5,7 @@ from itdagene.core.auth import get_current_user
 from itdagene.core.models import User
 
 
-class TodoForm (ModelForm):
-
+class TodoForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(TodoForm, self).__init__(*args, **kwargs)
         self.fields['user'].queryset = User.objects.filter(is_staff=True)

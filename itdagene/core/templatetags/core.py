@@ -3,13 +3,11 @@ from django.template import loader
 from django.template.base import Library
 from django.template.context import Context
 
-from itdagene.core.models import Preference
-
 register = Library()
+
 
 @register.simple_tag
 def analytics():
-
     """
     returns the analytics id from the settingsfile, if debug is false
     """
@@ -31,7 +29,8 @@ def cut(value, arg):
 
 @register.simple_tag
 def chosen(oid):
-    return '<script type="text/javascript">$(document).ready(function(){ $("' + oid + '").chosen({ width: \'100%\' }); });</script>'
+    return '<script type="text/javascript">$(document).' \
+           'ready(function(){ $("' + oid + '").chosen({ width: \'100%\' }); });</script>'
 
 
 @register.filter

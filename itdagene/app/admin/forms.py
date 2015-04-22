@@ -6,10 +6,11 @@ from django.forms.models import ModelForm
 from itdagene.core.models import Preference, User
 
 
-class UserForm (ModelForm):
+class UserForm(ModelForm):
     class Meta:
         model = User
-        exclude = ('username', 'password', 'user_permissions', 'last_login', 'date_joined')
+        exclude = ('username', 'password', 'user_permissions', 'last_login',
+                   'date_joined')
 
 
 class RegisterUserForm(forms.Form):
@@ -18,14 +19,18 @@ class RegisterUserForm(forms.Form):
     last_name = forms.CharField()
     phone = forms.IntegerField()
 
-class GroupForm (ModelForm):
+
+class GroupForm(ModelForm):
     class Meta:
         model = Group
+        fields = ('name', 'permissions')
+
 
 class AddUserToGroupForm(Form):
     username = forms.CharField()
 
-class PreferenceForm (ModelForm):
+
+class PreferenceForm(ModelForm):
     class Meta:
         model = Preference
-        exclude = ('active',)
+        exclude = ('active', )

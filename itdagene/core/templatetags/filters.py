@@ -31,7 +31,8 @@ def has_contract_for_current_year(value, arg=None):
 @register.filter
 def datetime(value, arg=None):
     """
-    returns a date with timeleft and the datetime format from the settingsfile. A js will animate between the two types on mouseover.
+    returns a date with timeleft and the datetime format from the settingsfile. A js will animate
+    between the two types on mouseover.
     """
     from django.utils.timesince import timesince
     from django.utils.dateformat import format
@@ -51,4 +52,7 @@ def datetime(value, arg=None):
             normal = format(value, settings.DATETIME_FORMAT)
         except AttributeError:
             return ''
-    return mark_safe('<span class="date"><span class="date-ts"> for %s %s</span><span class="date-normal" style="display:none;">%s</span></span>' %  (ts, _('ago'), normal))
+    return mark_safe(
+        '<span class="date"><span class="date-ts"> for %s %s</span><span class="date-normal" '
+        'style="display:none;">%s</span></span>'
+        % (ts, _('ago'), normal))

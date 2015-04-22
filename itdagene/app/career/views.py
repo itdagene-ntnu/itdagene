@@ -12,7 +12,9 @@ from itdagene.core.decorators import staff_required
 @staff_required()
 def list(request):
     joblistings = Joblisting.objects.filter(is_active=True)
-    return render(request, 'career/list.html', {'joblistings': joblistings, 'title': _('Joblistings')})
+    return render(request, 'career/list.html',
+                  {'joblistings': joblistings,
+                   'title': _('Joblistings')})
 
 
 @permission_required('career.add_joblisting')
@@ -23,14 +25,21 @@ def add(request):
         if form.is_valid():
             joblisting = form.save()
             add_message(request, SUCCESS, _('Joblisting saved.'))
-            return redirect(reverse('itdagene.app.career.views.view', args=[joblisting.pk]))
-    return render(request, 'career/form.html', {'title': _('Add Joblisting'), 'form': form})
+            return redirect(reverse('itdagene.app.career.views.view',
+                                    args=[joblisting.pk]))
+    return render(request, 'career/form.html',
+                  {'title': _('Add Joblisting'),
+                   'form': form})
 
 
 @staff_required()
 def view(request, pk):
     joblisting = get_object_or_404(Joblisting, pk=pk)
-    return render(request, 'career/view.html', {'joblisting': joblisting, 'title': _('Joblisting'), 'description': str(joblisting)})
+    return render(request, 'career/view.html', {
+        'joblisting': joblisting,
+        'title': _('Joblisting'),
+        'description': str(joblisting)
+    })
 
 
 @permission_required('career.change_joblisting')
@@ -43,8 +52,14 @@ def edit(request, pk):
         if form.is_valid():
             form.save()
             add_message(request, SUCCESS, _('Joblisting saved.'))
-            return redirect(reverse('itdagene.app.career.views.view', args=[joblisting.pk]))
-    return render(request, 'career/form.html', {'title': _('Edit Joblisting'), 'form': form, 'description': str(joblisting), 'joblisting': joblisting})
+            return redirect(reverse('itdagene.app.career.views.view',
+                                    args=[joblisting.pk]))
+    return render(request, 'career/form.html', {
+        'title': _('Edit Joblisting'),
+        'form': form,
+        'description': str(joblisting),
+        'joblisting': joblisting
+    })
 
 
 @permission_required('career.delete_joblisting')
@@ -56,7 +71,11 @@ def delete(request, pk):
         add_message(request, SUCCESS, _('Joblisting deleted.'))
         return redirect(reverse('itdagene.app.career.views.list'))
 
-    return render(request, 'career/delete.html', {'joblisting': joblisting, 'title': _('Delete Joblisting'), 'description': str(joblisting)})
+    return render(request, 'career/delete.html', {
+        'joblisting': joblisting,
+        'title': _('Delete Joblisting'),
+        'description': str(joblisting)
+    })
 
 
 @permission_required('career.add_town')
@@ -68,4 +87,6 @@ def add_town(request):
             form.save()
             add_message(request, SUCCESS, _('Town added.'))
             return redirect(reverse('itdagene.app.career.views.list'))
-    return render(request, 'career/form.html', {'form': form, 'title': _('Add Town')})
+    return render(request, 'career/form.html',
+                  {'form': form,
+                   'title': _('Add Town')})

@@ -1,5 +1,4 @@
 from django import forms
-from django.forms import ChoiceField, IntegerField, RadioSelect
 from django.forms.models import ModelForm
 
 from itdagene.app.feedback.models import Evaluation, Issue
@@ -11,18 +10,20 @@ class IssueForm(ModelForm):
         model = Issue
         exclude = ('is_solved', 'solved_date', 'assigned_user')
 
+
 class IssueAssignForm(ModelForm):
     class Meta:
         model = Issue
-        fields = ('assigned_user',)
+        fields = ('assigned_user', )
 
     def __init__(self, *args, **kwargs):
         super(IssueAssignForm, self).__init__(*args, **kwargs)
-        users = User.objects.filter(is_active=True, is_staff=True).order_by('first_name')
+        users = User.objects.filter(is_active=True,
+                                    is_staff=True).order_by('first_name')
         self.fields['assigned_user'].queryset = users
 
 
-class EvaluationForm (forms.ModelForm):
+class EvaluationForm(forms.ModelForm):
     class Meta:
         model = Evaluation
         exclude = ('hash', 'company', 'has_answers', 'preference')
