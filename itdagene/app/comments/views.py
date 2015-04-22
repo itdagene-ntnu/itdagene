@@ -20,7 +20,6 @@ def add(request):
 
             return redirect(instance.object.get_absolute_url())
         else:
-            print form.errors
             add_message(request, ERROR, _('Could not post comment'))
             object = form.instance.object
             return redirect(object.get_absolute_url())
