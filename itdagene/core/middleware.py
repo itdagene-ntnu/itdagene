@@ -1,6 +1,7 @@
 from django.core.urlresolvers import reverse
 from django.shortcuts import HttpResponseRedirect
 
+from itdagene.core.auth import set_current_user_function
 from itdagene.core.models import Preference
 
 
@@ -34,3 +35,8 @@ class UnderDevelopmentMiddleware(object):
             else:
                 return HttpResponseRedirect(
                     reverse('itdagene.core.views.under_development'))
+
+
+class CurrentUserMiddleware(object):
+    def process_request(self, request):
+        set_current_user_function(lambda self: getattr(request, 'user', None))

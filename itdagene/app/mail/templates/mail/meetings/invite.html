@@ -16,8 +16,8 @@
     <br/>
 
     <p>{% trans "I am" %}
-    <a href="{{ meeting.attending_link }}">{% trans "attending" %}</a> /
-    <a href="{{ meeting.not_attending_link }}">{% trans "not attending" %}</a>
+    <a href="{{ site.mail_base }}{{ meeting.attending_link }}">{% trans "attending" %}</a> /
+    <a href="{{ site.mail_base }}{{ meeting.not_attending_link }}">{% trans "not attending" %}</a>
     </p>
 
     <br/>
@@ -30,6 +30,6 @@
     <br/>
     <br/>
 
-<a href="{{ base_url }}{{ meeting.get_absolute_url }}">{% trans "More information" %}</a>
+<a href="{{ site.mail_base }}{{ meeting.get_absolute_url }}">{% trans "More information" %}</a>
 
 {% endblock %}

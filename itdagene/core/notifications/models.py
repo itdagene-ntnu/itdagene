@@ -1,8 +1,6 @@
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
-from django.shortcuts import get_object_or_404
-from django.utils import translation
 from django.utils.translation import ugettext as _
 
 from itdagene.core.auth import get_current_user
@@ -13,52 +11,59 @@ class Notification(models.Model):
 
     PRIORITIES = ((0, 'Low'), (1, 'Medium'), (2, 'High'))
 
-    user = models.ForeignKey(User, verbose_name=_('user'))
     priority = models.PositiveIntegerField(choices=PRIORITIES,
                                            default=1,
                                            verbose_name=_('priority'))
+
     date = models.DateTimeField(auto_now=True, verbose_name=_('date'))
     message = models.TextField(verbose_name=_('message'))
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey('content_type', 'object_id')
+
     send_mail = models.BooleanField(default=True, verbose_name=_('send mail'))
     sent_mail = models.BooleanField(default=False, verbose_name=_('sent mail'))
-    read = models.BooleanField(default=False)
+
+    users = models.ManyToManyField(User, verbose_name='users', related_name='notifications')
 
     def __unicode__(self):
         if len(self.message) > 100:
-            return '%s: %s...' % (self.user, self.message[0:100])
-        return '%s: %s' % (self.user.username, self.message)
+            return '%s...' % (self.message[0:100], )
+        return '%s' % (self.message, )
 
     def save(self, *args, **kwargs):
-        if self.send_mail and not self.sent_mail:
-            translation.activate(self.user.language)
-            if self.user.mail_notification and self.user.email:
-                from itdagene.app.mail.senders import notifications_send_email
-                notifications_send_email(self)
-                self.sent_mail = True
-        super(Notification, self).save(*args, **kwargs)
-        if not get_current_user().is_anonymous():
-            translation.activate(get_current_user().language)
+        notification = super(Notification, self).save(*args, **kwargs)
 
-    def read_notification(self):
-        self.read = True
-        self.save()
+        if self.send_mail and not self.sent_mail:
+            from itdagene.app.mail.tasks import send_notification_message
+            send_notification_message.delay(self)
+            self.send_mail = True
+            notification = super(Notification, self).save(*args, **kwargs)
+
+        return notification
+
+    def read_notification(self, user):
+        raise NotImplementedError()
 
     @classmethod
-    def notify(cls, object, user):
-        s_mail = bool(object.notification_priority())
-        content_type = ContentType.objects.get_for_model(object)
-        if not user == get_current_user():
-            n = Notification(user=user,
-                             priority=object.notification_priority(),
-                             message=object.notification_message(),
-                             content_type=content_type,
-                             object_id=object.pk,
-                             send_mail=s_mail,
-                             read=False, )
-            n.save()
+    def get_notifications(cls, user):
+        return user.notifications.all()
+
+    @classmethod
+    def notify(cls, object, users):
+        send_mail = bool(object.notification_priority())
+
+        notification = Notification(
+            content_object=object,
+            priority=object.notification_priority(),
+            message=object.notification_message(),
+            send_mail=send_mail
+        )
+
+        notification.save()
+
+        for user in users:
+            notification.users.add(user)
 
 
 class Subscription(models.Model):
@@ -70,21 +75,32 @@ class Subscription(models.Model):
                                          null=True,
                                          related_name='subscriptions')
 
+    class Meta:
+        unique_together = ('content_type', 'object_id')
+
     @classmethod
     def notify_subscribers(cls, object):
-        n_object = ContentType.objects.get_for_model(
-            object.notification_object())
-        subscription = get_object_or_404(
-            Subscription,
-            content_type=n_object,
-            object_id=object.notification_object().id)
-        for subscriber in subscription.subscribers.all():
-            Notification.notify(object, subscriber)
+        notification_object_ct = ContentType.objects.get_for_model(object.notification_object())
+
+        try:
+            subscription = Subscription.objects.get(content_type=notification_object_ct,
+                                                    object_id=object.notification_object().id)
+
+            subscribers = subscription.subscribers.all()
+
+            current_user = get_current_user()
+            if current_user:
+                subscribers = subscribers.exclude(id=current_user.id)
+
+            Notification.notify(object, subscribers.distinct('pk'))
+
+        except cls.DoesNotExist:
+            return
 
     @classmethod
     def subscribe(cls, object, user):
         subscription = Subscription.get_or_create(object)
-        if not user.is_anonymous():
+        if user and not user.is_anonymous():
             if user not in subscription.subscribers.all():
                 subscription.subscribers.add(user)
         subscription.save()

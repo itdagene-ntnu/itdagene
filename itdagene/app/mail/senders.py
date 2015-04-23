@@ -1,11 +1,13 @@
-from celery import task
 from django.conf import settings
+from django.contrib.contenttypes.models import ContentType
 from django.core.mail import EmailMultiAlternatives, get_connection
 from django.template.loader import render_to_string
 from django.utils import translation
 from django.utils.translation import ugettext as _
 
-from itdagene.core.auth import generate_password, get_current_user
+from itdagene.app.comments.models import Comment
+from itdagene.core.auth import generate_password
+from itdagene.core.notifications.models import Subscription
 
 
 def send_email(recipients, subject, template, template_html, params,
@@ -30,57 +32,86 @@ def send_email(recipients, subject, template, template_html, params,
 
 
 def users_send_welcome_email(user):
-    translation.activate(user.language)
-    new_password = generate_password()
-    user.set_password(new_password)
-    user.save()
-    result = send_email(
-        [user.email], '%s %s' % (_('Welcome to'), settings.SITE['name']),
-        'users/welcome_mail.txt', 'users/welcome_mail.html', {
-            'title': '%s %s' % (_('Welcome to'), settings.SITE['name']),
-            'user': user,
-            'password': new_password
-        })
-    if not get_current_user().is_anonymous():
-        translation.activate(get_current_user().language)
-    return result
+
+    with translation.override(user):
+
+        new_password = generate_password()
+        user.set_password(new_password)
+        user.save()
+
+        send_email(
+            [user.email], '%s %s' % (_('Welcome to'), settings.SITE['name']),
+            'users/welcome_mail.txt', 'users/welcome_mail.html', {
+                'user': user,
+                'password': new_password
+            })
 
 
 def notifications_send_email(notification):
-    translation.activate(notification.user.language)
-    context = {
-        'title': _('You have a new notification'),
-        'notification': notification,
-        'base_url': 'http://%s' % (settings.SITE['domain'])
-    }
-    template, template_html = 'notifications/notification_mail.txt', \
-                              'notifications/notification_mail.html'
-    result = send_email([notification.user.email],
-                        _('You have a new notification'), template,
-                        template_html, context)
-    if not get_current_user().is_anonymous():
-        translation.activate(get_current_user().language)
-    return result
+    for user in notification.users.all():
+
+        if not user.mail_notification:
+            continue
+
+        with translation.override(user.language):
+
+            context = {
+                'notification': notification,
+            }
+
+            template, template_html = 'notifications/notification_mail.txt', \
+                                      'notifications/notification_mail.html'
+
+            send_email([user.email], _('New notification'), template, template_html, context)
 
 
-@task
 def meeting_send_invite(users, meeting):
     for user in users:
 
-        translation.activate(user.language)
-        context = {
-            'title': _('Meeting Invitation'),
-            'meeting': meeting,
-            'base_url': 'http://%s' % (settings.SITE['domain'], )
-        }
-        template, template_html = 'meetings/invite.txt', 'meetings/invite.html'
-        send_email([user.email], _('Meeting Invite'), template, template_html, context)
+        with translation.override(user.language):
 
-        current_user = get_current_user()
-        if current_user:
-            try:
-                if not current_user.is_anonymous():
-                    translation.activate(current_user.language)
-            except AttributeError:
-                pass
-    return True
+            context = {
+                'meeting': meeting,
+            }
+            template, template_html = 'meetings/invite.txt', 'meetings/invite.html'
+            send_email([user.email], _('Meeting Invite'), template, template_html, context)
+
+
+def send_comment_email(comment):
+    attached_object = comment.object
+
+    if attached_object:
+
+        all_object_comments = Comment.objects.filter(object_id=comment.object_id,
+                                                     content_type=comment.content_type)
+
+        def get_users(comment):
+            return comment.user
+
+        users = map(get_users, all_object_comments)
+
+        try:
+            subscription = Subscription.objects.get(
+                content_type=ContentType.objects.get_for_model(attached_object),
+                object_id=attached_object.id)
+            users += subscription.subscribers.all()
+        except Subscription.DoesNotExist:
+            pass
+
+        users = list(set(users))
+
+        for user in users:
+
+            if not user.mail_notification:
+                continue
+
+            with translation.override(user.language):
+
+                context = {
+                    'comment': comment,
+                }
+
+                template, template_html = 'comment/new.txt', \
+                                          'comment/new.html'
+
+                send_email([user.email], _('New comment'), template, template_html, context)

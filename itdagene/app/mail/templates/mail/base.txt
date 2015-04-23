@@ -1,8 +1,5 @@
-{{ site.name }}{% if title %} * {{ title }}{% endif %}
-------------------------------------------------------------------------------------------------------------------------
-
 {% block content %}
 {% endblock %}
 
 
-{{ site.name }} {% now "Y" %} / {{ site.contact_email }} / org.nr: {{ site.organization_number }}
+{{ site.name }} / {{ site.contact_email }}

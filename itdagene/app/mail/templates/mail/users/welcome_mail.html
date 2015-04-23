@@ -10,6 +10,6 @@
 {% trans "Full name" %}: <strong>{{ user.get_full_name }}</strong><br/>
 {% trans "Password" %}: <strong>{{ password }}</strong><br/>
 
-<p>{% blocktrans with domain=site.domain %}You can login at http://{{ domain }}/login{% endblocktrans %}</p>
+<p>{% blocktrans with domain=site.mail_base %}You can login at {{ domain }}/login{% endblocktrans %}</p>
 
 {% endblock %}

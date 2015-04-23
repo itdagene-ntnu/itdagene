@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 from django.utils.translation import ugettext_lazy as _
 
 from itdagene.app.comments.forms import CommentForm
+from itdagene.app.mail.tasks import send_comment_email
 
 
 @permission_required('comments.add_comment')
@@ -17,6 +18,8 @@ def add(request):
             instance.user = request.user
             instance.date = datetime.now()
             instance.save()
+
+            send_comment_email(instance)
 
             return redirect(instance.object.get_absolute_url())
         else:
