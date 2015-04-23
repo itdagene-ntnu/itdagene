@@ -1,0 +1,11 @@
+{% extends "mail/base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<p>{% trans "There is a new comment on" %} {{ comment.object }} by {{ comment.user.get_full_name }}</p><br/>
+<p>{{ comment.comment }}</p>
+
+<p>{% trans "You can see the full discussion" %} <a href="{{ site.mail_base }}{{ comment.object.get_absolute_url }}">{% trans "here" %}</a>.</p>
+
+{% endblock %}

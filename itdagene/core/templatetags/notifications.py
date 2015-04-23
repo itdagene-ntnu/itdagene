@@ -8,8 +8,7 @@ register = Library()
 @register.inclusion_tag('core/notifications/list.html')
 def notification_list(request):
     """
-    returns the notificationlist
+    returns the notification list
     """
-    notifications = Notification.objects.filter(user=request.user,
-                                                read=False).order_by('date')
+    notifications = Notification.get_notifications(user=request.user)
     return {'notifications': notifications}

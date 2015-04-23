@@ -33,3 +33,4 @@ itdagene/assets/frontend/itdagene.js
 .coverage
 .tox/
 coverage.xml
+dump.rdb

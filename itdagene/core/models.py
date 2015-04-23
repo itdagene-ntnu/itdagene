@@ -7,6 +7,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 
 from itdagene.core.auth import get_current_user
@@ -59,24 +60,19 @@ class BaseModel(models.Model):
     def __unicode__(self):
         return self.creator.username + ' ' + str(self.id)
 
-    def save(self,
-             notify_subscribers=False,
-             log_it=True,
-             log_priority=0, *args, **kwargs):
+    def save(self, notify_subscribers=True, log_it=True, log_priority=0, *args, **kwargs):
         user = get_current_user()
         action = 'EDIT' if self.pk else 'CREATE'
 
         if not user or not user.is_authenticated():
             user = User.objects.filter(is_superuser=True).first()
+
         if not self.pk:
             self.creator = user
+            self.date_created = now()
 
         self.saved_by = user
-
-        if not self.pk:
-            self.date_created = datetime.now()
-
-        self.date_saved = datetime.now()
+        self.date_saved = now()
 
         super(BaseModel, self).save(*args, **kwargs)
 
