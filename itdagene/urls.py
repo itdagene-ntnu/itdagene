@@ -14,7 +14,10 @@ urlpatterns = [
         {'next_page': 'itdagene.app.frontpage.views.inside'}),
     url(r'^$', 'itdagene.app.frontpage.views.frontpage'),
     url(r'^frontpage/$', 'itdagene.app.frontpage.views.public'),
+
     url(r'^dashboard/$', 'itdagene.app.frontpage.views.inside'),
+    url(r'^dashboard/tweet/$', 'itdagene.app.frontpage.views.tweet'),
+
     url(r'^users/', include('itdagene.app.users.urls')),
     url(r'^todo/', include('itdagene.app.todo.urls')),
     url(r'^errors/error403/$', 'itdagene.core.views.error403'),
