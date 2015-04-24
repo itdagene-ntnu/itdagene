@@ -1,7 +1,7 @@
 tasks:
   - tox -e py27
-  - flake8
-  - isort -c -rc itdagene
+  - tox -e isort
+  - tox -e flake8
   - coverage report
   - coverage xml
 
