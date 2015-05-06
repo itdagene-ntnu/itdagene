@@ -68,10 +68,7 @@ class Company(BaseModel):
                              blank=True,
                              null=True,
                              verbose_name=_('Phone'))
-    logo = ImageField(upload_to='company_logos/',
-                             null=True,
-                             blank=True,
-                             verbose_name=_('logo'))
+    logo = ImageField(upload_to='company_logos/', null=True, blank=True, verbose_name=_('logo'))
     status = models.PositiveIntegerField(choices=COMPANY_STATUS,
                                          default=0,
                                          verbose_name=_('status'))
