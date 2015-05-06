@@ -2,6 +2,7 @@ from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from sorl.thumbnail import ImageField
 
 from itdagene.app.company import COMPANY_STATUS
 from itdagene.core.log.models import LogItem
@@ -67,10 +68,7 @@ class Company(BaseModel):
                              blank=True,
                              null=True,
                              verbose_name=_('Phone'))
-    logo = models.ImageField(upload_to='company_logos/',
-                             null=True,
-                             blank=True,
-                             verbose_name=_('logo'))
+    logo = ImageField(upload_to='company_logos/', null=True, blank=True, verbose_name=_('logo'))
     status = models.PositiveIntegerField(choices=COMPANY_STATUS,
                                          default=0,
                                          verbose_name=_('status'))
