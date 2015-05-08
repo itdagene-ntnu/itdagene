@@ -41,12 +41,13 @@
           "@context": "http://schema.org",
           "@type": "Event",
           "name": "{{ meeting }}",
-          "startDate": "{{ meeting.date|date:"c"}}",
+          "startDate": "{{ meeting.get_start_date|date:"c"}}",
+          "endDate": "{{ meeting.get_end_date|date:"c"}}",
           "location": {
             "@type": "Place",
             "address": {
               "@type": "PostalAddress",
-              "name": "{{ meeting.location }}",
+              "name": "{{ meeting.location }}"
             }
           },
           "action": [

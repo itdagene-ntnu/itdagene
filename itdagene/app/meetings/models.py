@@ -1,3 +1,5 @@
+import datetime
+
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db import models
@@ -71,6 +73,12 @@ class Meeting(BaseModel):
 
     def get_absolute_url(self):
         return reverse('itdagene.app.meetings.views.meeting', args=(self.pk, ))
+
+    def get_start_date(self):
+        return datetime.datetime.combine(self.date, self.start_time)
+
+    def get_end_date(self):
+        return datetime.datetime.combine(self.date, self.end_time)
 
     class Meta:
         verbose_name = _('meeting')
