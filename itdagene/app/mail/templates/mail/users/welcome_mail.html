@@ -13,3 +13,18 @@
 <p>{% blocktrans with domain=site.mail_base %}You can login at {{ domain }}/login{% endblocktrans %}</p>
 
 {% endblock %}
+
+{% block actions %}
+    <script type="application/ld+json">
+        {
+          "@context": "http://schema.org",
+          "@type": "EmailMessage",
+          "action": {
+            "@type": "ViewAction",
+            "url": "{{ site.mail_base }}/login",
+            "name": "{% trans "Login" %}"
+          },
+          "description": "{% trans "Login at itdagene.no" %}"
+        }
+    </script>
+{% endblock %}

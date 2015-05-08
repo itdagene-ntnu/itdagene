@@ -4,7 +4,21 @@
 {% block content %}
 
 <p>{{ notification.message }}</p>
+<p>Click <a href="{{ site.mail_base }}{{ notification.content_object.get_absolute_url }}">{% trans "here" %}</a> to see the changes.</p>
 
-<a href="{{ site.mail_base }}{{ notification.content_object.get_absolute_url }}">{% trans "Link" %}</a>
+{% endblock %}
 
+{% block actions %}
+    <script type="application/ld+json">
+        {
+          "@context": "http://schema.org",
+          "@type": "EmailMessage",
+          "action": {
+            "@type": "ViewAction",
+            "url": "{{ site.mail_base }}{{ notification.content_object.get_absolute_url }}",
+            "name": "{% trans "See the changes" %}"
+          },
+          "description": "{% trans "See the changes at itdagene.no" %}"
+        }
+    </script>
 {% endblock %}

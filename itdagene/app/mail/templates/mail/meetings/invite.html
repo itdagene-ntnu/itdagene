@@ -33,3 +33,40 @@
 <a href="{{ site.mail_base }}{{ meeting.get_absolute_url }}">{% trans "More information" %}</a>
 
 {% endblock %}
+
+
+{% block actions %}
+    <script type="application/ld+json">
+        {
+          "@context": "http://schema.org",
+          "@type": "Event",
+          "name": "{{ meeting }}",
+          "startDate": "{{ meeting.date|date:"c"}}",
+          "location": {
+            "@type": "Place",
+            "address": {
+              "@type": "PostalAddress",
+              "name": "{{ meeting.location }}",
+            }
+          },
+          "action": [
+            {
+              "@type": "RsvpAction",
+              "handler": {
+                "@type": "HttpActionHandler",
+                "url": "{{ site.mail_base }}{{ meeting.attending_link }}"
+              },
+              "attendance": "http://schema.org/RsvpAttendance/Yes"
+            },
+            {
+              "@type": "RsvpAction",
+              "handler": {
+                "@type": "HttpActionHandler",
+                "url": "{{ site.mail_base }}{{ meeting.not_attending_link }}"
+              },
+              "attendance": "http://schema.org/RsvpAttendance/No"
+            }
+          ]
+        }
+    </script>
+{% endblock %}

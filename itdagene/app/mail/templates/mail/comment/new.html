@@ -3,9 +3,24 @@
 
 {% block content %}
 
-<p>{% trans "There is a new comment on" %} {{ comment.object }} by {{ comment.user.get_full_name }}</p><br/>
-<p>{{ comment.comment }}</p>
+<p>{% trans "There is a new comment on" %} {{ comment.object }} by {{ comment.user.get_full_name }}</p>
+<blockquote><p>{{ comment.comment }}</p></blockquote>
 
 <p>{% trans "You can see the full discussion" %} <a href="{{ site.mail_base }}{{ comment.object.get_absolute_url }}">{% trans "here" %}</a>.</p>
 
+{% endblock %}
+
+{% block actions %}
+    <script type="application/ld+json">
+        {
+          "@context": "http://schema.org",
+          "@type": "EmailMessage",
+          "action": {
+            "@type": "ViewAction",
+            "url": "{{ site.mail_base }}{{ comment.object.get_absolute_url }}",
+            "name": "{% trans "See full discussion" %}"
+          },
+          "description": "{% trans "See the full discussion at itdagene.no" %}"
+        }
+    </script>
 {% endblock %}
