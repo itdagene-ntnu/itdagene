@@ -2,7 +2,7 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.mail import EmailMultiAlternatives, get_connection
 from django.template.loader import render_to_string
-from django.utils import translation
+from django.utils import formats, translation
 from django.utils.translation import ugettext as _
 
 from itdagene.app.comments.models import Comment
@@ -74,7 +74,10 @@ def meeting_send_invite(users, meeting):
                 'meeting': meeting,
             }
             template, template_html = 'meetings/invite.txt', 'meetings/invite.html'
-            send_email([user.email], _('Meeting Invite'), template, template_html, context)
+            send_email([user.email],
+                       _('Meeting Invite %s %s') % (str(meeting),
+                                                    formats.date_format(meeting.date)),
+                       template, template_html, context)
 
 
 def send_comment_email(comment):
@@ -114,4 +117,5 @@ def send_comment_email(comment):
                 template, template_html = 'comment/new.txt', \
                                           'comment/new.html'
 
-                send_email([user.email], _('New comment'), template, template_html, context)
+                send_email([user.email], _('New comment on %s') % str(comment.object),
+                           template, template_html, context)
