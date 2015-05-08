@@ -1,10 +1,15 @@
 {% load i18n %}
 
-{% block content %}
-{% endblock %}
+<html>
+  <body>
 
-<br/>
-<br/>
-{{ site.name }} / <a href="mailto:{{ site.contact_email }}">{{ site.contact_email }}</a>
+    {% block actions %}{% endblock %}
 
-{% block actions %}{% endblock %}
+    {% block content %}
+    {% endblock %}
+
+    <br/>
+    <p>{{ site.name }} / <a href="mailto:{{ site.contact_email }}">{{ site.contact_email }}</a></p>
+
+  </body>
+</html>
