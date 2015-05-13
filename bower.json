@@ -21,6 +21,7 @@
     "animate.css": "~3.2.0",
     "font-awsome": "~4.2.0",
     "ionicons": "~2.0.0",
-    "Hover": "~1.0.9"
+    "Hover": "~1.0.9",
+    "bootstrap-table": "~1.7.0"
   }
 }
