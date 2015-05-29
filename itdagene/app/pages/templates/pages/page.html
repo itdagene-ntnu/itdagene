@@ -1,1 +1,23 @@
-PAGEE
+{% extends "frontpage/public.html" %}
+{% load i18n markdown_tool %}
+
+{% block frontend_base %}
+
+{% include "frontpage/base_elements/banner-small.html" %}
+
+<div class="joblisting-holder section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="header">{{ page.title }}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                {{ page.content|markdownize }}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
