@@ -96,6 +96,7 @@ class Company(BaseModel):
     active = models.BooleanField(default=True, verbose_name=_('active'))
     has_public_profile = models.BooleanField(verbose_name=_('profile'),
                                              default=False)
+    is_collaborator = models.BooleanField(verbose_name='collaborator', default=False)
 
     def __unicode__(self):
         return self.name
