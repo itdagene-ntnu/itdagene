@@ -46,6 +46,12 @@ class User(AbstractUser):
             return self.get_full_name()
         return self.username
 
+    def role(self):
+        for group in self.groups.all():
+            if group.name != 'Styret':
+                return group
+        return ''
+
 
 class BaseModel(models.Model):
     creator = models.ForeignKey(User,
