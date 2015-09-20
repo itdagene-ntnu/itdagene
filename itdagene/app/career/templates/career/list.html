@@ -23,7 +23,8 @@
                                 <td><a href="{{ joblisting.company.get_absolute_url }}">{{ joblisting.company }}</a></td>
                                 <td><a href="{% url "itdagene.app.career.views.view" joblisting.pk %}">{{ joblisting }}</a></td>
                                 <td>{{ joblisting.get_type_display }}</td>
-                                <td>{% if joblisting.deadline %}{{ joblisting.deadline }}{% endif %}</td>
+                                <td>{% if joblisting.deadline %}{{ joblisting.deadline }}
+                                    {% else %}{% trans "ASAP" %}{% endif %}</td>
                                 <td>{{ joblisting.date_created|date }}</td>
                                 <td>{{ joblisting.creator }}</td>
                             </tr>

@@ -32,7 +32,8 @@
                         {% endif %}
                         <tr>
                             <td>{% trans "Deadline" %}</td>
-                            <td>{{ joblisting.deadline }}</td>
+                            <td>{% if joblisting.deadline %}{{ joblisting.deadline }}
+                                {% else %}{% trans "ASAP" %}{% endif %}</td>
                         </tr>
                         <tr>
                             <td>{% trans "From Year" %}</td>
