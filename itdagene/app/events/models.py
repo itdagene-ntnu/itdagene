@@ -5,8 +5,13 @@ from django.utils.translation import ugettext_lazy as _
 from itdagene.app.company.models import Company
 from itdagene.core.models import BaseModel
 
-EVENT_TYPES = ((0, _('Course')), (1, _('Company presentation')),
-               (2, _('Banquet')), )
+EVENT_TYPES = (
+    (0, _('Course')),
+    (1, _('Company presentation')),
+    (2, _('Banquet')),
+    (3, _('Summer internship marathon')),
+    (4, _('Baloon drop'))
+)
 
 
 class Event(BaseModel):
