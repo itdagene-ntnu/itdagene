@@ -75,4 +75,4 @@ class Joblisting(BaseModel):
         return self.to_year
 
     class Meta:
-        ordering = ('-deadline', )
+        ordering = ('deadline', )
