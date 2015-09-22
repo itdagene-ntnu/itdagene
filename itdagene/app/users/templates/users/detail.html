@@ -50,7 +50,7 @@
                         <tbody>
                             {% for group in person.groups.all %}
                                 {% if perms.auth.change_group %}
-                                    <tr><td><a href="{% url "itdagene.app.admin.views.groups.view" group.pk %}">{{ group }}</a></td></tr>
+                                    <tr><td><a href="{% url "itdagene.app.itdageneadmin.views.groups.view" group.pk %}">{{ group }}</a></td></tr>
                                 {% else %}
                                     <tr><td>{{ group }}</td></tr>
                                 {% endif %}
