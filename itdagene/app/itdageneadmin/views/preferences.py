@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, render
 from django.utils.translation import ugettext_lazy as _
 
-from itdagene.app.admin.forms import PreferenceForm
+from itdagene.app.itdageneadmin.forms import PreferenceForm
 from itdagene.core.models import Preference
 
 
