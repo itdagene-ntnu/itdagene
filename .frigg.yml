@@ -2,8 +2,7 @@ tasks:
   - tox -e py27
   - tox -e isort
   - tox -e flake8
-  - coverage report
-  - coverage xml
+  - tox -e coverage
 
 comment: false
 
