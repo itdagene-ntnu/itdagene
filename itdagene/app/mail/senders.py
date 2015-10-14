@@ -33,7 +33,7 @@ def send_email(recipients, subject, template, template_html, params,
 
 def users_send_welcome_email(user):
 
-    with translation.override(user):
+    with translation.override(user.language):
 
         new_password = generate_password()
         user.set_password(new_password)
