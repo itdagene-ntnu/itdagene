@@ -38,7 +38,7 @@ def add(request):
         if form.is_valid():
             group = form.save()
             LogItem.log_it(group, 'CREATE', 2)
-            return redirect(reverse('itdagene.app.admin.views.groups.view',
+            return redirect(reverse('itdagene.app.itdageneadmin.views.groups.view',
                                     args=[group.pk]))
     form = GroupForm()
     return render(request, 'admin/groups/edit.html',
@@ -53,7 +53,7 @@ def edit(request, id):
         form = GroupForm(request.POST, instance=group)
         if form.is_valid():
             group = form.save()
-            return redirect(reverse('itdagene.app.admin.views.groups.view',
+            return redirect(reverse('itdagene.app.itdageneadmin.views.groups.view',
                                     args=[group.pk]))
     form = GroupForm(instance=group)
     return render(

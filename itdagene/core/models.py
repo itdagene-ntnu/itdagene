@@ -189,4 +189,4 @@ class Preference(BaseModel):
             return pref
 
     def get_absolute_url(self):
-        return reverse('itdagene.app.admin.views.preferences.edit')
+        return reverse('itdagene.app.itdageneadmin.views.preferences.edit')

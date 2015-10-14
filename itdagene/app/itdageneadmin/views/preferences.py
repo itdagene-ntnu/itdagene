@@ -35,7 +35,7 @@ def edit(request):
 
             cache.set('pref', preference)
             return redirect(
-                reverse('itdagene.app.admin.views.preferences.edit'))
+                reverse('itdagene.app.itdageneadmin.views.preferences.edit'))
     return render(
         request, 'admin/preferences/edit.html',
         {'pref': current_pref,
