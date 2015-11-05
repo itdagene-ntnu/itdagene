@@ -37,7 +37,7 @@
                     <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> {{ comment.date|timesince }} {% trans "ago" %}</small>
                     {{ comment.user }}
                 </a>
-                {{ comment.comment }}
+                {{ comment.comment|linebreaksbr }}
             </p>
         </div>
 
