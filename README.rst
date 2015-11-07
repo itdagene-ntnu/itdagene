@@ -6,6 +6,10 @@ itDAGENE
 Velkommen til itdagene.no sin kodebase. Dette er et standard django-prosjekt. Celery brukes for 
 async tasks.
 
+#Installation
+
+
+
 .. |frigg| image:: https://ci.frigg.io/badges/itdagene-ntnu/itdagene/
     :target: https://ci.frigg.io/itdagene-ntnu/itdagene/last/
 

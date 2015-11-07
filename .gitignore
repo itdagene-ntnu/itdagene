@@ -21,6 +21,7 @@ itdagene/files/uploads/
 itdagene/files/static/lib/
 itdagene/uploads/
 venv/
+env/
 itdagene/settings/local.py
 src/
 /static/
