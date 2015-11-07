@@ -20,6 +20,7 @@ build/*
 itdagene/files/uploads/
 itdagene/files/static/lib/
 itdagene/uploads/
+env/
 venv/
 itdagene/settings/local.py
 src/
