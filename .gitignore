@@ -20,8 +20,8 @@ build/*
 itdagene/files/uploads/
 itdagene/files/static/lib/
 itdagene/uploads/
-venv/
 env/
+venv/
 itdagene/settings/local.py
 src/
 /static/
