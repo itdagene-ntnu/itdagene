@@ -50,7 +50,7 @@ node_modules: package.json
 bower: bower.json
 	@bower install
 
-local-dev
+local-dev:
 	echo "from itdagene.settings.dev import *" > itdagene/settings/local.py
 #
 # Build CSS files
