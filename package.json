@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/eirsyl/itdagene.git"
+    "url": "https://github.com/itdagene-ntnu/itdagene"
   },
   "keywords": [
     "itDAGENE",
@@ -19,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/itdagene-ntnu/itdagene/issues"
   },
-  "homepage": "https://github.com/itdagene-ntnu/itdagenee",
+  "homepage": "https://github.com/itdagene-ntnu/itdagene",
   "dependencies": {
     "browserify": "^7.0.0",
     "moment": "^2.8.4",
