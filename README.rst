@@ -38,10 +38,11 @@ To install psocopg2 we require some additional libraries::
 Install the python packages with pip::
 
     sudo pip install -r requirements/base.txt
-Install dependencies with make::
+Install dependencies with make, and create a local settings file for development::
 
     make install
-If you get an error saying it can't find "node", install nodejs-legacy via apt-get. 
+    make local-dev
+If you get an error saying it can't find "node", install nodejs-legacy via apt-get.
 
 Setting up the database
 ~~~~~~~~~~~~~~~~~~~~~~~
