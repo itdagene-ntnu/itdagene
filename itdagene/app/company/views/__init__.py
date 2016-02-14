@@ -40,8 +40,8 @@ def view(request, id):
     return render(request, 'company/view.html', {
         'company': company,
         'evaluation': evaluation,
-        'title': _('Company'),
-        'description': company
+        'title': company,
+        'description': _('Company')
     })
 
 
