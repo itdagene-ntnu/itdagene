@@ -137,7 +137,11 @@ def user_create(request):
         form = UserCreateForm(request.POST, request.FILES)
 
         if form.is_valid():
+            groups = form.cleaned_data['groups']
             person = form.save()
+            for _group in groups:
+                person.groups.add(_group)
+            person.save()
             LogItem.log_it(person, 'CREATE', 2)
             return redirect(reverse('itdagene.app.users.views.user_detail',
                                     kwargs={'pk': person.pk}))
