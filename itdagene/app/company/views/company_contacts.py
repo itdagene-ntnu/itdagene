@@ -20,7 +20,7 @@ def add_contact(request, company):
         if form.is_valid():
             contact = form.save(commit=False)
             contact.company = company
-            contact.phone = contact.phone.replace(' ','')
+            contact.phone = contact.phone.replace(' ', '')
             contact.mobile_phone = contact.mobile_phone.replace(' ', '')
             contact.email = contact.email.lower()
             contact.save()
