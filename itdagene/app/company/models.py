@@ -197,6 +197,7 @@ class CompanyContact(BaseModel):
     class Meta:
         verbose_name = _('company contact')
         verbose_name_plural = _('company contacts')
+        ordering = ['-pk']
 
 
 class Contract(BaseModel):
