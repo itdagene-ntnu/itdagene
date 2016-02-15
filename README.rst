@@ -32,7 +32,7 @@ Activate the environment with::
 
 To install psocopg2 we require some additional libraries::
 
-    sudo apt-get install libpq-dev python-dev
+    sudo apt-get install libpq-dev python-dev redis-server
 
 
 Install the python packages with pip::

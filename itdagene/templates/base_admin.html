@@ -41,7 +41,7 @@
                             <ul class="dropdown-menu">
                                 <li class="user-header bg-black">
                                     {% if request.user.photo %}
-                                        {% thumbnail request.user.photo "100x100" as im %}
+                                        {% thumbnail request.user.photo "100x100" crop='center' as im %}
                                             <img src="{{ im.url }}" class="img-circle">
                                         {% endthumbnail %}
                                     {% else %}
@@ -79,7 +79,7 @@
                     <div class="user-panel">
                         <div class="pull-left image">
                             {% if user.photo %}
-                                {% thumbnail user.photo "50x50" as im %}
+                                {% thumbnail user.photo "50x50" crop='center' as im %}
                                     <img src="{{ im.url }}" class="img-circle">
                                 {% endthumbnail %}
                             {% else %}
