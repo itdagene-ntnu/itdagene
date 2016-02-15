@@ -74,6 +74,7 @@
                     {% for contact in company.company_contacts.all %}
                         <div class="col-md-6">
                             <h4>{{ contact }}</h4>
+                            {% if contact.current %}<em>{% trans 'Current contact' %}</em></br>{% endif %}
                             {% if contact.position %}<em>{{ contact.position }}</em><br/>{% endif %}
                             {% if contact.phone %}<strong>{% trans "Phone" %}:</strong> {{ contact.phone }}<br/>{% endif %}
                             {% if contact.mobile_phone %}<strong>{% trans "Mobile" %}:</strong> {{ contact.mobile_phone }}

@@ -182,6 +182,7 @@ class CompanyContact(BaseModel):
     position = models.CharField(max_length=60,
                                 blank=True,
                                 verbose_name=_('position'))
+    current = models.BooleanField(default=False, verbose_name=_('Current contact'))
 
     def __unicode__(self):
         return self.first_name + ' ' + self.last_name
@@ -197,6 +198,7 @@ class CompanyContact(BaseModel):
     class Meta:
         verbose_name = _('company contact')
         verbose_name_plural = _('company contacts')
+        ordering = ['-current', '-pk']
 
 
 class Contract(BaseModel):
