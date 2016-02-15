@@ -25,7 +25,7 @@
         <div class="item">
 
             {% if comment.user.photo %}
-                {% thumbnail comment.user.photo "50x50" as im %}
+                {% thumbnail comment.user.photo "50x50" crop="center" as im %}
                     <img src="{{ im.url }}" class="img-circle">
                 {% endthumbnail %}
             {% else %}
