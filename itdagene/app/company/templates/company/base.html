@@ -29,7 +29,7 @@
                                 <td {% if not company.package %}class="danger"{% endif %}>
                                     {% if company.package %}{{ company.package.name }}{% else %}{% trans "None" %}{% endif %}</td>
                                 <td>{% if company.contact %}{{ company.contact }}{% else %}{% trans "None" %}{% endif %}</td>
-                                <td>{% if company.contracts.all|has_contract_for_current_year %}{{ "True"|boolean }}{% else %}{{ ""|boolean }}{% endif %}</td>
+                                <td>{% if company.contracts.all|has_contract_for_current_year %}{{ "True"|boolean }}{% endif %}</td>
                             </tr>
                         {% endfor %}
                         </tbody>
