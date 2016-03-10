@@ -2,11 +2,14 @@
 {% load i18n %}
 
 {% block content %}
-
     <div class="row">
     <div class="col-lg-12">
         <div class="box box-primary">
             <div class="box-body">
+                <strong>
+                    <a href="{% url "itdagene.app.feedback.views.evalutions.report" prev_year %}">{% trans "See previous evaluation forms" %}</a>
+                </strong>
+                <br />
                 <strong>{% blocktrans with evaluations_count=evaluations.count percentage_want_to_come_back=percentage_want_to_come_back %}
                     {{ evaluations_count }} companies has answered the feedback, {{ percentage_want_to_come_back }}% will come back.
                 {% endblocktrans %}</strong>
@@ -81,6 +84,12 @@
                 {% for eval in evaluations %}
                     <ul>
                     {% if eval.other %}<li>{{ eval.other }}</li>{% endif %}
+                    </ul>
+                {% endfor %}
+                <h4>{% trans "Evaluation forms" %}</h4>
+                {% for eval in evaluations %}
+                    <ul>
+                        <a href="{% url "itdagene.app.feedback.views.evalutions.handle_evaluation" eval.hash %}">{{ eval.company }}</a>
                     </ul>
                 {% endfor %}
 

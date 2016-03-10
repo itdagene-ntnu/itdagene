@@ -66,5 +66,6 @@ def report(request, year=None):
 
     title = _('Evaluation of itDAGENE')
     description = preferences.year
+    prev_year = preferences.year - 1
 
     return render(request, 'feedback/evaluations/report.html', locals())
