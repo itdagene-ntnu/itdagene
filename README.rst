@@ -23,16 +23,19 @@ Create a virtualenv by typing the following command::
     virtualenv env
 
 
-If you name your virtualenv something, remember to add it to gitignore. "env" is already ignored.
+If you name your virtualenv somethingelse, remember to add it to gitignore. "env" is already ignored.
 
 Activate the environment with::
 
-    . /env/bin/activate
+    . env/bin/activate
 
 
-To install psocopg2 we require some additional libraries::
+Install these additional libraries and make symlinks::
 
-    sudo apt-get install libpq-dev python-dev redis-server
+    sudo apt-get install libpq-dev python-dev redis-server zlib1g-dev libjpeg-dev
+    sudo ln -s /usr/lib/`uname -i`-linux-gnu/libfreetype.so /usr/lib/
+    sudo ln -s /usr/lib/`uname -i`-linux-gnu/libjpeg.so /usr/lib/
+    sudo ln -s /usr/lib/`uname -i`-linux-gnu/libz.so /usr/lib/
 
 
 Install the python packages with pip::
@@ -42,7 +45,6 @@ Install dependencies with make, and create a local settings file for development
 
     make install
     make local-dev
-If you get an error saying it can't find "node", install nodejs-legacy via apt-get.
 
 Setting up the database
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -53,7 +55,7 @@ After having done all of the above::
     sudo apt-get install python-pip postgresql postgresql-contrib
 Then, run the following commands::
 
-    sudo su - postgres
+    sudo -su postgres
     psql
     CREATE DATABASE itdagene;
     CREATE USER itdagene WITH PASSWORD 'itdagene';
@@ -67,6 +69,7 @@ Apply migrations and start server by typing::
 
     python manage.py makemigrations
     python manage.py migrate
+    python manage.py createsuperuser
     python manage.py runserver
 .. |frigg| image:: https://ci.frigg.io/badges/itdagene-ntnu/itdagene/
     :target: https://ci.frigg.io/itdagene-ntnu/itdagene/last/
