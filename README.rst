@@ -20,14 +20,14 @@ Change directory into the root folder of the project.
 Create a virtualenv by typing the following command::
 
 
-    virtualenv env
+    virtualenv venv
 
 
 If you name your virtualenv somethingelse, remember to add it to gitignore. "env" is already ignored.
 
 Activate the environment with::
 
-    . env/bin/activate
+    . venv/bin/activate
 
 
 Install these libraries and make symlinks::
@@ -45,7 +45,7 @@ Install dependencies with make, and create a local settings file for development
 
     make
     make local-dev
-To compile css from stylus every second, run:
+To compile css from stylus every second, run::
 
     make watch-css
 
@@ -71,6 +71,18 @@ Apply migrations and start server by typing::
     python manage.py migrate
     python manage.py createsuperuser
     python manage.py runserver
+
+Testing
+~~~~~~~
+Install the following packages with pip::
+    pip install tox isort coverage
+Run::
+
+    isort -rc itdagene
+To run all tests from now on; run::
+
+    tox
+
 .. |frigg| image:: https://ci.frigg.io/badges/itdagene-ntnu/itdagene/
     :target: https://ci.frigg.io/itdagene-ntnu/itdagene/last/
 
