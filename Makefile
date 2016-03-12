@@ -89,8 +89,8 @@ watchify:
 # A avoid to avoid «Nothing to be done for all messages»
 #
 
-watch-css: itdagene/assets/frontend/itdagene.css
-	@true
+watch-css:
+	watch --interval=1 $(MAKE) $(BUILD_CSS)
 
 #
 #
