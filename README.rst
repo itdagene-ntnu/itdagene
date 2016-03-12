@@ -45,8 +45,8 @@ Install dependencies with make, and create a local settings file for development
 
     make
     make local-dev
-
 To compile css from stylus every second, run:
+
     make watch-css
 
 Setting up the database
