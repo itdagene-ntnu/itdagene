@@ -30,9 +30,9 @@ Activate the environment with::
     . env/bin/activate
 
 
-Install these additional libraries and make symlinks::
+Install these libraries and make symlinks::
 
-    sudo apt-get install libpq-dev python-dev redis-server zlib1g-dev libjpeg-dev
+    sudo apt-get install libpq-dev python-dev redis-server zlib1g-dev libjpeg-dev python-pip postgresql postgresql-contrib
     sudo ln -s /usr/lib/`uname -i`-linux-gnu/libfreetype.so /usr/lib/
     sudo ln -s /usr/lib/`uname -i`-linux-gnu/libjpeg.so /usr/lib/
     sudo ln -s /usr/lib/`uname -i`-linux-gnu/libz.so /usr/lib/
@@ -43,17 +43,17 @@ Install the python packages with pip::
     sudo pip install -r requirements/base.txt
 Install dependencies with make, and create a local settings file for development::
 
-    make install
+    make
     make local-dev
+
+To compile css from stylus every second, run:
+    make watch-css
 
 Setting up the database
 ~~~~~~~~~~~~~~~~~~~~~~~
-We use Postgreql for our database.
+We use Postgresql for our database.
 
-After having done all of the above::
-
-    sudo apt-get install python-pip postgresql postgresql-contrib
-Then, run the following commands::
+After having installed the libraries above; run the following commands::
 
     sudo -su postgres
     psql
