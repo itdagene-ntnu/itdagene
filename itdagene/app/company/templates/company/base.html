@@ -5,7 +5,63 @@
 {% block content %}
 
     <div class="row">
-        <div class="{% if user_companies %}col-lg-6{% else %}col-lg-12{% endif %}">
+        <div class="col-lg-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">{% trans "Your Companies" %}</h3>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                    {% for company in user_companies %}
+                        <div class="col-md-4">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><a href="{% url "itdagene.app.company.views.view" company.pk %}">{{ company }}</a></h3>
+                                </div>
+                                <div class="panel-body">
+                                    <strong>{% trans "Status" %}:</strong> {{ company.get_status_display }}<br/>
+                                    <div>
+                                        {% if company.package %}<strong>{% trans "Package" %}:</strong> {{ company.package.name }}
+                                            <br/>{% endif %}
+                                        {% if company.phone %}<strong>{% trans "Phone number" %}:</strong> {{ company.phone }}
+                                            <br/>{% endif %}
+                                        {% if company.course %}<strong>{% trans "Course" %}:</strong> {{ company.course }}
+                                            <br/>{% endif %}
+                                        {% if company.company_contacts.count > 0 %}
+                                            <strong>{% trans "Contacts" %}:</strong>{% endif %}
+                                        <ul class="list-unstyled">
+                                            {% for contact in company.company_contacts.all|slice:":2" %}
+                                                <li>
+                                                    <div class="row">
+                                                        <div class="col-md-5">
+                                                            {{ contact }}
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            {% if contact.phone %}
+                                                                {{ contact.phone }}
+                                                            {% else %}
+                                                                -
+                                                            {% endif %}
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            {% if contact.email %}
+                                                                <a href="mailto:{{ contact.email }}"><span class="glyphicon glyphicon-envelope"></span></a>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
             <div class="box box-primary">
                 <div class="box-header">
                     <h3 class="box-title">{% trans "Companies" %}</h3>
@@ -38,66 +94,6 @@
             </div>
         </div>
 
-        {% if user_companies %}
-            <div class="col-lg-6">
-                <div class="box box-primary">
-                    <div class="box-header">
-                        <h3 class="box-title">{% trans "Your Companies" %}</h3>
-                    </div>
-                    <div class="box-body">
-                        <div class="row">
-
-                        {% for company in user_companies %}
-                            <div class="col-md-4">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title"><a href="{% url "itdagene.app.company.views.view" company.pk %}">{{ company }}</a></h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        <strong>{% trans "Status" %}:</strong> {{ company.get_status_display }}<br/>
-                                        <div>
-                                            {% if company.package %}<strong>{% trans "Package" %}:</strong> {{ company.package.name }}
-                                                <br/>{% endif %}
-                                            {% if company.phone %}<strong>{% trans "Phone number" %}:</strong> {{ company.phone }}
-                                                <br/>{% endif %}
-                                            {% if company.course %}<strong>{% trans "Course" %}:</strong> {{ company.course }}
-                                                <br/>{% endif %}
-                                            {% if company.company_contacts.count > 0 %}
-                                                <strong>{% trans "Contacts" %}:</strong>{% endif %}
-                                            <ul class="list-unstyled">
-                                                {% for contact in company.company_contacts.all|slice:":2" %}
-                                                    <li>
-                                                        <div class="row">
-                                                            <div class="col-md-5">
-                                                                {{ contact }}
-                                                            </div>
-                                                            <div class="col-md-5">
-                                                                {% if contact.phone %}
-                                                                    {{ contact.phone }}
-                                                                {% else %}
-                                                                    -
-                                                                {% endif %}
-                                                            </div>
-                                                            <div class="col-md-2">
-                                                                {% if contact.email %}
-                                                                    <a href="mailto:{{ contact.email }}"><span class="glyphicon glyphicon-envelope"></span></a>
-                                                                {% endif %}
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                {% endfor %}
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {% endif %}
     </div>
 
 
