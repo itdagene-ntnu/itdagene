@@ -19,7 +19,7 @@
                         <tr>
                             <td><a href="{% url "view_company" company.pk %}">{{ company }}</a></td>
                             <td>{{ company.payment_address }}</td>
-                            <td><a href="">{% trans "Download" %}</a></td>
+                            <td><a href="{% url "itdagene.app.company.views.contracts.download_contract" company.pk company.current_contract.id %}">{% trans "Download" %}</a></td>
 
                             {% if company.current_contract.is_billed %}
                                 <td><span class="label label-success">{{ company.current_contract.is_billed|boolean }}</span></td>
