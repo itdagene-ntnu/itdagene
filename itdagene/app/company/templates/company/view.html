@@ -72,16 +72,16 @@
            <div class="box-body">
                 <div class="row">
                     {% for contact in company.company_contacts.all %}
-                        <div class="col-md-6">
+                        <div class="col-md-6 company-contact">
                             <h4>{{ contact }}</h4>
-                            {% if contact.current %}<em>{% trans 'Current contact' %}</em></br>{% endif %}
+                            {% if contact.current %}<em>{% trans 'Current contact' %}</em><br/>{% endif %}
                             {% if contact.position %}<em>{{ contact.position }}</em><br/>{% endif %}
                             {% if contact.phone %}<strong>{% trans "Phone" %}:</strong> {{ contact.phone }}<br/>{% endif %}
                             {% if contact.mobile_phone %}<strong>{% trans "Mobile" %}:</strong> {{ contact.mobile_phone }}
                                 <br/>{% endif %}
                             {% if contact.email %}<strong>{% trans "Email" %}:</strong> {{ contact.email }}
                                 <br/>{% endif %}
-                            <a style="margin-right: 5px;" href="{% url "app.company.views.company_contacts.vcard" contact.pk %}">{% trans "Download vcard-file" %}</a>
+                            <a style="margin-right: 5px;" href="{% url "app.company.views.company_contacts.vcard" contact.pk %}">{% trans "Download vcard-file" %}</a><br/>
                             <a style="margin-right: 5px;" href="{% url "itdagene.app.company.views.company_contacts.edit_contact" contact.pk %}"><i class="fa fa-pencil"></i> {% trans "Edit" %}</a>
                             <a href="{% url "itdagene.app.company.views.company_contacts.delete_contact" contact.pk %}"><i class="fa fa-trash"></i> {% trans "Delete" %}</a>
                         </div>
