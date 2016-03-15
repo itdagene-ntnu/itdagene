@@ -92,6 +92,8 @@ class Company(BaseModel):
     address = models.TextField(blank=True, verbose_name=_('address'))
     payment_address = models.TextField(blank=True,
                                        verbose_name=_('payment address'))
+    payment_email = models.EmailField(blank=True,
+                                     verbose_name=_('payment email'))
     fax = models.CharField(max_length=20, blank=True, null=True)
     active = models.BooleanField(default=True, verbose_name=_('active'))
     has_public_profile = models.BooleanField(verbose_name=_('profile'),

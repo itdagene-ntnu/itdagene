@@ -8,7 +8,8 @@
                     <thead>
                     <tr>
                         <th data-sortable="true">{% trans "Company" %}</th>
-                        <th data-sortable="true">{% trans "Payement address" %}</th>
+                        <th data-sortable="true">{% trans "Payment address" %}</th>
+                        <th data-sortable="true">{% trans "Payment email" %}</th>
                         <th data-sortable="true">{% trans "Contract" %}</th>
                         <th data-sortable="true">{% trans "Billed" %}</th>
                         <th data-sortable="true">{% trans "Paid" %}</th>
@@ -19,6 +20,7 @@
                         <tr>
                             <td><a href="{% url "view_company" company.pk %}">{{ company }}</a></td>
                             <td>{{ company.payment_address }}</td>
+                            <td>{{ company.payment_email }}</td>
                             <td><a href="{% url "itdagene.app.company.views.contracts.download_contract" company.pk company.current_contract.id %}">{% trans "Download" %}</a></td>
 
                             {% if company.current_contract.is_billed %}
