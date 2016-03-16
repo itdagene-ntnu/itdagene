@@ -9,7 +9,7 @@ from itdagene.app.company.models import Company
 def economic_overview(request):
     all_companies = Company.objects.filter(active=True,
                                            status=3).exclude(
-                                                contracts=None).select_related()
+        contracts=None).select_related()
     companies = []
     for company in all_companies:
         if company.current_contract():

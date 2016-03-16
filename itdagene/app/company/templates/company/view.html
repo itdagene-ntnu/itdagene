@@ -42,6 +42,10 @@
                                         {{ company.payment_address|linebreaksbr }}
                                     </address></dd>
                                 {% endif %}
+                                {% if company.payment_email %}
+                                    <dt>{% trans "Payment email" %}:</dt>
+                                    <dd>{{ company.payment_email }}</dd>
+                                {%  endif %}
                                 {% if evaluation %}
                                     <dt>{% trans "Evaluation" %}</dt>
                                     <dd><a href="{% url "itdagene.app.feedback.views.evalutions.handle_evaluation" evaluation.hash %}">{% trans "View evaluation form" %}</a></dd>
