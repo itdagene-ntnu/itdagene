@@ -13,7 +13,7 @@ First make sure that you have the following software installed on your system:
   * Python 2.7
   * Virtualenv for Python 2.7
   * NodeJS 4.2 or greater
-  * npm for NodeJS
+  * npm for NodeJS (Version 2.x!)
   * bower (install globally with npm)
 
 Change directory into the root folder of the project.
@@ -40,7 +40,7 @@ Install these libraries and make symlinks::
 
 Install the python packages with pip::
 
-    sudo pip install -r requirements/base.txt
+    pip install -r requirements/base.txt
 Install dependencies with make, and create a local settings file for development::
 
     make
