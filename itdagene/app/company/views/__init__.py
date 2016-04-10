@@ -21,10 +21,14 @@ def list_companies(request):
             .order_by('status', 'name').select_related('package', 'contact', 'company_contacts',
                                                        'contracts')
         # Put "Not intereset" last
-        user_companies = list(user_companies)
-        for company in user_companies:
+        temp_companies = []  # Queries are lazy, use list() to execute
+        not_interested_companies = []
+        for company in list(user_companies):
             if company.status == 1:
-                user_companies.append(user_companies.pop(user_companies.index(company)))
+                not_interested_companies.append(company)
+            else:
+                temp_companies.append(company)
+        user_companies = temp_companies + not_interested_companies
     else:
         user_companies = None
     companies = Company.objects.filter(active=True).order_by(
