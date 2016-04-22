@@ -23,12 +23,15 @@ def list_companies(request):
         # Put "Not intereset" last
         temp_companies = []  # Queries are lazy, use list() to execute
         not_interested_companies = []
+        signed_companies = []
         for company in list(user_companies):
             if company.status == 1:
                 not_interested_companies.append(company)
+            elif company.status == 3:
+                signed_companies.append(company)
             else:
                 temp_companies.append(company)
-        user_companies = temp_companies + not_interested_companies
+        user_companies = temp_companies + signed_companies + not_interested_companies
     else:
         user_companies = None
     companies = Company.objects.filter(active=True).order_by(
