@@ -73,6 +73,7 @@
                             <th data-sortable="true">{% trans "Company" %}</th>
                             <th data-sortable="true">{% trans "Status" %}</th>
                             <th data-sortable="true">{% trans "Package" %}</th>
+                            <th data-sortable="true">{% trans "Waiting for" %}</th>
                             <th data-sortable="true">{% trans "Assigned to" %}</th>
                             <th data-sortable="true">{% trans "Contracts" %}</th>
                         </tr>
@@ -84,6 +85,7 @@
                                 <td {% if company.status == 0 %}class="danger"{% endif %}>{{ company.get_status_display }}</td>
                                 <td {% if not company.package %}class="danger"{% endif %}>
                                     {% if company.package %}{{ company.package.name }}{% else %}{% trans "None" %}{% endif %}</td>
+                                <td> {% for package in company.waiting_for_package.all %} {{ package.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</td>
                                 <td>{% if company.contact %}{{ company.contact }}{% else %}{% trans "None" %}{% endif %}</td>
                                 <td>{% if company.contracts.all|has_contract_for_current_year %}{{ "True"|boolean }}{% endif %}</td>
                             </tr>
