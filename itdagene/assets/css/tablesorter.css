@@ -1,0 +1,14 @@
+th.header{
+  cursor: pointer;
+  background-image: url(../img/bg.gif);
+  background-repeat: no-repeat;
+  background-position: center right;
+  border-right: 1px solid #dad9c7
+}
+th.header.headerSortUp{
+  background-image: url(../img/asc.gif)
+}
+
+th.header.headerSortDown{
+  background-image: url(../img/desc.gif)
+}
