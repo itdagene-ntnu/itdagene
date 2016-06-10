@@ -1,6 +1,8 @@
 {% extends "base_admin.html" %}
-{% load i18n filters %}
-
+{% load i18n filters staticfiles %}
+{% block inline-styles %}
+    <link href="{% static "css/utility.css" %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
 
 {% block content %}
 
@@ -87,7 +89,7 @@
                                     {% if company.package %}{{ company.package.name }}{% else %}{% trans "None" %}{% endif %}</td>
                                 <td> {% for package in company.waiting_for_package.all %} {{ package.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</td>
                                 <td>{% if company.contact %}{{ company.contact }}{% else %}{% trans "None" %}{% endif %}</td>
-                                <td>{% if company.contracts.all|has_contract_for_current_year %}{{ "True"|boolean }}{% endif %}</td>
+                                <td>{% if company.contracts.all|has_contract_for_current_year %}{{ "True"|boolean }}<span class="hidden-text">T</span>{% else %}<span class="hidden-text">F</span>{% endif %}</td>
                             </tr>
                         {% endfor %}
                         </tbody>
