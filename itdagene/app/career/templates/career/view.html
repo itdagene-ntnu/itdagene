@@ -1,12 +1,12 @@
 {% extends "base_admin.html" %}
-{% load i18n markdown_tool %}
+{% load i18n markdown_tool staticfiles %}
 
 {% block content %}
     <div class="row">
         <div class="col-lg-12">
             <div class="box box-primary">
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table class="table tablesorter" id="myTable">
                         <tbody>
                         <tr>
                             <td>{% trans "Company" %}</td>
@@ -57,4 +57,14 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block inline-scripts %}
+    <script src="{% static "lib/jquery.tablesorter/js/jquery.tablesorter.min.js" %}"></script>
+    <script>
+        $(document).ready(function()
+                {
+                    $("#myTable").tablesorter({textExtraction: 'complex'});
+                }
+        );
+    </script>
 {% endblock %}

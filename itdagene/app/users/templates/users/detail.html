@@ -1,6 +1,6 @@
 {% extends "base_admin.html" %}
 
-{% load i18n thumbnail  %}
+{% load i18n thumbnail staticfiles %}
 
 {% block content %}
 
@@ -41,7 +41,7 @@
                     <h3 class="box-title">{% trans "Groups" %}</h3>
                 </div>
                 <div class="box-body no-padding">
-                    <table class="table table-hover">
+                    <table class="table table-hover tablesorter" id="myTable">
                         <thead>
                         <tr>
                             <th>{% trans "Name" %}</th>
@@ -97,4 +97,14 @@
 
     </div>
 
+{% endblock %}
+{% block inline-scripts %}
+    <script src="{% static "lib/jquery.tablesorter/js/jquery.tablesorter.min.js" %}"></script>
+    <script>
+        $(document).ready(function()
+                {
+                    $("#myTable").tablesorter({textExtraction: 'complex'});
+                }
+        );
+    </script>
 {% endblock %}

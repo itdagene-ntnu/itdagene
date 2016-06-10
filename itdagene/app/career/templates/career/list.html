@@ -1,20 +1,20 @@
 {% extends "base_admin.html" %}
-{% load i18n %}
+{% load i18n staticfiles %}
 
 {% block content %}
     <div class="row">
         <div class="col-lg-12">
             <div class="box box-primary">
                 <div class="box-body no-padding">
-                    <table class="table table-hover" data-toggle="table" data-sort-name="name">
+                    <table class="table table-hover tablesorter" id="myTable">
                     <thead>
                         <tr>
-                            <th data-sortable="true">{% trans "Company" %}</th>
-                            <th data-sortable="true">{% trans "Title" %}</th>
-                            <th data-sortable="true">{% trans "Type" %}</th>
-                            <th data-sortable="true">{% trans "Deadline" %}</th>
-                            <th data-sortable="true">{% trans "Created" %}</th>
-                            <th data-sortable="true">{% trans "Creator" %}</th>
+                            <th>{% trans "Company" %}</th>
+                            <th>{% trans "Title" %}</th>
+                            <th>{% trans "Type" %}</th>
+                            <th>{% trans "Deadline" %}</th>
+                            <th>{% trans "Created" %}</th>
+                            <th>{% trans "Creator" %}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,4 +35,14 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block inline-scripts %}
+    <script src="{% static "lib/jquery.tablesorter/js/jquery.tablesorter.min.js" %}"></script>
+    <script>
+        $(document).ready(function()
+                {
+                    $("#myTable").tablesorter({textExtraction: 'complex'});
+                }
+        );
+    </script>
 {% endblock %}
