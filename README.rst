@@ -41,9 +41,10 @@ Install these libraries and make symlinks::
 Install the python packages with pip::
 
     pip install -r requirements/base.txt
-Install packages with bower::
+Install packages::
  
     bower install
+    npm install
 Install dependencies with make, and create a local settings file for development::
 
     make
