@@ -10,7 +10,8 @@ EVENT_TYPES = (
     (1, _('Company presentation')),
     (2, _('Banquet')),
     (3, _('Summer internship marathon')),
-    (4, _('Baloon drop'))
+    (4, _('Baloon drop')),
+    (5, _('Competition'))
 )
 
 
