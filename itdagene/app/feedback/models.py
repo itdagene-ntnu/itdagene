@@ -87,7 +87,8 @@ class Evaluation(models.Model):
     communication_rating = models.IntegerField(
         choices=RATINGS,
         blank=False,
-        verbose_name=_('What do you think about the communication and information given in advance of the event?'),
+        verbose_name=_('What do you think about the communication and information '
+                       'given in advance of the event?'),
         default=0)
     internship_marathon_rating = models.IntegerField(
         choices=RATINGS,
