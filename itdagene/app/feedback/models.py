@@ -84,15 +84,19 @@ class Evaluation(models.Model):
                             unique=True)
     has_answers = models.BooleanField(default=False,
                                       verbose_name=_('has answers'))
-
+    communication_rating = models.IntegerField(
+        choices=RATINGS,
+        blank=False,
+        verbose_name=_('What do you think about the communication and information '
+                       'given in advance of the event?'),
+        default=0)
     internship_marathon_rating = models.IntegerField(
         choices=RATINGS,
-        verbose_name=_('How did the kickstart go?'),
+        verbose_name=_('How did the internship marathon go?'),
         default=0)
     internship_marathon_improvement = models.TextField(
         blank=True,
-        verbose_name=_('What could have been done better at the kickstart?'))
-
+        verbose_name=_('What could have been done better at the internship marathon?'))
     course_rating = models.IntegerField(
         choices=RATINGS,
         verbose_name=_('How did the course go?'),
@@ -100,12 +104,10 @@ class Evaluation(models.Model):
     course_improvement = models.TextField(
         blank=True,
         verbose_name=_('Could the course be handled better?'))
-
     visitors_rating = models.IntegerField(
         choices=RATINGS,
-        verbose_name=_('Are you satisfied with the number of people that visited your stand?'),
+        verbose_name=_('How satisfied are you with the number of people that visited your stand?'),
         default=0)
-
     has_interview_location = models.BooleanField(
         verbose_name=_('Did you use interview rooms?'),
         default=False)
@@ -115,10 +117,9 @@ class Evaluation(models.Model):
         default=0)
     interview_location_improvement = models.TextField(
         blank=True,
-        verbose_name=_('What could have been done better?'))
-
+        verbose_name=_('What could have been done better at the interview room?'))
     has_banquet = models.BooleanField(
-        verbose_name=_('Where you at the banquet?'),
+        verbose_name=_('Were you at the banquet?'),
         default=False)
     banquet_rating = models.IntegerField(
         choices=RATINGS,
@@ -127,15 +128,9 @@ class Evaluation(models.Model):
     banquet_improvement = models.TextField(
         blank=True,
         verbose_name=_('What could have been done better at the banquet?'))
-
-    opening_hours = models.TextField(verbose_name=_(
-        'Was the opening hours(10-16) ok? If not what would be your choice?'))
     improvement = models.TextField(
-        verbose_name=_('What could have been done better?'))
-    other = models.TextField(
         blank=True,
-        verbose_name=_('Something else you want to comment?'),
-        help_text=_('Do you have any tips?'))
+        verbose_name=_('What could have been done better? Something else you want to comment?'))
     want_to_come_back = models.BooleanField(
         verbose_name=_('Interested in being contacted next year?'),
         default=False)
