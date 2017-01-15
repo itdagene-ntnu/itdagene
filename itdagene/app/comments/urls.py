@@ -1,6 +1,6 @@
-# -*- coding: utf-8 -*-
 from django.conf.urls import url
+from itdagene.app.comments.views import add
 
 urlpatterns = [
-    url(r'^add/$', 'itdagene.app.comments.views.add'),
+    url(r'^add/$', add),
 ]

@@ -1,7 +1,8 @@
 from django.conf.urls import url
+from itdagene.app.news.views import create_announcement, admin, edit_announcement
 
 urlpatterns = [
-    url(r'^add/$', 'itdagene.app.news.views.create_announcement', name='create_announcement'),
-    url(r'^$', 'itdagene.app.news.views.admin'),
-    url(r'^(?P<id>\d+)/edit/$', 'itdagene.app.news.views.edit_announcement'),
+    url(r'^add/$', create_announcement, name='itdagene.app.news.views.create_announcement'),
+    url(r'^$', admin, name='itdagene.app.news.views.admin'),
+    url(r'^(?P<id>\d+)/edit/$', edit_announcement, name='itdagene.app.news.views.edit_announcement'),
 ]

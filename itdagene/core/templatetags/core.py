@@ -1,6 +1,5 @@
 from django.conf import settings
-from django.template import loader
-from django.template.base import Library
+from django.template import loader, Library
 from django.template.context import Context
 
 register = Library()

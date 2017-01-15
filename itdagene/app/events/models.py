@@ -37,7 +37,7 @@ class Event(BaseModel):
         blank=True,
         verbose_name=_('max nr of participants'))
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     def get_absolute_url(self):
@@ -60,7 +60,7 @@ class Ticket(BaseModel):
     class Meta:
         ordering = ('last_name', )
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s: %s' % (self.event.title, self.full_name())
 
     def full_name(self):

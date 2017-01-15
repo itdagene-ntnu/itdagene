@@ -9,7 +9,6 @@ from itdagene.app.pages.forms import PageForm
 from itdagene.app.pages.models import Page
 from itdagene.core.decorators import staff_required
 
-
 def view_page(request, lang_code='nb', slug='itdagene'):
     page = cache.get('page' + lang_code + slug)
     if not page:

@@ -18,8 +18,7 @@ from django.contrib.messages import add_message, SUCCESS
 def list_companies(request):
     if request.user.is_staff:
         user_companies = Company.objects.filter(contact=request.user)\
-            .order_by('status', 'name').select_related('package', 'contact', 'company_contacts',
-                                                       'contracts')
+            .order_by('status', 'name').select_related('package', 'contact').prefetch_related('company_contacts', 'contracts')
         # Put "Not intereset" last
         temp_companies = []  # Queries are lazy, use list() to execute
         not_interested_companies = []

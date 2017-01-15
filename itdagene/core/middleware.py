@@ -39,4 +39,5 @@ class UnderDevelopmentMiddleware(object):
 
 class CurrentUserMiddleware(object):
     def process_request(self, request):
-        set_current_user_function(lambda self: getattr(request, 'user', None))
+        user = getattr(request, 'user', None)
+        set_current_user_function(lambda: user)

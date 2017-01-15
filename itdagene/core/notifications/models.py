@@ -1,4 +1,4 @@
-from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.translation import ugettext as _
@@ -19,14 +19,14 @@ class Notification(models.Model):
     message = models.TextField(verbose_name=_('message'))
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
-    content_object = generic.GenericForeignKey('content_type', 'object_id')
+    content_object = GenericForeignKey('content_type', 'object_id')
 
     send_mail = models.BooleanField(default=True, verbose_name=_('send mail'))
     sent_mail = models.BooleanField(default=False, verbose_name=_('sent mail'))
 
     users = models.ManyToManyField(User, verbose_name='users', related_name='notifications')
 
-    def __unicode__(self):
+    def __str__(self):
         if len(self.message) > 100:
             return '%s...' % (self.message[0:100], )
         return '%s' % (self.message, )
@@ -69,7 +69,7 @@ class Notification(models.Model):
 class Subscription(models.Model):
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
-    content_object = generic.GenericForeignKey()
+    content_object = GenericForeignKey()
     subscribers = models.ManyToManyField(User,
                                          blank=True,
                                          null=True,

@@ -19,5 +19,5 @@ class Experience(BaseModel):
                             null=True,
                             verbose_name=_('Experiences'))
 
-    def __unicode__(self):
+    def __str__(self):
         return str(BOARD_POSITION[self.position][1])

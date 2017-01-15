@@ -1,4 +1,4 @@
-from django.template.base import Library
+from django.template import Library
 from django.utils import formats
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _

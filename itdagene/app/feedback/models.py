@@ -48,7 +48,7 @@ class Issue(BaseModel):
                                        null=True,
                                        verbose_name=_('solved date'))
 
-    def __unicode__(self):
+    def __str__(self):
         return self.get_app_display() + ": " + self.title
 
     def get_absolute_url(self):
@@ -142,5 +142,5 @@ class Evaluation(models.Model):
 
         super(Evaluation, self).save(*args, **kwargs)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.hash

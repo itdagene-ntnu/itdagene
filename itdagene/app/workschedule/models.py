@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -18,7 +17,7 @@ class Worker(BaseModel):
     email = models.EmailField(verbose_name=_('email'), blank=True)
     preference = models.PositiveIntegerField(verbose_name=_('year'))
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def schedules(self):
@@ -27,7 +26,7 @@ class Worker(BaseModel):
 
     def as_dict(self):
         return {
-            'name': unicode(self.name),
+            'name': str(self.name),
             'phone': self.phone,
             't_shirt_size': self.t_shirt_size,
             'email': self.email,
@@ -44,7 +43,7 @@ class WorkSchedule(BaseModel):
     end_time = models.TimeField(verbose_name=_('end time'))
     description = models.TextField(blank=True, verbose_name=_('Description'))
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     def workers(self):
@@ -82,8 +81,8 @@ class WorkerInSchedule(BaseModel):
                                verbose_name=_('worker'))
     has_met = models.BooleanField(verbose_name=_('has met'), default=False)
 
-    def __unicode__(self):
-        return "%s: %s" % (unicode(self.schedule), self.worker.name)
+    def __str__(self):
+        return "%s: %s" % (str(self.schedule), self.worker.name)
 
     def as_dict(self):
         return {

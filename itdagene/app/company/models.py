@@ -26,7 +26,7 @@ class Package(BaseModel):
                                           default=False)
     is_full = models.BooleanField(verbose_name=_('is full'), default=False)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def get_absolute_url(self):
@@ -100,7 +100,7 @@ class Company(BaseModel):
                                              default=False)
     is_collaborator = models.BooleanField(verbose_name='collaborator', default=False)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def get_absolute_url(self):
@@ -186,7 +186,7 @@ class CompanyContact(BaseModel):
                                 verbose_name=_('position'))
     current = models.BooleanField(default=False, verbose_name=_('Current contact'))
 
-    def __unicode__(self):
+    def __str__(self):
         return self.first_name + ' ' + self.last_name
 
     def save(self, *args, **kwargs):
@@ -222,7 +222,7 @@ class Contract(BaseModel):
     is_billed = models.BooleanField(verbose_name=_("is billed"), default=False)
     has_paid = models.BooleanField(verbose_name=_("has paid"), default=False)
 
-    def __unicode__(self):
+    def __str__(self):
         return str(self.timestamp)
 
     def save(self, *args, **kwargs):
@@ -244,7 +244,7 @@ class Contract(BaseModel):
 class CallTeam(BaseModel):
     users = models.ManyToManyField(User, verbose_name=_('users'))
 
-    def __unicode__(self):
+    def __str__(self):
         u = []
         for user in self.users.all():
             u.append(user.get_full_name())

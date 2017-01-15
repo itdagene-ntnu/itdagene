@@ -15,7 +15,7 @@ class Todo(BaseModel):
                                     verbose_name=_('deadline'))
     finished = models.BooleanField(verbose_name=_('finished'), default=False)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.description
 
     def get_absolute_url(self):

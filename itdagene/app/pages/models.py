@@ -21,7 +21,7 @@ class Page(BaseModel):
     menu = models.BooleanField(verbose_name=_('should be in menu'),
                                default=False)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     class Meta:

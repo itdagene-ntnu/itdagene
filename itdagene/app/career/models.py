@@ -3,7 +3,7 @@ from datetime import date
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from managers import JoblistingManager
+from .managers import JoblistingManager
 
 from itdagene.app.company.models import Company, CompanyContact
 from itdagene.core.models import BaseModel
@@ -12,7 +12,7 @@ from itdagene.core.models import BaseModel
 class Town(BaseModel):
     name = models.CharField(max_length=100, verbose_name=_('name'))
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -42,7 +42,7 @@ class Joblisting(BaseModel):
     frontpage = models.BooleanField(_('Frontpage'), default=False)
     hide_contactinfo = models.BooleanField(_('Hide contact info'), default=False)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     def get_absolute_url(self):

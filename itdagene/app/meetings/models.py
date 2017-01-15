@@ -43,7 +43,7 @@ class Meeting(BaseModel):
                                    blank=True,
                                    null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.get_type_display()
 
     def save(self, *args, **kwargs):
@@ -94,9 +94,9 @@ class ReplyMeeting(BaseModel):
                                            null=True,
                                            blank=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return ugettext(
-            'Meeting participation: %(user)s') % {'user': unicode(self.user)}
+            'Meeting participation: %(user)s') % {'user': str(self.user)}
 
     def get_absolute_url(self):
         return reverse('itdagene.app.meetings.views.meeting',
@@ -123,7 +123,7 @@ class Penalty(BaseModel):
                                           verbose_name=_('number of bottles'))
     reason = models.TextField(verbose_name=_('reason'))
 
-    def __unicode__(self):
+    def __str__(self):
         return self.user.username + ' ' + str(
             self.bottles) + ' ' + self.get_type_display()
 

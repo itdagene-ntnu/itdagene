@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from django.conf import settings
-from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.core.mail import mail_admins
 from django.db import models
@@ -28,16 +28,16 @@ class LogItem(models.Model):
     action = models.CharField(max_length=16, verbose_name=_('action'))
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
-    content_object = generic.GenericForeignKey('content_type', 'object_id')
+    content_object = GenericForeignKey('content_type', 'object_id')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.action
 
     def save(self, *args, **kwargs):
         if self.priority == 3:
             mail_admins(
-                'Log: ' + unicode(self),
-                unicode(self) + '\n Read more at http://%s%s' %
+                'Log: ' + str(self),
+                str(self) + '\n Read more at http://%s%s' %
                 (settings.SITE['domain'], self.content_object.get_absolute_url)
             )
         super(LogItem, self).save(*args, **kwargs)
@@ -46,7 +46,7 @@ class LogItem(models.Model):
     def log_it(cls, object, action, priority):
         user = get_current_user()
         if not user or not user.is_authenticated():
-            user = User.objects.get(pk=1)
+            user = User.objects.first()
         log_item = LogItem(
             user=user, priority=priority, timestamp=datetime.now(), action=action,
             object_id=object.pk, content_type=ContentType.objects.get_for_model(object)

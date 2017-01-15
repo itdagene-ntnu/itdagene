@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from datetime import date, datetime
 
 from django.conf import settings
@@ -41,7 +40,7 @@ class User(AbstractUser):
     def get_absolute_url(self):
         return reverse('itdagene.app.users.views.user_detail', args=[self.pk])
 
-    def __unicode__(self):
+    def __str__(self):
         if self.get_full_name():
             return self.get_full_name()
         return self.username
@@ -63,7 +62,7 @@ class BaseModel(models.Model):
     date_created = models.DateTimeField(editable=False)
     date_saved = models.DateTimeField(editable=False)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.creator.username + ' ' + str(self.id)
 
     def save(self, notify_subscribers=True, log_it=True, log_priority=0, *args, **kwargs):
@@ -132,14 +131,14 @@ class Preference(BaseModel):
     view_sp = models.BooleanField(verbose_name=_('view partners'),
                                   default=False)
 
-    def __unicode__(self):
+    def __str__(self):
         return str(self.year)
 
     def save(self, *args, **kwargs):
         action = 'EDIT' if self.pk else 'CREATE'
 
         super(Preference, self).save(*args, **kwargs)
-        from log.models import LogItem
+        from .log.models import LogItem
         LogItem.log_it(self, action, 3)
 
         if self.active:

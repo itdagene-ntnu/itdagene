@@ -1,5 +1,4 @@
 import string
-from new import instancemethod
 from random import choice
 from threading import local
 
@@ -13,8 +12,7 @@ _thread_locals = local()
 
 
 def set_current_user_function(user_function):
-    setattr(_thread_locals, USER_ATTR_NAME,
-            instancemethod(user_function, _thread_locals, type(_thread_locals)))
+    setattr(_thread_locals, USER_ATTR_NAME, user_function)
 
 
 def set_current_user(user=None):
@@ -22,7 +20,7 @@ def set_current_user(user=None):
 
 
 def get_current_user():
-    from models import User
+    from .models import User
     try:
         current_user = getattr(_thread_locals, USER_ATTR_NAME, None)
         return current_user() if current_user else current_user
@@ -30,5 +28,5 @@ def get_current_user():
         return AnonymousUser
 
 
-def generate_password(length=8, chars=string.letters + string.digits):
+def generate_password(length=8, chars=string.ascii_letters + string.digits):
     return ''.join([choice(chars) for i in range(length)])

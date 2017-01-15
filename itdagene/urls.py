@@ -4,27 +4,31 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.core.urlresolvers import reverse
 from django.http import HttpResponsePermanentRedirect
+from django.contrib.auth.views import login, logout
+from itdagene.app.feedback.views.evalutions import handle_evaluation
+from itdagene.app.frontpage.views import frontpage, public, inside, tweet
+from itdagene.core.views import error403, under_development
+from itdagene.core.views import error404, error500
 
-handler403 = 'itdagene.core.views.error403'
-handler404 = 'itdagene.core.views.error404'
-handler500 = 'itdagene.core.views.error500'
+handler403 = error403
+handler404 = error404
+handler500 = error500
 
 urlpatterns = [
-    url(r'^login/$', 'django.contrib.auth.views.login'),
-    url(r'^logout/$', 'django.contrib.auth.views.logout',
-        {'next_page': 'itdagene.app.frontpage.views.inside'}),
-    url(r'^$', 'itdagene.app.frontpage.views.frontpage'),
-    url(r'^frontpage/$', 'itdagene.app.frontpage.views.public'),
+    url(r'^login/$', login, name='login'),
+    url(r'^logout/$', logout, {'next_page': inside}),
+    url(r'^$', frontpage),
+    url(r'^frontpage/$', public),
 
-    url(r'^dashboard/$', 'itdagene.app.frontpage.views.inside'),
-    url(r'^dashboard/tweet/$', 'itdagene.app.frontpage.views.tweet'),
+    url(r'^dashboard/$', inside),
+    url(r'^dashboard/tweet/$', tweet),
 
     url(r'^users/', include('itdagene.app.users.urls')),
     url(r'^todo/', include('itdagene.app.todo.urls')),
-    url(r'^errors/error403/$', 'itdagene.core.views.error403'),
-    url(r'^errors/error404/$', 'itdagene.core.views.error404'),
-    url(r'^errors/error500/$', 'itdagene.core.views.error500'),
-    url(r'^under-development/$', 'itdagene.core.views.under_development'),
+    url(r'^errors/error403/$', error403),
+    url(r'^errors/error404/$', error404),
+    url(r'^errors/error500/$', error500),
+    url(r'^under-development/$', under_development),
     url(r'^experiences/', include('itdagene.app.experiences.urls')),
     url(r'^admin/', include('itdagene.app.itdageneadmin.urls')),
     url(r'^comments/', include('itdagene.app.comments.urls')),
@@ -36,9 +40,7 @@ urlpatterns = [
     url(r'^bdb/', include('itdagene.app.company.urls')),
     url(r'^career/', include('itdagene.app.career.urls')),
     url(r'^workschedules/', include('itdagene.app.workschedule.urls')),
-    url(r'^evaluate/(?P<hash>[a-zA-Z0-9]+)/$',
-        'itdagene.app.feedback.views.evalutions.handle_evaluation',
-        name='evaluate'),
+    url(r'^evaluate/(?P<hash>[a-zA-Z0-9]+)/$', handle_evaluation, name='evaluate'),
 
     url(r'^quiz/', include('itdagene.app.quiz.urls', namespace='quiz')),
     url(r'^superadmin/', include(admin.site.urls)),

@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 import re
 
 from django.conf import settings
-from django.template.base import Library
+from django.template import Library
 from sorl.thumbnail.shortcuts import get_thumbnail
 
 register = Library()
