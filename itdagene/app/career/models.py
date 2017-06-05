@@ -52,6 +52,8 @@ class Joblisting(BaseModel):
     url = models.URLField(blank=True, verbose_name=_('url'))
     is_active = models.BooleanField(verbose_name=_('active'), default=True)
     frontpage = models.BooleanField(_('Frontpage'), default=False)
+    hide_contactinfo = models.BooleanField(_('Hide contact info'), default=False)
+
 
     def __unicode__(self):
         return self.title

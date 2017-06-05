@@ -8,7 +8,7 @@ class JoblistingForm(ModelForm):
         model = Joblisting
         fields = ('title', 'type', 'company', 'description', 'contact',
                   'deadline', 'from_year', 'to_year', 'url', 'towns', 'image',
-                  'frontpage')
+                  'frontpage', 'hide_contactinfo')
 
 
 class JoblistingTownForm(ModelForm):
