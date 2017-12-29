@@ -1,4 +1,5 @@
 from datetime import date
+
 from django.conf import settings
 from django.template import Library, loader
 from django.template.context import Context

@@ -1,9 +1,9 @@
 import random
 import string
-from django.utils import timezone
 
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from itdagene.app.company.models import Company

@@ -1,15 +1,15 @@
 # itDAGENE [![CircleCI](https://circleci.com/gh/itdagene-ntnu/itdagene.svg?style=svg&circle-token=abcfbea6689e5baef8a1fbb7fa6eb822efdd5bfb)](https://circleci.com/gh/itdagene-ntnu/itdagene)
 
+> Codebase for http://www.itdagene.no
+
 ![itDAGENE](itdagene/assets/img/logoQuiz.png)
 
-This is the code base for http://www.itdagene.no. It is a standard django project, and uses Celery for async tasks.
 
 ## TL;DR
-- Runs Django
-- Using postgres as the database
-- Using Celery (with redis-broker) for async tasks
+- Runs python3.6 with Django
+- Postgres as main database
+- Celery (with redis-broker) for async tasks
 - CircleCI for continuous integration
-
 
 ## Setup
 
@@ -29,7 +29,6 @@ $ docker-compose up -d # This starts the databse & redis
 
 ```
 
-
 Install other dependencies:
 
 ```bash
@@ -40,9 +39,17 @@ $ make # make clean to clean
 $ make local-dev
 ```
 
+## Starting the app
+
+```bash
+$ docker-compose up -d
+$ source venv/bin/activate
+$ python manage.py runserver
+```
+
 ## Migrations
 
-In order to setup a new environment you have to create a superuser
+In order to setup a new dev environment you have to create a superuser. Every time there are new migrations, you have to apply them. If you don't, the `runserver` command will give you a warning.
 
 ```bash
 $ python manage.py migrate
@@ -51,19 +58,11 @@ $ python manage.py createsuperuser
 
 #### Model changes
 
-Have you changed a model? Then you have to make and apply migrations:
+Have you changed a model? Then you have to make and apply migrations. Migrations should always be committed to the repo in the same commit/PR as the model change.
 
 ```bash
 $ python manage.py makemigrations
 $ python manage.py migrate
-```
-
-## Starting the server
-
-```bash
-$ source venv/bin/activate
-$ python manage.py migrate
-$ python manage.py runserver
 ```
 
 ## Testing
@@ -78,15 +77,21 @@ $ tox
 We enforce the style guide [PEP 8] with flake8, and [isort] for import sorting. (Soon yapf for formatting). All 
 
 ```bash
-$ # Fix isort errors
-$ isort -rc itdagene
-$ # Verify the result with tox
-$ tox -e isort
-$ # Verify PEP 8 style
-$ tox -e flake8
+$ isort -rc itdagene # Fix isort errors
+$ tox -e isort       # Verify the result with tox
+$ tox -e flake8      # Verify PEP 8 style
 ```
 
 ## Misc
+
+### Nice reads
+
+- [Terminal intro](https://www.digitalocean.com/community/tutorials/an-introduction-to-the-linux-terminal)
+- [Django intro](https://www.djangoproject.com/start/)
+- [Intro to celery](http://docs.celeryproject.org/en/latest/getting-started/introduction.html)
+- [Why docker](https://www.docker.com/what-container)
+
+### Deps
 
 You **may** have to install these
 ```bash
@@ -96,12 +101,6 @@ $ sudo ln -s /usr/lib/`uname -i`-linux-gnu/libjpeg.so /usr/lib/
 $ sudo ln -s /usr/lib/`uname -i`-linux-gnu/libz.so /usr/lib/
 ```
 
-### Nice reads
-
-- [Terminal intro](https://www.digitalocean.com/community/tutorials/an-introduction-to-the-linux-terminal)
-- [Django intro](https://www.djangoproject.com/start/)
-- [Intro to celery](http://docs.celeryproject.org/en/latest/getting-started/introduction.html)
-- [Why docker](https://www.docker.com/what-container)
 
 [docker]: https://www.docker.com/community-edition
 [docker-compose]: https://docs.docker.com/compose/overview/

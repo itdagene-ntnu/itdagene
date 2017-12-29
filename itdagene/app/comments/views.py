@@ -1,8 +1,7 @@
-from django.utils import timezone
-
 from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import ERROR, add_message
 from django.shortcuts import redirect
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from itdagene.app.comments.forms import CommentForm

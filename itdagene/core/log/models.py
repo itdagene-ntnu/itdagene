@@ -1,9 +1,9 @@
 from django.conf import settings
-from django.utils import timezone
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.core.mail import mail_admins
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from itdagene.core.auth import get_current_user
