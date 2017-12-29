@@ -1,6 +1,6 @@
 itDAGENE
 ========
-|frigg| |coverage|
+|circle|
 
 
 This is the code base for http://www.itdagene.no. It is a standard django project, and uses Celery for async tasks
@@ -120,8 +120,5 @@ To run all tests from now on; run::
 
     tox
 
-.. |frigg| image:: https://ci.frigg.io/badges/itdagene-ntnu/itdagene/
-    :target: https://ci.frigg.io/itdagene-ntnu/itdagene/last/
-
-.. |coverage| image:: https://ci.frigg.io/badges/coverage/itdagene-ntnu/itdagene/
-    :target: https://ci.frigg.io/itdagene-ntnu/itdagene/last/
+.. |circle| image:: https://circleci.com/gh/itdagene-ntnu/itdagene.svg?style=svg&circle-token=abcfbea6689e5baef8a1fbb7fa6eb822efdd5bfb
+    :target: https://circleci.com/gh/itdagene-ntnu/itdagene
