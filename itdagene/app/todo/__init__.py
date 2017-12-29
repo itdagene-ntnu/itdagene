@@ -4,7 +4,8 @@ def todo_list(user):
     from datetime import datetime
 
     if user.is_staff:
-        return Todo.objects.filter(user=user).filter(
-            Q(finished=True, deadline__gte=datetime.now()) | Q(finished=False)
-        ).order_by('deadline')
+        return Todo.objects.filter(
+            user=user
+        ).filter(Q(finished=True, deadline__gte=datetime.now())
+                 | Q(finished=False)).order_by('deadline')
     return None

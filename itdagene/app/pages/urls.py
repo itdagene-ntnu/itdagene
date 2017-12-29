@@ -1,5 +1,6 @@
 from django.conf.urls import url
-from itdagene.app.pages.views import admin, add, view_page, edit
+
+from itdagene.app.pages.views import add, admin, edit, view_page
 
 urlpatterns = [
     url(r'^pages/$', admin, name='pages'),

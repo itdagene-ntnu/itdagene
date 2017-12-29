@@ -1,5 +1,6 @@
 from django.conf.urls import url
-from itdagene.app.events.views import list_events, add_event, edit_event, view_event, edit_ticket
+
+from itdagene.app.events.views import add_event, edit_event, edit_ticket, list_events, view_event
 
 urlpatterns = [
     url(r'^$', list_events, name='itdagene.app.events.views.list_events'),
@@ -8,4 +9,3 @@ urlpatterns = [
     url(r'^(?P<pk>\d+)/edit/$', edit_event, name='itdagene.app.events.views.edit_event'),
     url(r'^ticket/(?P<pk>\d+)/edit/$', edit_ticket, name='itdagene.app.events.views.edit_ticket'),
 ]
-

@@ -17,8 +17,9 @@ from django.contrib.messages import add_message, SUCCESS
 @staff_required()
 def list_companies(request):
     if request.user.is_staff:
-        user_companies = Company.objects.filter(contact=request.user)\
-            .order_by('status', 'name').select_related('package', 'contact').prefetch_related('company_contacts', 'contracts')
+        user_companies = Company.objects.filter(contact=request.user).order_by(
+            'status', 'name'
+        ).select_related('package', 'contact').prefetch_related('company_contacts', 'contracts')
         # Put "Not intereset" last
         temp_companies = []  # Queries are lazy, use list() to execute
         not_interested_companies = []
@@ -33,27 +34,30 @@ def list_companies(request):
         user_companies = temp_companies + signed_companies + not_interested_companies
     else:
         user_companies = None
-    companies = Company.objects.filter(active=True).order_by(
-        'name').select_related('contact')
-    return render(request, 'company/base.html', {
-        'companies': companies,
-        'user_companies': user_companies,
-        'title': _('Companies')
-    })
+    companies = Company.objects.filter(active=True).order_by('name').select_related('contact')
+    return render(
+        request, 'company/base.html', {
+            'companies': companies,
+            'user_companies': user_companies,
+            'title': _('Companies')
+        }
+    )
 
 
 @staff_required()
 def view(request, id):
     company = get_object_or_404(Company.objects.select_related(), pk=id)
     evaluation, created = Evaluation.objects.get_or_create(
-        company=company,
-        preference=Preference.current_preference())
-    return render(request, 'company/view.html', {
-        'company': company,
-        'evaluation': evaluation,
-        'title': company,
-        'description': _('Company')
-    })
+        company=company, preference=Preference.current_preference()
+    )
+    return render(
+        request, 'company/view.html', {
+            'company': company,
+            'evaluation': evaluation,
+            'title': company,
+            'description': _('Company')
+        }
+    )
 
 
 @staff_required()
@@ -113,9 +117,7 @@ def add(request):
             company = form.save()
             add_message(request, SUCCESS, _('Company saved.'))
             return redirect(company.get_absolute_url())
-    return render(request, 'company/form.html',
-                  {'title': _('Add Company'),
-                   'form': form})
+    return render(request, 'company/form.html', {'title': _('Add Company'), 'form': form})
 
 
 @permission_required('company.change_company')
@@ -128,12 +130,15 @@ def edit(request, id=False):
             company = form.save()
             add_message(request, SUCCESS, _('Comapny saved'))
             return redirect(company.get_absolute_url())
-    return render(request, 'company/form.html', {
-        'company': company,
-        'form': form,
-        'title': _('Change Company'),
-        'description': company
-    })
+    return render(
+        request, 'company/form.html',
+        {
+            'company': company,
+            'form': form,
+            'title': _('Change Company'),
+            'description': company
+        }
+    )
 
 
 @permission_required('company.change_company')
@@ -146,8 +151,10 @@ def set_responsibilities(request):
         if formset.is_valid():
             formset.save()
             add_message(request, SUCCESS, _('Changed responsibilities.'))
-            return redirect(
-                reverse('itdagene.app.company.views.list_companies'))
-    return render(request, 'company/set_responsibilities.html',
-                  {'formset': formset,
-                   'title': _('Set Responsibilities')})
+            return redirect(reverse('itdagene.app.company.views.list_companies'))
+    return render(
+        request, 'company/set_responsibilities.html', {
+            'formset': formset,
+            'title': _('Set Responsibilities')
+        }
+    )

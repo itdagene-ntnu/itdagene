@@ -1,7 +1,7 @@
 import os
 
 import celery
-from django.conf import settings
+
 
 class Celery(celery.Celery):
     def on_configure(self):
@@ -17,6 +17,7 @@ class Celery(celery.Celery):
 
         # hook into the Celery error handler
         register_signal(client)
+
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'itdagene.settings')
 

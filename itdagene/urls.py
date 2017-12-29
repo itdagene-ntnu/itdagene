@@ -2,13 +2,13 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.auth.views import login, logout
 from django.core.urlresolvers import reverse
 from django.http import HttpResponsePermanentRedirect
-from django.contrib.auth.views import login, logout
+
 from itdagene.app.feedback.views.evalutions import handle_evaluation
-from itdagene.app.frontpage.views import frontpage, public, inside, tweet
-from itdagene.core.views import error403, under_development
-from itdagene.core.views import error404, error500
+from itdagene.app.frontpage.views import frontpage, inside, public, tweet
+from itdagene.core.views import error403, error404, error500, under_development
 
 handler403 = error403
 handler404 = error404
