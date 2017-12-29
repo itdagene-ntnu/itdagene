@@ -13,13 +13,17 @@ from itdagene.core.models import User
 
 class LogItem(models.Model):
 
-    PRIORITIES = ((0, 'Low'), (1, 'Medium'), (2, 'High'),
-                  (3, 'Very High. Will send email to administrators'))
+    PRIORITIES = (
+        (0, 'Low'),
+        (1, 'Medium'),
+        (2, 'High'),
+        (3, 'Very High. Will send email to administrators'),
+    )
 
     user = models.ForeignKey(User, verbose_name=_('user'))
-    priority = models.PositiveIntegerField(choices=PRIORITIES,
-                                           default=1,
-                                           verbose_name=_('priority'))
+    priority = models.PositiveIntegerField(
+        choices=PRIORITIES, default=1, verbose_name=_('priority')
+    )
     timestamp = models.DateTimeField(auto_now=True, verbose_name=_('date'))
     action = models.CharField(max_length=16, verbose_name=_('action'))
     content_type = models.ForeignKey(ContentType)
@@ -34,7 +38,8 @@ class LogItem(models.Model):
             mail_admins(
                 'Log: ' + unicode(self),
                 unicode(self) + '\n Read more at http://%s%s' %
-                (settings.SITE['domain'], self.content_object.get_absolute_url))
+                (settings.SITE['domain'], self.content_object.get_absolute_url)
+            )
         super(LogItem, self).save(*args, **kwargs)
 
     @classmethod
@@ -42,10 +47,8 @@ class LogItem(models.Model):
         user = get_current_user()
         if not user or not user.is_authenticated():
             user = User.objects.get(pk=1)
-        l = LogItem(user=user,
-                    priority=priority,
-                    timestamp=datetime.now(),
-                    action=action,
-                    object_id=object.pk,
-                    content_type=ContentType.objects.get_for_model(object))
-        l.save()
+        log_item = LogItem(
+            user=user, priority=priority, timestamp=datetime.now(), action=action,
+            object_id=object.pk, content_type=ContentType.objects.get_for_model(object)
+        )
+        log_item.save()
