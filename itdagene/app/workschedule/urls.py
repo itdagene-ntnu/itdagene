@@ -3,7 +3,7 @@ from django.conf.urls import url
 from itdagene.app.workschedule import views
 
 urlpatterns = [
-    url(r'^$', list, name='workschedules'),
+    url(r'^$', views.list, name='workschedules'),
     url(r'^add_task$', views.add_task, name='itdagene.app.workschedule.views.add_task'),
     url(r'^add_worker$', views.add_worker, name='itdagene.app.workschedule.views.add_worker'),
     url(r'^task/(?P<id>\d+)/$', views.view_task, name='itdagene.app.workschedule.views.view_task'),

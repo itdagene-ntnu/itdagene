@@ -1,7 +1,7 @@
 from django.conf.urls import url
 
 from itdagene.app.meetings.views import (
-    add, add_penalties, attend, edit, meeting, not_attend, send_invites
+    add, add_penalties, attend, edit, list, meeting, not_attend, send_invites
 )
 
 urlpatterns = [
