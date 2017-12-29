@@ -16,33 +16,26 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            python3 -m venv venv
-            source venv/bin/activate
-            pip install -r requirements/test.txt
             pip install tox
             tox --notest
 
       - save_cache:
           paths:
             - ./.tox
-            - ./venv
           key: deps-{{ checksum "requirements/test.txt" }}-{{ checksum "requirements/base.txt" }}-{{ checksum "tox.ini" }}
 
       - run:
           name: isort
           command: |
-            source venv/bin/activate
             tox -e isort
 
       - run:
           name: flake8
           command: |
-            source venv/bin/activate
             tox -e flake8
 
       - run:
           name: Tests
           command: |
-            source venv/bin/activate
             tox -e py36
             tox -e coverage
