@@ -12,9 +12,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "requirements/test.txt" }}
-          - v1-dependencies-
-
+              - deps-{{ checksum "requirements/test.txt" }}-{{ checksum "requirements/base.txt" }}-{{ checksum "tox.ini" }}
       - run:
           name: install dependencies
           command: |
@@ -22,11 +20,13 @@ jobs:
             source venv/bin/activate
             pip install -r requirements/test.txt
             pip install tox
+            tox --notest
 
       - save_cache:
           paths:
+            - ./.tox
             - ./venv
-          key: v1-dependencies-{{ checksum "requirements/test.txt" }}
+          key: deps-{{ checksum "requirements/test.txt" }}-{{ checksum "requirements/base.txt" }}-{{ checksum "tox.ini" }}
 
       - run:
           name: isort
