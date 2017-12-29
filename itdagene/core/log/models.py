@@ -1,6 +1,5 @@
-from datetime import datetime
-
 from django.conf import settings
+from django.utils import timezone
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.core.mail import mail_admins
@@ -48,7 +47,7 @@ class LogItem(models.Model):
         if not user or not user.is_authenticated():
             user = User.objects.first()
         log_item = LogItem(
-            user=user, priority=priority, timestamp=datetime.now(), action=action,
+            user=user, priority=priority, timestamp=timezone.now(), action=action,
             object_id=object.pk, content_type=ContentType.objects.get_for_model(object)
         )
         log_item.save()

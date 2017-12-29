@@ -1,4 +1,4 @@
-from datetime import datetime
+from django.utils import timezone
 
 from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import SUCCESS, add_message
@@ -20,9 +20,7 @@ def add_todo(request):
             todo.save(notify_subscribers=False)
             add_message(request, SUCCESS, _('Todo added.'))
             return redirect(reverse('itdagene.app.frontpage.views.inside'))
-    return render(request, 'todo/todo_form.html',
-                  {'form': form,
-                   'title': _('Add Todo')})
+    return render(request, 'todo/todo_form.html', {'form': form, 'title': _('Add Todo')})
 
 
 @permission_required('todo.change_todo')
@@ -36,9 +34,7 @@ def change_todo(request, pk):
             todo.save(notify_subscribers=False)
             add_message(request, SUCCESS, _('Todo changed.'))
             return redirect(reverse('itdagene.app.frontpage.views.inside'))
-    return render(request, 'todo/todo_form.html',
-                  {'form': form,
-                   'title': _('Change Todo')})
+    return render(request, 'todo/todo_form.html', {'form': form, 'title': _('Change Todo')})
 
 
 @permission_required('todo.delete_todo')
@@ -50,17 +46,18 @@ def delete_todo(request, pk):
         add_message(request, SUCCESS, _('Todo deleted.'))
         return redirect(reverse('itdagene.app.frontpage.views.inside'))
 
-    return render(request, 'todo/delete_todo.html',
-                  {'todo': todo,
-                   'title': _('Delete Todo')})
+    return render(request, 'todo/delete_todo.html', {'todo': todo, 'title': _('Delete Todo')})
 
 
 def view_todo(request, pk):
     todo = get_object_or_404(Todo, pk=pk, user=request.user)
-    return render(request, 'todo/view_todo.html',
-                  {'todo': todo,
-                   'title': _('Todo'),
-                   'now': datetime.now()})
+    return render(
+        request, 'todo/view_todo.html', {
+            'todo': todo,
+            'title': _('Todo'),
+            'now': timezone.now()
+        }
+    )
 
 
 def change_status(request, pk):

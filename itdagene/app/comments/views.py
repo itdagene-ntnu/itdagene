@@ -1,4 +1,4 @@
-from datetime import datetime
+from django.utils import timezone
 
 from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import ERROR, add_message
@@ -16,7 +16,7 @@ def add(request):
         if form.is_valid():
             instance = form.save(commit=False)
             instance.user = request.user
-            instance.date = datetime.now()
+            instance.date = timezone.now()
             instance.save()
 
             send_comment_email(instance)

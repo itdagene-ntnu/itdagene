@@ -1,4 +1,4 @@
-from datetime import datetime
+from django.utils import timezone
 
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.messages import SUCCESS, add_message
@@ -16,12 +16,14 @@ def list(request, solved=False):
     bugs = Issue.objects.filter(is_solved=solved, type=0)
     features = Issue.objects.filter(is_solved=solved, type=1)
     cache_bugs = Issue.objects.filter(is_solved=solved, type=2)
-    return render(request, 'feedback/issues/list.html', {
-        'bugs': bugs,
-        'features': features,
-        'cache_bugs': cache_bugs,
-        'title': _('Issues')
-    })
+    return render(
+        request, 'feedback/issues/list.html', {
+            'bugs': bugs,
+            'features': features,
+            'cache_bugs': cache_bugs,
+            'title': _('Issues')
+        }
+    )
 
 
 @staff_required()
@@ -41,14 +43,16 @@ def view(request, id):
         form = IssueAssignForm(request.POST, instance=issue)
         if form.is_valid():
             issue = form.save()
-    return render(request, 'feedback/issues/view.html', {
-        'issue': issue,
-        'form': form,
-        'form_title': _('Assign a user:'),
-        'title': _('Issue'),
-        'description': issue,
-        'now_time': datetime.now()
-    })
+    return render(
+        request, 'feedback/issues/view.html', {
+            'issue': issue,
+            'form': form,
+            'form_title': _('Assign a user:'),
+            'title': _('Issue'),
+            'description': issue,
+            'now_time': timezone.now()
+        }
+    )
 
 
 @permission_required('feedback.add_issue')
@@ -60,14 +64,11 @@ def add(request):
             form.save()
             add_message(request, SUCCESS, _('Thank you for the feedback.'))
             if request.user.is_staff:
-                return redirect(
-                    reverse('itdagene.app.feedback.views.issues.list'))
+                return redirect(reverse('itdagene.app.feedback.views.issues.list'))
             else:
                 return redirect(reverse('itdagene.app.frontpage.views.inside'))
 
-    return render(request, 'feedback/form.html',
-                  {'title': _('Add Issue'),
-                   'form': form})
+    return render(request, 'feedback/form.html', {'title': _('Add Issue'), 'form': form})
 
 
 @permission_required('feedback.change_issue')
@@ -80,35 +81,38 @@ def edit(request, id=None):
             issue = form.save()
             add_message(request, SUCCESS, _('The issue has changed.'))
             if request.user.is_staff:
-                return redirect(
-                    reverse('itdagene.app.feedback.views.issues.list'))
+                return redirect(reverse('itdagene.app.feedback.views.issues.list'))
             else:
                 return redirect(reverse('itdagene.app.frontpage.views.inside'))
 
-    return render(request, 'feedback/form.html', {
-        'title': _('Edit Issue'),
-        'description': issue,
-        'issue': issue,
-        'form': form
-    })
+    return render(
+        request, 'feedback/form.html',
+        {
+            'title': _('Edit Issue'),
+            'description': issue,
+            'issue': issue,
+            'form': form
+        }
+    )
 
 
 @permission_required('feedback.add_issue')
 def my_issues(request):
-    assigned = Issue.objects.filter(assigned_user=request.user).order_by(
-        'is_solved')
+    assigned = Issue.objects.filter(assigned_user=request.user).order_by('is_solved')
     created = Issue.objects.filter(creator=request.user).order_by('is_solved')
     return render(
-        request, 'feedback/issues/mine.html',
-        {'assigned': assigned,
-         'created': created,
-         'title': _('My Issues')})
+        request, 'feedback/issues/mine.html', {
+            'assigned': assigned,
+            'created': created,
+            'title': _('My Issues')
+        }
+    )
 
 
 @permission_required('feedback.change_issue')
 def solved(request, id):
     issue = get_object_or_404(Issue, pk=id)
-    issue.solved_date = datetime.now()
+    issue.solved_date = timezone.now()
     issue.is_solved = True
     issue.status = 3
     issue.save()

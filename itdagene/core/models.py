@@ -1,5 +1,3 @@
-from datetime import date, datetime
-
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.contrib.contenttypes.models import ContentType
@@ -23,8 +21,8 @@ class User(AbstractUser):
     )
     mail_notification = models.BooleanField(default=True, verbose_name=_('Send mail notifications'))
     year = models.PositiveIntegerField(
-        verbose_name=_('Active Year'), help_text=_('Year the user was active.'),
-        default=date.today().year, blank=True, null=True
+        verbose_name=_('Active Year'), help_text=_('Year the user was active.'), default=now().year,
+        blank=True, null=True
     )
 
     class Meta(AbstractUser.Meta):
@@ -144,7 +142,7 @@ class Preference(BaseModel):
             try:
                 pref = Preference.objects.get(active=True)
             except Preference.DoesNotExist:
-                year = datetime.now().year
+                year = now().year
                 pref, created = Preference.objects.get_or_create(
                     year=year, defaults={
                         'active': True,
@@ -163,7 +161,7 @@ class Preference(BaseModel):
             pref = cls.objects.get(year=int(year), active=True)
             return pref
         except cls.DoesNotExist:
-            year = datetime.now().year
+            year = now().year
             pref, created = Preference.objects.get_or_create(
                 year=year, defaults={
                     'active': True,

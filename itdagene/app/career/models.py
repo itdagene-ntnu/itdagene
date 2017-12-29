@@ -1,4 +1,4 @@
-from datetime import date
+from django.utils import timezone
 
 from django.core.urlresolvers import reverse
 from django.db import models
@@ -50,7 +50,7 @@ class Joblisting(BaseModel):
         return reverse('itdagene.app.career.views.view', args=[self.pk])
 
     def has_deadline_passed(self):
-        return self.deadline < date.today()
+        return self.deadline < timezone.now()
 
     def get_towns(self):
         def get_name(town):
