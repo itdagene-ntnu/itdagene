@@ -37,7 +37,7 @@ class Joblisting(BaseModel):
     deadline = models.DateTimeField(null=True, blank=True, verbose_name=_('deadline'))
     from_year = models.PositiveIntegerField(default=1, verbose_name=_('from year'))
     to_year = models.PositiveIntegerField(default=5, verbose_name=_('to year'))
-    towns = models.ManyToManyField(Town, null=True, blank=True, verbose_name=_('town'))
+    towns = models.ManyToManyField(Town, blank=True, verbose_name=_('town'))
     url = models.URLField(blank=True, verbose_name=_('url'))
     is_active = models.BooleanField(verbose_name=_('active'), default=True)
     frontpage = models.BooleanField(_('Frontpage'), default=False)

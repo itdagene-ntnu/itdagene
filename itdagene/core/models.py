@@ -13,26 +13,19 @@ from itdagene.core.auth import get_current_user
 
 
 class User(AbstractUser):
-    phone = models.IntegerField(blank=True,
-                                null=True,
-                                verbose_name=_('phone number'))
-    photo = models.ImageField(upload_to='photos/users/',
-                              blank=True,
-                              null=True,
-                              verbose_name=_('Photo'))
-    language = models.CharField(max_length=3,
-                                default=settings.DEFAULT_LANGUAGE,
-                                choices=settings.LANGUAGES,
-                                verbose_name=_('Language'))
-    mail_notification = models.BooleanField(
-        default=True,
-        verbose_name=_('Send mail notifications'))
-    year = models.PositiveIntegerField(verbose_name=_('Active Year'),
-                                       help_text=_('Year the user was active.'),
-                                       max_length=3000,
-                                       default=date.today().year,
-                                       blank=True,
-                                       null=True)
+    phone = models.IntegerField(blank=True, null=True, verbose_name=_('phone number'))
+    photo = models.ImageField(
+        upload_to='photos/users/', blank=True, null=True, verbose_name=_('Photo')
+    )
+    language = models.CharField(
+        max_length=3, default=settings.DEFAULT_LANGUAGE, choices=settings.LANGUAGES,
+        verbose_name=_('Language')
+    )
+    mail_notification = models.BooleanField(default=True, verbose_name=_('Send mail notifications'))
+    year = models.PositiveIntegerField(
+        verbose_name=_('Active Year'), help_text=_('Year the user was active.'),
+        default=date.today().year, blank=True, null=True
+    )
 
     class Meta(AbstractUser.Meta):
         permissions = (("send_welcome_email", "Can send welcome emails"), )
@@ -53,12 +46,8 @@ class User(AbstractUser):
 
 
 class BaseModel(models.Model):
-    creator = models.ForeignKey(User,
-                                editable=False,
-                                related_name="%(class)s_creator")
-    saved_by = models.ForeignKey(User,
-                                 editable=False,
-                                 related_name="%(class)s_saved_by")
+    creator = models.ForeignKey(User, null=True, editable=False, related_name="%(class)s_creator")
+    saved_by = models.ForeignKey(User, null=True, editable=False, related_name="%(class)s_saved_by")
     date_created = models.DateTimeField(editable=False)
     date_saved = models.DateTimeField(editable=False)
 
@@ -93,8 +82,7 @@ class BaseModel(models.Model):
 
     def get_absolute_url(self):
         c_type = ContentType.objects.get_for_model(self)
-        return '/%s/%ss/%s/' % (str(c_type.app_label), str(c_type),
-                                str(self.pk))
+        return '/%s/%ss/%s/' % (str(c_type.app_label), str(c_type), str(self.pk))
 
     def notification_priority(self):
         return 1
@@ -115,21 +103,21 @@ class BaseModel(models.Model):
 
 class Preference(BaseModel):
     development_mode = models.BooleanField(
-        default=False,
-        verbose_name=_('Development Mode'),
-        help_text=_('This option '
-                    'puts the site in development mode. The public page will be disabled.'))
+        default=False, verbose_name=_('Development Mode'), help_text=_(
+            'This option '
+            'puts the site in development mode. The public page will be disabled.'
+        )
+    )
 
     active = models.BooleanField(verbose_name=_('active'), default=False)
     year = models.IntegerField(blank=True, null=True, verbose_name=_('year'))
     start_date = models.DateField(verbose_name=_('start date'))
     end_date = models.DateField(verbose_name=_('end date'))
     nr_of_stands = models.PositiveIntegerField(
-        default=30,
-        verbose_name=_('number of stands'),
-        help_text=_('This is for each day, not the sum of each day'))
-    view_sp = models.BooleanField(verbose_name=_('view partners'),
-                                  default=False)
+        default=30, verbose_name=_('number of stands'),
+        help_text=_('This is for each day, not the sum of each day')
+    )
+    view_sp = models.BooleanField(verbose_name=_('view partners'), default=False)
 
     def __str__(self):
         return str(self.year)
@@ -158,12 +146,12 @@ class Preference(BaseModel):
             except Preference.DoesNotExist:
                 year = datetime.now().year
                 pref, created = Preference.objects.get_or_create(
-                    year=year,
-                    defaults={
+                    year=year, defaults={
                         'active': True,
                         'start_date': '%s-09-10' % year,
                         'end_date': '%s-09-11' % year
-                    })
+                    }
+                )
                 pref.active = True
                 pref.save(notify_subscribers=False, log_it=False)
             cache.set('pref', pref)
@@ -177,12 +165,12 @@ class Preference(BaseModel):
         except cls.DoesNotExist:
             year = datetime.now().year
             pref, created = Preference.objects.get_or_create(
-                year=year,
-                defaults={
+                year=year, defaults={
                     'active': True,
                     'start_date': '%s-09-10' % year,
                     'end_date': '%s-09-11' % year
-                })
+                }
+            )
             pref.active = True
             pref.save(notify_subscribers=False, log_it=False)
             return pref

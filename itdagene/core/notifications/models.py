@@ -11,9 +11,9 @@ class Notification(models.Model):
 
     PRIORITIES = ((0, 'Low'), (1, 'Medium'), (2, 'High'))
 
-    priority = models.PositiveIntegerField(choices=PRIORITIES,
-                                           default=1,
-                                           verbose_name=_('priority'))
+    priority = models.PositiveIntegerField(
+        choices=PRIORITIES, default=1, verbose_name=_('priority')
+    )
 
     date = models.DateTimeField(auto_now=True, verbose_name=_('date'))
     message = models.TextField(verbose_name=_('message'))
@@ -54,10 +54,8 @@ class Notification(models.Model):
         send_mail = bool(object.notification_priority())
 
         notification = Notification(
-            content_object=object,
-            priority=object.notification_priority(),
-            message=object.notification_message(),
-            send_mail=send_mail
+            content_object=object, priority=object.notification_priority(),
+            message=object.notification_message(), send_mail=send_mail
         )
 
         notification.save()
@@ -70,10 +68,7 @@ class Subscription(models.Model):
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey()
-    subscribers = models.ManyToManyField(User,
-                                         blank=True,
-                                         null=True,
-                                         related_name='subscriptions')
+    subscribers = models.ManyToManyField(User, blank=True, related_name='subscriptions')
 
     class Meta:
         unique_together = ('content_type', 'object_id')
@@ -83,8 +78,9 @@ class Subscription(models.Model):
         notification_object_ct = ContentType.objects.get_for_model(object.notification_object())
 
         try:
-            subscription = Subscription.objects.get(content_type=notification_object_ct,
-                                                    object_id=object.notification_object().id)
+            subscription = Subscription.objects.get(
+                content_type=notification_object_ct, object_id=object.notification_object().id
+            )
 
             subscribers = subscription.subscribers.all()
 
@@ -109,10 +105,8 @@ class Subscription(models.Model):
     def get_or_create(cls, object):
         content_type = ContentType.objects.get_for_model(object)
         try:
-            subscription = Subscription.objects.get(content_type=content_type,
-                                                    object_id=object.id)
+            subscription = Subscription.objects.get(content_type=content_type, object_id=object.id)
         except (TypeError, Subscription.DoesNotExist):
-            subscription = Subscription(content_type=content_type,
-                                        object_id=object.id)
+            subscription = Subscription(content_type=content_type, object_id=object.id)
             subscription.save()
         return subscription

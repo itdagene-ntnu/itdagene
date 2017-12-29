@@ -87,7 +87,6 @@ class Company(BaseModel):
         Package,
         related_name='waiting_list',
         blank=True,
-        null=True,
         verbose_name=_('waiting for package'))
     address = models.TextField(blank=True, verbose_name=_('address'))
     payment_address = models.TextField(blank=True,
