@@ -43,7 +43,7 @@ class Migration(migrations.Migration):
                 (
                     'creator',
                     models.ForeignKey(
-                        related_name=b'meeting_creator',
+                        related_name='meeting_creator',
                         editable=False,
                         to=settings.AUTH_USER_MODEL,
                         on_delete=models.CASCADE,
@@ -52,14 +52,14 @@ class Migration(migrations.Migration):
                 (
                     'referee',
                     models.ForeignKey(
-                        related_name=b'refereed_meetings', verbose_name='referee', blank=True,
+                        related_name='refereed_meetings', verbose_name='referee', blank=True,
                         on_delete=models.CASCADE, to=settings.AUTH_USER_MODEL, null=True
                     )
                 ),
                 (
                     'saved_by',
                     models.ForeignKey(
-                        related_name=b'meeting_saved_by', editable=False, on_delete=models.CASCADE,
+                        related_name='meeting_saved_by', editable=False, on_delete=models.CASCADE,
                         to=settings.AUTH_USER_MODEL
                     )
                 ),
@@ -84,7 +84,7 @@ class Migration(migrations.Migration):
                 (
                     'type',
                     models.CharField(
-                        default=b'beer', max_length=10, verbose_name='type',
+                        default='beer', max_length=10, verbose_name='type',
                         choices=[(b'beer', 'Beer'), (b'wine', 'Wine')]
                     )
                 ),
@@ -96,7 +96,7 @@ class Migration(migrations.Migration):
                 (
                     'creator',
                     models.ForeignKey(
-                        related_name=b'penalty_creator', editable=False,
+                        related_name='penalty_creator', editable=False,
                         to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE
                     )
                 ),
@@ -110,14 +110,14 @@ class Migration(migrations.Migration):
                 (
                     'saved_by',
                     models.ForeignKey(
-                        related_name=b'penalty_saved_by', editable=False,
+                        related_name='penalty_saved_by', editable=False,
                         to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE
                     )
                 ),
                 (
                     'user',
                     models.ForeignKey(
-                        related_name=b'penalties', verbose_name='person',
+                        related_name='penalties', verbose_name='person',
                         to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE
                     )
                 ),
@@ -142,7 +142,7 @@ class Migration(migrations.Migration):
                 (
                     'creator',
                     models.ForeignKey(
-                        related_name=b'replymeeting_creator',
+                        related_name='replymeeting_creator',
                         editable=False,
                         to=settings.AUTH_USER_MODEL,
                         on_delete=models.CASCADE,
@@ -151,7 +151,7 @@ class Migration(migrations.Migration):
                 (
                     'meeting',
                     models.ForeignKey(
-                        related_name=b'replies',
+                        related_name='replies',
                         verbose_name='meeting',
                         to='meetings.Meeting',
                         on_delete=models.CASCADE,
@@ -160,7 +160,7 @@ class Migration(migrations.Migration):
                 (
                     'saved_by',
                     models.ForeignKey(
-                        related_name=b'replymeeting_saved_by',
+                        related_name='replymeeting_saved_by',
                         editable=False,
                         to=settings.AUTH_USER_MODEL,
                         on_delete=models.CASCADE,

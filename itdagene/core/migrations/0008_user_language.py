@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
     operations = [migrations.AddField(
         model_name='user',
         name='language',
-        field=models.CharField(default=b'nb',
+        field=models.CharField(default='nb',
                                max_length=3,
                                choices=[('nb', 'Norsk'), ('en', 'English')]),
         preserve_default=True, ), ]

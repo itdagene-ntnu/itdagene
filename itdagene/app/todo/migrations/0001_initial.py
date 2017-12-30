@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
                 (
                     'creator',
                     models.ForeignKey(
-                        related_name=b'milestone_creator',
+                        related_name='milestone_creator',
                         editable=False,
                         on_delete=models.CASCADE,
                         to=settings.AUTH_USER_MODEL,
@@ -46,7 +46,7 @@ class Migration(migrations.Migration):
                 (
                     'saved_by',
                     models.ForeignKey(
-                        related_name=b'milestone_saved_by',
+                        related_name='milestone_saved_by',
                         editable=False,
                         on_delete=models.CASCADE,
                         to=settings.AUTH_USER_MODEL,
@@ -76,14 +76,14 @@ class Migration(migrations.Migration):
                 (
                     'company',
                     models.ForeignKey(
-                        related_name=b'todos', verbose_name='company', blank=True,
+                        related_name='todos', verbose_name='company', blank=True,
                         on_delete=models.SET_NULL, to='company.Company', null=True
                     )
                 ),
                 (
                     'creator',
                     models.ForeignKey(
-                        related_name=b'todo_creator',
+                        related_name='todo_creator',
                         editable=False,
                         to=settings.AUTH_USER_MODEL,
                         on_delete=models.CASCADE,
@@ -92,14 +92,14 @@ class Migration(migrations.Migration):
                 (
                     'milestone',
                     models.ForeignKey(
-                        related_name=b'todos', verbose_name='milestone', blank=True,
+                        related_name='todos', verbose_name='milestone', blank=True,
                         on_delete=models.SET_NULL, to='todo.Milestone', null=True
                     )
                 ),
                 (
                     'saved_by',
                     models.ForeignKey(
-                        related_name=b'todo_saved_by',
+                        related_name='todo_saved_by',
                         editable=False,
                         to=settings.AUTH_USER_MODEL,
                         on_delete=models.CASCADE,
@@ -108,7 +108,7 @@ class Migration(migrations.Migration):
                 (
                     'user',
                     models.ForeignKey(
-                        related_name=b'todos',
+                        related_name='todos',
                         verbose_name='user',
                         to=settings.AUTH_USER_MODEL,
                         on_delete=models.CASCADE,

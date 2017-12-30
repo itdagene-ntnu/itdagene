@@ -16,6 +16,6 @@ class Migration(migrations.Migration):
                                                      blank=True), ),
         migrations.AlterField(model_name='contract',
                               name='file',
-                              field=models.FileField(upload_to=b'contracts/',
+                              field=models.FileField(upload_to='contracts/',
                                                      verbose_name='file'), ),
     ]

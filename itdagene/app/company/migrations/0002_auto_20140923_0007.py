@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             model_name='package',
             name='creator',
             field=models.ForeignKey(
-                related_name=b'package_creator', editable=False, on_delete=models.CASCADE,
+                related_name='package_creator', editable=False, on_delete=models.CASCADE,
                 to=settings.AUTH_USER_MODEL
             ),
             preserve_default=True,
@@ -25,7 +25,7 @@ class Migration(migrations.Migration):
             model_name='package',
             name='saved_by',
             field=models.ForeignKey(
-                related_name=b'package_saved_by', on_delete=models.CASCADE, editable=False,
+                related_name='package_saved_by', on_delete=models.CASCADE, editable=False,
                 to=settings.AUTH_USER_MODEL
             ),
             preserve_default=True,
@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
             model_name='contract',
             name='company',
             field=models.ForeignKey(
-                related_name=b'contracts', on_delete=models.CASCADE, verbose_name='company',
+                related_name='contracts', on_delete=models.CASCADE, verbose_name='company',
                 to='company.Company'
             ),
             preserve_default=True,
@@ -43,7 +43,7 @@ class Migration(migrations.Migration):
             model_name='contract',
             name='creator',
             field=models.ForeignKey(
-                related_name=b'contract_creator', on_delete=models.CASCADE, editable=False,
+                related_name='contract_creator', on_delete=models.CASCADE, editable=False,
                 to=settings.AUTH_USER_MODEL
             ),
             preserve_default=True,
@@ -52,7 +52,7 @@ class Migration(migrations.Migration):
             model_name='contract',
             name='saved_by',
             field=models.ForeignKey(
-                related_name=b'contract_saved_by',
+                related_name='contract_saved_by',
                 editable=False,
                 to=settings.AUTH_USER_MODEL,
                 on_delete=models.CASCADE,
@@ -63,7 +63,7 @@ class Migration(migrations.Migration):
             model_name='companycontact',
             name='company',
             field=models.ForeignKey(
-                related_name=b'company_contacts',
+                related_name='company_contacts',
                 verbose_name='company',
                 to='company.Company',
                 on_delete=models.CASCADE,
@@ -74,7 +74,7 @@ class Migration(migrations.Migration):
             model_name='companycontact',
             name='creator',
             field=models.ForeignKey(
-                related_name=b'companycontact_creator',
+                related_name='companycontact_creator',
                 editable=False,
                 to=settings.AUTH_USER_MODEL,
                 on_delete=models.CASCADE,
@@ -85,7 +85,7 @@ class Migration(migrations.Migration):
             model_name='companycontact',
             name='saved_by',
             field=models.ForeignKey(
-                related_name=b'companycontact_saved_by',
+                related_name='companycontact_saved_by',
                 editable=False,
                 to=settings.AUTH_USER_MODEL,
                 on_delete=models.CASCADE,
@@ -96,7 +96,7 @@ class Migration(migrations.Migration):
             model_name='company',
             name='contact',
             field=models.ForeignKey(
-                related_name=b'contact_for',
+                related_name='contact_for',
                 verbose_name='itDAGENE contact',
                 blank=True,
                 to=settings.AUTH_USER_MODEL,
@@ -109,7 +109,7 @@ class Migration(migrations.Migration):
             model_name='company',
             name='creator',
             field=models.ForeignKey(
-                related_name=b'company_creator',
+                related_name='company_creator',
                 editable=False,
                 to=settings.AUTH_USER_MODEL,
                 on_delete=models.CASCADE,
@@ -120,7 +120,7 @@ class Migration(migrations.Migration):
             model_name='company',
             name='package',
             field=models.ForeignKey(
-                related_name=b'companies',
+                related_name='companies',
                 verbose_name='package',
                 blank=True,
                 to='company.Package',
@@ -133,7 +133,7 @@ class Migration(migrations.Migration):
             model_name='company',
             name='saved_by',
             field=models.ForeignKey(
-                related_name=b'company_saved_by',
+                related_name='company_saved_by',
                 editable=False,
                 to=settings.AUTH_USER_MODEL,
                 on_delete=models.CASCADE,
@@ -144,7 +144,7 @@ class Migration(migrations.Migration):
             model_name='company',
             name='user',
             field=models.ForeignKey(
-                related_name=b'company',
+                related_name='company',
                 verbose_name='user',
                 blank=True,
                 to=settings.AUTH_USER_MODEL,
@@ -157,7 +157,7 @@ class Migration(migrations.Migration):
             model_name='company',
             name='waiting_for_package',
             field=models.ManyToManyField(
-                related_name=b'waiting_list', null=True, verbose_name='waiting for package',
+                related_name='waiting_list', null=True, verbose_name='waiting for package',
                 to='company.Package', blank=True
             ),
             preserve_default=True,
@@ -176,7 +176,7 @@ class Migration(migrations.Migration):
             model_name='comment',
             name='reply_to',
             field=models.ForeignKey(
-                related_name=b'replies', verbose_name='reply to', blank=True, to='company.Comment',
+                related_name='replies', verbose_name='reply to', blank=True, to='company.Comment',
                 on_delete=models.SET_NULL, null=True
             ),
             preserve_default=True,
@@ -185,7 +185,7 @@ class Migration(migrations.Migration):
             model_name='comment',
             name='user',
             field=models.ForeignKey(
-                related_name=b'company_comment',
+                related_name='company_comment',
                 verbose_name='user',
                 to=settings.AUTH_USER_MODEL,
                 on_delete=models.CASCADE,
@@ -196,7 +196,7 @@ class Migration(migrations.Migration):
             model_name='callteam',
             name='creator',
             field=models.ForeignKey(
-                related_name=b'callteam_creator',
+                related_name='callteam_creator',
                 editable=False,
                 to=settings.AUTH_USER_MODEL,
                 on_delete=models.CASCADE,
@@ -207,7 +207,7 @@ class Migration(migrations.Migration):
             model_name='callteam',
             name='saved_by',
             field=models.ForeignKey(
-                related_name=b'callteam_saved_by',
+                related_name='callteam_saved_by',
                 editable=False,
                 to=settings.AUTH_USER_MODEL,
                 on_delete=models.CASCADE,

@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
             model_name='meeting',
             name='preference',
             field=models.ForeignKey(
-                verbose_name=b'Preference', on_delete=models.SET_NULL, blank=True,
+                verbose_name='Preference', on_delete=models.SET_NULL, blank=True,
                 to='core.Preference', null=True
             ),
             preserve_default=True,

@@ -46,7 +46,7 @@ class Migration(migrations.Migration):
                     ('phone', models.CharField(max_length=20,
                                                null=True,
                                                blank=True)),
-                    ('logo', models.ImageField(upload_to=b'company_logos/',
+                    ('logo', models.ImageField(upload_to='company_logos/',
                                                null=True,
                                                verbose_name='logo',
                                                blank=True)),
@@ -121,7 +121,7 @@ class Migration(migrations.Migration):
                     ('timestamp', models.DateTimeField(
                         help_text='Signing date, not uploaded date',
                         verbose_name='date')),
-                    ('file', models.FileField(upload_to=b'contracts/',
+                    ('file', models.FileField(upload_to='contracts/',
                                               null=True,
                                               verbose_name='file',
                                               blank=True)),

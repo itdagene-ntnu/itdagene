@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
                 (
                     'language',
                     models.CharField(
-                        default=b'nb', max_length=3, choices=[('nb', 'Norsk'), ('en', 'English')]
+                        default='nb', max_length=3, choices=[('nb', 'Norsk'), ('en', 'English')]
                     )
                 ),
                 ('active', models.BooleanField(default=False, verbose_name='active')),
@@ -40,7 +40,7 @@ class Migration(migrations.Migration):
                 (
                     'creator',
                     models.ForeignKey(
-                        related_name=b'page_creator',
+                        related_name='page_creator',
                         editable=False,
                         on_delete=models.CASCADE,
                         to=settings.AUTH_USER_MODEL,
@@ -49,7 +49,7 @@ class Migration(migrations.Migration):
                 (
                     'saved_by',
                     models.ForeignKey(
-                        related_name=b'page_saved_by',
+                        related_name='page_saved_by',
                         on_delete=models.CASCADE,
                         editable=False,
                         to=settings.AUTH_USER_MODEL,

@@ -200,14 +200,14 @@ class Migration(migrations.Migration):
                 (
                     'assigned_user',
                     models.ForeignKey(
-                        related_name=b'assigned_issues', verbose_name='assigned user', blank=True,
+                        related_name='assigned_issues', verbose_name='assigned user', blank=True,
                         on_delete=models.SET_NULL, to=settings.AUTH_USER_MODEL, null=True
                     )
                 ),
                 (
                     'creator',
                     models.ForeignKey(
-                        related_name=b'issue_creator',
+                        related_name='issue_creator',
                         editable=False,
                         to=settings.AUTH_USER_MODEL,
                         on_delete=models.CASCADE,
@@ -216,7 +216,7 @@ class Migration(migrations.Migration):
                 (
                     'saved_by',
                     models.ForeignKey(
-                        related_name=b'issue_saved_by',
+                        related_name='issue_saved_by',
                         editable=False,
                         to=settings.AUTH_USER_MODEL,
                         on_delete=models.CASCADE,

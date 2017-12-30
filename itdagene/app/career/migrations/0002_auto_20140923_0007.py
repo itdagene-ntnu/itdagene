@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
             model_name='town',
             name='creator',
             field=models.ForeignKey(
-                related_name=b'town_creator', editable=False, on_delete=models.CASCADE,
+                related_name='town_creator', editable=False, on_delete=models.CASCADE,
                 to=settings.AUTH_USER_MODEL
             ),
             preserve_default=True,
@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
             model_name='town',
             name='saved_by',
             field=models.ForeignKey(
-                related_name=b'town_saved_by', on_delete=models.CASCADE, editable=False,
+                related_name='town_saved_by', on_delete=models.CASCADE, editable=False,
                 to=settings.AUTH_USER_MODEL
             ),
             preserve_default=True,
@@ -35,7 +35,7 @@ class Migration(migrations.Migration):
             model_name='joblisting',
             name='company',
             field=models.ForeignKey(
-                related_name=b'joblistings', on_delete=models.CASCADE, verbose_name='company',
+                related_name='joblistings', on_delete=models.CASCADE, verbose_name='company',
                 to='company.Company'
             ),
             preserve_default=True,
@@ -53,7 +53,7 @@ class Migration(migrations.Migration):
             model_name='joblisting',
             name='creator',
             field=models.ForeignKey(
-                related_name=b'joblisting_creator', editable=False, on_delete=models.CASCADE,
+                related_name='joblisting_creator', editable=False, on_delete=models.CASCADE,
                 to=settings.AUTH_USER_MODEL
             ),
             preserve_default=True,
@@ -62,7 +62,7 @@ class Migration(migrations.Migration):
             model_name='joblisting',
             name='saved_by',
             field=models.ForeignKey(
-                related_name=b'joblisting_saved_by', on_delete=models.CASCADE, editable=False,
+                related_name='joblisting_saved_by', on_delete=models.CASCADE, editable=False,
                 to=settings.AUTH_USER_MODEL
             ),
             preserve_default=True,

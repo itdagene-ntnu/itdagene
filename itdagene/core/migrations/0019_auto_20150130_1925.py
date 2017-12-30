@@ -10,14 +10,14 @@ class Migration(migrations.Migration):
     operations = [migrations.AlterField(
         model_name='user',
         name='language',
-        field=models.CharField(default=b'nb',
+        field=models.CharField(default='nb',
                                max_length=3,
                                verbose_name='Language',
                                choices=[('nb', 'Norsk'), ('en', 'English')]), ),
                   migrations.AlterField(
                       model_name='user',
                       name='photo',
-                      field=models.ImageField(upload_to=b'photos/users/',
+                      field=models.ImageField(upload_to='photos/users/',
                                               null=True,
                                               verbose_name='Photo',
                                               blank=True), ),

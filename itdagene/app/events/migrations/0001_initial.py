@@ -54,14 +54,14 @@ class Migration(migrations.Migration):
                 (
                     'creator',
                     models.ForeignKey(
-                        related_name=b'event_creator', editable=False, on_delete=models.CASCADE,
+                        related_name='event_creator', editable=False, on_delete=models.CASCADE,
                         to=settings.AUTH_USER_MODEL
                     )
                 ),
                 (
                     'saved_by',
                     models.ForeignKey(
-                        related_name=b'event_saved_by', editable=False, on_delete=models.CASCADE,
+                        related_name='event_saved_by', editable=False, on_delete=models.CASCADE,
                         to=settings.AUTH_USER_MODEL
                     )
                 ),
@@ -97,14 +97,14 @@ class Migration(migrations.Migration):
                 (
                     'company',
                     models.ForeignKey(
-                        related_name=b'tickets', verbose_name='company', blank=True,
+                        related_name='tickets', verbose_name='company', blank=True,
                         on_delete=models.SET_NULL, to='company.Company', null=True
                     )
                 ),
                 (
                     'creator',
                     models.ForeignKey(
-                        related_name=b'ticket_creator',
+                        related_name='ticket_creator',
                         editable=False,
                         to=settings.AUTH_USER_MODEL,
                         on_delete=models.CASCADE,
@@ -113,7 +113,7 @@ class Migration(migrations.Migration):
                 (
                     'event',
                     models.ForeignKey(
-                        related_name=b'tickets',
+                        related_name='tickets',
                         verbose_name='event',
                         to='events.Event',
                         on_delete=models.CASCADE,
@@ -122,7 +122,7 @@ class Migration(migrations.Migration):
                 (
                     'saved_by',
                     models.ForeignKey(
-                        related_name=b'ticket_saved_by',
+                        related_name='ticket_saved_by',
                         editable=False,
                         to=settings.AUTH_USER_MODEL,
                         on_delete=models.CASCADE,

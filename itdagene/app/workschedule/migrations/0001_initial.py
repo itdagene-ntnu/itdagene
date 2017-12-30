@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
                 (
                     'creator',
                     models.ForeignKey(
-                        related_name=b'worker_creator',
+                        related_name='worker_creator',
                         editable=False,
                         to=settings.AUTH_USER_MODEL,
                         on_delete=models.CASCADE,
@@ -47,7 +47,7 @@ class Migration(migrations.Migration):
                 (
                     'saved_by',
                     models.ForeignKey(
-                        related_name=b'worker_saved_by',
+                        related_name='worker_saved_by',
                         editable=False,
                         to=settings.AUTH_USER_MODEL,
                         on_delete=models.CASCADE,
@@ -74,14 +74,14 @@ class Migration(migrations.Migration):
                 (
                     'creator',
                     models.ForeignKey(
-                        related_name=b'workerinschedule_creator', editable=False,
+                        related_name='workerinschedule_creator', editable=False,
                         on_delete=models.CASCADE, to=settings.AUTH_USER_MODEL
                     )
                 ),
                 (
                     'saved_by',
                     models.ForeignKey(
-                        related_name=b'workerinschedule_saved_by', editable=False,
+                        related_name='workerinschedule_saved_by', editable=False,
                         on_delete=models.CASCADE, to=settings.AUTH_USER_MODEL
                     )
                 ),
@@ -110,14 +110,14 @@ class Migration(migrations.Migration):
                 (
                     'creator',
                     models.ForeignKey(
-                        related_name=b'workschedule_creator', editable=False,
+                        related_name='workschedule_creator', editable=False,
                         on_delete=models.CASCADE, to=settings.AUTH_USER_MODEL
                     )
                 ),
                 (
                     'saved_by',
                     models.ForeignKey(
-                        related_name=b'workschedule_saved_by', editable=False,
+                        related_name='workschedule_saved_by', editable=False,
                         on_delete=models.CASCADE, to=settings.AUTH_USER_MODEL
                     )
                 ),
@@ -133,7 +133,7 @@ class Migration(migrations.Migration):
             model_name='workerinschedule',
             name='schedule',
             field=models.ForeignKey(
-                related_name=b'workers_in_schedule', verbose_name='schedule',
+                related_name='workers_in_schedule', verbose_name='schedule',
                 on_delete=models.CASCADE, to='workschedule.WorkSchedule'
             ),
             preserve_default=True,
@@ -142,7 +142,7 @@ class Migration(migrations.Migration):
             model_name='workerinschedule',
             name='worker',
             field=models.ForeignKey(
-                related_name=b'in_schedules',
+                related_name='in_schedules',
                 verbose_name='worker',
                 to='workschedule.Worker',
                 on_delete=models.CASCADE,

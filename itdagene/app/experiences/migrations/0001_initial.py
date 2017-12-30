@@ -39,14 +39,14 @@ class Migration(migrations.Migration):
                 (
                     'creator',
                     models.ForeignKey(
-                        related_name=b'experience_creator', editable=False,
+                        related_name='experience_creator', editable=False,
                         on_delete=models.CASCADE, to=settings.AUTH_USER_MODEL
                     )
                 ),
                 (
                     'saved_by',
                     models.ForeignKey(
-                        related_name=b'experience_saved_by', editable=False,
+                        related_name='experience_saved_by', editable=False,
                         on_delete=models.CASCADE, to=settings.AUTH_USER_MODEL
                     )
                 ),

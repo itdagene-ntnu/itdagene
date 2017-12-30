@@ -70,7 +70,7 @@ class Migration(migrations.Migration):
                 (
                     'subscribers',
                     models.ManyToManyField(
-                        related_name=b'subscriptions', null=True, to=settings.AUTH_USER_MODEL,
+                        related_name='subscriptions', null=True, to=settings.AUTH_USER_MODEL,
                         blank=True
                     )
                 ),

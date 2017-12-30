@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
                 (
                     'reply_to',
                     models.ForeignKey(
-                        related_name=b'replies', on_delete=models.SET_NULL, blank=True,
+                        related_name='replies', on_delete=models.SET_NULL, blank=True,
                         to='comments.Comment', null=True
                     )
                 ),
