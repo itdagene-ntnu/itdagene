@@ -16,13 +16,14 @@ handler500 = error500
 
 urlpatterns = [
     url(r'^login/$', login, name='login'),
-    url(r'^logout/$', logout, {'next_page': inside}),
+    url(r'^logout/$', logout,
+        {
+            'next_page': inside
+        }),
     url(r'^$', frontpage),
     url(r'^frontpage/$', public),
-
     url(r'^dashboard/$', inside),
     url(r'^dashboard/tweet/$', tweet),
-
     url(r'^users/', include('itdagene.app.users.urls')),
     url(r'^todo/', include('itdagene.app.todo.urls')),
     url(r'^errors/error403/$', error403),
@@ -41,7 +42,6 @@ urlpatterns = [
     url(r'^career/', include('itdagene.app.career.urls')),
     url(r'^workschedules/', include('itdagene.app.workschedule.urls')),
     url(r'^evaluate/(?P<hash>[a-zA-Z0-9]+)/$', handle_evaluation, name='evaluate'),
-
     url(r'^quiz/', include('itdagene.app.quiz.urls', namespace='quiz')),
     url(r'^superadmin/', include(admin.site.urls)),
 ]
@@ -59,4 +59,12 @@ if settings.DEBUG:
         static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # Must be the last one
-urlpatterns += [url(r'^', include('itdagene.app.pages.urls')), ]
+urlpatterns += [
+    url(r'^', include('itdagene.app.pages.urls')),
+]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
