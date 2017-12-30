@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 from django.core.cache import cache
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import ugettext_lazy as _
 

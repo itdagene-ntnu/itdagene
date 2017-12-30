@@ -1,5 +1,5 @@
 from django.contrib.messages import SUCCESS, add_message
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import ugettext_lazy as _
 

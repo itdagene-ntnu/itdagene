@@ -5,7 +5,7 @@ from itdagene.app.company.forms import BookCompanyForm, CompanyForm, Responsibil
     CompanyStatusForm, WaitingListCompanyForm
 from itdagene.app.company.models import Company, Package
 from django.forms.models import modelformset_factory
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.http import Http404
 from itdagene.app.feedback.models import Evaluation
 from itdagene.core.models import Preference
