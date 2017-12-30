@@ -44,8 +44,18 @@ class User(AbstractUser):
 
 
 class BaseModel(models.Model):
-    creator = models.ForeignKey(User, editable=False, related_name="%(class)s_creator")
-    saved_by = models.ForeignKey(User, editable=False, related_name="%(class)s_saved_by")
+    creator = models.ForeignKey(
+        User,
+        editable=False,
+        related_name="%(class)s_creator",
+        on_delete=models.CASCADE,
+    )
+    saved_by = models.ForeignKey(
+        User,
+        editable=False,
+        related_name="%(class)s_saved_by",
+        on_delete=models.CASCADE,
+    )
     date_created = models.DateTimeField(editable=False)
     date_saved = models.DateTimeField(editable=False)
 

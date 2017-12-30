@@ -6,13 +6,14 @@ from itdagene.core.models import BaseModel, User
 
 
 class Todo(BaseModel):
-    user = models.ForeignKey(User,
-                             related_name='todos',
-                             verbose_name=_('user'))
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='todos',
+        verbose_name=_('user'),
+    )
     description = models.TextField(verbose_name=_('description'))
-    deadline = models.DateTimeField(blank=True,
-                                    null=True,
-                                    verbose_name=_('deadline'))
+    deadline = models.DateTimeField(blank=True, null=True, verbose_name=_('deadline'))
     finished = models.BooleanField(verbose_name=_('finished'), default=False)
 
     def __str__(self):

@@ -53,8 +53,12 @@ class Issue(BaseModel):
     description = models.TextField(verbose_name=_('description'))
     is_solved = models.BooleanField(verbose_name=_('is solved'), default=False)
     assigned_user = models.ForeignKey(
-        User, related_name='assigned_issues', blank=True, null=True,
-        verbose_name=_('assigned user')
+        User,
+        related_name='assigned_issues',
+        blank=True,
+        null=True,
+        verbose_name=_('assigned user'),
+        on_delete=models.SET_NULL,
     )
     deadline = models.DateTimeField(blank=True, null=True, verbose_name=_('deadline'))
     solved_date = models.DateTimeField(blank=True, null=True, verbose_name=_('solved date'))
@@ -88,8 +92,16 @@ RATINGS = (
 
 class Evaluation(models.Model):
 
-    company = models.ForeignKey(Company, verbose_name='Company')
-    preference = models.ForeignKey(Preference, verbose_name='Preference')
+    company = models.ForeignKey(
+        Company,
+        verbose_name='Company',
+        on_delete=models.CASCADE,
+    )
+    preference = models.ForeignKey(
+        Preference,
+        verbose_name='Preference',
+        on_delete=models.CASCADE,
+    )
     hash = models.CharField(max_length=100, verbose_name=_('Hash'), unique=True)
     has_answers = models.BooleanField(default=False, verbose_name=_('has answers'))
     communication_rating = models.IntegerField(

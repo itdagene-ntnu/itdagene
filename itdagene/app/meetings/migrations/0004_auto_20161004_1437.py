@@ -15,11 +15,17 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='meeting',
             name='preference',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='core.Preference', verbose_name='Preference'),
+            field=models.ForeignKey(
+                blank=True, null=True, on_delete=django.db.models.deletion.CASCADE,
+                to='core.Preference', verbose_name='Preference'
+            ),
         ),
         migrations.AlterField(
             model_name='penalty',
             name='type',
-            field=models.CharField(choices=[('beer', 'Beer'), ('wine', 'Wine')], default='beer', max_length=10, verbose_name='type'),
+            field=models.CharField(
+                choices=[('beer', 'Beer'), ('wine', 'Wine')], default='beer', max_length=10,
+                verbose_name='type'
+            ),
         ),
     ]

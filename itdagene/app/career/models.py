@@ -25,11 +25,22 @@ class Joblisting(BaseModel):
         ('pp', _('Permanent position')),
     )
 
-    company = models.ForeignKey(Company, related_name='joblistings', verbose_name=_('company'))
+    company = models.ForeignKey(
+        Company,
+        related_name='joblistings',
+        verbose_name=_('company'),
+        on_delete=models.CASCADE,
+    )
     title = models.CharField(max_length=160, verbose_name=_('title'))
     type = models.CharField(max_length=20, choices=JOB_TYPES, verbose_name=_('type'))
     description = models.TextField(verbose_name=_('Description'))
-    contact = models.ForeignKey(CompanyContact, null=True, blank=True, verbose_name=_('contact'))
+    contact = models.ForeignKey(
+        CompanyContact,
+        null=True,
+        blank=True,
+        verbose_name=_('contact'),
+        on_delete=models.CASCADE,
+    )
     image = models.ImageField(
         upload_to='joblistings/', null=True, blank=True, verbose_name=_('image')
     )

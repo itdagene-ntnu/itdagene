@@ -17,7 +17,10 @@ class Notification(models.Model):
 
     date = models.DateTimeField(auto_now=True, verbose_name=_('date'))
     message = models.TextField(verbose_name=_('message'))
-    content_type = models.ForeignKey(ContentType)
+    content_type = models.ForeignKey(
+        ContentType,
+        on_delete=models.CASCADE,
+    )
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 
@@ -65,7 +68,10 @@ class Notification(models.Model):
 
 
 class Subscription(models.Model):
-    content_type = models.ForeignKey(ContentType)
+    content_type = models.ForeignKey(
+        ContentType,
+        on_delete=models.CASCADE,
+    )
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey()
     subscribers = models.ManyToManyField(User, blank=True, related_name='subscriptions')
