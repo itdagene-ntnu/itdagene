@@ -66,7 +66,7 @@ class BaseModel(models.Model):
         user = get_current_user()
         action = 'EDIT' if self.pk else 'CREATE'
 
-        if not user or not user.is_authenticated():
+        if not user or not user.is_authenticated:
             user = User.objects.filter(is_superuser=True).first()
 
         if not self.pk:

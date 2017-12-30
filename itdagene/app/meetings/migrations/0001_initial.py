@@ -96,27 +96,29 @@ class Migration(migrations.Migration):
                 (
                     'creator',
                     models.ForeignKey(
-                        related_name=b'penalty_creator', editable=False, to=settings.AUTH_USER_MODEL
+                        related_name=b'penalty_creator', editable=False,
+                        to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE
                     )
                 ),
                 (
                     'meeting',
                     models.ForeignKey(
-                        verbose_name='meeting', blank=True, to='meetings.Meeting', null=True
+                        verbose_name='meeting', blank=True, to='meetings.Meeting', null=True,
+                        on_delete=models.SET_NULL
                     )
                 ),
                 (
                     'saved_by',
                     models.ForeignKey(
                         related_name=b'penalty_saved_by', editable=False,
-                        to=settings.AUTH_USER_MODEL
+                        to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE
                     )
                 ),
                 (
                     'user',
                     models.ForeignKey(
                         related_name=b'penalties', verbose_name='person',
-                        to=settings.AUTH_USER_MODEL
+                        to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE
                     )
                 ),
             ],
@@ -140,24 +142,38 @@ class Migration(migrations.Migration):
                 (
                     'creator',
                     models.ForeignKey(
-                        related_name=b'replymeeting_creator', editable=False,
-                        to=settings.AUTH_USER_MODEL
+                        related_name=b'replymeeting_creator',
+                        editable=False,
+                        to=settings.AUTH_USER_MODEL,
+                        on_delete=models.CASCADE,
                     )
                 ),
                 (
                     'meeting',
                     models.ForeignKey(
-                        related_name=b'replies', verbose_name='meeting', to='meetings.Meeting'
+                        related_name=b'replies',
+                        verbose_name='meeting',
+                        to='meetings.Meeting',
+                        on_delete=models.CASCADE,
                     )
                 ),
                 (
                     'saved_by',
                     models.ForeignKey(
-                        related_name=b'replymeeting_saved_by', editable=False,
-                        to=settings.AUTH_USER_MODEL
+                        related_name=b'replymeeting_saved_by',
+                        editable=False,
+                        to=settings.AUTH_USER_MODEL,
+                        on_delete=models.CASCADE,
                     )
                 ),
-                ('user', models.ForeignKey(verbose_name='user', to=settings.AUTH_USER_MODEL)),
+                (
+                    'user',
+                    models.ForeignKey(
+                        verbose_name='user',
+                        to=settings.AUTH_USER_MODEL,
+                        on_delete=models.CASCADE,
+                    )
+                ),
             ],
             options={
                 'abstract': False,

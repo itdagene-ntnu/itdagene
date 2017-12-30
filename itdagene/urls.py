@@ -44,7 +44,7 @@ urlpatterns = [
     re_path(r'^workschedules/', include('itdagene.app.workschedule.urls')),
     re_path(r'^evaluate/(?P<hash>[a-zA-Z0-9]+)/$', handle_evaluation, name='evaluate'),
     re_path(r'^quiz/', include('itdagene.app.quiz.urls', namespace='quiz')),
-    re_path(r'^superadmin/', include(admin.site.urls)),
+    re_path(r'^superadmin/', admin.site.urls),
 ]
 
 # Redirects

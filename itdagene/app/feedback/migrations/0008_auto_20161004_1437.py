@@ -15,16 +15,34 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='evaluation',
             name='company',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='company.Company', verbose_name='Company'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to='company.Company',
+                verbose_name='Company'
+            ),
         ),
         migrations.AlterField(
             model_name='evaluation',
             name='preference',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='core.Preference', verbose_name='Preference'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to='core.Preference',
+                verbose_name='Preference'
+            ),
         ),
         migrations.AlterField(
             model_name='issue',
             name='app',
-            field=models.CharField(choices=[('all', 'All'), ('admin', 'Admin'), ('company', 'BDB'), ('career', 'Career'), ('core', 'Core'), ('events', 'Events'), ('feedback', 'Feedback'), ('frontpage', 'Frontpage'), ('logistics', 'Logistics'), ('mail', 'Mail'), ('meetings', 'Meetings'), ('news', 'News'), ('notifications', 'Notifications'), ('pages', 'Pages'), ('profiles', 'Profiles'), ('todo', 'Todo'), ('venue', 'Venue'), ('workschedule', 'Workschedule')], max_length=50, verbose_name='app'),
+            field=models.CharField(
+                choices=[
+                    ('all', 'All'), ('admin', 'Admin'), ('company', 'BDB'), ('career', 'Career'),
+                    ('core', 'Core'), ('events', 'Events'), ('feedback', 'Feedback'),
+                    ('frontpage', 'Frontpage'), ('logistics', 'Logistics'), ('mail', 'Mail'),
+                    ('meetings', 'Meetings'), ('news', 'News'), ('notifications', 'Notifications'),
+                    ('pages',
+                     'Pages'), ('profiles',
+                                'Profiles'), ('todo',
+                                              'Todo'), ('venue',
+                                                        'Venue'), ('workschedule', 'Workschedule')
+                ], max_length=50, verbose_name='app'
+            ),
         ),
     ]

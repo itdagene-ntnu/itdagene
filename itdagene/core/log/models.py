@@ -51,7 +51,7 @@ class LogItem(models.Model):
     @classmethod
     def log_it(cls, object, action, priority):
         user = get_current_user()
-        if not user or not user.is_authenticated():
+        if not user or not user.is_authenticated:
             user = User.objects.first()
         log_item = LogItem(
             user=user, priority=priority, timestamp=timezone.now(), action=action,

@@ -19,7 +19,7 @@ def view_page(request, lang_code='nb', slug='itdagene'):
         except (TypeError, Page.DoesNotExist):
             page = get_object_or_404(Page, slug=slug, active=True)
             messages.error = _('The page is not available in your language.')
-    if page.need_auth and not request.user.is_authenticated():
+    if page.need_auth and not request.user.is_authenticated:
         return "%s?next=/%s/" % (reverse('django.contrib.auth.views.login'),
                                  page.slug)
     return render(request, 'pages/page.html', {'page': page, })
