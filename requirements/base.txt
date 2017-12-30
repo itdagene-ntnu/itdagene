@@ -1,4 +1,4 @@
-django==1.10.2
+django==2.0
 Markdown==2.6.10
 Pillow==4.3
 django-widget-tweaks==1.4.1

@@ -1,7 +1,7 @@
-from django.conf.urls import url
+from django.urls import re_path
 
 from itdagene.app.comments.views import add
 
 urlpatterns = [
-    url(r'^add/$', add),
+    re_path(r'^add/$', add),
 ]

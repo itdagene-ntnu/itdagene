@@ -1,13 +1,13 @@
-from django.conf.urls import url
+from django.urls import re_path
 
 from itdagene.app.pages.views import add, admin, edit, view_page
 
 urlpatterns = [
-    url(r'^pages/$', admin, name='pages'),
-    url(r'^pages/add/$', add, name='itdagene.app.pages.views.add'),
-    url(r'^$', view_page),
-    url(r'^(?P<slug>[-_\w]+)/$', view_page),
-    url(r'^(?P<slug>[-_\w]+)/edit/$', edit),
-    url(r'^(?P<lang_code>[a-z][a-z])/(?P<slug>[-_\w]+)/$', view_page),
-    url(r'^(?P<lang_code>[a-z][a-z])/(?P<slug>[-_\w]+)/edit/$', edit),
+    re_path(r'^pages/$', admin, name='pages'),
+    re_path(r'^pages/add/$', add, name='itdagene.app.pages.views.add'),
+    re_path(r'^$', view_page),
+    re_path(r'^(?P<slug>[-_\w]+)/$', view_page),
+    re_path(r'^(?P<slug>[-_\w]+)/edit/$', edit),
+    re_path(r'^(?P<lang_code>[a-z][a-z])/(?P<slug>[-_\w]+)/$', view_page),
+    re_path(r'^(?P<lang_code>[a-z][a-z])/(?P<slug>[-_\w]+)/edit/$', edit),
 ]
