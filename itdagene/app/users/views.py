@@ -1,9 +1,9 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.forms import PasswordChangeForm, SetPasswordForm
 from django.contrib.messages import SUCCESS, add_message
-from django.urls import reverse
 from django.db.models import Q
 from django.shortcuts import Http404, HttpResponse, get_object_or_404, redirect, render
+from django.urls import reverse
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 

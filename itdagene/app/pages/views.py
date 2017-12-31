@@ -1,8 +1,8 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 from django.core.cache import cache
-from django.urls import reverse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from itdagene.app.pages.forms import PageForm

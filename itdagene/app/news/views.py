@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import permission_required
-from django.urls import reverse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from itdagene.app.news.forms import AnnouncementForm
