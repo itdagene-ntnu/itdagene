@@ -3,6 +3,7 @@ from datetime import date
 from django.conf import settings
 from django.template import Library, loader
 from django.template.context import Context
+from django.utils.safestring import mark_safe
 
 register = Library()
 
@@ -30,8 +31,10 @@ def cut(value, arg):
 
 @register.simple_tag
 def chosen(oid):
-    return '<script type="text/javascript">$(document).' \
-           'ready(function(){ $("' + oid + '").chosen({ width: \'100%\' }); });</script>'
+    return mark_safe(
+        '<script type="text/javascript">$(document).ready(function(){ $("' + oid +
+        '").chosen({ width: \'100%\' }); });</script>'
+    )
 
 
 @register.filter
