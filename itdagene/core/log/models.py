@@ -43,8 +43,9 @@ class LogItem(models.Model):
         if self.priority == 3:
             mail_admins(
                 'Log: ' + str(self),
-                str(self) + '\n Read more at http://%s%s' %
-                (settings.SITE['domain'], self.content_object.get_absolute_url())
+                str(self) + '\n Read more at http://{}{}'.format(
+                    settings.SITE['domain'], self.content_object.get_absolute_url()
+                )
             )
         super(LogItem, self).save(*args, **kwargs)
 
