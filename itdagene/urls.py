@@ -14,7 +14,7 @@ handler404 = error404
 handler500 = error500
 
 urlpatterns = [
-    re_path(r'^login/$', login, name='login'),
+    re_path(r'^login/$', login, name='itdagene.login'),
     re_path(r'^logout/$', logout,
             {
                 'next_page': inside
@@ -28,7 +28,7 @@ urlpatterns = [
     re_path(r'^errors/error403/$', error403),
     re_path(r'^errors/error404/$', error404),
     re_path(r'^errors/error500/$', error500),
-    re_path(r'^under-development/$', under_development),
+    re_path(r'^under-development/$', under_development, name='itdagene.under_development'),
     re_path(r'^experiences/', include('itdagene.app.experiences.urls')),
     re_path(r'^admin/', include('itdagene.app.itdageneadmin.urls')),
     re_path(r'^comments/', include('itdagene.app.comments.urls')),
@@ -40,16 +40,30 @@ urlpatterns = [
     re_path(r'^bdb/', include('itdagene.app.company.urls')),
     re_path(r'^career/', include('itdagene.app.career.urls')),
     re_path(r'^workschedules/', include('itdagene.app.workschedule.urls')),
-    re_path(r'^evaluate/(?P<hash>[a-zA-Z0-9]+)/$', handle_evaluation, name='evaluate'),
-    re_path(r'^quiz/', include('itdagene.app.quiz.urls', namespace='quiz')),
+    re_path(r'^evaluate/(?P<hash>[a-zA-Z0-9]+)/$', handle_evaluation, name='itdagene.evaluate'),
+    re_path(r'^quiz/', include('itdagene.app.quiz.urls')),
     re_path(r'^superadmin/', admin.site.urls),
 ]
+# Naming scheme for urls:
+# appname.viewname or appname.subname.viewname
 
 # Redirects
 urlpatterns += [
-    re_path(r'^jobb/$', lambda r: HttpResponsePermanentRedirect(
-        reverse('itdagene.app.frontpage.views.joblistings'))),
+    re_path(
+        r'^jobb/$',
+        lambda r: HttpResponsePermanentRedirect(reverse('itdagene.frontpage.joblistings'))
+    ),
 ]
+
+
+def serve_private_file(request, path):
+    "Simple example of a view to serve private files with xsendfile"
+    if has_read_permission(request, path):
+        fullpath = os.path.join(settings.PRIVATE_MEDIA_ROOT, path)
+        response = HttpResponse()
+        response['X-Sendfile'] = fullpath
+        return response
+
 
 # Static files
 if settings.DEBUG:

@@ -12,9 +12,9 @@
 
                 <li class="{% if todo.finished %}done{% endif %}">
                     {% if todo.finished %}
-                        <a href="{% url "itdagene.app.todo.views.change_status" todo.pk %}" class="btn btn-xs btn-danger"><u class="fa fa-check no-underline"></u></a>
+                        <a href="{% url "itdagene.todo.change_status" todo.pk %}" class="btn btn-xs btn-danger"><u class="fa fa-check no-underline"></u></a>
                     {% else %}
-                        <a href="{% url "itdagene.app.todo.views.change_status" todo.pk %}" class="btn btn-xs btn-success"><u class="fa fa-check no-underline"></u></a>
+                        <a href="{% url "itdagene.todo.change_status" todo.pk %}" class="btn btn-xs btn-success"><u class="fa fa-check no-underline"></u></a>
                     {% endif %}
                     <span class="text">{{ todo.description }}</span>
                     {% if todo.deadline %}
@@ -26,10 +26,10 @@
                     {% endif %}
                     <div class="tools">
                         {% if perms.todo.change_todo %}
-                            <a href="{% url "itdagene.app.todo.views.change_todo" todo.pk %}" class="text-primary"><i class="fa fa-edit"></i></a>
+                            <a href="{% url "itdagene.todo.change_todo" todo.pk %}" class="text-primary"><i class="fa fa-edit"></i></a>
                         {% endif %}
                         {% if perms.todo.delete_todo %}
-                            <a href="{% url "itdagene.app.todo.views.delete_todo" todo.pk %}" class="text-danger"><i class="fa fa-trash-o"></i></a>
+                            <a href="{% url "itdagene.todo.delete_todo" todo.pk %}" class="text-danger"><i class="fa fa-trash-o"></i></a>
                         {% endif %}
                     </div>
                 </li>
@@ -40,7 +40,7 @@
     </div>
     {% if perms.todo.add_todo %}
         <div class="box-footer clearfix">
-            <a href="{% url "itdagene.app.todo.views.add_todo" %}" class="btn btn-default pull-right"><i class="fa fa-plus"></i> {% trans "Add Todo" %}</a>
+            <a href="{% url "itdagene.todo.add_todo" %}" class="btn btn-default pull-right"><i class="fa fa-plus"></i> {% trans "Add Todo" %}</a>
         </div>
     {% endif %}
 </div>

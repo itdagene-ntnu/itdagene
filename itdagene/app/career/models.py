@@ -57,7 +57,7 @@ class Joblisting(BaseModel):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('itdagene.app.career.views.view', args=[self.pk])
+        return reverse('itdagene.career.view', args=[self.pk])
 
     def has_deadline_passed(self):
         return self.deadline < timezone.now()

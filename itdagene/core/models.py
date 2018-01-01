@@ -29,7 +29,7 @@ class User(AbstractUser):
         permissions = (("send_welcome_email", "Can send welcome emails"), )
 
     def get_absolute_url(self):
-        return reverse('itdagene.app.users.views.user_detail', args=[self.pk])
+        return reverse('itdagene.users.user_detail', args=[self.pk])
 
     def __str__(self):
         if self.get_full_name():
@@ -184,4 +184,4 @@ class Preference(BaseModel):
             return pref
 
     def get_absolute_url(self):
-        return reverse('itdagene.app.itdageneadmin.views.preferences.edit')
+        return reverse('itdagene.itdageneadmin.preferences.edit')

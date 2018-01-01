@@ -27,7 +27,7 @@
                                 <tbody>
                                 {% for meeting in meetings %}
                                     <tr>
-                                        <td><a href="{% url "itdagene.app.meetings.views.meeting" meeting.pk %}">{{ meeting.get_type_display }}</a></td>
+                                        <td><a href="{% url "itdagene.meetings.meeting" meeting.pk %}">{{ meeting.get_type_display }}</a></td>
                                         <td> {{ meeting.date }}</td>
                                         <td> {{ meeting.start_time }}</td>
                                         <td>{{ meeting.end_time }}</td>

@@ -24,16 +24,16 @@ class ForceDefaultLanguageMiddleware(MiddlewareMixin):
 
 class UnderDevelopmentMiddleware(MiddlewareMixin):
     def process_request(self, request):
-        if request.path == reverse('itdagene.core.views.under_development') or 'login' in \
+        if request.path == reverse('itdagene.under_development') or 'login' in \
                 request.path:
             return
         development = Preference.current_preference().development_mode
         if development:
             if request.user.is_authenticated:
                 if not request.user.is_staff:
-                    return HttpResponseRedirect(reverse('itdagene.core.views.under_development'))
+                    return HttpResponseRedirect(reverse('itdagene.under_development'))
             else:
-                return HttpResponseRedirect(reverse('itdagene.core.views.under_development'))
+                return HttpResponseRedirect(reverse('itdagene.under_development'))
 
 
 class CurrentUserMiddleware(MiddlewareMixin):

@@ -15,12 +15,8 @@ def create_announcement(request):
         form = AnnouncementForm(request.POST, request.FILES)
         if form.is_valid():
             announcement = form.save()
-            return redirect(
-                reverse('itdagene.app.news.views.edit_announcement',
-                        args=[announcement.pk]))
-    return render(request, 'news/edit.html',
-                  {'form': form,
-                   'title': _('Add Announcement')})
+            return redirect(reverse('itdagene.news.edit_announcement', args=[announcement.pk]))
+    return render(request, 'news/edit.html', {'form': form, 'title': _('Add Announcement')})
 
 
 @permission_required('news.change_announcement')
@@ -36,16 +32,16 @@ def edit_announcement(request, id=False):
             form = AnnouncementForm(request.POST, request.FILES)
     if request.method == 'POST' and form.is_valid():
         form.save()
-        return redirect(reverse('itdagene.app.news.views.admin'))
-    return render(request, 'news/edit.html',
-                  {'form': form,
-                   'title': _('Edit Announcement')})
+        return redirect(reverse('itdagene.news.admin'))
+    return render(request, 'news/edit.html', {'form': form, 'title': _('Edit Announcement')})
 
 
 @staff_required()
 def admin(request):
     announcements = Announcement.objects.order_by('id').reverse()
     return render(
-        request, 'news/admin.html',
-        {'announcements': announcements,
-         'title': _('Announcement Admin')})
+        request, 'news/admin.html', {
+            'announcements': announcements,
+            'title': _('Announcement Admin')
+        }
+    )

@@ -67,7 +67,7 @@ class Issue(BaseModel):
         return self.get_app_display() + ": " + self.title
 
     def get_absolute_url(self):
-        return reverse('itdagene.app.feedback.views.issues.view', args=[self.pk])
+        return reverse('itdagene.feedback.issues.view', args=[self.pk])
 
     def save(self, *args, **kwargs):
         if self.pk:

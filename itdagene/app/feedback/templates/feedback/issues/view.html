@@ -14,7 +14,7 @@
             <div class="box-body">
                 <dl class="dl-horizontal">
                     <dt>{% trans "Created by" %}</dt>
-                    <dd><a href="{% url "itdagene.app.users.views.user_detail" issue.creator.pk %}">{{ issue.creator }}</a>, {{ issue.date_created|timesince }} {% trans "ago" %}</dd>
+                    <dd><a href="{% url "itdagene.users.user_detail" issue.creator.pk %}">{{ issue.creator }}</a>, {{ issue.date_created|timesince }} {% trans "ago" %}</dd>
                     <dt>{% trans "Type" %}</dt>
                     <dd>{{ issue.get_type_display }}</dd>
                     <dt>{% trans "status" %}</dt>
@@ -23,7 +23,7 @@
                     <dd>{{ issue.is_solved|yesno|capfirst }}</dd>
                     {% if issue.assigned_user %}
                         <dt>{% trans "Assigned user" %}</dt>
-                        <dd><a href="{% url "itdagene.app.users.views.user_detail" issue.assigned_user.pk %}">{{ issue.assigned_user }}</a></dd>
+                        <dd><a href="{% url "itdagene.users.user_detail" issue.assigned_user.pk %}">{{ issue.assigned_user }}</a></dd>
                     {% endif %}
                     {% if issue.deadline %}
                         <dt>{% trans "Deadline" %}</dt>

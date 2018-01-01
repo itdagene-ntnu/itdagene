@@ -5,12 +5,12 @@ from itdagene.app.meetings.views import (
 )
 
 urlpatterns = [
-    re_path(r'^$', list, name='meetings'),
-    re_path(r'^add$', add, name='itdagene.app.meetings.views.add'),
-    re_path(r'^(?P<id>\d+)/$', meeting, name="view_meeting"),
-    re_path(r'^(?P<id>\d+)/add-penalty$', add_penalties),
-    re_path(r'^(?P<id>\d+)/edit$', edit),
-    re_path(r'^(?P<id>\d+)/attend$', attend),
-    re_path(r'^(?P<id>\d+)/not-attend$', not_attend),
-    re_path(r'^(?P<id>\d+)/send-invites$', send_invites),
+    re_path(r'^$', list, name='itdagene.meetings.list'),
+    re_path(r'^add$', add, name='itdagene.meetings.add'),
+    re_path(r'^(?P<id>\d+)/$', meeting, name='itdagene.meetings.meeting'),
+    re_path(r'^(?P<id>\d+)/add-penalty$', add_penalties, name='itdagene.meetings.add_penalties'),
+    re_path(r'^(?P<id>\d+)/edit$', edit, name='itdagene.meetings.edit'),
+    re_path(r'^(?P<id>\d+)/attend$', attend, name='itdagene.meetings.attend'),
+    re_path(r'^(?P<id>\d+)/not-attend$', not_attend, name='itdagene.meetings.not_attend'),
+    re_path(r'^(?P<id>\d+)/send-invites$', send_invites, name='itdagene.meetings.send_invites'),
 ]

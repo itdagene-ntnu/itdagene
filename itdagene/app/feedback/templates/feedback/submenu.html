@@ -2,22 +2,22 @@
 
 <ul class="treeview-menu">
     {% if request.user.is_staff %}
-        <li><a href="{% url "itdagene.app.feedback.views.issues.list" %}"><i class="fa fa-circle-o"></i> {% trans "Issues" %}</a></li>
-        <li><a href="{% url "itdagene.app.feedback.views.issues.solved_list" %}"><i class="fa fa-circle-o"></i> {% trans "Solved Issues" %}</a></li>
+        <li><a href="{% url "itdagene.feedback.issues.list" %}"><i class="fa fa-circle-o"></i> {% trans "Issues" %}</a></li>
+        <li><a href="{% url "itdagene.feedback.issues.solved_list" %}"><i class="fa fa-circle-o"></i> {% trans "Solved Issues" %}</a></li>
     {% endif %}
     {% if perms.feedback.add_issue %}
-        <li><a href="{% url "itdagene.app.feedback.views.issues.my_issues" %}"><i class="fa fa-circle-o"></i> {% trans "My issues" %}</a></li>
-        <li><a href="{% url "itdagene.app.feedback.views.issues.add" %}"><i class="fa fa-circle-o"></i> {% trans "Add issue" %}</a></li>
+        <li><a href="{% url "itdagene.feedback.issues.my_issues" %}"><i class="fa fa-circle-o"></i> {% trans "My issues" %}</a></li>
+        <li><a href="{% url "itdagene.feedback.issues.add" %}"><i class="fa fa-circle-o"></i> {% trans "Add issue" %}</a></li>
     {% endif %}
     {% if issue.pk %}
         {% if perms.feedback.change_issue %}
-            <li><a href="{% url "itdagene.app.feedback.views.issues.edit" issue.pk %}"><i class="fa fa-circle-o"></i> {% trans "Edit issue" %}</a></li>
-            <li><a href="{% url "itdagene.app.feedback.views.issues.solved" issue.pk %}"><i class="fa fa-circle-o"></i> {% trans "Mark issue as solved" %}</a></li>
+            <li><a href="{% url "itdagene.feedback.issues.edit" issue.pk %}"><i class="fa fa-circle-o"></i> {% trans "Edit issue" %}</a></li>
+            <li><a href="{% url "itdagene.feedback.issues.solved" issue.pk %}"><i class="fa fa-circle-o"></i> {% trans "Mark issue as solved" %}</a></li>
         {% endif %}
     {% endif %}
 
     {% if request.user.is_staff %}
-        <li><a href="{% url "itdagene.app.feedback.views.evalutions.report" %}"><i class="fa fa-circle-o"></i> {% trans "Company evalutions" %}</a></li>
+        <li><a href="{% url "itdagene.feedback.evalutions.report" %}"><i class="fa fa-circle-o"></i> {% trans "Company evalutions" %}</a></li>
     {% endif %}
 
 </ul>

@@ -28,7 +28,7 @@ class Package(BaseModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('itdagene.app.company.views.packages.view', args=[self.pk])
+        return reverse('itdagene.company.packages.view', args=[self.pk])
 
     def get_waiting_list(self):
         waiting_list = self.waiting_list.all()
@@ -90,7 +90,7 @@ class Company(BaseModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('itdagene.app.company.views.view', args=[self.pk])
+        return reverse('itdagene.company.view', args=[self.pk])
 
     def save(self, *args, **kwargs):
         super(Company, self).save(*args, **kwargs)

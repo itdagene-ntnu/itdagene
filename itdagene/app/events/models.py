@@ -33,7 +33,7 @@ class Event(BaseModel):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('itdagene.app.events.views.view_event', args=[self.pk])
+        return reverse('itdagene.events.view_event', args=[self.pk])
 
 
 class Ticket(BaseModel):

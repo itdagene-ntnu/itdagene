@@ -10,7 +10,7 @@
             <h3 class="box-title">{% trans "Danger Zone" %}</h3>
         </div>
         <div class="box-body">
-             <form method="post" action="{% url "itdagene.app.users.views.user_delete" person.pk %}">
+             <form method="post" action="{% url "itdagene.users.user_delete" person.pk %}">
                 {% csrf_token %}
                 <p>{% blocktrans with user=person.get_full_name %}Are you sure you want to delete the user {{ user }}?{% endblocktrans %}</p>
                 <p><button type="submit" class="btn btn-danger">{% trans "Delete user" %}</button></p>

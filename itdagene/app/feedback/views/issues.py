@@ -63,9 +63,9 @@ def add(request):
             form.save()
             add_message(request, SUCCESS, _('Thank you for the feedback.'))
             if request.user.is_staff:
-                return redirect(reverse('itdagene.app.feedback.views.issues.list'))
+                return redirect(reverse('itdagene.feedback.issues.list'))
             else:
-                return redirect(reverse('itdagene.app.frontpage.views.inside'))
+                return redirect(reverse('itdagene.frontpage.inside'))
 
     return render(request, 'feedback/form.html', {'title': _('Add Issue'), 'form': form})
 
@@ -80,9 +80,9 @@ def edit(request, id=None):
             issue = form.save()
             add_message(request, SUCCESS, _('The issue has changed.'))
             if request.user.is_staff:
-                return redirect(reverse('itdagene.app.feedback.views.issues.list'))
+                return redirect(reverse('itdagene.feedback.issues.list'))
             else:
-                return redirect(reverse('itdagene.app.frontpage.views.inside'))
+                return redirect(reverse('itdagene.frontpage.inside'))
 
     return render(
         request, 'feedback/form.html',
@@ -115,4 +115,4 @@ def solved(request, id):
     issue.is_solved = True
     issue.status = 3
     issue.save()
-    return redirect(reverse('itdagene.app.feedback.views.issues.list'))
+    return redirect(reverse('itdagene.feedback.issues.list'))

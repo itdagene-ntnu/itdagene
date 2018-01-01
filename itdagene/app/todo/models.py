@@ -20,4 +20,4 @@ class Todo(BaseModel):
         return self.description
 
     def get_absolute_url(self):
-        return reverse('itdagene.app.todo.views.view_todo', args=[self.pk])
+        return reverse('itdagene.todo.view_todo', args=[self.pk])

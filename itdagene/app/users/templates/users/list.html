@@ -23,7 +23,7 @@
                     <tbody>
                         {% for person in persons %}
                         <tr>
-                            <td><a href="{% url "itdagene.app.users.views.user_detail" person.pk %}">{{ person.username }}</a></td>
+                            <td><a href="{% url "itdagene.users.user_detail" person.pk %}">{{ person.username }}</a></td>
                             <td>{{ person.get_full_name }}</td>
                             <td>{{ person.year }}</td>
                             <td><a href="mailto:{{ person.email }}">{{ person.email }}</a></td>
@@ -32,11 +32,11 @@
                             <td style="text-align: right;">
                                 <span class="btn-group">
                                     {% if perms.core.change_user %}
-                                    <a href="{% url "itdagene.app.users.views.user_edit" person.pk %}" class="btn btn-xs btn-primary">{% trans "Edit User" %}</a>
-                                    <a href="{% url "itdagene.app.users.views.user_edit_password" person.pk %}" class="btn btn-xs btn-primary">{% trans "Change Password" %}</a>
+                                    <a href="{% url "itdagene.users.user_edit" person.pk %}" class="btn btn-xs btn-primary">{% trans "Edit User" %}</a>
+                                    <a href="{% url "itdagene.users.user_edit_password" person.pk %}" class="btn btn-xs btn-primary">{% trans "Change Password" %}</a>
                                     {% endif %}
                                     {% if perms.core.delete_user %}
-                                    <a href="{% url "itdagene.app.users.views.user_delete" person.pk %}" class="btn btn-xs btn-danger">{% trans "Delete User" %}</a>
+                                    <a href="{% url "itdagene.users.user_delete" person.pk %}" class="btn btn-xs btn-danger">{% trans "Delete User" %}</a>
                                     {% endif %}
                                 </span>
                             </td>

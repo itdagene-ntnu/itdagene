@@ -19,10 +19,10 @@
                 <tbody>
                 {% for issue in bugs %}
                     <tr>
-                        <td><a href="{% url "itdagene.app.feedback.views.issues.view" issue.pk %}">{{ issue.title }}</a>
+                        <td><a href="{% url "itdagene.feedback.issues.view" issue.pk %}">{{ issue.title }}</a>
                         </td>
-                        <td>{% if issue.creator %}<a href="{% url "itdagene.app.users.views.user_detail" issue.creator.pk %}">{{ issue.creator }}{% endif %}</a></td>
-                        <td>{% if issue.assigned_user %}<a href="{% url "itdagene.app.users.views.user_detail" issue.assigned_user.pk %}">{{ issue.assigned_user }}{% endif %}</a></td>
+                        <td>{% if issue.creator %}<a href="{% url "itdagene.users.user_detail" issue.creator.pk %}">{{ issue.creator }}{% endif %}</a></td>
+                        <td>{% if issue.assigned_user %}<a href="{% url "itdagene.users.user_detail" issue.assigned_user.pk %}">{{ issue.assigned_user }}{% endif %}</a></td>
                     </tr>
                 {% endfor %}
                 </tbody>

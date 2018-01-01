@@ -44,7 +44,7 @@ class LogItem(models.Model):
             mail_admins(
                 'Log: ' + str(self),
                 str(self) + '\n Read more at http://%s%s' %
-                (settings.SITE['domain'], self.content_object.get_absolute_url)
+                (settings.SITE['domain'], self.content_object.get_absolute_url())
             )
         super(LogItem, self).save(*args, **kwargs)
 

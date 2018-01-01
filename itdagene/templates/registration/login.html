@@ -22,7 +22,7 @@
         </div>
         <div class="login-box-body">
 
-            <form action="{% url "login" %}" method="post">
+            <form action="{% url "itdagene.login" %}" method="post">
                 {% csrf_token %}
                 {{ form|crispy }}
 

@@ -151,7 +151,7 @@ def set_responsibilities(request):
         if formset.is_valid():
             formset.save()
             add_message(request, SUCCESS, _('Changed responsibilities.'))
-            return redirect(reverse('itdagene.app.company.views.list_companies'))
+            return redirect(reverse('itdagene.company.list_companies'))
     return render(
         request, 'company/set_responsibilities.html', {
             'formset': formset,

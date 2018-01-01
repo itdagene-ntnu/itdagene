@@ -18,7 +18,7 @@ def add_todo(request):
             todo = form.save(commit=False)
             todo.save(notify_subscribers=False)
             add_message(request, SUCCESS, _('Todo added.'))
-            return redirect(reverse('itdagene.app.frontpage.views.inside'))
+            return redirect(reverse('itdagene.frontpage.inside'))
     return render(request, 'todo/todo_form.html', {'form': form, 'title': _('Add Todo')})
 
 
@@ -32,7 +32,7 @@ def change_todo(request, pk):
             todo = form.save(commit=False)
             todo.save(notify_subscribers=False)
             add_message(request, SUCCESS, _('Todo changed.'))
-            return redirect(reverse('itdagene.app.frontpage.views.inside'))
+            return redirect(reverse('itdagene.frontpage.inside'))
     return render(request, 'todo/todo_form.html', {'form': form, 'title': _('Change Todo')})
 
 
@@ -43,7 +43,7 @@ def delete_todo(request, pk):
     if request.method == 'POST':
         todo.delete()
         add_message(request, SUCCESS, _('Todo deleted.'))
-        return redirect(reverse('itdagene.app.frontpage.views.inside'))
+        return redirect(reverse('itdagene.frontpage.inside'))
 
     return render(request, 'todo/delete_todo.html', {'todo': todo, 'title': _('Delete Todo')})
 
@@ -63,4 +63,4 @@ def change_status(request, pk):
     todo = get_object_or_404(Todo, pk=pk, user=request.user)
     todo.finished = not todo.finished
     todo.save(notify_subscribers=False)
-    return redirect(reverse('itdagene.app.frontpage.views.inside'))
+    return redirect(reverse('itdagene.frontpage.views.inside'))

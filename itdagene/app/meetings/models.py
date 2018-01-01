@@ -64,17 +64,16 @@ class Meeting(BaseModel):
 
     def attending_link(self):
         return 'http://%s%s' % (
-            settings.SITE['domain'], reverse('itdagene.app.meetings.views.attend', args=[self.pk])
+            settings.SITE['domain'], reverse('itdagene.meetings.attend', args=[self.pk])
         )
 
     def not_attending_link(self):
         return 'http://%s%s' % (
-            settings.SITE['domain'],
-            reverse('itdagene.app.meetings.views.not_attend', args=[self.pk])
+            settings.SITE['domain'], reverse('itdagene.meetings.not_attend', args=[self.pk])
         )
 
     def get_absolute_url(self):
-        return reverse('itdagene.app.meetings.views.meeting', args=(self.pk, ))
+        return reverse('itdagene.meetings.meeting', args=(self.pk, ))
 
     def get_start_date(self):
         return datetime.datetime.combine(self.date, self.start_time)
@@ -105,7 +104,7 @@ class ReplyMeeting(BaseModel):
         return ugettext('Meeting participation: %(user)s') % {'user': str(self.user)}
 
     def get_absolute_url(self):
-        return reverse('itdagene.app.meetings.views.meeting', args=(self.meeting.pk, ))
+        return reverse('itdagene.meetings.meeting', args=(self.meeting.pk, ))
 
     def save(self, *args, **kwargs):
         super(ReplyMeeting, self).save()

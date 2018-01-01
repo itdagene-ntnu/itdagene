@@ -9,7 +9,7 @@
     {% if form %}
     <div class="box-body" style="height: 180px">
 
-        <form action="{% url "itdagene.app.comments.views.add" %}" method="POST">
+        <form action="{% url "itdagene.comments.add" %}" method="POST">
             {% csrf_token %}
             {{ form|crispy }}
             <div class="pull-right">
