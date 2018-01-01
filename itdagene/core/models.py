@@ -10,6 +10,10 @@ from django.utils.translation import ugettext_lazy as _
 from itdagene.core.auth import get_current_user
 
 
+def user_default_year():
+    return now().year
+
+
 class User(AbstractUser):
     phone = models.IntegerField(blank=True, null=True, verbose_name=_('phone number'))
     photo = models.ImageField(
@@ -21,8 +25,8 @@ class User(AbstractUser):
     )
     mail_notification = models.BooleanField(default=True, verbose_name=_('Send mail notifications'))
     year = models.PositiveIntegerField(
-        verbose_name=_('Active Year'), help_text=_('Year the user was active.'), default=now().year,
-        blank=True, null=True
+        verbose_name=_('Active Year'), help_text=_('Year the user was active.'),
+        default=user_default_year, blank=True, null=True
     )
 
     class Meta(AbstractUser.Meta):
