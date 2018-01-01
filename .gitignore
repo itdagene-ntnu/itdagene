@@ -35,3 +35,8 @@ itdagene/assets/frontend/itdagene.js
 .tox/
 coverage.xml
 dump.rdb
+
+# Celerystuff
+
+celerybeat-schedule
+celerybeat.pid

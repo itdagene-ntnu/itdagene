@@ -2,7 +2,6 @@ from datetime import date
 
 from django.conf import settings
 from django.template import Library, loader
-from django.template.context import Context
 from django.utils.safestring import mark_safe
 
 register = Library()
@@ -17,7 +16,7 @@ def analytics():
     domain = settings.SITE['domain']
     if not settings.DEBUG:
         t = loader.get_template('analytics.html')
-        c = Context({'code': analytics_id, 'domain': domain})
+        c = {'code': analytics_id, 'domain': domain}
         return t.render(c)
 
     else:

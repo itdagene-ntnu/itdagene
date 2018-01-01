@@ -44,6 +44,7 @@ urlpatterns = [
     re_path(r'^quiz/', include('itdagene.app.quiz.urls')),
     re_path(r'^superadmin/', admin.site.urls),
 ]
+
 # Naming scheme for urls:
 # appname.viewname or appname.subname.viewname
 
