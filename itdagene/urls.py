@@ -55,17 +55,9 @@ urlpatterns += [
     ),
 ]
 
-
-def serve_private_file(request, path):
-    "Simple example of a view to serve private files with xsendfile"
-    if has_read_permission(request, path):
-        fullpath = os.path.join(settings.PRIVATE_MEDIA_ROOT, path)
-        response = HttpResponse()
-        response['X-Sendfile'] = fullpath
-        return response
-
-
 # Static files
+# DO NOT SERVE THE MEDIA_ROOT directly!
+# You will then expose all the contracts uploaded...
 if settings.DEBUG:
     urlpatterns += \
         static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + \
