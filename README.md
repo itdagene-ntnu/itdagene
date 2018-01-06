@@ -87,7 +87,7 @@ $ tox -e flake8      # Verify PEP 8 style
 ```bash
 $ celery worker -A itdagene # worker
 $ celery beat -A itdagene   # beat
-$ celery flower -A itdagene --address="127.0.0.1" --port=5555 # beat
+$ celery flower -A itdagene --address="127.0.0.1" --port=5555 # flower
 ```
 
 ## Misc
