@@ -43,7 +43,7 @@
                 <tbody>
                     {% for task in worker.schedules %}
                     <tr>
-                        <td><a href="{% url "itdagene.app.workschedule.views.view_task" task.pk %}">{{ task.title }}</a></td>
+                        <td><a href="{% url "itdagene.workschedule.view_task" task.pk %}">{{ task.title }}</a></td>
                         <td>{{ task.start_time }}</td>
                         <td>{{ task.end_time }}</td>
                         <td>{{ task.date }}</td>

@@ -48,7 +48,7 @@
                                 {%  endif %}
                                 {% if evaluation %}
                                     <dt>{% trans "Evaluation" %}</dt>
-                                    <dd><a href="{% url "itdagene.app.feedback.views.evalutions.handle_evaluation" evaluation.hash %}">{% trans "View evaluation form" %}</a></dd>
+                                    <dd><a href="{% url "itdagene.feedback.evalutions.handle_evaluation" evaluation.hash %}">{% trans "View evaluation form" %}</a></dd>
                                 {% endif %}
                             </dl>
                         </div>
@@ -85,9 +85,9 @@
                                 <br/>{% endif %}
                             {% if contact.email %}<strong>{% trans "Email" %}:</strong> {{ contact.email }}
                                 <br/>{% endif %}
-                            <a style="margin-right: 5px;" href="{% url "app.company.views.company_contacts.vcard" contact.pk %}">{% trans "Download vcard-file" %}</a><br/>
-                            <a style="margin-right: 5px;" href="{% url "itdagene.app.company.views.company_contacts.edit_contact" contact.pk %}"><i class="fa fa-pencil"></i> {% trans "Edit" %}</a>
-                            <a href="{% url "itdagene.app.company.views.company_contacts.delete_contact" contact.pk %}"><i class="fa fa-trash"></i> {% trans "Delete" %}</a>
+                            <a style="margin-right: 5px;" href="{% url "itdagene.company.company_contacts.vcard" contact.pk %}">{% trans "Download vcard-file" %}</a><br/>
+                            <a style="margin-right: 5px;" href="{% url "itdagene.company.company_contacts.edit_contact" contact.pk %}"><i class="fa fa-pencil"></i> {% trans "Edit" %}</a>
+                            <a href="{% url "itdagene.company.company_contacts.delete_contact" contact.pk %}"><i class="fa fa-trash"></i> {% trans "Delete" %}</a>
                         </div>
                     {% endfor %}
                 </div>
@@ -103,14 +103,14 @@
                 {% for joblisting in company.joblistings.all %}
                 {% if joblisting.deadline|date_is_not_expired %}
                     <tr>
-                        <td><a href="{% url "itdagene.app.career.views.view" joblisting.pk %}">{{ joblisting }}</a></td>
+                        <td><a href="{% url "itdagene.career.view" joblisting.pk %}">{{ joblisting }}</a></td>
                         <td>{{ joblisting.get_type_display }}</td>
                         {% if joblisting.deadline %}
                             <td>{{ joblisting.deadline }}</td>
                         {% else %}
                             <td>{% trans "No deadline" %}</td>
                         {% endif %}
-                        <td><a href="{% url "itdagene.app.career.views.edit" joblisting.pk %}">{% trans "Edit" %}</a></td>
+                        <td><a href="{% url "itdagene.career.edit" joblisting.pk %}">{% trans "Edit" %}</a></td>
                     </tr>
                 {% endif %}
                 {% endfor %}
@@ -125,7 +125,7 @@
            <div class="box-body no-padding">
                <table class="table table-hover">
                    {% for contract in company.contracts.all %}
-                        <tr><td>{{ contract.timestamp }}</td><td>{% if contract.file %}<a href="{% url "itdagene.app.company.views.contracts.download_contract" contract.company.pk contract.id %}">{% trans "Download file" %}</a>{% endif %}</td><td>{% if perms.company.change_contract %}<a href="{% url "itdagene.app.company.views.contracts.edit_contract" company.id contract.id %}"><i class="fa fa-pencil"></i></a>{% endif %}</td></tr>
+                        <tr><td>{{ contract.timestamp }}</td><td>{% if contract.file %}<a href="{% url "itdagene.company.contracts.download_contract" contract.company.pk contract.id %}">{% trans "Download file" %}</a>{% endif %}</td><td>{% if perms.company.change_contract %}<a href="{% url "itdagene.company.contracts.edit_contract" company.id contract.id %}"><i class="fa fa-pencil"></i></a>{% endif %}</td></tr>
                     {% endfor %}
                </table>
            </div>

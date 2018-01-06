@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -7,27 +6,35 @@ from itdagene.core.models import BaseModel
 
 
 class Worker(BaseModel):
-    SIZES = ((1, 'XS'), (2, 'S'), (3, 'M'), (4, 'L'), (5, 'XL'), (6, 'XXL'),
-             (7, 'XXXL'), (8, 'XXXXL'), )
+    SIZES = (
+        (1, 'XS'),
+        (2, 'S'),
+        (3, 'M'),
+        (4, 'L'),
+        (5, 'XL'),
+        (6, 'XXL'),
+        (7, 'XXXL'),
+        (8, 'XXXXL'),
+    )
 
     name = models.CharField(max_length=100, verbose_name=_('name'))
     phone = models.IntegerField(verbose_name=_('phone number'), default=0)
-    t_shirt_size = models.IntegerField(choices=SIZES,
-                                       verbose_name=_('t-shirt size'),
-                                       default=0)
+    t_shirt_size = models.IntegerField(choices=SIZES, verbose_name=_('t-shirt size'), default=0)
     email = models.EmailField(verbose_name=_('email'), blank=True)
     preference = models.PositiveIntegerField(verbose_name=_('year'))
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def schedules(self):
-        return [i.schedule for i in self.in_schedules.all().order_by(
-            'schedule__date', 'schedule__start_time')]
+        return [
+            i.schedule
+            for i in self.in_schedules.all().order_by('schedule__date', 'schedule__start_time')
+        ]
 
     def as_dict(self):
         return {
-            'name': unicode(self.name),
+            'name': str(self.name),
             'phone': self.phone,
             't_shirt_size': self.t_shirt_size,
             'email': self.email,
@@ -44,7 +51,7 @@ class WorkSchedule(BaseModel):
     end_time = models.TimeField(verbose_name=_('end time'))
     description = models.TextField(blank=True, verbose_name=_('Description'))
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     def workers(self):
@@ -74,16 +81,17 @@ class WorkSchedule(BaseModel):
 
 
 class WorkerInSchedule(BaseModel):
-    schedule = models.ForeignKey(WorkSchedule,
-                                 related_name='workers_in_schedule',
-                                 verbose_name=_('schedule'))
-    worker = models.ForeignKey(Worker,
-                               related_name='in_schedules',
-                               verbose_name=_('worker'))
+    schedule = models.ForeignKey(
+        WorkSchedule, on_delete=models.CASCADE, related_name='workers_in_schedule',
+        verbose_name=_('schedule')
+    )
+    worker = models.ForeignKey(
+        Worker, on_delete=models.CASCADE, related_name='in_schedules', verbose_name=_('worker')
+    )
     has_met = models.BooleanField(verbose_name=_('has met'), default=False)
 
-    def __unicode__(self):
-        return "%s: %s" % (unicode(self.schedule), self.worker.name)
+    def __str__(self):
+        return "%s: %s" % (str(self.schedule), self.worker.name)
 
     def as_dict(self):
         return {

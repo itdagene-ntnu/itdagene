@@ -1,10 +1,12 @@
-from django.conf.urls import url
+from django.urls import re_path
+
+from itdagene.app.career import views
 
 urlpatterns = [
-    url(r'^joblistings/$', 'itdagene.app.career.views.list'),
-    url(r'^joblistings/add/$', 'itdagene.app.career.views.add'),
-    url(r'^joblistings/(?P<pk>\d+)/$', 'itdagene.app.career.views.view'),
-    url(r'^joblistings/(?P<pk>\d+)/edit/$', 'itdagene.app.career.views.edit'),
-    url(r'^joblistings/(?P<pk>\d+)/delete/$', 'itdagene.app.career.views.delete'),
-    url(r'^joblistings/add_town/$', 'itdagene.app.career.views.add_town')
+    re_path(r'^joblistings/$', views.list, name='itdagene.career.list'),
+    re_path(r'^joblistings/add/$', views.add, name='itdagene.career.add'),
+    re_path(r'^joblistings/(?P<pk>\d+)/$', views.view, name='itdagene.career.view'),
+    re_path(r'^joblistings/(?P<pk>\d+)/edit/$', views.edit, name='itdagene.career.edit'),
+    re_path(r'^joblistings/(?P<pk>\d+)/delete/$', views.delete, name='itdagene.career.delete'),
+    re_path(r'^joblistings/add_town/$', views.add_town, name='itdagene.career.add_town')
 ]

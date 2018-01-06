@@ -7,7 +7,7 @@
         <div class="box box-primary">
             <div class="box-body">
                 <strong>
-                    <a href="{% url "itdagene.app.feedback.views.evalutions.report" prev_year %}">{% trans "See previous evaluation forms" %}</a>
+                    <a href="{% url "itdagene.feedback.evalutions.report" prev_year %}">{% trans "See previous evaluation forms" %}</a>
                 </strong>
                 <br />
                 <strong>{% blocktrans with evaluations_count=evaluations.count percentage_want_to_come_back=percentage_want_to_come_back %}
@@ -89,7 +89,7 @@
                 <h4>{% trans "Evaluation forms" %}</h4>
                 {% for eval in evaluations %}
                     <ul>
-                        <a href="{% url "itdagene.app.feedback.views.evalutions.handle_evaluation" eval.hash %}">{{ eval.company }}</a>
+                        <a href="{% url "itdagene.feedback.evalutions.handle_evaluation" eval.hash %}">{{ eval.company }}</a>
                     </ul>
                 {% endfor %}
 

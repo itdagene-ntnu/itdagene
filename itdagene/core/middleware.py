@@ -1,11 +1,12 @@
-from django.core.urlresolvers import reverse
 from django.shortcuts import HttpResponseRedirect
+from django.urls import reverse
+from django.utils.deprecation import MiddlewareMixin
 
 from itdagene.core.auth import set_current_user_function
 from itdagene.core.models import Preference
 
 
-class ForceDefaultLanguageMiddleware(object):
+class ForceDefaultLanguageMiddleware(MiddlewareMixin):
     """
     Ignore Accept-Language HTTP headers
 
@@ -21,22 +22,21 @@ class ForceDefaultLanguageMiddleware(object):
             del request.META['HTTP_ACCEPT_LANGUAGE']
 
 
-class UnderDevelopmentMiddleware(object):
+class UnderDevelopmentMiddleware(MiddlewareMixin):
     def process_request(self, request):
-        if request.path == reverse('itdagene.core.views.under_development') or 'login' in \
+        if request.path == reverse('itdagene.under_development') or 'login' in \
                 request.path:
             return
         development = Preference.current_preference().development_mode
         if development:
-            if request.user.is_authenticated():
+            if request.user.is_authenticated:
                 if not request.user.is_staff:
-                    return HttpResponseRedirect(
-                        reverse('itdagene.core.views.under_development'))
+                    return HttpResponseRedirect(reverse('itdagene.under_development'))
             else:
-                return HttpResponseRedirect(
-                    reverse('itdagene.core.views.under_development'))
+                return HttpResponseRedirect(reverse('itdagene.under_development'))
 
 
-class CurrentUserMiddleware(object):
+class CurrentUserMiddleware(MiddlewareMixin):
     def process_request(self, request):
-        set_current_user_function(lambda self: getattr(request, 'user', None))
+        user = getattr(request, 'user', None)
+        set_current_user_function(lambda: user)

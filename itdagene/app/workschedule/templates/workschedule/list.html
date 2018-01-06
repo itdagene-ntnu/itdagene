@@ -25,7 +25,7 @@
                     {% with workschedules=day_dict|lookup:"list" %}
                     {% for task in workschedules %}
                         <tr>
-                        <td><a href="{% url "itdagene.app.workschedule.views.view_task" task.pk %}">{{ task.title }}</a></td>
+                        <td><a href="{% url "itdagene.workschedule.view_task" task.pk %}">{{ task.title }}</a></td>
                         <td>{{ task.start_time }}</td>
                         <td>{{ task.end_time }}</td>
                         <td>{{ task.date }}</td>
@@ -59,7 +59,7 @@
                     <tbody>
                     {% for task in other %}
                         <tr>
-                        <td><a href="{% url "itdagene.app.workschedule.views.view_task" task.pk %}">{{ task.title }}</a></td>
+                        <td><a href="{% url "itdagene.workschedule.view_task" task.pk %}">{{ task.title }}</a></td>
                         <td>{{ task.start_time }}</td>
                         <td>{{ task.end_time }}</td>
                         <td>{{ task.date }}</td>
@@ -87,7 +87,7 @@
                     <tbody>
                     {% for worker in workers %}
                         <tr>
-                        <td><a href="{% url "itdagene.app.workschedule.views.view_worker" worker.pk %}">{{ worker.name }}</a></td>
+                        <td><a href="{% url "itdagene.workschedule.view_worker" worker.pk %}">{{ worker.name }}</a></td>
                         <td>{{ worker.phone }}</td>
                         <td><a href="mailto:{{ worker.email }}">{{ worker.email }}</a></td>
                         </tr>

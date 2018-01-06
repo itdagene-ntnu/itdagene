@@ -1,19 +1,19 @@
 {% load i18n %}
 
 <ul class="treeview-menu">
-    <li><a href="{% url "itdagene.app.users.views.user_list" %}"><i class="fa fa-circle-o"></i> {% trans "Users" %}</a> </li>
+    <li><a href="{% url "itdagene.users.user_list" %}"><i class="fa fa-circle-o"></i> {% trans "Users" %}</a> </li>
     {% if perms.core.add_user %}
-        <li><a href="{% url "itdagene.app.users.views.user_create" %}"><i class="fa fa-circle-o"></i> {% trans "Create User" %}</a></li>
+        <li><a href="{% url "itdagene.users.user_create" %}"><i class="fa fa-circle-o"></i> {% trans "Create User" %}</a></li>
     {% endif %}
     {% if person.pk %}
         {% if perms.core.send_welcome_email %}
-            <li><a href="{% url "itdagene.app.users.views.send_welcome_email" person.pk %}"><i class="fa fa-circle-o"></i> {% trans "Send welcome email" %}</a></li>
+            <li><a href="{% url "itdagene.users.send_welcome_email" person.pk %}"><i class="fa fa-circle-o"></i> {% trans "Send welcome email" %}</a></li>
         {% endif %}
         {% if perms.core.change_user %}
-            <li><a href="{% url "itdagene.app.users.views.user_edit" person.pk %}"><i class="fa fa-circle-o"></i> {% trans "Edit User" %}</a></li>
+            <li><a href="{% url "itdagene.users.user_edit" person.pk %}"><i class="fa fa-circle-o"></i> {% trans "Edit User" %}</a></li>
         {% endif %}
         {% if perms.core.delete_user %}
-            <li><a href="{% url "itdagene.app.users.views.user_delete" person.pk %}"><i class="fa fa-circle-o"></i> {% trans "Delete User" %}</a></li>
+            <li><a href="{% url "itdagene.users.user_delete" person.pk %}"><i class="fa fa-circle-o"></i> {% trans "Delete User" %}</a></li>
         {% endif %}
     {% endif %}
 </ul>

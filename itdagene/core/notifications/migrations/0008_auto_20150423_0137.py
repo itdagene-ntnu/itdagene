@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
 from django.conf import settings
@@ -24,7 +23,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='notification',
             name='users',
-            field=models.ManyToManyField(to=settings.AUTH_USER_MODEL, verbose_name=b'users'),
+            field=models.ManyToManyField(to=settings.AUTH_USER_MODEL, verbose_name='users'),
             preserve_default=True,
         ),
         migrations.AlterUniqueTogether(

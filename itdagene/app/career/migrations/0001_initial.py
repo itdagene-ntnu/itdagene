@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
 from django.db import migrations, models
@@ -26,7 +25,7 @@ class Migration(migrations.Migration):
                                                (b'pp', 'Permanent position'),
                                                (b'bi', 'Bad import')])),
                     ('description', models.TextField()),
-                    ('image', models.ImageField(upload_to=b'joblistings/',
+                    ('image', models.ImageField(upload_to='joblistings/',
                                                 null=True,
                                                 verbose_name='image',
                                                 blank=True)),

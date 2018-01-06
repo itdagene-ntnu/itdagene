@@ -68,8 +68,8 @@
 
                         <p>{% trans "I am" %}</p>
                         <div class="btn-group">
-                            <a href="{% url "itdagene.app.meetings.views.attend" meeting.pk %}" class="btn btn-success btn-sm {% if reply.is_attending == True %}active{% endif %}">{% trans "attending" %}</a>
-                            <a href="{% url "itdagene.app.meetings.views.not_attend" meeting.pk %}" class="btn btn-danger btn-sm {% if reply.is_attending == False %}active{% endif %}">{% trans "not attending" %}</a>
+                            <a href="{% url "itdagene.meetings.attend" meeting.pk %}" class="btn btn-success btn-sm {% if reply.is_attending == True %}active{% endif %}">{% trans "attending" %}</a>
+                            <a href="{% url "itdagene.meetings.not_attend" meeting.pk %}" class="btn btn-danger btn-sm {% if reply.is_attending == False %}active{% endif %}">{% trans "not attending" %}</a>
                         </div>
                     </div>
                 </div>

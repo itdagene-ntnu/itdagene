@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import permission_required
 from django.core.cache import cache
-from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, render
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from itdagene.app.itdageneadmin.forms import PreferenceForm
@@ -20,12 +20,12 @@ def edit(request):
             preference.active = True
             if preference.year != current_year:
                 preference, created = Preference.objects.get_or_create(
-                    year=preference.year,
-                    defaults={
+                    year=preference.year, defaults={
                         'active': True,
                         'start_date': '%s-09-10' % preference.year,
                         'end_date': '%s-09-11' % preference.year
-                    })
+                    }
+                )
             else:
                 preference.save(log_it=False, notify_subscribers=False)
 
@@ -34,10 +34,11 @@ def edit(request):
                 peference_object.save(log_it=False, notify_subscribers=False)
 
             cache.set('pref', preference)
-            return redirect(
-                reverse('itdagene.app.itdageneadmin.views.preferences.edit'))
+            return redirect(reverse('itdagene.itdageneadmin.preferences.edit'))
     return render(
-        request, 'admin/preferences/edit.html',
-        {'pref': current_pref,
-         'form': form,
-         'title': _('Preferences')})
+        request, 'admin/preferences/edit.html', {
+            'pref': current_pref,
+            'form': form,
+            'title': _('Preferences')
+        }
+    )

@@ -1,8 +1,10 @@
-from django.conf.urls import url
+from django.urls import re_path
+
+from itdagene.app.experiences import views
 
 urlpatterns = [
-    url(r'^$', 'itdagene.app.experiences.views.list'),
-    url(r'^add$', 'itdagene.app.experiences.views.add'),
-    url(r'^(?P<id>\d+)/$', 'itdagene.app.experiences.views.view'),
-    url(r'^(?P<id>\d+)/edit$', 'itdagene.app.experiences.views.edit'),
+    re_path(r'^$', views.list, name='itdagene.experiences.list'),
+    re_path(r'^add$', views.add, name='itdagene.experiences.add'),
+    re_path(r'^(?P<id>\d+)/$', views.view, name='itdagene.experiences.view'),
+    re_path(r'^(?P<id>\d+)/edit$', views.edit, name='itdagene.experiences.edit'),
 ]

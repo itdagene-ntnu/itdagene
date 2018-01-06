@@ -50,7 +50,7 @@
                         <tbody>
                             {% for group in person.groups.all %}
                                 {% if perms.auth.change_group %}
-                                    <tr><td><a href="{% url "itdagene.app.itdageneadmin.views.groups.view" group.pk %}">{{ group }}</a></td></tr>
+                                    <tr><td><a href="{% url "itdagene.itdageneadmin.groups.view" group.pk %}">{{ group }}</a></td></tr>
                                 {% else %}
                                     <tr><td>{{ group }}</td></tr>
                                 {% endif %}
@@ -79,17 +79,17 @@
     <div class="row">
         <div class="col-lg-12">
         <div class="btn-group">
-            <a href="{% url "itdagene.app.users.views.user_list" %}" class="btn btn-default">{% trans "Go Back" %}</a>
-            <a href="{% url "itdagene.app.users.views.vcard" person.pk %}" class="btn btn-default">{% trans "vCard" %}</a>
+            <a href="{% url "itdagene.users.user_list" %}" class="btn btn-default">{% trans "Go Back" %}</a>
+            <a href="{% url "itdagene.users.vcard" person.pk %}" class="btn btn-default">{% trans "vCard" %}</a>
             {% if perms.core.change_user or user.pk == person.pk %}
-            <a href="{% url "itdagene.app.users.views.user_edit" person.pk %}" class="btn btn-primary">{% trans "Edit User" %}</a>
-            <a href="{% url "itdagene.app.users.views.user_edit_password" person.pk %}" class="btn btn-primary">{% trans "Edit Password" %}</a>
+            <a href="{% url "itdagene.users.user_edit" person.pk %}" class="btn btn-primary">{% trans "Edit User" %}</a>
+            <a href="{% url "itdagene.users.user_edit_password" person.pk %}" class="btn btn-primary">{% trans "Edit Password" %}</a>
             {% endif %}
             {% if perms.core.send_welcome_email %}
-            <a href="{% url "itdagene.app.users.views.send_welcome_email" person.pk %}" class="btn btn-primary">{% trans "Send welcome email" %}</a>
+            <a href="{% url "itdagene.users.send_welcome_email" person.pk %}" class="btn btn-primary">{% trans "Send welcome email" %}</a>
             {% endif %}
             {% if perms.core.delete_user %}
-            <a href="{% url "itdagene.app.users.views.user_delete" person.pk %}" class="btn btn-danger">{% trans "Delete User" %}</a>
+            <a href="{% url "itdagene.users.user_delete" person.pk %}" class="btn btn-danger">{% trans "Delete User" %}</a>
         {% endif %}
         </div>
         </div>

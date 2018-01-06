@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
 from django.db import migrations, models
@@ -14,7 +13,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='company',
             name='is_collaborator',
-            field=models.BooleanField(default=False, verbose_name=b'collaborator'),
+            field=models.BooleanField(default=False, verbose_name='collaborator'),
             preserve_default=True,
         ),
     ]

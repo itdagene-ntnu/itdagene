@@ -20,7 +20,7 @@
 {% block body %}
     {% if request.user.is_authenticated %}
         <header class="main-header">
-            <a href="{% url "itdagene.app.frontpage.views.inside" %}" class="logo">
+            <a href="{% url "itdagene.frontpage.inside" %}" class="logo">
                 <img src="{% static "img/itdagene_flat.png" %}">
             </a>
             <nav class="navbar navbar-static-top" role="navigation">
@@ -58,7 +58,7 @@
                                 </li>
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="{% url "itdagene.app.users.views.user_detail" user.pk %}"
+                                        <a href="{% url "itdagene.users.user_detail" user.pk %}"
                                            class="btn btn-default btn-flat">{% trans "Profile" %}</a>
                                     </div>
                                     <div class="pull-right">
@@ -96,11 +96,11 @@
                     <ul class="sidebar-menu">
                         <li class="header">{% trans "MAIN NAVIGATION" %}</li>
                         <li>
-                            <a href="{% url "itdagene.app.frontpage.views.public" %}"><i
+                            <a href="{% url "itdagene.frontpage.public" %}"><i
                                     class="fa fa-home  "></i> {% trans "Frontpage" %}</a>
                         </li>
                         <li>
-                            <a href="{% url "itdagene.app.frontpage.views.inside" %}"><i
+                            <a href="{% url "itdagene.frontpage.inside" %}"><i
                                     class="fa fa-dashboard"></i> {% trans "Dashboard" %}</a>
                         </li>
                         {% if user.is_staff %}

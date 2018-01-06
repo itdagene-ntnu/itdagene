@@ -1,6 +1,7 @@
-# -*- coding: utf-8 -*-
-from django.conf.urls import url
+from django.urls import re_path
+
+from itdagene.app.comments.views import add
 
 urlpatterns = [
-    url(r'^add/$', 'itdagene.app.comments.views.add'),
+    re_path(r'^add/$', add, name='itdagene.comments.add'),
 ]

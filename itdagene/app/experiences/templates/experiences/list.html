@@ -13,7 +13,7 @@
                     <tbody>
                     {% for experience in experiences %}
                     <tr>
-                        <td><a href="{% url "itdagene.app.experiences.views.view" experience.pk %}">{{ experience }}</a></td>
+                        <td><a href="{% url "itdagene.experiences.view" experience.pk %}">{{ experience }}</a></td>
                         <td><em>{% trans "Last updated" %}: {{ experience.last_updated }}</em></td>
                     </tr>
                     {% endfor %}

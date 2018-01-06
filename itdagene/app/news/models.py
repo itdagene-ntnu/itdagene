@@ -15,5 +15,5 @@ class Announcement(BaseModel):
         verbose_name = _('announcement')
         verbose_name_plural = _('announcements')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title

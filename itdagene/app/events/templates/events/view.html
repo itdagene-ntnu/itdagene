@@ -43,7 +43,7 @@
                             <tr>
                                 <td>{{ ticket.full_name }}</td>
                                 <td>{{ ticket.company }}</td>
-                                <td><a href="{% url "itdagene.app.events.views.edit_ticket" ticket.pk %}"><i class="fa fa-pencil"></i> {% trans "Edit" %}</a></td>
+                                <td><a href="{% url "itdagene.events.edit_ticket" ticket.pk %}"><i class="fa fa-pencil"></i> {% trans "Edit" %}</a></td>
                             </tr>
                         {% endfor %}
                         </tbody>

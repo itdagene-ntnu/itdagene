@@ -1,15 +1,9 @@
-# -*- coding: utf-8 -*-
 import json
 import os
 
 from django.core.management.base import BaseCommand
 
 from itdagene.app.workschedule.models import Worker
-
-
-def safe_unicode(obj):
-    string = str(obj)
-    return string.decode('latin1').encode('utf8')
 
 
 class Command(BaseCommand):

@@ -1,4 +1,4 @@
-from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.translation import ugettext as _
@@ -11,22 +11,25 @@ class Notification(models.Model):
 
     PRIORITIES = ((0, 'Low'), (1, 'Medium'), (2, 'High'))
 
-    priority = models.PositiveIntegerField(choices=PRIORITIES,
-                                           default=1,
-                                           verbose_name=_('priority'))
+    priority = models.PositiveIntegerField(
+        choices=PRIORITIES, default=1, verbose_name=_('priority')
+    )
 
     date = models.DateTimeField(auto_now=True, verbose_name=_('date'))
     message = models.TextField(verbose_name=_('message'))
-    content_type = models.ForeignKey(ContentType)
+    content_type = models.ForeignKey(
+        ContentType,
+        on_delete=models.CASCADE,
+    )
     object_id = models.PositiveIntegerField()
-    content_object = generic.GenericForeignKey('content_type', 'object_id')
+    content_object = GenericForeignKey('content_type', 'object_id')
 
     send_mail = models.BooleanField(default=True, verbose_name=_('send mail'))
     sent_mail = models.BooleanField(default=False, verbose_name=_('sent mail'))
 
     users = models.ManyToManyField(User, verbose_name='users', related_name='notifications')
 
-    def __unicode__(self):
+    def __str__(self):
         if len(self.message) > 100:
             return '%s...' % (self.message[0:100], )
         return '%s' % (self.message, )
@@ -54,10 +57,8 @@ class Notification(models.Model):
         send_mail = bool(object.notification_priority())
 
         notification = Notification(
-            content_object=object,
-            priority=object.notification_priority(),
-            message=object.notification_message(),
-            send_mail=send_mail
+            content_object=object, priority=object.notification_priority(),
+            message=object.notification_message(), send_mail=send_mail
         )
 
         notification.save()
@@ -67,13 +68,13 @@ class Notification(models.Model):
 
 
 class Subscription(models.Model):
-    content_type = models.ForeignKey(ContentType)
+    content_type = models.ForeignKey(
+        ContentType,
+        on_delete=models.CASCADE,
+    )
     object_id = models.PositiveIntegerField()
-    content_object = generic.GenericForeignKey()
-    subscribers = models.ManyToManyField(User,
-                                         blank=True,
-                                         null=True,
-                                         related_name='subscriptions')
+    content_object = GenericForeignKey()
+    subscribers = models.ManyToManyField(User, blank=True, related_name='subscriptions')
 
     class Meta:
         unique_together = ('content_type', 'object_id')
@@ -83,8 +84,9 @@ class Subscription(models.Model):
         notification_object_ct = ContentType.objects.get_for_model(object.notification_object())
 
         try:
-            subscription = Subscription.objects.get(content_type=notification_object_ct,
-                                                    object_id=object.notification_object().id)
+            subscription = Subscription.objects.get(
+                content_type=notification_object_ct, object_id=object.notification_object().id
+            )
 
             subscribers = subscription.subscribers.all()
 
@@ -100,7 +102,7 @@ class Subscription(models.Model):
     @classmethod
     def subscribe(cls, object, user):
         subscription = Subscription.get_or_create(object)
-        if user and not user.is_anonymous():
+        if user and not user.is_anonymous:
             if user not in subscription.subscribers.all():
                 subscription.subscribers.add(user)
         subscription.save()
@@ -109,10 +111,8 @@ class Subscription(models.Model):
     def get_or_create(cls, object):
         content_type = ContentType.objects.get_for_model(object)
         try:
-            subscription = Subscription.objects.get(content_type=content_type,
-                                                    object_id=object.id)
+            subscription = Subscription.objects.get(content_type=content_type, object_id=object.id)
         except (TypeError, Subscription.DoesNotExist):
-            subscription = Subscription(content_type=content_type,
-                                        object_id=object.id)
+            subscription = Subscription(content_type=content_type, object_id=object.id)
             subscription.save()
         return subscription

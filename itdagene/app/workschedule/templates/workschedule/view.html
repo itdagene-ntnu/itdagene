@@ -45,11 +45,11 @@
                     <tbody>
                     {% for item in attendance %}
                     <tr>
-                        <td>{% if perms.workschedule.view_worker %}<a href="{% url "itdagene.app.workschedule.views.view_worker" item.worker.pk %}">{{ item.worker }}</a>{% else %}{{ item.worker }}{% endif %}</td>
+                        <td>{% if perms.workschedule.view_worker %}<a href="{% url "itdagene.workschedule.view_worker" item.worker.pk %}">{{ item.worker }}</a>{% else %}{{ item.worker }}{% endif %}</td>
                         <td>{{ item.has_met|yesno|capfirst }}</td>
                         <td>
                             {% if perms.workschedule.change_worker %}
-                                <a href="{% url "itdagene.app.workschedule.views.change_attendance" item.pk %}">{% trans "Change Attendance" %}</a>
+                                <a href="{% url "itdagene.workschedule.change_attendance" item.pk %}">{% trans "Change Attendance" %}</a>
                             {% endif %}
                         </td>
                     </tr>

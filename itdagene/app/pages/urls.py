@@ -1,11 +1,18 @@
-from django.conf.urls import url
+from django.urls import re_path
+
+from itdagene.app.pages.views import add, admin, edit, view_page
 
 urlpatterns = [
-    url(r'^pages/$', 'itdagene.app.pages.views.admin', name='pages'),
-    url(r'^pages/add/$', 'itdagene.app.pages.views.add'),
-    url(r'^$', 'itdagene.app.pages.views.view_page'),
-    url(r'^(?P<slug>[-_\w]+)/$', 'itdagene.app.pages.views.view_page'),
-    url(r'^(?P<slug>[-_\w]+)/edit/$', 'itdagene.app.pages.views.edit'),
-    url(r'^(?P<lang_code>[a-z][a-z])/(?P<slug>[-_\w]+)/$', 'itdagene.app.pages.views.view_page'),
-    url(r'^(?P<lang_code>[a-z][a-z])/(?P<slug>[-_\w]+)/edit/$', 'itdagene.app.pages.views.edit'),
+    re_path(r'^pages/$', admin, name='itdagene.pages.admin'),
+    re_path(r'^pages/add/$', add, name='itdagene.pages.add'),
+    re_path(r'^$', view_page, name='itdagene.pages.views.view_page'),
+    re_path(r'^(?P<slug>[-_\w]+)/$', view_page, name='itdagene.pages.view_page'),
+    re_path(r'^(?P<slug>[-_\w]+)/edit/$', edit, name='itdagene.pages.edit'),
+    re_path(
+        r'^(?P<lang_code>[a-z][a-z])/(?P<slug>[-_\w]+)/$', view_page,
+        name='itdagene.pages.view_page'
+    ),
+    re_path(
+        r'^(?P<lang_code>[a-z][a-z])/(?P<slug>[-_\w]+)/edit/$', edit, name='itdagene.pages.edit'
+    ),
 ]
