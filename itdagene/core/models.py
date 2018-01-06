@@ -11,7 +11,8 @@ from itdagene.core.auth import get_current_user
 
 
 def user_default_year():
-    return now().year
+    # Users are always created the year "before" they are active
+    return now().year + 1
 
 
 class User(AbstractUser):
