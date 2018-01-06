@@ -41,7 +41,7 @@ urlpatterns = [
     ),
     re_path(
         r'^contracts/(?P<company_id>\d+)/edit/(?P<id>\d+)/$', contracts.edit_contract,
-        name='itdagene.company.contracts.edit_contact'
+        name='itdagene.company.contracts.edit_contract'
     ),
     re_path(
         r'^contracts/(?P<company_id>\d+)/download/(?P<id>\d+)/$', contracts.download_contract,
