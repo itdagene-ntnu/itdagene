@@ -50,7 +50,7 @@ def list_companies(request):
 
 @staff_required()
 def view(request, id):
-    company = get_object_or_404(Company.objects.select_related(), pk=id)
+    company = get_object_or_404(Company.objects.select_related().prefetch_related(), pk=id)
     evaluation, created = Evaluation.objects.get_or_create(
         company=company, preference=Preference.current_preference()
     )

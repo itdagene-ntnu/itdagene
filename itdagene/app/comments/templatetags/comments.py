@@ -13,7 +13,7 @@ def load_comments(context, object):
     type = ContentType.objects.get_for_model(object)
     id = object.id
     comments = Comment.objects.filter(content_type=type,
-                                      object_id=id).order_by('-date')
+                                      object_id=id).order_by('-date').select_related('user')
     form = False
     if context['request'].user.has_perm('comments.add_comment'):
         form = CommentForm(instance=Comment(content_type=type, object_id=id))
