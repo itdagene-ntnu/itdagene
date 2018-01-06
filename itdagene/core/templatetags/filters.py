@@ -2,6 +2,7 @@ from django.template import Library
 from django.utils import formats
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
+from django.core.cache import cache
 
 register = Library()
 
@@ -21,9 +22,8 @@ def has_contract_for_current_year(value, arg=None):
     """
     Returns True if the contract passed as value is from current year
     """
-    from itdagene.core.models import Preference
     for contract in value:
-        if contract.timestamp.year == Preference.current_preference().year:
+        if contract.timestamp.year == int(arg):
             return True
     return False
 
@@ -54,5 +54,5 @@ def datetime(value, arg=None):
             return ''
     return mark_safe(
         '<span class="date"><span class="date-ts"> for %s %s</span><span class="date-normal" '
-        'style="display:none;">%s</span></span>'
-        % (ts, _('ago'), normal))
+        'style="display:none;">%s</span></span>' % (ts, _('ago'), normal)
+    )

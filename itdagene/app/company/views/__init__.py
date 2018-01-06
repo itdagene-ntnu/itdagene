@@ -34,11 +34,15 @@ def list_companies(request):
         user_companies = temp_companies + signed_companies + not_interested_companies
     else:
         user_companies = None
-    companies = Company.objects.filter(active=True).order_by('name').select_related('contact')
+    companies = Company.objects.filter(active=True).order_by('name').select_related(
+        'contact',
+        'package',
+    ).prefetch_related('waiting_for_package', 'contracts')
     return render(
         request, 'company/base.html', {
             'companies': companies,
             'user_companies': user_companies,
+            'year': Preference.current_preference().year,
             'title': _('Companies')
         }
     )

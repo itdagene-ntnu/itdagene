@@ -103,6 +103,8 @@
                             <a href="{% url "itdagene.frontpage.inside" %}"><i
                                     class="fa fa-dashboard"></i> {% trans "Dashboard" %}</a>
                         </li>
+
+                        {% comment "Not using this" %}
                         {% if user.is_staff %}
                             <li class="{% active request 'pages' %} treeview"><a href="#"><span
                                     class="glyphicon glyphicon-bookmark"></span> {% trans "Pages" %}
@@ -115,6 +117,7 @@
                                 {% include 'news/submenu.html' %}
                             </li>
                         {% endif %}
+                        {% endcomment %}
                         {% if request.user.is_staff %}
                             <li class="{% active request 'events' %} treeview"><a href="#"><span
                                     class="glyphicon glyphicon-calendar"></span> {% trans "Events" %}
@@ -144,6 +147,8 @@
                                 {% include 'company/packages/submenu.html' %}
                             </li>
                         {% endif %}
+
+                        {% comment "Not using this" %}
                         {% if request.user.is_staff %}
                             <li class="{% active request 'meetings' %} treeview"><a href="#"><span
                                     class="glyphicon glyphicon-comment"></span> {% trans "Meetings" %}
@@ -159,7 +164,7 @@
                                 {% include 'workschedule/submenu.html' %}
                             </li>
                         {% endif %}
-
+                        {% endcomment %}
                         {% if perms.quiz.view_quiz %}
                             <li class="{% active request 'quiz' %} treeview"><a
                                     href="#"><span
@@ -188,6 +193,7 @@
                                 {% include 'feedback/submenu.html' %}
                             </li>
                         {% endif %}
+                        {% comment "Not using this" %}
                         {% if request.user.is_staff %}
                             <li class="{% active request 'experiences' %} treeview"><a
                                     href="#"><span
@@ -196,6 +202,7 @@
                                 {% include 'experiences/submenu.html' %}
                             </li>
                         {% endif %}
+                        {% endcomment %}
 
                     </ul>
                 </section>
