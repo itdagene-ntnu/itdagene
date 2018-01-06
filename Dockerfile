@@ -4,7 +4,6 @@ RUN mkdir /code
 WORKDIR /code
 COPY . /code/
 
-RUN echo '{ "allow_root": true }' > /root/.bowerrc # Shitty bower
 RUN set -e \
     && npm install -g bower \
     && bower --allow-root install \
