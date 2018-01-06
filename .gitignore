@@ -23,6 +23,7 @@ itdagene/uploads/
 env/
 venv/
 itdagene/settings/local.py
+itdagene/settings/docker.py
 src/
 /static/
 .DS_Store
