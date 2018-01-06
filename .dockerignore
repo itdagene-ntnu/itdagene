@@ -1,0 +1,42 @@
+#file endings not of generated files
+*.pyc
+*.pyo
+*.orig
+*~
+*.egg-info
+.idea
+project.db
+pickle*.txt
+#generated buildout stuff
+bin
+develop-eggs
+downloads
+eggs
+omelette
+parts
+.installed.cfg
+*.DS_STORE
+build/*
+itdagene/files/uploads/
+itdagene/files/static/lib/
+itdagene/uploads/
+env/
+venv/
+itdagene/settings/local.py
+src/
+/static/
+.DS_Store
+itdagene/assets/lib
+.swp
+node_modules/
+itdagene/assets/frontend/itdagene.css
+itdagene/assets/frontend/itdagene.js
+.coverage
+.tox/
+coverage.xml
+dump.rdb
+
+# Celerystuff
+
+celerybeat-schedule
+celerybeat.pid

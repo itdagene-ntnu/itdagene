@@ -21,7 +21,7 @@ urlpatterns = [
     ),
     re_path(
         r'^contacts/(?P<company>\d+)/add/$', company_contacts.add_contact,
-        name='itdagene.company.company_contacts.add'
+        name='itdagene.company.company_contacts.add_contact'
     ),
     re_path(
         r'^contacts/(?P<id>\d+)/vcard$', company_contacts.vcard,
@@ -37,7 +37,7 @@ urlpatterns = [
     ),
     re_path(
         r'^contracts/(?P<company_id>\d+)/add/$', contracts.add_contract,
-        name='itdagen.company.contracts.add_contact'
+        name='itdagene.company.contracts.add_contract'
     ),
     re_path(
         r'^contracts/(?P<company_id>\d+)/edit/(?P<id>\d+)/$', contracts.edit_contract,
