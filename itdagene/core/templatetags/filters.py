@@ -1,8 +1,8 @@
+from django.core.cache import cache
 from django.template import Library
 from django.utils import formats
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
-from django.core.cache import cache
 
 register = Library()
 
