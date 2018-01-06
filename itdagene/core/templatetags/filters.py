@@ -39,11 +39,11 @@ def datetime(value, arg=None):
     ts = ""
     normal = ""
     if not value:
-        return u''
+        return ''
     try:
         ts = timesince(value)
     except (ValueError, TypeError):
-        return u''
+        return ''
     try:
         normal = formats.date_format(value, settings.DATETIME_FORMAT)
     except AttributeError:
