@@ -15,7 +15,7 @@ urlpatterns = [
         name='itdagene.users.send_welcome_email'
     ),
     re_path(r'^(?P<pk>\d+)/vcard/$', vcard, name='itdagene.users.vcard'),
-    re_path(r'^(?P<pk>\d+)/edit/$', user_edit, name='itdagene.usersuser_edit'),
+    re_path(r'^(?P<pk>\d+)/edit/$', user_edit, name='itdagene.users.user_edit'),
     re_path(
         r'^(?P<pk>\d+)/edit/password/$', user_edit_password,
         name='itdagene.users.user_edit_password'
