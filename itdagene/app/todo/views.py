@@ -63,4 +63,4 @@ def change_status(request, pk):
     todo = get_object_or_404(Todo, pk=pk, user=request.user)
     todo.finished = not todo.finished
     todo.save(notify_subscribers=False)
-    return redirect(reverse('itdagene.frontpage.views.inside'))
+    return redirect(reverse('itdagene.frontpage.inside'))

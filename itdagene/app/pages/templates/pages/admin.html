@@ -18,9 +18,9 @@
                 <tbody>
                     {% for page in pages %}
                         <tr>
-                            <td><a href="{% url "itdagene.pages.views.view_page" page.slug %}">{{ page }}</a></td>
+                            <td><a href="{% url "itdagene.pages.view_page" page.slug %}">{{ page }}</a></td>
                             {% if perms.pages.change_page %}
-                                <td><a href="{% url "itdagene.pages.views.edit" page.slug %}">{% trans "Edit" %}</a></td>
+                                <td><a href="{% url "itdagene.pages.edit" page.slug %}">{% trans "Edit" %}</a></td>
                             {% endif %}
                         </tr>
                     {% endfor %}

@@ -41,7 +41,7 @@
                         <tbody>
                             {% for member in members %}
                                 {% if request.user.is_staff %}
-                                    <tr><td><a href="{% url "itdagene.app.users.views.user_detail" member.pk %}">{{ member.get_full_name }}</a></td></tr>
+                                    <tr><td><a href="{% url "itdagene.users.user_detail" member.pk %}">{{ member.get_full_name }}</a></td></tr>
                                 {% else %}
                                     <tr><td>{{ member.get_full_name }}</td></tr>
                                 {% endif %}
