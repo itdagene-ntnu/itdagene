@@ -104,20 +104,20 @@
                                     class="fa fa-dashboard"></i> {% trans "Dashboard" %}</a>
                         </li>
 
-                        {% comment "Not using this" %}
                         {% if user.is_staff %}
                             <li class="{% active request 'pages' %} treeview"><a href="#"><span
                                     class="glyphicon glyphicon-bookmark"></span> {% trans "Pages" %}
                                 <i class="fa fa-angle-left pull-right"></i></a>
                                 {% include 'pages/submenu.html' %}
                             </li>
+                        {% comment "Not using this" %}
                             <li class="{% active request 'news' %} treeview"><a href="#"><span
                                     class="glyphicon glyphicon-bullhorn"></span> {% trans "Announcements" %}
                                 <i class="fa fa-angle-left pull-right"></i> </a>
                                 {% include 'news/submenu.html' %}
                             </li>
-                        {% endif %}
                         {% endcomment %}
+                        {% endif %}
                         {% if request.user.is_staff %}
                             <li class="{% active request 'events' %} treeview"><a href="#"><span
                                     class="glyphicon glyphicon-calendar"></span> {% trans "Events" %}
