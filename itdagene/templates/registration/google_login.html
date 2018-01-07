@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% load static i18n %}
+{% load core thumbnail menu widget_tweaks %}
+{% load crispy_forms_tags %}
+
+{% block styles %}
+    <link href="{% static "css/admin/AdminLTE.css" %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+
+{% block body_class %}
+    skin-black login-page
+{% endblock %}
+re
+
+{% block body %}
+
+    <div class="login-box">
+        <div class="login-logo">
+            <img src="{% static "img/itdagene_flat.png" %}">
+        </div>
+        <div class="login-box-body">
+                {% if request.GET.error %}
+                <div class="alert alert-warning">
+                        <strong>Feil!</strong> Innlogging feilet. Hvis du ikke får tilgang, kan du kontakte oss på #web slack :smile: <br />
+                        <i> PS: </i> er du sikker på at du brukte riktig konto???
+                </div>
+                {% endif %}
+                <p style="text-align:center"> Logg inn med <tt>@itdagene.no</tt> kontoen din </p>
+                <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.GET.next |urlencode}}">
+                        <img style="margin-left:auto;margin-right:auto;display:block" src="{% static "img/btn_google_signin_dark_normal_web.png" %}">
+                </a>
+
+
+
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block scripts %}
+{% endblock %}
