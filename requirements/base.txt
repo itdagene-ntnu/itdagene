@@ -1,6 +1,6 @@
 django==2.0
 Markdown==2.6.11
-Pillow==4.3
+Pillow==5.0
 django-widget-tweaks==1.4.1
 psycopg2==2.7.3.2
 python-dateutil==2.6.1
