@@ -1,5 +1,5 @@
 django==2.0
-Markdown==2.6.10
+Markdown==2.6.11
 Pillow==4.3
 django-widget-tweaks==1.4.1
 psycopg2==2.7.3.2
