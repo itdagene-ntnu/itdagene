@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.contrib.auth.views import login, logout
 from django.http import HttpResponsePermanentRedirect
 from django.urls import include, re_path, reverse
+from django.views.generic import TemplateView
 
 from itdagene.app.feedback.views.evalutions import handle_evaluation
 from itdagene.app.frontpage.views import frontpage, inside, public, tweet
@@ -14,7 +15,6 @@ handler404 = error404
 handler500 = error500
 
 urlpatterns = [
-    re_path(r'^login/$', login, name='itdagene.login'),
     re_path(r'^logout/$', logout,
             {
                 'next_page': inside
@@ -48,6 +48,18 @@ urlpatterns = [
 # Naming scheme for urls:
 # appname.viewname or appname.subname.viewname
 
+if settings.GOOGLE_AUTH:
+    urlpatterns += [
+        re_path('', include('social_django.urls', namespace='social')),
+        re_path(
+            r'^login/$', TemplateView.as_view(template_name='registration/google_login.html'),
+            name='itdagene.login'
+        ),
+    ]
+else:
+    urlpatterns += [
+        re_path(r'^login/$', login, name='itdagene.login'),
+    ]
 # Redirects
 urlpatterns += [
     re_path(

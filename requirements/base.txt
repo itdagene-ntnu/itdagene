@@ -19,3 +19,4 @@ redis==2.10.6
 django-redis==4.8.0
 raven==6.4.0
 celery==4.1.0
+social-auth-app-django==2.1.0

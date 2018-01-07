@@ -15,6 +15,13 @@ def user_default_year():
     return now().year + 1
 
 
+def get_user(backend, details, user=None, *args, **kwargs):
+    try:
+        return dict(kwargs, user=User.objects.get(email=details['email']))
+    except Exception:
+        return None
+
+
 class User(AbstractUser):
     phone = models.IntegerField(blank=True, null=True, verbose_name=_('phone number'))
     photo = models.ImageField(
