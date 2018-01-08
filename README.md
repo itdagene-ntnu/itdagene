@@ -25,7 +25,7 @@ Setup python environment
 $ python3 -m venv venv
 $ source venv/bin/activate
 $ pip install -r requirements/base.txt
-$ make itdagene/settings/local.py 
+$ echo "from itdagene.settings.dev import *" > itdagene/settings/local.py 
 $ docker-compose up -d # This starts the databse & redis
 ```
 
