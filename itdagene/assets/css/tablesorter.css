@@ -1,14 +1,16 @@
-th.header{
-  cursor: pointer;
-  background-image: url(../img/bg.gif);
-  background-repeat: no-repeat;
-  background-position: center right;
-  border-right: 1px solid #dad9c7
-}
-th.header.headerSortUp{
-  background-image: url(../img/asc.gif)
+
+.tablesorter-default .header,.tablesorter-default .tablesorter-header {
+    background-image: url(data:image/gif;base64,R0lGODlhFQAJAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw==);
+    background-position: center right;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    white-space: normal;
 }
 
-th.header.headerSortDown{
-  background-image: url(../img/desc.gif)
+.tablesorter-default thead .headerSortUp,.tablesorter-default thead .tablesorter-headerAsc,.tablesorter-default thead .tablesorter-headerSortUp {
+    background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjI8Bya2wnINUMopZAQA7);
+}
+
+.tablesorter-default thead .headerSortDown,.tablesorter-default thead .tablesorter-headerDesc,.tablesorter-default thead .tablesorter-headerSortDown {
+    background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjB+gC+jP2ptn0WskLQA7);
 }
