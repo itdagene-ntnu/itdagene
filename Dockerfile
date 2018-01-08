@@ -6,7 +6,8 @@ COPY . /code/
 
 RUN set -e \
     && yarn \
-    && yarn build
+    && yarn build \
+    && rm node_modules -r
 
 FROM python:3.6-alpine
 ENV PYTHONUNBUFFERED 1
@@ -17,6 +18,5 @@ COPY --from=builder /code/ .
 RUN set -e \
     && apk add --no-cache postgresql-dev build-base jpeg-dev git \
     && pip install --no-cache -r requirements/prod.txt \
+    && apk del build-base \
     && python manage.py collectstatic
-
-
