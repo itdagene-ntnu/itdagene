@@ -39,7 +39,6 @@
     "jquery": "^3.2.1",
     "lightbox2": "^2.10.0",
     "moment": "^2.8.4",
-    "moment-timezone": "^0.5.14",
     "nib": "^1.0.4",
     "react": "^0.12.1",
     "react-bootstrap": "^0.13.0",
