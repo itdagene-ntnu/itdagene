@@ -2,11 +2,11 @@
 {% load crispy_forms_tags static %}
 
 {% block styles %}
-    <link rel="stylesheet" href="{{ STATIC_URL }}lib/bootstrap-datepicker/css/datepicker3.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}lib/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css">
     <link rel="stylesheet" href="{% static "lib/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" %}">
 {% endblock %}
 {% block scripts %}
-    <script type="text/javascript" src="{{ STATIC_URL }}lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
     <script type="text/javascript" src="{% static "lib/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js" %}"></script>
     <script>$(function(){ $("#id_date").datepicker({format: 'yyyy-mm-dd'}); });</script>
     <script>$(function(){ $("#id_deadline").datetimepicker({ format:'YYYY-MM-DD HH:mm' });});</script>
