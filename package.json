@@ -4,7 +4,10 @@
   "description": "itDAGENE",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "yarn build:prod",
+    "build:prod": "webpack -p",
+    "build:dev": "webpack"
   },
   "repository": {
     "type": "git",

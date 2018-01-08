@@ -17,7 +17,7 @@ module.exports = {
       {
         test: /\.styl$/,
         loader:
-          "file-loader?name=itdagene.css!stylus-loader?paths=node_modules/bootstrap-stylus/stylus/"
+          "file-loader?name=[name].css!stylus-loader?paths=node_modules/bootstrap-stylus/stylus/"
       }
     ]
   },
