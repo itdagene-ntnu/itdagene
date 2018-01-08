@@ -1,8 +1,3 @@
-/** @jsx React.DOM */
-
-var React = require("react");
-require("./../styl/itdagene.styl");
-
 $(document).ready(function() {
   $(window).scroll(function() {
     if ($(".navbar").offset().top > 50) {

@@ -2,7 +2,23 @@ const path = require("path");
 const webpack = require("webpack");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
-const Assets = require("./assets");
+// List of static assets to be copied to dist
+const assets = [
+  "animate.css",
+  "bootstrap/dist",
+  "chosen-js",
+  "lightbox2",
+  "bootstrap-datepicker",
+  "font-awesome",
+  "eonasdan-bootstrap-datetimepicker/build",
+  "bootstrap-chosen",
+  "bootstrap-table/dist",
+  "tablesorter",
+  "ionicons",
+  "hover.css",
+  "jquery/dist",
+  "moment/min"
+];
 
 module.exports = {
   entry: {
@@ -32,13 +48,11 @@ module.exports = {
     }),
 
     new CopyWebpackPlugin(
-      Assets.map(asset => {
-        return {
-          from: path.resolve(__dirname, `./node_modules/${asset}/`),
-          toType: "dir",
-          to: path.resolve(__dirname, `./itdagene/assets/lib/${asset}/`)
-        };
-      })
+      assets.map(asset => ({
+        from: path.resolve(__dirname, `./node_modules/${asset}/`),
+        toType: "dir",
+        to: path.resolve(__dirname, `./itdagene/assets/lib/${asset}/`)
+      }))
     )
   ]
 };
