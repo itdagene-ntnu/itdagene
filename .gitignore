@@ -37,6 +37,9 @@ itdagene/assets/frontend/itdagene.js
 coverage.xml
 dump.rdb
 
+# yarn
+yarn-error.log
+
 # Celerystuff
 
 celerybeat-schedule
