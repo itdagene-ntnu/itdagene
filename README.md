@@ -10,6 +10,7 @@
 - Postgres as main database
 - Celery (with redis-broker) for async tasks
 - CircleCI for continuous integration
+- yarn and webpack for javascript
 
 ## Setup
 
@@ -17,7 +18,6 @@ First make sure that you have the following software installed on your system:
 
 - Python 3.6
 - Node.js and yarn
-- bower (install globally with yarn/npm)
 - [docker] together with [docker-compose]
 
 Setup python environment
@@ -25,18 +25,15 @@ Setup python environment
 $ python3 -m venv venv
 $ source venv/bin/activate
 $ pip install -r requirements/base.txt
+$ make itdagene/settings/local.py 
 $ docker-compose up -d # This starts the databse & redis
-
 ```
 
 Install other dependencies:
 
 ```bash
-$ bower install
-$ npm install
-
-$ make # make clean to clean
-$ make local-dev
+$ yarn
+$ yarn build
 ```
 
 ## Starting the app

@@ -5,10 +5,8 @@ WORKDIR /code
 COPY . /code/
 
 RUN set -e \
-    && npm install -g bower \
-    && bower --allow-root install \
-    && npm install \
-    && make
+    && yarn \
+    && yarn build
 
 FROM python:3.6-alpine
 ENV PYTHONUNBUFFERED 1
