@@ -1,8 +1,7 @@
 from django.urls import re_path
 
-from itdagene.app.meetings.views import (
-    add, add_penalties, attend, edit, list, meeting, not_attend, send_invites
-)
+from itdagene.app.meetings.views import (add, add_penalties, attend, edit, list, meeting,
+                                         not_attend, send_invites)
 
 urlpatterns = [
     re_path(r'^$', list, name='itdagene.meetings.list'),
