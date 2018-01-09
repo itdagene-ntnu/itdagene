@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  tests:
+  tests-python:
     docker:
       - image: python:3.6
       - image: postgres
@@ -45,6 +45,31 @@ jobs:
             tox -e py36
             tox -e coverage
 
+  tests-javascript:
+    docker:
+      - image: node:8
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - deps-{{ checksum "yarn.lock" }}
+      - run:
+          name: install dependencies
+          command: |
+            yarn
+
+      - save_cache:
+          paths:
+            - ./node_modules/
+          key: deps-{{ checksum "yarn.lock" }}
+
+      - run:
+          name: build
+          command: |
+            yarn build
+
+
   build-docker:
     machine: true
     steps:
@@ -57,10 +82,12 @@ workflows:
   version: 2
   on_push:
     jobs:
-      - tests
+      - tests-python
+      - tests-javascript
       - build-docker:
           requires:
-            - tests
+            - tests-python
+            - tests-javascript
           filters:
             branches:
               only:
