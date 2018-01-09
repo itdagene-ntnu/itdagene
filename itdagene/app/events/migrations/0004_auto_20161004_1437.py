@@ -14,7 +14,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='event',
             name='type',
-            field=models.PositiveIntegerField(choices=[(0, 'Course'), (1, 'Company presentation'), (2, 'Banquet'), (3, 'Summer internship marathon'), (4, 'Baloon drop'), (5, 'Competition')], verbose_name='type'),
+            field=models.PositiveIntegerField(
+                choices=[
+                    (0, 'Course'), (1, 'Company presentation'), (2, 'Banquet'),
+                    (3, 'Summer internship marathon'), (4, 'Baloon drop'), (5, 'Competition')
+                ], verbose_name='type'
+            ),
         ),
         migrations.AlterField(
             model_name='ticket',

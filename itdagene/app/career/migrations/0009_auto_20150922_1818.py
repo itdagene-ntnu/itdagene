@@ -12,6 +12,6 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='joblisting',
-            options={'ordering': ('deadline',)},
+            options={'ordering': ('deadline', )},
         ),
     ]

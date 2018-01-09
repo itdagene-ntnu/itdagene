@@ -1,8 +1,9 @@
 from django.urls import re_path
 
-from itdagene.app.company.views import (add, book_company, company_contacts, contracts, economics,
-                                        edit, list_companies, packages, set_responsibilities,
-                                        set_status, view, waiting_list)
+from itdagene.app.company.views import (
+    add, book_company, company_contacts, contracts, economics, edit, list_companies, packages,
+    set_responsibilities, set_status, view, waiting_list
+)
 
 urlpatterns = [
     re_path(r'^companies/$', list_companies, name='itdagene.company.list_companies'),

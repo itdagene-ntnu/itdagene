@@ -134,8 +134,8 @@ class Migration(migrations.Migration):
                 (
                     'creator',
                     models.ForeignKey(
-                        related_name='preference_creator', on_delete=models.CASCADE,
-                        editable=False, to=settings.AUTH_USER_MODEL
+                        related_name='preference_creator', on_delete=models.CASCADE, editable=False,
+                        to=settings.AUTH_USER_MODEL
                     )
                 ),
                 (

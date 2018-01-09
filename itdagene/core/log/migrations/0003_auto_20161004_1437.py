@@ -14,6 +14,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='logitem',
             name='priority',
-            field=models.PositiveIntegerField(choices=[(0, 'Low'), (1, 'Medium'), (2, 'High'), (3, 'Very High. Will send email to administrators')], default=1, verbose_name='priority'),
+            field=models.PositiveIntegerField(
+                choices=[
+                    (0, 'Low'), (1, 'Medium'), (2, 'High'),
+                    (3, 'Very High. Will send email to administrators')
+                ], default=1, verbose_name='priority'
+            ),
         ),
     ]

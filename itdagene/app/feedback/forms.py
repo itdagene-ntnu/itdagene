@@ -18,8 +18,7 @@ class IssueAssignForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(IssueAssignForm, self).__init__(*args, **kwargs)
-        users = User.objects.filter(is_active=True,
-                                    is_staff=True).order_by('first_name')
+        users = User.objects.filter(is_active=True, is_staff=True).order_by('first_name')
         self.fields['assigned_user'].queryset = users
 
 

@@ -14,6 +14,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='joblisting',
             name='contact',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='company.CompanyContact', verbose_name='contact'),
+            field=models.ForeignKey(
+                blank=True, null=True, on_delete=django.db.models.deletion.CASCADE,
+                to='company.CompanyContact', verbose_name='contact'
+            ),
         ),
     ]

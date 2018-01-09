@@ -12,5 +12,4 @@ class Migration(migrations.Migration):
         ('feedback', '0008_auto_20161004_1437'),
     ]
 
-    operations = [
-    ]
+    operations = []

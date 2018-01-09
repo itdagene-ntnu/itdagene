@@ -30,13 +30,12 @@ class CompanyForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(CompanyForm, self).__init__(*args, **kwargs)
         users = User.objects.filter(
-            is_active=True,
-            is_staff=True,
-            year=Preference.current_preference().year).order_by('first_name')
-        self.fields['contact'].choices = [('', '----')] + [(
-            user.pk, user.get_full_name()) for user in users]
-        waiting_lists = Package.objects.filter(is_full=True,
-                                               has_waiting_list=True)
+            is_active=True, is_staff=True, year=Preference.current_preference().year
+        ).order_by('first_name')
+        self.fields['contact'].choices = [('', '----')] + [
+            (user.pk, user.get_full_name()) for user in users
+        ]
+        waiting_lists = Package.objects.filter(is_full=True, has_waiting_list=True)
         self.fields['waiting_for_package'].queryset = waiting_lists
 
 
@@ -47,15 +46,15 @@ class BookCompanyForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(BookCompanyForm, self).__init__(*args, **kwargs)
-        packages = Package.objects.filter(Q(is_full=False) or
-                                          Q(companies=self.instance))
+        packages = Package.objects.filter(Q(is_full=False) or Q(companies=self.instance))
         self.fields['package'].queryset = packages
 
         self.helper = FormHelper()
         self.helper.layout = Layout(
-            FieldWithButtons('package', StrictButton(_('Save'),
-                                                     type='submit',
-                                                     css_class='btn-success')))
+            FieldWithButtons(
+                'package', StrictButton(_('Save'), type='submit', css_class='btn-success')
+            )
+        )
 
 
 class WaitingListCompanyForm(ModelForm):
@@ -65,17 +64,18 @@ class WaitingListCompanyForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(WaitingListCompanyForm, self).__init__(*args, **kwargs)
-        waiting_lists = Package.objects.filter(is_full=True,
-                                               has_waiting_list=True).exclude(
-                                                   companies=self.instance)
+        waiting_lists = Package.objects.filter(is_full=True, has_waiting_list=True
+                                               ).exclude(companies=self.instance)
         self.fields['waiting_for_package'].queryset = waiting_lists
         self.fields['waiting_for_package'].help_text = None
 
         self.helper = FormHelper()
-        self.helper.layout = Layout(FieldWithButtons(
-            'waiting_for_package', StrictButton(_('Save'),
-                                                type='submit',
-                                                css_class='btn-success')))
+        self.helper.layout = Layout(
+            FieldWithButtons(
+                'waiting_for_package',
+                StrictButton(_('Save'), type='submit', css_class='btn-success')
+            )
+        )
 
 
 class ResponsibilityForm(ModelForm):
@@ -86,11 +86,11 @@ class ResponsibilityForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(ResponsibilityForm, self).__init__(*args, **kwargs)
         users = User.objects.filter(
-            is_active=True,
-            is_staff=True,
-            year=Preference.current_preference().year).order_by('first_name')
-        self.fields['contact'].choices = [('', '----')] + [(
-            user.pk, user.get_full_name()) for user in users]
+            is_active=True, is_staff=True, year=Preference.current_preference().year
+        ).order_by('first_name')
+        self.fields['contact'].choices = [('', '----')] + [
+            (user.pk, user.get_full_name()) for user in users
+        ]
 
 
 class CompanyContactForm(ModelForm):
@@ -117,9 +117,10 @@ class CompanyStatusForm(ModelForm):
 
         self.helper = FormHelper()
         self.helper.layout = Layout(
-            FieldWithButtons('status', StrictButton(_('Save'),
-                                                    type='submit',
-                                                    css_class='btn-success')))
+            FieldWithButtons(
+                'status', StrictButton(_('Save'), type='submit', css_class='btn-success')
+            )
+        )
 
 
 class ContractForm(ModelForm):
@@ -127,5 +128,4 @@ class ContractForm(ModelForm):
 
     class Meta:
         model = Contract
-        fields = ('timestamp', 'file', 'joblistings', 'interview_room',
-                  'is_billed', 'has_paid')
+        fields = ('timestamp', 'file', 'joblistings', 'interview_room', 'is_billed', 'has_paid')

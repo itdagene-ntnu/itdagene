@@ -16,6 +16,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='subscription',
             name='subscribers',
-            field=models.ManyToManyField(blank=True, related_name='subscriptions', to=settings.AUTH_USER_MODEL),
+            field=models.ManyToManyField(
+                blank=True, related_name='subscriptions', to=settings.AUTH_USER_MODEL
+            ),
         ),
     ]

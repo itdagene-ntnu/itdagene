@@ -7,8 +7,10 @@ from itdagene.app.events.models import Event, Ticket
 class EventForm(ModelForm):
     class Meta:
         model = Event
-        fields = ('title', 'date', 'time_start', 'time_end', 'description', 'type', 'location',
-                  'is_internal', 'company', 'uses_tickets', 'max_participants')
+        fields = (
+            'title', 'date', 'time_start', 'time_end', 'description', 'type', 'location',
+            'is_internal', 'company', 'uses_tickets', 'max_participants'
+        )
 
 
 class EventTicketForm(ModelForm):

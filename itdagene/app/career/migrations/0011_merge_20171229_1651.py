@@ -12,5 +12,4 @@ class Migration(migrations.Migration):
         ('career', '0010_joblisting_hide_contactinfo'),
     ]
 
-    operations = [
-    ]
+    operations = []

@@ -16,11 +16,14 @@ def log(request, first_object=0):
     else:
         previous = None
     log = LogItem.objects.all().select_related(
-        'user', 'content_type').prefetch_related('content_object').order_by(
-            'timestamp').reverse()[int(first_object):int(first_object) + 40]
-    return render(request, 'admin/log.html', {
-        'log': log,
-        'previous': previous,
-        'next': int(first_object) + 41,
-        'title': _('Log')
-    })
+        'user', 'content_type'
+    ).prefetch_related('content_object').order_by('timestamp').reverse()[int(first_object):
+                                                                         int(first_object) + 40]
+    return render(
+        request, 'admin/log.html', {
+            'log': log,
+            'previous': previous,
+            'next': int(first_object) + 41,
+            'title': _('Log')
+        }
+    )

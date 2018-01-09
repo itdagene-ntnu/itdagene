@@ -13,7 +13,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='event',
             name='type',
-            field=models.PositiveIntegerField(verbose_name='type', choices=[(0, 'Course'), (1, 'Company presentation'), (2, 'Banquet'), (3, 'Summer internship marathon'), (4, 'Baloon drop')]),
+            field=models.PositiveIntegerField(
+                verbose_name='type', choices=[
+                    (0, 'Course'), (1, 'Company presentation'), (2, 'Banquet'),
+                    (3, 'Summer internship marathon'), (4, 'Baloon drop')
+                ]
+            ),
             preserve_default=True,
         ),
     ]

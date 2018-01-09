@@ -15,11 +15,18 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='meeting',
             name='preference',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='core.Preference', verbose_name='Preference'),
+            field=models.ForeignKey(
+                blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL,
+                to='core.Preference', verbose_name='Preference'
+            ),
         ),
         migrations.AlterField(
             model_name='meeting',
             name='referee',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='refereed_meetings', to=settings.AUTH_USER_MODEL, verbose_name='referee'),
+            field=models.ForeignKey(
+                blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL,
+                related_name='refereed_meetings', to=settings.AUTH_USER_MODEL,
+                verbose_name='referee'
+            ),
         ),
     ]

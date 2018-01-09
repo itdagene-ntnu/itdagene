@@ -23,9 +23,12 @@ def add_contract(request, company_id):
             return redirect(company.get_absolute_url())
     return render(
         request, 'company/form.html',
-        {'title': _('Add Contract'),
-         'form': form,
-         'company': company})
+        {
+            'title': _('Add Contract'),
+            'form': form,
+            'company': company
+        }
+    )
 
 
 @permission_required('company.change_contract')
@@ -41,12 +44,15 @@ def edit_contract(request, company_id, id):
         if form.is_valid():
             form.save()
             return redirect(company.get_absolute_url())
-    return render(request, 'company/form.html', {
-        'form': form,
-        'company': company,
-        'title': _('Change Contract'),
-        'description': contract
-    })
+    return render(
+        request, 'company/form.html',
+        {
+            'form': form,
+            'company': company,
+            'title': _('Change Contract'),
+            'description': contract
+        }
+    )
 
 
 @staff_required()

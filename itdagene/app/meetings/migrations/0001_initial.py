@@ -96,8 +96,8 @@ class Migration(migrations.Migration):
                 (
                     'creator',
                     models.ForeignKey(
-                        related_name='penalty_creator', editable=False,
-                        to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE
+                        related_name='penalty_creator', editable=False, to=settings.AUTH_USER_MODEL,
+                        on_delete=models.CASCADE
                     )
                 ),
                 (

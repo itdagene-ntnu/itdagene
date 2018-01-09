@@ -1,8 +1,10 @@
 from django.urls import re_path
 
 from itdagene.app.company.views.company_contacts import vcard
-from itdagene.app.users.views import (send_welcome_email, user_create, user_delete, user_detail,
-                                      user_edit, user_edit_password, user_list)
+from itdagene.app.users.views import (
+    send_welcome_email, user_create, user_delete, user_detail, user_edit, user_edit_password,
+    user_list
+)
 
 urlpatterns = [
     re_path(r'^$', user_list, name='itdagene.users.user_list'),

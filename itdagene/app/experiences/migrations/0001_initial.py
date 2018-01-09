@@ -39,8 +39,8 @@ class Migration(migrations.Migration):
                 (
                     'creator',
                     models.ForeignKey(
-                        related_name='experience_creator', editable=False,
-                        on_delete=models.CASCADE, to=settings.AUTH_USER_MODEL
+                        related_name='experience_creator', editable=False, on_delete=models.CASCADE,
+                        to=settings.AUTH_USER_MODEL
                     )
                 ),
                 (

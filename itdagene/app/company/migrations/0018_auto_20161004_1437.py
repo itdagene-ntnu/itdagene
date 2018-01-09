@@ -20,7 +20,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='company',
             name='logo',
-            field=sorl.thumbnail.fields.ImageField(blank=True, null=True, upload_to='company_logos/', verbose_name='logo'),
+            field=sorl.thumbnail.fields.ImageField(
+                blank=True, null=True, upload_to='company_logos/', verbose_name='logo'
+            ),
         ),
         migrations.AlterField(
             model_name='company',

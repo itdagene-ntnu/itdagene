@@ -14,7 +14,10 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='user',
             name='year',
-            field=models.PositiveIntegerField(default=2017, max_length=3000, blank=True, help_text='Year the user was active.', null=True, verbose_name='Active Year'),
+            field=models.PositiveIntegerField(
+                default=2017, max_length=3000, blank=True, help_text='Year the user was active.',
+                null=True, verbose_name='Active Year'
+            ),
             preserve_default=True,
         ),
     ]

@@ -24,9 +24,11 @@ class Command(BaseCommand):
         count = 0
 
         for worker in data:
-            w = Worker(phone=int(worker['tlf']),
-                       username=worker['username'],
-                       email="%s@stud.ntnu.no" % worker['username'], )
+            w = Worker(
+                phone=int(worker['tlf']),
+                username=worker['username'],
+                email="%s@stud.ntnu.no" % worker['username'],
+            )
             if 'name' in worker:
                 w.name = worker['name']
             else:

@@ -15,6 +15,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='company',
             name='waiting_for_package',
-            field=models.ManyToManyField(blank=True, related_name='waiting_list', to='company.Package', verbose_name='waiting for package'),
+            field=models.ManyToManyField(
+                blank=True, related_name='waiting_list', to='company.Package',
+                verbose_name='waiting for package'
+            ),
         ),
     ]
