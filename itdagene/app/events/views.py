@@ -13,9 +13,7 @@ from itdagene.core.models import Preference
 def list_events(request):
     pref = Preference.current_preference()
     events = Event.objects.filter(date__year=pref.year)
-    return render(request, 'events/base.html',
-                  {'events': events,
-                   'title': _('Events')})
+    return render(request, 'events/base.html', {'events': events, 'title': _('Events')})
 
 
 @permission_required('events.add_event')
@@ -27,9 +25,7 @@ def add_event(request):
             event = form.save()
             add_message(request, SUCCESS, _('Event added.'))
             return redirect(event.get_absolute_url())
-    return render(request, 'events/form.html',
-                  {'form': form,
-                   'title': _('Add Event')})
+    return render(request, 'events/form.html', {'form': form, 'title': _('Add Event')})
 
 
 @permission_required('events.change_event')
@@ -42,12 +38,14 @@ def edit_event(request, pk):
             event = form.save()
             add_message(request, SUCCESS, _('Event saved.'))
             return redirect(event.get_absolute_url())
-    return render(request, 'events/form.html', {
-        'event': event,
-        'form': form,
-        'title': _('Edit Event'),
-        'description': str(event)
-    })
+    return render(
+        request, 'events/form.html', {
+            'event': event,
+            'form': form,
+            'title': _('Edit Event'),
+            'description': str(event)
+        }
+    )
 
 
 @staff_required()
@@ -60,12 +58,14 @@ def view_event(request, pk):
             form.save()
             add_message(request, SUCCESS, _('Ticket was saved.'))
             form = EventTicketForm(instance=Ticket(event=event))
-    return render(request, 'events/view.html', {
-        'event': event,
-        'form': form,
-        'title': _('Event'),
-        'description': str(event)
-    })
+    return render(
+        request, 'events/view.html', {
+            'event': event,
+            'form': form,
+            'title': _('Event'),
+            'description': str(event)
+        }
+    )
 
 
 @staff_required()
@@ -80,7 +80,9 @@ def edit_ticket(request, pk):
             return redirect(ticket.event.get_absolute_url())
 
     return render(
-        request, 'events/form.html',
-        {'form': form,
-         'title': _('Edit Ticket'),
-         'description': str(ticket)})
+        request, 'events/form.html', {
+            'form': form,
+            'title': _('Edit Ticket'),
+            'description': str(ticket)
+        }
+    )

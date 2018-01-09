@@ -12,7 +12,11 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='companycontact',
-            options={'ordering': ['-pk'], 'verbose_name': 'company contact', 'verbose_name_plural': 'company contacts'},
+            options={
+                'ordering': ['-pk'],
+                'verbose_name': 'company contact',
+                'verbose_name_plural': 'company contacts'
+            },
         ),
         migrations.AddField(
             model_name='companycontact',

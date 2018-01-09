@@ -35,6 +35,11 @@ jobs:
             tox -e flake8
 
       - run:
+          name: yapf
+          command: |
+            tox -e yapf
+
+      - run:
           name: Tests
           command: |
             tox -e py36

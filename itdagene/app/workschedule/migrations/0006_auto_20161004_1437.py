@@ -19,6 +19,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='worker',
             name='t_shirt_size',
-            field=models.IntegerField(choices=[(1, 'XS'), (2, 'S'), (3, 'M'), (4, 'L'), (5, 'XL'), (6, 'XXL'), (7, 'XXXL'), (8, 'XXXXL')], default=0, verbose_name='t-shirt size'),
+            field=models.IntegerField(
+                choices=[
+                    (1, 'XS'), (2, 'S'), (3, 'M'), (4, 'L'), (5, 'XL'), (6, 'XXL'), (7, 'XXXL'),
+                    (8, 'XXXXL')
+                ], default=0, verbose_name='t-shirt size'
+            ),
         ),
     ]

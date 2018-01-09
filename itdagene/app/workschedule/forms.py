@@ -15,18 +15,16 @@ class WorkScheduleForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(WorkScheduleForm, self).__init__(*args, **kwargs)
-        workers = Worker.objects.filter(
-            preference=Preference.current_preference().year).order_by('name')
-        self.fields['invites'].choices = [(worker.pk, worker.name)
-                                          for worker in workers]
+        workers = Worker.objects.filter(preference=Preference.current_preference().year
+                                        ).order_by('name')
+        self.fields['invites'].choices = [(worker.pk, worker.name) for worker in workers]
         self.fields['invites'].widget.attrs['class'] = 'chosen'
 
     def save(self, commit=True):
         workschedule = super(WorkScheduleForm, self).save(commit=commit)
 
         for i in self.cleaned_data['invites']:
-            WorkerInSchedule.objects.get_or_create(schedule=workschedule,
-                                                   worker_id=i)
+            WorkerInSchedule.objects.get_or_create(schedule=workschedule, worker_id=i)
 
         return workschedule
 

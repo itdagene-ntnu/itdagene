@@ -75,8 +75,10 @@ We enforce the style guide [PEP 8] with flake8, and [isort] for import sorting. 
 
 ```bash
 $ isort -rc itdagene # Fix isort errors
+$ yapf -ir itdagene  # Fix code formatting
 $ tox -e isort       # Verify the result with tox
 $ tox -e flake8      # Verify PEP 8 style
+$ tox -e yapf        # Verify code formatting
 ```
 
 ## Celery

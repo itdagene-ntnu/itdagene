@@ -15,11 +15,16 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='notification',
             name='priority',
-            field=models.PositiveIntegerField(choices=[(0, 'Low'), (1, 'Medium'), (2, 'High')], default=1, verbose_name='prioritet'),
+            field=models.PositiveIntegerField(
+                choices=[(0, 'Low'), (1, 'Medium'), (2, 'High')], default=1,
+                verbose_name='prioritet'
+            ),
         ),
         migrations.AlterField(
             model_name='notification',
             name='users',
-            field=models.ManyToManyField(related_name='notifications', to=settings.AUTH_USER_MODEL, verbose_name='users'),
+            field=models.ManyToManyField(
+                related_name='notifications', to=settings.AUTH_USER_MODEL, verbose_name='users'
+            ),
         ),
     ]

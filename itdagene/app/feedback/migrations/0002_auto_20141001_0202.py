@@ -35,8 +35,7 @@ class Migration(migrations.Migration):
             model_name='evaluation',
             name='company',
             field=models.ForeignKey(
-                default=None, on_delete=models.CASCADE, verbose_name='Company',
-                to='company.Company'
+                default=None, on_delete=models.CASCADE, verbose_name='Company', to='company.Company'
             ),
             preserve_default=False,
         ),
@@ -44,8 +43,7 @@ class Migration(migrations.Migration):
             model_name='evaluation',
             name='preference',
             field=models.ForeignKey(
-                default=0, on_delete=models.CASCADE, verbose_name='Preference',
-                to='core.Preference'
+                default=0, on_delete=models.CASCADE, verbose_name='Preference', to='core.Preference'
             ),
             preserve_default=False,
         ),

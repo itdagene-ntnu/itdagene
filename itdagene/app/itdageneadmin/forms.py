@@ -9,8 +9,7 @@ from itdagene.core.models import Preference, User
 class UserForm(ModelForm):
     class Meta:
         model = User
-        exclude = ('username', 'password', 'user_permissions', 'last_login',
-                   'date_joined')
+        exclude = ('username', 'password', 'user_permissions', 'last_login', 'date_joined')
 
 
 class RegisterUserForm(forms.Form):
