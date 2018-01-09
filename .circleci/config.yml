@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  tests:
     docker:
       - image: python:3.6
       - image: postgres
@@ -12,7 +12,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-              - deps-{{ checksum "requirements/test.txt" }}-{{ checksum "requirements/base.txt" }}-{{ checksum "tox.ini" }}
+            - deps-{{ checksum "requirements/test.txt" }}-{{ checksum "requirements/base.txt" }}-{{ checksum "tox.ini" }}
       - run:
           name: install dependencies
           command: |
@@ -44,3 +44,24 @@ jobs:
           command: |
             tox -e py36
             tox -e coverage
+
+  build-docker:
+    machine: true
+    steps:
+      - checkout
+      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+      - run: docker build -t itdagene/itdagene:$CIRCLE_BRANCH .
+      - run: docker push itdagene/itdagene:$CIRCLE_BRANCH
+
+workflows:
+  version: 2
+  on_push:
+    jobs:
+      - tests
+      - build-docker:
+          requires:
+            - tests
+          filters:
+            branches:
+              only:
+                - prod
