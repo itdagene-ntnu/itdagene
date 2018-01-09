@@ -29,7 +29,7 @@ $ echo "from itdagene.settings.dev import *" > itdagene/settings/local.py
 $ docker-compose up -d # This starts the databse & redis
 ```
 
-Install other dependencies:
+Install and build frontend dependencies:
 
 ```bash
 $ yarn
