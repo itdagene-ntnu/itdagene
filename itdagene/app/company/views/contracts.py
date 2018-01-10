@@ -59,7 +59,7 @@ def edit_contract(request, company_id, id):
 def download_contract(request, company_id, id):
     import os
     contract = get_object_or_404(Contract, pk=id, company__id=company_id)
-    abspath = open(contract.file.path, 'r')
+    abspath = open(contract.file.path, 'rb')
     response = HttpResponse(content=abspath.read())
     response['Content-Type'] = 'application/octet-stream'
     response['Content-Disposition'] = 'attachment; filename=%s' % os.path.\
