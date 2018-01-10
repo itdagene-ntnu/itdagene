@@ -92,7 +92,7 @@ def send_comment_email(comment):
         def get_users(comment):
             return comment.user
 
-        users = map(get_users, all_object_comments)
+        users = list(map(get_users, all_object_comments))
 
         try:
             subscription = Subscription.objects.get(
