@@ -17,16 +17,16 @@ def user_default_year():
 
 
 def auth_allowed(backend, details, response, *args, **kwargs):
-    breadcrumbs.record(message='Doin social auth', category='auth', data=details)
+    breadcrumbs.record(message='Starting social auth', category='authentication', data=details)
     if not backend.auth_allowed(response, details):
-        raise Exception('Auth not allowed for ' + details['email'])
+        raise Exception('Auth not allowed')
 
 
 def get_user(backend, details, user=None, *args, **kwargs):
     try:
         return dict(kwargs, user=User.objects.get(email=details['email']))
     except Exception:
-        raise Exception('No user found for ' + details['email'])
+        raise Exception('No user found with the corresponding email')
 
 
 class User(AbstractUser):
