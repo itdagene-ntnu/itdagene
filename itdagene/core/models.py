@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 from raven import breadcrumbs
+from social_core.exceptions import AuthForbidden
 
 from itdagene.core.auth import get_current_user
 
@@ -19,14 +20,14 @@ def user_default_year():
 def auth_allowed(backend, details, response, *args, **kwargs):
     breadcrumbs.record(message='Starting social auth', category='authentication', data=details)
     if not backend.auth_allowed(response, details):
-        raise Exception('Auth not allowed')
+        raise AuthForbidden(backend)
 
 
 def get_user(backend, details, user=None, *args, **kwargs):
     try:
         return dict(kwargs, user=User.objects.get(email=details['email']))
     except Exception:
-        raise Exception('No user found with the corresponding email')
+        raise AuthForbidden(backend)
 
 
 class User(AbstractUser):
