@@ -1,3 +1,6 @@
+// This is required to build the css
+require("./../styl/itdagene.styl");
+
 $(document).ready(function() {
   $(window).scroll(function() {
     if ($(".navbar").offset().top > 50) {
