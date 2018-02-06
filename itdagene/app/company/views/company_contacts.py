@@ -20,9 +20,11 @@ def add_contact(request, company):
         if form.is_valid():
             contact = form.save(commit=False)
             contact.company = company
-            contact.phone = contact.phone.replace(' ', '')
-            contact.mobile_phone = contact.mobile_phone.replace(' ', '')
-            contact.email = contact.email.lower()
+            contact.phone = contact.phone.replace(' ', '') if contact.phone else None
+            contact.mobile_phone = contact.mobile_phone.replace(
+                ' ', ''
+            ) if contact.mobile_phone else None
+            contact.email = contact.email.lower() if contact.email else None
             contact.save()
             return redirect(company.get_absolute_url())
     return render(
