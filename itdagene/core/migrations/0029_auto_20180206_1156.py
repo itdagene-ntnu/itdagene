@@ -13,6 +13,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='user',
             name='language',
-            field=models.CharField(choices=[('nb', 'Norsk'), ('en', 'English')], default='nb', max_length=3, verbose_name='Language'),
+            field=models.CharField(
+                choices=[('nb', 'Norsk'), ('en', 'English')], default='nb', max_length=3,
+                verbose_name='Language'
+            ),
         ),
     ]
