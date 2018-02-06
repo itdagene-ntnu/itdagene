@@ -3,8 +3,8 @@ import datetime
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
+from django.utils.translation import ugettext_lazy as _
 
 from itdagene.core.log.models import LogItem
 from itdagene.core.models import BaseModel, Preference, User

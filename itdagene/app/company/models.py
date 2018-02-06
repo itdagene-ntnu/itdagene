@@ -168,7 +168,7 @@ class CompanyContact(BaseModel):
     email = models.EmailField(_('e-mail address'), blank=True)
     phone = models.CharField(max_length=20, blank=True, null=True, verbose_name=_('phone number'))
     mobile_phone = models.CharField(
-        max_length=20, blank=True, null=True, verbose_name=_('phone number')
+        max_length=20, blank=True, null=True, verbose_name=_('mobile phone number')
     )
     position = models.CharField(max_length=60, blank=True, verbose_name=_('position'))
     current = models.BooleanField(default=False, verbose_name=_('Current contact'))
