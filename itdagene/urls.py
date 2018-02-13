@@ -16,9 +16,7 @@ handler500 = error500
 
 urlpatterns = [
     re_path(r'^logout/$', logout,
-            {
-                'next_page': inside
-            }),
+            {'next_page': inside}),
     re_path(r'^$', frontpage),
     re_path(r'^frontpage/$', public),
     re_path(r'^dashboard/$', inside),

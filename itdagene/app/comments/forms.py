@@ -12,7 +12,5 @@ class CommentForm(ModelForm):
         widgets = {
             'object_id': HiddenInput(),
             'content_type': HiddenInput(),
-            'comment': forms.Textarea(attrs={
-                'rows': 3
-            }),
+            'comment': forms.Textarea(attrs={'rows': 3}),
         }
