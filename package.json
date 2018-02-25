@@ -44,6 +44,6 @@
     "copy-webpack-plugin": "^4.3.1",
     "css-loader": "^0.28.8",
     "stylus-loader": "^3.0.1",
-    "webpack": "^3.10.0"
+    "webpack": "^4.0.0"
   }
 }
