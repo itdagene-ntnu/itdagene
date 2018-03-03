@@ -29,7 +29,7 @@ module.exports = {
     filename: "itdagene.js"
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.styl$/,
         loader:
