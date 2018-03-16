@@ -104,12 +104,14 @@ class Company(BaseModel):
         verbose_name_plural = _('companies')
         ordering = ('name', )
 
+    @property
     def nr_of_banquet_tickets(self):
         contract = self.latest_contract()
         if contract is not None:
             return contract.banquet_tickets
         return 0
 
+    @property
     def nr_of_joblistings(self):
         contract = self.latest_contract()
         if contract:
