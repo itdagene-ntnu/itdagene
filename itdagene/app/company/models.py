@@ -137,25 +137,15 @@ class Company(BaseModel):
 
     @classmethod
     def get_first_day(cls):
-        def filter_images(company):
-            return bool(company.logo != '')
-
-        return filter(
-            filter_images,
-            cls.get_signed_with_packages().select_related('package')
-            .filter(package__has_stand_first_day=True)
-        )
+        return cls.get_signed_with_packages().select_related('package').filter(
+            package__has_stand_first_day=True
+        ).exclude(logo='')
 
     @classmethod
     def get_last_day(cls):
-        def filter_images(company):
-            return bool(company.logo != '')
-
-        return filter(
-            filter_images,
-            cls.get_signed_with_packages().select_related('package')
-            .filter(package__has_stand_last_day=True)
-        )
+        return cls.get_signed_with_packages().select_related('package').filter(
+            package__has_stand_last_day=True
+        ).exclude(logo='')
 
 
 class CompanyContact(BaseModel):
