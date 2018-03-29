@@ -56,6 +56,10 @@ class User(AbstractUser):
             return self.get_full_name()
         return self.username
 
+    @property
+    def full_name(self):
+        return self.get_full_name()
+
     def role(self):
         for group in self.groups.all():
             if group.name != 'Styret':

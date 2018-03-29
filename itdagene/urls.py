@@ -4,7 +4,9 @@ from django.contrib import admin
 from django.contrib.auth.views import login, logout
 from django.http import HttpResponsePermanentRedirect
 from django.urls import include, re_path, reverse
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
+from graphene_django.views import GraphQLView
 
 from itdagene.app.feedback.views.evalutions import handle_evaluation
 from itdagene.app.frontpage.views import frontpage, inside, public, tweet
@@ -41,6 +43,7 @@ urlpatterns = [
     re_path(r'^evaluate/(?P<hash>[a-zA-Z0-9]+)/$', handle_evaluation, name='itdagene.evaluate'),
     re_path(r'^quiz/', include('itdagene.app.quiz.urls')),
     re_path(r'^superadmin/', admin.site.urls),
+    re_path(r'^graphql', csrf_exempt(GraphQLView.as_view(graphiql=True))),
 ]
 
 # Naming scheme for urls:
