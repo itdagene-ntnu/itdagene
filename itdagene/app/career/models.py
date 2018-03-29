@@ -19,6 +19,7 @@ class Town(BaseModel):
 class Joblisting(BaseModel):
 
     objects = JoblistingManager()
+    all_objects = models.Manager()
 
     JOB_TYPES = (
         ('si', _('Summer internship')),
@@ -76,3 +77,4 @@ class Joblisting(BaseModel):
 
     class Meta:
         ordering = ('deadline', )
+        base_manager_name = 'objects'
