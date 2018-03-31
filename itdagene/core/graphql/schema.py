@@ -91,7 +91,7 @@ class MetaData(DjangoObjectType):
 
 
 class Query(graphene.ObjectType):
-    board_members = graphene.List(User)
+    board_members = graphene.NonNull(graphene.List(graphene.NonNull(User)))
     current_meta_data = graphene.Field(graphene.NonNull(MetaData))
 
     companies_first_day = graphene.NonNull(graphene.List(graphene.NonNull(Company)))
