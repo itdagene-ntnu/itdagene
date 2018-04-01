@@ -24,8 +24,14 @@ class Query(graphene.ObjectType):
     )
 
     node = relay.Node.Field()
+    nodes = graphene.List(
+        relay.Node, required=True, ids=graphene.List(graphene.NonNull(graphene.ID), required=True)
+    )
 
     debug = graphene.Field(DjangoDebug, name='__debug') if settings.DEBUG else None
+
+    def resolve_nodes(self, info, ids):
+        return [relay.Node.get_node_from_global_id(info, node_id) for node_id in ids]
 
     def resolve_board_members(self, info):
         year = Preference.current_preference().year
