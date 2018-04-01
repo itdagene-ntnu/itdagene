@@ -92,13 +92,19 @@ class MetaData(DjangoObjectType):
 
 class Query(graphene.ObjectType):
     board_members = graphene.NonNull(graphene.List(graphene.NonNull(User)))
-    current_meta_data = graphene.Field(graphene.NonNull(MetaData))
+    current_meta_data = graphene.Field(
+        graphene.NonNull(MetaData), description="Metadata about the current years event"
+    )
 
     companies_first_day = graphene.NonNull(graphene.List(graphene.NonNull(Company)))
     companies_last_day = graphene.NonNull(graphene.List(graphene.NonNull(Company)))
+    collaborators = graphene.NonNull(
+        graphene.List(graphene.NonNull(Company)),
+        description="List the collaborators, not including the main collaborator"
+    )
 
-    joblisting = relay.Node.Field(Joblisting)
-    company = relay.Node.Field(Company)
+    node = relay.Node.Field()
+
     debug = graphene.Field(DjangoDebug, name='__debug') if settings.DEBUG else None
 
     def resolve_board_members(self, info):
@@ -113,6 +119,9 @@ class Query(graphene.ObjectType):
 
     def resolve_companies_last_day(self, info):
         return ItdageneCompany.get_last_day()
+
+    def resolve_collaborators(self, info):
+        return ItdageneCompany.objects.filter(package__name="Samarbeidspartner")
 
 
 schema = graphene.Schema(query=Query)
