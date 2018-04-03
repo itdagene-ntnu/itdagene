@@ -1,7 +1,7 @@
 django==2.0.3
 Markdown==2.6.11
 Pillow==5.0
-django-widget-tweaks==1.4.1
+django-widget-tweaks==1.4.2
 psycopg2==2.7.3.2
 python-dateutil==2.7.2
 pytidylib==0.3.2
