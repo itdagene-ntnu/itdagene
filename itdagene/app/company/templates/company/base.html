@@ -1,5 +1,5 @@
 {% extends "base_admin.html" %}
-{% load i18n filters staticfiles %}
+{% load i18n filters staticfiles static %}
 {% block inline-styles %}
     <link href="{% static "css/utility.css" %}" rel="stylesheet" type="text/css"/>
 {% endblock %}
@@ -78,6 +78,9 @@
                             <th>{% trans "Waiting for" %}</th>
                             <th>{% trans "Assigned to" %}</th>
                             <th>{% trans "Contracts" %}</th>
+                            <th>{% trans "Logo" %}</th>
+                            <th title="Logo for mørk bakgrunn"></th>
+                            <th title="Logo i vektorformat"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -90,6 +93,15 @@
                                 <td> {% for package in company.waiting_for_package.all %} {{ package.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</td>
                                 <td>{% if company.contact %}{{ company.contact }}{% else %}{% trans "None" %}{% endif %}</td>
                                 <td>{% if company.contracts.all|has_contract_for_current_year:year %}{{ "True"|boolean }}<span class="hidden-text">T</span>{% else %}<span class="hidden-text">F</span>{% endif %}</td>
+                                <td>
+                                        {% if company.logo %}<span class="hidden-text">T</span><a title="Vanlig logo" download href="{{ MEDIA_URL }}{{company.logo}}">{{ "True"|boolean }}</a>{% else %}<span class="hidden-text">F</span>{% endif %}
+                                </td>
+                                <td>
+                                        {% if company.logo_inverted %}<span class="hidden-text">T</span><a title="Logo for mørk bakgrunn" download href="{{ MEDIA_URL }}{{company.logo_inverted}}">{{ "True"|boolean }}</a>{% else %}<span class="hidden-text">F</span>{% endif %}
+                                </td>
+                                <td>
+                                        {% if company.logo_vector %}<span class="hidden-text">T</span><a title="Logo i vektorformat" download href="{{ MEDIA_URL }}{{company.logo_vector}}">{{ "True"|boolean }}</a>{% else %}<span class="hidden-text">F</span>{% endif %}
+                                </td>
                             </tr>
                         {% endfor %}
                         </tbody>

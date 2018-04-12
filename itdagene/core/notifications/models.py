@@ -103,7 +103,7 @@ class Subscription(models.Model):
     def subscribe(cls, object, user):
         subscription = Subscription.get_or_create(object)
         if user and not user.is_anonymous:
-            if user not in subscription.subscribers.all():
+            if user not in list(subscription.subscribers.all()):
                 subscription.subscribers.add(user)
         subscription.save()
 
