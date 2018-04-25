@@ -71,14 +71,12 @@ $ tox
 ```
 
 ### Code style
-We enforce the style guide [PEP 8] with flake8, and [isort] for import sorting. (Soon yapf for formatting). All 
+We enforce the style guide [PEP 8] with flake8, and [isort] for import sorting. [yapf] is used for code formatting.
 
 ```bash
-$ isort -rc itdagene # Fix isort errors
-$ yapf -ir itdagene  # Fix code formatting
-$ tox -e isort       # Verify the result with tox
-$ tox -e flake8      # Verify PEP 8 style
-$ tox -e yapf        # Verify code formatting
+$ isort -rc itdagene               # Fix isort errors
+$ yapf -ir itdagene                # Fix code formatting
+$ tox -e isort -e flake8 -e yapf   # Verify code style
 ```
 
 ## Celery
@@ -113,3 +111,4 @@ $ sudo ln -s /usr/lib/`uname -i`-linux-gnu/libz.so /usr/lib/
 [docker-compose]: https://docs.docker.com/compose/overview/
 [PEP 8]: https://www.python.org/dev/peps/pep-0008/
 [isort]: https://github.com/timothycrosley/isort
+[yapf]: https://github.com/google/yapf
