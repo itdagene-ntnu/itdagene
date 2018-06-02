@@ -45,6 +45,6 @@
     "css-loader": "^0.28.8",
     "stylus-loader": "^3.0.1",
     "webpack": "^4.0.0",
-    "webpack-cli": "^3.0.0"
+    "webpack-cli": "^3.0.1"
   }
 }
