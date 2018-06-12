@@ -97,9 +97,9 @@ def list(request):
         )
         number += 1
 
-    other = WorkSchedule.objects.filter(date__year=pref.year).exclude(
-        date__gte=start_date, date__lte=end_date
-    ).order_by('date')
+    other = WorkSchedule.objects.filter(date__year=pref.year
+                                        ).exclude(date__gte=start_date,
+                                                  date__lte=end_date).order_by('date')
     return render(
         request, 'workschedule/list.html',
         {

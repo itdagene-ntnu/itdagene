@@ -64,8 +64,9 @@ class WaitingListCompanyForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(WaitingListCompanyForm, self).__init__(*args, **kwargs)
-        waiting_lists = Package.objects.filter(is_full=True, has_waiting_list=True
-                                               ).exclude(companies=self.instance)
+        waiting_lists = Package.objects.filter(is_full=True, has_waiting_list=True).exclude(
+            companies=self.instance
+        )
         self.fields['waiting_for_package'].queryset = waiting_lists
         self.fields['waiting_for_package'].help_text = None
 
