@@ -1,5 +1,5 @@
 import graphene
-from graphene import relay
+from graphene import Int, relay
 from graphene_django import DjangoObjectType
 
 from itdagene.app.career.models import Joblisting as ItdageneJoblisting
@@ -8,9 +8,26 @@ from itdagene.core.models import Preference
 from itdagene.core.models import User as ItdageneUser
 
 
+# TODO FIX this. Currently not working with filtering... :(
+class CountableConnectionBase(relay.Connection):
+    class Meta:
+        abstract = True
+
+    total_count = Int()
+
+    def resolve_total_count(self, info, **kwargs):
+        return self.iterable.count()
+
+
 class Joblisting(DjangoObjectType):
     class Meta:
         model = ItdageneJoblisting
+        # connection_class = CountableConnectionBase
+        filter_fields = [
+            'type',
+            'to_year',
+            'from_year',
+        ]
         description = "Joblisting entity"
         only_fields = (
             'id',
@@ -24,9 +41,20 @@ class Joblisting(DjangoObjectType):
             'to_year',
             'url',
             'date_created',
-            'date_saved',
         )
         interfaces = (relay.Node, )
+
+    @classmethod
+    def get_queryset(cls):
+        return Joblisting.objects.active()
+
+    @classmethod
+    def get_node(cls, context, id):
+        try:
+            return Joblisting.objects.all().get(pk=id)
+        except Exception as e:
+            print(e)
+            return None
 
 
 class User(DjangoObjectType):
