@@ -1,17 +1,36 @@
+import django_filters
 import graphene
 from django.conf import settings
 from graphene import relay
 from graphene_django.debug import DjangoDebug
+from graphene_django.filter import DjangoFilterConnectionField
 
+from itdagene.app.career.models import Joblisting as ItdageneJoblisting
 from itdagene.app.company.models import Company as ItdageneCompany
 from itdagene.core.models import Preference
 from itdagene.core.models import User as ItdageneUser
 
-from .models import Company, MetaData, User
+from .models import Company, Joblisting, MetaData, User
+
+
+class JoblistingFilter(django_filters.FilterSet):
+    type = django_filters.CharFilter(lookup_expr=['iexact'])
+
+    class Meta:
+        model = ItdageneJoblisting
+        fields = [
+            'type',
+            'company',
+            'to_year',
+            'from_year',
+        ]
 
 
 class Query(graphene.ObjectType):
     board_members = graphene.NonNull(graphene.List(graphene.NonNull(User)))
+    joblistings = DjangoFilterConnectionField(
+        Joblisting, filterset_class=JoblistingFilter, max_limit=20, enforce_first_or_last=True
+    )
     current_meta_data = graphene.Field(
         graphene.NonNull(MetaData), description="Metadata about the current years event"
     )
