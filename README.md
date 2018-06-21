@@ -96,17 +96,6 @@ $ celery flower -A itdagene --address="127.0.0.1" --port=5555 # flower
 - [Intro to celery](http://docs.celeryproject.org/en/latest/getting-started/introduction.html)
 - [Why docker](https://www.docker.com/what-container)
 
-### Deps
-
-You **may** have to install these
-```bash
-$ sudo apt-get install libpq-dev python-dev redis-server zlib1g-dev libjpeg-dev python-pip postgresql postgresql-contrib
-$ sudo ln -s /usr/lib/`uname -i`-linux-gnu/libfreetype.so /usr/lib/
-$ sudo ln -s /usr/lib/`uname -i`-linux-gnu/libjpeg.so /usr/lib/
-$ sudo ln -s /usr/lib/`uname -i`-linux-gnu/libz.so /usr/lib/
-```
-
-
 [docker]: https://www.docker.com/community-edition
 [docker-compose]: https://docs.docker.com/compose/overview/
 [PEP 8]: https://www.python.org/dev/peps/pep-0008/
