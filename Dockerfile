@@ -16,7 +16,7 @@ WORKDIR /code
 COPY --from=builder /code/ .
 
 RUN set -e \
-    && apk add --no-cache postgresql-dev build-base jpeg-dev git \
+    && apk add --no-cache postgresql-dev build-base jpeg-dev git zlib-dev \
     && pip install --no-cache -r requirements/prod.txt \
     && apk del build-base \
     && python manage.py collectstatic
