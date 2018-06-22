@@ -1,8 +1,6 @@
 import django_filters
 import graphene
-from django.conf import settings
 from graphene import relay
-from graphene_django.debug import DjangoDebug
 from graphene_django.filter import DjangoFilterConnectionField
 
 from itdagene.app.career.models import Joblisting as ItdageneJoblisting
