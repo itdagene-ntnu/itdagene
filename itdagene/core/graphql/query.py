@@ -14,8 +14,6 @@ from .models import Company, Joblisting, MetaData, User
 
 
 class JoblistingFilter(django_filters.FilterSet):
-    type = django_filters.CharFilter(lookup_expr=['iexact'])
-
     class Meta:
         model = ItdageneJoblisting
         fields = [
@@ -47,7 +45,7 @@ class Query(graphene.ObjectType):
         relay.Node, required=True, ids=graphene.List(graphene.NonNull(graphene.ID), required=True)
     )
 
-    debug = graphene.Field(DjangoDebug, name='__debug') if settings.DEBUG else None
+    # debug = graphene.Field(DjangoDebug, name='__debug') if settings.DEBUG else None
 
     def resolve_nodes(self, info, ids):
         return [relay.Node.get_node_from_global_id(info, node_id) for node_id in ids]
