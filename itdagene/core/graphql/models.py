@@ -1,11 +1,34 @@
 import graphene
+from django.conf import settings
 from graphene import Int, relay
 from graphene_django import DjangoObjectType
+from sorl.thumbnail import get_thumbnail
 
 from itdagene.app.career.models import Joblisting as ItdageneJoblisting
 from itdagene.app.company.models import Company as ItdageneCompany
 from itdagene.core.models import Preference
 from itdagene.core.models import User as ItdageneUser
+
+
+def resize_image(image, **kwargs):
+    if not image:
+        return None
+    height = kwargs.get('height')
+    width = kwargs.get('width')
+    if not height and not width:
+        return settings.HOST_URL + image.url
+
+    geometry = f'{width}x{height}'
+    if width and not height:
+        geometry = f'{width}'
+
+    format = kwargs.get('format', "PNG")
+    padding = kwargs.get('padding', True)
+    quality = kwargs.get('quality', 99)
+
+    return settings.HOST_URL + get_thumbnail(
+        image, geometry, format=format, padding=padding, quality=quality
+    ).url
 
 
 # TODO FIX this. Currently not working with filtering... :(
@@ -20,6 +43,8 @@ class CountableConnectionBase(relay.Connection):
 
 
 class Joblisting(DjangoObjectType):
+    towns = graphene.NonNull(graphene.List(graphene.NonNull(graphene.String)))
+
     class Meta:
         model = ItdageneJoblisting
         # connection_class = CountableConnectionBase
@@ -31,6 +56,7 @@ class Joblisting(DjangoObjectType):
         description = "Joblisting entity"
         only_fields = (
             'id',
+            'towns',
             'company',
             'title',
             'type',
@@ -44,14 +70,17 @@ class Joblisting(DjangoObjectType):
         )
         interfaces = (relay.Node, )
 
+    def resolve_towns(self, info, **kwargs):
+        return self.towns.all()
+
     @classmethod
     def get_queryset(cls):
-        return Joblisting.objects.active()
+        return ItdageneJoblisting.objects.active()
 
     @classmethod
     def get_node(cls, context, id):
         try:
-            return Joblisting.objects.all().get(pk=id)
+            return ItdageneJoblisting.all_objects.all().get(pk=id)
         except Exception as e:
             print(e)
             return None
@@ -60,12 +89,13 @@ class Joblisting(DjangoObjectType):
 class User(DjangoObjectType):
     full_name = graphene.String()
     role = graphene.String()
+    photo = graphene.Field(graphene.String, height=graphene.Int(), width=graphene.Int())
 
     class Meta:
         model = ItdageneUser
         interfaces = (relay.Node, )
         description = "User entity"
-        only_fields = ('id', 'firstName', 'lastName', 'email', 'photo', 'year', 'role')
+        only_fields = ('id', 'firstName', 'lastName', 'email', 'year', 'role')
 
     def resolve_full_name(self, info):
         return self.get_full_name()
@@ -73,8 +103,13 @@ class User(DjangoObjectType):
     def resolve_role(self, info):
         return self.role()
 
+    def resolve_photo(self, info, **kwargs):
+        return resize_image(self.photo, format="JPEG", quality=80, **kwargs)
+
 
 class Company(DjangoObjectType):
+    logo = graphene.Field(graphene.String, height=graphene.Int(), width=graphene.Int())
+
     class Meta:
         model = ItdageneCompany
         description = "Company entity"
@@ -100,6 +135,9 @@ class Company(DjangoObjectType):
         except Exception as e:
             print(e)
             return None
+
+    def resolve_logo(self, info, **kwargs):
+        return resize_image(self.logo, **kwargs)
 
 
 class MetaData(DjangoObjectType):

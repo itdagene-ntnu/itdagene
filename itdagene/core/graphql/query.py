@@ -37,6 +37,9 @@ class Query(graphene.ObjectType):
         graphene.List(graphene.NonNull(Company)),
         description="List the collaborators, not including the main collaborator"
     )
+    main_collaborator = graphene.Field(
+        Company, description="Main collaborator for current years event"
+    )
 
     node = relay.Node.Field()
     nodes = graphene.List(
