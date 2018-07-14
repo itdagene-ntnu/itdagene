@@ -51,6 +51,9 @@ class Query(graphene.ObjectType):
     def resolve_nodes(self, info, ids):
         return [relay.Node.get_node_from_global_id(info, node_id) for node_id in ids]
 
+    def resolve_main_collaborator(self, info):
+        return ItdageneCompany.get_main_collaborator()
+
     def resolve_board_members(self, info):
         year = Preference.current_preference().year
         return ItdageneUser.objects.filter(year=year).all()

@@ -164,6 +164,11 @@ class Company(BaseModel):
             package__has_stand_last_day=True
         ).exclude(logo='')
 
+    @classmethod
+    def get_main_collaborator(cls):
+        # // TODO FIXME :laughing:
+        return cls.objects.select_related('package').filter(package__max=1).first()
+
 
 class CompanyContact(BaseModel):
     company = models.ForeignKey(
