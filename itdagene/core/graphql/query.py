@@ -13,6 +13,10 @@ from .models import Company, Joblisting, MetaData, Page, User
 
 
 class JoblistingFilter(django_filters.FilterSet):
+    # Do case-insensitive lookups on 'name'
+    from_year = django_filters.NumberFilter(field_name="to_year", lookup_expr='gte')
+    to_year = django_filters.NumberFilter(field_name="from_year", lookup_expr='lte')
+
     class Meta:
         model = ItdageneJoblisting
         fields = [

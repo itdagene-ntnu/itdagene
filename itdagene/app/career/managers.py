@@ -10,4 +10,5 @@ class JoblistingManager(models.Manager):
         )
 
     def get_queryset(self):
-        return super(JoblistingManager, self).get_queryset().filter(is_active=True)
+        return super(JoblistingManager,
+                     self).get_queryset().filter(deadline__gte=timezone.now(), is_active=True)
