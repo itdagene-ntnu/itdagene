@@ -6,6 +6,7 @@ from sorl.thumbnail import get_thumbnail
 
 from itdagene.app.career.models import Joblisting as ItdageneJoblisting
 from itdagene.app.company.models import Company as ItdageneCompany
+from itdagene.app.pages.models import Page as ItdagenePage
 from itdagene.core.models import Preference
 from itdagene.core.models import User as ItdageneUser
 
@@ -84,6 +85,26 @@ class Joblisting(DjangoObjectType):
         except Exception as e:
             print(e)
             return None
+
+
+class Page(DjangoObjectType):
+    class Meta:
+        model = ItdagenePage
+        interfaces = (relay.Node, )
+        description = "(info)Page entity"
+        only_fields = (
+            'slug',
+            'title',
+            'language',
+            'menu',
+            'content',
+            'date_saved',
+            'date_created',
+        )
+
+    @classmethod
+    def get_queryset(cls):
+        return ItdagenePage.objects.filter(need_auth=False)
 
 
 class User(DjangoObjectType):

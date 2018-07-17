@@ -5,10 +5,11 @@ from graphene_django.filter import DjangoFilterConnectionField
 
 from itdagene.app.career.models import Joblisting as ItdageneJoblisting
 from itdagene.app.company.models import Company as ItdageneCompany
+from itdagene.app.pages.models import Page as ItdagenePage
 from itdagene.core.models import Preference
 from itdagene.core.models import User as ItdageneUser
 
-from .models import Company, Joblisting, MetaData, User
+from .models import Company, Joblisting, MetaData, Page, User
 
 
 class JoblistingFilter(django_filters.FilterSet):
@@ -46,10 +47,17 @@ class Query(graphene.ObjectType):
         relay.Node, required=True, ids=graphene.List(graphene.NonNull(graphene.ID), required=True)
     )
 
+    page = graphene.Field(
+        Page, language=graphene.String(default_value="nb"), slug=graphene.NonNull(graphene.String)
+    )
+
     # debug = graphene.Field(DjangoDebug, name='__debug') if settings.DEBUG else None
 
     def resolve_nodes(self, info, ids):
         return [relay.Node.get_node_from_global_id(info, node_id) for node_id in ids]
+
+    def resolve_page(self, info, language, slug):
+        return ItdagenePage.objects.filter(language=language, slug=slug).first()
 
     def resolve_main_collaborator(self, info):
         return ItdageneCompany.get_main_collaborator()
