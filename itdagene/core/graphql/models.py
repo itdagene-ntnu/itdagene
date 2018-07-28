@@ -98,6 +98,7 @@ class Page(DjangoObjectType):
             'language',
             'menu',
             'content',
+            'ingress',
             'date_saved',
             'date_created',
         )

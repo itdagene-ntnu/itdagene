@@ -11,6 +11,7 @@ class Page(BaseModel):
     title = models.CharField(max_length=100, verbose_name=_('title'))
     slug = models.SlugField(max_length=100, verbose_name=_('slug'))
     content = models.TextField(verbose_name=_('content'))
+    ingress = models.TextField(verbose_name=_('ingress'), default="")
     language = models.CharField(
         max_length=3, default=settings.DEFAULT_LANGUAGE, choices=settings.LANGUAGES
     )

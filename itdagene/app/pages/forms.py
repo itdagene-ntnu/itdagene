@@ -6,4 +6,4 @@ from itdagene.app.pages.models import Page
 class PageForm(ModelForm):
     class Meta:
         model = Page
-        fields = ('title', 'slug', 'content', 'language', 'active', 'need_auth', 'menu')
+        fields = ('title', 'slug', 'content', 'ingress', 'language', 'active', 'need_auth', 'menu')
