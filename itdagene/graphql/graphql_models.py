@@ -178,6 +178,39 @@ class Company(DjangoObjectType):
 
 
 class MetaData(DjangoObjectType):
+
+    companies_first_day = graphene.List(graphene.NonNull(Company))
+    companies_last_day = graphene.List(graphene.NonNull(Company))
+    collaborators = graphene.List(
+        graphene.NonNull(Company),
+        description="List the collaborators, not including the main collaborator"
+    )
+
+    main_collaborator = graphene.Field(
+        Company, description="Main collaborator for current years event"
+    )
+
+    board_members = graphene.NonNull(graphene.List(graphene.NonNull(User)))
+
+    def resolve_main_collaborator(self, info):
+        if self.view_hsp:
+            return ItdageneCompany.get_main_collaborator()
+
+    def resolve_companies_first_day(self, info):
+        if self.view_companies:
+            return ItdageneCompany.get_first_day()
+
+    def resolve_companies_last_day(self, info):
+        if self.view_companies:
+            return ItdageneCompany.get_last_day()
+
+    def resolve_collaborators(self, info):
+        if self.view_sp:
+            return ItdageneCompany.objects.filter(package__name="Samarbeidspartner")
+
+    def resolve_board_members(self, info):
+        return ItdageneUser.objects.filter(year=self.year).all()
+
     class Meta:
         model = Preference
         description = "Metadata about the current years itdagene"
@@ -187,5 +220,10 @@ class MetaData(DjangoObjectType):
             'end_date',
             'year',
             'nr_of_stands',
+            'companies_first_day'
+            'companies_last_day',
+            'collaborators',
+            'main_collaborator',
+            'board_members',
         )
         interfaces = (relay.Node, )

@@ -47,22 +47,11 @@ class SearchResult(graphene.Union):
 
 
 class Query(graphene.ObjectType):
-    board_members = graphene.NonNull(graphene.List(graphene.NonNull(User)))
     joblistings = DjangoFilterConnectionField(
         Joblisting, filterset_class=JoblistingFilter, max_limit=20, enforce_first_or_last=True
     )
     current_meta_data = graphene.Field(
         graphene.NonNull(MetaData), description="Metadata about the current years event"
-    )
-
-    companies_first_day = graphene.NonNull(graphene.List(graphene.NonNull(Company)))
-    companies_last_day = graphene.NonNull(graphene.List(graphene.NonNull(Company)))
-    collaborators = graphene.NonNull(
-        graphene.List(graphene.NonNull(Company)),
-        description="List the collaborators, not including the main collaborator"
-    )
-    main_collaborator = graphene.Field(
-        Company, description="Main collaborator for current years event"
     )
 
     node = relay.Node.Field()
@@ -122,21 +111,5 @@ class Query(graphene.ObjectType):
     def resolve_page(self, info, language, slug):
         return ItdagenePage.objects.filter(language=language, slug=slug).first()
 
-    def resolve_main_collaborator(self, info):
-        return ItdageneCompany.get_main_collaborator()
-
-    def resolve_board_members(self, info):
-        year = Preference.current_preference().year
-        return ItdageneUser.objects.filter(year=year).all()
-
     def resolve_current_meta_data(self, info):
         return Preference.current_preference()
-
-    def resolve_companies_first_day(self, info):
-        return ItdageneCompany.get_first_day()
-
-    def resolve_companies_last_day(self, info):
-        return ItdageneCompany.get_last_day()
-
-    def resolve_collaborators(self, info):
-        return ItdageneCompany.objects.filter(package__name="Samarbeidspartner")

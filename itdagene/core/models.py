@@ -150,6 +150,8 @@ class Preference(BaseModel):
         help_text=_('This is for each day, not the sum of each day')
     )
     view_sp = models.BooleanField(verbose_name=_('view partners'), default=False)
+    view_hsp = models.BooleanField(verbose_name=_('view main collaborator'), default=False)
+    view_companies = models.BooleanField(verbose_name=_('view all comapnies'), default=False)
 
     def __str__(self):
         return str(self.year)
