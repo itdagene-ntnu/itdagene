@@ -33,6 +33,12 @@ def resize_image(image, **kwargs):
     ).url
 
 
+class Metadata(graphene.Interface):
+    title = graphene.String(required=True)
+    description = graphene.String(required=False)
+    sharing_image = graphene.String(required=False)
+
+
 # TODO FIX this. Currently not working with filtering... :(
 class CountableConnectionBase(relay.Connection):
     class Meta:
@@ -70,10 +76,15 @@ class Joblisting(DjangoObjectType):
             'url',
             'date_created',
         )
-        interfaces = (relay.Node, )
+        interfaces = (relay.Node, Metadata)
 
     def resolve_towns(self, info, **kwargs):
         return self.towns.all()
+
+    def resolve_sharing_image(self, info, **kwargs):
+        if not self.company.logo:
+            return None
+        return resize_image(self.company.logo, width=1200, height=630)
 
     @classmethod
     def get_queryset(cls):
@@ -91,7 +102,7 @@ class Joblisting(DjangoObjectType):
 class Page(DjangoObjectType):
     class Meta:
         model = ItdagenePage
-        interfaces = (relay.Node, )
+        interfaces = (relay.Node, Metadata)
         description = "(info)Page entity"
         only_fields = (
             'slug',
@@ -103,6 +114,9 @@ class Page(DjangoObjectType):
             'date_saved',
             'date_created',
         )
+
+    def resolve_description(self, info, **kwargs):
+        return self.ingress
 
     @classmethod
     def get_queryset(cls):
