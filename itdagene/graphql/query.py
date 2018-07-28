@@ -10,7 +10,7 @@ from itdagene.app.pages.models import Page as ItdagenePage
 from itdagene.core.models import Preference
 from itdagene.core.models import User as ItdageneUser
 
-from .models import Company, Joblisting, MetaData, Page, User
+from .graphql_models import Company, Joblisting, MetaData, Page, User
 
 
 class JoblistingFilter(django_filters.FilterSet):
@@ -82,7 +82,12 @@ class Query(graphene.ObjectType):
         "Each entity is identified by an id or the unique together pair (slug, language)"
     )
 
+    ping = graphene.String()
+
     # debug = graphene.Field(DjangoDebug, name='__debug') if settings.DEBUG else None
+
+    def resolve_ping(self, *args, **kwargs):
+        return "pong"
 
     def resolve_nodes(self, info, ids):
         return [relay.Node.get_node_from_global_id(info, node_id) for node_id in ids]
