@@ -28,7 +28,8 @@ def resize_image(image, **kwargs):
     quality = kwargs.get('quality', 99)
 
     return settings.HOST_URL + get_thumbnail(
-        image, geometry, format=format, padding=padding, quality=quality
+        image, geometry, format=format, padding=padding, quality=quality, transparency=True,
+        padding_color=(255, 255, 255, 0)
     ).url
 
 
