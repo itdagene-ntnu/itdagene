@@ -88,7 +88,7 @@ class Joblisting(DjangoObjectType):
 
     @classmethod
     def get_queryset(cls):
-        return []
+        return ItdageneJoblisting.objects.active()
 
     @classmethod
     def get_node(cls, context, id):
