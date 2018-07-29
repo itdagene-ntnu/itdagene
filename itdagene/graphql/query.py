@@ -36,6 +36,13 @@ class Query(graphene.ObjectType):
         "a slug can be translated into multiple languages. " +
         "Each entity is identified by an id or the unique together pair (slug, language)"
     )
+    pages = graphene.List(
+        Page, language=graphene.String(default_value="nb"), slugs=graphene.NonNull(
+            graphene.List(graphene.NonNull(graphene.String))
+        ), description="Get info page.\n\n Each page identified with" +
+        "a slug can be translated into multiple languages. " +
+        "Each entity is identified by an id or the unique together pair (slug, language)"
+    )
 
     ping = graphene.String(description="ping -> pong")
 
@@ -51,7 +58,10 @@ class Query(graphene.ObjectType):
         return _search(query, types)
 
     def resolve_page(self, info, language, slug):
-        return ItdagenePage.objects.filter(language=language, slug=slug).first()
+        return ItdagenePage.objects.get(language=language, slug=slug)
+
+    def resolve_pages(self, info, language, slugs):
+        return list(ItdagenePage.objects.filter(language=language, slug__in=slugs))
 
     def resolve_current_meta_data(self, info):
         return Preference.current_preference()
