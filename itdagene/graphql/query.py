@@ -2,7 +2,6 @@ import graphene
 from graphene import relay
 from graphene_django.filter import DjangoFilterConnectionField
 
-from itdagene.app.career.models import Joblisting as ItdageneJoblisting
 from itdagene.app.pages.models import Page as ItdagenePage
 from itdagene.core.models import Preference
 from itdagene.graphql.filters import JoblistingFilter
