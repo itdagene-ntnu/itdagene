@@ -47,6 +47,9 @@ class Joblisting(DjangoObjectType):
             return None
         return resize_image(self.company.logo, width=1200, height=630)
 
+    def resolve_company(self, info, **kwargs):
+        return info.context.loaders.Companyloader.load(self.company_id)
+
     @classmethod
     def get_queryset(cls):
         return ItdageneJoblisting.objects.all()
