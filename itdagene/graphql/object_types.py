@@ -1,53 +1,14 @@
 import graphene
-from django.conf import settings
-from graphene import Int, relay
+from graphene import relay
 from graphene_django import DjangoObjectType
-from sorl.thumbnail import get_thumbnail
 
 from itdagene.app.career.models import Joblisting as ItdageneJoblisting
 from itdagene.app.company.models import Company as ItdageneCompany
 from itdagene.app.pages.models import Page as ItdagenePage
 from itdagene.core.models import Preference
 from itdagene.core.models import User as ItdageneUser
-
-
-def resize_image(image, **kwargs):
-    if not image:
-        return None
-    height = kwargs.get('height')
-    width = kwargs.get('width')
-    if not height and not width:
-        return settings.HOST_URL + image.url
-
-    geometry = f'{width}x{height}'
-    if width and not height:
-        geometry = f'{width}'
-
-    format = kwargs.get('format', "PNG")
-    padding = kwargs.get('padding', True)
-    quality = kwargs.get('quality', 99)
-
-    return settings.HOST_URL + get_thumbnail(
-        image, geometry, format=format, padding=padding, quality=quality, transparency=True,
-        padding_color=(255, 255, 255, 0)
-    ).url
-
-
-class Metadata(graphene.Interface):
-    title = graphene.String(required=True)
-    description = graphene.String(required=False)
-    sharing_image = graphene.String(required=False)
-
-
-# TODO FIX this. Currently not working with filtering... :(
-class CountableConnectionBase(relay.Connection):
-    class Meta:
-        abstract = True
-
-    total_count = Int()
-
-    def resolve_total_count(self, info, **kwargs):
-        return self.iterable.count()
+from itdagene.graphql.types import CountableConnectionBase, Metadata
+from itdagene.graphql.utils import resize_image
 
 
 class Joblisting(DjangoObjectType):
@@ -55,7 +16,7 @@ class Joblisting(DjangoObjectType):
 
     class Meta:
         model = ItdageneJoblisting
-        # connection_class = CountableConnectionBase
+        connection_class = CountableConnectionBase
         filter_fields = [
             'type',
             'to_year',
@@ -88,12 +49,12 @@ class Joblisting(DjangoObjectType):
 
     @classmethod
     def get_queryset(cls):
-        return ItdageneJoblisting.objects.active()
+        return ItdageneJoblisting.objects.all()
 
     @classmethod
     def get_node(cls, context, id):
         try:
-            return ItdageneJoblisting.all_objects.all().get(pk=id)
+            return ItdageneJoblisting.objects.get(pk=id)
         except Exception as e:
             print(e)
             return None
@@ -227,3 +188,8 @@ class MetaData(DjangoObjectType):
             'board_members',
         )
         interfaces = (relay.Node, )
+
+
+class SearchResult(graphene.Union):
+    class Meta:
+        types = (Joblisting, Company, Page)

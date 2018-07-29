@@ -18,8 +18,8 @@ class Town(BaseModel):
 
 class Joblisting(BaseModel):
 
-    objects = JoblistingManager()
-    all_objects = models.Manager()
+    active_objects = JoblistingManager()
+    objects = models.Manager()
 
     JOB_TYPES = (
         ('si', _('Summer internship')),
