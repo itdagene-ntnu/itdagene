@@ -18,6 +18,6 @@ class ResolveLimitMiddleware:
         info.context.count = info.context.count + 1
         print(info.__dir__())
         if (info.context.count > settings.GRAPHENE_RESOLVER_LIMIT):
-            raise GraphQLError('That email already exists')
+            raise GraphQLError('query too big :/')
         print(info.context.count)
         return next(root, info, **args)

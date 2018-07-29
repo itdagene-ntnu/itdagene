@@ -44,6 +44,7 @@ class Query(graphene.ObjectType):
     )
 
     ping = graphene.String(description="ping -> pong")
+    resolve_count = graphene.Int(description="Resovle count")
 
     # debug = graphene.Field(DjangoDebug, name='__debug') if settings.DEBUG else None
 
@@ -64,3 +65,6 @@ class Query(graphene.ObjectType):
 
     def resolve_current_meta_data(self, info):
         return Preference.current_preference()
+
+    def resolve_resolve_count(self, info, **kwargs):
+        return info.context.count
