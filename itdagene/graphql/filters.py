@@ -14,4 +14,5 @@ class JoblistingFilter(django_filters.FilterSet):
             'company',
             'to_year',
             'from_year',
+            'towns',
         ]

@@ -3,6 +3,7 @@ from graphene import relay
 from graphene_django import DjangoObjectType
 
 from itdagene.app.career.models import Joblisting as ItdageneJoblisting
+from itdagene.app.career.models import Town as ItdageneTown
 from itdagene.app.company.models import Company as ItdageneCompany
 from itdagene.app.pages.models import Page as ItdagenePage
 from itdagene.core.models import Preference
@@ -11,8 +12,16 @@ from itdagene.graphql.types import CountableConnectionBase, Metadata
 from itdagene.graphql.utils import resize_image
 
 
+class Town(DjangoObjectType):
+    class Meta:
+        model = ItdageneTown
+        interfaces = (relay.Node, )
+        description = "Town entity"
+        only_fields = ('id', 'name')
+
+
 class Joblisting(DjangoObjectType):
-    towns = graphene.NonNull(graphene.List(graphene.NonNull(graphene.String)))
+    towns = graphene.NonNull(graphene.List(Town))
 
     class Meta:
         model = ItdageneJoblisting
@@ -195,4 +204,4 @@ class MetaData(DjangoObjectType):
 
 class SearchResult(graphene.Union):
     class Meta:
-        types = (Joblisting, Company, Page)
+        types = (Joblisting, Company, Page, Town)
