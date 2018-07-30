@@ -21,7 +21,7 @@ class Town(DjangoObjectType):
 
 
 class Joblisting(DjangoObjectType):
-    towns = graphene.NonNull(graphene.List(Town))
+    towns = graphene.NonNull(graphene.List(graphene.NonNull(Town)))
 
     class Meta:
         model = ItdageneJoblisting
