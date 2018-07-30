@@ -21,6 +21,7 @@ class CountableConnectionBase(relay.Connection):
 class SearchType(graphene.Enum):
     COMPANY = "COMPANY"
     COMPANY_WITH_JOBLISTING = "COMPANY_WITH_JOBLISTING"
+    TOWNS_WITH_JOBLISTING = 'TOWNS_WITH_JOBLISTING'
     JOBLISTING = "JOBLISTING"
     PAGE = "PAGE"
 

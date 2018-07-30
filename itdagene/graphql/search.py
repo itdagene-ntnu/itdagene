@@ -16,6 +16,7 @@ def search(query, types):
         (SearchType.COMPANY, query_companies),
         (SearchType.JOBLISTING, query_joblistings),
         (SearchType.COMPANY_WITH_JOBLISTING, query_companies_with_joblisting),
+        (SearchType.TOWNS_WITH_JOBLISTING, query_towns_with_joblisting),
         (SearchType.PAGE, query_pages),
     )
 
@@ -32,6 +33,11 @@ def query_companies_with_joblisting(query, count):
     return ItdageneCompany.objects.filter(
         pk__in=ItdageneJoblisting.active_objects.values_list('company')
     ).filter(name__icontains=query)[:count]
+
+
+def query_towns_with_joblisting(query, count):
+    return Town.objects.filter(pk__in=ItdageneJoblisting.active_objects.values_list('towns')
+                               ).filter(name__icontains=query)[:count]
 
 
 def query_companies(query, count):
