@@ -5,10 +5,11 @@ from graphene_django import DjangoObjectType
 from itdagene.app.career.models import Joblisting as ItdageneJoblisting
 from itdagene.app.career.models import Town as ItdageneTown
 from itdagene.app.company.models import Company as ItdageneCompany
+from itdagene.app.events.models import Event as ItdageneEvent
 from itdagene.app.pages.models import Page as ItdagenePage
 from itdagene.core.models import Preference
 from itdagene.core.models import User as ItdageneUser
-from itdagene.graphql.types import CountableConnectionBase, Metadata
+from itdagene.graphql.types import CountableConnectionBase, OpengraphMetadata
 from itdagene.graphql.utils import resize_image
 
 
@@ -46,7 +47,7 @@ class Joblisting(DjangoObjectType):
             'url',
             'date_created',
         )
-        interfaces = (relay.Node, Metadata)
+        interfaces = (relay.Node, OpengraphMetadata)
 
     def resolve_towns(self, info, **kwargs):
         return self.towns.all()
@@ -75,7 +76,7 @@ class Joblisting(DjangoObjectType):
 class Page(DjangoObjectType):
     class Meta:
         model = ItdagenePage
-        interfaces = (relay.Node, Metadata)
+        interfaces = (relay.Node, OpengraphMetadata)
         description = "(info)Page entity"
         only_fields = (
             'slug',
@@ -150,6 +151,26 @@ class Company(DjangoObjectType):
         return resize_image(self.logo, **kwargs)
 
 
+class Event(DjangoObjectType):
+    class Meta:
+        model = ItdageneEvent
+        description = "Small event type"
+        only_fields = (
+            'id',
+            'title',
+            'time_start',
+            'time_end',
+            'description',
+            'type',
+            'location',
+            'company',
+            'uses_tickets',
+            'max_participants',
+            'date',
+        )
+        interfaces = (relay.Node, )
+
+
 class MetaData(DjangoObjectType):
 
     companies_first_day = graphene.List(graphene.NonNull(Company))
@@ -182,7 +203,7 @@ class MetaData(DjangoObjectType):
             return ItdageneCompany.objects.filter(package__name="Samarbeidspartner")
 
     def resolve_board_members(self, info):
-        return ItdageneUser.objects.filter(year=self.year).all()
+        return ItdageneUser.objects.filter(year=self.year).all().prefetch_related('groups')
 
     class Meta:
         model = Preference

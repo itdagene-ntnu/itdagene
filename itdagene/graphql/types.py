@@ -2,7 +2,7 @@ import graphene
 from graphene import Int, relay
 
 
-class Metadata(graphene.Interface):
+class OpengraphMetadata(graphene.Interface):
     title = graphene.String(required=True)
     description = graphene.String(required=False)
     sharing_image = graphene.String(required=False)

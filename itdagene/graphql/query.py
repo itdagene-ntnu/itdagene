@@ -2,10 +2,11 @@ import graphene
 from graphene import relay
 from graphene_django.filter import DjangoFilterConnectionField
 
+from itdagene.app.events.models import Event as ItdageneEvent
 from itdagene.app.pages.models import Page as ItdagenePage
 from itdagene.core.models import Preference
 from itdagene.graphql.filters import JoblistingFilter
-from itdagene.graphql.object_types import Joblisting, MetaData, Page, SearchResult
+from itdagene.graphql.object_types import Event, Joblisting, MetaData, Page, SearchResult
 from itdagene.graphql.search import search as _search
 from itdagene.graphql.types import SearchType
 
@@ -43,6 +44,7 @@ class Query(graphene.ObjectType):
         "Each entity is identified by an id or the unique together pair (slug, language)"
     )
 
+    events = graphene.List(graphene.NonNull(Event), description="All the events")
     ping = graphene.String(description="ping -> pong")
     resolve_count = graphene.Int(description="Resovle count")
 
@@ -68,3 +70,7 @@ class Query(graphene.ObjectType):
 
     def resolve_resolve_count(self, info, **kwargs):
         return info.context.count
+
+    def resolve_events(self, info):
+        pref = Preference.current_preference()
+        return ItdageneEvent.objects.filter(date__year=pref.year, is_internal=False)
