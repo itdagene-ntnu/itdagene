@@ -25,6 +25,8 @@ class OrderByJoblistingType(graphene.Enum):
     CREATED_INVERSE = "date_created"
     TYPE = "type"
     TYPE_INVERSE = "-type"
+    ID = "pk"
+    ID_INVERSE = "-pk"
 
 
 class SearchType(graphene.Enum):
