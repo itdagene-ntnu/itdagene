@@ -18,6 +18,15 @@ class CountableConnectionBase(relay.Connection):
         return self.iterable.count()
 
 
+class OrderByJoblistingType(graphene.Enum):
+    DEADLINE = "deadline"
+    DEADLINE_INVERSE = "-deadline"
+    CREATED = "-date_created"
+    CREATED_INVERSE = "date_created"
+    TYPE = "type"
+    TYPE_INVERSE = "-type"
+
+
 class SearchType(graphene.Enum):
     COMPANY = "COMPANY"
     COMPANY_WITH_JOBLISTING = "COMPANY_WITH_JOBLISTING"

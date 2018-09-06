@@ -8,7 +8,25 @@ from itdagene.core.models import Preference
 from itdagene.graphql.filters import JoblistingFilter
 from itdagene.graphql.object_types import Event, Joblisting, MetaData, Page, SearchResult
 from itdagene.graphql.search import search as _search
-from itdagene.graphql.types import SearchType
+from itdagene.graphql.types import OrderByJoblistingType, SearchType
+
+
+class OrderedDjangoFilterConnectionField(DjangoFilterConnectionField):
+    @classmethod
+    def connection_resolver(
+        cls, resolver, connection, default_manager, max_limit, enforce_first_or_last,
+        filterset_class, filtering_args, root, info, **args
+    ):
+        filter_kwargs = {k: v for k, v in args.items() if k in filtering_args}
+        qs = filterset_class(
+            data=filter_kwargs, queryset=default_manager.get_queryset(), request=info.context
+        ).qs
+        order = args.get('orderBy', None)
+        if order:
+            qs = qs.order_by(*order)
+        return super(DjangoFilterConnectionField, cls).connection_resolver(
+            resolver, connection, qs, max_limit, enforce_first_or_last, root, info, **args
+        )
 
 
 class Query(graphene.ObjectType):
@@ -22,9 +40,10 @@ class Query(graphene.ObjectType):
         types=graphene.List(SearchType, required=True),
         description="Search for different types of objects. Will return max 10 of each type."
     )
-    joblistings = DjangoFilterConnectionField(
-        Joblisting, filterset_class=JoblistingFilter, max_limit=20, enforce_first_or_last=True,
-        description="List and paginate joblistings", on='active_objects'
+    joblistings = OrderedDjangoFilterConnectionField(
+        Joblisting, filterset_class=JoblistingFilter,
+        orderBy=graphene.List(of_type=OrderByJoblistingType), max_limit=20,
+        enforce_first_or_last=True, description="List and paginate joblistings", on='active_objects'
     )
     current_meta_data = graphene.Field(
         graphene.NonNull(MetaData), description="Metadata about the current years event"
