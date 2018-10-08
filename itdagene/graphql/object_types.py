@@ -27,11 +27,11 @@ class Joblisting(DjangoObjectType):
     class Meta:
         model = ItdageneJoblisting
         connection_class = CountableConnectionBase
-#        filter_fields = [
-#            'type',
-#            'to_year',
-#            'from_year',
-#        ]
+        #        filter_fields = [
+        #            'type',
+        #            'to_year',
+        #            'from_year',
+        #        ]
         description = "Joblisting entity"
         only_fields = (
             'id',
