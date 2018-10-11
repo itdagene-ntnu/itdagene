@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.contrib.auth.views import login, logout
 from django.http import HttpResponsePermanentRedirect
 from django.urls import include, re_path, reverse
 from django.views.decorators.csrf import csrf_exempt
@@ -17,8 +16,8 @@ handler404 = error404
 handler500 = error500
 
 urlpatterns = [
-    re_path(r'^logout/$', logout,
-            {'next_page': inside}),
+    #    re_path(r'^logout/$', logout,
+    #            {'next_page': inside}),
     re_path(r'^$', frontpage),
     re_path(r'^frontpage/$', public),
     re_path(r'^dashboard/$', inside),
@@ -57,10 +56,10 @@ if settings.GOOGLE_AUTH:
             name='itdagene.login'
         ),
     ]
-else:
-    urlpatterns += [
-        re_path(r'^login/$', login, name='itdagene.login'),
-    ]
+# else:
+#    urlpatterns += [
+#        re_path(r'^login/$', login, name='itdagene.login'),
+#    ]
 # Redirects
 urlpatterns += [
     re_path(
