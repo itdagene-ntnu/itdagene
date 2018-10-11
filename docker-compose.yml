@@ -1,8 +1,9 @@
+---
 version: '2'
 
 services:
   postgres:
-    image: 'postgres:9.3'
+    image: '10.5-alpine'
     environment:
       - POSTGRES_USER=itdagene
     ports:

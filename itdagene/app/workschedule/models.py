@@ -40,8 +40,9 @@ class Worker(BaseModel):
             'email': self.email,
         }
 
-    class Meta:
-        permissions = (("view_worker", "Can see worker"), )
+
+# class Meta:
+# permissions = (("view_worker", "Can see worker"), )
 
 
 class WorkSchedule(BaseModel):
@@ -77,7 +78,9 @@ class WorkSchedule(BaseModel):
     class Meta:
         verbose_name = _('work schedule')
         verbose_name_plural = _('work schedules')
-        permissions = (("view_workschedule", "Can see workschedule"), )
+
+
+#        permissions = (("view_workschedule", "Can see workschedule"), )
 
 
 class WorkerInSchedule(BaseModel):

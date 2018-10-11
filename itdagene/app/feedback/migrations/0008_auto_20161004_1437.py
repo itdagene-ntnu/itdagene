@@ -37,11 +37,8 @@ class Migration(migrations.Migration):
                     ('core', 'Core'), ('events', 'Events'), ('feedback', 'Feedback'),
                     ('frontpage', 'Frontpage'), ('logistics', 'Logistics'), ('mail', 'Mail'),
                     ('meetings', 'Meetings'), ('news', 'News'), ('notifications', 'Notifications'),
-                    ('pages',
-                     'Pages'), ('profiles',
-                                'Profiles'), ('todo',
-                                              'Todo'), ('venue',
-                                                        'Venue'), ('workschedule', 'Workschedule')
+                    ('pages', 'Pages'), ('profiles', 'Profiles'), ('todo', 'Todo'),
+                    ('venue', 'Venue'), ('workschedule', 'Workschedule')
                 ], max_length=50, verbose_name='app'
             ),
         ),

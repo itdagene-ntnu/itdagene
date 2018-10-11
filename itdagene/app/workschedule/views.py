@@ -1,4 +1,3 @@
-from dateutil.rrule import DAILY, rrule
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -6,7 +5,6 @@ from django.utils.translation import ugettext_lazy as _
 
 from itdagene.app.workschedule.forms import WorkerForm, WorkScheduleForm
 from itdagene.app.workschedule.models import Worker, WorkerInSchedule, WorkSchedule
-from itdagene.core.models import Preference
 
 
 @permission_required('workschedule.add_worker')
@@ -78,37 +76,37 @@ def edit_task(request, id):
     )
 
 
-@permission_required('workschedule.view_workschedule')
-def list(request):
-    workers = Worker.objects.filter(preference=Preference.current_preference().year)
-    pref = Preference.current_preference()
-    start_date = pref.start_date
-    end_date = pref.end_date
-
-    days = []
-    number = 1
-    for dt in rrule(DAILY, dtstart=start_date, until=end_date):
-        days.append(
-            {
-                'number': number,
-                'list': WorkSchedule.objects.filter(date=dt).order_by('date'),
-                'date': dt
-            }
-        )
-        number += 1
-
-    other = WorkSchedule.objects.filter(date__year=pref.year
-                                        ).exclude(date__gte=start_date,
-                                                  date__lte=end_date).order_by('date')
-    return render(
-        request, 'workschedule/list.html',
-        {
-            'other': other,
-            'days': days,
-            'title': _('Work Schedule'),
-            'workers': workers
-        }
-    )
+# @permission_required('workschedule.view_workschedule')
+# def list(request):
+#    workers = Worker.objects.filter(preference=Preference.current_preference().year)
+#    pref = Preference.current_preference()
+#    start_date = pref.start_date
+#    end_date = pref.end_date
+#
+#    days = []
+#    number = 1
+#    for dt in rrule(DAILY, dtstart=start_date, until=end_date):
+#        days.append(
+#            {
+#                'number': number,
+#                'list': WorkSchedule.objects.filter(date=dt).order_by('date'),
+#                'date': dt
+#            }
+#        )
+#        number += 1
+#
+#    other = WorkSchedule.objects.filter(date__year=pref.year
+#                                        ).exclude(date__gte=start_date,
+#                                                  date__lte=end_date).order_by('date')
+#    return render(
+#        request, 'workschedule/list.html',
+#        {
+#            'other': other,
+#            'days': days,
+#            'title': _('Work Schedule'),
+#            'workers': workers
+#        }
+#    )
 
 
 @permission_required('workschedule.view_workschedule')
@@ -133,14 +131,14 @@ def change_attendance(request, id):
     return redirect(reverse('itdagene.workschedule.view_task', args=[worker.schedule.pk]))
 
 
-@permission_required('workschedule.view_workschedule')
-def view_worker(request, id):
-    worker = get_object_or_404(Worker, pk=id)
-    return render(
-        request, 'worker/view.html',
-        {
-            'worker': worker,
-            'title': _('Worker'),
-            'description': worker.name
-        }
-    )
+# @permission_required('workschedule.view_workschedule')
+# def view_worker(request, id):
+#    worker = get_object_or_404(Worker, pk=id)
+#    return render(
+#        request, 'worker/view.html',
+#        {
+#            'worker': worker,
+#            'title': _('Worker'),
+#            'description': worker.name
+#        }
+#    )

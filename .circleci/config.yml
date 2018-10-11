@@ -3,7 +3,7 @@ jobs:
   tests-python:
     docker:
       - image: python:3.6
-      - image: postgres
+      - image: postgres:10.5-alpine
         environment:
           POSTGRES_USER: itdagene
 

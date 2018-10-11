@@ -28,9 +28,9 @@ class Migration(migrations.Migration):
                     models.PositiveIntegerField(
                         default=8, verbose_name='Position', choices=[
                             (0, b'Leder'), (1, b'Nestleder'), (2, b'Okonomi'),
-                            (3, b'Bedriftskontaktansvarlig'), (4,
-                                                               b'Logistikk'), (5, b'Markedsforing'),
-                            (6, b'Web'), (7, b'Bankett'), (8, b'Bedriftskontakt')
+                            (3, b'Bedriftskontaktansvarlig'), (4, b'Logistikk'),
+                            (5, b'Markedsforing'), (6, b'Web'), (7, b'Bankett'),
+                            (8, b'Bedriftskontakt')
                         ]
                     )
                 ),
