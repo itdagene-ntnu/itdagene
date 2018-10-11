@@ -16,6 +16,9 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterModelOptions(
             name='workschedule',
-            options={'verbose_name': 'work schedule', 'verbose_name_plural': 'work schedules'},
+            options={
+                'verbose_name': 'work schedule',
+                'verbose_name_plural': 'work schedules'
+            },
         ),
     ]

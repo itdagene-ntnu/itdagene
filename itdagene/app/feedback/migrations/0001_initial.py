@@ -160,18 +160,14 @@ class Migration(migrations.Migration):
                     'app',
                     models.CharField(
                         max_length=50, verbose_name='app', choices=[
-                            (b'all', 'All'), (b'admin', 'Admin'), (b'company',
-                                                                   'BDB'), (b'career', 'Career'),
-                            (b'core', 'Core'), (b'documents', 'Documents'), (b'events', 'Events'),
-                            (b'feedback', 'Feedback'), (b'frontpage',
-                                                        'Frontpage'), (b'logistics', 'Logistics'),
-                            (b'meetings',
-                             'Meetings'), (b'news', 'News'), (b'notifications',
-                                                              'Notifications'), (b'pages', 'Pages'),
-                            (b'profiles',
-                             'Profiles'), (b'todo',
-                                           'Todo'), (b'venue',
-                                                     'Venue'), (b'workschedule', 'Workschedule')
+                            (b'all', 'All'), (b'admin', 'Admin'), (b'company', 'BDB'),
+                            (b'career', 'Career'), (b'core', 'Core'), (b'documents', 'Documents'),
+                            (b'events', 'Events'), (b'feedback', 'Feedback'),
+                            (b'frontpage', 'Frontpage'), (b'logistics', 'Logistics'),
+                            (b'meetings', 'Meetings'), (b'news', 'News'),
+                            (b'notifications', 'Notifications'), (b'pages', 'Pages'),
+                            (b'profiles', 'Profiles'), (b'todo', 'Todo'), (b'venue', 'Venue'),
+                            (b'workschedule', 'Workschedule')
                         ]
                     )
                 ),

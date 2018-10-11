@@ -1,4 +1,3 @@
-from dateutil.rrule import DAILY, rrule
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -6,7 +5,6 @@ from django.utils.translation import ugettext_lazy as _
 
 from itdagene.app.workschedule.forms import WorkerForm, WorkScheduleForm
 from itdagene.app.workschedule.models import Worker, WorkerInSchedule, WorkSchedule
-from itdagene.core.models import Preference
 
 
 @permission_required('workschedule.add_worker')
