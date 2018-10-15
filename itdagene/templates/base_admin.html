@@ -165,14 +165,6 @@
                             </li>
                         {% endif %}
                         {% endcomment %}
-                        {% if perms.quiz.view_quiz %}
-                            <li class="{% active request 'quiz' %} treeview"><a
-                                    href="#"><span
-                                    class="glyphicon glyphicon-edit"></span> {% trans "Quiz" %}
-                                <i class="fa fa-angle-left pull-right"></i> </a>
-                                {% include 'quiz/submenu.html' %}
-                            </li>
-                        {% endif %}
 
                         <li class="{% active request 'users' %} treeview"><a href="#"><span
                                 class="glyphicon glyphicon-user"></span> {% trans "Users" %} <i

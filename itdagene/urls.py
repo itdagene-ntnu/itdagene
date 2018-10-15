@@ -8,7 +8,7 @@ from django.views.generic import TemplateView
 from graphene_django.views import GraphQLView
 
 from itdagene.app.feedback.views.evalutions import handle_evaluation
-from itdagene.app.frontpage.views import frontpage, inside, public, tweet
+from itdagene.app.frontpage.views import frontpage, inside
 from itdagene.core.views import error403, error404, error500, under_development
 
 handler403 = error403
@@ -18,10 +18,8 @@ handler500 = error500
 urlpatterns = [
     #    re_path(r'^logout/$', logout,
     #            {'next_page': inside}),
-    re_path(r'^$', frontpage),
-    re_path(r'^frontpage/$', public),
-    re_path(r'^dashboard/$', inside),
-    re_path(r'^dashboard/tweet/$', tweet),
+    re_path(r'^$', frontpage, name="itdagene.frontpage.public"),
+    re_path(r'^dashboard/$', inside, name="itdagene.frontpage.inside"),
     re_path(r'^users/', include('itdagene.app.users.urls')),
     re_path(r'^todo/', include('itdagene.app.todo.urls')),
     re_path(r'^errors/error403/$', error403),
@@ -33,14 +31,12 @@ urlpatterns = [
     re_path(r'^comments/', include('itdagene.app.comments.urls')),
     re_path(r'^events/', include('itdagene.app.events.urls')),
     re_path(r'^feedback/', include('itdagene.app.feedback.urls')),
-    re_path(r'^frontpage/', include('itdagene.app.frontpage.urls')),
     re_path(r'^meetings/', include('itdagene.app.meetings.urls')),
     re_path(r'^news/', include('itdagene.app.news.urls')),
     re_path(r'^bdb/', include('itdagene.app.company.urls')),
     re_path(r'^career/', include('itdagene.app.career.urls')),
     re_path(r'^workschedules/', include('itdagene.app.workschedule.urls')),
     re_path(r'^evaluate/(?P<hash>[a-zA-Z0-9]+)/$', handle_evaluation, name='itdagene.evaluate'),
-    re_path(r'^quiz/', include('itdagene.app.quiz.urls')),
     re_path(r'^superadmin/', admin.site.urls),
     re_path(r'^graphql', csrf_exempt(GraphQLView.as_view(graphiql=True))),
 ]

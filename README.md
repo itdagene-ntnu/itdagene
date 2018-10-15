@@ -2,7 +2,7 @@
 
 > Codebase for http://admin.itdagene.no
 
-![itDAGENE](itdagene/assets/img/logoQuiz.png)
+![itDAGENE](itdagene/assets/img/itdagene_flat.png)
 
 ## TL;DR
 
