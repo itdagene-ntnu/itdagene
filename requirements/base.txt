@@ -7,7 +7,7 @@ psycopg2==2.7.3.2
 python-dateutil==2.7.3
 pytidylib==0.3.2
 vobject==0.9.5
-sorl-thumbnail==12.4.1
+sorl-thumbnail==12.5.0
 django-crispy-forms==1.7.2
 django-debug-toolbar==1.10.1
 django-cache-panel==0.1
