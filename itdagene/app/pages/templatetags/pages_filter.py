@@ -9,9 +9,10 @@ register = Library()
 
 @register.filter
 def load_thumbnails(value):
-    images = re.findall(
-        '<img class="thumbnail"( alt="([a-zA-Z0-9\.\:\/_ -]+)?")? '
-        'src="([a-zA-Z0-9\.\:\/_ -]+)"([a-zA-Z0-9\.\:\;\/_=\" -]+)?>', value
+    images = re.findall( # noqa
+        '<img class="thumbnail"( alt="([a-zA-Z0-9\.\:\/_ -]+)?")? '  # noqa
+        'src="([a-zA-Z0-9\.\:\/_ -]+)"([a-zA-Z0-9\.\:\;\/_=\" -]+)?>',
+        value
     )
     if settings.DEBUG:
         if settings.TOOLBAR:
