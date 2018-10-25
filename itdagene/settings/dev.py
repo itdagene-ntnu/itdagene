@@ -54,3 +54,4 @@ CACHES = {
         }
     }
 }
+SECRET_KEY = "dsadasA"

@@ -1,7 +1,9 @@
 from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import SUCCESS, add_message
+from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from itdagene.app.career.forms import JoblistingForm, JoblistingTownForm
@@ -11,7 +13,10 @@ from itdagene.core.decorators import staff_required
 
 @staff_required()
 def list(request):
-    joblistings = Joblisting.objects.filter(is_active=True)
+    joblistings = Joblisting.objects.filter(
+        (Q(deadline__gte=timezone.now()) | Q(deadline__isnull=True)), is_active=True
+    )
+
     return render(
         request, 'career/list.html', {
             'joblistings': joblistings,

@@ -34,7 +34,7 @@ def add(request):
             page = form.save()
             cache.set('page' + page.language + page.slug, page)
             cache.delete('menu')
-            return redirect(reverse('itdagene.pages.view_page', args=[page.slug]))
+            return redirect(reverse('itdagene.pages.admin'))
         else:
             return render(request, 'pages/form.html', {'form': form})
     form = PageForm()
@@ -54,7 +54,7 @@ def edit(request, slug, lang_code='nb'):
                 form.save()
                 cache.set('page' + page.language + page.slug, page)
                 cache.delete('menu')
-                return redirect(reverse('itdagene.pages.view_page', args=[page.slug]))
+                return redirect(reverse('itdagene.pages.admin'))
 
     return render(
         request, 'pages/form.html',

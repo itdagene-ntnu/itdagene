@@ -209,7 +209,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'itdagene.core.context_processors.site_processor',
                 'itdagene.core.context_processors.utils_processor',
-                'itdagene.core.context_processors.twitter',
                 'itdagene.app.pages.context_processors.menu_pages',
             ],
         },
