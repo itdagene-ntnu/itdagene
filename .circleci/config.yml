@@ -29,10 +29,6 @@ jobs:
           command: |
             tox -e isort
 
-      - run:
-          name: flake8
-          command: |
-            tox -e flake8
 
       - run:
           name: yapf
