@@ -21,4 +21,3 @@ def utils_processor(request):
     context['preferences'] = Preference.current_preference()
 
     return context
-
