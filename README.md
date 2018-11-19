@@ -1,4 +1,4 @@
-![itDAGENE](itdagene/assets/img/itdagene_flat.png) [![CircleCI](https://circleci.com/gh/itdagene-ntnu/itdagene.svg?style=svg&circle-token=abcfbea6689e5baef8a1fbb7fa6eb822efdd5bfb)](https://circleci.com/gh/itdagene-ntnu/itdagene)
+![itDAGENE](itdagene/assets/img/itdagene_flat.png) [![CircleCI](https://circleci.com/gh/itdagene-ntnu/itdagene.svg?style=svg)](https://circleci.com/gh/itdagene-ntnu/itdagene)
 
 > API and admin interface for itdagene.no & admin.itdagene.no
 
