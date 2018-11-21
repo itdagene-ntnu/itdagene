@@ -42,7 +42,7 @@ def add(request):
 
 
 @permission_required('pages.change_page')
-def edit(request, slug, lang_code='nb'):
+def edit(request, slug, lang_code):
     form = PageForm()
     page = None
     if slug:

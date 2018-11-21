@@ -25,6 +25,7 @@ class Page(BaseModel):
     class Meta:
         verbose_name = _('Page')
         verbose_name_plural = _('Pages')
+        unique_together = ('slug', 'language')
 
     def save(self, *args, **kwargs):
         action = 'EDIT' if self.pk else 'CREATE'
