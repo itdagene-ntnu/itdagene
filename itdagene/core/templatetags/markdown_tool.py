@@ -9,8 +9,6 @@ register = Library()
 @register.filter(is_safe=True)
 @stringfilter
 def markdownize(value):
-    extensions = [
-        "nl2br",
-    ]
-
-    return mark_safe(markdown.markdown(value, extensions, safe_mode=True, enable_attributes=False))
+    return mark_safe(
+        markdown.markdown(value, extensions=["nl2br"], safe_mode=True, enable_attributes=False)
+    )
