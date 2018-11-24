@@ -3,7 +3,7 @@ version: '2'
 
 services:
   postgres:
-    image: 'postgres:10.5-alpine'
+    image: 'postgres:10.6-alpine'
     environment:
       - POSTGRES_USER=itdagene
     ports:
