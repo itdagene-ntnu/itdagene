@@ -22,6 +22,6 @@ celery==4.2.1
 raven==6.9.0
 social-auth-app-django==2.1.0
 python-social-auth==0.3.6
-PyJWT==1.6.4
+PyJWT==1.7.0
 graphene-django==2.2
 django-cors-headers==2.4.0
