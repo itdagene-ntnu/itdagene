@@ -81,11 +81,11 @@ $ tox
 
 ### Code style
 
-We enforce the style guide [PEP 8] with flake8, and [isort] for import sorting. [yapf] is used for code formatting.
+We enforce the style guide [PEP 8] with flake8, and [isort] for import sorting. [black] is used for code formatting.
 
 ```bash
 $ isort -rc itdagene               # Fix isort errors
-$ yapf -ir itdagene                # Fix code formatting
+$ black itdagene                # Fix code formatting
 $ tox -e isort -e flake8 -e yapf   # Verify code style
 ```
 
@@ -110,7 +110,7 @@ $ celery flower -A itdagene --address="127.0.0.1" --port=5555 # flower
 [docker-compose]: https://docs.docker.com/compose/overview/
 [pep 8]: https://www.python.org/dev/peps/pep-0008/
 [isort]: https://github.com/timothycrosley/isort
-[yapf]: https://github.com/google/yapf
+[black]: https://github.com/ambv/black
 [django-graphene]: https://github.com/graphql-python/graphene-django
 [celery]: http://www.celeryproject.org/
 [yarn]: https://yarnpkg.com/

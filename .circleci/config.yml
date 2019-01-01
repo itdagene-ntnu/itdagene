@@ -35,9 +35,9 @@ jobs:
             tox -e flake8
 
       - run:
-          name: yapf
+          name: black
           command: |
-            tox -e yapf
+            tox -e black
 
       - run:
           name: Tests
