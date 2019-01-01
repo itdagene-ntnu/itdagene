@@ -48,6 +48,10 @@ $ source venv/bin/activate
 $ python manage.py runserver
 ```
 
+## Python 3.7
+Since celery [doesn't support python 3.7 yet](venv/lib/python3.7/site-packages/celery/backends), run `./fix-celery.sh` to fix it.
+
+
 ## Migrations
 
 In order to setup a new dev environment you have to create a superuser. Every time there are new migrations, you have to apply them. If you don't, the `runserver` command will give you a warning.
