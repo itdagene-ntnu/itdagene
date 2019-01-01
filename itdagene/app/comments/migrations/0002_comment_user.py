@@ -8,18 +8,18 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('comments', '0001_initial'),
+        ("comments", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='comment',
-            name='user',
+            model_name="comment",
+            name="user",
             field=models.ForeignKey(
-                verbose_name='user',
+                verbose_name="user",
                 to=settings.AUTH_USER_MODEL,
                 on_delete=models.CASCADE,
             ),
             preserve_default=True,
-        ),
+        )
     ]

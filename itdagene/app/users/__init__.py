@@ -9,14 +9,14 @@ def vcard_string(person):
     """
     # vobject API is a bit verbose...
     v = vobject.vCard()
-    v.add('n')
+    v.add("n")
     v.n.value = vobject.vcard.Name(family=person.last_name, given=person.first_name)
-    v.add('fn')
+    v.add("fn")
     v.fn.value = "%s %s" % (person.first_name, person.last_name)
-    v.add('email')
+    v.add("email")
     v.email.value = person.email
-    v.add('tel')
+    v.add("tel")
     v.tel.value = str(person.phone)
-    v.tel.type_param = 'WORK'
+    v.tel.type_param = "WORK"
     output = v.serialize()
     return output

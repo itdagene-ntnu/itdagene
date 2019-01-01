@@ -19,14 +19,14 @@ class Celery(celery.Celery):
         register_signal(client)
 
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'itdagene.settings')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "itdagene.settings")
 
-app = Celery('itdagene')
+app = Celery("itdagene")
 
-app.config_from_object('django.conf:settings', namespace='CELERY')
+app.config_from_object("django.conf:settings", namespace="CELERY")
 app.autodiscover_tasks()
 
 
 @app.task(bind=True)
 def debug_task(self):
-    print('Request: {0!r}'.format(self.request))
+    print("Request: {0!r}".format(self.request))

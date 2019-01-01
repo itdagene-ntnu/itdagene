@@ -7,17 +7,18 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('core', '0024_merge_20171229_1651'),
-    ]
+    dependencies = [("core", "0024_merge_20171229_1651")]
 
     operations = [
         migrations.AlterField(
-            model_name='user',
-            name='year',
+            model_name="user",
+            name="year",
             field=models.PositiveIntegerField(
-                blank=True, default=2017, help_text='Year the user was active.', null=True,
-                verbose_name='Active Year'
+                blank=True,
+                default=2017,
+                help_text="Year the user was active.",
+                null=True,
+                verbose_name="Active Year",
             ),
-        ),
+        )
     ]

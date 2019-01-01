@@ -5,19 +5,19 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('core', '0029_auto_20180206_1156'),
-    ]
+    dependencies = [("core", "0029_auto_20180206_1156")]
 
     operations = [
         migrations.AddField(
-            model_name='preference',
-            name='view_companies',
-            field=models.BooleanField(default=False, verbose_name='view all comapnies'),
+            model_name="preference",
+            name="view_companies",
+            field=models.BooleanField(default=False, verbose_name="view all comapnies"),
         ),
         migrations.AddField(
-            model_name='preference',
-            name='view_hsp',
-            field=models.BooleanField(default=False, verbose_name='view main collaborator'),
+            model_name="preference",
+            name="view_hsp",
+            field=models.BooleanField(
+                default=False, verbose_name="view main collaborator"
+            ),
         ),
     ]

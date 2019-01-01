@@ -5,23 +5,21 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('company', '0010_company_is_collaborator'),
-    ]
+    dependencies = [("company", "0010_company_is_collaborator")]
 
     operations = [
         migrations.AlterModelOptions(
-            name='companycontact',
+            name="companycontact",
             options={
-                'ordering': ['-pk'],
-                'verbose_name': 'company contact',
-                'verbose_name_plural': 'company contacts'
+                "ordering": ["-pk"],
+                "verbose_name": "company contact",
+                "verbose_name_plural": "company contacts",
             },
         ),
         migrations.AddField(
-            model_name='companycontact',
-            name='current',
-            field=models.BooleanField(default=False, verbose_name='current contact'),
+            model_name="companycontact",
+            name="current",
+            field=models.BooleanField(default=False, verbose_name="current contact"),
             preserve_default=True,
         ),
     ]

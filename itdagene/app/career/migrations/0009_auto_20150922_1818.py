@@ -5,13 +5,10 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('career', '0008_merge'),
-    ]
+    dependencies = [("career", "0008_merge")]
 
     operations = [
         migrations.AlterModelOptions(
-            name='joblisting',
-            options={'ordering': ('deadline', )},
-        ),
+            name="joblisting", options={"ordering": ("deadline",)}
+        )
     ]

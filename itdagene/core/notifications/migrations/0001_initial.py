@@ -8,74 +8,89 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('contenttypes', '0001_initial'),
+        ("contenttypes", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Notification',
+            name="Notification",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.AutoField(
-                        verbose_name='ID', serialize=False, auto_created=True, primary_key=True
-                    )
+                        verbose_name="ID",
+                        serialize=False,
+                        auto_created=True,
+                        primary_key=True,
+                    ),
                 ),
                 (
-                    'priority',
+                    "priority",
                     models.PositiveIntegerField(
-                        default=1, verbose_name='prioritet',
-                        choices=[(0, b'Low'), (1, b'Medium'), (2, b'High')]
-                    )
+                        default=1,
+                        verbose_name="prioritet",
+                        choices=[(0, b"Low"), (1, b"Medium"), (2, b"High")],
+                    ),
                 ),
-                ('date', models.DateTimeField(auto_now=True, verbose_name='dato')),
-                ('message', models.TextField(verbose_name='melding')),
-                ('object_id', models.PositiveIntegerField()),
-                ('send_mail', models.BooleanField(default=True, verbose_name='send epost')),
-                ('sent_mail', models.BooleanField(default=False, verbose_name='sendt epost')),
+                ("date", models.DateTimeField(auto_now=True, verbose_name="dato")),
+                ("message", models.TextField(verbose_name="melding")),
+                ("object_id", models.PositiveIntegerField()),
                 (
-                    'content_type',
+                    "send_mail",
+                    models.BooleanField(default=True, verbose_name="send epost"),
+                ),
+                (
+                    "sent_mail",
+                    models.BooleanField(default=False, verbose_name="sendt epost"),
+                ),
+                (
+                    "content_type",
                     models.ForeignKey(
-                        to='contenttypes.ContentType',
+                        to="contenttypes.ContentType", on_delete=models.CASCADE
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        verbose_name="bruker",
                         on_delete=models.CASCADE,
-                    )
-                ),
-                (
-                    'user',
-                    models.ForeignKey(
-                        verbose_name='bruker', on_delete=models.CASCADE, to=settings.AUTH_USER_MODEL
-                    )
+                        to=settings.AUTH_USER_MODEL,
+                    ),
                 ),
             ],
             options={},
-            bases=(models.Model, ),
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name='Subscription',
+            name="Subscription",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.AutoField(
-                        verbose_name='ID', serialize=False, auto_created=True, primary_key=True
-                    )
+                        verbose_name="ID",
+                        serialize=False,
+                        auto_created=True,
+                        primary_key=True,
+                    ),
                 ),
-                ('object_id', models.PositiveIntegerField()),
+                ("object_id", models.PositiveIntegerField()),
                 (
-                    'content_type',
+                    "content_type",
                     models.ForeignKey(
-                        to='contenttypes.ContentType',
-                        on_delete=models.CASCADE,
-                    )
+                        to="contenttypes.ContentType", on_delete=models.CASCADE
+                    ),
                 ),
                 (
-                    'subscribers',
+                    "subscribers",
                     models.ManyToManyField(
-                        related_name='subscriptions', null=True, to=settings.AUTH_USER_MODEL,
-                        blank=True
-                    )
+                        related_name="subscriptions",
+                        null=True,
+                        to=settings.AUTH_USER_MODEL,
+                        blank=True,
+                    ),
                 ),
             ],
             options={},
-            bases=(models.Model, ),
+            bases=(models.Model,),
         ),
     ]

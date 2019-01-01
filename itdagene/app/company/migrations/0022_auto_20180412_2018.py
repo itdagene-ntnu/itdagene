@@ -5,16 +5,17 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('company', '0021_auto_20180412_1953'),
-    ]
+    dependencies = [("company", "0021_auto_20180412_1953")]
 
     operations = [
         migrations.AlterField(
-            model_name='company',
-            name='logo_vector',
+            model_name="company",
+            name="logo_vector",
             field=models.FileField(
-                blank=True, null=True, upload_to='company_logos/', verbose_name='logo_vector'
+                blank=True,
+                null=True,
+                upload_to="company_logos/",
+                verbose_name="logo_vector",
             ),
-        ),
+        )
     ]

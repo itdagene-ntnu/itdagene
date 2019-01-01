@@ -7,24 +7,25 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('notifications', '0009_auto_20150506_1634'),
-    ]
+    dependencies = [("notifications", "0009_auto_20150506_1634")]
 
     operations = [
         migrations.AlterField(
-            model_name='notification',
-            name='priority',
+            model_name="notification",
+            name="priority",
             field=models.PositiveIntegerField(
-                choices=[(0, 'Low'), (1, 'Medium'), (2, 'High')], default=1,
-                verbose_name='prioritet'
+                choices=[(0, "Low"), (1, "Medium"), (2, "High")],
+                default=1,
+                verbose_name="prioritet",
             ),
         ),
         migrations.AlterField(
-            model_name='notification',
-            name='users',
+            model_name="notification",
+            name="users",
             field=models.ManyToManyField(
-                related_name='notifications', to=settings.AUTH_USER_MODEL, verbose_name='users'
+                related_name="notifications",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="users",
             ),
         ),
     ]
