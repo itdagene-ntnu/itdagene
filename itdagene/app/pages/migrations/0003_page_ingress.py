@@ -5,14 +5,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('pages', '0002_auto_20161004_1437'),
-    ]
+    dependencies = [("pages", "0002_auto_20161004_1437")]
 
     operations = [
         migrations.AddField(
-            model_name='page',
-            name='ingress',
-            field=models.TextField(default='', verbose_name='ingress'),
-        ),
+            model_name="page",
+            name="ingress",
+            field=models.TextField(default="", verbose_name="ingress"),
+        )
     ]

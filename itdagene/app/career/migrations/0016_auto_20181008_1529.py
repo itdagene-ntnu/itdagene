@@ -6,16 +6,14 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('career', '0015_auto_20180728_1850'),
-    ]
+    dependencies = [("career", "0015_auto_20180728_1850")]
 
     operations = [
         migrations.AlterModelManagers(
-            name='joblisting',
+            name="joblisting",
             managers=[
-                ('active_objects', django.db.models.manager.Manager()),
-                ('objects', django.db.models.manager.Manager()),
+                ("active_objects", django.db.models.manager.Manager()),
+                ("objects", django.db.models.manager.Manager()),
             ],
-        ),
+        )
     ]

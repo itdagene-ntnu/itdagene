@@ -4,25 +4,26 @@ from django.core.mail import EmailMultiAlternatives, get_connection
 from django.template.loader import render_to_string
 from django.utils import formats, translation
 from django.utils.translation import ugettext as _
-
 from itdagene.app.comments.models import Comment
 from itdagene.core.auth import generate_password
 from itdagene.core.notifications.models import Subscription
 
 
-def send_email(recipients, subject, template, template_html, params, sender=settings.SERVER_EMAIL):
+def send_email(
+    recipients, subject, template, template_html, params, sender=settings.SERVER_EMAIL
+):
 
-    params['site'] = settings.SITE
+    params["site"] = settings.SITE
 
-    mail_contents = render_to_string('mail/%s' % (template, ), params)
-    mail_contents_html = render_to_string('mail/%s' % (template_html, ), params)
+    mail_contents = render_to_string("mail/%s" % (template,), params)
+    mail_contents_html = render_to_string("mail/%s" % (template_html,), params)
 
     connection = get_connection(fail_silently=True)
 
     messages = []
     for recipient in recipients:
         message = EmailMultiAlternatives(subject, mail_contents, sender, [recipient])
-        message.attach_alternative(mail_contents_html, 'text/html')
+        message.attach_alternative(mail_contents_html, "text/html")
         messages.append(message)
 
     return connection.send_messages(messages)
@@ -37,12 +38,11 @@ def users_send_welcome_email(user):
         user.save()
 
         send_email(
-            [user.email], '%s %s' % (_('Welcome to'), settings.SITE['name']),
-            'users/welcome_mail.txt', 'users/welcome_mail.html',
-            {
-                'user': user,
-                'password': new_password
-            }
+            [user.email],
+            "%s %s" % (_("Welcome to"), settings.SITE["name"]),
+            "users/welcome_mail.txt",
+            "users/welcome_mail.html",
+            {"user": user, "password": new_password},
         )
 
 
@@ -54,14 +54,16 @@ def notifications_send_email(notification):
 
         with translation.override(user.language):
 
-            context = {
-                'notification': notification,
-            }
+            context = {"notification": notification}
 
-            template, template_html = 'notifications/notification_mail.txt', \
-                                      'notifications/notification_mail.html'
+            template, template_html = (
+                "notifications/notification_mail.txt",
+                "notifications/notification_mail.html",
+            )
 
-            send_email([user.email], _('New notification'), template, template_html, context)
+            send_email(
+                [user.email], _("New notification"), template, template_html, context
+            )
 
 
 def meeting_send_invite(users, meeting):
@@ -69,14 +71,15 @@ def meeting_send_invite(users, meeting):
 
         with translation.override(user.language):
 
-            context = {
-                'meeting': meeting,
-            }
-            template, template_html = 'meetings/invite.txt', 'meetings/invite.html'
+            context = {"meeting": meeting}
+            template, template_html = "meetings/invite.txt", "meetings/invite.html"
             send_email(
                 [user.email],
-                _('Meeting Invite %s %s') % (str(meeting), formats.date_format(meeting.date)),
-                template, template_html, context
+                _("Meeting Invite %s %s")
+                % (str(meeting), formats.date_format(meeting.date)),
+                template,
+                template_html,
+                context,
             )
 
 
@@ -97,7 +100,7 @@ def send_comment_email(comment):
         try:
             subscription = Subscription.objects.get(
                 content_type=ContentType.objects.get_for_model(attached_object),
-                object_id=attached_object.id
+                object_id=attached_object.id,
             )
             users += subscription.subscribers.all()
         except Subscription.DoesNotExist:
@@ -112,14 +115,14 @@ def send_comment_email(comment):
 
             with translation.override(user.language):
 
-                context = {
-                    'comment': comment,
-                }
+                context = {"comment": comment}
 
-                template, template_html = 'comment/new.txt', \
-                                          'comment/new.html'
+                template, template_html = "comment/new.txt", "comment/new.html"
 
                 send_email(
                     [user.email],
-                    _('New comment on %s') % str(comment.object), template, template_html, context
+                    _("New comment on %s") % str(comment.object),
+                    template,
+                    template_html,
+                    context,
                 )

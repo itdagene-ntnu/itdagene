@@ -7,26 +7,30 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('meetings', '0004_auto_20161004_1437'),
-    ]
+    dependencies = [("meetings", "0004_auto_20161004_1437")]
 
     operations = [
         migrations.AlterField(
-            model_name='meeting',
-            name='preference',
+            model_name="meeting",
+            name="preference",
             field=models.ForeignKey(
-                blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL,
-                to='core.Preference', verbose_name='Preference'
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="core.Preference",
+                verbose_name="Preference",
             ),
         ),
         migrations.AlterField(
-            model_name='meeting',
-            name='referee',
+            model_name="meeting",
+            name="referee",
             field=models.ForeignKey(
-                blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL,
-                related_name='refereed_meetings', to=settings.AUTH_USER_MODEL,
-                verbose_name='referee'
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="refereed_meetings",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="referee",
             ),
         ),
     ]

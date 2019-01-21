@@ -9,11 +9,13 @@ class NotificationsMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
 
-        user = getattr(request, 'user', None)
+        user = getattr(request, "user", None)
         if user and user.is_authenticated:
 
             path = request.path
-            notifications = request.user.notifications.prefetch_related('content_object').all()
+            notifications = request.user.notifications.prefetch_related(
+                "content_object"
+            ).all()
 
             for notification in notifications:
                 if notification.content_object.get_absolute_url() == path:

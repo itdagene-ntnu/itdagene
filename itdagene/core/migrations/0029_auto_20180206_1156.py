@@ -5,17 +5,17 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('core', '0028_auto_20180106_1824'),
-    ]
+    dependencies = [("core", "0028_auto_20180106_1824")]
 
     operations = [
         migrations.AlterField(
-            model_name='user',
-            name='language',
+            model_name="user",
+            name="language",
             field=models.CharField(
-                choices=[('nb', 'Norsk'), ('en', 'English')], default='nb', max_length=3,
-                verbose_name='Language'
+                choices=[("nb", "Norsk"), ("en", "English")],
+                default="nb",
+                max_length=3,
+                verbose_name="Language",
             ),
-        ),
+        )
     ]

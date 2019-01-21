@@ -36,22 +36,23 @@ def datetime(value, arg=None):
     from django.utils.timesince import timesince
     from django.utils.dateformat import format
     from django.conf import settings
+
     ts = ""
     normal = ""
     if not value:
-        return ''
+        return ""
     try:
         ts = timesince(value)
     except (ValueError, TypeError):
-        return ''
+        return ""
     try:
         normal = formats.date_format(value, settings.DATETIME_FORMAT)
     except AttributeError:
         try:
             normal = format(value, settings.DATETIME_FORMAT)
         except AttributeError:
-            return ''
+            return ""
     return mark_safe(
         '<span class="date"><span class="date-ts"> for %s %s</span><span class="date-normal" '
-        'style="display:none;">%s</span></span>' % (ts, _('ago'), normal)
+        'style="display:none;">%s</span></span>' % (ts, _("ago"), normal)
     )

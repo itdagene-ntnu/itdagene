@@ -48,6 +48,10 @@ $ source venv/bin/activate
 $ python manage.py runserver
 ```
 
+## Python 3.7
+Since celery [doesn't support python 3.7 yet](venv/lib/python3.7/site-packages/celery/backends), run `./fix-celery.sh` to fix it.
+
+
 ## Migrations
 
 In order to setup a new dev environment you have to create a superuser. Every time there are new migrations, you have to apply them. If you don't, the `runserver` command will give you a warning.
@@ -77,11 +81,11 @@ $ tox
 
 ### Code style
 
-We enforce the style guide [PEP 8] with flake8, and [isort] for import sorting. [yapf] is used for code formatting.
+We enforce the style guide [PEP 8] with flake8, and [isort] for import sorting. [black] is used for code formatting.
 
 ```bash
 $ isort -rc itdagene               # Fix isort errors
-$ yapf -ir itdagene                # Fix code formatting
+$ black itdagene                # Fix code formatting
 $ tox -e isort -e flake8 -e yapf   # Verify code style
 ```
 
@@ -106,7 +110,7 @@ $ celery flower -A itdagene --address="127.0.0.1" --port=5555 # flower
 [docker-compose]: https://docs.docker.com/compose/overview/
 [pep 8]: https://www.python.org/dev/peps/pep-0008/
 [isort]: https://github.com/timothycrosley/isort
-[yapf]: https://github.com/google/yapf
+[black]: https://github.com/ambv/black
 [django-graphene]: https://github.com/graphql-python/graphene-django
 [celery]: http://www.celeryproject.org/
 [yarn]: https://yarnpkg.com/

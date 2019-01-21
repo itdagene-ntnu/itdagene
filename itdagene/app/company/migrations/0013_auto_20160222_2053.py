@@ -5,15 +5,13 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('company', '0012_auto_20160215_1137'),
-    ]
+    dependencies = [("company", "0012_auto_20160215_1137")]
 
     operations = [
         migrations.AlterField(
-            model_name='companycontact',
-            name='current',
-            field=models.BooleanField(default=False, verbose_name='Current contact'),
+            model_name="companycontact",
+            name="current",
+            field=models.BooleanField(default=False, verbose_name="Current contact"),
             preserve_default=True,
-        ),
+        )
     ]

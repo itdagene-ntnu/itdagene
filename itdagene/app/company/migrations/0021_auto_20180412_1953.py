@@ -6,23 +6,27 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('company', '0020_auto_20180206_1156'),
-    ]
+    dependencies = [("company", "0020_auto_20180206_1156")]
 
     operations = [
         migrations.AddField(
-            model_name='company',
-            name='logo_inverted',
+            model_name="company",
+            name="logo_inverted",
             field=sorl.thumbnail.fields.ImageField(
-                blank=True, null=True, upload_to='company_logos/', verbose_name='logo_inverted'
+                blank=True,
+                null=True,
+                upload_to="company_logos/",
+                verbose_name="logo_inverted",
             ),
         ),
         migrations.AddField(
-            model_name='company',
-            name='logo_vector',
+            model_name="company",
+            name="logo_vector",
             field=sorl.thumbnail.fields.ImageField(
-                blank=True, null=True, upload_to='company_logos/', verbose_name='logo_vector'
+                blank=True,
+                null=True,
+                upload_to="company_logos/",
+                verbose_name="logo_vector",
             ),
         ),
     ]

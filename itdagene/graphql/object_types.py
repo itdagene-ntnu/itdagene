@@ -1,7 +1,6 @@
 import graphene
 from graphene import relay
 from graphene_django import DjangoObjectType
-
 from itdagene.app.career.models import Joblisting as ItdageneJoblisting
 from itdagene.app.career.models import Town as ItdageneTown
 from itdagene.app.company.models import Company as ItdageneCompany
@@ -16,9 +15,9 @@ from itdagene.graphql.utils import resize_image
 class Town(DjangoObjectType):
     class Meta:
         model = ItdageneTown
-        interfaces = (relay.Node, )
+        interfaces = (relay.Node,)
         description = "Town entity"
-        only_fields = ('id', 'name')
+        only_fields = ("id", "name")
 
 
 class Joblisting(DjangoObjectType):
@@ -34,18 +33,18 @@ class Joblisting(DjangoObjectType):
         #        ]
         description = "Joblisting entity"
         only_fields = (
-            'id',
-            'towns',
-            'company',
-            'title',
-            'type',
-            'description',
-            'image',
-            'deadline',
-            'from_year',
-            'to_year',
-            'url',
-            'date_created',
+            "id",
+            "towns",
+            "company",
+            "title",
+            "type",
+            "description",
+            "image",
+            "deadline",
+            "from_year",
+            "to_year",
+            "url",
+            "date_created",
         )
         interfaces = (relay.Node, OpengraphMetadata)
 
@@ -79,14 +78,14 @@ class Page(DjangoObjectType):
         interfaces = (relay.Node, OpengraphMetadata)
         description = "(info)Page entity"
         only_fields = (
-            'slug',
-            'title',
-            'language',
-            'menu',
-            'content',
-            'ingress',
-            'date_saved',
-            'date_created',
+            "slug",
+            "title",
+            "language",
+            "menu",
+            "content",
+            "ingress",
+            "date_saved",
+            "date_created",
         )
 
     def resolve_description(self, info, **kwargs):
@@ -104,9 +103,9 @@ class User(DjangoObjectType):
 
     class Meta:
         model = ItdageneUser
-        interfaces = (relay.Node, )
+        interfaces = (relay.Node,)
         description = "User entity"
-        only_fields = ('id', 'firstName', 'lastName', 'email', 'year', 'role')
+        only_fields = ("id", "firstName", "lastName", "email", "year", "role")
 
     def resolve_full_name(self, info):
         return self.get_full_name()
@@ -125,15 +124,15 @@ class Company(DjangoObjectType):
         model = ItdageneCompany
         description = "Company entity"
         only_fields = (
-            'id',
-            'name',
-            'url',
-            'logo',
-            'description',
-            'is_collabrator',
-            'joblistings',
+            "id",
+            "name",
+            "url",
+            "logo",
+            "description",
+            "is_collabrator",
+            "joblistings",
         )
-        interfaces = (relay.Node, )
+        interfaces = (relay.Node,)
 
     @classmethod
     def get_queryset(cls):
@@ -156,19 +155,19 @@ class Event(DjangoObjectType):
         model = ItdageneEvent
         description = "Small event type"
         only_fields = (
-            'id',
-            'title',
-            'time_start',
-            'time_end',
-            'description',
-            'type',
-            'location',
-            'company',
-            'uses_tickets',
-            'max_participants',
-            'date',
+            "id",
+            "title",
+            "time_start",
+            "time_end",
+            "description",
+            "type",
+            "location",
+            "company",
+            "uses_tickets",
+            "max_participants",
+            "date",
         )
-        interfaces = (relay.Node, )
+        interfaces = (relay.Node,)
 
 
 class MetaData(DjangoObjectType):
@@ -177,7 +176,7 @@ class MetaData(DjangoObjectType):
     companies_last_day = graphene.List(graphene.NonNull(Company))
     collaborators = graphene.List(
         graphene.NonNull(Company),
-        description="List the collaborators, not including the main collaborator"
+        description="List the collaborators, not including the main collaborator",
     )
 
     main_collaborator = graphene.Field(
@@ -203,24 +202,25 @@ class MetaData(DjangoObjectType):
             return ItdageneCompany.objects.filter(package__name="Samarbeidspartner")
 
     def resolve_board_members(self, info):
-        return ItdageneUser.objects.filter(year=self.year).all().prefetch_related('groups')
+        return (
+            ItdageneUser.objects.filter(year=self.year).all().prefetch_related("groups")
+        )
 
     class Meta:
         model = Preference
         description = "Metadata about the current years itdagene"
         only_fields = (
-            'id',
-            'start_date',
-            'end_date',
-            'year',
-            'nr_of_stands',
-            'companies_first_day'
-            'companies_last_day',
-            'collaborators',
-            'main_collaborator',
-            'board_members',
+            "id",
+            "start_date",
+            "end_date",
+            "year",
+            "nr_of_stands",
+            "companies_first_day" "companies_last_day",
+            "collaborators",
+            "main_collaborator",
+            "board_members",
         )
-        interfaces = (relay.Node, )
+        interfaces = (relay.Node,)
 
 
 class SearchResult(graphene.Union):

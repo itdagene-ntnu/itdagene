@@ -9,59 +9,70 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Joblisting',
+            name="Joblisting",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.AutoField(
-                        verbose_name='ID', serialize=False, auto_created=True, primary_key=True
-                    )
+                        verbose_name="ID",
+                        serialize=False,
+                        auto_created=True,
+                        primary_key=True,
+                    ),
                 ),
-                ('date_created', models.DateTimeField(editable=False)),
-                ('date_saved', models.DateTimeField(editable=False)),
-                ('title', models.CharField(max_length=160, verbose_name='title')),
+                ("date_created", models.DateTimeField(editable=False)),
+                ("date_saved", models.DateTimeField(editable=False)),
+                ("title", models.CharField(max_length=160, verbose_name="title")),
                 (
-                    'type',
+                    "type",
                     models.CharField(
-                        max_length=20, verbose_name='type', choices=[
-                            (b'si', 'Summer internship'), (b'pp', 'Permanent position'),
-                            (b'bi', 'Bad import')
-                        ]
-                    )
+                        max_length=20,
+                        verbose_name="type",
+                        choices=[
+                            (b"si", "Summer internship"),
+                            (b"pp", "Permanent position"),
+                            (b"bi", "Bad import"),
+                        ],
+                    ),
                 ),
-                ('description', models.TextField()),
+                ("description", models.TextField()),
                 (
-                    'image',
+                    "image",
                     models.ImageField(
-                        upload_to='joblistings/', null=True, verbose_name='image', blank=True
-                    )
+                        upload_to="joblistings/",
+                        null=True,
+                        verbose_name="image",
+                        blank=True,
+                    ),
                 ),
-                ('deadline', models.DateField(null=True, verbose_name='deadline', blank=True)),
-                ('from_year', models.PositiveIntegerField(default=1)),
-                ('to_year', models.PositiveIntegerField(default=5)),
-                ('url', models.URLField(verbose_name='url', blank=True)),
+                (
+                    "deadline",
+                    models.DateField(null=True, verbose_name="deadline", blank=True),
+                ),
+                ("from_year", models.PositiveIntegerField(default=1)),
+                ("to_year", models.PositiveIntegerField(default=5)),
+                ("url", models.URLField(verbose_name="url", blank=True)),
             ],
-            options={
-                'abstract': False,
-            },
-            bases=(models.Model, ),
+            options={"abstract": False},
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name='Town',
+            name="Town",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.AutoField(
-                        verbose_name='ID', serialize=False, auto_created=True, primary_key=True
-                    )
+                        verbose_name="ID",
+                        serialize=False,
+                        auto_created=True,
+                        primary_key=True,
+                    ),
                 ),
-                ('date_created', models.DateTimeField(editable=False)),
-                ('date_saved', models.DateTimeField(editable=False)),
-                ('name', models.CharField(max_length=100, verbose_name='name')),
+                ("date_created", models.DateTimeField(editable=False)),
+                ("date_saved", models.DateTimeField(editable=False)),
+                ("name", models.CharField(max_length=100, verbose_name="name")),
             ],
-            options={
-                'abstract': False,
-            },
-            bases=(models.Model, ),
+            options={"abstract": False},
+            bases=(models.Model,),
         ),
     ]

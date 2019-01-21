@@ -34,12 +34,14 @@ class OrderByJoblistingType(graphene.Enum):
 class SearchType(graphene.Enum):
     COMPANY = "COMPANY"
     COMPANY_WITH_JOBLISTING = "COMPANY_WITH_JOBLISTING"
-    TOWNS_WITH_JOBLISTING = 'TOWNS_WITH_JOBLISTING'
+    TOWNS_WITH_JOBLISTING = "TOWNS_WITH_JOBLISTING"
     JOBLISTING = "JOBLISTING"
     PAGE = "PAGE"
 
     @property
     def description(self):
         if self == SearchType.COMPANY_WITH_JOBLISTING:
-            return 'Search for companies with one or more joblisting. Useful for filtering'
+            return (
+                "Search for companies with one or more joblisting. Useful for filtering"
+            )
         return None

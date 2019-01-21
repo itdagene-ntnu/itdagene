@@ -2,7 +2,6 @@
 
 from django.conf import settings
 from django.core.mail import mail_admins
-
 from itdagene.celery import app
 
 from .senders import meeting_send_invite as msi
@@ -28,7 +27,9 @@ def send_comment_email(self, comment):
 @app.task(bind=True)
 def send_admin_mail(self, log_item):
     mail_admins(
-        'Log: ' + str(log_item),
-        str(log_item) + '\n Read more at http://{}{}'.
-        format(settings.SITE['domain'], log_item.content_object.get_absolute_url())
+        "Log: " + str(log_item),
+        str(log_item)
+        + "\n Read more at http://{}{}".format(
+            settings.SITE["domain"], log_item.content_object.get_absolute_url()
+        ),
     )
