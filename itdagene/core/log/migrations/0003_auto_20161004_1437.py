@@ -6,19 +6,21 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('log', '0002_auto_20140930_1534'),
-    ]
+    dependencies = [("log", "0002_auto_20140930_1534")]
 
     operations = [
         migrations.AlterField(
-            model_name='logitem',
-            name='priority',
+            model_name="logitem",
+            name="priority",
             field=models.PositiveIntegerField(
                 choices=[
-                    (0, 'Low'), (1, 'Medium'), (2, 'High'),
-                    (3, 'Very High. Will send email to administrators')
-                ], default=1, verbose_name='priority'
+                    (0, "Low"),
+                    (1, "Medium"),
+                    (2, "High"),
+                    (3, "Very High. Will send email to administrators"),
+                ],
+                default=1,
+                verbose_name="priority",
             ),
-        ),
+        )
     ]

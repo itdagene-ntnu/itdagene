@@ -6,17 +6,18 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('career', '0012_auto_20171229_1747'),
-    ]
+    dependencies = [("career", "0012_auto_20171229_1747")]
 
     operations = [
         migrations.AlterField(
-            model_name='joblisting',
-            name='contact',
+            model_name="joblisting",
+            name="contact",
             field=models.ForeignKey(
-                blank=True, null=True, on_delete=django.db.models.deletion.CASCADE,
-                to='company.CompanyContact', verbose_name='contact'
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="company.CompanyContact",
+                verbose_name="contact",
             ),
-        ),
+        )
     ]

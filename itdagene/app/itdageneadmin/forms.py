@@ -2,14 +2,19 @@ from django import forms
 from django.contrib.auth.models import Group
 from django.forms.forms import Form
 from django.forms.models import ModelForm
-
 from itdagene.core.models import Preference, User
 
 
 class UserForm(ModelForm):
     class Meta:
         model = User
-        exclude = ('username', 'password', 'user_permissions', 'last_login', 'date_joined')
+        exclude = (
+            "username",
+            "password",
+            "user_permissions",
+            "last_login",
+            "date_joined",
+        )
 
 
 class RegisterUserForm(forms.Form):
@@ -22,7 +27,7 @@ class RegisterUserForm(forms.Form):
 class GroupForm(ModelForm):
     class Meta:
         model = Group
-        fields = ('name', 'permissions')
+        fields = ("name", "permissions")
 
 
 class AddUserToGroupForm(Form):
@@ -32,4 +37,4 @@ class AddUserToGroupForm(Form):
 class PreferenceForm(ModelForm):
     class Meta:
         model = Preference
-        exclude = ('active', )
+        exclude = ("active",)

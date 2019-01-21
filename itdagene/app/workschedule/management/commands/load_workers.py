@@ -2,7 +2,6 @@ import json
 import os
 
 from django.core.management.base import BaseCommand
-
 from itdagene.app.workschedule.models import Worker
 
 
@@ -11,7 +10,7 @@ class Command(BaseCommand):
     option_list = BaseCommand.option_list
 
     requires_model_validation = False
-    help = ''
+    help = ""
 
     def handle(self, *args, **options):
         path = args[0]
@@ -25,34 +24,34 @@ class Command(BaseCommand):
 
         for worker in data:
             w = Worker(
-                phone=int(worker['tlf']),
-                username=worker['username'],
-                email="%s@stud.ntnu.no" % worker['username'],
+                phone=int(worker["tlf"]),
+                username=worker["username"],
+                email="%s@stud.ntnu.no" % worker["username"],
             )
-            if 'name' in worker:
-                w.name = worker['name']
+            if "name" in worker:
+                w.name = worker["name"]
             else:
-                w.name = "%s %s" % (worker['firstname'], worker['lastname']),
+                w.name = ("%s %s" % (worker["firstname"], worker["lastname"]),)
 
             try:
-                w.t_shirt_size = int(worker['storrelse'])
+                w.t_shirt_size = int(worker["storrelse"])
             except ValueError:
-                str = worker['storrelse'].upper()
-                if str == 'XS':
+                str = worker["storrelse"].upper()
+                if str == "XS":
                     w.t_shirt_size = 1
-                elif str == 'S':
+                elif str == "S":
                     w.t_shirt_size = 2
-                elif str == 'M':
+                elif str == "M":
                     w.t_shirt_size = 3
-                elif str == 'L':
+                elif str == "L":
                     w.t_shirt_size = 4
-                elif str == 'XL':
+                elif str == "XL":
                     w.t_shirt_size = 5
-                elif str == 'XXL':
+                elif str == "XXL":
                     w.t_shirt_size = 6
-                elif str == 'XXXL':
+                elif str == "XXXL":
                     w.t_shirt_size = 7
-                elif str == 'XXXXL':
+                elif str == "XXXXL":
                     w.t_shirt_size = 8
 
             w.save()

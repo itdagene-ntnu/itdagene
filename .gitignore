@@ -18,7 +18,7 @@ parts
 *.DS_STORE
 build/*
 itdagene/files/uploads/
-itdagene/files/static/lib/
+itdagene/files/static/
 itdagene/uploads/
 env/
 venv/

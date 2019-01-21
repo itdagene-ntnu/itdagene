@@ -7,25 +7,28 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('meetings', '0003_auto_20141004_2300'),
-    ]
+    dependencies = [("meetings", "0003_auto_20141004_2300")]
 
     operations = [
         migrations.AlterField(
-            model_name='meeting',
-            name='preference',
+            model_name="meeting",
+            name="preference",
             field=models.ForeignKey(
-                blank=True, null=True, on_delete=django.db.models.deletion.CASCADE,
-                to='core.Preference', verbose_name='Preference'
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="core.Preference",
+                verbose_name="Preference",
             ),
         ),
         migrations.AlterField(
-            model_name='penalty',
-            name='type',
+            model_name="penalty",
+            name="type",
             field=models.CharField(
-                choices=[('beer', 'Beer'), ('wine', 'Wine')], default='beer', max_length=10,
-                verbose_name='type'
+                choices=[("beer", "Beer"), ("wine", "Wine")],
+                default="beer",
+                max_length=10,
+                verbose_name="type",
             ),
         ),
     ]

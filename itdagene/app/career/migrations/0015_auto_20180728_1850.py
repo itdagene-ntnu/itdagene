@@ -5,16 +5,11 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('career', '0014_auto_20180329_2111'),
-    ]
+    dependencies = [("career", "0014_auto_20180329_2111")]
 
     operations = [
         migrations.AlterModelOptions(
-            name='joblisting',
-            options={
-                'base_manager_name': 'objects',
-                'ordering': ('deadline', 'pk')
-            },
-        ),
+            name="joblisting",
+            options={"base_manager_name": "objects", "ordering": ("deadline", "pk")},
+        )
     ]
