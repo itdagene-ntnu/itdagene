@@ -1,7 +1,7 @@
 django==2.1.5
 django-filter==2.0.0
 Markdown==3.0.1
-Pillow==5.3
+Pillow==5.4
 django-widget-tweaks==1.4.3
 psycopg2==2.7.3.2
 python-dateutil==2.7.3
