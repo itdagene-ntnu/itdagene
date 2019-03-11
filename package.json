@@ -41,7 +41,7 @@
     "tablesorter": "^2.29.2"
   },
   "devDependencies": {
-    "copy-webpack-plugin": "^5.0.0",
+    "copy-webpack-plugin": "^5.0.1",
     "css-loader": "^2.1.0",
     "stylus-loader": "^3.0.1",
     "webpack": "^4.0.0",
