@@ -11,7 +11,7 @@ sorl-thumbnail==12.5.0
 django-crispy-forms==1.7.2
 django-debug-toolbar==1.11
 django-cache-panel==0.1
-django-extensions==2.1.9
+django-extensions==2.2.1
 ipython==7.3.0
 sqlparse==0.2.4
 redis==3.2.0
