@@ -1,22 +1,21 @@
 from django.contrib.auth.decorators import permission_required
+from django.contrib.messages import SUCCESS, add_message
+from django.forms.models import modelformset_factory
+from django.http import Http404
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from django.utils.translation import ugettext as _
-from django.shortcuts import get_object_or_404, redirect
 from itdagene.app.company.forms import (
     BookCompanyForm,
     CompanyForm,
-    ResponsibilityForm,
     CompanyStatusForm,
+    ResponsibilityForm,
     WaitingListCompanyForm,
 )
 from itdagene.app.company.models import Company, Package
-from django.forms.models import modelformset_factory
-from django.urls import reverse
-from django.http import Http404
 from itdagene.app.feedback.models import Evaluation
-from itdagene.core.models import Preference
-from django.shortcuts import render
 from itdagene.core.decorators import staff_required
-from django.contrib.messages import add_message, SUCCESS
+from itdagene.core.models import Preference
 
 
 @staff_required()

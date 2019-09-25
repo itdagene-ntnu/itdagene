@@ -71,7 +71,7 @@ class Query(graphene.ObjectType):
         Joblisting,
         filterset_class=JoblistingFilter,
         orderBy=graphene.List(of_type=OrderByJoblistingType),
-        max_limit=20,
+        max_limit=100,
         enforce_first_or_last=True,
         description="List and paginate joblistings",
         on="active_objects",

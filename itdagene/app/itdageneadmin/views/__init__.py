@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from itdagene.core.log.models import LogItem
-from itdagene.core.decorators import superuser_required
 from django.utils.translation import ugettext_lazy as _
+from itdagene.core.decorators import superuser_required
+from itdagene.core.log.models import LogItem
 
 
 @superuser_required()
