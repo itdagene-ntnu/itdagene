@@ -1,4 +1,4 @@
-django==2.1.7
+django==2.1.11
 django-filter==2.1.0
 Markdown==3.0.1
 Pillow==6.2.0
