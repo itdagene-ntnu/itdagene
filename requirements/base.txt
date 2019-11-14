@@ -21,5 +21,5 @@ raven==6.10.0
 social-auth-app-django==3.1.0
 python-social-auth==0.3.6
 PyJWT==1.7.1
-graphene-django==2.2
+graphene-django==2.6.0
 django-cors-headers==2.4.0
