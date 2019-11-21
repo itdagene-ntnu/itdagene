@@ -9,7 +9,7 @@
             <h3 class="box-title">{% trans "Danger Zone" %}</h3>
         </div>
         <div class="box-body">
-             <form method="post" action="{% url "itdagene.itdageneadmin.companies_reset" %}">
+          <form method="post" onsubmit="return confirm('{% trans "Are you sure?" %}')" action="{% url "itdagene.itdageneadmin.companies_reset" %}">
                 {% csrf_token %}
                 <p>{% blocktrans %}Are you sure you want to purge the company data?
                   This will clear all year specfic fields on all companies. This includes:{% endblocktrans %}</p>

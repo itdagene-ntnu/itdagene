@@ -41,14 +41,13 @@ def log(request, first_object=0):
 def companies_reset(request):
 
     if request.method == "POST":
-        all_companies = Company.objects.all()
-        for company in all_companies:
-            company.status = COMPANY_STATUS_NOT_CONTACTED
-            company.contact = None
-            company.package = None
-            company.waiting_for_package.clear()
-            company.is_collaborator = False
-            company.save()
+        Company.objects.all().update(
+            status=COMPANY_STATUS_NOT_CONTACTED,
+            contact=None,
+            package=None,
+            is_collaborator=False,
+        )
+        Company.waiting_for_package.through.objects.all().delete()
 
         add_message(request, SUCCESS, _("Companies reset"))
         return redirect(reverse("itdagene.itdageneadmin.landing_page"))
