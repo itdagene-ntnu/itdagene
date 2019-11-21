@@ -1,5 +1,8 @@
-from django.shortcuts import render
+from django.contrib.messages import SUCCESS, add_message
+from django.shortcuts import redirect, render, reverse
 from django.utils.translation import ugettext_lazy as _
+from itdagene.app.company import COMPANY_STATUS_NOT_CONTACTED
+from itdagene.app.company.models import Company
 from itdagene.core.decorators import superuser_required
 from itdagene.core.log.models import LogItem
 
@@ -31,4 +34,24 @@ def log(request, first_object=0):
             "next": int(first_object) + 41,
             "title": _("Log"),
         },
+    )
+
+
+@superuser_required()
+def companies_reset(request):
+
+    if request.method == "POST":
+        Company.objects.all().update(
+            status=COMPANY_STATUS_NOT_CONTACTED,
+            contact=None,
+            package=None,
+            is_collaborator=False,
+        )
+        Company.waiting_for_package.through.objects.all().delete()
+
+        add_message(request, SUCCESS, _("Companies reset"))
+        return redirect(reverse("itdagene.itdageneadmin.landing_page"))
+
+    return render(
+        request, "admin/companies_reset.html", {"title": _("Reset companies")}
     )
