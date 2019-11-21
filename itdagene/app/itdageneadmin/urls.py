@@ -1,5 +1,11 @@
 from django.urls import re_path
-from itdagene.app.itdageneadmin.views import groups, landing_page, log, preferences
+from itdagene.app.itdageneadmin.views import (
+    companies_reset,
+    groups,
+    landing_page,
+    log,
+    preferences,
+)
 
 urlpatterns = [
     re_path(r"^$", landing_page, name="itdagene.itdageneadmin.landing_page"),
@@ -24,5 +30,10 @@ urlpatterns = [
         r"^preferences/$",
         preferences.edit,
         name="itdagene.itdageneadmin.preferences.edit",
+    ),
+    re_path(
+        r"^companies_reset/$",
+        companies_reset,
+        name="itdagene.itdageneadmin.companies_reset",
     ),
 ]

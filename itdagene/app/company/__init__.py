@@ -1,9 +1,15 @@
 from django.utils.translation import ugettext_lazy as _
 
+COMPANY_STATUS_NOT_CONTACTED = 0
+COMPANY_STATUS_CONTACTED = 4
+COMPANY_STATUS_NOT_INTERESTED = 1
+COMPANY_STATUS_INTERESTED = 2
+COMPANY_STATUS_SIGNED = 3
+
 COMPANY_STATUS = (
-    (0, _("Not contacted")),
-    (4, _("Contacted")),
-    (1, _("Not interested")),
-    (2, _("Interested")),
-    (3, _("Signed")),
+    (COMPANY_STATUS_NOT_CONTACTED, _("Not contacted")),
+    (COMPANY_STATUS_CONTACTED, _("Contacted")),
+    (COMPANY_STATUS_NOT_INTERESTED, _("Not interested")),
+    (COMPANY_STATUS_INTERESTED, _("Interested")),
+    (COMPANY_STATUS_SIGNED, _("Signed")),
 )
