@@ -10,6 +10,8 @@
                 <thead>
                 <tr>
                     <th>{% trans "Page" %}</th>
+                    <th>{% trans "Active" %}</th>
+                    <th>{% trans "Info page" %}</th>
                     {% if perms.pages.change_page %}
                     <th>{% trans "Actions" %}</th>
                     {% endif %}
@@ -19,6 +21,11 @@
                     {% for page in pages %}
                         <tr>
                             <td><a href="{% url "itdagene.pages.view_page" page.slug %}">{{ page }}</a></td>
+                            <td>{% if page.active %}<span style="color: green;" class="glyphicon
+                                glyphicon-ok"></span>{% else %}<span style="color: red;" class="glyphicon glyphicon-remove"></span>{% endif %}</td>
+                            <td>{% if page.is_infopage %}<span style="color: green;"
+                                class="glyphicon glyphicon-ok"></span>{% else %}<span style="color:
+                                red;" class="glyphicon glyphicon-remove"></span>{% endif %}</td>
                             {% if perms.pages.change_page %}
                                 <td><a href="{% url "itdagene.pages.edit" page.slug %}">{% trans "Edit" %}</a></td>
                             {% endif %}
