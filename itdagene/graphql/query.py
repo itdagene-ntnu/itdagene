@@ -2,7 +2,6 @@ import graphene
 from graphene import relay
 from graphene_django.filter import DjangoFilterConnectionField
 from itdagene.app.events.models import Event as ItdageneEvent
-from itdagene.app.pages.models import Page as ItdagenePage
 from itdagene.core.models import Preference
 from itdagene.graphql.filters import JoblistingFilter
 from itdagene.graphql.object_types import (
@@ -91,10 +90,11 @@ class Query(graphene.ObjectType):
     pages = graphene.List(
         Page,
         language=graphene.String(default_value="nb"),
-        slugs=graphene.NonNull(graphene.List(graphene.NonNull(graphene.String))),
+        slugs=graphene.List(graphene.NonNull(graphene.String), default_value=None),
         description="Get info page.\n\n Each page identified with"
         + "a slug can be translated into multiple languages. "
-        + "Each entity is identified by an id or the unique together pair (slug, language)",
+        + "Each entity is identified by an id or the unique together pair (slug, language). "
+        + "If slugs are left empty, it will return all pages",
     )
 
     events = graphene.List(graphene.NonNull(Event), description="All the events")
@@ -113,10 +113,12 @@ class Query(graphene.ObjectType):
         return _search(query, types)
 
     def resolve_page(self, info, language, slug):
-        return ItdagenePage.objects.get(language=language, slug=slug)
+        return Page.get_queryset().get(language=language, slug=slug)
 
-    def resolve_pages(self, info, language, slugs):
-        return list(ItdagenePage.objects.filter(language=language, slug__in=slugs))
+    def resolve_pages(self, info, language, slugs=None):
+        if slugs is None:
+            return list(Page.get_queryset().filter(language=language))
+        return list(Page.get_queryset().filter(language=language, slug__in=slugs))
 
     def resolve_current_meta_data(self, info):
         return Preference.current_preference()

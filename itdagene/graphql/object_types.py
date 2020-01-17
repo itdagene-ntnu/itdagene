@@ -93,7 +93,7 @@ class Page(DjangoObjectType):
 
     @classmethod
     def get_queryset(cls):
-        return ItdagenePage.objects.filter(need_auth=False)
+        return ItdagenePage.objects.filter(need_auth=False, active=True)
 
 
 class User(DjangoObjectType):
