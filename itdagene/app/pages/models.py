@@ -2,6 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+
 from itdagene.core.log.models import LogItem
 from itdagene.core.models import BaseModel
 
@@ -19,6 +20,7 @@ class Page(BaseModel):
         verbose_name=_("need authentication"), default=False
     )
     menu = models.BooleanField(verbose_name=_("should be in menu"), default=False)
+    is_infopage = models.BooleanField(verbose_name=_("is an info page"), default=False)
 
     def __str__(self):
         return self.title
