@@ -11,6 +11,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="joblisting",
             name="slug",
-            field=models.SlugField(default="", editable=False, unique=True),
+            field=models.SlugField(default="", editable=False, unique=False),
         )
     ]

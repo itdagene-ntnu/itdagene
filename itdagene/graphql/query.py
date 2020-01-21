@@ -67,6 +67,12 @@ class Query(graphene.ObjectType):
         types=graphene.List(SearchType, required=True),
         description="Search for different types of objects. Will return max 10 of each type.",
     )
+    joblisting = graphene.Field(
+        Joblisting,
+        slug=graphene.NonNull(graphene.String),
+        description="Get a joblisting by its slug.",
+    )
+
     joblistings = OrderedDjangoFilterConnectionField(
         Joblisting,
         filterset_class=JoblistingFilter,
@@ -113,6 +119,9 @@ class Query(graphene.ObjectType):
 
     def resolve_search(self, info, query, types):
         return _search(query, types)
+
+    def resolve_joblisting(self, info, slug):
+        return Joblisting.get_queryset().get(slug=slug)
 
     def resolve_page(self, info, language, slug):
         return Page.get_queryset().get(language=language, slug=slug)

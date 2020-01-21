@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('pages', '0003_page_ingress'),
+        ("pages", "0003_page_ingress"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='page',
-            name='is_infopage',
-            field=models.BooleanField(default=False, verbose_name='is an info page'),
+            model_name="page",
+            name="is_infopage",
+            field=models.BooleanField(default=False, verbose_name="is an info page"),
         ),
     ]
