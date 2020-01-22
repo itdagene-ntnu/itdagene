@@ -25,11 +25,6 @@ jobs:
           key: deps-{{ checksum "requirements/test.txt" }}-{{ checksum "requirements/base.txt" }}-{{ checksum "tox.ini" }}
 
       - run:
-          name: isort
-          command: |
-            tox -e isort
-
-      - run:
           name: flake8
           command: |
             tox -e flake8

@@ -1,6 +1,7 @@
 import graphene
 from graphene import relay
 from graphene_django.filter import DjangoFilterConnectionField
+
 from itdagene.app.events.models import Event as ItdageneEvent
 from itdagene.core.models import Preference
 from itdagene.graphql.filters import JoblistingFilter
@@ -66,6 +67,12 @@ class Query(graphene.ObjectType):
         types=graphene.List(SearchType, required=True),
         description="Search for different types of objects. Will return max 10 of each type.",
     )
+    joblisting = graphene.Field(
+        Joblisting,
+        slug=graphene.NonNull(graphene.String),
+        description="Get a joblisting by its slug.",
+    )
+
     joblistings = OrderedDjangoFilterConnectionField(
         Joblisting,
         filterset_class=JoblistingFilter,
@@ -91,7 +98,8 @@ class Query(graphene.ObjectType):
         Page,
         language=graphene.String(default_value="nb"),
         slugs=graphene.List(graphene.NonNull(graphene.String), default_value=None),
-        description="Get info page.\n\n Each page identified with"
+        infopage=graphene.NonNull(graphene.Boolean, default_value=None),
+        description="Get info page.\n\n Each page identified with "
         + "a slug can be translated into multiple languages. "
         + "Each entity is identified by an id or the unique together pair (slug, language). "
         + "If slugs are left empty, it will return all pages",
@@ -112,12 +120,19 @@ class Query(graphene.ObjectType):
     def resolve_search(self, info, query, types):
         return _search(query, types)
 
+    def resolve_joblisting(self, info, slug):
+        return Joblisting.get_queryset().get(slug=slug)
+
     def resolve_page(self, info, language, slug):
         return Page.get_queryset().get(language=language, slug=slug)
 
-    def resolve_pages(self, info, language, slugs=None):
+    def resolve_pages(self, info, language, slugs=None, infopage=None):
         if slugs is None:
-            return list(Page.get_queryset().filter(language=language))
+            if infopage is None:
+                return list(Page.get_queryset().filter(language=language))
+            return list(
+                Page.get_queryset().filter(language=language, is_infopage=infopage)
+            )
         return list(Page.get_queryset().filter(language=language, slug__in=slugs))
 
     def resolve_current_meta_data(self, info):

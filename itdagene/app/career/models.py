@@ -1,7 +1,10 @@
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.text import slugify
+from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
+
 from itdagene.app.company.models import Company, CompanyContact
 from itdagene.core.models import BaseModel
 
@@ -49,6 +52,7 @@ class Joblisting(BaseModel):
     is_active = models.BooleanField(verbose_name=_("active"), default=True)
     frontpage = models.BooleanField(_("Frontpage"), default=False)
     hide_contactinfo = models.BooleanField(_("Hide contact info"), default=False)
+    slug = models.SlugField(editable=False, unique=True)
 
     def __str__(self):
         return self.title
@@ -70,6 +74,17 @@ class Joblisting(BaseModel):
         if self.from_year != self.to_year:
             return "%s-%s" % (self.from_year, self.to_year)
         return self.to_year
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            slug_text = f"{self.company.name} {self.title} {now().year}"
+            slug = slugify(slug_text)
+
+            if Joblisting.objects.filter(slug=slug).exists():
+                slug = slugify(slug_text + f" {now().month} {now().day}")
+
+            self.slug = slug
+        super(Joblisting, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ("deadline", "pk")
