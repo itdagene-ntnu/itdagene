@@ -52,7 +52,7 @@ class Joblisting(BaseModel):
     is_active = models.BooleanField(verbose_name=_("active"), default=True)
     frontpage = models.BooleanField(_("Frontpage"), default=False)
     hide_contactinfo = models.BooleanField(_("Hide contact info"), default=False)
-    slug = models.SlugField(editable=False, unique=True)
+    slug = models.SlugField(editable=False, unique=True, max_length=100)
 
     def __str__(self):
         return self.title

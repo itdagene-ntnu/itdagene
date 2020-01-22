@@ -98,7 +98,7 @@ class Query(graphene.ObjectType):
         Page,
         language=graphene.String(default_value="nb"),
         slugs=graphene.List(graphene.NonNull(graphene.String), default_value=None),
-        infopage=graphene.NonNull(graphene.Boolean, default_value=None),
+        infopage=graphene.Boolean(),
         description="Get info page.\n\n Each page identified with "
         + "a slug can be translated into multiple languages. "
         + "Each entity is identified by an id or the unique together pair (slug, language). "

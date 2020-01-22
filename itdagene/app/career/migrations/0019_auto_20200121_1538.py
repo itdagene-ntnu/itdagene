@@ -5,14 +5,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('career', '0018_gen_slug'),
-    ]
+    dependencies = [("career", "0018_gen_slug")]
 
     operations = [
         migrations.AlterField(
-            model_name='joblisting',
-            name='slug',
-            field=models.SlugField(editable=False, unique=True),
-        ),
+            model_name="joblisting",
+            name="slug",
+            field=models.SlugField(editable=False, unique=True, max_length=100),
+        )
     ]
