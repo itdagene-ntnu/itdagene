@@ -8,7 +8,7 @@ def gen_slug(apps, schema_editor):
     Joblisting = apps.get_model("career", "Joblisting")
     for joblisting in Joblisting.objects.all():
         joblisting.slug = slugify(
-            f" {joblisting.id} {joblisting.company.name} {joblisting.date_created.strftime('%Y-%m-%d')}"
+            f"{joblisting.company.name} {joblisting.date_created.strftime('%Y-%m-%d')}"
         )
         joblisting.save()
 
