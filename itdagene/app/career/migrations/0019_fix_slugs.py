@@ -16,6 +16,11 @@ class Migration(migrations.Migration):
     dependencies = [("career", "0018_gen_slug")]
 
     operations = [
+        migrations.AlterField(
+            model_name="joblisting",
+            name="slug",
+            field=models.SlugField(editable=True, unique=False, max_length=100),
+        ),
         migrations.RunPython(fix_slug, reverse_code=migrations.RunPython.noop),
         migrations.AlterField(
             model_name="joblisting",
