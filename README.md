@@ -49,8 +49,8 @@ $ python manage.py runserver
 ```
 
 ## Python 3.7
-Since celery [doesn't support python 3.7 yet](venv/lib/python3.7/site-packages/celery/backends), run `./fix-celery.sh` to fix it.
 
+Since celery [doesn't support python 3.7 yet](venv/lib/python3.7/site-packages/celery/backends), run `./fix-celery.sh` to fix it.
 
 ## Migrations
 
@@ -60,6 +60,9 @@ In order to setup a new dev environment you have to create a superuser. Every ti
 $ python manage.py migrate
 $ python manage.py createsuperuser
 ```
+
+After creating the superuser, navigate to `localhost:8000/superadmin` and log in.
+You can now use the admin page at `localhost:8000/admin`.
 
 #### Model changes
 
