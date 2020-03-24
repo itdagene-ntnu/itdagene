@@ -18,6 +18,8 @@ def resize_image(input_image, **kwargs):
 
     if width and not height:
         geometry = f"{width}"
+    if height and not width:
+        geometry = f"x{height}"
 
     thumb_settings = {
         "format": kwargs.get("format", "PNG"),
