@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 from graphene_django.views import GraphQLView
 from itdagene.app.feedback.views.evalutions import handle_evaluation
-from itdagene.app.frontpage.views import frontpage, inside
+from itdagene.app.frontpage.views import frontpage
 from itdagene.core.views import error403, error404, error500, under_development
 
 handler403 = error403
@@ -17,8 +17,7 @@ handler500 = error500
 
 urlpatterns = [
     re_path(r"^logout/", LogoutView.as_view(next_page="/"), name="logout"),
-    re_path(r"^$", frontpage, name="itdagene.frontpage.public"),
-    re_path(r"^dashboard/$", inside, name="itdagene.frontpage.inside"),
+    re_path(r"^$", frontpage, name="itdagene.frontpage"),
     re_path(r"^users/", include("itdagene.app.users.urls")),
     re_path(r"^todo/", include("itdagene.app.todo.urls")),
     re_path(r"^errors/error403/$", error403),
@@ -58,10 +57,7 @@ if settings.GOOGLE_AUTH:
             name="itdagene.login",
         ),
     ]
-# else:
-#    urlpatterns += [
-#        re_path(r'^login/$', login, name='itdagene.login'),
-#    ]
+
 # Redirects
 urlpatterns += [
     re_path(
@@ -69,7 +65,11 @@ urlpatterns += [
         lambda r: HttpResponsePermanentRedirect(
             reverse("itdagene.frontpage.joblistings")
         ),
-    )
+    ),
+    re_path(
+        r"^dashboard/$",
+        lambda r: HttpResponsePermanentRedirect(reverse("itdagene.frontpage")),
+    ),
 ]
 
 # Static files
