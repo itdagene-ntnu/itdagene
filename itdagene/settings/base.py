@@ -152,7 +152,7 @@ DEFAULT_FROM_EMAIL = SERVER_EMAIL
 
 MESSAGE_TAGS = {SUCCESS: "success", INFO: "info", WARNING: "warning", ERROR: "danger"}
 
-CORS_ORIGIN_WHITELIST = ("itdagene.no",)
+CORS_ORIGIN_WHITELIST = ("https://itdagene.no",)
 GRAPHENE = {
     "MIDDLEWARE": [
         "itdagene.graphql.middleware.LoaderMiddleware",
