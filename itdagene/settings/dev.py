@@ -26,7 +26,7 @@ LOGGING = {
     "loggers": {"django.db.backends": {"handlers": ["console"], "level": "DEBUG"}},
 }
 
-CORS_ORIGIN_WHITELIST = ("localhost:3000", "next.itdagene.no", "itdagene.no")
+CORS_ORIGIN_WHITELIST = ("http://localhost:3000", "https://localhost:3000")
 CELERY_TASK_ALWAYS_EAGER = True
 CELERY_BROKER_URL = "redis://"
 CELERY_RESULT_BACKEND = "redis://"
