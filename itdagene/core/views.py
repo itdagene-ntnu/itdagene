@@ -3,11 +3,11 @@ from django.utils.translation import ugettext_lazy as _
 from itdagene.core.models import Preference
 
 
-def error403(request, **kwargs):
+def error403(request, exception, **kwargs):
     return render(request, "static/403.html", {"title": _("Permission Denied")})
 
 
-def error404(request, **kwargs):
+def error404(request, exception, **kwargs):
     return render(request, "static/404.html", {"title": _("Page not Found")})
 
 
