@@ -1,4 +1,4 @@
-FROM node:8 as builder
+FROM node:13 as builder
 ENV PYTHONUNBUFFERED 1
 RUN mkdir /code
 WORKDIR /code
