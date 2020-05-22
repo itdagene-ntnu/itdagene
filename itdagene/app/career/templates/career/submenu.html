@@ -1,18 +1,44 @@
 {% load i18n %}
-<ul class="treeview-menu">
-    <li><a href="{% url "itdagene.career.list" %}"><i class="fa fa-circle-o"></i> {% trans "Joblistings" %}</a></li>
+{% load menu %}
+
+<ul class="nav nav-treeview">
+    <li class="nav-item">
+        <a class="nav-link {% active request 'career/joblistings/$' %}" href="{% url "itdagene.career.list" %}">
+            <i class="fas fa-circle-o"></i> {% trans "Joblistings" %}
+        </a>
+    </li>
+
     {% if perms.career.add_joblisting %}
-        <li><a href="{% url "itdagene.career.add" %}"><i class="fa fa-circle-o"></i> {% trans "Add joblisting" %}</a></li>
+        <li class="nav-item">
+            <a class="nav-link {% active request 'career/joblistings/add/$' %}" href="{% url "itdagene.career.add" %}">
+                <i class="fas fa-circle-o"></i> {% trans "Add joblisting" %}
+            </a>
+        </li>
     {% endif %}
+
     {% if joblisting.pk %}
         {% if perms.career.change_joblisting %}
-            <li><a href="{% url "itdagene.career.edit" joblisting.pk %}"><i class="fa fa-circle-o"></i> {% trans "Edit joblisting" %}</a></li>
+            <li class="nav-item">
+                <a class="nav-link {% active request 'career/joblistings/[0-9]+/edit' %}" href="{% url "itdagene.career.edit" joblisting.pk %}">
+                    <i class="fas fa-circle-o"></i> {% trans "Edit joblisting" %}
+                </a>
+            </li>
         {% endif %}
         {% if perms.career.delete_joblisting %}
-            <li><a href="{% url "itdagene.career.delete" joblisting.pk %}"><i class="fa fa-circle-o"></i> {% trans "Delete joblisting" %}</a></li>
+            <li class="nav-item">
+                <a class="nav-link {% active request 'career/joblistings/[0-9]+/delete' %}" href="{% url "itdagene.career.delete" joblisting.pk %}">
+                    <i class="fas fa-circle-o"></i> {% trans "Delete joblisting" %}
+                </a>
+            </li>
         {% endif %}
+
     {% endif %}
+
     {% if perms.career.add_town %}
-        <li><a href="{% url "itdagene.career.add_town" %}"><i class="fa fa-circle-o"></i> {% trans "Add town" %}</a></li>
+        <li class="nav-item">
+            <a class="nav-link {% active request 'career/joblistings/add_town' %}" href="{% url "itdagene.career.add_town" %}">
+                <i class="fas fa-circle-o"></i> {% trans "Add town" %}
+            </a>
+        </li>
     {% endif %}
 </ul>

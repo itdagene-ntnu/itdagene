@@ -4,11 +4,11 @@
 {% block content %}
     <div class="row">
         <div class="col-lg-{% if event.uses_tickets %}3{% else %}12{% endif %}">
-            <div class="box box-primary">
-                <div class="box-header">
-                    <h3 class="box-title"><i class="fa fa-info-circle"></i> {% trans "General" %}</h3>
+            <div class="card card-outline card-primary">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fas fa-info-circle"></i> {% trans "General" %}</h3>
                 </div>
-                <div class="box-body">
+                <div class="card-body">
                     <dl>
                         <dt>{% trans "Time" %}</dt>
                         <dd>{{ event.date|date }}: {{ event.time_start }} - {{ event.time_end }}</dd>
@@ -18,18 +18,18 @@
                         <dd>{{ event.location }}</dd>
                     </dl>
                 </div>
-                <div class="box-footer">
+                <div class="card-footer">
                     {{ event.description|markdownize }}
                 </div>
             </div>
         </div>
         {% if event.uses_tickets %}
         <div class="col-lg-6">
-            <div class="box box-primary">
-                <div class="box-header">
-                    <h3 class="box-title"><i class="fa fa-ticket"></i> {% trans "Tickets" %}</h3>
+            <div class="card card-outline card-primary">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fas fa-ticket"></i> {% trans "Tickets" %}</h3>
                 </div>
-                <div class="box-body no-padding">
+                <div class="card-body no-padding">
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -43,7 +43,7 @@
                             <tr>
                                 <td>{{ ticket.full_name }}</td>
                                 <td>{{ ticket.company }}</td>
-                                <td><a href="{% url "itdagene.events.edit_ticket" ticket.pk %}"><i class="fa fa-pencil"></i> {% trans "Edit" %}</a></td>
+                                <td><a href="{% url "itdagene.events.edit_ticket" ticket.pk %}"><i class="fas fa-pencil"></i> {% trans "Edit" %}</a></td>
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -52,11 +52,11 @@
             </div>
         </div>
         <div class="col-lg-3">
-            <div class="box box-primary">
-                <div class="box-header">
-                    <h3 class="box-title"><i class="fa fa-ticket"></i> {% trans "Add Ticket" %}</h3>
+            <div class="card card-outline card-primary">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fas fa-ticket"></i> {% trans "Add Ticket" %}</h3>
                 </div>
-                <div class="box-body">
+                <div class="card-body">
                     <form method="post" enctype="multipart/form-data" class="form-horizontal col-md-12">
                         {% csrf_token %}
                         {{ form|crispy }}

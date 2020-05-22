@@ -5,14 +5,14 @@
 
         <div class="row">
         <div class="col-lg-12">
-        <div class="box box-primary">
-            <div class="box-header">
-                <h3 class="box-title">{% trans "Description" %}</h3>
-                <div class="box-tools pull-right">
-                    <div class="label bg-aqua"><em>{% trans "Last updated" %} {{ experience.last_updated }}</em></div>
+        <div class="card card-outline card-primary">
+            <div class="card-header">
+                <h3 class="card-title">{% trans "Description" %}</h3>
+                <div class="card-tools pull-right">
+                    <div class="badge bg-aqua"><em>{% trans "Last updated" %} {{ experience.last_updated }}</em></div>
                 </div>
             </div>
-            <div class="box-body">
+            <div class="card-body">
                 {{ experience.text|markdownize }}
             </div>
         </div>

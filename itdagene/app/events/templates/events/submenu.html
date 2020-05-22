@@ -1,12 +1,19 @@
 {% load i18n %}
-<ul class="treeview-menu">
-    <li><a href="{% url "itdagene.events.list_events" %}"><i class="fa fa-circle-o"></i> {% trans "Events" %}</a></li>
+{% load menu %}
+<ul class="nav nav-treeview">
+    <li class="nav-item">
+        <a class="nav-link {% active request 'events/$' %}" href="{% url "itdagene.events.list_events" %}"><i class="nav-icon fa fa-circle-o"></i> {% trans "Events" %}</a>
+    </li>
     {% if perms.events.add_event %}
-        <li><a href="{% url "itdagene.events.add_event" %}"><i class="fa fa-circle-o"></i> {% trans "Add Event" %}</a></li>
+        <li class="nav-item">
+            <a class="nav-link {% active request 'events/add' %}" href="{% url "itdagene.events.add_event" %}">
+                <i class="nav-icon fa fa-circle-o"></i> {% trans "Add Event" %}</a>
+        </li>
     {% endif %}
     {% if event.pk %}
         {% if perms.events.change_event %}
-            <li><a href="{% url "itdagene.events.edit_event" event.pk %}"><i class="fa fa-circle-o"></i> {% trans "Edit Event" %}</a></li>
+            <li class="nav-item">
+                <a class="nav-link {% active request 'events/[0-9]+/edit' %}" href="{% url "itdagene.events.edit_event" event.pk %}"><i class="nav-icon fa fa-circle-o"></i> {% trans "Edit Event" %}</a></li>
         {% endif %}
     {% endif %}
 </ul>

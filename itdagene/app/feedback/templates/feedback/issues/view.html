@@ -7,11 +7,11 @@
 {% block content %}
     <div class="row">
     <div class="col-lg-6">
-        <div class="box {% if issue.is_solved %}box-success{% else %}box-danger{% endif %}">
-            <div class="box-header">
-                <h3 class="box-title">{% trans "Metadata" %}</h3>
+        <div class="card card-outline {% if issue.is_solved %}card-success{% else %}card-danger{% endif %}">
+            <div class="card-header">
+                <h3 class="card-title">{% trans "Metadata" %}</h3>
             </div>
-            <div class="box-body">
+            <div class="card-body">
                 <dl class="dl-horizontal">
                     <dt>{% trans "Created by" %}</dt>
                     <dd><a href="{% url "itdagene.users.user_detail" issue.creator.pk %}">{{ issue.creator }}</a>, {{ issue.date_created|timesince }} {% trans "ago" %}</dd>
@@ -40,13 +40,13 @@
     </div>
 
     <div class="col-lg-6">
-        <div class="box {% if issue.is_solved %}box-success{% else %}box-danger{% endif %}">
-            <div class="box-header">
-                <h3 class="box-title">
+        <div class="card card-outline {% if issue.is_solved %}card-success{% else %}card-danger{% endif %}">
+            <div class="card-header">
+                <h3 class="card-title">
                     {% trans "Description" %}
                 </h3>
             </div>
-            <div class="box-body">
+            <div class="card-body">
                 {{ issue.title }}
                 <br/>
                 <br/>

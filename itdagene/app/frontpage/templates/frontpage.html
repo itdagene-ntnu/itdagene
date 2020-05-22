@@ -1,0 +1,66 @@
+{% extends "base_admin.html" %}
+{% load i18n metabase thumbnail markdown_tool staticfiles crispy_forms_tags %}
+
+{% block scripts %}
+{% endblock %}
+
+{% block content %}
+
+
+    {% if user.is_staff %}
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card card-outline card-primary">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fas fa-comments"></i> Status </h3>
+                </div>
+                <iframe
+                    src="{% metabase "1" "#bordered=false&titled=false" %}"
+                    frameborder="0"
+                    width="100%"
+                    height="900px"
+                    allowtransparency
+                    ></iframe>
+
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card direct-chat card-secondary">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fas fa-comments"></i> {% trans "Company Comments" %}</h3>
+                </div>
+                <div class="card-body">
+                    <div class="direct-chat-messages">
+                    {% for comment in company_comments %}
+
+                    <div class="direct-chat-msg">
+                        <div class="direct-chat-infos clearfix">
+                            <div class="direct-chat-name float-left">{{ comment.user }} -
+                                <b><a href="{{ comment.object.get_absolute_url }}">{{ comment.object }}</a></b>
+                            </div>
+                            <div class="direct-chat-timestamp float-right">
+                                <small class="text-muted pull-right">{{ comment.date|timesince }} {% trans "ago" %}</small>
+                            </div>
+                        </div>
+                        {% if comment.user.photo %}
+                            {% thumbnail comment.user.photo "50x50" crop="center" as im %}
+                                <img src="{{ im.url }}" class="direct-chat-img elevation-2">
+                            {% endthumbnail %}
+                        {% else %}
+                                <img src="{% static "img/user_blank.png" %}" class="direct-chat-img elevation-2" />
+                        {% endif %}
+
+                        <div class="direct-chat-text">
+                            {{ comment.comment }}
+                        </div>
+                    </div>
+
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+{% endblock %}

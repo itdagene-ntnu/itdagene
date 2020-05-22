@@ -1,22 +1,22 @@
 {% load i18n %}
 <ul class="treeview-menu">
     {% if perms.workschedule.view_workschedule %}
-    <li><a href="{% url "itdagene.workschedule.list" %}"><i class="fa fa-circle-o"></i> {% trans "Workschedules" %}</a></li>
+    <li><a href="{% url "itdagene.workschedule.list" %}"><i class="fas fa-circle-o"></i> {% trans "Workschedules" %}</a></li>
     {% endif %}
     {% if perms.workschedule.add_workschedule %}
-    <li><a href="{% url "itdagene.workschedule.add_task" %}"><i class="fa fa-circle-o"></i> {% trans "Add Task" %}</a></li>
+    <li><a href="{% url "itdagene.workschedule.add_task" %}"><i class="fas fa-circle-o"></i> {% trans "Add Task" %}</a></li>
     {% endif %}
     {% if task.pk %}
     {% if perms.workschedule.change_workschedule %}
-        <li><a href="{% url "itdagene.workschedule.edit_task" task.pk %}"><i class="fa fa-circle-o"></i> {% trans "Edit Task" %}</a></li>
+        <li><a href="{% url "itdagene.workschedule.edit_task" task.pk %}"><i class="fas fa-circle-o"></i> {% trans "Edit Task" %}</a></li>
     {% endif %}
     {% endif %}
     {% if perms.workschedule.add_worker %}
-    <li><a href="{% url "itdagene.workschedule.add_worker" %}"><i class="fa fa-circle-o"></i> {% trans "Add Worker" %}</a></li>
+    <li><a href="{% url "itdagene.workschedule.add_worker" %}"><i class="fas fa-circle-o"></i> {% trans "Add Worker" %}</a></li>
     {% endif %}
     {% if worker.pk %}
     {% if perms.workschedule.change_worker %}
-        <li><a href="{% url "itdagene.workschedule.edit_worker" worker.pk %}"><i class="fa fa-circle-o"></i> {% trans "Edit Worker" %}</a></li>
+        <li><a href="{% url "itdagene.workschedule.edit_worker" worker.pk %}"><i class="fas fa-circle-o"></i> {% trans "Edit Worker" %}</a></li>
     {% endif %}
     {% endif %}
 </ul>

@@ -4,11 +4,11 @@
     <div class="row">
     {% if request.user.is_staff %}
     <div class="col-lg-6">
-    <div class="box box-danger">
-        <div class="box-header">
-            <h3 class="box-title">{% trans "Assigned to you" %}</h3>
+    <div class="card card-outline card-danger">
+        <div class="card-header">
+            <h3 class="card-title">{% trans "Assigned to you" %}</h3>
         </div>
-        <div class="box-body no-padding">
+        <div class="card-body no-padding">
             <table class="table table-hover">
                 <thead>
                 <tr>
@@ -33,11 +33,11 @@
     </div>
     {% endif %}
     <div class="col-lg-{% if request.user.is_staff %}6{% else %}12{% endif %}">
-    <div class="box box-danger">
-        <div class="box-header">
-            <h3 class="box-title">{% trans "Created by you" %}</h3>
+    <div class="card card-outline card-danger">
+        <div class="card-header">
+            <h3 class="card-title">{% trans "Created by you" %}</h3>
         </div>
-        <div class="box-body no-padding">
+        <div class="card-body no-padding">
             <table class="table table-hover">
                 <thead>
                 <tr>

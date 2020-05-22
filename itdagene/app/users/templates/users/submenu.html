@@ -1,19 +1,45 @@
 {% load i18n %}
+{% load menu %}
 
-<ul class="treeview-menu">
-    <li><a href="{% url "itdagene.users.user_list" %}"><i class="fa fa-circle-o"></i> {% trans "Users" %}</a> </li>
+<ul class="nav nav-treeview">
+
+    <li class="nav-item">
+        <a class="nav-link {% active request 'users/$' %}"  href="{% url "itdagene.users.user_list" %}">
+            <i class="fas fa-circle-o"></i> {% trans "Users" %}
+        </a>
+    </li>
+
     {% if perms.core.add_user %}
-        <li><a href="{% url "itdagene.users.user_create" %}"><i class="fa fa-circle-o"></i> {% trans "Create User" %}</a></li>
+        <li class="nav-item">
+            <a class="nav-link {% active request 'users/create' %}" href="{% url "itdagene.users.user_create" %}">
+                <i class="fas fa-circle-o"></i> {% trans "Create User" %}
+            </a>
+        </li>
     {% endif %}
+
     {% if person.pk %}
         {% if perms.core.send_welcome_email %}
-            <li><a href="{% url "itdagene.users.send_welcome_email" person.pk %}"><i class="fa fa-circle-o"></i> {% trans "Send welcome email" %}</a></li>
+            <li class="nav-item">
+                <a class="nav-link {% active request 'users/[0-9]+/welcome_email' %}" href="{% url "itdagene.users.send_welcome_email" person.pk %}">
+                    <i class="fas fa-circle-o"></i> {% trans "Send welcome email" %}
+                </a>
+            </li>
         {% endif %}
+
         {% if perms.core.change_user %}
-            <li><a href="{% url "itdagene.users.user_edit" person.pk %}"><i class="fa fa-circle-o"></i> {% trans "Edit User" %}</a></li>
+            <li class="nav-item">
+                <a class="nav-link {% active request 'users/[0-9]+/edit$' %}" href="{% url "itdagene.users.user_edit" person.pk %}">
+                    <i class="fas fa-circle-o"></i> {% trans "Edit User" %}
+                </a>
+            </li>
         {% endif %}
+
         {% if perms.core.delete_user %}
-            <li><a href="{% url "itdagene.users.user_delete" person.pk %}"><i class="fa fa-circle-o"></i> {% trans "Delete User" %}</a></li>
+            <li class="nav-item">
+                <a class="nav-link {% active request 'users/[0-9]+/delete$' %}" href="{% url "itdagene.users.user_delete" person.pk %}">
+                    <i class="fas fa-circle-o"></i> {% trans "Delete User" %}
+                </a>
+            </li>
         {% endif %}
     {% endif %}
 </ul>
