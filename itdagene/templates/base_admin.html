@@ -89,9 +89,7 @@
                             {% endif %}
                         </div>
                         <div class="info">
-                            <p>{{ request.user.first_name }}</p>
-
-                            <p>{{ request.user.last_name }}</p>
+                            <a href="{% url "itdagene.users.user_detail" request.user.id %}">{{ request.user.first_name }} {{ request.user.last_name }}</a>
                         </div>
                     </div>
                     <nav class="mt-2">
@@ -232,7 +230,6 @@
                 </div>
             </aside>
 
-            {% include "messsages_admin.html" %}
 
             <div class="content-wrapper">
 
@@ -289,5 +286,6 @@
             up: 'fas fa-arrow-up',
             down: 'fas fa-arrow-down'
             }}); });</script>
+                {% include "messsages_admin.html" %}
     {% block inline-scripts %}{% endblock %}
 {% endblock %}

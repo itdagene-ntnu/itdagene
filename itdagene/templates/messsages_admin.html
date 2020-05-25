@@ -7,6 +7,20 @@
     <section class="content">
 
     {% for message in messages %}
+        {% comment "Alternate messages: toasts" %}
+        <script>
+            $(function() {
+                $(document).Toasts('create', {
+                    body: "{{ message }}",
+                    title: "Success",
+                    icon: 'fas fa-check',
+                    class: "bg-{{ message.tags }}",
+                    autohide: true,
+                    delay: 3000
+                })
+            })
+        </script>
+        {% endcomment %}
     <div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %} alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <h4>
