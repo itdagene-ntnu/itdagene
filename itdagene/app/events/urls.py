@@ -5,6 +5,7 @@ from itdagene.app.events.views import (
     edit_ticket,
     list_events,
     view_event,
+    delete_event,
 )
 
 urlpatterns = [
@@ -12,6 +13,9 @@ urlpatterns = [
     re_path(r"^add/$", add_event, name="itdagene.events.add_event"),
     re_path(r"^(?P<pk>\d+)/$", view_event, name="itdagene.events.view_event"),
     re_path(r"^(?P<pk>\d+)/edit/$", edit_event, name="itdagene.events.edit_event"),
+    re_path(
+        r"^(?P<pk>\d+)/delete/$", delete_event, name="itdagene.events.delete_event"
+    ),
     re_path(
         r"^ticket/(?P<pk>\d+)/edit/$", edit_ticket, name="itdagene.events.edit_ticket"
     ),

@@ -20,6 +20,17 @@
                 <a class="nav-link {% active request 'pages/[-_\w]+/edit' %}" href="{% url "itdagene.pages.edit" page.slug %}"><i class="nav-icon fa fa-circle-o"></i> {% trans "Edit Page" %}</a>
             </li>
         {% endif %}
+
+        {% if perms.pages.delete_page %}
+            <li class="nav-item">
+                <a
+                    class="nav-link {% active request 'pages/[-_\w]+/delete' %}"
+                    href="{% url "itdagene.pages.delete" page.slug %}"
+                >
+                    <i class="nav-icon fa fa-circle-o"></i> {% trans "Delete Page" %}
+                </a>
+            </li>
+        {% endif %}
     {% endif %}
 
 </ul>

@@ -15,5 +15,17 @@
             <li class="nav-item">
                 <a class="nav-link {% active request 'events/[0-9]+/edit' %}" href="{% url "itdagene.events.edit_event" event.pk %}"><i class="nav-icon fa fa-circle-o"></i> {% trans "Edit Event" %}</a></li>
         {% endif %}
+
+        {% if perms.events.delete_event %}
+            <li class="nav-item">
+                <a
+                    class="nav-link {% active request 'events/[0-9]+/delete' %}"
+                    href="{% url "itdagene.events.delete_event" event.pk %}"
+                >
+                    <i class="nav-icon fa fa-circle-o"></i> {% trans "Delete Event" %}
+                </a>
+            </li>
+        {% endif %}
+
     {% endif %}
 </ul>

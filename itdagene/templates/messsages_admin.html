@@ -7,15 +7,20 @@
     <section class="content">
 
     {% for message in messages %}
-    <div class="callout callout-{% if message.tags %}{{ message.tags }}{% endif %}">
+    <div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %} alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <h4>
             {% if message.tags == 'success' %}
+                <i class="icon fas fa-check"></i>
                 {% trans "Success" %}
             {% elif message.tags == 'info' %}
+                <i class="icon fas fa-info"></i>
                 {% trans "Information" %}
             {% elif message.tags == 'warning' %}
+                <i class="icon fas fa-exclamation-triangle"></i>
                 {% trans "Warning" %}
             {% elif message.tags == 'danger' %}
+                <i class="icon fas fa-ban"></i>
                 {% trans "Error" %}
             {% endif %}
         </h4>

@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.messages import SUCCESS, add_message
 from django.contrib.auth.decorators import permission_required
 from django.core.cache import cache
 from django.shortcuts import get_object_or_404, redirect, render
@@ -62,6 +63,20 @@ def edit(request, slug, lang_code="nb"):
             "title": _("Edit Page"),
             "description": page.title,
         },
+    )
+
+
+@permission_required("pages.delete_page")
+def delete(request, slug, lang_code="nb"):
+    page = get_object_or_404(Page, language=lang_code, slug=slug)
+    if request.method == "POST":
+        page.delete()
+        add_message(request, SUCCESS, _("Page deleted."))
+        return redirect(reverse("itdagene.pages.admin"))
+    return render(
+        request,
+        "pages/delete.html",
+        {"page": page, "title": _("Delete Page"), "description": page.title,},
     )
 
 

@@ -32,7 +32,7 @@
     "hover.css": "^2.2.1",
     "jquery": "^3.5.1",
     "lightbox2": "^2.10.0",
-    "moment": "^2.8.4",
+    "moment": "^2.26.0",
     "tablesorter": "^2.31.3"
   },
   "devDependencies": {

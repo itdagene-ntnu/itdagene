@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import SUCCESS, add_message
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.translation import ugettext_lazy as _
 from itdagene.app.events.forms import EventForm, EventTicketForm
 from itdagene.app.events.models import Event, Ticket
@@ -46,6 +46,20 @@ def edit_event(request, pk):
             "title": _("Edit Event"),
             "description": str(event),
         },
+    )
+
+
+@permission_required("events.delete_event")
+def delete_event(request, pk):
+    event = get_object_or_404(Event, pk=pk)
+    if request.method == "POST":
+        event.delete()
+        add_message(request, SUCCESS, _("Event deleted."))
+        return redirect(reverse("itdagene.events.list_events"))
+    return render(
+        request,
+        "events/delete.html",
+        {"event": event, "title": _("Delete Event"), "description": str(event),},
     )
 
 

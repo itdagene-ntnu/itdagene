@@ -1,0 +1,29 @@
+{% extends "base_admin.html" %}
+
+{% load i18n %}
+
+{% block content %}
+<div class="row">
+<div class="col-lg-12">
+    <div class="card card-outline card-danger card-solid">
+        <div class="card-header">
+            <h3 class="card-title">{% trans "Danger Zone" %}</h3>
+        </div>
+        <div class="card-body">
+             <form method="post" action="{% url "itdagene.pages.delete" page.slug %}">
+                {% csrf_token %}
+                <p>
+                    {% blocktrans with page=page %}Are you sure you want to delete the page {{ page }}?{% endblocktrans %}
+                </p>
+                <p>
+                    <button type="submit" class="btn btn-danger">
+                        {% trans "Delete page" %}
+                    </button>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}
