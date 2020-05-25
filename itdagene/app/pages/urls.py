@@ -1,5 +1,5 @@
 from django.urls import re_path
-from itdagene.app.pages.views import add, admin, edit, delete, view_page
+from itdagene.app.pages.views import add, admin, delete, edit, view_page
 
 urlpatterns = [
     re_path(r"^pages/$", admin, name="itdagene.pages.admin"),

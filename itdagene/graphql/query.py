@@ -1,7 +1,6 @@
 import graphene
 from graphene import relay
 from graphene_django.filter import DjangoFilterConnectionField
-
 from itdagene.app.events.models import Event as ItdageneEvent
 from itdagene.core.models import Preference
 from itdagene.graphql.filters import JoblistingFilter

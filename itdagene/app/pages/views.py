@@ -1,6 +1,6 @@
 from django.contrib import messages
-from django.contrib.messages import SUCCESS, add_message
 from django.contrib.auth.decorators import permission_required
+from django.contrib.messages import SUCCESS, add_message
 from django.core.cache import cache
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -76,7 +76,7 @@ def delete(request, slug, lang_code="nb"):
     return render(
         request,
         "pages/delete.html",
-        {"page": page, "title": _("Delete Page"), "description": page.title,},
+        {"page": page, "title": _("Delete Page"), "description": page.title},
     )
 
 

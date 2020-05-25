@@ -1,0 +1,4 @@
+-r base.txt
+-r isort.txt
+-r black.txt
+-r flake8.txt

@@ -1,11 +1,11 @@
 from django.urls import re_path
 from itdagene.app.events.views import (
     add_event,
+    delete_event,
     edit_event,
     edit_ticket,
     list_events,
     view_event,
-    delete_event,
 )
 
 urlpatterns = [
