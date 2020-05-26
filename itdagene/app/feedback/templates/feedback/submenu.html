@@ -5,24 +5,24 @@
     {% if request.user.is_staff %}
         <li class="nav-item">
             <a class="nav-link {% active request 'feedback/issues/$' %}" href="{% url "itdagene.feedback.issues.list" %}">
-                <i class="fas fa-circle-o"></i> {% trans "Issues" %}
+                <i class="far fa-circle"></i> {% trans "Issues" %}
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link {% active request 'feedback/issues/solved' %}" href="{% url "itdagene.feedback.issues.solved_list" %}">
-                <i class="fas fa-circle-o"></i> {% trans "Solved Issues" %}
+                <i class="far fa-circle"></i> {% trans "Solved Issues" %}
             </a>
         </li>
     {% endif %}
     {% if perms.feedback.add_issue %}
         <li class="nav-item">
             <a class="nav-link {% active request 'feedback/issues/mine' %}" href="{% url "itdagene.feedback.issues.my_issues" %}">
-                <i class="fas fa-circle-o"></i> {% trans "My issues" %}
+                <i class="far fa-circle"></i> {% trans "My issues" %}
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link {% active request 'feedback/issues/add' %}" href="{% url "itdagene.feedback.issues.add" %}">
-                <i class="fas fa-circle-o"></i> {% trans "Add issue" %}
+                <i class="far fa-circle"></i> {% trans "Add issue" %}
             </a>
         </li>
     {% endif %}
@@ -30,12 +30,12 @@
         {% if perms.feedback.change_issue %}
             <li class="nav-item">
                 <a class="nav-link {% active request 'feedback/issues/[0-9]+/edit' %}" href="{% url "itdagene.feedback.issues.edit" issue.pk %}">
-                    <i class="fas fa-circle-o"></i> {% trans "Edit issue" %}
+                    <i class="far fa-circle"></i> {% trans "Edit issue" %}
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url "itdagene.feedback.issues.solved" issue.pk %}">
-                    <i class="fas fa-circle-o"></i> {% trans "Mark issue as solved" %}
+                    <i class="far fa-circle"></i> {% trans "Mark issue as solved" %}
                 </a>
             </li>
         {% endif %}
@@ -44,7 +44,7 @@
     {% if request.user.is_staff %}
         <li class="nav-item">
             <a class="nav-link {% active request 'feedback/report' %}" href="{% url "itdagene.feedback.evalutions.report" %}">
-                <i class="fas fa-circle-o"></i> {% trans "Company evalutions" %}
+                <i class="far fa-circle"></i> {% trans "Company evalutions" %}
             </a>
         </li>
     {% endif %}

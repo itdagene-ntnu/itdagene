@@ -6,33 +6,33 @@
     {% if request.user.is_superuser %}
         <li class="nav-item">
             <a class="nav-link {% active request 'admin/$' %}" href="{% url "itdagene.itdageneadmin.landing_page" %}">
-                <i class="fas fa-circle-o"></i> {% trans "Admin" %}
+                <i class="far fa-circle"></i> {% trans "Admin" %}
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link {% active request 'admin/log' %}" href="{% url "itdagene.itdageneadmin.log" %}">
-                <i class="fas fa-circle-o"></i> {% trans "Log" %}
+                <i class="far fa-circle"></i> {% trans "Log" %}
             </a>
         </li>
     {% endif %}
     {% if perms.core.change_preference or request.user.is_superuser %}
         <li class="nav-item">
             <a class="nav-link {% active request 'admin/preferences' %}" href="{% url "itdagene.itdageneadmin.preferences.edit" %}">
-                <i class="fas fa-circle-o"></i> {% trans "Preferences" %}
+                <i class="far fa-circle"></i> {% trans "Preferences" %}
             </a>
         </li>
     {% endif %}
     {% if request.user.is_superuser %}
         <li class="nav-item">
             <a class="nav-link {% active request 'admin/groups/$' %}" href="{% url "itdagene.itdageneadmin.groups.list" %}">
-                <i class="fas fa-circle-o"></i> {% trans "Groups" %}
+                <i class="far fa-circle"></i> {% trans "Groups" %}
             </a>
         </li>
     {% endif %}
     {% if perms.auth.add_group %}
         <li class="nav-item">
             <a class="nav-link {% active request 'admin/groups/add' %}" href="{% url "itdagene.itdageneadmin.groups.add" %}">
-                <i class="fas fa-circle-o"></i> {% trans "Add Group" %}
+                <i class="far fa-circle"></i> {% trans "Add Group" %}
             </a>
         </li>
     {% endif %}
@@ -40,7 +40,7 @@
         {% if perms.auth.change_group %}
             <li class="nav-item">
                 <a class="nav-link {% active request 'admin/groups/[0-9]+/edit' %}" href="{% url "itdagene.itdageneadmin.groups.edit" group.pk %}">
-                    <i class="fas fa-circle-o"></i> {% trans "Edit Group" %}
+                    <i class="far fa-circle"></i> {% trans "Edit Group" %}
                 </a>
             </li>
         {% endif %}

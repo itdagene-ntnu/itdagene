@@ -5,14 +5,14 @@
 
     <li class="nav-item">
         <a class="nav-link {% active request 'companies/$' %}" href="{% url "itdagene.company.list_companies"  %}">
-            <i class="nav-icon fa fa-circle-o"></i> {% trans "All Companies" %}
+            <i class="nav-icon far fa-circle"></i> {% trans "All Companies" %}
         </a>
     </li>
 
     {% if perms.company.add_company %}
         <li class="nav-item">
             <a class="nav-link {% active request 'companies/add/$' %}"  href="{% url "itdagene.company.add" %}">
-                <i class="nav-icon fa fa-circle-o"></i> {% trans "Add Company" %}
+                <i class="nav-icon far fa-circle"></i> {% trans "Add Company" %}
             </a>
         </li>
     {% endif %}
@@ -23,7 +23,7 @@
         {% if perms.company.change_company %}
         <li class="nav-item">
             <a class="nav-link {% active request 'companies/[0-9]+/edit/$' %}" href="{% url "itdagene.company.edit" company.pk %}">
-                <i class="nav-icon fa fa-circle-o"></i> {% trans "Edit Company" %}
+                <i class="nav-icon far fa-circle"></i> {% trans "Edit Company" %}
             </a>
         </li>
         {% endif %}
@@ -31,7 +31,7 @@
         {% if perms.company.add_companycontact %}
         <li class="nav-item">
             <a class="nav-link {% active request 'contacts/[0-9]+/add' %}" href="{% url "itdagene.company.company_contacts.add_contact" company.pk %}">
-                <i class="nav-icon fa fa-circle-o"></i> {% trans "Add Contact" %}
+                <i class="nav-icon far fa-circle"></i> {% trans "Add Contact" %}
             </a>
         </li>
         {% endif %}
@@ -39,7 +39,7 @@
         {% if perms.company.add_contract %}
         <li class="nav-item">
             <a class="nav-link {% active request 'contracts/[0-9]+/add' %}" href="{% url "itdagene.company.contracts.add_contract" company.pk %}">
-                <i class="nav-icon fa fa-circle-o"></i> {% trans "Add Contract" %}
+                <i class="nav-icon far fa-circle"></i> {% trans "Add Contract" %}
             </a>
         </li>
         {% endif %}
@@ -50,7 +50,7 @@
     {% if perms.company.change_company %}
         <li class="nav-item">
             <a class="nav-link {% active request 'companies/responsibilities' %}" href="{% url "itdagene.company.set_responsibilities" %}">
-                <i class="nav-icon fa fa-circle-o"></i> {% trans "Set Responsibilities" %}
+                <i class="nav-icon far fa-circle"></i> {% trans "Set Responsibilities" %}
             </a>
         </li>
     {% endif %}
@@ -58,7 +58,7 @@
     {% if request.user.is_staff %}
         <li class="nav-item">
             <a class="nav-link {% active request 'pages/$' %}" href="{% url "itdagene.feedback.evalutions.report" %}">
-                <i class="nav-icon fa fa-circle-o"></i> {% trans "Company evalutions" %}
+                <i class="nav-icon far fa-circle"></i> {% trans "Company evalutions" %}
             </a>
         </li>
     {% endif %}
@@ -66,7 +66,7 @@
     {% if perms.company.change_contract %}
         <li class="nav-item">
             <a class="nav-link {% active request 'bdb/economics' %}" href="{% url "itdagene.company.economics.economic_overview" %}">
-                <i class="nav-icon fa fa-circle-o"></i> {% trans "Economic Overview" %}
+                <i class="nav-icon far fa-circle"></i> {% trans "Economic Overview" %}
             </a>
         </li>
     {% endif %}

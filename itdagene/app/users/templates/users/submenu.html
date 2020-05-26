@@ -5,14 +5,14 @@
 
     <li class="nav-item">
         <a class="nav-link {% active request 'users/$' %}"  href="{% url "itdagene.users.user_list" %}">
-            <i class="fas fa-circle-o"></i> {% trans "Users" %}
+            <i class="far fa-circle"></i> {% trans "Users" %}
         </a>
     </li>
 
     {% if perms.core.add_user %}
         <li class="nav-item">
             <a class="nav-link {% active request 'users/create' %}" href="{% url "itdagene.users.user_create" %}">
-                <i class="fas fa-circle-o"></i> {% trans "Create User" %}
+                <i class="far fa-circle"></i> {% trans "Create User" %}
             </a>
         </li>
     {% endif %}
@@ -21,7 +21,7 @@
         {% if perms.core.send_welcome_email %}
             <li class="nav-item">
                 <a class="nav-link {% active request 'users/[0-9]+/welcome_email' %}" href="{% url "itdagene.users.send_welcome_email" person.pk %}">
-                    <i class="fas fa-circle-o"></i> {% trans "Send welcome email" %}
+                    <i class="far fa-circle"></i> {% trans "Send welcome email" %}
                 </a>
             </li>
         {% endif %}
@@ -29,7 +29,7 @@
         {% if perms.core.change_user %}
             <li class="nav-item">
                 <a class="nav-link {% active request 'users/[0-9]+/edit$' %}" href="{% url "itdagene.users.user_edit" person.pk %}">
-                    <i class="fas fa-circle-o"></i> {% trans "Edit User" %}
+                    <i class="far fa-circle"></i> {% trans "Edit User" %}
                 </a>
             </li>
         {% endif %}
@@ -37,7 +37,7 @@
         {% if perms.core.delete_user %}
             <li class="nav-item">
                 <a class="nav-link {% active request 'users/[0-9]+/delete$' %}" href="{% url "itdagene.users.user_delete" person.pk %}">
-                    <i class="fas fa-circle-o"></i> {% trans "Delete User" %}
+                    <i class="far fa-circle"></i> {% trans "Delete User" %}
                 </a>
             </li>
         {% endif %}

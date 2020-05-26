@@ -25,7 +25,7 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="pushbutton">
-                        <i class="fa fa-bars"></i>
+                        <i class="fas fa-bars"></i>
                     </a>
                 </li>
             </ul>
@@ -116,7 +116,7 @@
                         {% comment "Not using this" %}
                             <li class="{% active request 'news' %} has-treeview"><a href="#"><span
                                     class="glyphicon glyphicon-bullhorn"></span> {% trans "Announcements" %}
-                                <i class="fa fa-angle-left pull-right"></i> </a>
+                                <i class="fas fa-angle-left pull-right"></i> </a>
                                 {% include 'news/submenu.html' %}
                             </li>
                         {% endcomment %}
@@ -169,7 +169,7 @@
                         {% if request.user.is_staff %}
                             <li class="{% active request 'meetings' %} treeview"><a href="#"><span
                                     class="glyphicon glyphicon-comment"></span> {% trans "Meetings" %}
-                                <i class="fa fa-angle-left pull-right"></i> </a>
+                                <i class="fas fa-angle-left pull-right"></i> </a>
                                 {% include 'meetings/submenu.html' %}
                             </li>
                         {% endif %}
@@ -177,7 +177,7 @@
                             <li class="{% active request 'workschedules' %} treeview"><a
                                     href="#"><span
                                     class="glyphicon glyphicon-list"></span> {% trans "Workschedules" %}
-                                <i class="fa fa-angle-left pull-right"></i> </a>
+                                <i class="fas fa-angle-left pull-right"></i> </a>
                                 {% include 'workschedule/submenu.html' %}
                             </li>
                         {% endif %}
@@ -219,7 +219,7 @@
                             <li class="{% active request 'experiences' %} treeview"><a
                                     href="#"><span
                                     class="glyphicon glyphicon-pushpin"></span> {% trans "Experiences" %}
-                                <i class="fa fa-angle-left pull-right"></i> </a>
+                                <i class="fas fa-angle-left pull-right"></i> </a>
                                 {% include 'experiences/submenu.html' %}
                             </li>
                         {% endif %}
@@ -255,10 +255,9 @@
 
             </div>
 
-            <div class="row">
-                <footer class="main-footer col-lg-12 footer">{{ site.name }} &copy; {% now "Y" %} &bullet; <a href="mailto:{{ site.contact_email }}">{{ site.contact_email }}</a>
+                <footer class="main-footer">
+                    {{ site.name }} &copy; {% now "Y" %} &bullet; <a href="mailto:{{ site.contact_email }}">{{ site.contact_email }}</a>
                 </footer>
-            </div>
 
     </div>
     {% endif %}

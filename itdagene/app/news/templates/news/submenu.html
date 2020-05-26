@@ -3,24 +3,24 @@
 <ul class="nav nav-treeview">
     {% if user.is_staff %}
         <li class="nav-item">
-            <a class="nav-link" href="{% url "itdagene.news.admin" %}"><i class="nac-icon fa fa-circle-o"></i> {% trans "Announcements" %}</a>
+            <a class="nav-link" href="{% url "itdagene.news.admin" %}"><i class="nac-icon far fa-circle"></i> {% trans "Announcements" %}</a>
         </li>
     {% endif %}
 
     {% if perms.news.add_announcement %}
         <li class="nav-item">
-            <a class="nav-link" href="{% url "itdagene.news.create_announcement"%}"><i class="nav-icon fa fa-circle-o"></i> {% trans "Add Announcement" %}</a>
+            <a class="nav-link" href="{% url "itdagene.news.create_announcement"%}"><i class="nav-icon far fa-circle"></i> {% trans "Add Announcement" %}</a>
         </li>
     {% endif %}
 
     {% if announcement %}
         {% if perms.news.change_announcement %}
             <li class="nav-item">
-                <a class="nav-link" href="{% url "itdagene.news.edit_announcement" announcement.id %}"><i class="nav-icon fa fa-circle-o"></i> {% trans "Edit Announcement" %}</a>
+                <a class="nav-link" href="{% url "itdagene.news.edit_announcement" announcement.id %}"><i class="nav-icon far fa-circle"></i> {% trans "Edit Announcement" %}</a>
             </li>
         {% endif %}
         <li class="nav-item">
-            <a class="nav-link" href="{% url "itdagene.news.view_announcement" announcement.id %}"><i class="nav-link fa fa-circle-o"></i> {% trans "View Announcement" %}</a>
+            <a class="nav-link" href="{% url "itdagene.news.view_announcement" announcement.id %}"><i class="nav-link far fa-circle"></i> {% trans "View Announcement" %}</a>
         </li>
     {% endif %}
 

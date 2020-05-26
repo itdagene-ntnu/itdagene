@@ -6,7 +6,7 @@
     {% if request.user.is_staff %}
     <li class="nav-item">
         <a class="nav-link {% active request 'packages/$' %}" href="{% url "itdagene.company.packages.list" %}">
-            <i class="fas fa-circle-o"></i> {% trans "Packages" %}
+            <i class="far fa-circle"></i> {% trans "Packages" %}
         </a>
     </li>
     {% endif %}
@@ -14,7 +14,7 @@
     {% if perms.company.add_package %}
     <li class="nav-item">
         <a class="nav-link {% active request 'packages/add' %}" href="{% url "itdagene.company.packages.add" %}">
-            <i class="fas fa-circle-o"></i> {% trans "Add Package" %}
+            <i class="far fa-circle"></i> {% trans "Add Package" %}
         </a>
     </li>
     {% endif %}
@@ -23,7 +23,7 @@
         {% if perms.company.change_package %}
         <li class="nav-item">
             <a class="nav-link {% active request 'packages/[0-9]+/edit' %}" href="{% url "itdagene.company.packages.edit" package.pk %}">
-                <i class="fas fa-circle-o"></i> {% trans "Edit Package" %}
+                <i class="far fa-circle"></i> {% trans "Edit Package" %}
             </a>
         </li>
         {% endif %}
