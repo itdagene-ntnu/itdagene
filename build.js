@@ -3,16 +3,13 @@ const fs = require("fs-extra");
 
 const assets = [
   "admin-lte/dist",
-  "animate.css",
   "bootstrap/dist",
   "chosen-js",
-  "lightbox2",
   "bootstrap-datepicker",
   "eonasdan-bootstrap-datetimepicker/build",
   "bootstrap-chosen",
   "bootstrap-table/dist",
   "tablesorter",
-  "hover.css",
   "jquery/dist",
   "moment/min",
 ];

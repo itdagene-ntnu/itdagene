@@ -21,17 +21,13 @@
   "homepage": "https://github.com/itdagene-ntnu/itdagene",
   "dependencies": {
     "admin-lte": "^3.0",
-    "animate.css": "^3.5.2",
     "bootstrap": "^4.5.0",
     "bootstrap-chosen": "^1.4.2",
     "bootstrap-datepicker": "^1.9.0",
     "bootstrap-table": "^1.16.0",
     "chosen-js": "^1.8.7",
     "eonasdan-bootstrap-datetimepicker": "^4.17.47",
-    "file-loader": "^3.0.1",
-    "hover.css": "^2.2.1",
     "jquery": "^3.5.1",
-    "lightbox2": "^2.10.0",
     "moment": "^2.26.0",
     "tablesorter": "^2.31.3"
   },
