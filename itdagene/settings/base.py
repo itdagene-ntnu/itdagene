@@ -142,7 +142,7 @@ TOOLBAR = False
 
 GOOGLE_AUTH = False
 
-CRISPY_TEMPLATE_PACK = "bootstrap3"
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 AUTH_USER_MODEL = "core.User"
 
