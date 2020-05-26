@@ -9,7 +9,7 @@
 ## TL;DR
 
 - GraphQL API with [django-graphene]
-- Python 3.6 with Django
+- Python 3.7 with Django
 - Postgres for persistant storage
 - [Celery] (with redis-broker) for async tasks
 - CircleCI for continuous integration
@@ -19,7 +19,7 @@
 
 First make sure that you have the following software installed on your system:
 
-- Python 3.6
+- Python 3.7
 - Node.js and yarn
 - [docker] together with [docker-compose]
 
@@ -47,10 +47,6 @@ $ docker-compose up -d
 $ source venv/bin/activate
 $ python manage.py runserver
 ```
-
-## Python 3.7
-
-Since celery [doesn't support python 3.7 yet](venv/lib/python3.7/site-packages/celery/backends), run `./fix-celery.sh` to fix it.
 
 ## Migrations
 
