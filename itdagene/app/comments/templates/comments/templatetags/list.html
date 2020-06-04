@@ -1,46 +1,51 @@
 {% load i18n thumbnail crispy_forms_tags static %}
 
-<div class="box box-success">
-    <div class="box-header">
-        <i class="fa fa-comments-o"></i>
-        <h3 class="box-title">Comments</h3>
+<div class="card direct-chat card-success">
+    <div class="card-header">
+        <i class="card-icon fas fa-comments"></i>
+        <h3 class="card-title">{% trans "Comments" %}</h3>
     </div>
 
+
     {% if form %}
-    <div class="box-body" style="height: 180px">
+    <div class="card-footer" style="height: 200px">
 
         <form action="{% url "itdagene.comments.add" %}" method="POST">
             {% csrf_token %}
             {{ form|crispy }}
-            <div class="pull-right">
-                <button class="btn btn-success">{% trans "Add Comment" %}</button>
+            <div class="float-right">
             </div>
+                <button class="btn btn-success">{% trans "Add Comment" %}</button>
         </form>
 
     </div>
     {% endif %}
 
-    <div class="box-body chat" id="chat-box">
-        {% for comment in comments %}
-        <div class="item">
+    <div class="card-body">
+        <div class="direct-chat-messages">
+            {% for comment in comments %}
 
-            {% if comment.user.photo %}
+            <div class="direct-chat-msg">
+                <div class="direct-chat-infos clearfix">
+                    <div class="direct-chat-name float-left">{{ comment.user }}</div>
+                    <div class="direct-chat-timestamp float-right">
+                        <small class="text-muted pull-right">{{ comment.date|timesince }} {% trans "ago" %}</small>
+                    </div>
+                </div>
+                {% if comment.user.photo %}
                 {% thumbnail comment.user.photo "50x50" crop="center" as im %}
-                    <img src="{{ im.url }}" class="img-circle">
+                <img src="{{ im.url }}" class="direct-chat-img elevation-2">
                 {% endthumbnail %}
-            {% else %}
-                <img src="{% static "img/user_blank.png" %}" class="img-circle" />
-            {% endif %}
+                {% else %}
+                <img src="{% static "img/user_blank.png" %}" class="direct-chat-img elevation-2" />
+                {% endif %}
 
-            <p class="message">
-                <a href="{{ comment.user.get_absolute_url }}" class="name">
-                    <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> {{ comment.date|timesince }} {% trans "ago" %}</small>
-                    {{ comment.user }}
-                </a>
-                {{ comment.comment|linebreaksbr }}
-            </p>
+                <div class="direct-chat-text">
+                    {{ comment.comment }}
+                </div>
+            </div>
+
+            {% endfor %}
         </div>
-
-        {% endfor %}
     </div>
 </div>

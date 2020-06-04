@@ -68,7 +68,7 @@ def add(request):
             if request.user.is_staff:
                 return redirect(reverse("itdagene.feedback.issues.list"))
             else:
-                return redirect(reverse("itdagene.frontpage.inside"))
+                return redirect(reverse("itdagene.frontpage"))
 
     return render(
         request, "feedback/form.html", {"title": _("Add Issue"), "form": form}
@@ -87,7 +87,7 @@ def edit(request, id=None):
             if request.user.is_staff:
                 return redirect(reverse("itdagene.feedback.issues.list"))
             else:
-                return redirect(reverse("itdagene.frontpage.inside"))
+                return redirect(reverse("itdagene.frontpage"))
 
     return render(
         request,

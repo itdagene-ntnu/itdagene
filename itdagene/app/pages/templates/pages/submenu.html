@@ -1,19 +1,36 @@
 {% load i18n %}
+{% load menu %}
 
-<ul class="treeview-menu">
-    {% if user.is_staff %}<li><a href="{% url "itdagene.pages.admin" %}"><i class="fa fa-circle-o"></i> {% trans "Pages" %}</a></li>
+<ul class="nav nav-treeview">
+    {% if user.is_staff %}
+        <li class="nav-item">
+            <a class="nav-link {% active request 'pages/$' %}" href="{% url "itdagene.pages.admin" %}"><i class="nav-icon far fa-circle"></i> {% trans "Pages" %}</a>
+        </li>
     {% endif %}
 
     {% if perms.pages.add_page %}
-        <li><a href="{% url "itdagene.pages.add" %}"><i class="fa fa-circle-o"></i> {% trans "Add Page" %}</a></li>
+        <li class="nav-item">
+            <a class="nav-link {% active request 'pages/add' %}" href="{% url "itdagene.pages.add" %}"><i class="nav-icon far fa-circle"></i> {% trans "Add Page" %}</a>
+        </li>
     {% endif %}
 
     {% if page %}
         {% if perms.pages.add_page %}
-            <li><a href="{% url "itdagene.pages.edit" page.slug %}"><i class="fa fa-circle-o"></i> {% trans "Edit Page" %}</a></li>
+            <li class="nav-item">
+                <a class="nav-link {% active request 'pages/[-_\w]+/edit' %}" href="{% url "itdagene.pages.edit" page.slug %}"><i class="nav-icon far fa-circle"></i> {% trans "Edit Page" %}</a>
+            </li>
         {% endif %}
-        <li><a href="{% url "itdagene.pages.view_page" page.slug %}"><i class="fa fa-circle-o"></i> {% trans "View Page" %}</a></li>
+
+        {% if perms.pages.delete_page %}
+            <li class="nav-item">
+                <a
+                    class="nav-link {% active request 'pages/[-_\w]+/delete' %}"
+                    href="{% url "itdagene.pages.delete" page.slug %}"
+                >
+                    <i class="nav-icon far fa-circle"></i> {% trans "Delete Page" %}
+                </a>
+            </li>
+        {% endif %}
     {% endif %}
 
 </ul>
-

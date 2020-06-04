@@ -8,11 +8,11 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <div class="box box-primary">
-                <div class="box-header">
-                    <h3 class="box-title">{% trans "Your Companies" %}</h3>
+            <div class="card card-outline card-outline card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">{% trans "Your Companies" %}</h3>
                 </div>
-                <div class="box-body">
+                <div class="card-body">
                     <div class="row">
                     {% for company in user_companies %}
                         <div class="col-md-4">
@@ -47,7 +47,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             {% if contact.email %}
-                                                                <a href="mailto:{{ contact.email }}"><span class="glyphicon glyphicon-envelope"></span></a>
+                                                                <a href="mailto:{{ contact.email }}"><span class="fas fa-envelope"></span></a>
                                                             {% endif %}
                                                         </div>
                                                     </div>
@@ -64,12 +64,12 @@
             </div>
         </div>
         <div class="col-lg-12">
-            <div class="box box-primary">
-                <div class="box-header">
-                    <h3 class="box-title">{% trans "Companies" %}</h3>
+            <div class="card card-outline card-outline card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">{% trans "Companies" %}</h3>
                 </div>
-                <div class="box-body">
-                    <table class="table table-hover tablesorter" id="myTable">
+                <div class="card-body">
+                    <table class="table table-hover table-striped tablesorter" id="myTable">
                         <thead>
                         <tr>
                             <th>{% trans "Company" %}</th>
@@ -79,28 +79,56 @@
                             <th>{% trans "Assigned to" %}</th>
                             <th>{% trans "Contracts" %}</th>
                             <th>{% trans "Logo" %}</th>
-                            <th title="Logo for mørk bakgrunn"></th>
-                            <th title="Logo i vektorformat"></th>
+                            <th title="Logo for mørk bakgrunn">{% trans "Logo mørk" %}</th>
+                            <th title="Logo i vektorformat">{% trans "Logo vektor" %}</th>
                         </tr>
                         </thead>
                         <tbody>
                         {% for company in companies %}
                             <tr>
                                 <td><a href="{% url "itdagene.company.view" company.pk %}">{{ company }}</a></td>
-                                <td {% if company.status == 0 %}class="danger"{% endif %}>{{ company.get_status_display }}</td>
-                                <td {% if not company.package %}class="danger"{% endif %}>
+                                <td {% if company.status == 0 %}class="table-danger"{% endif %}>{{ company.get_status_display }}</td>
+                                <td {% if not company.package %}class="table-danger"{% endif %}>
                                     {% if company.package %}{{ company.package.name }}{% else %}{% trans "None" %}{% endif %}</td>
                                 <td> {% for package in company.waiting_for_package.all %} {{ package.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</td>
                                 <td>{% if company.contact %}{{ company.contact }}{% else %}{% trans "None" %}{% endif %}</td>
-                                <td>{% if company.contracts.all|has_contract_for_current_year:year %}{{ "True"|boolean }}<span class="hidden-text">T</span>{% else %}<span class="hidden-text">F</span>{% endif %}</td>
                                 <td>
-                                        {% if company.logo %}<span class="hidden-text">T</span><a title="Vanlig logo" download href="{{ MEDIA_URL }}{{company.logo}}">{{ "True"|boolean }}</a>{% else %}<span class="hidden-text">F</span>{% endif %}
+                                    {% if company.contracts.all|has_contract_for_current_year:year %}{{ "True"|boolean }}
+                                    <span class="hidden-text">T</span>
+                                    <i class="fas fa-check"></i>
+                                    {% else %}
+                                    <span class="hidden-text">F</span>
+                                    {% endif %}
                                 </td>
                                 <td>
-                                        {% if company.logo_inverted %}<span class="hidden-text">T</span><a title="Logo for mørk bakgrunn" download href="{{ MEDIA_URL }}{{company.logo_inverted}}">{{ "True"|boolean }}</a>{% else %}<span class="hidden-text">F</span>{% endif %}
+                                    {% if company.logo %}
+                                    <span class="hidden-text">T</span>
+                                    <a title="Vanlig logo" download href="{{ MEDIA_URL }}{{company.logo}}">
+                                        <i class="fas fa-check"></i>
+                                    </a>
+                                    {% else %}
+                                    <span class="hidden-text">F</span>
+                                    {% endif %}
                                 </td>
                                 <td>
-                                        {% if company.logo_vector %}<span class="hidden-text">T</span><a title="Logo i vektorformat" download href="{{ MEDIA_URL }}{{company.logo_vector}}">{{ "True"|boolean }}</a>{% else %}<span class="hidden-text">F</span>{% endif %}
+                                        {% if company.logo_inverted %}
+                                        <span class="hidden-text">T</span>
+                                        <a title="Logo for mørk bakgrunn" download href="{{ MEDIA_URL }}{{company.logo_inverted}}">
+                                            <i class="fas fa-check"></i>
+                                        </a>
+                                        {% else %}
+                                        <span class="hidden-text">F</span>
+                                        {% endif %}
+                                </td>
+                                <td>
+                                        {% if company.logo_vector %}
+                                        <span class="hidden-text">T</span>
+                                        <a title="Logo i vektorformat" download href="{{ MEDIA_URL }}{{company.logo_vector}}">
+                                            <i class="fas fa-check"></i>
+                                        </a>
+                                        {% else %}
+                                        <span class="hidden-text">F</span>
+                                        {% endif %}
                                 </td>
                             </tr>
                         {% endfor %}

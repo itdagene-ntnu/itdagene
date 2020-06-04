@@ -5,11 +5,11 @@
 {% block content %}
 <div class="row">
 <div class="col-lg-12">
-    <div class="box box-warning box-solid">
-        <div class="box-header">
-            <h3 class="box-title">{% trans "Danger Zone" %}</h3>
+    <div class="card card-outline card-warning card-solid">
+        <div class="card-header">
+            <h3 class="card-title">{% trans "Danger Zone" %}</h3>
         </div>
-        <div class="box-body">
+        <div class="card-body">
              <form method="post" action="{% url "itdagene.users.send_welcome_email" person.pk %}">
                 {% csrf_token %}
                 <p>{% blocktrans with user=person.get_full_name %}Are you sure you want to send a welcome email to the user {{ user }}?{% endblocktrans %}</p>

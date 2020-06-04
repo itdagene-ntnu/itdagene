@@ -13,7 +13,7 @@
 - Postgres for persistant storage
 - [Celery] (with redis-broker) for async tasks
 - CircleCI for continuous integration
-- [yarn] and [webpack] for admin panel
+- [yarn] for admin panel
 
 ## Setup
 
@@ -28,7 +28,7 @@ Setup python environment
 ```bash
 $ python3 -m venv venv
 $ source venv/bin/activate
-$ pip install -r requirements/base.txt
+$ pip install -r requirements/dev.txt
 $ echo "from itdagene.settings.dev import *" > itdagene/settings/local.py
 $ docker-compose up -d # This starts the database & redis
 ```
@@ -86,6 +86,8 @@ We enforce the style guide [PEP 8] with flake8, and [isort] for import sorting. 
 $ isort -rc itdagene               # Fix isort errors
 $ black itdagene                # Fix code formatting
 $ tox -e isort -e flake8 -e yapf   # Verify code style
+
+$ make fixme # Fix all formatting
 ```
 
 ## Celery

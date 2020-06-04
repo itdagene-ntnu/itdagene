@@ -43,11 +43,11 @@
         </div>
         <div class="col-lg-3">
             {% if penalty_lists %}
-                <div class="box box-danger">
-                    <div class="box-header">
-                        <h3 class="box-title"><i class="fa fa-beer"></i> {% trans "Penalties" %}</h3>
+                <div class="card card-outline card-danger">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-beer"></i> {% trans "Penalties" %}</h3>
                     </div>
-                    <div class="box-body">
+                    <div class="card-body">
                         {% for penalties in penalty_lists %}
                             <table class="table tablesorter" id="myTable2">
                             <tr>

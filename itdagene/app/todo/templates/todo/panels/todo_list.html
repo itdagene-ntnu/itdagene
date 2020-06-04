@@ -1,35 +1,35 @@
 {% load i18n %}
 
-<div class="box box-primary">
-    <div class="box-header">
+<div class="card card-outline card-primary">
+    <div class="card-header">
         <i class="ion ion-clipboard"></i>
-        <h3 class="box-title">{% trans "Todos" %}</h3>
+        <h3 class="card-title">{% trans "Todos" %}</h3>
     </div>
-    <div class="box-body no-padding">
+    <div class="card-body no-padding">
         <ul class="todo-list">
 
             {% for todo in todos %}
 
                 <li class="{% if todo.finished %}done{% endif %}">
                     {% if todo.finished %}
-                        <a href="{% url "itdagene.todo.change_status" todo.pk %}" class="btn btn-xs btn-danger"><u class="fa fa-check no-underline"></u></a>
+                        <a href="{% url "itdagene.todo.change_status" todo.pk %}" class="btn btn-xs btn-danger"><u class="fas fa-check no-underline"></u></a>
                     {% else %}
-                        <a href="{% url "itdagene.todo.change_status" todo.pk %}" class="btn btn-xs btn-success"><u class="fa fa-check no-underline"></u></a>
+                        <a href="{% url "itdagene.todo.change_status" todo.pk %}" class="btn btn-xs btn-success"><u class="fas fa-check no-underline"></u></a>
                     {% endif %}
                     <span class="text">{{ todo.description }}</span>
                     {% if todo.deadline %}
                         {% if todo.deadline < now %}
-                            <small class="label label-danger"><i class="fa fa-clock-o"></i> {{ todo.deadline|timesince }} {% trans "ago" %}</small>
+                            <small class="label label-danger"><i class="fas fa-clock-o"></i> {{ todo.deadline|timesince }} {% trans "ago" %}</small>
                         {% else %}
-                            <small class="label label-success"><i class="fa fa-clock-o"></i> {{ todo.deadline|timeuntil }} {% trans "left" %}</small>
+                            <small class="label label-success"><i class="fas fa-clock-o"></i> {{ todo.deadline|timeuntil }} {% trans "left" %}</small>
                         {% endif %}
                     {% endif %}
                     <div class="tools">
                         {% if perms.todo.change_todo %}
-                            <a href="{% url "itdagene.todo.change_todo" todo.pk %}" class="text-primary"><i class="fa fa-edit"></i></a>
+                            <a href="{% url "itdagene.todo.change_todo" todo.pk %}" class="text-primary"><i class="fas fa-edit"></i></a>
                         {% endif %}
                         {% if perms.todo.delete_todo %}
-                            <a href="{% url "itdagene.todo.delete_todo" todo.pk %}" class="text-danger"><i class="fa fa-trash-o"></i></a>
+                            <a href="{% url "itdagene.todo.delete_todo" todo.pk %}" class="text-danger"><i class="fas fa-trash-o"></i></a>
                         {% endif %}
                     </div>
                 </li>
@@ -39,8 +39,8 @@
         </ul>
     </div>
     {% if perms.todo.add_todo %}
-        <div class="box-footer clearfix">
-            <a href="{% url "itdagene.todo.add_todo" %}" class="btn btn-default pull-right"><i class="fa fa-plus"></i> {% trans "Add Todo" %}</a>
+        <div class="card-footer clearfix">
+            <a href="{% url "itdagene.todo.add_todo" %}" class="btn btn-default pull-right"><i class="fas fa-plus"></i> {% trans "Add Todo" %}</a>
         </div>
     {% endif %}
 </div>

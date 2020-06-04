@@ -3,9 +3,9 @@
 {% block content %}
     <div class="row">
         <div class="col-lg-12">
-            <div class="box box-primary">
+            <div class="card card-outline card-primary">
                 <form method="post">
-                <div class="box-body no-padding">
+                <div class="card-body no-padding">
                     {{ formset.management_form }}{% csrf_token %}
                     <table class="table table-hover">
                         {% for form in formset %}
@@ -22,7 +22,7 @@
                         {% endfor %}
                     </table>
                 </div>
-                <div class="box-footer">
+                <div class="card-footer">
                     <button class="btn btn-primary" type="submit">{% trans "Save" %}</button>
                 </div>
                 </form>

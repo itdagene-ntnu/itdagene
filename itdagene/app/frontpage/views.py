@@ -10,10 +10,6 @@ from itdagene.app.meetings.models import Meeting
 from itdagene.app.todo import todo_list
 
 
-def inside(request):
-    return frontpage(request)
-
-
 @login_required
 def frontpage(request):
     todos = todo_list(request.user)
@@ -39,4 +35,4 @@ def frontpage(request):
             .prefetch_related(Prefetch("object"))
         )
 
-    return render(request, "frontpage/inside.html", locals())
+    return render(request, "frontpage.html", locals())

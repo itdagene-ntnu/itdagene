@@ -7,20 +7,20 @@
     <div class="row">
         <div class="col-md-7">
 
-            <div class="box box-primary">
-                <div class="box-header">
-                    <h3 class="box-title">{% trans "Agenda" %}</h3>
+            <div class="card card-outline card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">{% trans "Agenda" %}</h3>
                 </div>
-                <div class="box-body">
+                <div class="card-body">
                     {{ meeting.agenda|markdownize }}
                 </div>
             </div>
 
-            <div class="box box-primary">
-                <div class="box-header">
-                    <h3 class="box-title">{% trans "Abstract" %}</h3>
+            <div class="card card-outline card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">{% trans "Abstract" %}</h3>
                 </div>
-                <div class="box-body">
+                <div class="card-body">
                     {{ meeting.abstract|markdownize }}
                 </div>
             </div>
@@ -28,11 +28,11 @@
 
         <div class="col-md-2">
 
-            <div class="box box-primary">
-                <div class="box-header">
-                    <h3 class="box-title">{% trans "Meeting Information" %}</h3>
+            <div class="card card-outline card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">{% trans "Meeting Information" %}</h3>
                 </div>
-                <div class="box-body">
+                <div class="card-body">
                     <dl>
                         <dt>{% trans "Date" %}</dt>
                         <dd>{{ meeting.date }}</dd>
@@ -57,11 +57,11 @@
         <div class="col-md-3">
 
             {% if reply %}
-                <div class="box box-primary">
-                    <div class="box-header">
-                        <h3 class="box-title">{% trans "Participation" %}</h3>
+                <div class="card card-outline card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">{% trans "Participation" %}</h3>
                     </div>
-                    <div class="box-body">
+                    <div class="card-body">
                         {% if reply.is_attending == None %}
                            <p><strong>{% trans "You haven't replied to this invite" %}</strong></p>
                         {% endif %}
@@ -77,11 +77,11 @@
             {% endif %}
 
 
-            <div class="box box-success">
-                <div class="box-header">
-                    <h3 class="box-title">{% trans "Attending" %}</h3>
+            <div class="card card-outline card-success">
+                <div class="card-header">
+                    <h3 class="card-title">{% trans "Attending" %}</h3>
                 </div>
-                <div class="box-body no-padding">
+                <div class="card-body no-padding">
                     <table class="table table-hover">
                         {% for attendor in meeting.attending %}
                             <tr>
@@ -92,11 +92,11 @@
                 </div>
             </div>
 
-            <div class="box box-danger">
-                <div class="box-header">
-                    <h3 class="box-title">{% trans "Not attending" %}</h3>
+            <div class="card card-outline card-danger">
+                <div class="card-header">
+                    <h3 class="card-title">{% trans "Not attending" %}</h3>
                 </div>
-                <div class="box-body no-padding">
+                <div class="card-body no-padding">
                     <table class="table table-hover">
                         {% for attendor in meeting.not_attending %}
                             <tr>
@@ -107,11 +107,11 @@
                 </div>
             </div>
 
-            <div class="box box-warning">
-                <div class="box-header">
-                    <h3 class="box-title">{% trans "Awating reply" %}</h3>
+            <div class="card card-outline card-warning">
+                <div class="card-header">
+                    <h3 class="card-title">{% trans "Awating reply" %}</h3>
                 </div>
-                <div class="box-body no-padding">
+                <div class="card-body no-padding">
                     <table class="table table-hover">
                         {% for attendor in meeting.awaiting_reply %}
                             <tr>

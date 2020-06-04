@@ -1,11 +1,9 @@
 {
   "name": "itDAGENE",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "itDAGENE",
   "scripts": {
-    "build": "yarn build:prod",
-    "build:prod": "webpack --mode production",
-    "build:dev": "webpack --mode development"
+    "build": "node build.js"
   },
   "repository": {
     "type": "git",
@@ -22,29 +20,18 @@
   },
   "homepage": "https://github.com/itdagene-ntnu/itdagene",
   "dependencies": {
-    "animate.css": "^3.5.2",
-    "bootstrap": "^4.3.1",
+    "admin-lte": "^3.0",
+    "bootstrap": "^4.5.0",
     "bootstrap-chosen": "^1.4.2",
-    "bootstrap-datepicker": "^1.7.1",
-    "bootstrap-table": "^1.11.2",
-    "chosen-js": "^1.8.2",
+    "bootstrap-datepicker": "^1.9.0",
+    "bootstrap-table": "^1.16.0",
+    "chosen-js": "^1.8.7",
     "eonasdan-bootstrap-datetimepicker": "^4.17.47",
-    "file-loader": "^3.0.1",
-    "font-awesome": "^4.7.0",
-    "hover.css": "^2.2.1",
-    "ionicons": "^4.3.0",
-    "jquery": "3.3.1",
-    "lightbox2": "^2.10.0",
-    "moment": "^2.8.4",
-    "nib": "^1.0.4",
-    "stylus": "^0.54.5",
-    "tablesorter": "^2.29.2"
+    "jquery": "^3.5.1",
+    "moment": "^2.26.0",
+    "tablesorter": "^2.31.3"
   },
   "devDependencies": {
-    "copy-webpack-plugin": "^4.4.2",
-    "css-loader": "^2.1.0",
-    "stylus-loader": "^3.0.1",
-    "webpack": "^4.0.0",
-    "webpack-cli": "^3.0.1"
+    "fs-extra": "^9.0.0"
   }
 }

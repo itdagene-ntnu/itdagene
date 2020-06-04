@@ -12,3 +12,12 @@ def active(request, pattern):
     elif request.path == "/" and pattern == "/":
         return " active "
     return ""
+
+
+@register.simple_tag
+def menu_open(request, pattern):
+    import re
+
+    if len(pattern) > 1 and re.search(pattern, request.path):
+        return " menu-open "
+    return ""

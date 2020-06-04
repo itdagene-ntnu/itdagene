@@ -4,9 +4,9 @@
 {% block content %}
     <div class="row">
         <div class="col-lg-12">
-        <div class="box box-primary">
-            <div class="box-body no-padding">
-                <table class="table table-hover tablesorter" id="myTable">
+        <div class="card card-outline card-primary">
+            <div class="card-body no-padding">
+                <table class="table table-hover table-striped tablesorter" id="myTable">
                 <thead>
                 <tr>
                     <th>{% trans "Page" %}</th>
@@ -20,15 +20,36 @@
                 <tbody>
                     {% for page in pages %}
                         <tr>
-                            <td><a href="{% url "itdagene.pages.view_page" page.slug %}">{{ page }}</a></td>
-                            <td>{% if page.active %}<span style="color: green;" class="glyphicon
-                                glyphicon-ok"></span>{% else %}<span style="color: red;" class="glyphicon glyphicon-remove"></span>{% endif %}</td>
-                            <td>{% if page.is_infopage %}<span style="color: green;"
-                                class="glyphicon glyphicon-ok"></span>{% else %}<span style="color:
-                                red;" class="glyphicon glyphicon-remove"></span>{% endif %}</td>
+                            <td>
+                                {% comment "fixme" %}
+                                <a href="{% url "itdagene.pages.view_page" page.slug %}">{{ page }}</a>
+                                {% endcomment %}
+                                <span>{{ page }}</span>
+                            </td>
+                            <td>
+                                {% if page.active %}
+                                    <i style="color: green;" class="fas fa-check"></i>
+                                {% else %}
+                                    <i style="color: red;" class="fas fa-times"></i>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if page.is_infopage %}
+                                    <i style="color: green;" class="fas fa-check"></i>
+                                {% else %}
+                                    <i style="color: red;" class="fas fa-times"></i>
+                                {% endif %}
+                            </td>
+                            <td>
+                            <span class="btn-group">
                             {% if perms.pages.change_page %}
-                                <td><a href="{% url "itdagene.pages.edit" page.slug %}">{% trans "Edit" %}</a></td>
+                                <a href="{% url "itdagene.pages.edit" page.slug %}" class="btn btn-xs btn-primary">{% trans "Edit" %}</a>
                             {% endif %}
+                            {% if perms.pages.delete_page %}
+                                <a href="{% url "itdagene.pages.delete" page.slug %}" class="btn btn-xs btn-danger">{% trans "Delete" %}</a>
+                            {% endif %}
+                            </span>
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>
