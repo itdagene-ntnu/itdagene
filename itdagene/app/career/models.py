@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
+
 from itdagene.app.company.models import Company, CompanyContact
 from itdagene.core.models import BaseModel
 
@@ -22,7 +23,11 @@ class Joblisting(BaseModel):
     active_objects = JoblistingManager()
     objects = models.Manager()
 
-    JOB_TYPES = (("si", _("Summer internship")), ("pp", _("Permanent position")))
+    JOB_TYPES = (
+        ("si", _("Summer internship")),
+        ("pp", _("Permanent position")),
+        ("ot", _("Other")),
+    )
 
     company = models.ForeignKey(
         Company,
@@ -51,7 +56,7 @@ class Joblisting(BaseModel):
     is_active = models.BooleanField(verbose_name=_("active"), default=True)
     frontpage = models.BooleanField(_("Frontpage"), default=False)
     hide_contactinfo = models.BooleanField(_("Hide contact info"), default=False)
-    slug = models.SlugField(editable=False, unique=True, max_length=100)
+    slug = models.SlugField(editable=False, unique=True, max_length=150)
 
     def __str__(self):
         return self.title
