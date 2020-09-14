@@ -1,4 +1,5 @@
 from django.forms.models import ModelForm
+
 from itdagene.app.career.models import Joblisting, Town
 
 
@@ -16,6 +17,8 @@ class JoblistingForm(ModelForm):
             "to_year",
             "url",
             "towns",
+            "video_url",
+            "is_summerjob_marathon",
             "image",
             "frontpage",
             "hide_contactinfo",

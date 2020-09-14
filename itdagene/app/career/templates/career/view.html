@@ -51,6 +51,20 @@
                             <td>{% trans "Link" %}</td>
                             <td><a href="{{ joblisting.url }}">{{ joblisting.url }}</a></td>
                         </tr>
+                        <tr>
+                            <td>{% trans "Video link" %}</td>
+                            <td><a href="{{ joblisting.video_url }}">{{ joblisting.video_url }}</a></td>
+                        </tr>
+                        <tr>
+                            <td>{% trans "Is summerjob marathon" %}</td>
+                            <td>
+                                {% if joblisting.is_summerjob_marathon %}
+                                    <i style="color: green;" class="fas fa-check"></i>
+                                {% else %}
+                                    <i style="color: red;" class="fas fa-times"></i>
+                                {% endif %}
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

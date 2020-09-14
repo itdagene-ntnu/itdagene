@@ -1,6 +1,7 @@
 import graphene
 from graphene import relay
 from graphene_django import DjangoObjectType
+
 from itdagene.app.career.models import Joblisting as ItdageneJoblisting
 from itdagene.app.career.models import Town as ItdageneTown
 from itdagene.app.company.models import Company as ItdageneCompany
@@ -46,6 +47,8 @@ class Joblisting(DjangoObjectType):
             "url",
             "date_created",
             "slug",
+            "video_url",
+            "is_summerjob_marathon",
         )
         interfaces = (relay.Node, OpengraphMetadata)
 
