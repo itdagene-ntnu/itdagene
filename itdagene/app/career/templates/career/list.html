@@ -15,6 +15,7 @@
                             <th>{% trans "Deadline" %}</th>
                             <th>{% trans "Created" %}</th>
                             <th>{% trans "Creator" %}</th>
+                            <th>{% trans "Marathon" %}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -27,6 +28,13 @@
                                     {% else %}{% trans "ASAP" %}{% endif %}</td>
                                 <td>{{ joblisting.date_created|date }}</td>
                                 <td>{{ joblisting.creator }}</td>
+                                <td>
+                                    {% if joblisting.is_summerjob_marathon %}
+                                        <i style="color: green;" class="fas fa-check"></i>
+                                    {% else %}
+                                        <i style="color: red;" class="fas fa-times"></i>
+                                    {% endif %}
+                                </td>
                             </tr>
                         {% endfor %}
                     </tbody>

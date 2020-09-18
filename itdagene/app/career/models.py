@@ -57,6 +57,10 @@ class Joblisting(BaseModel):
     frontpage = models.BooleanField(_("Frontpage"), default=False)
     hide_contactinfo = models.BooleanField(_("Hide contact info"), default=False)
     slug = models.SlugField(editable=False, unique=True, max_length=150)
+    video_url = models.URLField(null=True, blank=True, verbose_name=_("video"))
+    is_summerjob_marathon = models.BooleanField(
+        default=False, verbose_name=_("sommerjobbmaraton")
+    )
 
     def __str__(self):
         return self.title
