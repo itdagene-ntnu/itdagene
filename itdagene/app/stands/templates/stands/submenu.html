@@ -1,0 +1,37 @@
+{% load i18n %}
+{% load menu %}
+
+<ul class="nav nav-treeview">
+    <li class="nav-item">
+        <a class="nav-link {% active request 'stands/stands/$' %}" href="{% url "itdagene.stands.list" %}">
+            <i class="far fa-circle"></i> {% trans "Stands list" %}
+        </a>
+    </li>
+
+    {% if perms.stands.add_stand %}
+        <li class="nav-item">
+            <a class="nav-link {% active request 'stands/stands/add/$' %}" href="{% url "itdagene.stands.add" %}">
+                <i class="far fa-circle"></i> {% trans "Add stand" %}
+            </a>
+        </li>
+    {% endif %}
+
+    {% if stand.pk %}
+        {% if perms.stands.change_stand %}
+            <li class="nav-item">
+                <a class="nav-link {% active request 'stands/stands/[0-9]+/edit' %}" href="{% url "itdagene.stands.edit" stand.pk %}">
+                    <i class="far fa-circle"></i> {% trans "Edit stand" %}
+                </a>
+            </li>
+        {% endif %}
+        {% if perms.stands.delete_stand %}
+            <li class="nav-item">
+                <a class="nav-link {% active request 'stands/stands/[0-9]+/delete' %}" href="{% url "itdagene.stands.delete" stand.pk %}">
+                    <i class="far fa-circle"></i> {% trans "Delete stand" %}
+                </a>
+            </li>
+        {% endif %}
+
+    {% endif %}
+
+</ul>

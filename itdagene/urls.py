@@ -7,6 +7,7 @@ from django.urls import include, re_path, reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 from graphene_django.views import GraphQLView
+
 from itdagene.app.feedback.views.evalutions import handle_evaluation
 from itdagene.app.frontpage.views import frontpage
 from itdagene.core.views import error403, error404, error500, under_development
@@ -36,6 +37,7 @@ urlpatterns = [
     re_path(r"^bdb/", include("itdagene.app.company.urls")),
     re_path(r"^career/", include("itdagene.app.career.urls")),
     re_path(r"^workschedules/", include("itdagene.app.workschedule.urls")),
+    re_path(r"^stands/", include("itdagene.app.stands.urls")),
     re_path(
         r"^evaluate/(?P<hash>[a-zA-Z0-9]+)/$",
         handle_evaluation,

@@ -1,0 +1,61 @@
+{% extends "base_admin.html" %}
+{% load i18n markdown_tool staticfiles %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card card-outline card-primary">
+                <div class="card-body no-padding">
+                    <table class="table tablesorter" id="myTable">
+                        <tbody>
+                        <tr>
+                            <td>{% trans "Company" %}</td>
+                            <td><a href="{{ stand.company.get_absolute_url }}">{{ stand.company }}</a></td>
+                        </tr>
+                        <tr>
+                            <td>{% trans "Slug" %}</td>
+                            <td>{{ stand.slug }}</td>
+                        </tr>
+                        <tr>
+                            <td>{% trans "Description" %}</td>
+                            <td>{{ stand.description|markdownize }}</td>
+                        </tr>
+                        <tr>
+                            <td>{% trans "Livesteam" %}</td>
+                            <td><a href="{{ stand.livestream }}">{{ stand.livestream }}</a></td>
+                        </tr>
+                        <tr>
+                            <td>{% trans "Q&A" %}</td>
+                            <td><a href="{{ stand.qa }}">{{ stand.qa }}</a></td>
+                        </tr>
+                        <tr>
+                            <td>{% trans "Chat" %}</td>
+                            <td><a href="{{ stand.chat }}">{{ stand.chat }}</a></td>
+                        </tr>
+                        <tr>
+                            <td>{% trans "Is active" %}</td>
+                            <td>
+                                {% if stand.active %}
+                                    <i style="color: green;" class="fas fa-check"></i>
+                                {% else %}
+                                    <i style="color: red;" class="fas fa-times"></i>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block inline-scripts %}
+    <script src="{% static "lib/tablesorter/dist/js/jquery.tablesorter.combined.min.js" %}"></script>
+    <script>
+        $(document).ready(function()
+                {
+                    $("#myTable").tablesorter({textExtraction: 'complex'});
+                }
+        );
+    </script>
+{% endblock %}
