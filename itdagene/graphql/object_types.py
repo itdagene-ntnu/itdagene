@@ -5,8 +5,10 @@ from graphene_django import DjangoObjectType
 from itdagene.app.career.models import Joblisting as ItdageneJoblisting
 from itdagene.app.career.models import Town as ItdageneTown
 from itdagene.app.company.models import Company as ItdageneCompany
+from itdagene.app.company.models import KeyFigure as ItdageneKeyFigure
 from itdagene.app.events.models import Event as ItdageneEvent
 from itdagene.app.pages.models import Page as ItdagenePage
+from itdagene.app.stands.models import DigitalStand as ItdageneStand
 from itdagene.core.models import Preference
 from itdagene.core.models import User as ItdageneUser
 from itdagene.graphql.types import CountableConnectionBase, OpengraphMetadata
@@ -121,8 +123,17 @@ class User(DjangoObjectType):
         return resize_image(self.photo, format="JPEG", quality=80, **kwargs)
 
 
+class KeyFigure(DjangoObjectType):
+    class Meta:
+        model = ItdageneKeyFigure
+        interfaces = (relay.Node,)
+        description = "Key figure"
+        only_fields = ("id", "name", "figure")
+
+
 class Company(DjangoObjectType):
     logo = graphene.Field(graphene.String, height=graphene.Int(), width=graphene.Int())
+    key_figures = graphene.NonNull(graphene.List(KeyFigure))
 
     class Meta:
         model = ItdageneCompany
@@ -152,6 +163,30 @@ class Company(DjangoObjectType):
 
     def resolve_logo(self, info, **kwargs):
         return resize_image(self.logo, **kwargs)
+
+    def resolve_key_figures(self, info, **kwargs):
+        return ItdageneKeyFigure.objects.filter(company=self)
+
+
+class Stand(DjangoObjectType):
+    class Meta:
+        model = ItdageneStand
+        description = "A company stand"
+        only_fields = (
+            "description",
+            "livestream",
+            "qa",
+            "chat",
+            "active",
+            "company",
+        )
+
+    def resolve_company(self, info, **kwargs):
+        return info.context.loaders.Companyloader.load(self.company_id)
+
+    @classmethod
+    def get_queryset(cls):
+        return ItdageneStand.objects.filter(active=True)
 
 
 class Event(DjangoObjectType):

@@ -2,10 +2,11 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
+from sorl.thumbnail import ImageField
+
 from itdagene.app.company import COMPANY_STATUS
 from itdagene.core.log.models import LogItem
 from itdagene.core.models import BaseModel, Preference, User
-from sorl.thumbnail import ImageField
 
 
 class Package(BaseModel):
@@ -184,6 +185,20 @@ class Company(BaseModel):
     def get_main_collaborator(cls):
         # // TODO FIXME :laughing:
         return cls.objects.select_related("package").filter(package__max=1).first()
+
+
+class KeyFigure(BaseModel):
+    name = models.CharField(max_length=20, null=False, verbose_name=_("figure name"))
+    figure = models.CharField(max_length=20, null=False, verbose_name=_("figure"))
+    company = models.ForeignKey(
+        Company,
+        on_delete=models.CASCADE,
+        related_name="key_figures",
+        verbose_name=_("Company"),
+    )
+
+    def __str__(self):
+        return str(self.name)
 
 
 class CompanyContact(BaseModel):
