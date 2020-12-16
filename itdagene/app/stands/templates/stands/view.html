@@ -21,16 +21,16 @@
                             <td>{{ stand.description|markdownize }}</td>
                         </tr>
                         <tr>
-                            <td>{% trans "Livesteam" %}</td>
-                            <td><a href="{{ stand.livestream }}">{{ stand.livestream }}</a></td>
+                            <td>{% trans "Livesteam url" %}</td>
+                            <td><a href="{{ stand.livestream_url }}">{{ stand.livestream_url }}</a></td>
                         </tr>
                         <tr>
-                            <td>{% trans "Q&A" %}</td>
-                            <td><a href="{{ stand.qa }}">{{ stand.qa }}</a></td>
+                            <td>{% trans "Q&A url" %}</td>
+                            <td><a href="{{ stand.qa_url }}">{{ stand.qa_url }}</a></td>
                         </tr>
                         <tr>
-                            <td>{% trans "Chat" %}</td>
-                            <td><a href="{{ stand.chat }}">{{ stand.chat }}</a></td>
+                            <td>{% trans "Chat url" %}</td>
+                            <td><a href="{{ stand.chat_url }}">{{ stand.chat_url }}</a></td>
                         </tr>
                         <tr>
                             <td>{% trans "Is active" %}</td>

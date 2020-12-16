@@ -5,7 +5,7 @@ from graphene_django import DjangoObjectType
 from itdagene.app.career.models import Joblisting as ItdageneJoblisting
 from itdagene.app.career.models import Town as ItdageneTown
 from itdagene.app.company.models import Company as ItdageneCompany
-from itdagene.app.company.models import KeyFigure as ItdageneKeyFigure
+from itdagene.app.company.models import KeyInformation as ItdageneKeyInformation
 from itdagene.app.events.models import Event as ItdageneEvent
 from itdagene.app.pages.models import Page as ItdagenePage
 from itdagene.app.stands.models import DigitalStand as ItdageneStand
@@ -123,17 +123,46 @@ class User(DjangoObjectType):
         return resize_image(self.photo, format="JPEG", quality=80, **kwargs)
 
 
-class KeyFigure(DjangoObjectType):
+class Stand(DjangoObjectType):
     class Meta:
-        model = ItdageneKeyFigure
+        model = ItdageneStand
+        description = "A company stand"
+        only_fields = (
+            "slug",
+            "description",
+            "livestream_url",
+            "qa_url",
+            "chat_url",
+            "active",
+            "company",
+        )
         interfaces = (relay.Node,)
-        description = "Key figure"
-        only_fields = ("id", "name", "figure")
+
+    def resolve_company(self, info, **kwargs):
+        return info.context.loaders.Companyloader.load(self.company_id)
+
+    @classmethod
+    def get_queryset(cls):
+        return ItdageneStand.objects.filter(active=True)
+
+
+class KeyInformation(DjangoObjectType):
+    class Meta:
+        model = ItdageneKeyInformation
+        interfaces = (relay.Node,)
+        description = "Key information about a company"
+        only_fields = ("id", "name", "value")
 
 
 class Company(DjangoObjectType):
     logo = graphene.Field(graphene.String, height=graphene.Int(), width=graphene.Int())
-    key_figures = graphene.NonNull(graphene.List(KeyFigure))
+    key_information = graphene.NonNull(
+        graphene.List(KeyInformation), description="Key information about the company.",
+    )
+    stand = graphene.Field(
+        Stand,
+        description="The company's stand. If more stands exist, will get the first one.",
+    )
 
     class Meta:
         model = ItdageneCompany
@@ -164,29 +193,11 @@ class Company(DjangoObjectType):
     def resolve_logo(self, info, **kwargs):
         return resize_image(self.logo, **kwargs)
 
-    def resolve_key_figures(self, info, **kwargs):
-        return ItdageneKeyFigure.objects.filter(company=self)
+    def resolve_key_information(self, info, **kwargs):
+        return ItdageneKeyInformation.objects.filter(company=self)
 
-
-class Stand(DjangoObjectType):
-    class Meta:
-        model = ItdageneStand
-        description = "A company stand"
-        only_fields = (
-            "description",
-            "livestream",
-            "qa",
-            "chat",
-            "active",
-            "company",
-        )
-
-    def resolve_company(self, info, **kwargs):
-        return info.context.loaders.Companyloader.load(self.company_id)
-
-    @classmethod
-    def get_queryset(cls):
-        return ItdageneStand.objects.filter(active=True)
+    def resolve_stand(self, info, **kwargs):
+        return Stand.get_queryset().filter(company=self).first()
 
 
 class Event(DjangoObjectType):

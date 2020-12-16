@@ -187,14 +187,14 @@ class Company(BaseModel):
         return cls.objects.select_related("package").filter(package__max=1).first()
 
 
-class KeyFigure(BaseModel):
-    name = models.CharField(max_length=20, null=False, verbose_name=_("figure name"))
-    figure = models.CharField(max_length=20, null=False, verbose_name=_("figure"))
+class KeyInformation(BaseModel):
+    name = models.CharField(max_length=20, verbose_name=_("information name"))
+    value = models.CharField(max_length=20, verbose_name=_("value"))
     company = models.ForeignKey(
         Company,
         on_delete=models.CASCADE,
-        related_name="key_figures",
-        verbose_name=_("Company"),
+        related_name="key_information",
+        verbose_name=_("company"),
     )
 
     def __str__(self):

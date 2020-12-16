@@ -10,8 +10,8 @@ class DigitalStandForm(ModelForm):
             "slug",
             "company",
             "description",
-            "livestream",
-            "qa",
-            "chat",
+            "livestream_url",
+            "qa_url",
+            "chat_url",
             "active",
         )
