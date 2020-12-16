@@ -104,7 +104,10 @@ class Query(graphene.ObjectType):
         + "If slugs are left empty, it will return all pages",
     )
 
-    events = graphene.List(graphene.NonNull(Event), description="All the events")
+    events = graphene.List(
+        graphene.NonNull(Event),
+        companyName=graphene.String(),
+        description="If a companyName isn't defined it returns all the events")
     ping = graphene.String(description="ping -> pong")
     resolve_count = graphene.Int(description="Resovle count")
 
@@ -140,6 +143,9 @@ class Query(graphene.ObjectType):
     def resolve_resolve_count(self, info, **kwargs):
         return info.context.count
 
-    def resolve_events(self, info):
+    def resolve_events(self, info, companyName=None):
         pref = Preference.current_preference()
-        return ItdageneEvent.objects.filter(date__year=pref.year, is_internal=False)
+        if companyName:
+            return ItdageneEvent.objects.filter(date__year=pref.year, is_internal=False, company__name=companyName)
+        else:
+            return ItdageneEvent.objects.filter(date__year=pref.year, is_internal=False)
