@@ -1,9 +1,12 @@
 from django.urls import re_path
+
 from itdagene.app.company.views import (
     add,
+    add_key_information,
     book_company,
     company_contacts,
     contracts,
+    delete_key_information,
     economics,
     edit,
     list_companies,
@@ -33,6 +36,16 @@ urlpatterns = [
         r"^companies/(?P<id>\d+)/set-status$",
         set_status,
         name="itdagene.company.set_status",
+    ),
+    re_path(
+        r"^key_information/(?P<company>\d+)/add/$",
+        add_key_information,
+        name="itdagene.company.key_information.add",
+    ),
+    re_path(
+        r"^key_information/(?P<id>\d+)/delete/$",
+        delete_key_information,
+        name="itdagene.company.key_information.delete",
     ),
     re_path(
         r"^companies/responsibilities/$",

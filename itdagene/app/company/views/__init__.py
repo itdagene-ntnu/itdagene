@@ -5,14 +5,16 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import ugettext as _
+
 from itdagene.app.company.forms import (
     BookCompanyForm,
     CompanyForm,
     CompanyStatusForm,
+    KeyInformationForm,
     ResponsibilityForm,
     WaitingListCompanyForm,
 )
-from itdagene.app.company.models import Company, Package
+from itdagene.app.company.models import Company, KeyInformation, Package
 from itdagene.app.feedback.models import Evaluation
 from itdagene.core.decorators import staff_required
 from itdagene.core.models import Preference
@@ -161,6 +163,38 @@ def edit(request, id=False):
             "description": company,
         },
     )
+
+
+@permission_required("company.change_company")
+def add_key_information(request, company):
+    company = get_object_or_404(Company, pk=company)
+    form = KeyInformationForm()
+    if request.method == "POST":
+        form = KeyInformationForm(request.POST)
+        if form.is_valid():
+            keyInfo = form.save(commit=False)
+            keyInfo.company = company
+            keyInfo.save()
+            return redirect(company.get_absolute_url())
+    return render(
+        request,
+        "company/form.html",
+        {
+            "title": _("Add Key information for " + str(company)),
+            "description": company,
+            "form": form,
+            "company": company,
+        },
+    )
+
+
+@permission_required("company.edit_company")
+def delete_key_information(request, id):
+    info = get_object_or_404(KeyInformation, pk=id)
+    company = info.company
+    if request.method == "POST":
+        info.delete()
+        return redirect(company.get_absolute_url())
 
 
 @permission_required("company.change_company")
