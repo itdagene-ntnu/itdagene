@@ -1,7 +1,6 @@
 import graphene
 from graphene import relay
 from graphene_django import DjangoObjectType
-
 from itdagene.app.career.models import Joblisting as ItdageneJoblisting
 from itdagene.app.career.models import Town as ItdageneTown
 from itdagene.app.company.models import Company as ItdageneCompany

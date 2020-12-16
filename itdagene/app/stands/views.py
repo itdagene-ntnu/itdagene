@@ -1,9 +1,7 @@
 from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import SUCCESS, add_message
-from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
-from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from itdagene.app.stands.forms import DigitalStandForm
@@ -38,7 +36,7 @@ def view(request, pk):
     return render(
         request,
         "stands/view.html",
-        {"stand": stand, "title": _("Stand"), "description": str(stand),},
+        {"stand": stand, "title": _("Stand"), "description": str(stand)},
     )
 
 
@@ -76,5 +74,5 @@ def delete(request, pk):
     return render(
         request,
         "stands/delete.html",
-        {"stand": stand, "title": _("Delete stand"), "description": str(stand),},
+        {"stand": stand, "title": _("Delete stand"), "description": str(stand)},
     )

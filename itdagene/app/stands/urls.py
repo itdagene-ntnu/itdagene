@@ -1,5 +1,4 @@
 from django.urls import re_path
-
 from itdagene.app.stands import views
 
 urlpatterns = [

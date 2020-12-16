@@ -1,5 +1,4 @@
 from django.forms.models import ModelForm
-
 from itdagene.app.stands.models import DigitalStand
 
 

@@ -7,7 +7,6 @@ from django.urls import include, re_path, reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 from graphene_django.views import GraphQLView
-
 from itdagene.app.feedback.views.evalutions import handle_evaluation
 from itdagene.app.frontpage.views import frontpage
 from itdagene.core.views import error403, error404, error500, under_development
