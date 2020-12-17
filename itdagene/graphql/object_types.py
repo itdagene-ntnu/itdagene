@@ -1,6 +1,7 @@
 import graphene
 from graphene import relay
 from graphene_django import DjangoObjectType
+
 from itdagene.app.career.models import Joblisting as ItdageneJoblisting
 from itdagene.app.career.models import Town as ItdageneTown
 from itdagene.app.company.models import Company as ItdageneCompany
@@ -122,7 +123,31 @@ class User(DjangoObjectType):
         return resize_image(self.photo, format="JPEG", quality=80, **kwargs)
 
 
+class Event(DjangoObjectType):
+    class Meta:
+        model = ItdageneEvent
+        description = "Small event type"
+        only_fields = (
+            "id",
+            "title",
+            "time_start",
+            "time_end",
+            "description",
+            "type",
+            "location",
+            "company",
+            "uses_tickets",
+            "max_participants",
+            "date",
+        )
+        interfaces = (relay.Node,)
+
+
 class Stand(DjangoObjectType):
+    events = graphene.NonNull(
+        graphene.List(Event), description="The stand's associated events"
+    )
+
     class Meta:
         model = ItdageneStand
         description = "A company stand"
@@ -139,6 +164,9 @@ class Stand(DjangoObjectType):
 
     def resolve_company(self, info, **kwargs):
         return info.context.loaders.Companyloader.load(self.company_id)
+
+    def resolve_events(self, info, **kwargs):
+        return ItdageneEvent.objects.filter(stand=self)
 
     @classmethod
     def get_queryset(cls):
@@ -197,26 +225,6 @@ class Company(DjangoObjectType):
 
     def resolve_stand(self, info, **kwargs):
         return Stand.get_queryset().filter(company=self).first()
-
-
-class Event(DjangoObjectType):
-    class Meta:
-        model = ItdageneEvent
-        description = "Small event type"
-        only_fields = (
-            "id",
-            "title",
-            "time_start",
-            "time_end",
-            "description",
-            "type",
-            "location",
-            "company",
-            "uses_tickets",
-            "max_participants",
-            "date",
-        )
-        interfaces = (relay.Node,)
 
 
 class MetaData(DjangoObjectType):

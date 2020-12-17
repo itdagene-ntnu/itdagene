@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
+from itdagene.app.events.models import Event
 from itdagene.app.stands.forms import DigitalStandForm
 from itdagene.app.stands.models import DigitalStand
 from itdagene.core.decorators import staff_required
@@ -33,10 +34,16 @@ def add(request):
 @staff_required()
 def view(request, pk):
     stand = get_object_or_404(DigitalStand, pk=pk)
+    stand_events = Event.objects.filter(stand=stand)
     return render(
         request,
         "stands/view.html",
-        {"stand": stand, "title": _("Stand"), "description": str(stand)},
+        {
+            "stand": stand,
+            "stand_events": stand_events,
+            "title": _("Stand"),
+            "description": str(stand),
+        },
     )
 
 
