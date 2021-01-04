@@ -144,8 +144,8 @@ class Event(DjangoObjectType):
 
 
 class Stand(DjangoObjectType):
-    events = graphene.NonNull(
-        graphene.List(Event), description="The stand's associated events"
+    events = graphene.List(
+        graphene.NonNull(Event), description="The stand's associated events"
     )
 
     class Meta:
@@ -182,7 +182,12 @@ class KeyInformation(DjangoObjectType):
 
 
 class Company(DjangoObjectType):
-    logo = graphene.Field(graphene.String, height=graphene.Int(), width=graphene.Int())
+    logo = graphene.Field(
+        graphene.String,
+        height=graphene.Int(),
+        width=graphene.Int(),
+        padding=graphene.Boolean(),
+    )
     key_information = graphene.NonNull(
         graphene.List(KeyInformation), description="Key information about the company.",
     )
