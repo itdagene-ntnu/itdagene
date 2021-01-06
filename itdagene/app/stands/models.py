@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.utils.text import slugify
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
+
 from itdagene.app.company.models import Company
 from itdagene.core.models import BaseModel
 
@@ -17,7 +18,7 @@ class DigitalStand(BaseModel):
     )
     livestream_url = models.URLField(blank=True, verbose_name=_("Livestream link"))
     qa_url = models.URLField(blank=True, verbose_name=_("Q&A link"))
-    chat_url = models.URLField(blank=True, verbose_name=_("Chat link"))
+    chat_url = models.CharField(max_length=100, blank=True, verbose_name=_("Chat link"))
     active = models.BooleanField(default=False, verbose_name=_("Active"))
     company = models.ForeignKey(
         Company,
