@@ -191,10 +191,6 @@ class Company(DjangoObjectType):
     key_information = graphene.NonNull(
         graphene.List(KeyInformation), description="Key information about the company.",
     )
-    stand = graphene.Field(
-        Stand,
-        description="The company's stand. If more stands exist, will get the first one.",
-    )
 
     class Meta:
         model = ItdageneCompany

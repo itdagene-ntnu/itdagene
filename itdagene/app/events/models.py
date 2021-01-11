@@ -14,6 +14,7 @@ EVENT_TYPES = (
     (4, _("Baloon drop")),
     (5, _("Competition")),
     (6, _("Other")),
+    (7, _("Promoted company event")),
 )
 
 
