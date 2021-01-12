@@ -167,3 +167,6 @@ class Query(graphene.ObjectType):
 
     def resolve_stand(self, info, slug):
         return Stand.get_queryset().get(slug=slug)
+
+    def resolve_stands(self, info):
+        return Stand.get_queryset()
