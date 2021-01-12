@@ -165,6 +165,17 @@
                             </li>
                         {% endif %}
 
+                        {% if request.user.is_staff %}
+                            <li class="nav-item {% menu_open request 'stands' %} has-treeview">
+                                <a class="nav-link {% active request 'stands' %}" href="#"><span class="nav-icon fas fa-users"></span>
+                                    <p>{% trans "Stands" %}
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                {% include 'stands/submenu.html' %}
+                            </li>
+                        {% endif %}
+
                         {% comment "Not using this" %}
                         {% if request.user.is_staff %}
                             <li class="{% active request 'meetings' %} treeview"><a href="#"><span

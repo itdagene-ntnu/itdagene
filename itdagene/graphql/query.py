@@ -10,6 +10,7 @@ from itdagene.graphql.object_types import (
     MetaData,
     Page,
     SearchResult,
+    Stand,
 )
 from itdagene.graphql.search import search as _search
 from itdagene.graphql.types import OrderByJoblistingType, SearchType
@@ -104,6 +105,13 @@ class Query(graphene.ObjectType):
         + "If slugs are left empty, it will return all pages",
     )
 
+    stands = graphene.List(Stand, description="Get all stands")
+    stand = graphene.Field(
+        Stand,
+        slug=graphene.NonNull(graphene.String),
+        description="Get a stand by slug.",
+    )
+
     events = graphene.List(graphene.NonNull(Event), description="All the events")
     ping = graphene.String(description="ping -> pong")
     resolve_count = graphene.Int(description="Resovle count")
@@ -143,3 +151,6 @@ class Query(graphene.ObjectType):
     def resolve_events(self, info):
         pref = Preference.current_preference()
         return ItdageneEvent.objects.filter(date__year=pref.year, is_internal=False)
+
+    def resolve_stand(self, info, slug):
+        return Stand.get_queryset().get(slug=slug)

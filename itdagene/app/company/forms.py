@@ -5,7 +5,13 @@ from django.db.models import Q
 from django.forms.models import ModelForm
 from django.utils.translation import ugettext_lazy as _
 from itdagene.app.company import COMPANY_STATUS
-from itdagene.app.company.models import Company, CompanyContact, Contract, Package
+from itdagene.app.company.models import (
+    Company,
+    CompanyContact,
+    Contract,
+    KeyInformation,
+    Package,
+)
 from itdagene.core.models import Preference, User
 
 
@@ -140,3 +146,16 @@ class ContractForm(ModelForm):
             "is_billed",
             "has_paid",
         )
+
+
+class KeyInformationForm(ModelForm):
+    keyword = "key_information"
+    action_url = ""
+
+    class Meta:
+        model = KeyInformation
+        fields = ("name", "value")
+
+    def __init__(self, *args, **kwargs):
+        super(KeyInformationForm, self).__init__(*args, **kwargs)
+        self.action_url = "/bdb/key_information/" + str(self.instance.pk) + "/add/"

@@ -69,6 +69,34 @@
 
    <div class="row">
    <div class="col-lg-6">
+
+       <div class="card card-outline card-primary">
+           <div class="card-header">
+               <h3 class="card-title">{% trans "Key information" %}</h3>
+                <a class="btn btn-xs btn-success float-right" href="{% url "itdagene.company.key_information.add" company.pk %}">
+                    {% trans "Add key information" %}
+                </a>
+           </div>
+           <div class="card-body no-padding">
+               <table class="table table-hover">
+                {% for key_info in company.key_information.all %}
+                    <tr>
+                        <td>{{ key_info.name }}</td>
+                        <td>{{ key_info.value }}</td>
+                        <td>
+                            <form method="post" action="{% url "itdagene.company.key_information.delete" key_info.id %}">
+                                {% csrf_token %}
+                                <span class="btn-group">
+                                     <button type="submit" href="" class="btn btn-xs btn-danger">{% trans "Delete" %}</a>
+                                </span>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+               </table>
+           </div>
+       </div>
+
        <div class="card card-outline card-primary">
            <div class="card-header">
                <h3 class="card-title">{% trans "Contacts" %}</h3>

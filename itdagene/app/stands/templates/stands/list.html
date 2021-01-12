@@ -1,0 +1,62 @@
+{% extends "base_admin.html" %}
+{% load i18n staticfiles %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card card-outline card-primary">
+                <div class="card-body no-padding">
+                    <table class="table table-hover tablesorter" id="myTable">
+                    <thead>
+                        <tr>
+                            <th>{% trans "Company" %}</th>
+                            <th>{% trans "Stand detail" %}</th>
+                            <th>{% trans "Slug" %}</th>
+                            <th>{% trans "Creator" %}</th>
+                            <th>{% trans "Active" %}</th>
+                            <th>{% trans "Actions" %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for stand in stands %}
+                            <tr>
+                                <td><a href="{{ stand.company.get_absolute_url }}">{{ stand.company }}</a></td>
+                                <td><a href="{% url "itdagene.stands.view" stand.pk %}">{{ stand }}</a></td>
+                                <td>{{ stand.slug }}</td>
+                                <td>{{ stand.creator }}</td>
+                                <td>
+                                    {% if stand.is_active %}
+                                        <i style="color: green;" class="fas fa-check"></i>
+                                    {% else %}
+                                        <i style="color: red;" class="fas fa-times"></i>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                <span class="btn-group">
+                                {% if perms.stands.change_stand %}
+                                    <a href="{% url "itdagene.stands.edit" stand.pk %}" class="btn btn-xs btn-primary">{% trans "Edit" %}</a>
+                                {% endif %}
+                                {% if perms.stands.delete_stand %}
+                                    <a href="{% url "itdagene.stands.delete" stand.pk %}" class="btn btn-xs btn-danger">{% trans "Delete" %}</a>
+                                {% endif %}
+                                </span>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block inline-scripts %}
+    <script src="{% static "lib/tablesorter/dist/js/jquery.tablesorter.combined.min.js" %}"></script>
+    <script>
+        $(document).ready(function()
+                {
+                    $("#myTable").tablesorter({textExtraction: 'complex'});
+                }
+        );
+    </script>
+{% endblock %}
