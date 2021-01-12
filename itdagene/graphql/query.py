@@ -110,7 +110,15 @@ class Query(graphene.ObjectType):
         + "If slugs are left empty, it will return all pages",
     )
 
-    stands = graphene.List(Stand, description="Get all stands")
+    stands = graphene.List(
+        Stand,
+        shuffle=graphene.Boolean(
+            required=False,
+            default_value=None,
+            description="Randomize the order of the the stands (optional argument)",
+        ),
+        description="Get all stands",
+    )
     stand = graphene.Field(
         Stand,
         slug=graphene.NonNull(graphene.String),
@@ -168,5 +176,7 @@ class Query(graphene.ObjectType):
     def resolve_stand(self, info, slug):
         return Stand.get_queryset().get(slug=slug)
 
-    def resolve_stands(self, info):
+    def resolve_stands(self, info, shuffle=False):
+        if shuffle:
+            return Stand.get_queryset().order_by("?")
         return Stand.get_queryset()
