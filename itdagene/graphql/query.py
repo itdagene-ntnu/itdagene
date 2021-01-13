@@ -54,9 +54,6 @@ class OrderedDjangoFilterConnectionField(DjangoFilterConnectionField):
         )
 
 
-FilterEventType = Event._meta.fields["type"].type
-
-
 class Query(graphene.ObjectType):
     node = relay.Node.Field(description="Get node by ID")
     nodes = graphene.List(
@@ -125,13 +122,7 @@ class Query(graphene.ObjectType):
         description="Get a stand by slug.",
     )
 
-    events = graphene.List(
-        graphene.NonNull(Event),
-        eventType=graphene.Argument(
-            FilterEventType, required=False, default_value=None, name="type"
-        ),
-        description="All the events",
-    )
+    events = graphene.List(graphene.NonNull(Event), description="All the events",)
     ping = graphene.String(description="ping -> pong")
     resolve_count = graphene.Int(description="Resovle count")
 
@@ -167,11 +158,8 @@ class Query(graphene.ObjectType):
     def resolve_resolve_count(self, info, **kwargs):
         return info.context.count
 
-    def resolve_events(self, info, eventType=None):
-        q = ItdageneEvent.objects.filter(date__year=now().year, is_internal=False)
-        if eventType is not None:
-            return q.filter(type=eventType)
-        return q
+    def resolve_events(self, info):
+        return ItdageneEvent.objects.filter(date__year=now().year, is_internal=False)
 
     def resolve_stand(self, info, slug):
         return Stand.get_queryset().get(slug=slug)
