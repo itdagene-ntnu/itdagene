@@ -1,6 +1,8 @@
 import graphene
+from django.utils.timezone import now
 from graphene import relay
 from graphene_django.filter import DjangoFilterConnectionField
+
 from itdagene.app.events.models import Event as ItdageneEvent
 from itdagene.core.models import Preference
 from itdagene.graphql.filters import JoblistingFilter
@@ -149,8 +151,7 @@ class Query(graphene.ObjectType):
         return info.context.count
 
     def resolve_events(self, info):
-        pref = Preference.current_preference()
-        return ItdageneEvent.objects.filter(date__year=pref.year, is_internal=False)
+        return ItdageneEvent.objects.filter(date__year=now().year, is_internal=False)
 
     def resolve_stand(self, info, slug):
         return Stand.get_queryset().get(slug=slug)

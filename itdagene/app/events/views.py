@@ -1,17 +1,17 @@
 from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import SUCCESS, add_message
 from django.shortcuts import get_object_or_404, redirect, render, reverse
+from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
+
 from itdagene.app.events.forms import EventForm, EventTicketForm
 from itdagene.app.events.models import Event, Ticket
 from itdagene.core.decorators import staff_required
-from itdagene.core.models import Preference
 
 
 @staff_required()
 def list_events(request):
-    pref = Preference.current_preference()
-    events = Event.objects.filter(date__year=pref.year)
+    events = Event.objects.filter(date__year=now().year)
     return render(request, "events/base.html", {"events": events, "title": _("Events")})
 
 
