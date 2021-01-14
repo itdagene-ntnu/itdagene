@@ -1,4 +1,5 @@
 import graphene
+from django.db.models import Q
 from graphene import relay
 from graphene_django import DjangoObjectType
 
@@ -141,6 +142,14 @@ class Event(DjangoObjectType):
             "date",
         )
         interfaces = (relay.Node,)
+
+    @classmethod
+    def get_queryset(cls):
+        """
+        When fetching all events, we do not want stand events,
+        unless they are of the type 'promoted stand event' (7)
+        """
+        return ItdageneEvent.objects.filter(Q(stand=None) | Q(type=7))
 
 
 class Stand(DjangoObjectType):

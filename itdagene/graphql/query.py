@@ -3,7 +3,6 @@ from django.utils.timezone import now
 from graphene import relay
 from graphene_django.filter import DjangoFilterConnectionField
 
-from itdagene.app.events.models import Event as ItdageneEvent
 from itdagene.core.models import Preference
 from itdagene.graphql.filters import JoblistingFilter
 from itdagene.graphql.object_types import (
@@ -122,7 +121,7 @@ class Query(graphene.ObjectType):
         description="Get a stand by slug.",
     )
 
-    events = graphene.List(graphene.NonNull(Event), description="All the events",)
+    events = graphene.List(graphene.NonNull(Event), description="All the events")
     ping = graphene.String(description="ping -> pong")
     resolve_count = graphene.Int(description="Resovle count")
 
@@ -159,7 +158,7 @@ class Query(graphene.ObjectType):
         return info.context.count
 
     def resolve_events(self, info):
-        return ItdageneEvent.objects.filter(date__year=now().year, is_internal=False)
+        return Event.get_queryset().filter(date__year=now().year, is_internal=False)
 
     def resolve_stand(self, info, slug):
         return Stand.get_queryset().get(slug=slug)
