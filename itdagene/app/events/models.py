@@ -1,7 +1,9 @@
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
+
 from itdagene.app.company.models import Company
+from itdagene.app.stands.models import DigitalStand
 from itdagene.core.models import BaseModel
 
 EVENT_TYPES = (
@@ -11,6 +13,8 @@ EVENT_TYPES = (
     (3, _("Summer internship marathon")),
     (4, _("Baloon drop")),
     (5, _("Competition")),
+    (6, _("Other")),
+    (7, _("Promoted company event")),
 )
 
 
@@ -33,6 +37,13 @@ class Event(BaseModel):
     uses_tickets = models.BooleanField(verbose_name=_("uses tickets"), default=False)
     max_participants = models.PositiveIntegerField(
         null=True, blank=True, verbose_name=_("max nr of participants")
+    )
+    stand = models.ForeignKey(
+        DigitalStand,
+        null=True,
+        on_delete=models.SET_NULL,
+        blank=True,
+        verbose_name=_("Associated stand"),
     )
 
     def __str__(self):

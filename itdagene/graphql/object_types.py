@@ -1,6 +1,8 @@
 import graphene
+from django.db.models import Q
 from graphene import relay
 from graphene_django import DjangoObjectType
+
 from itdagene.app.career.models import Joblisting as ItdageneJoblisting
 from itdagene.app.career.models import Town as ItdageneTown
 from itdagene.app.company.models import Company as ItdageneCompany
@@ -122,7 +124,39 @@ class User(DjangoObjectType):
         return resize_image(self.photo, format="JPEG", quality=80, **kwargs)
 
 
+class Event(DjangoObjectType):
+    class Meta:
+        model = ItdageneEvent
+        description = "Small event type"
+        only_fields = (
+            "id",
+            "title",
+            "time_start",
+            "time_end",
+            "description",
+            "type",
+            "location",
+            "company",
+            "uses_tickets",
+            "max_participants",
+            "date",
+        )
+        interfaces = (relay.Node,)
+
+    @classmethod
+    def get_queryset(cls):
+        """
+        When fetching all events, we do not want stand events,
+        unless they are of the type 'promoted stand event' (7)
+        """
+        return ItdageneEvent.objects.filter(Q(stand=None) | Q(type=7))
+
+
 class Stand(DjangoObjectType):
+    events = graphene.List(
+        graphene.NonNull(Event), description="The stand's associated events"
+    )
+
     class Meta:
         model = ItdageneStand
         description = "A company stand"
@@ -140,6 +174,9 @@ class Stand(DjangoObjectType):
     def resolve_company(self, info, **kwargs):
         return info.context.loaders.Companyloader.load(self.company_id)
 
+    def resolve_events(self, info, **kwargs):
+        return ItdageneEvent.objects.filter(stand=self)
+
     @classmethod
     def get_queryset(cls):
         return ItdageneStand.objects.filter(active=True)
@@ -154,13 +191,14 @@ class KeyInformation(DjangoObjectType):
 
 
 class Company(DjangoObjectType):
-    logo = graphene.Field(graphene.String, height=graphene.Int(), width=graphene.Int())
+    logo = graphene.Field(
+        graphene.String,
+        height=graphene.Int(),
+        width=graphene.Int(),
+        padding=graphene.Boolean(),
+    )
     key_information = graphene.NonNull(
         graphene.List(KeyInformation), description="Key information about the company.",
-    )
-    stand = graphene.Field(
-        Stand,
-        description="The company's stand. If more stands exist, will get the first one.",
     )
 
     class Meta:
@@ -197,26 +235,6 @@ class Company(DjangoObjectType):
 
     def resolve_stand(self, info, **kwargs):
         return Stand.get_queryset().filter(company=self).first()
-
-
-class Event(DjangoObjectType):
-    class Meta:
-        model = ItdageneEvent
-        description = "Small event type"
-        only_fields = (
-            "id",
-            "title",
-            "time_start",
-            "time_end",
-            "description",
-            "type",
-            "location",
-            "company",
-            "uses_tickets",
-            "max_participants",
-            "date",
-        )
-        interfaces = (relay.Node,)
 
 
 class MetaData(DjangoObjectType):

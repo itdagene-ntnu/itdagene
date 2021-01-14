@@ -48,6 +48,36 @@
             </div>
         </div>
     </div>
+
+   <div class="row">
+   <div class="col-lg-6">
+
+       <div class="card card-outline card-primary">
+           <div class="card-header">
+               <h3 class="card-title">{% trans "Stand events" %}</h3>
+                <a class="btn btn-xs btn-success float-right" href="{% url "itdagene.events.add_event" %}">
+                    {% trans "Add stand event" %}
+                </a>
+           </div>
+           <div class="card-body no-padding">
+               <table class="table table-hover">
+                {% for event in stand_events %}
+                    <tr>
+                        <td><a href="{% url "itdagene.events.view_event" event.id %}">{{ event.title }}</a></td>
+                        <td>{{ event.time_start }} - {{ event.time_end }}</td>
+                        <td>
+                            <span class="btn-group">
+                                <a href="{% url "itdagene.events.edit_event" event.id %}" class="btn btn-xs btn-primary">{% trans "Edit" %}</a>
+                            </span>
+                        </td>
+                    </tr>
+                {% endfor %}
+               </table>
+           </div>
+       </div>
+
+    </div>
+    </div>
 {% endblock %}
 {% block inline-scripts %}
     <script src="{% static "lib/tablesorter/dist/js/jquery.tablesorter.combined.min.js" %}"></script>

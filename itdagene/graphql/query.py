@@ -3,7 +3,6 @@ from django.utils.timezone import now
 from graphene import relay
 from graphene_django.filter import DjangoFilterConnectionField
 
-from itdagene.app.events.models import Event as ItdageneEvent
 from itdagene.core.models import Preference
 from itdagene.graphql.filters import JoblistingFilter
 from itdagene.graphql.object_types import (
@@ -107,7 +106,15 @@ class Query(graphene.ObjectType):
         + "If slugs are left empty, it will return all pages",
     )
 
-    stands = graphene.List(Stand, description="Get all stands")
+    stands = graphene.List(
+        Stand,
+        shuffle=graphene.Boolean(
+            required=False,
+            default_value=None,
+            description="Randomize the order of the the stands (optional argument)",
+        ),
+        description="Get all stands",
+    )
     stand = graphene.Field(
         Stand,
         slug=graphene.NonNull(graphene.String),
@@ -151,7 +158,12 @@ class Query(graphene.ObjectType):
         return info.context.count
 
     def resolve_events(self, info):
-        return ItdageneEvent.objects.filter(date__year=now().year, is_internal=False)
+        return Event.get_queryset().filter(date__year=now().year, is_internal=False)
 
     def resolve_stand(self, info, slug):
         return Stand.get_queryset().get(slug=slug)
+
+    def resolve_stands(self, info, shuffle=False):
+        if shuffle:
+            return Stand.get_queryset().order_by("?")
+        return Stand.get_queryset()
