@@ -29,7 +29,7 @@ class DigitalStand(BaseModel):
     description = models.TextField(blank=True, verbose_name=_("description"))
 
     def get_absolute_url(self):
-        return reverse("itdagene.stands.digitalstand.view", args=[self.pk])
+        return reverse("itdagene.stands.view", args=[self.pk])
 
     def __str__(self):
         return str(self.company.name + "-stand")
