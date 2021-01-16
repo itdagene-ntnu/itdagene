@@ -2,11 +2,10 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
-from sorl.thumbnail import ImageField
-
 from itdagene.app.company import COMPANY_STATUS
 from itdagene.core.log.models import LogItem
 from itdagene.core.models import BaseModel, Preference, User
+from sorl.thumbnail import ImageField
 
 
 class Package(BaseModel):
@@ -190,8 +189,8 @@ class Company(BaseModel):
 
 
 class KeyInformation(BaseModel):
-    name = models.CharField(max_length=20, verbose_name=_("information name"))
-    value = models.CharField(max_length=20, verbose_name=_("value"))
+    name = models.CharField(max_length=40, verbose_name=_("information name"))
+    value = models.CharField(max_length=200, verbose_name=_("value"))
     company = models.ForeignKey(
         Company,
         on_delete=models.CASCADE,
