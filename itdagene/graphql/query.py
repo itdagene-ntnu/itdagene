@@ -107,7 +107,7 @@ class Query(graphene.ObjectType):
     )
 
     stands = graphene.List(
-        Stand,
+        graphene.NonNull(Stand),
         shuffle=graphene.Boolean(
             required=False,
             default_value=None,
