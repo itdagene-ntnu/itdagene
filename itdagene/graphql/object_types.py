@@ -196,8 +196,9 @@ class Company(DjangoObjectType):
         width=graphene.Int(),
         padding=graphene.Boolean(),
     )
-    key_information = graphene.NonNull(
-        graphene.List(KeyInformation), description="Key information about the company.",
+    key_information = graphene.List(
+        graphene.NonNull(KeyInformation),
+        description="Key information about the company.",
     )
 
     class Meta:
