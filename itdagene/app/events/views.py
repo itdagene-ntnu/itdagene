@@ -3,7 +3,6 @@ from django.contrib.messages import SUCCESS, add_message
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
-
 from itdagene.app.events.forms import EventForm, EventTicketForm
 from itdagene.app.events.models import Event, Ticket
 from itdagene.core.decorators import staff_required

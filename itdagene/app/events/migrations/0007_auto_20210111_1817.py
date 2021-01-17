@@ -6,13 +6,25 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('events', '0006_auto_20201217_1336'),
+        ("events", "0006_auto_20201217_1336"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='event',
-            name='type',
-            field=models.PositiveIntegerField(choices=[(0, 'Course'), (1, 'Company presentation'), (2, 'Banquet'), (3, 'Summer internship marathon'), (4, 'Baloon drop'), (5, 'Competition'), (6, 'Other'), (7, 'Promoted company event')], verbose_name='type'),
+            model_name="event",
+            name="type",
+            field=models.PositiveIntegerField(
+                choices=[
+                    (0, "Course"),
+                    (1, "Company presentation"),
+                    (2, "Banquet"),
+                    (3, "Summer internship marathon"),
+                    (4, "Baloon drop"),
+                    (5, "Competition"),
+                    (6, "Other"),
+                    (7, "Promoted company event"),
+                ],
+                verbose_name="type",
+            ),
         ),
     ]
