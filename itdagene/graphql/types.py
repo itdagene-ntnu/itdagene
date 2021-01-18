@@ -45,3 +45,8 @@ class SearchType(graphene.Enum):
                 "Search for companies with one or more joblisting. Useful for filtering"
             )
         return None
+
+
+class DayType(graphene.Enum):
+    FIRST_DAY = "FIRST_DAY"
+    LAST_DAY = "LAST_DAY"
