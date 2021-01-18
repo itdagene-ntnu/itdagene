@@ -2,8 +2,6 @@ import graphene
 from django.utils.timezone import now
 from graphene import relay
 from graphene_django.filter import DjangoFilterConnectionField
-
-from itdagene.app.company.models import Company as ItdageneCompany
 from itdagene.core.models import Preference
 from itdagene.graphql.filters import JoblistingFilter
 from itdagene.graphql.object_types import (
@@ -15,7 +13,7 @@ from itdagene.graphql.object_types import (
     Stand,
 )
 from itdagene.graphql.search import search as _search
-from itdagene.graphql.types import DayType, OrderByJoblistingType, SearchType
+from itdagene.graphql.types import OrderByJoblistingType, SearchType
 
 
 class OrderedDjangoFilterConnectionField(DjangoFilterConnectionField):
@@ -109,14 +107,6 @@ class Query(graphene.ObjectType):
 
     stands = graphene.List(
         graphene.NonNull(Stand),
-        day=graphene.Argument(DayType),
-        currentDay=graphene.Boolean(
-            required=False,
-            default_value=False,
-            description="Get stands for first day if today is "
-            + "earlier or the same date as start_date. "
-            + "If today is the same or later as end_date, get stands for last day",
-        ),
         shuffle=graphene.Boolean(
             required=False,
             default_value=None,
@@ -172,14 +162,7 @@ class Query(graphene.ObjectType):
     def resolve_stand(self, info, slug):
         return Stand.get_queryset().get(slug=slug)
 
-    def resolve_stands(self, info, shuffle=False, day=None, currentDay=False):
-        q = Stand.get_queryset()
-        pref = Preference.current_preference()
-        if day == DayType.FIRST_DAY or (currentDay and now().date() <= pref.start_date):
-            q = q.filter(company__in=ItdageneCompany.get_first_day())
-        elif day == DayType.LAST_DAY or (currentDay and now().date() >= pref.end_date):
-            q = q.filter(company__in=ItdageneCompany.get_last_day())
-
+    def resolve_stands(self, info, shuffle=False):
         if shuffle:
-            return q.order_by("?")
-        return q
+            return Stand.get_queryset().order_by("?")
+        return Stand.get_queryset()
