@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from itdagene.app.itdageneadmin.forms import PreferenceForm
 from itdagene.core.models import Preference
+from datetime import datetime
 
 
 @permission_required("core.change_preference")
@@ -22,16 +23,16 @@ def edit(request):
                     year=preference.year,
                     defaults={
                         "active": True,
-                        "start_date": "%s-09-10" % preference.year,
-                        "end_date": "%s-09-11" % preference.year,
+                        "start_date": datetime.strptime("%s-09-11" % preference.year, "%Y-%m-%d"),
+                        "end_date": datetime.strptime("%s-09-12" % preference.year, "%Y-%m-%d"),
                     },
                 )
             else:
                 preference.save(log_it=False, notify_subscribers=False)
 
-            for peference_object in Preference.objects.exclude(id=preference.id):
-                peference_object.active = False
-                peference_object.save(log_it=False, notify_subscribers=False)
+            for preference_object in Preference.objects.exclude(id=preference.id):
+                preference_object.active = False
+                preference_object.save(log_it=False, notify_subscribers=False)
 
             cache.set("pref", preference)
             return redirect(reverse("itdagene.itdageneadmin.preferences.edit"))

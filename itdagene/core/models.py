@@ -9,6 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 from itdagene.core.auth import get_current_user
 from raven import breadcrumbs
 from social_core.exceptions import AuthForbidden
+from datetime import datetime
 
 
 def user_default_year():
@@ -200,8 +201,8 @@ class Preference(BaseModel):
                     year=year,
                     defaults={
                         "active": True,
-                        "start_date": "%s-09-10" % year,
-                        "end_date": "%s-09-11" % year,
+                        "start_date": datetime.strptime("%s-09-11" % year, "%Y-%m-%d"),
+                        "end_date": datetime.strptime("%s-09-12" % year, "%Y-%m-%d"),
                     },
                 )
                 pref.active = True
@@ -220,8 +221,8 @@ class Preference(BaseModel):
                 year=year,
                 defaults={
                     "active": True,
-                    "start_date": "%s-09-10" % year,
-                    "end_date": "%s-09-11" % year,
+                    "start_date": datetime.strptime("%s-09-11" % year, "%Y-%m-%d"),
+                    "end_date": datetime.strptime("%s-09-12" % year, "%Y-%m-%d"),
                 },
             )
             pref.active = True
