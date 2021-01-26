@@ -201,8 +201,8 @@ class Preference(BaseModel):
                     year=year,
                     defaults={
                         "active": True,
-                        "start_date": datetime.strptime("%s-09-11" % preference.year, "%Y-%m-%d"),
-                        "end_date": datetime.strptime("%s-09-12" % preference.year, "%Y-%m-%d"),
+                        "start_date": datetime.strptime("%s-09-11" % year, "%Y-%m-%d"),
+                        "end_date": datetime.strptime("%s-09-12" % year, "%Y-%m-%d"),
                     },
                 )
                 pref.active = True
