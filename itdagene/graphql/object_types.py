@@ -270,7 +270,10 @@ class MetaData(DjangoObjectType):
 
     def resolve_board_members(self, info):
         return (
-            ItdageneUser.objects.filter(year=self.year).all().prefetch_related("groups")
+            ItdageneUser.objects.filter(year=self.year)
+            .filter(is_active=True)
+            .all()
+            .prefetch_related("groups")
         )
 
     class Meta:
