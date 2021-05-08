@@ -162,24 +162,29 @@ class Preference(BaseModel):
         verbose_name=_("number of stands"),
         help_text=_("This is for each day, not the sum of each day"),
     )
-    view_sp = models.BooleanField(verbose_name=_("view partners"), default=False)
+    view_sp = models.BooleanField(
+        verbose_name=_("view partners"),
+        help_text=_("Should all collaborators be displayed on the front page?"),
+        default=False,
+    )
     view_hsp = models.BooleanField(
-        verbose_name=_("view main collaborator"), default=False
+        verbose_name=_("view main collaborator"),
+        help_text=_("Should the main collaborator be displayed on the front page?"),
+        default=False,
     )
     view_companies = models.BooleanField(
-        verbose_name=_("view all comapnies"), default=False
+        verbose_name=_("view all comapnies"),
+        help_text=_("Should all companies be displayed on the front page?"),
+        default=False,
     )
 
     def __str__(self):
         return str(self.year)
 
     def save(self, *args, **kwargs):
-        action = "EDIT" if self.pk else "CREATE"
-
+        kwargs["log_it"] = True
+        kwargs["log_priority"] = 3
         super(Preference, self).save(*args, **kwargs)
-        from .log.models import LogItem
-
-        LogItem.log_it(self, action, 3)
 
         if self.active:
             cache.set("pref", self)

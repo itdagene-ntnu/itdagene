@@ -266,7 +266,7 @@ class MetaData(DjangoObjectType):
 
     def resolve_collaborators(self, info):
         if self.view_sp:
-            return ItdageneCompany.objects.filter(package__name="Samarbeidspartner")
+            return ItdageneCompany.get_collaborators()
 
     def resolve_board_members(self, info):
         return (
