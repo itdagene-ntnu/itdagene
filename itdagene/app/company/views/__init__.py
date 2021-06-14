@@ -150,7 +150,7 @@ def edit(request, id=False):
         form = CompanyForm(request.POST, request.FILES, instance=company)
         if form.is_valid():
             company = form.save()
-            add_message(request, SUCCESS, _("Comapny saved"))
+            add_message(request, SUCCESS, _("Company saved."))
             return redirect(company.get_absolute_url())
     return render(
         request,
