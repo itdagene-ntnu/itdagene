@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.contrib.contenttypes.models import ContentType
@@ -9,7 +11,6 @@ from django.utils.translation import ugettext_lazy as _
 from itdagene.core.auth import get_current_user
 from raven import breadcrumbs
 from social_core.exceptions import AuthForbidden
-from datetime import datetime
 
 
 def user_default_year():
@@ -169,11 +170,11 @@ class Preference(BaseModel):
     view_hsp = models.BooleanField(
         verbose_name=_("view main collaborator"),
         help_text=_(
-            "Should the main collaborator be displayed on the front page?<br/><br/>" 
+            "Should the main collaborator be displayed on the front page?<br/><br/>"
             "This option requires certain key information to be added to the main collaborator company in the database:<br/>"
-            " - \"hsp-info\": Short introduction of the company<br/>"
-            " - \"hsp-video\": URL to video about company<br/>"
-            " - \"hsp-poster\": Image to display before video is played"
+            ' - "hsp-info": Short introduction of the company<br/>'
+            ' - "hsp-video": URL to video about company<br/>'
+            ' - "hsp-poster": Image to display before video is played'
         ),
         default=False,
     )

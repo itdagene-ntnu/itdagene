@@ -6,23 +6,35 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0030_auto_20180729_0107'),
+        ("core", "0030_auto_20180729_0107"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='preference',
-            name='view_companies',
-            field=models.BooleanField(default=False, help_text='Should all companies be displayed on the front page?', verbose_name='view all comapnies'),
+            model_name="preference",
+            name="view_companies",
+            field=models.BooleanField(
+                default=False,
+                help_text="Should all companies be displayed on the front page?",
+                verbose_name="view all comapnies",
+            ),
         ),
         migrations.AlterField(
-            model_name='preference',
-            name='view_hsp',
-            field=models.BooleanField(default=False, help_text='Should the main collaborator be displayed on the front page?', verbose_name='view main collaborator'),
+            model_name="preference",
+            name="view_hsp",
+            field=models.BooleanField(
+                default=False,
+                help_text="Should the main collaborator be displayed on the front page?",
+                verbose_name="view main collaborator",
+            ),
         ),
         migrations.AlterField(
-            model_name='preference',
-            name='view_sp',
-            field=models.BooleanField(default=False, help_text='Should all collaborators be displayed on the front page?', verbose_name='view partners'),
+            model_name="preference",
+            name="view_sp",
+            field=models.BooleanField(
+                default=False,
+                help_text="Should all collaborators be displayed on the front page?",
+                verbose_name="view partners",
+            ),
         ),
     ]
