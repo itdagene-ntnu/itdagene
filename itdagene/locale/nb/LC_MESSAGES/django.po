@@ -201,7 +201,7 @@ msgstr "Jobbannonser"
 
 #: itdagene/app/career/templates/career/submenu.html:14
 msgid "Add joblisting"
-msgstr "Opprett jobbannonse"
+msgstr "Opprett Jobbannonse"
 
 #: itdagene/app/career/templates/career/submenu.html:23
 msgid "Edit joblisting"
@@ -245,7 +245,7 @@ msgstr "Jobbannonse lagret"
 
 #: itdagene/app/career/views.py:36
 msgid "Add Joblisting"
-msgstr "Opprett jobbannonse"
+msgstr "Opprett Jobbannonse"
 
 #: itdagene/app/career/views.py:48
 msgid "Joblisting"
@@ -253,7 +253,7 @@ msgstr "Jobbannonse"
 
 #: itdagene/app/career/views.py:69
 msgid "Edit Joblisting"
-msgstr "Rediger jobbannonse"
+msgstr "Rediger Jobbannonse"
 
 #: itdagene/app/career/views.py:83
 msgid "Joblisting deleted."
@@ -261,7 +261,7 @@ msgstr "Jobbannonse slettet"
 
 #: itdagene/app/career/views.py:91
 msgid "Delete Joblisting"
-msgstr "Slett jobbannonse"
+msgstr "Slett Jobbannonse"
 
 #: itdagene/app/career/views.py:104
 msgid "Town added."
@@ -654,7 +654,7 @@ msgstr "Pakker"
 #: itdagene/app/company/templates/company/packages/submenu.html:17
 #: itdagene/app/company/views/packages.py:41
 msgid "Add Package"
-msgstr "Opprette Pakke"
+msgstr "Opprett Pakke"
 
 #: itdagene/app/company/templates/company/packages/submenu.html:26
 #: itdagene/app/company/views/packages.py:62
@@ -722,7 +722,7 @@ msgstr "Legg Til Kontrakt"
 #: itdagene/app/company/templates/company/submenu.html:53
 #: itdagene/app/company/views/__init__.py:213
 msgid "Set Responsibilities"
-msgstr "Set Ansvarsområder"
+msgstr "Sett Ansvarsområder"
 
 #: itdagene/app/company/templates/company/submenu.html:61
 #: itdagene/app/feedback/templates/feedback/submenu.html:47
@@ -964,7 +964,7 @@ msgstr "Arrangementer"
 #: itdagene/app/events/templates/events/submenu.html:10
 #: itdagene/app/events/views.py:26
 msgid "Add Event"
-msgstr "Oppretter Arrangement"
+msgstr "Opprett Arrangement"
 
 #: itdagene/app/events/templates/events/submenu.html:16
 #: itdagene/app/events/views.py:45
@@ -1395,7 +1395,7 @@ msgstr "Mine Problemer"
 
 #: itdagene/app/feedback/templates/feedback/submenu.html:25
 msgid "Add issue"
-msgstr "Opprett problem"
+msgstr "Opprett Problem"
 
 #: itdagene/app/feedback/templates/feedback/submenu.html:33
 msgid "Edit issue"
@@ -1948,17 +1948,17 @@ msgstr "Slett side"
 #: itdagene/app/pages/templates/pages/submenu.html:13
 #: itdagene/app/pages/views.py:39
 msgid "Add Page"
-msgstr "Opprett side"
+msgstr "Opprett Side"
 
 #: itdagene/app/pages/templates/pages/submenu.html:20
 #: itdagene/app/pages/views.py:63
 msgid "Edit Page"
-msgstr "Rediger side"
+msgstr "Rediger Side"
 
 #: itdagene/app/pages/templates/pages/submenu.html:30
 #: itdagene/app/pages/views.py:79
 msgid "Delete Page"
-msgstr "Slett side"
+msgstr "Slett Side"
 
 #: itdagene/app/pages/views.py:21
 msgid "The page is not available in your language."
@@ -2015,12 +2015,12 @@ msgstr "Standliste"
 #: itdagene/app/stands/templates/stands/submenu.html:14
 #: itdagene/app/stands/views.py:30
 msgid "Add stand"
-msgstr "Opprett stand"
+msgstr "Opprett Stand"
 
 #: itdagene/app/stands/templates/stands/submenu.html:23
 #: itdagene/app/stands/views.py:64
 msgid "Edit stand"
-msgstr "Rediger stand"
+msgstr "Rediger Stand"
 
 #: itdagene/app/stands/templates/stands/view.html:24
 msgid "Livesteam url"
@@ -2044,7 +2044,7 @@ msgstr "Standhendelser"
 
 #: itdagene/app/stands/templates/stands/view.html:59
 msgid "Add stand event"
-msgstr "Opprett standhendelse"
+msgstr "Opprett Standhendelse"
 
 #: itdagene/app/stands/views.py:17 itdagene/templates/base_admin.html:171
 msgid "Stands"
