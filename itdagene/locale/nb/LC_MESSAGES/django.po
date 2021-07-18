@@ -2073,59 +2073,59 @@ msgstr "Ferdig."
 #: itdagene/app/todo/templates/todo/delete_todo.html:15
 #, python-format
 msgid "Are you sure you want to delete the todo \"%(todo)s\"?"
-msgstr ""
+msgstr "Er du sikker på at du vil slette \"%(todo)s\"?"
 
 #: itdagene/app/todo/templates/todo/delete_todo.html:16
 #: itdagene/app/todo/views.py:52
 msgid "Delete Todo"
-msgstr ""
+msgstr "Slett To-do"
 
 #: itdagene/app/todo/templates/todo/panels/todo_list.html:6
 msgid "Todos"
-msgstr ""
+msgstr "To-dos"
 
 #: itdagene/app/todo/templates/todo/panels/todo_list.html:24
 #: itdagene/app/todo/templates/todo/view_todo.html:15
 msgid "left"
-msgstr ""
+msgstr "igjen"
 
 #: itdagene/app/todo/templates/todo/panels/todo_list.html:43
 #: itdagene/app/todo/views.py:22
 msgid "Add Todo"
-msgstr ""
+msgstr "Opprett To-do"
 
 #: itdagene/app/todo/views.py:19
 msgid "Todo added."
-msgstr ""
+msgstr "To-do lagt til"
 
 #: itdagene/app/todo/views.py:35
 msgid "Todo changed."
-msgstr ""
+msgstr "To-do oppdatert."
 
 #: itdagene/app/todo/views.py:38
 msgid "Change Todo"
-msgstr ""
+msgstr "Rediger to-do"
 
 #: itdagene/app/todo/views.py:48
 msgid "Todo deleted."
-msgstr ""
+msgstr "To-do slettet."
 
 #: itdagene/app/users/templates/users/delete.html:15
 #, python-format
 msgid "Are you sure you want to delete the user %(user)s?"
-msgstr ""
+msgstr "Er du sikker på at du vil slette brukeren %(user)s?"
 
 #: itdagene/app/users/templates/users/delete.html:16
 msgid "Delete user"
-msgstr ""
+msgstr "Slett Bruker"
 
 #: itdagene/app/users/templates/users/detail.html:29 itdagene/core/models.py:44
 msgid "Language"
-msgstr ""
+msgstr "Språk"
 
 #: itdagene/app/users/templates/users/detail.html:82
 msgid "Go Back"
-msgstr ""
+msgstr "Tilbake"
 
 #: itdagene/app/users/templates/users/detail.html:83
 msgid "vCard"
@@ -2136,70 +2136,70 @@ msgstr ""
 #: itdagene/app/users/templates/users/submenu.html:32
 #: itdagene/app/users/views.py:106
 msgid "Edit User"
-msgstr ""
+msgstr "Rediger Bruker"
 
 #: itdagene/app/users/templates/users/detail.html:86
 msgid "Edit Password"
-msgstr ""
+msgstr "Rediger Passord"
 
 #: itdagene/app/users/templates/users/detail.html:89
 #: itdagene/app/users/templates/users/send_welcome_email.html:17
 #: itdagene/app/users/templates/users/submenu.html:24
 #: itdagene/app/users/views.py:182
 msgid "Send welcome email"
-msgstr ""
+msgstr "Send velkomstepost"
 
 #: itdagene/app/users/templates/users/detail.html:92
 #: itdagene/app/users/templates/users/list.html:39
 #: itdagene/app/users/templates/users/submenu.html:40
 #: itdagene/app/users/views.py:72
 msgid "Delete User"
-msgstr ""
+msgstr "Slett Bruker"
 
 #: itdagene/app/users/templates/users/list.html:15
 msgid "Year"
-msgstr ""
+msgstr "År"
 
 #: itdagene/app/users/templates/users/list.html:36
 #: itdagene/app/users/views.py:141
 msgid "Change Password"
-msgstr ""
+msgstr "Endre Passord"
 
 #: itdagene/app/users/templates/users/send_welcome_email.html:15
 #, python-format
 msgid "Are you sure you want to send a welcome email to the user %(user)s?"
-msgstr ""
+msgstr "Er du sikker på at du vil sende en velkomstepost til %(user)s?"
 
 #: itdagene/app/users/templates/users/send_welcome_email.html:16
 msgid ""
 "This wil change the password and send the new password in the welcome email."
-msgstr ""
+msgstr "Dette vil endre passordet og sende det i en epost."
 
 #: itdagene/app/users/templates/users/submenu.html:8
 #: itdagene/templates/base_admin.html:200
 msgid "Users"
-msgstr ""
+msgstr "Brukere"
 
 #: itdagene/app/users/templates/users/submenu.html:15
 #: itdagene/app/users/views.py:166
 msgid "Create User"
-msgstr ""
+msgstr "Opprett Bruker"
 
 #: itdagene/app/users/views.py:28
 msgid "User Admin"
-msgstr ""
+msgstr "Brukeradministrator"
 
 #: itdagene/app/users/views.py:52
 msgid "User Detail"
-msgstr ""
+msgstr "Brukerdetaljer"
 
 #: itdagene/app/users/views.py:175
 msgid "The welcome email has been sent."
-msgstr ""
+msgstr "Velkomsepost sendt."
 
 #: itdagene/app/workschedule/forms.py:9
 msgid "Add worker"
-msgstr ""
+msgstr "Legg til arbeider"
 
 #: itdagene/app/workschedule/models.py:22
 msgid "t-shirt size"
@@ -2211,7 +2211,7 @@ msgstr ""
 
 #: itdagene/app/workschedule/models.py:25 itdagene/core/models.py:157
 msgid "year"
-msgstr ""
+msgstr "år"
 
 #: itdagene/app/workschedule/models.py:82
 msgid "work schedule"
@@ -2343,65 +2343,66 @@ msgstr ""
 
 #: itdagene/core/models.py:50
 msgid "Active Year"
-msgstr ""
+msgstr "Aktivt år"
 
 #: itdagene/core/models.py:51
 msgid "Year the user was active."
-msgstr ""
+msgstr "År brukeren var aktiv"
 
 #: itdagene/core/models.py:149
 msgid "Development Mode"
-msgstr ""
+msgstr "Utviklermodus"
 
 #: itdagene/core/models.py:151
 msgid ""
 "This option puts the site in development mode. The public page will be "
 "disabled."
 msgstr ""
+"Setter nettsiden i utviklermodus. Den offentlige siden vil bli utilgjengelig."
 
 #: itdagene/core/models.py:158
 msgid "start date"
-msgstr ""
+msgstr "Startdato"
 
 #: itdagene/core/models.py:159
 msgid "end date"
-msgstr ""
+msgstr "Sluttdato"
 
 #: itdagene/core/models.py:162
 msgid "number of stands"
-msgstr ""
+msgstr "Antall stands"
 
 #: itdagene/core/models.py:163
 msgid "This is for each day, not the sum of each day"
-msgstr ""
+msgstr "Dette gjelder per dag, ikke totalt."
 
 #: itdagene/core/models.py:166
 msgid "view partners"
-msgstr ""
+msgstr "Vis samarbeidspartnere"
 
 #: itdagene/core/models.py:167
 msgid "Should all collaborators be displayed on the front page?"
-msgstr ""
+msgstr "Skal alle samarbeidspartnere bli vist på nettsiden?"
 
 #: itdagene/core/models.py:171
 msgid "view main collaborator"
-msgstr ""
+msgstr "Vis hovedsamarbeidspartner"
 
 #: itdagene/core/models.py:172
 msgid "Should the main collaborator be displayed on the front page?"
-msgstr ""
+msgstr "Skal hovedsamarbeidspartner vises på nettsiden?"
 
 #: itdagene/core/models.py:176
 msgid "view all comapnies"
-msgstr ""
+msgstr "Vis alle bedrifter"
 
 #: itdagene/core/models.py:177
 msgid "Should all companies be displayed on the front page?"
-msgstr ""
+msgstr "Skal alle bedrifter vises på nettsiden?"
 
 #: itdagene/core/notifications/models.py:18
 msgid "message"
-msgstr ""
+msgstr "melding"
 
 #: itdagene/core/notifications/models.py:23
 msgid "send mail"
@@ -2418,31 +2419,31 @@ msgstr ""
 
 #: itdagene/core/views.py:7
 msgid "Permission Denied"
-msgstr ""
+msgstr "Ingen Tilgang"
 
 #: itdagene/core/views.py:11
 msgid "Page not Found"
-msgstr ""
+msgstr "Side Ikke Funnet"
 
 #: itdagene/core/views.py:15
 msgid "Internal Server Error"
-msgstr ""
+msgstr "Intern serverfeil"
 
 #: itdagene/core/views.py:23
 msgid "Under Development"
-msgstr ""
+msgstr "Under Utvikling"
 
 #: itdagene/settings/base.py:59
 msgid "Board member"
-msgstr ""
+msgstr "Styremedlem"
 
 #: itdagene/settings/base.py:60
 msgid "Company profile"
-msgstr ""
+msgstr "Bedriftsprofil"
 
 #: itdagene/settings/base.py:62
 msgid "Unknown"
-msgstr ""
+msgstr "Ukjent"
 
 #: itdagene/templates/base_admin.html:55
 #, python-format
@@ -2450,24 +2451,26 @@ msgid ""
 "\n"
 "                                    Joined %(date)s ago"
 msgstr ""
+"\n"
+"                                    Ble med for %(date)s siden"
 
 #: itdagene/templates/base_admin.html:62
 msgid "Profile"
-msgstr ""
+msgstr "Profil"
 
 #: itdagene/templates/base_admin.html:66
 msgid "Logout"
-msgstr ""
+msgstr "Logg ut"
 
 #: itdagene/templates/markdown_help.html:4
 msgid "Markdown Help"
-msgstr ""
+msgstr "Markdownhjelp"
 
 #: itdagene/templates/markdown_help.html:8
 #: itdagene/templates/markdown_help.html:9
 #: itdagene/templates/markdown_help.html:10
 msgid "Header"
-msgstr ""
+msgstr "Tittel"
 
 #: itdagene/templates/markdown_help.html:11
 msgid "Bold"
@@ -2480,50 +2483,52 @@ msgstr ""
 #: itdagene/templates/markdown_help.html:13
 #: itdagene/templates/markdown_help.html:14
 msgid "Unnumbered list"
-msgstr ""
+msgstr "Unummerert liste"
 
 #: itdagene/templates/markdown_help.html:16
 #: itdagene/templates/markdown_help.html:17
 msgid "Numbered list"
-msgstr ""
+msgstr "Nummerert liste"
 
 #: itdagene/templates/markdown_help.html:18
 msgid ""
 "In both list-types it is important to have at least 4 spaces between the "
 "symbol and the text"
 msgstr ""
+"For begge listetyper er det viktig å ha minst 4 mellomrom mellom symbol "
+"og tekst"
 
 #: itdagene/templates/markdown_help.html:22
 msgid "Read more"
-msgstr ""
+msgstr "Les mer"
 
 #: itdagene/templates/messsages_admin.html:29
 msgid "Success"
-msgstr ""
+msgstr "Suksess"
 
 #: itdagene/templates/messsages_admin.html:32
 msgid "Information"
-msgstr ""
+msgstr "Informasjon"
 
 #: itdagene/templates/messsages_admin.html:35
 msgid "Warning"
-msgstr ""
+msgstr "Advarsel"
 
 #: itdagene/templates/messsages_admin.html:38
 msgid "Error"
-msgstr ""
+msgstr "Feil"
 
 #: itdagene/templates/registration/login.html:31
 msgid "Log in"
-msgstr ""
+msgstr "Logg inn"
 
 #: itdagene/templates/registration/logout.html:18
 msgid "You logged out!"
-msgstr ""
+msgstr "Du logget ut!"
 
 #: itdagene/templates/static/403.html:16
 msgid "Oops! Permission denied."
-msgstr ""
+msgstr "Oops! Ingen tilgang."
 
 #: itdagene/templates/static/403.html:17
 #, python-format
@@ -2532,10 +2537,12 @@ msgid ""
 "a> if you should have had permission to this object. Copy the info below "
 "into the email."
 msgstr ""
+"Send en epost til <a href=\"mailto:%(prefix)s@%(domain)s\">%(prefix)s@%(domain)s</"
+"a> om du skulle hatt tilgang til dette. Inkluder informasjonen under inn i eposten. "
 
 #: itdagene/templates/static/404.html:16
 msgid "Oops! Page not found."
-msgstr ""
+msgstr "Oops! Side ikke funnet."
 
 #: itdagene/templates/static/404.html:18
 msgid ""
@@ -2545,14 +2552,18 @@ msgid ""
 "frontpage</a>.\n"
 "                    "
 msgstr ""
+"\n"
+"                    Vi fant ikke siden du leter etter.\n"
+"                    <a href=\"/\">Tilbake til forsiden </a>.\n"
+"                    "
 
 #: itdagene/templates/static/500.html:16
 msgid "Oops! Something went wrong."
-msgstr ""
+msgstr "Oops! Noe gikk galt."
 
 #: itdagene/templates/static/500.html:18
 msgid "We will work on fixing that right away."
-msgstr ""
+msgstr "Vi jobber med å fikse det!"
 
 #: itdagene/templates/static/500.html:19
 msgid ""
@@ -2561,6 +2572,9 @@ msgid ""
 "frontpage</a>.\n"
 "                    "
 msgstr ""
+"\n"
+"                    <a href=\"/\">Tilbake til forsiden </a>.\n"
+"                    "
 
 #: itdagene/templates/static/under_development.html:20
 #, python-format
@@ -2575,3 +2589,10 @@ msgid ""
 "\n"
 "                "
 msgstr ""
+"\n"
+"                    <p>itDAGENE er under utvikling. Vennligst kom tilbake senere.</p>\n"
+"\n"
+"                    <p>itDAGENE holdes i slutten av september "
+"%(year)s. <br/>\n"
+"\n"
+"                "
