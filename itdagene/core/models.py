@@ -148,8 +148,7 @@ class Preference(BaseModel):
         default=False,
         verbose_name=_("Development Mode"),
         help_text=_(
-            "This option "
-            "puts the site in development mode. The public page will be disabled."
+            "This option puts the site in development mode. The public page will be disabled."
         ),
     )
 
@@ -169,7 +168,13 @@ class Preference(BaseModel):
     )
     view_hsp = models.BooleanField(
         verbose_name=_("view main collaborator"),
-        help_text=_("Should the main collaborator be displayed on the front page?"),
+        help_text=_(
+            "Should the main collaborator be displayed on the front page?<br/><br/>" 
+            "This option requires certain key information to be added to the main collaborator company in the database:<br/>"
+            " - \"hsp-info\": Short introduction of the company<br/>"
+            " - \"hsp-video\": URL to video about company<br/>"
+            " - \"hsp-poster\": Image to display before video is played"
+        ),
         default=False,
     )
     view_companies = models.BooleanField(

@@ -3,9 +3,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0n"
-"Report-Msgid-Bugs-To: web@itdagene.no\n"
-"POT-Creation-Date: 2021-05-08 22:41+0200\n"
+"Project-Id-Version: 1.0nReport-Msgid-Bugs-To: web@itdagene.no\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-07-18 22:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Eirik Lorgen Tanberg <eirik.lorgen@itdagene.no>\n"
 "Language: NB\n"
@@ -92,7 +92,7 @@ msgid "url"
 msgstr "URL"
 
 #: itdagene/app/career/models.py:55 itdagene/app/company/models.py:112
-#: itdagene/app/pages/models.py:17 itdagene/core/models.py:156
+#: itdagene/app/pages/models.py:17 itdagene/core/models.py:155
 msgid "active"
 msgstr "Aktiv"
 
@@ -759,6 +759,7 @@ msgstr "Legg til nøkkelinformasjon"
 #: itdagene/app/events/templates/events/base.html:31
 #: itdagene/app/pages/templates/pages/admin.html:49
 #: itdagene/app/stands/templates/stands/list.html:40
+#: venv/lib/python3.7/site-packages/django/forms/formsets.py:375
 msgid "Delete"
 msgstr "Slett"
 
@@ -934,6 +935,7 @@ msgstr "Dato"
 #: itdagene/app/mail/templates/mail/meetings/invite.html:10
 #: itdagene/app/mail/templates/mail/meetings/invite.txt:9
 #: itdagene/app/meetings/templates/meetings/view.html:39
+#: venv/lib/python3.7/site-packages/django/db/models/fields/__init__.py:2115
 msgid "Time"
 msgstr "Klokkeslett"
 
@@ -1031,7 +1033,7 @@ msgstr "Billett lagret"
 msgid "Edit Ticket"
 msgstr "Rediger billett"
 
-#: itdagene/app/experiences/models.py:20 itdagene/core/models.py:193
+#: itdagene/app/experiences/models.py:20 itdagene/core/models.py:198
 msgid "Preference"
 msgstr "Innstillinger"
 
@@ -1229,9 +1231,7 @@ msgstr "Har Svar"
 msgid ""
 "What do you think about the communication and information given in advance "
 "of the event?"
-msgstr ""
-"Hva synes du om kommunikasjon og informasjon gitt før arrangementet?"
-""
+msgstr "Hva synes du om kommunikasjon og informasjon gitt før arrangementet?"
 
 #: itdagene/app/feedback/models.py:117
 msgid "How did the internship marathon go?"
@@ -1252,9 +1252,7 @@ msgstr "Kunne kurset blitt gjort bedre?"
 #: itdagene/app/feedback/models.py:133
 msgid ""
 "How satisfied are you with the number of people that visited your stand?"
-msgstr ""
-"Hvor fornøyd er dere med antallet som besøkte standen din?"
-""
+msgstr "Hvor fornøyd er dere med antallet som besøkte standen din?"
 
 #: itdagene/app/feedback/models.py:138
 msgid "Did you use interview rooms?"
@@ -1301,8 +1299,8 @@ msgid ""
 "                "
 msgstr ""
 "\n"
-"                    %(evaluations_count)s har besvart undersøkelsen. "
-", %(percentage_want_to_come_back)s%% ønsker å være med neste år.\n"
+"                    %(evaluations_count)s har besvart undersøkelsen. , "
+"%(percentage_want_to_come_back)s%% ønsker å være med neste år.\n"
 "                "
 
 #: itdagene/app/feedback/templates/feedback/evaluations/report.html:20
@@ -1462,7 +1460,8 @@ msgid ""
 "This includes:"
 msgstr ""
 "Er du sikker på at du vil slette bedriftsdata?\n"
-"                  Dette vil slette alle år-spesifikke felt for alle bedrifter, inkludert: "
+"                  Dette vil slette alle år-spesifikke felt for alle "
+"bedrifter, inkludert: "
 
 #: itdagene/app/itdageneadmin/templates/admin/companies_reset.html:17
 msgid "Company status"
@@ -1539,7 +1538,7 @@ msgstr "Logg"
 
 #: itdagene/app/itdageneadmin/templates/admin/submenu.html:21
 #: itdagene/app/itdageneadmin/views/preferences.py:42
-#: itdagene/core/models.py:194
+#: itdagene/core/models.py:199
 msgid "Preferences"
 msgstr "Innstillinger"
 
@@ -1662,8 +1661,8 @@ msgid ""
 "You have been added to the itdagene webpage. Your user details is listed "
 "bellow. Please login and change the password."
 msgstr ""
-"Du har blitt lagt til itDAGENE nettsiden. Din innlogginsinformasjon kan finnes"
-"under. Vennligst logg inn og bytt passord snarest."
+"Du har blitt lagt til itDAGENE nettsiden. Din innlogginsinformasjon kan "
+"finnesunder. Vennligst logg inn og bytt passord snarest."
 
 #: itdagene/app/mail/templates/mail/users/welcome_mail.html:9
 #: itdagene/app/mail/templates/mail/users/welcome_mail.txt:8
@@ -2209,7 +2208,7 @@ msgstr ""
 msgid "email"
 msgstr ""
 
-#: itdagene/app/workschedule/models.py:25 itdagene/core/models.py:157
+#: itdagene/app/workschedule/models.py:25 itdagene/core/models.py:156
 msgid "year"
 msgstr "år"
 
@@ -2360,43 +2359,53 @@ msgid ""
 msgstr ""
 "Setter nettsiden i utviklermodus. Den offentlige siden vil bli utilgjengelig."
 
-#: itdagene/core/models.py:158
+#: itdagene/core/models.py:157
 msgid "start date"
 msgstr "Startdato"
 
-#: itdagene/core/models.py:159
+#: itdagene/core/models.py:158
 msgid "end date"
 msgstr "Sluttdato"
 
-#: itdagene/core/models.py:162
+#: itdagene/core/models.py:161
 msgid "number of stands"
 msgstr "Antall stands"
 
-#: itdagene/core/models.py:163
+#: itdagene/core/models.py:162
 msgid "This is for each day, not the sum of each day"
 msgstr "Dette gjelder per dag, ikke totalt."
 
-#: itdagene/core/models.py:166
+#: itdagene/core/models.py:165
 msgid "view partners"
 msgstr "Vis samarbeidspartnere"
 
-#: itdagene/core/models.py:167
+#: itdagene/core/models.py:166
 msgid "Should all collaborators be displayed on the front page?"
 msgstr "Skal alle samarbeidspartnere bli vist på nettsiden?"
 
-#: itdagene/core/models.py:171
+#: itdagene/core/models.py:170
 msgid "view main collaborator"
 msgstr "Vis hovedsamarbeidspartner"
 
 #: itdagene/core/models.py:172
-msgid "Should the main collaborator be displayed on the front page?"
-msgstr "Skal hovedsamarbeidspartner vises på nettsiden?"
+msgid ""
+"Should the main collaborator be displayed on the front page?<br/><br/>This "
+"option requires certain key information to be added to the main collaborator "
+"company in the database:<br/> - \"hsp-info\": Short introduction of the "
+"company<br/> - \"hsp-video\": URL to video about company<br/> - \"hsp-poster"
+"\": Image to display before video is played"
+msgstr ""
+"Skal hovedsamarbeidspartner vises på nettsiden?<br/><br/>Dette krever at "
+"følgende nøkkelinformasjon er lagt til hovedsamarbeidspartner i databasen:<br/>"
+" - \"hsp-info\": Kort introduksjon av bedriften<br/>"
+" - \"hsp-video\": URL til video om bedriften<br/>"
+" - \"hsp-poster\": Bilde som vises når videoen ikke spilles av"
 
-#: itdagene/core/models.py:176
+#: itdagene/core/models.py:181
 msgid "view all comapnies"
 msgstr "Vis alle bedrifter"
 
-#: itdagene/core/models.py:177
+#: itdagene/core/models.py:182
 msgid "Should all companies be displayed on the front page?"
 msgstr "Skal alle bedrifter vises på nettsiden?"
 
@@ -2442,6 +2451,7 @@ msgid "Company profile"
 msgstr "Bedriftsprofil"
 
 #: itdagene/settings/base.py:62
+#: venv/lib/python3.7/site-packages/django/forms/widgets.py:709
 msgid "Unknown"
 msgstr "Ukjent"
 
@@ -2495,8 +2505,8 @@ msgid ""
 "In both list-types it is important to have at least 4 spaces between the "
 "symbol and the text"
 msgstr ""
-"For begge listetyper er det viktig å ha minst 4 mellomrom mellom symbol "
-"og tekst"
+"For begge listetyper er det viktig å ha minst 4 mellomrom mellom symbol og "
+"tekst"
 
 #: itdagene/templates/markdown_help.html:22
 msgid "Read more"
@@ -2537,8 +2547,9 @@ msgid ""
 "a> if you should have had permission to this object. Copy the info below "
 "into the email."
 msgstr ""
-"Send en epost til <a href=\"mailto:%(prefix)s@%(domain)s\">%(prefix)s@%(domain)s</"
-"a> om du skulle hatt tilgang til dette. Inkluder informasjonen under inn i eposten. "
+"Send en epost til <a href=\"mailto:%(prefix)s@%(domain)s\">%(prefix)s@"
+"%(domain)s</a> om du skulle hatt tilgang til dette. Inkluder informasjonen "
+"under inn i eposten. "
 
 #: itdagene/templates/static/404.html:16
 msgid "Oops! Page not found."
@@ -2590,9 +2601,10 @@ msgid ""
 "                "
 msgstr ""
 "\n"
-"                    <p>itDAGENE er under utvikling. Vennligst kom tilbake senere.</p>\n"
+"                    <p>itDAGENE er under utvikling. Vennligst kom tilbake "
+"senere.</p>\n"
 "\n"
-"                    <p>itDAGENE holdes i slutten av september "
-"%(year)s. <br/>\n"
+"                    <p>itDAGENE holdes i slutten av september %(year)s. <br/"
+">\n"
 "\n"
 "                "
