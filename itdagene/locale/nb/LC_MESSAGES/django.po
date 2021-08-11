@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0nReport-Msgid-Bugs-To: web@itdagene.no\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-18 22:31+0200\n"
+"POT-Creation-Date: 2021-08-11 18:32+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Eirik Lorgen Tanberg <eirik.lorgen@itdagene.no>\n"
 "Language: NB\n"
@@ -92,7 +92,7 @@ msgid "url"
 msgstr "URL"
 
 #: itdagene/app/career/models.py:55 itdagene/app/company/models.py:112
-#: itdagene/app/pages/models.py:17 itdagene/core/models.py:155
+#: itdagene/app/pages/models.py:17 itdagene/core/models.py:156
 msgid "active"
 msgstr "Aktiv"
 
@@ -453,7 +453,7 @@ msgid "e-mail address"
 msgstr "Epostaddresse"
 
 #: itdagene/app/company/models.py:224 itdagene/app/workschedule/models.py:20
-#: itdagene/core/models.py:36
+#: itdagene/core/models.py:37
 msgid "phone number"
 msgstr "Telefonnummer"
 
@@ -759,7 +759,6 @@ msgstr "Legg til nøkkelinformasjon"
 #: itdagene/app/events/templates/events/base.html:31
 #: itdagene/app/pages/templates/pages/admin.html:49
 #: itdagene/app/stands/templates/stands/list.html:40
-#: venv/lib/python3.7/site-packages/django/forms/formsets.py:375
 msgid "Delete"
 msgstr "Slett"
 
@@ -935,7 +934,6 @@ msgstr "Dato"
 #: itdagene/app/mail/templates/mail/meetings/invite.html:10
 #: itdagene/app/mail/templates/mail/meetings/invite.txt:9
 #: itdagene/app/meetings/templates/meetings/view.html:39
-#: venv/lib/python3.7/site-packages/django/db/models/fields/__init__.py:2115
 msgid "Time"
 msgstr "Klokkeslett"
 
@@ -1033,7 +1031,7 @@ msgstr "Billett lagret"
 msgid "Edit Ticket"
 msgstr "Rediger billett"
 
-#: itdagene/app/experiences/models.py:20 itdagene/core/models.py:198
+#: itdagene/app/experiences/models.py:20 itdagene/core/models.py:220
 msgid "Preference"
 msgstr "Innstillinger"
 
@@ -1537,8 +1535,8 @@ msgid "Log"
 msgstr "Logg"
 
 #: itdagene/app/itdageneadmin/templates/admin/submenu.html:21
-#: itdagene/app/itdageneadmin/views/preferences.py:42
-#: itdagene/core/models.py:199
+#: itdagene/app/itdageneadmin/views/preferences.py:47
+#: itdagene/core/models.py:221
 msgid "Preferences"
 msgstr "Innstillinger"
 
@@ -2118,7 +2116,7 @@ msgstr "Er du sikker på at du vil slette brukeren %(user)s?"
 msgid "Delete user"
 msgstr "Slett Bruker"
 
-#: itdagene/app/users/templates/users/detail.html:29 itdagene/core/models.py:44
+#: itdagene/app/users/templates/users/detail.html:29 itdagene/core/models.py:45
 msgid "Language"
 msgstr "Språk"
 
@@ -2208,7 +2206,7 @@ msgstr ""
 msgid "email"
 msgstr ""
 
-#: itdagene/app/workschedule/models.py:25 itdagene/core/models.py:156
+#: itdagene/app/workschedule/models.py:25 itdagene/core/models.py:157
 msgid "year"
 msgstr "år"
 
@@ -2332,82 +2330,97 @@ msgstr ""
 msgid "action"
 msgstr ""
 
-#: itdagene/core/models.py:38
+#: itdagene/core/models.py:39
 msgid "Photo"
-msgstr ""
+msgstr "Bilde"
 
-#: itdagene/core/models.py:47
+#: itdagene/core/models.py:48
 msgid "Send mail notifications"
 msgstr ""
 
-#: itdagene/core/models.py:50
+#: itdagene/core/models.py:51
 msgid "Active Year"
 msgstr "Aktivt år"
 
-#: itdagene/core/models.py:51
+#: itdagene/core/models.py:52
 msgid "Year the user was active."
 msgstr "År brukeren var aktiv"
 
-#: itdagene/core/models.py:149
+#: itdagene/core/models.py:150
 msgid "Development Mode"
 msgstr "Utviklermodus"
 
-#: itdagene/core/models.py:151
+#: itdagene/core/models.py:152
 msgid ""
 "This option puts the site in development mode. The public page will be "
 "disabled."
 msgstr ""
 "Setter nettsiden i utviklermodus. Den offentlige siden vil bli utilgjengelig."
 
-#: itdagene/core/models.py:157
+#: itdagene/core/models.py:158
 msgid "start date"
 msgstr "Startdato"
 
-#: itdagene/core/models.py:158
+#: itdagene/core/models.py:159
 msgid "end date"
 msgstr "Sluttdato"
 
-#: itdagene/core/models.py:161
+#: itdagene/core/models.py:162
 msgid "number of stands"
 msgstr "Antall stands"
 
-#: itdagene/core/models.py:162
+#: itdagene/core/models.py:163
 msgid "This is for each day, not the sum of each day"
 msgstr "Dette gjelder per dag, ikke totalt."
 
-#: itdagene/core/models.py:165
+#: itdagene/core/models.py:166
 msgid "view partners"
 msgstr "Vis samarbeidspartnere"
 
-#: itdagene/core/models.py:166
+#: itdagene/core/models.py:167
 msgid "Should all collaborators be displayed on the front page?"
 msgstr "Skal alle samarbeidspartnere bli vist på nettsiden?"
 
-#: itdagene/core/models.py:170
+#: itdagene/core/models.py:171
 msgid "view main collaborator"
 msgstr "Vis hovedsamarbeidspartner"
 
-#: itdagene/core/models.py:172
-msgid ""
-"Should the main collaborator be displayed on the front page?<br/><br/>This "
-"option requires certain key information to be added to the main collaborator "
-"company in the database:<br/> - \"hsp-info\": Short introduction of the "
-"company<br/> - \"hsp-video\": URL to video about company<br/> - \"hsp-poster"
-"\": Image to display before video is played"
-msgstr ""
-"Skal hovedsamarbeidspartner vises på nettsiden?<br/><br/>Dette krever at "
-"følgende nøkkelinformasjon er lagt til hovedsamarbeidspartner i databasen:<br/>"
-" - \"hsp-info\": Kort introduksjon av bedriften<br/>"
-" - \"hsp-video\": URL til video om bedriften<br/>"
-" - \"hsp-poster\": Bilde som vises når videoen ikke spilles av"
+#: itdagene/core/models.py:173
+msgid "Should the main collaborator be displayed on the front page?"
+msgstr "Skal hovedsamarbeidspartner bli vist på nettsiden?"
 
-#: itdagene/core/models.py:181
+#: itdagene/core/models.py:178
 msgid "view all comapnies"
 msgstr "Vis alle bedrifter"
 
-#: itdagene/core/models.py:182
+#: itdagene/core/models.py:179
 msgid "Should all companies be displayed on the front page?"
 msgstr "Skal alle bedrifter vises på nettsiden?"
+
+#: itdagene/core/models.py:186
+msgid "Main collaborator introduction"
+msgstr "Hovedsamarbeidspartnerintroduksjon"
+
+#: itdagene/core/models.py:188
+msgid ""
+"Introduction of main collaborator to be displayed above video on front page"
+msgstr "Introduksjon av hovedsamarbeidspartner. Vises over videoen på fremsiden."
+
+#: itdagene/core/models.py:194
+msgid "Main collaborator video URL"
+msgstr "Hovedsamarbeidspartner video URL"
+
+#: itdagene/core/models.py:196
+msgid "URL to the video introduction of main collaborator"
+msgstr "URL til videointroduksjon av HSP, f. eks. https://cdn.itdagene.no/HSP.mp4"
+
+#: itdagene/core/models.py:202
+msgid "Main collaborator poster URL"
+msgstr "Hovedsamarbeidspartner poster URL"
+
+#: itdagene/core/models.py:204
+msgid "URL to the image to display before video is played"
+msgstr "URL til bilde som vises før videoen spilles av"
 
 #: itdagene/core/notifications/models.py:18
 msgid "message"
@@ -2451,7 +2464,6 @@ msgid "Company profile"
 msgstr "Bedriftsprofil"
 
 #: itdagene/settings/base.py:62
-#: venv/lib/python3.7/site-packages/django/forms/widgets.py:709
 msgid "Unknown"
 msgstr "Ukjent"
 

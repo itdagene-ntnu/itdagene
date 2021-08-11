@@ -170,11 +170,7 @@ class Preference(BaseModel):
     view_hsp = models.BooleanField(
         verbose_name=_("view main collaborator"),
         help_text=_(
-            "Should the main collaborator be displayed on the front page?<br/><br/>"
-            "This option requires certain key information to be added to the main collaborator company in the database:<br/>"
-            ' - "hsp-info": Short introduction of the company<br/>'
-            ' - "hsp-video": URL to video about company<br/>'
-            ' - "hsp-poster": Image to display before video is played'
+            "Should the main collaborator be displayed on the front page?"
         ),
         default=False,
     )
@@ -182,6 +178,31 @@ class Preference(BaseModel):
         verbose_name=_("view all comapnies"),
         help_text=_("Should all companies be displayed on the front page?"),
         default=False,
+    )
+    hsp_intro = models.TextField(
+        null=False,
+        blank=True,
+        default="",
+        verbose_name=_("Main collaborator introduction"),
+        help_text=_(
+            "Introduction of main collaborator to be displayed above video on front page"
+        )    
+    )
+    hsp_video = models.URLField(
+        null=True,
+        blank=True,
+        verbose_name=_("Main collaborator video URL"),
+        help_text=_(
+            "URL to the video introduction of main collaborator"
+        )
+    )
+    hsp_poster = models.URLField(
+        null=True,
+        blank=True,
+        verbose_name=_("Main collaborator poster URL"),
+        help_text=_(
+            "URL to the image to display before video is played"
+        )
     )
 
     def __str__(self):
