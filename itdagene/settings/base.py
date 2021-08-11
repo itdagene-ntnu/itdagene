@@ -162,7 +162,7 @@ GRAPHENE = {
     "SCHEMA": "itdagene.graphql.schema.schema",
 }
 
-GRAPHENE_RESOLVER_LIMIT = 2500
+GRAPHENE_RESOLVER_LIMIT = 3000
 
 # CELERY
 CELERY_TASK_SERIALIZER = "pickle"
