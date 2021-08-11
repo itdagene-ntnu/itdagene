@@ -69,6 +69,19 @@ $ python manage.py makemigrations
 $ python manage.py migrate
 ```
 
+## i18n
+
+To update translations change them in [this file](itdagene/locale/nb/LC_MESSAGES/django.po) and then run
+```bash
+$ python manage.py compilemessages
+```
+
+If you have added new messages or changed them in code please run
+```bash
+$ python manage.py makemessages -l nb --ignore venv
+```
+to update the `.po` file first.
+
 ## Testing
 
 In order to execute the tests, you have to install `tox`. The tests are always run in the continuous integration server, and no code that doesn't pass all the tests (including linting) should not be merged into the master branch.
