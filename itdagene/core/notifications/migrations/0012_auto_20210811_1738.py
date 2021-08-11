@@ -6,23 +6,27 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('notifications', '0011_auto_20171229_1747'),
+        ("notifications", "0011_auto_20171229_1747"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='notification',
-            name='date',
-            field=models.DateTimeField(auto_now=True, verbose_name='Dato'),
+            model_name="notification",
+            name="date",
+            field=models.DateTimeField(auto_now=True, verbose_name="Dato"),
         ),
         migrations.AlterField(
-            model_name='notification',
-            name='priority',
-            field=models.PositiveIntegerField(choices=[(0, 'Low'), (1, 'Medium'), (2, 'High')], default=1, verbose_name='priority'),
+            model_name="notification",
+            name="priority",
+            field=models.PositiveIntegerField(
+                choices=[(0, "Low"), (1, "Medium"), (2, "High")],
+                default=1,
+                verbose_name="priority",
+            ),
         ),
         migrations.AlterField(
-            model_name='notification',
-            name='sent_mail',
-            field=models.BooleanField(default=False, verbose_name='sent mail'),
+            model_name="notification",
+            name="sent_mail",
+            field=models.BooleanField(default=False, verbose_name="sent mail"),
         ),
     ]
