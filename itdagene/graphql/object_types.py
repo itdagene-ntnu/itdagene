@@ -251,6 +251,7 @@ class MetaData(DjangoObjectType):
     )
 
     board_members = graphene.NonNull(graphene.List(graphene.NonNull(User)))
+    interest_form = graphene.String()
 
     def resolve_main_collaborator(self, info):
         if self.view_hsp:
@@ -275,6 +276,10 @@ class MetaData(DjangoObjectType):
             .prefetch_related("groups")
         )
 
+    def resolve_interest_form(self, info):
+        if self.show_interest_form:
+            return self.interest_form_url
+
     class Meta:
         model = Preference
         description = "Metadata about the current years itdagene"
@@ -288,6 +293,7 @@ class MetaData(DjangoObjectType):
             "collaborators",
             "main_collaborator",
             "board_members",
+            "interest_form",
         )
         interfaces = (relay.Node,)
 

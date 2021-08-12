@@ -170,6 +170,18 @@ class Preference(BaseModel):
         verbose_name=_("view all comapnies"), default=False
     )
 
+    show_interest_form = models.BooleanField(
+        verbose_name=_("Show interest form"),
+        help_text=_("Should the company participation interest form be visible on the front page?"),
+        default=True
+    )
+
+    interest_form_url = models.URLField(
+        verbose_name=_("Interest form URL"),
+        help_text=_("What is the URL to the company participation interest form?"),
+        default="https://interesse.itdagene.no"
+    )
+
     def __str__(self):
         return str(self.year)
 
