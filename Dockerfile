@@ -17,7 +17,7 @@ COPY --from=builder /code/ .
 
 RUN set -e \
     && echo 'SECRET_KEY="secret"' > itdagene/settings/local.py \
-    && apk add --no-cache postgresql-dev build-base jpeg-dev git zlib-dev libffi-dev \
+    && apk add --no-cache postgresql-dev build-base jpeg-dev git zlib-dev libffi-dev rust cargo \
     && pip install --no-cache -r requirements/prod.txt \
     && apk del build-base \
     && python manage.py collectstatic \
