@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.contrib.contenttypes.models import ContentType
@@ -9,7 +11,6 @@ from django.utils.translation import ugettext_lazy as _
 from itdagene.core.auth import get_current_user
 from raven import breadcrumbs
 from social_core.exceptions import AuthForbidden
-from datetime import datetime
 
 
 def user_default_year():
@@ -148,8 +149,7 @@ class Preference(BaseModel):
         default=False,
         verbose_name=_("Development Mode"),
         help_text=_(
-            "This option "
-            "puts the site in development mode. The public page will be disabled."
+            "This option puts the site in development mode. The public page will be disabled."
         ),
     )
 
@@ -162,24 +162,50 @@ class Preference(BaseModel):
         verbose_name=_("number of stands"),
         help_text=_("This is for each day, not the sum of each day"),
     )
-    view_sp = models.BooleanField(verbose_name=_("view partners"), default=False)
+    view_sp = models.BooleanField(
+        verbose_name=_("view partners"),
+        help_text=_("Should all collaborators be displayed on the front page?"),
+        default=False,
+    )
     view_hsp = models.BooleanField(
-        verbose_name=_("view main collaborator"), default=False
+        verbose_name=_("view main collaborator"),
+        help_text=_("Should the main collaborator be displayed on the front page?"),
+        default=False,
     )
     view_companies = models.BooleanField(
-        verbose_name=_("view all comapnies"), default=False
+        verbose_name=_("view all comapnies"),
+        help_text=_("Should all companies be displayed on the front page?"),
+        default=False,
+    )
+    hsp_intro = models.TextField(
+        null=False,
+        blank=True,
+        default="",
+        verbose_name=_("Main collaborator introduction"),
+        help_text=_(
+            "Introduction of main collaborator to be displayed above video on front page"
+        ),
+    )
+    hsp_video = models.URLField(
+        null=True,
+        blank=True,
+        verbose_name=_("Main collaborator video URL"),
+        help_text=_("URL to the video introduction of main collaborator"),
+    )
+    hsp_poster = models.URLField(
+        null=True,
+        blank=True,
+        verbose_name=_("Main collaborator poster URL"),
+        help_text=_("URL to the image to display before video is played"),
     )
 
     def __str__(self):
         return str(self.year)
 
     def save(self, *args, **kwargs):
-        action = "EDIT" if self.pk else "CREATE"
-
+        kwargs["log_it"] = True
+        kwargs["log_priority"] = 3
         super(Preference, self).save(*args, **kwargs)
-        from .log.models import LogItem
-
-        LogItem.log_it(self, action, 3)
 
         if self.active:
             cache.set("pref", self)

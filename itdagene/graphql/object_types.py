@@ -2,6 +2,7 @@ import graphene
 from django.db.models import Q
 from graphene import relay
 from graphene_django import DjangoObjectType
+from graphene_django.registry import Registry
 from itdagene.app.career.models import Joblisting as ItdageneJoblisting
 from itdagene.app.career.models import Town as ItdageneTown
 from itdagene.app.company.models import Company as ItdageneCompany
@@ -237,6 +238,39 @@ class Company(DjangoObjectType):
         return Stand.get_queryset().filter(company=self).first()
 
 
+class MainCollaborator(Company):
+    class Meta:
+        model = ItdageneCompany
+        description = "Main collaborator company entity"
+        only_fields = (
+            "id",
+            "name",
+            "url",
+            "logo",
+            "description",
+            "joblistings",
+            "intro",
+            "video",
+            "poster",
+        )
+        interfaces = (relay.Node,)
+        # This has to be added to avoid GraphQL using this definiton for all company references
+        registry = Registry()
+
+    intro = graphene.String()
+    video = graphene.String()
+    poster = graphene.String()
+
+    def resolve_intro(self, info):
+        return Preference.current_preference().hsp_intro
+
+    def resolve_video(self, info):
+        return Preference.current_preference().hsp_video
+
+    def resolve_poster(self, info):
+        return Preference.current_preference().hsp_poster
+
+
 class MetaData(DjangoObjectType):
 
     companies_first_day = graphene.List(graphene.NonNull(Company))
@@ -247,7 +281,7 @@ class MetaData(DjangoObjectType):
     )
 
     main_collaborator = graphene.Field(
-        Company, description="Main collaborator for current years event"
+        MainCollaborator, description="Main collaborator for current years event"
     )
 
     board_members = graphene.NonNull(graphene.List(graphene.NonNull(User)))
@@ -266,7 +300,7 @@ class MetaData(DjangoObjectType):
 
     def resolve_collaborators(self, info):
         if self.view_sp:
-            return ItdageneCompany.objects.filter(package__name="Samarbeidspartner")
+            return ItdageneCompany.get_collaborators()
 
     def resolve_board_members(self, info):
         return (
