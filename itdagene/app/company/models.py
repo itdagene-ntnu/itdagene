@@ -111,7 +111,6 @@ class Company(BaseModel):
     fax = models.CharField(max_length=20, blank=True, null=True)
     active = models.BooleanField(default=True, verbose_name=_("active"))
     has_public_profile = models.BooleanField(verbose_name=_("profile"), default=False)
-    is_collaborator = models.BooleanField(verbose_name="collaborator", default=False)
 
     def __str__(self):
         return self.name
@@ -182,10 +181,19 @@ class Company(BaseModel):
             .order_by("package__max")
         )
 
+    # This is really hacky but should work. There is really no good way of doing it
+    # without adding a bunch of other fields where information is just duplicated
+
+    @classmethod
+    def get_collaborators(cls):
+        return cls.objects.filter(package__name="Samarbeidspartner")
+
     @classmethod
     def get_main_collaborator(cls):
-        # // TODO FIXME :laughing:
-        return cls.objects.select_related("package").filter(package__max=1).first()
+        try:
+            return cls.objects.get(package__name="Hovedsamarbeidspartner")
+        except Company.DoesNotExist:
+            return None
 
 
 class KeyInformation(BaseModel):
@@ -250,11 +258,15 @@ class Contract(BaseModel):
     )
     file = models.FileField(upload_to="contracts/", verbose_name=_("file"))
     banquet_tickets = models.PositiveIntegerField(
-        default=1, verbose_name=_("banquet tickets")
+        default=1,
+        verbose_name=_("banquet tickets"),
+        help_text=_("Total, not additional"),
     )
     joblistings = models.PositiveIntegerField(default=2, verbose_name=_("joblistings"))
     interview_room = models.PositiveIntegerField(
-        default=0, verbose_name=_("interview room")
+        default=0,
+        verbose_name=_("interview room"),
+        help_text=_("Total, not additional"),
     )
     is_billed = models.BooleanField(verbose_name=_("is billed"), default=False)
     has_paid = models.BooleanField(verbose_name=_("has paid"), default=False)

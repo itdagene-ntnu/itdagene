@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth.decorators import permission_required
 from django.core.cache import cache
 from django.shortcuts import redirect, render
@@ -5,7 +7,6 @@ from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from itdagene.app.itdageneadmin.forms import PreferenceForm
 from itdagene.core.models import Preference
-from datetime import datetime
 
 
 @permission_required("core.change_preference")
@@ -23,8 +24,12 @@ def edit(request):
                     year=preference.year,
                     defaults={
                         "active": True,
-                        "start_date": datetime.strptime("%s-09-11" % preference.year, "%Y-%m-%d"),
-                        "end_date": datetime.strptime("%s-09-12" % preference.year, "%Y-%m-%d"),
+                        "start_date": datetime.strptime(
+                            "%s-09-11" % preference.year, "%Y-%m-%d"
+                        ),
+                        "end_date": datetime.strptime(
+                            "%s-09-12" % preference.year, "%Y-%m-%d"
+                        ),
                     },
                 )
             else:
