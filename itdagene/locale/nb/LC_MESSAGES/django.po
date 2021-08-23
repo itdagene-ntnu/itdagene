@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0nReport-Msgid-Bugs-To: web@itdagene.no\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-11 18:32+0200\n"
+"POT-Creation-Date: 2021-08-22 14:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Eirik Lorgen Tanberg <eirik.lorgen@itdagene.no>\n"
 "Language: NB\n"
@@ -1031,7 +1031,7 @@ msgstr "Billett lagret"
 msgid "Edit Ticket"
 msgstr "Rediger billett"
 
-#: itdagene/app/experiences/models.py:20 itdagene/core/models.py:220
+#: itdagene/app/experiences/models.py:20 itdagene/core/models.py:226
 msgid "Preference"
 msgstr "Innstillinger"
 
@@ -1536,7 +1536,7 @@ msgstr "Logg"
 
 #: itdagene/app/itdageneadmin/templates/admin/submenu.html:21
 #: itdagene/app/itdageneadmin/views/preferences.py:47
-#: itdagene/core/models.py:221
+#: itdagene/core/models.py:227
 msgid "Preferences"
 msgstr "Innstillinger"
 
@@ -2385,42 +2385,61 @@ msgstr "Skal alle samarbeidspartnere bli vist på nettsiden?"
 msgid "view main collaborator"
 msgstr "Vis hovedsamarbeidspartner"
 
-#: itdagene/core/models.py:173
+#: itdagene/core/models.py:172
 msgid "Should the main collaborator be displayed on the front page?"
 msgstr "Skal hovedsamarbeidspartner bli vist på nettsiden?"
 
-#: itdagene/core/models.py:178
+#: itdagene/core/models.py:176
 msgid "view all comapnies"
 msgstr "Vis alle bedrifter"
 
-#: itdagene/core/models.py:179
+#: itdagene/core/models.py:177
 msgid "Should all companies be displayed on the front page?"
 msgstr "Skal alle bedrifter vises på nettsiden?"
 
-#: itdagene/core/models.py:186
+#: itdagene/core/models.py:184
 msgid "Main collaborator introduction"
 msgstr "Hovedsamarbeidspartnerintroduksjon"
 
-#: itdagene/core/models.py:188
+#: itdagene/core/models.py:186
 msgid ""
 "Introduction of main collaborator to be displayed above video on front page"
-msgstr "Introduksjon av hovedsamarbeidspartner. Vises over videoen på fremsiden."
+msgstr ""
+"Introduksjon av hovedsamarbeidspartner. Vises over videoen på fremsiden."
 
-#: itdagene/core/models.py:194
+#: itdagene/core/models.py:192
 msgid "Main collaborator video URL"
 msgstr "Hovedsamarbeidspartner video URL"
 
-#: itdagene/core/models.py:196
+#: itdagene/core/models.py:193
 msgid "URL to the video introduction of main collaborator"
-msgstr "URL til videointroduksjon av HSP, f. eks. https://cdn.itdagene.no/HSP.mp4"
+msgstr ""
+"URL til videointroduksjon av HSP, f. eks. https://cdn.itdagene.no/HSP.mp4"
 
-#: itdagene/core/models.py:202
+#: itdagene/core/models.py:198
 msgid "Main collaborator poster URL"
 msgstr "Hovedsamarbeidspartner poster URL"
 
-#: itdagene/core/models.py:204
+#: itdagene/core/models.py:199
 msgid "URL to the image to display before video is played"
 msgstr "URL til bilde som vises før videoen spilles av"
+
+#: itdagene/core/models.py:203
+msgid "Show interest form"
+msgstr "Vis interesseskjema"
+
+#: itdagene/core/models.py:204
+msgid ""
+"Should the company participation interest form be visible on the front page?"
+msgstr "Skal interesseskjema for bedrifter bli vist på nettsiden?"
+
+#: itdagene/core/models.py:209
+msgid "Interest form URL"
+msgstr "Interesseskjema URL"
+
+#: itdagene/core/models.py:210
+msgid "What is the URL to the company participation interest form?"
+msgstr "Hva er URL-addressen til interesseskjemaet?"
 
 #: itdagene/core/notifications/models.py:18
 msgid "message"
