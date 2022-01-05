@@ -2,6 +2,7 @@
 
 from django.conf import settings
 from django.core.mail import mail_admins
+
 from itdagene.celery import app
 
 from .senders import meeting_send_invite as msi

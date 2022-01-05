@@ -2,6 +2,7 @@ import graphene
 from django.utils.timezone import now
 from graphene import relay
 from graphene_django.filter import DjangoFilterConnectionField
+
 from itdagene.core.models import Preference
 from itdagene.graphql.filters import JoblistingFilter
 from itdagene.graphql.object_types import (

@@ -6,18 +6,26 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0030_auto_20180729_0107'),
+        ("core", "0030_auto_20180729_0107"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='preference',
-            name='interest_form_url',
-            field=models.URLField(default='https://interesse.itdagene.no', help_text='What is the URL to the company participation interest form?', verbose_name='Interest form URL'),
+            model_name="preference",
+            name="interest_form_url",
+            field=models.URLField(
+                default="https://interesse.itdagene.no",
+                help_text="What is the URL to the company participation interest form?",
+                verbose_name="Interest form URL",
+            ),
         ),
         migrations.AddField(
-            model_name='preference',
-            name='show_interest_form',
-            field=models.BooleanField(default=True, help_text='Should the company participation interest form be visible on the front page?', verbose_name='Show interest form'),
+            model_name="preference",
+            name="show_interest_form",
+            field=models.BooleanField(
+                default=True,
+                help_text="Should the company participation interest form be visible on the front page?",
+                verbose_name="Show interest form",
+            ),
         ),
     ]

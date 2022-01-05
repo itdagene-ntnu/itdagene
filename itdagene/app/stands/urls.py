@@ -1,4 +1,5 @@
 from django.urls import re_path
+
 from itdagene.app.stands import views
 
 urlpatterns = [
@@ -7,6 +8,8 @@ urlpatterns = [
     re_path(r"^stands/(?P<pk>\d+)/$", views.view, name="itdagene.stands.view"),
     re_path(r"^stands/(?P<pk>\d+)/edit/$", views.edit, name="itdagene.stands.edit"),
     re_path(
-        r"^stands/(?P<pk>\d+)/delete/$", views.delete, name="itdagene.stands.delete",
+        r"^stands/(?P<pk>\d+)/delete/$",
+        views.delete,
+        name="itdagene.stands.delete",
     ),
 ]

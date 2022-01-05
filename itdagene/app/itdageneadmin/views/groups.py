@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
+
 from itdagene.app.itdageneadmin.forms import AddUserToGroupForm, GroupForm
 from itdagene.core.decorators import superuser_required
 from itdagene.core.log.models import LogItem

@@ -1,4 +1,5 @@
 from django.urls import re_path
+
 from itdagene.app.todo.views import (
     add_todo,
     change_status,

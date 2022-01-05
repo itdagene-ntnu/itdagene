@@ -1,4 +1,5 @@
 from django.urls import re_path
+
 from itdagene.app.news.views import admin, create_announcement, edit_announcement
 
 urlpatterns = [

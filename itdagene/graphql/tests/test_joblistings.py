@@ -4,6 +4,7 @@ from django.test import TestCase
 from django.utils import timezone
 from graphene.test import Client
 from graphql_relay import to_global_id
+
 from itdagene.app.career.models import Joblisting
 from itdagene.app.company.models import Company
 from itdagene.core.models import User
@@ -78,7 +79,7 @@ class TestJoblistings(TestCase):
         self.assertEqual(len(executed["data"]["joblistings"]["edges"]), 1)
 
     def test_inactive_joblisting_is_node(self):
-        """ Ensure old joblisting urls are still valid """
+        """Ensure old joblisting urls are still valid"""
         joblisting = Joblisting.objects.create(
             company=self.company, deadline=timezone.now() - timedelta(days=1)
         )
@@ -95,7 +96,7 @@ class TestJoblistings(TestCase):
         )
 
     def test_only_active_is_in_search(self):
-        """ Ensure old joblisting urls are still valid """
+        """Ensure old joblisting urls are still valid"""
         title = "Title"
         active = Joblisting.objects.create(
             company=self.company,
@@ -118,7 +119,7 @@ class TestJoblistings(TestCase):
         self.assertEqual(executed, expected)
 
     def test_only_companies_with_joblistings_is_in_search(self):
-        """ Ensure old joblisting urls are still valid """
+        """Ensure old joblisting urls are still valid"""
         name = "name"
         active_company = Company.objects.create(name=name)
         inactive_company = Company.objects.create(name=name)

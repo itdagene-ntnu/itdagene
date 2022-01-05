@@ -119,7 +119,9 @@ class Migration(migrations.Migration):
                     ),
                 ),
             ],
-            options={"abstract": False,},
+            options={
+                "abstract": False,
+            },
         ),
         migrations.CreateModel(
             name="Town",
@@ -155,7 +157,9 @@ class Migration(migrations.Migration):
                     ),
                 ),
             ],
-            options={"abstract": False,},
+            options={
+                "abstract": False,
+            },
         ),
         migrations.AddField(
             model_name="joblisting",
@@ -170,10 +174,13 @@ class Migration(migrations.Migration):
             field=models.DateTimeField(blank=True, null=True, verbose_name="deadline"),
         ),
         migrations.RenameField(
-            model_name="joblisting", old_name="from_year", new_name="from_year",
+            model_name="joblisting",
+            old_name="from_year",
+            new_name="from_year",
         ),
         migrations.AlterModelOptions(
-            name="joblisting", options={"ordering": ("-deadline",)},
+            name="joblisting",
+            options={"ordering": ("-deadline",)},
         ),
         migrations.AddField(
             model_name="joblisting",
@@ -210,7 +217,8 @@ class Migration(migrations.Migration):
             ),
         ),
         migrations.AlterModelOptions(
-            name="joblisting", options={"ordering": ("deadline",)},
+            name="joblisting",
+            options={"ordering": ("deadline",)},
         ),
         migrations.AddField(
             model_name="joblisting",

@@ -33,9 +33,9 @@ def datetime(value, arg=None):
     returns a date with timeleft and the datetime format from the settingsfile. A js will animate
     between the two types on mouseover.
     """
-    from django.utils.timesince import timesince
-    from django.utils.dateformat import format
     from django.conf import settings
+    from django.utils.dateformat import format
+    from django.utils.timesince import timesince
 
     ts = ""
     normal = ""

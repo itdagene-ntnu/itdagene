@@ -96,9 +96,9 @@ $ tox
 We enforce the style guide [PEP 8] with flake8, and [isort] for import sorting. [black] is used for code formatting.
 
 ```bash
-$ isort -rc itdagene               # Fix isort errors
-$ black itdagene                # Fix code formatting
-$ tox -e isort -e flake8 -e yapf   # Verify code style
+$ isort itdagene                    # Fix isort errors
+$ black itdagene                    # Fix code formatting
+$ tox -e isort -e flake8 -e black   # Verify code style
 
 $ make fixme # Fix all formatting
 ```

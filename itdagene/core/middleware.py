@@ -1,6 +1,7 @@
 from django.shortcuts import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.deprecation import MiddlewareMixin
+
 from itdagene.core.auth import set_current_user_function
 from itdagene.core.models import Preference
 

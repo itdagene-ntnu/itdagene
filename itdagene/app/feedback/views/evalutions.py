@@ -2,6 +2,7 @@ from django.contrib.messages import SUCCESS, add_message
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
+
 from itdagene.app.feedback.forms import EvaluationForm
 from itdagene.app.feedback.models import Evaluation
 from itdagene.core.decorators import staff_required

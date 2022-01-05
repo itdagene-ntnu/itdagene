@@ -1,4 +1,5 @@
 import django_filters
+
 from itdagene.app.career.models import Joblisting as ItdageneJoblisting
 
 

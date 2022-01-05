@@ -3,6 +3,7 @@ from django.contrib.messages import SUCCESS, add_message
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
+
 from itdagene.app.events.models import Event
 from itdagene.app.stands.forms import DigitalStandForm
 from itdagene.app.stands.models import DigitalStand
@@ -14,7 +15,9 @@ def list(request):
     stands = DigitalStand.objects.all()
 
     return render(
-        request, "stands/list.html", {"stands": stands, "title": _("Stands")},
+        request,
+        "stands/list.html",
+        {"stands": stands, "title": _("Stands")},
     )
 
 

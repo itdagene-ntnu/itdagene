@@ -1,4 +1,5 @@
 from django.urls import re_path
+
 from itdagene.app.meetings.views import (
     add,
     add_penalties,

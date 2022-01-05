@@ -1,5 +1,6 @@
 from django.http import HttpResponsePermanentRedirect
 from django.urls import re_path
+
 from itdagene.app.feedback.views import evalutions, issues
 
 urlpatterns = [

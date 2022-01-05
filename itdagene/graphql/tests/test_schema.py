@@ -1,5 +1,6 @@
 from django.test import TestCase
 from graphene.test import Client
+
 from itdagene.graphql.schema import schema
 
 
@@ -13,7 +14,7 @@ class TestSchema(TestCase):
         self.assertEqual(executed, {"data": {"ping": "pong"}})
 
     def test_introspection_query(self):
-        """ Schama introspection should be successful """
+        """Schama introspection should be successful"""
         # source https://github.com/graphql/graphiql/blob/master/src/utility/introspectionQueries.js
         query = """
   query IntrospectionQuery {

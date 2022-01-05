@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+
 from itdagene.core.log.models import LogItem
 from itdagene.core.models import BaseModel
 

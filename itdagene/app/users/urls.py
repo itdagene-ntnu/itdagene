@@ -1,4 +1,5 @@
 from django.urls import re_path
+
 from itdagene.app.company.views.company_contacts import vcard
 from itdagene.app.users.views import (
     send_welcome_email,
