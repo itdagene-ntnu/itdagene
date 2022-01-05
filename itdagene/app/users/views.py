@@ -6,6 +6,7 @@ from django.shortcuts import Http404, HttpResponse, get_object_or_404, redirect,
 from django.urls import reverse
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
+
 from itdagene.app.mail.senders import users_send_welcome_email
 from itdagene.app.users import vcard_string
 from itdagene.core.log.models import LogItem

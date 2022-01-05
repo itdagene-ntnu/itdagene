@@ -1,4 +1,5 @@
 from django.urls import re_path
+
 from itdagene.app.events.views import (
     add_event,
     delete_event,

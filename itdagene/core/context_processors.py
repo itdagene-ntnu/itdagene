@@ -1,4 +1,5 @@
 from django.conf import settings
+
 from itdagene.core.models import Preference
 
 

@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
+
 from itdagene.app.company.forms import CompanyContactForm
 from itdagene.app.company.models import Company, CompanyContact
 from itdagene.core import vcard_string

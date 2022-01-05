@@ -1,4 +1,5 @@
 from django.urls import re_path
+
 from itdagene.app.pages.views import add, admin, delete, edit, view_page
 
 urlpatterns = [

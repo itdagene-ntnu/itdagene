@@ -1,6 +1,7 @@
 from django.contrib.messages import SUCCESS, add_message
 from django.shortcuts import redirect, render, reverse
 from django.utils.translation import ugettext_lazy as _
+
 from itdagene.app.company import COMPANY_STATUS_NOT_CONTACTED
 from itdagene.app.company.models import Company
 from itdagene.core.decorators import superuser_required

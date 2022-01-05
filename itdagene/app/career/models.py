@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
+
 from itdagene.app.company.models import Company, CompanyContact
 from itdagene.core.models import BaseModel
 

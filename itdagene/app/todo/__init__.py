@@ -1,7 +1,8 @@
 def todo_list(user):
-    from itdagene.app.todo.models import Todo
     from django.db.models import Q
     from django.utils import timezone
+
+    from itdagene.app.todo.models import Todo
 
     if user.is_staff:
         return (

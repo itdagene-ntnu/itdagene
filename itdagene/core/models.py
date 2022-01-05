@@ -8,9 +8,10 @@ from django.db import models
 from django.urls import reverse
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
-from itdagene.core.auth import get_current_user
 from raven import breadcrumbs
 from social_core.exceptions import AuthForbidden
+
+from itdagene.core.auth import get_current_user
 
 
 def user_default_year():
@@ -201,14 +202,16 @@ class Preference(BaseModel):
 
     show_interest_form = models.BooleanField(
         verbose_name=_("Show interest form"),
-        help_text=_("Should the company participation interest form be visible on the front page?"),
-        default=True
+        help_text=_(
+            "Should the company participation interest form be visible on the front page?"
+        ),
+        default=True,
     )
 
     interest_form_url = models.URLField(
         verbose_name=_("Interest form URL"),
         help_text=_("What is the URL to the company participation interest form?"),
-        default="https://interesse.itdagene.no"
+        default="https://interesse.itdagene.no",
     )
 
     def __str__(self):

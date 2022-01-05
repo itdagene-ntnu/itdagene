@@ -3,6 +3,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db.models import Prefetch
 from django.shortcuts import render
 from django.utils import timezone
+
 from itdagene.app.comments.models import Comment
 from itdagene.app.company.models import Company
 from itdagene.app.feedback.models import Issue

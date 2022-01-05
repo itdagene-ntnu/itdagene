@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+
 from itdagene.app.todo.forms import TodoForm
 from itdagene.app.todo.models import Todo
 

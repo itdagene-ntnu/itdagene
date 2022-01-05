@@ -2,6 +2,7 @@ from django import forms
 from django.forms.models import ModelForm
 from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext_lazy as _
+
 from itdagene.app.meetings.models import Meeting, Penalty, ReplyMeeting
 from itdagene.core.models import Preference, User
 

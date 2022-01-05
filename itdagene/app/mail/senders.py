@@ -4,6 +4,7 @@ from django.core.mail import EmailMultiAlternatives, get_connection
 from django.template.loader import render_to_string
 from django.utils import formats, translation
 from django.utils.translation import ugettext as _
+
 from itdagene.app.comments.models import Comment
 from itdagene.core.auth import generate_password
 from itdagene.core.notifications.models import Subscription

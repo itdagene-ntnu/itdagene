@@ -10,7 +10,10 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(model_name="company", name="is_collaborator",),
+        migrations.RemoveField(
+            model_name="company",
+            name="is_collaborator",
+        ),
         migrations.AlterField(
             model_name="contract",
             name="banquet_tickets",

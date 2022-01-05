@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
+
 from itdagene.app.company.models import Company
 from itdagene.app.stands.models import DigitalStand
 from itdagene.core.models import BaseModel
