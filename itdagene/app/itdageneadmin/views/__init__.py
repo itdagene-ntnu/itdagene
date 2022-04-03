@@ -46,7 +46,6 @@ def companies_reset(request):
             status=COMPANY_STATUS_NOT_CONTACTED,
             contact=None,
             package=None,
-            is_collaborator=False,
         )
         Company.waiting_for_package.through.objects.all().delete()
 
