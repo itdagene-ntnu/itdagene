@@ -6,28 +6,47 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0033_merge_20210822_1425'),
+        ("core", "0033_merge_20210822_1425"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='preference',
-            name='hsp_intro',
-            field=models.TextField(blank=True, default='', help_text='Introduction of main collaborator to be displayed above video on front page', verbose_name='Main collaborator introduction'),
+            model_name="preference",
+            name="hsp_intro",
+            field=models.TextField(
+                blank=True,
+                default="",
+                help_text="Introduction of main collaborator to be displayed above video on front page",
+                verbose_name="Main collaborator introduction",
+            ),
         ),
         migrations.AlterField(
-            model_name='preference',
-            name='hsp_poster',
-            field=models.URLField(blank=True, help_text='URL to the image to display before video is played', null=True, verbose_name='Main collaborator poster URL'),
+            model_name="preference",
+            name="hsp_poster",
+            field=models.URLField(
+                blank=True,
+                help_text="URL to the image to display before video is played",
+                null=True,
+                verbose_name="Main collaborator poster URL",
+            ),
         ),
         migrations.AlterField(
-            model_name='preference',
-            name='hsp_video',
-            field=models.URLField(blank=True, help_text='URL to the video introduction of main collaborator', null=True, verbose_name='Main collaborator video URL'),
+            model_name="preference",
+            name="hsp_video",
+            field=models.URLField(
+                blank=True,
+                help_text="URL to the video introduction of main collaborator",
+                null=True,
+                verbose_name="Main collaborator video URL",
+            ),
         ),
         migrations.AlterField(
-            model_name='preference',
-            name='view_hsp',
-            field=models.BooleanField(default=False, help_text='Should the main collaborator be displayed on the front page?', verbose_name='view main collaborator'),
+            model_name="preference",
+            name="view_hsp",
+            field=models.BooleanField(
+                default=False,
+                help_text="Should the main collaborator be displayed on the front page?",
+                verbose_name="view main collaborator",
+            ),
         ),
     ]

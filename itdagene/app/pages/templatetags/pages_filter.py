@@ -11,7 +11,7 @@ register = Library()
 def load_thumbnails(value):
     images = re.findall(  # noqa
         '<img class="thumbnail"( alt="([a-zA-Z0-9\.\:\/_ -]+)?")? '  # noqa
-        'src="([a-zA-Z0-9\.\:\/_ -]+)"([a-zA-Z0-9\.\:\;\/_=" -]+)?>', # noqa
+        'src="([a-zA-Z0-9\.\:\/_ -]+)"([a-zA-Z0-9\.\:\;\/_=" -]+)?>',  # noqa
         value,
     )
     if settings.DEBUG:
