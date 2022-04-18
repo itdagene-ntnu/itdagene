@@ -53,6 +53,8 @@ SOCIAL_AUTH_PIPELINE = (
     "social.pipeline.social_auth.associate_user",
 )
 
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
+
 SOCIAL_AUTH_GOOGLE_OAUTH2_IGNORE_DEFAULT_SCOPE = True
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     "https://www.googleapis.com/auth/userinfo.email",
