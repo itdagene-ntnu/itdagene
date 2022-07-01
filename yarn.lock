@@ -211,10 +211,10 @@ bootstrap-switch@3.3.4:
   resolved "https://registry.yarnpkg.com/bootstrap-switch/-/bootstrap-switch-3.3.4.tgz#70e0aeb2a877c0dc766991de108e2170fc29a2ff"
   integrity sha1-cOCusqh3wNx2aZHeEI4hcPwpov8=
 
-bootstrap-table@^1.16.0:
-  version "1.16.0"
-  resolved "https://registry.yarnpkg.com/bootstrap-table/-/bootstrap-table-1.16.0.tgz#d05bd262e7f70a76ee872c658918983beb3befce"
-  integrity sha512-bLbVetbyiXYmhU1LSsaiOHH4uvmlyBa/fNUo3y0owCfQSyQms/sfXOBvbcJWlDmjGtTY7kPW5z7KQvQJDPzN5w==
+bootstrap-table@^1.20.2:
+  version "1.20.2"
+  resolved "https://registry.yarnpkg.com/bootstrap-table/-/bootstrap-table-1.20.2.tgz#187fcd1812fa3422f964e3b32e3fc3d266108a83"
+  integrity sha512-6j9zfjjK6VZyJj8KsH+LnGczqglmMvMctGAoEAKDvrQ92ExQbA3mHGYPQr9iPrzoyeGL8+6Dyx6LqJbWmWmBoA==
 
 bootstrap4-duallistbox@^4.0.1:
   version "4.0.2"
