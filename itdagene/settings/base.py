@@ -247,3 +247,10 @@ LOGGING = {
         "django.security.DisallowedHost": {"handlers": ["null"], "propagate": False},
     },
 }
+
+# Monkey patch for graphene_django to support Django 4, and
+# will eventually be removed by https://github.com/itdagene-ntnu/itdagene/issues/318
+import graphql
+from graphql import GraphQLError
+
+graphql.error.format_error = GraphQLError.formatted

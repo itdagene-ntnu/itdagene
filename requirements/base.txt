@@ -20,5 +20,5 @@ raven==6.10.0
 social-auth-app-django==5.0.0
 python-social-auth==0.3.6
 PyJWT==2.3.0
-graphene-django==2.2
+graphene-django==3.0.0b7 # Beta, and should be replaced with Strawberry
 django-cors-headers==3.3.0
