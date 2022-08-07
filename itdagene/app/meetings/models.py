@@ -3,8 +3,8 @@ import datetime
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
-from django.utils.translation import ugettext
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext
+from django.utils.translation import gettext_lazy as _
 
 from itdagene.core.log.models import LogItem
 from itdagene.core.models import BaseModel, Preference, User
@@ -100,12 +100,12 @@ class ReplyMeeting(BaseModel):
         on_delete=models.CASCADE,
     )
     user = models.ForeignKey(User, verbose_name=_("user"), on_delete=models.CASCADE)
-    is_attending = models.NullBooleanField(
+    is_attending = models.BooleanField(
         verbose_name=_("attending"), null=True, blank=True
     )
 
     def __str__(self):
-        return ugettext("Meeting participation: %(user)s") % {"user": str(self.user)}
+        return gettext("Meeting participation: %(user)s") % {"user": str(self.user)}
 
     def get_absolute_url(self):
         return reverse("itdagene.meetings.meeting", args=(self.meeting.pk,))

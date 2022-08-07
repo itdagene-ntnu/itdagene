@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import SUCCESS, add_message
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.timezone import now
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from itdagene.app.events.forms import EventForm, EventTicketForm
 from itdagene.app.events.models import Event, Ticket
