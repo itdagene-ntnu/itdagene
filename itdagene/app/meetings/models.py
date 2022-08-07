@@ -100,7 +100,7 @@ class ReplyMeeting(BaseModel):
         on_delete=models.CASCADE,
     )
     user = models.ForeignKey(User, verbose_name=_("user"), on_delete=models.CASCADE)
-    is_attending = models.NullBooleanField(
+    is_attending = models.BooleanField(
         verbose_name=_("attending"), null=True, blank=True
     )
 
