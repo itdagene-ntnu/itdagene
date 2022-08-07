@@ -9,7 +9,7 @@ RUN set -e \
     && yarn build \
     && rm node_modules -r
 
-FROM python:3.7-alpine
+FROM python:3.9-alpine
 ENV PYTHONUNBUFFERED 1
 RUN mkdir /code
 WORKDIR /code

@@ -9,7 +9,7 @@
 ## TL;DR
 
 - GraphQL API with [django-graphene]
-- Python 3.7 with Django
+- Python 3.9 with Django
 - Postgres for persistant storage
 - [Celery] (with redis-broker) for async tasks
 - CircleCI for continuous integration
@@ -19,7 +19,7 @@
 
 First make sure that you have the following software installed on your system:
 
-- Python 3.7
+- Python 3.9
 - Node.js and yarn
 - [docker] together with [docker-compose]
 
