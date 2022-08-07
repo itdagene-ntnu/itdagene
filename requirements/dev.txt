@@ -2,3 +2,5 @@
 -r isort.txt
 -r black.txt
 -r flake8.txt
+
+django-debug-toolbar==3.5.0
