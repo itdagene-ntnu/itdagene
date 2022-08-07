@@ -2,7 +2,7 @@ import os
 import sys
 
 from django.contrib.messages import ERROR, INFO, SUCCESS, WARNING
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 SITE = {
     "project_name": "itDAGENE 2018",
