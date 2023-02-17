@@ -37,7 +37,7 @@ jobs:
       - run:
           name: Tests
           command: |
-            tox -e py37
+            tox -e python3.7
             tox -e coverage
 
   tests-javascript:
