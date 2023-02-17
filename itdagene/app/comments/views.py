@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import ERROR, add_message
 from django.shortcuts import redirect
 from django.utils import timezone
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from itdagene.app.comments.forms import CommentForm
 from itdagene.app.mail.tasks import send_comment_email

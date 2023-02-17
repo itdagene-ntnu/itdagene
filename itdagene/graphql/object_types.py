@@ -53,6 +53,7 @@ class Joblisting(DjangoObjectType):
             "slug",
             "video_url",
             "is_summerjob_marathon",
+            "is_active",
         )
         interfaces = (relay.Node, OpengraphMetadata)
 

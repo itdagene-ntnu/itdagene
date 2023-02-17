@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import SUCCESS, add_message
 from django.shortcuts import Http404, get_object_or_404, redirect, render
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from itdagene.app.mail.tasks import meeting_send_invite
 from itdagene.app.meetings.forms import MeetingForm, PenaltyForm

@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import permission_required
 from django.core.cache import cache
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from itdagene.app.itdageneadmin.forms import PreferenceForm
 from itdagene.core.models import Preference
