@@ -26,8 +26,7 @@ class Migration(migrations.Migration):
                 ),
                 ("date_created", models.DateTimeField(editable=False)),
                 ("date_saved", models.DateTimeField(editable=False)),
-                ("title", models.CharField(max_length=80,
-                                           verbose_name="title")),
+                ("title", models.CharField(max_length=80, verbose_name="title")),
                 ("date", models.DateField(verbose_name="date")),
                 ("time_start", models.TimeField(verbose_name="start time")),
                 ("time_end", models.TimeField(verbose_name="end time")),
@@ -43,24 +42,20 @@ class Migration(migrations.Migration):
                         ],
                     ),
                 ),
-                ("location",
-                 models.CharField(max_length=30, verbose_name="location")),
+                ("location", models.CharField(max_length=30, verbose_name="location")),
                 (
                     "is_internal",
-                    models.BooleanField(default=False,
-                                        verbose_name="internal event"),
+                    models.BooleanField(default=False, verbose_name="internal event"),
                 ),
                 (
                     "uses_tickets",
-                    models.BooleanField(default=False,
-                                        verbose_name="uses tickets"),
+                    models.BooleanField(default=False, verbose_name="uses tickets"),
                 ),
                 (
                     "max_participants",
                     models.PositiveIntegerField(
-                        null=True,
-                        verbose_name="max nr of participants",
-                        blank=True),
+                        null=True, verbose_name="max nr of participants", blank=True
+                    ),
                 ),
                 (
                     "company",
@@ -92,7 +87,7 @@ class Migration(migrations.Migration):
                 ),
             ],
             options={"abstract": False},
-            bases=(models.Model, ),
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name="Ticket",
@@ -110,21 +105,21 @@ class Migration(migrations.Migration):
                 ("date_saved", models.DateTimeField(editable=False)),
                 (
                     "first_name",
-                    models.CharField(max_length=30,
-                                     verbose_name="first name",
-                                     blank=True),
+                    models.CharField(
+                        max_length=30, verbose_name="first name", blank=True
+                    ),
                 ),
                 (
                     "last_name",
-                    models.CharField(max_length=30,
-                                     verbose_name="last name",
-                                     blank=True),
+                    models.CharField(
+                        max_length=30, verbose_name="last name", blank=True
+                    ),
                 ),
                 (
                     "email",
-                    models.EmailField(max_length=75,
-                                      verbose_name="e-mail address",
-                                      blank=True),
+                    models.EmailField(
+                        max_length=75, verbose_name="e-mail address", blank=True
+                    ),
                 ),
                 (
                     "company",
@@ -169,15 +164,14 @@ class Migration(migrations.Migration):
                     models.ForeignKey(
                         blank=True,
                         to=settings.AUTH_USER_MODEL,
-                        help_text=
-                        "If the person does not have a user, use the fields below.",
+                        help_text="If the person does not have a user, use the fields below.",
                         on_delete=models.SET_NULL,
                         null=True,
                         verbose_name="user",
                     ),
                 ),
             ],
-            options={"ordering": ("company__name", )},
-            bases=(models.Model, ),
+            options={"ordering": ("company__name",)},
+            bases=(models.Model,),
         ),
     ]

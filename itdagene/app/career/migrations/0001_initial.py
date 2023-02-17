@@ -22,8 +22,7 @@ class Migration(migrations.Migration):
                 ),
                 ("date_created", models.DateTimeField(editable=False)),
                 ("date_saved", models.DateTimeField(editable=False)),
-                ("title", models.CharField(max_length=160,
-                                           verbose_name="title")),
+                ("title", models.CharField(max_length=160, verbose_name="title")),
                 (
                     "type",
                     models.CharField(
@@ -48,16 +47,14 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "deadline",
-                    models.DateField(null=True,
-                                     verbose_name="deadline",
-                                     blank=True),
+                    models.DateField(null=True, verbose_name="deadline", blank=True),
                 ),
                 ("from_year", models.PositiveIntegerField(default=1)),
                 ("to_year", models.PositiveIntegerField(default=5)),
                 ("url", models.URLField(verbose_name="url", blank=True)),
             ],
             options={"abstract": False},
-            bases=(models.Model, ),
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name="Town",
@@ -73,10 +70,9 @@ class Migration(migrations.Migration):
                 ),
                 ("date_created", models.DateTimeField(editable=False)),
                 ("date_saved", models.DateTimeField(editable=False)),
-                ("name", models.CharField(max_length=100,
-                                          verbose_name="name")),
+                ("name", models.CharField(max_length=100, verbose_name="name")),
             ],
             options={"abstract": False},
-            bases=(models.Model, ),
+            bases=(models.Model,),
         ),
     ]

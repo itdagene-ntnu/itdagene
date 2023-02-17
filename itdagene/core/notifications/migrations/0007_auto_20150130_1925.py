@@ -30,7 +30,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="notification",
             name="sent_mail",
-            field=models.BooleanField(default=False,
-                                      verbose_name="sendt mail"),
+            field=models.BooleanField(default=False, verbose_name="sendt mail"),
         ),
     ]

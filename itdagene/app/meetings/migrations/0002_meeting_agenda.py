@@ -11,9 +11,9 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="meeting",
             name="agenda",
-            field=models.TextField(null=True,
-                                   verbose_name="Meeting Agenda",
-                                   blank=True),
+            field=models.TextField(
+                null=True, verbose_name="Meeting Agenda", blank=True
+            ),
             preserve_default=True,
         )
     ]

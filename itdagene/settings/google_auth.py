@@ -19,27 +19,29 @@ AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
 )
 
-TEMPLATES = [{
-    "BACKEND": "django.template.backends.django.DjangoTemplates",
-    "DIRS": [os.path.join(PATH, "templates")],
-    "APP_DIRS": True,
-    "OPTIONS": {
-        "context_processors": [
-            "social_django.context_processors.backends",
-            "social_django.context_processors.login_redirect",
-            "django.template.context_processors.debug",
-            "django.template.context_processors.i18n",
-            "django.template.context_processors.media",
-            "django.template.context_processors.static",
-            "django.contrib.messages.context_processors.messages",
-            "django.template.context_processors.request",
-            "django.contrib.auth.context_processors.auth",
-            "itdagene.core.context_processors.site_processor",
-            "itdagene.core.context_processors.utils_processor",
-            "itdagene.app.pages.context_processors.menu_pages",
-        ]
-    },
-}]
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [os.path.join(PATH, "templates")],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "social_django.context_processors.backends",
+                "social_django.context_processors.login_redirect",
+                "django.template.context_processors.debug",
+                "django.template.context_processors.i18n",
+                "django.template.context_processors.media",
+                "django.template.context_processors.static",
+                "django.contrib.messages.context_processors.messages",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "itdagene.core.context_processors.site_processor",
+                "itdagene.core.context_processors.utils_processor",
+                "itdagene.app.pages.context_processors.menu_pages",
+            ]
+        },
+    }
+]
 
 SOCIAL_AUTH_PIPELINE = (
     "social_core.pipeline.social_auth.social_details",

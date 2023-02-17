@@ -11,9 +11,9 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="user",
             name="phone",
-            field=models.IntegerField(null=True,
-                                      verbose_name="phone number",
-                                      blank=True),
+            field=models.IntegerField(
+                null=True, verbose_name="phone number", blank=True
+            ),
             preserve_default=True,
         )
     ]

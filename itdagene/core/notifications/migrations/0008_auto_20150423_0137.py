@@ -17,11 +17,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="notification",
             name="users",
-            field=models.ManyToManyField(to=settings.AUTH_USER_MODEL,
-                                         verbose_name="users"),
+            field=models.ManyToManyField(
+                to=settings.AUTH_USER_MODEL, verbose_name="users"
+            ),
             preserve_default=True,
         ),
-        migrations.AlterUniqueTogether(name="subscription",
-                                       unique_together=set([("content_type",
-                                                             "object_id")])),
+        migrations.AlterUniqueTogether(
+            name="subscription", unique_together=set([("content_type", "object_id")])
+        ),
     ]

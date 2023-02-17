@@ -11,9 +11,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="announcement",
             name="image",
-            field=models.ImageField(upload_to="announcements/",
-                                    verbose_name="image",
-                                    blank=True),
+            field=models.ImageField(
+                upload_to="announcements/", verbose_name="image", blank=True
+            ),
             preserve_default=True,
         )
     ]

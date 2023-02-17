@@ -36,9 +36,7 @@ class Joblisting(BaseModel):
         on_delete=models.CASCADE,
     )
     title = models.CharField(max_length=160, verbose_name=_("title"))
-    type = models.CharField(max_length=20,
-                            choices=JOB_TYPES,
-                            verbose_name=_("type"))
+    type = models.CharField(max_length=20, choices=JOB_TYPES, verbose_name=_("type"))
     description = models.TextField(verbose_name=_("Description"))
     contact = models.ForeignKey(
         CompanyContact,
@@ -47,26 +45,22 @@ class Joblisting(BaseModel):
         verbose_name=_("contact"),
         on_delete=models.CASCADE,
     )
-    image = models.ImageField(upload_to="joblistings/",
-                              null=True,
-                              blank=True,
-                              verbose_name=_("image"))
-    deadline = models.DateTimeField(null=True,
-                                    blank=True,
-                                    verbose_name=_("deadline"))
-    from_year = models.PositiveIntegerField(default=1,
-                                            verbose_name=_("from year"))
+    image = models.ImageField(
+        upload_to="joblistings/", null=True, blank=True, verbose_name=_("image")
+    )
+    deadline = models.DateTimeField(null=True, blank=True, verbose_name=_("deadline"))
+    from_year = models.PositiveIntegerField(default=1, verbose_name=_("from year"))
     to_year = models.PositiveIntegerField(default=5, verbose_name=_("to year"))
     towns = models.ManyToManyField(Town, blank=True, verbose_name=_("town"))
     url = models.URLField(blank=True, verbose_name=_("url"))
     is_active = models.BooleanField(verbose_name=_("active"), default=True)
     frontpage = models.BooleanField(_("Frontpage"), default=False)
-    hide_contactinfo = models.BooleanField(_("Hide contact info"),
-                                           default=False)
+    hide_contactinfo = models.BooleanField(_("Hide contact info"), default=False)
     slug = models.SlugField(editable=False, unique=True, max_length=150)
     video_url = models.URLField(null=True, blank=True, verbose_name=_("video"))
     is_summerjob_marathon = models.BooleanField(
-        default=False, verbose_name=_("sommerjobbmaraton"))
+        default=False, verbose_name=_("sommerjobbmaraton")
+    )
 
     def __str__(self):
         return self.title

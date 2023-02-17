@@ -8,6 +8,7 @@ class Migration(migrations.Migration):
     dependencies = [("career", "0008_merge")]
 
     operations = [
-        migrations.AlterModelOptions(name="joblisting",
-                                     options={"ordering": ("deadline", )})
+        migrations.AlterModelOptions(
+            name="joblisting", options={"ordering": ("deadline",)}
+        )
     ]

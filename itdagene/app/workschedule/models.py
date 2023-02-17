@@ -19,9 +19,9 @@ class Worker(BaseModel):
 
     name = models.CharField(max_length=100, verbose_name=_("name"))
     phone = models.IntegerField(verbose_name=_("phone number"), default=0)
-    t_shirt_size = models.IntegerField(choices=SIZES,
-                                       verbose_name=_("t-shirt size"),
-                                       default=0)
+    t_shirt_size = models.IntegerField(
+        choices=SIZES, verbose_name=_("t-shirt size"), default=0
+    )
     email = models.EmailField(verbose_name=_("email"), blank=True)
     preference = models.PositiveIntegerField(verbose_name=_("year"))
 
@@ -30,8 +30,10 @@ class Worker(BaseModel):
 
     def schedules(self):
         return [
-            i.schedule for i in self.in_schedules.all().order_by(
-                "schedule__date", "schedule__start_time")
+            i.schedule
+            for i in self.in_schedules.all().order_by(
+                "schedule__date", "schedule__start_time"
+            )
         ]
 
     def as_dict(self):

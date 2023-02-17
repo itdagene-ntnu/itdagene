@@ -10,9 +10,6 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name="joblisting",
-            options={
-                "base_manager_name": "objects",
-                "ordering": ("deadline", )
-            },
+            options={"base_manager_name": "objects", "ordering": ("deadline",)},
         )
     ]

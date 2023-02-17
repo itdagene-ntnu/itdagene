@@ -13,8 +13,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="joblisting",
             name="is_summerjob_marathon",
-            field=models.BooleanField(default=False,
-                                      verbose_name="sommerjobbmaraton"),
+            field=models.BooleanField(default=False, verbose_name="sommerjobbmaraton"),
         ),
         migrations.AddField(
             model_name="joblisting",

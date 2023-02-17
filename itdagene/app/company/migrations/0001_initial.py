@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
                 ("date_saved", models.DateTimeField(editable=False)),
             ],
             options={"abstract": False},
-            bases=(models.Model, ),
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name="Comment",
@@ -41,11 +41,8 @@ class Migration(migrations.Migration):
                 ("timestamp", models.DateTimeField(verbose_name="timestamp")),
                 ("content", models.TextField(verbose_name="content")),
             ],
-            options={
-                "verbose_name": "comment",
-                "verbose_name_plural": "comments"
-            },
-            bases=(models.Model, ),
+            options={"verbose_name": "comment", "verbose_name_plural": "comments"},
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name="Company",
@@ -61,13 +58,9 @@ class Migration(migrations.Migration):
                 ),
                 ("date_created", models.DateTimeField(editable=False)),
                 ("date_saved", models.DateTimeField(editable=False)),
-                ("name", models.CharField(max_length=140,
-                                          verbose_name="name")),
-                ("url",
-                 models.URLField(null=True, verbose_name="url", blank=True)),
-                ("phone", models.CharField(max_length=20,
-                                           null=True,
-                                           blank=True)),
+                ("name", models.CharField(max_length=140, verbose_name="name")),
+                ("url", models.URLField(null=True, verbose_name="url", blank=True)),
+                ("phone", models.CharField(max_length=20, null=True, blank=True)),
                 (
                     "logo",
                     models.ImageField(
@@ -95,29 +88,22 @@ class Migration(migrations.Migration):
                     "description",
                     models.TextField(verbose_name="description", blank=True),
                 ),
-                ("address", models.TextField(verbose_name="address",
-                                             blank=True)),
+                ("address", models.TextField(verbose_name="address", blank=True)),
                 (
                     "payment_address",
-                    models.TextField(verbose_name="payment address",
-                                     blank=True),
+                    models.TextField(verbose_name="payment address", blank=True),
                 ),
-                ("fax", models.CharField(max_length=20, null=True,
-                                         blank=True)),
-                ("active",
-                 models.BooleanField(default=True, verbose_name="active")),
+                ("fax", models.CharField(max_length=20, null=True, blank=True)),
+                ("active", models.BooleanField(default=True, verbose_name="active")),
                 (
                     "has_public_profile",
                     models.BooleanField(default=False, verbose_name="profile"),
                 ),
-                ("mp",
-                 models.BooleanField(default=False,
-                                     verbose_name="Main partner")),
-                ("partner",
-                 models.BooleanField(default=False, verbose_name="Partner")),
+                ("mp", models.BooleanField(default=False, verbose_name="Main partner")),
+                ("partner", models.BooleanField(default=False, verbose_name="Partner")),
             ],
-            options={"ordering": ("name", )},
-            bases=(models.Model, ),
+            options={"ordering": ("name",)},
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name="CompanyContact",
@@ -135,21 +121,21 @@ class Migration(migrations.Migration):
                 ("date_saved", models.DateTimeField(editable=False)),
                 (
                     "first_name",
-                    models.CharField(max_length=30,
-                                     verbose_name="first name",
-                                     blank=True),
+                    models.CharField(
+                        max_length=30, verbose_name="first name", blank=True
+                    ),
                 ),
                 (
                     "last_name",
-                    models.CharField(max_length=30,
-                                     verbose_name="last name",
-                                     blank=True),
+                    models.CharField(
+                        max_length=30, verbose_name="last name", blank=True
+                    ),
                 ),
                 (
                     "email",
-                    models.EmailField(max_length=75,
-                                      verbose_name="e-mail address",
-                                      blank=True),
+                    models.EmailField(
+                        max_length=75, verbose_name="e-mail address", blank=True
+                    ),
                 ),
                 (
                     "phone",
@@ -171,16 +157,16 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "position",
-                    models.CharField(max_length=60,
-                                     verbose_name="position",
-                                     blank=True),
+                    models.CharField(
+                        max_length=60, verbose_name="position", blank=True
+                    ),
                 ),
             ],
             options={
                 "verbose_name": "company contact",
                 "verbose_name_plural": "company contacts",
             },
-            bases=(models.Model, ),
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name="Contract",
@@ -199,8 +185,8 @@ class Migration(migrations.Migration):
                 (
                     "timestamp",
                     models.DateTimeField(
-                        help_text="Signing date, not uploaded date",
-                        verbose_name="date"),
+                        help_text="Signing date, not uploaded date", verbose_name="date"
+                    ),
                 ),
                 (
                     "file",
@@ -214,34 +200,30 @@ class Migration(migrations.Migration):
                 (
                     "banquet_tickets",
                     models.PositiveIntegerField(
-                        default=1, verbose_name="banquet tickets"),
+                        default=1, verbose_name="banquet tickets"
+                    ),
                 ),
                 (
                     "joblistings",
-                    models.PositiveIntegerField(default=2,
-                                                verbose_name="joblistings"),
+                    models.PositiveIntegerField(default=2, verbose_name="joblistings"),
                 ),
                 (
                     "interview_room",
-                    models.PositiveIntegerField(default=0,
-                                                verbose_name="interview room"),
+                    models.PositiveIntegerField(
+                        default=0, verbose_name="interview room"
+                    ),
                 ),
                 (
                     "is_billed",
-                    models.BooleanField(default=False,
-                                        verbose_name="is billed"),
+                    models.BooleanField(default=False, verbose_name="is billed"),
                 ),
                 (
                     "has_paid",
-                    models.BooleanField(default=False,
-                                        verbose_name="has paid"),
+                    models.BooleanField(default=False, verbose_name="has paid"),
                 ),
             ],
-            options={
-                "verbose_name": "contract",
-                "verbose_name_plural": "contracts"
-            },
-            bases=(models.Model, ),
+            options={"verbose_name": "contract", "verbose_name_plural": "contracts"},
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name="Package",
@@ -269,30 +251,26 @@ class Migration(migrations.Migration):
                 (
                     "max",
                     models.PositiveIntegerField(
-                        null=True,
-                        verbose_name="number of packages to sell",
-                        blank=True),
+                        null=True, verbose_name="number of packages to sell", blank=True
+                    ),
                 ),
                 ("has_stand_first_day", models.BooleanField(default=False)),
                 ("has_stand_last_day", models.BooleanField(default=False)),
                 (
                     "has_waiting_list",
-                    models.BooleanField(default=True,
-                                        verbose_name="has waiting list"),
+                    models.BooleanField(default=True, verbose_name="has waiting list"),
                 ),
                 (
                     "includes_course",
-                    models.BooleanField(default=False,
-                                        verbose_name="includes course"),
+                    models.BooleanField(default=False, verbose_name="includes course"),
                 ),
-                ("is_full",
-                 models.BooleanField(default=False, verbose_name="is full")),
+                ("is_full", models.BooleanField(default=False, verbose_name="is full")),
             ],
             options={
-                "ordering": ("name", ),
+                "ordering": ("name",),
                 "verbose_name": "package",
                 "verbose_name_plural": "packages",
             },
-            bases=(models.Model, ),
+            bases=(models.Model,),
         ),
     ]

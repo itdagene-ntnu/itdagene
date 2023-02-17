@@ -12,15 +12,14 @@ class Migration(migrations.Migration):
             model_name="evaluation",
             name="course_improvement",
             field=models.TextField(
-                verbose_name="Could the course be handled better?",
-                blank=True),
+                verbose_name="Could the course be handled better?", blank=True
+            ),
         ),
         migrations.AlterField(
             model_name="evaluation",
             name="internship_marathon_improvement",
             field=models.TextField(
-                verbose_name=
-                "What could have been done better at the kickstart?",
+                verbose_name="What could have been done better at the kickstart?",
                 blank=True,
             ),
         ),

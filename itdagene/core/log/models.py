@@ -18,12 +18,10 @@ class LogItem(models.Model):
         (3, "Very High. Will send email to administrators"),
     )
 
-    user = models.ForeignKey(User,
-                             verbose_name=_("user"),
-                             on_delete=models.CASCADE)
-    priority = models.PositiveIntegerField(choices=PRIORITIES,
-                                           default=1,
-                                           verbose_name=_("priority"))
+    user = models.ForeignKey(User, verbose_name=_("user"), on_delete=models.CASCADE)
+    priority = models.PositiveIntegerField(
+        choices=PRIORITIES, default=1, verbose_name=_("priority")
+    )
     timestamp = models.DateTimeField(auto_now=True, verbose_name=_("date"))
     action = models.CharField(max_length=16, verbose_name=_("action"))
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)

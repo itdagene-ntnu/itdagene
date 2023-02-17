@@ -28,4 +28,4 @@ class JoblistingForm(ModelForm):
 class JoblistingTownForm(ModelForm):
     class Meta:
         model = Town
-        fields = ("name", )
+        fields = ("name",)

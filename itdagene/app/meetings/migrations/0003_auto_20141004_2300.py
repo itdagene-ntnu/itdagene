@@ -5,8 +5,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [("core", "0013_user_year"),
-                    ("meetings", "0002_meeting_agenda")]
+    dependencies = [("core", "0013_user_year"), ("meetings", "0002_meeting_agenda")]
 
     operations = [
         migrations.AddField(

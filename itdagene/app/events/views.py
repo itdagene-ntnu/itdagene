@@ -12,10 +12,7 @@ from itdagene.core.decorators import staff_required
 @staff_required()
 def list_events(request):
     events = Event.objects.filter(date__year=now().year)
-    return render(request, "events/base.html", {
-        "events": events,
-        "title": _("Events")
-    })
+    return render(request, "events/base.html", {"events": events, "title": _("Events")})
 
 
 @permission_required("events.add_event")
@@ -27,10 +24,7 @@ def add_event(request):
             event = form.save()
             add_message(request, SUCCESS, _("Event added."))
             return redirect(event.get_absolute_url())
-    return render(request, "events/form.html", {
-        "form": form,
-        "title": _("Add Event")
-    })
+    return render(request, "events/form.html", {"form": form, "title": _("Add Event")})
 
 
 @permission_required("events.change_event")
@@ -65,11 +59,7 @@ def delete_event(request, pk):
     return render(
         request,
         "events/delete.html",
-        {
-            "event": event,
-            "title": _("Delete Event"),
-            "description": str(event)
-        },
+        {"event": event, "title": _("Delete Event"), "description": str(event)},
     )
 
 
@@ -86,12 +76,7 @@ def view_event(request, pk):
     return render(
         request,
         "events/view.html",
-        {
-            "event": event,
-            "form": form,
-            "title": _("Event"),
-            "description": str(event)
-        },
+        {"event": event, "form": form, "title": _("Event"), "description": str(event)},
     )
 
 
@@ -109,9 +94,5 @@ def edit_ticket(request, pk):
     return render(
         request,
         "events/form.html",
-        {
-            "form": form,
-            "title": _("Edit Ticket"),
-            "description": str(ticket)
-        },
+        {"form": form, "title": _("Edit Ticket"), "description": str(ticket)},
     )

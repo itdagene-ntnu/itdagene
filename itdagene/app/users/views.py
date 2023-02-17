@@ -18,17 +18,16 @@ from .forms import SimpleUserEditForm, UserCreateForm, UserEditForm
 @login_required
 def user_list(request):
     if not request.user.is_staff:
-        persons = User.objects.filter(
-            Q(is_staff=True) | Q(id=request.user.id)).filter(
-                is_active=True, year=request.user.year)
+        persons = User.objects.filter(Q(is_staff=True) | Q(id=request.user.id)).filter(
+            is_active=True, year=request.user.year
+        )
     else:
         persons = User.objects.filter(is_active=True)
 
     persons = persons.order_by("-year", "username")
-    return render(request, "users/list.html", {
-        "persons": persons,
-        "title": _("User Admin")
-    })
+    return render(
+        request, "users/list.html", {"persons": persons, "title": _("User Admin")}
+    )
 
 
 @login_required
@@ -36,13 +35,12 @@ def user_detail(request, pk):
     try:
         if not request.user.is_staff:
             person = (
-                User.objects.filter(Q(is_staff=True)
-                                    | Q(id=request.user.id)).filter(
-                                        is_active=True,
-                                        year=request.user.year).get(pk=pk))
+                User.objects.filter(Q(is_staff=True) | Q(id=request.user.id))
+                .filter(is_active=True, year=request.user.year)
+                .get(pk=pk)
+            )
         else:
-            person = User.objects.filter(
-                is_active=True).order_by("username").get(pk=pk)
+            person = User.objects.filter(is_active=True).order_by("username").get(pk=pk)
     except Exception:
         raise Http404
     current_year = Preference.current_preference().year
@@ -80,8 +78,7 @@ def user_delete(request, pk):
 
 @login_required
 def user_edit(request, pk):
-    if not request.user.has_perm(
-            "core.change_user") and not request.user.pk == int(pk):
+    if not request.user.has_perm("core.change_user") and not request.user.pk == int(pk):
         return redirect(reverse("itdagene.users.user_list"))
 
     person = get_object_or_404(User, pk=pk, is_active=True)
@@ -90,14 +87,11 @@ def user_edit(request, pk):
         if request.user.is_superuser:
             form = UserEditForm(request.POST, request.FILES, instance=person)
         else:
-            form = SimpleUserEditForm(request.POST,
-                                      request.FILES,
-                                      instance=person)
+            form = SimpleUserEditForm(request.POST, request.FILES, instance=person)
         if form.is_valid():
             person = form.save()
             LogItem.log_it(person, "EDIT", 2)
-            return redirect(
-                reverse("itdagene.users.user_detail", args=[person.pk]))
+            return redirect(reverse("itdagene.users.user_detail", args=[person.pk]))
     else:
         if request.user.is_superuser:
             form = UserEditForm(instance=person)
@@ -118,8 +112,7 @@ def user_edit(request, pk):
 
 @login_required
 def user_edit_password(request, pk):
-    if not request.user.has_perm(
-            "core.change_user") and not request.user.pk == int(pk):
+    if not request.user.has_perm("core.change_user") and not request.user.pk == int(pk):
         return redirect(reverse("itdagene.users.user_list"))
 
     person = get_object_or_404(User, pk=pk, is_active=True)
@@ -132,8 +125,7 @@ def user_edit_password(request, pk):
 
         if form.is_valid():
             form.save()
-            return redirect(
-                reverse("itdagene.users.user_detail", args=[person.pk]))
+            return redirect(reverse("itdagene.users.user_detail", args=[person.pk]))
 
     else:
         if request.user.is_superuser:
@@ -166,15 +158,14 @@ def user_create(request):
             person.save()
             LogItem.log_it(person, "CREATE", 2)
             return redirect(
-                reverse("itdagene.users.user_detail", kwargs={"pk":
-                                                              person.pk}))
+                reverse("itdagene.users.user_detail", kwargs={"pk": person.pk})
+            )
     else:
         form = UserCreateForm()
 
-    return render(request, "users/create.html", {
-        "form": form,
-        "title": _("Create User")
-    })
+    return render(
+        request, "users/create.html", {"form": form, "title": _("Create User")}
+    )
 
 
 @permission_required("core.send_welcome_email")
@@ -183,8 +174,7 @@ def send_welcome_email(request, pk):
     if request.method == "POST":
         users_send_welcome_email(user)
         add_message(request, SUCCESS, _("The welcome email has been sent."))
-        return redirect(
-            reverse("itdagene.users.user_detail", kwargs={"pk": user.pk}))
+        return redirect(reverse("itdagene.users.user_detail", kwargs={"pk": user.pk}))
     return render(
         request,
         "users/send_welcome_email.html",
@@ -201,12 +191,12 @@ def vcard(request, pk):
     try:
         if not request.user.is_staff:
             person = (
-                User.objects.filter(Q(is_staff=True)
-                                    | Q(id=request.user.id)).filter(
-                                        is_active=True).get(pk=pk))
+                User.objects.filter(Q(is_staff=True) | Q(id=request.user.id))
+                .filter(is_active=True)
+                .get(pk=pk)
+            )
         else:
-            person = User.objects.filter(
-                is_active=True).order_by("username").get(pk=pk)
+            person = User.objects.filter(is_active=True).order_by("username").get(pk=pk)
     except Exception:
         raise Http404
 

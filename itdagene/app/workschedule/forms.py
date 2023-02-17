@@ -11,29 +11,28 @@ class WorkScheduleForm(ModelForm):
 
     class Meta:
         model = WorkSchedule
-        fields = ("title", "date", "start_time", "end_time", "description",
-                  "invites")
+        fields = ("title", "date", "start_time", "end_time", "description", "invites")
 
     def __init__(self, *args, **kwargs):
         super(WorkScheduleForm, self).__init__(*args, **kwargs)
         workers = Worker.objects.filter(
-            preference=Preference.current_preference().year).order_by("name")
-        self.fields["invites"].choices = [(worker.pk, worker.name)
-                                          for worker in workers]
+            preference=Preference.current_preference().year
+        ).order_by("name")
+        self.fields["invites"].choices = [
+            (worker.pk, worker.name) for worker in workers
+        ]
         self.fields["invites"].widget.attrs["class"] = "chosen"
 
     def save(self, commit=True):
         workschedule = super(WorkScheduleForm, self).save(commit=commit)
 
         for i in self.cleaned_data["invites"]:
-            WorkerInSchedule.objects.get_or_create(schedule=workschedule,
-                                                   worker_id=i)
+            WorkerInSchedule.objects.get_or_create(schedule=workschedule, worker_id=i)
 
         return workschedule
 
 
 class WorkerForm(ModelForm):
-
     class Meta:
         model = Worker
         fields = ("name", "phone", "email", "t_shirt_size")

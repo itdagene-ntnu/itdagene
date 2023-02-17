@@ -3,8 +3,8 @@ import datetime
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
-from django.utils.translation import ugettext
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ugettext
 
 from itdagene.core.log.models import LogItem
 from itdagene.core.models import BaseModel, Preference, User
@@ -22,23 +22,16 @@ MEETING_TYPES = (
 class Meeting(BaseModel):
     date = models.DateField(verbose_name=_("date"))
     start_time = models.TimeField(verbose_name=_("from time"))
-    end_time = models.TimeField(blank=True,
-                                null=True,
-                                verbose_name=_("to time"))
-    type = models.PositiveIntegerField(choices=MEETING_TYPES,
-                                       default=0,
-                                       verbose_name=_("type"))
-    location = models.CharField(max_length=40,
-                                blank=True,
-                                verbose_name=_("location"))
-    agenda = models.TextField(blank=True,
-                              null=True,
-                              verbose_name=_("Meeting Agenda"))
-    abstract = models.TextField(blank=True,
-                                null=True,
-                                verbose_name=_("abstract"))
-    is_board_meeting = models.BooleanField(default=True,
-                                           verbose_name=_("is board meeting"))
+    end_time = models.TimeField(blank=True, null=True, verbose_name=_("to time"))
+    type = models.PositiveIntegerField(
+        choices=MEETING_TYPES, default=0, verbose_name=_("type")
+    )
+    location = models.CharField(max_length=40, blank=True, verbose_name=_("location"))
+    agenda = models.TextField(blank=True, null=True, verbose_name=_("Meeting Agenda"))
+    abstract = models.TextField(blank=True, null=True, verbose_name=_("abstract"))
+    is_board_meeting = models.BooleanField(
+        default=True, verbose_name=_("is board meeting")
+    )
     referee = models.ForeignKey(
         User,
         related_name="refereed_meetings",
@@ -86,7 +79,7 @@ class Meeting(BaseModel):
         )
 
     def get_absolute_url(self):
-        return reverse("itdagene.meetings.meeting", args=(self.pk, ))
+        return reverse("itdagene.meetings.meeting", args=(self.pk,))
 
     def get_start_date(self):
         return datetime.datetime.combine(self.date, self.start_time)
@@ -106,20 +99,16 @@ class ReplyMeeting(BaseModel):
         verbose_name=_("meeting"),
         on_delete=models.CASCADE,
     )
-    user = models.ForeignKey(User,
-                             verbose_name=_("user"),
-                             on_delete=models.CASCADE)
-    is_attending = models.NullBooleanField(verbose_name=_("attending"),
-                                           null=True,
-                                           blank=True)
+    user = models.ForeignKey(User, verbose_name=_("user"), on_delete=models.CASCADE)
+    is_attending = models.NullBooleanField(
+        verbose_name=_("attending"), null=True, blank=True
+    )
 
     def __str__(self):
-        return ugettext("Meeting participation: %(user)s") % {
-            "user": str(self.user)
-        }
+        return ugettext("Meeting participation: %(user)s") % {"user": str(self.user)}
 
     def get_absolute_url(self):
-        return reverse("itdagene.meetings.meeting", args=(self.meeting.pk, ))
+        return reverse("itdagene.meetings.meeting", args=(self.meeting.pk,))
 
     def save(self, *args, **kwargs):
         super(ReplyMeeting, self).save()
@@ -140,17 +129,18 @@ class Penalty(BaseModel):
         verbose_name=_("meeting"),
         on_delete=models.SET_NULL,
     )
-    type = models.CharField(max_length=10,
-                            default="beer",
-                            choices=TYPES,
-                            verbose_name=_("type"))
-    bottles = models.PositiveIntegerField(default=2,
-                                          verbose_name=_("number of bottles"))
+    type = models.CharField(
+        max_length=10, default="beer", choices=TYPES, verbose_name=_("type")
+    )
+    bottles = models.PositiveIntegerField(
+        default=2, verbose_name=_("number of bottles")
+    )
     reason = models.TextField(verbose_name=_("reason"))
 
     def __str__(self):
-        return (self.user.username + " " + str(self.bottles) + " " +
-                self.get_type_display())
+        return (
+            self.user.username + " " + str(self.bottles) + " " + self.get_type_display()
+        )
 
     def save(self, *args, **kwargs):
         if self.pk:

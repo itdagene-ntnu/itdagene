@@ -8,10 +8,10 @@ from django.db import models
 from django.urls import reverse
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
-
-from itdagene.core.auth import get_current_user
 from raven import breadcrumbs
 from social_core.exceptions import AuthForbidden
+
+from itdagene.core.auth import get_current_user
 
 
 def user_default_year():
@@ -20,9 +20,9 @@ def user_default_year():
 
 
 def auth_allowed(backend, details, response, *args, **kwargs):
-    breadcrumbs.record(message="Starting social auth",
-                       category="authentication",
-                       data=details)
+    breadcrumbs.record(
+        message="Starting social auth", category="authentication", data=details
+    )
     if not backend.auth_allowed(response, details):
         raise AuthForbidden(backend)
 
@@ -35,13 +35,10 @@ def get_user(backend, details, user=None, *args, **kwargs):
 
 
 class User(AbstractUser):
-    phone = models.IntegerField(blank=True,
-                                null=True,
-                                verbose_name=_("phone number"))
-    photo = models.ImageField(upload_to="photos/users/",
-                              blank=True,
-                              null=True,
-                              verbose_name=_("Photo"))
+    phone = models.IntegerField(blank=True, null=True, verbose_name=_("phone number"))
+    photo = models.ImageField(
+        upload_to="photos/users/", blank=True, null=True, verbose_name=_("Photo")
+    )
     language = models.CharField(
         max_length=3,
         default=settings.DEFAULT_LANGUAGE,
@@ -49,7 +46,8 @@ class User(AbstractUser):
         verbose_name=_("Language"),
     )
     mail_notification = models.BooleanField(
-        default=True, verbose_name=_("Send mail notifications"))
+        default=True, verbose_name=_("Send mail notifications")
+    )
     year = models.PositiveIntegerField(
         verbose_name=_("Active Year"),
         help_text=_("Year the user was active."),
@@ -59,7 +57,7 @@ class User(AbstractUser):
     )
 
     class Meta(AbstractUser.Meta):
-        permissions = (("send_welcome_email", "Can send welcome emails"), )
+        permissions = (("send_welcome_email", "Can send welcome emails"),)
 
     def get_absolute_url(self):
         return reverse("itdagene.users.user_detail", args=[self.pk])
@@ -81,10 +79,9 @@ class User(AbstractUser):
 
 
 class BaseModel(models.Model):
-    creator = models.ForeignKey(User,
-                                editable=False,
-                                related_name="%(class)s_creator",
-                                on_delete=models.CASCADE)
+    creator = models.ForeignKey(
+        User, editable=False, related_name="%(class)s_creator", on_delete=models.CASCADE
+    )
     saved_by = models.ForeignKey(
         User,
         editable=False,
@@ -97,12 +94,9 @@ class BaseModel(models.Model):
     def __str__(self):
         return self.creator.username + " " + str(self.id)
 
-    def save(self,
-             notify_subscribers=True,
-             log_it=True,
-             log_priority=0,
-             *args,
-             **kwargs):
+    def save(
+        self, notify_subscribers=True, log_it=True, log_priority=0, *args, **kwargs
+    ):
         user = get_current_user()
         action = "EDIT" if self.pk else "CREATE"
 
@@ -132,8 +126,7 @@ class BaseModel(models.Model):
 
     def get_absolute_url(self):
         c_type = ContentType.objects.get_for_model(self)
-        return "/%s/%ss/%s/" % (str(c_type.app_label), str(c_type), str(
-            self.pk))
+        return "/%s/%ss/%s/" % (str(c_type.app_label), str(c_type), str(self.pk))
 
     def notification_priority(self):
         return 1
@@ -156,9 +149,9 @@ class Preference(BaseModel):
     development_mode = models.BooleanField(
         default=False,
         verbose_name=_("Development Mode"),
-        help_text=
-        _("This option puts the site in development mode. The public page will be disabled."
-          ),
+        help_text=_(
+            "This option puts the site in development mode. The public page will be disabled."
+        ),
     )
 
     active = models.BooleanField(verbose_name=_("active"), default=False)
@@ -172,14 +165,12 @@ class Preference(BaseModel):
     )
     view_sp = models.BooleanField(
         verbose_name=_("view partners"),
-        help_text=_(
-            "Should all collaborators be displayed on the front page?"),
+        help_text=_("Should all collaborators be displayed on the front page?"),
         default=False,
     )
     view_hsp = models.BooleanField(
         verbose_name=_("view main collaborator"),
-        help_text=_(
-            "Should the main collaborator be displayed on the front page?"),
+        help_text=_("Should the main collaborator be displayed on the front page?"),
         default=False,
     )
     view_companies = models.BooleanField(
@@ -192,9 +183,9 @@ class Preference(BaseModel):
         blank=True,
         default="",
         verbose_name=_("Main collaborator introduction"),
-        help_text=
-        _("Introduction of main collaborator to be displayed above video on front page"
-          ),
+        help_text=_(
+            "Introduction of main collaborator to be displayed above video on front page"
+        ),
     )
     hsp_video = models.URLField(
         null=True,
@@ -211,16 +202,15 @@ class Preference(BaseModel):
 
     show_interest_form = models.BooleanField(
         verbose_name=_("Show interest form"),
-        help_text=
-        _("Should the company participation interest form be visible on the front page?"
-          ),
+        help_text=_(
+            "Should the company participation interest form be visible on the front page?"
+        ),
         default=True,
     )
 
     interest_form_url = models.URLField(
         verbose_name=_("Interest form URL"),
-        help_text=_(
-            "What is the URL to the company participation interest form?"),
+        help_text=_("What is the URL to the company participation interest form?"),
         default="https://interesse.itdagene.no",
     )
 
@@ -251,12 +241,9 @@ class Preference(BaseModel):
                 pref, created = Preference.objects.get_or_create(
                     year=year,
                     defaults={
-                        "active":
-                        True,
-                        "start_date":
-                        datetime.strptime("%s-09-11" % year, "%Y-%m-%d"),
-                        "end_date":
-                        datetime.strptime("%s-09-12" % year, "%Y-%m-%d"),
+                        "active": True,
+                        "start_date": datetime.strptime("%s-09-11" % year, "%Y-%m-%d"),
+                        "end_date": datetime.strptime("%s-09-12" % year, "%Y-%m-%d"),
                     },
                 )
                 pref.active = True
@@ -275,10 +262,8 @@ class Preference(BaseModel):
                 year=year,
                 defaults={
                     "active": True,
-                    "start_date": datetime.strptime("%s-09-11" % year,
-                                                    "%Y-%m-%d"),
-                    "end_date": datetime.strptime("%s-09-12" % year,
-                                                  "%Y-%m-%d"),
+                    "start_date": datetime.strptime("%s-09-11" % year, "%Y-%m-%d"),
+                    "end_date": datetime.strptime("%s-09-12" % year, "%Y-%m-%d"),
                 },
             )
             pref.active = True

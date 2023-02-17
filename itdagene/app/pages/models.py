@@ -12,16 +12,15 @@ class Page(BaseModel):
     slug = models.SlugField(max_length=100, verbose_name=_("slug"))
     content = models.TextField(verbose_name=_("content"))
     ingress = models.TextField(verbose_name=_("ingress"), default="")
-    language = models.CharField(max_length=3,
-                                default=settings.DEFAULT_LANGUAGE,
-                                choices=settings.LANGUAGES)
+    language = models.CharField(
+        max_length=3, default=settings.DEFAULT_LANGUAGE, choices=settings.LANGUAGES
+    )
     active = models.BooleanField(verbose_name=_("active"), default=False)
-    need_auth = models.BooleanField(verbose_name=_("need authentication"),
-                                    default=False)
-    menu = models.BooleanField(verbose_name=_("should be in menu"),
-                               default=False)
-    is_infopage = models.BooleanField(verbose_name=_("is an info page"),
-                                      default=False)
+    need_auth = models.BooleanField(
+        verbose_name=_("need authentication"), default=False
+    )
+    menu = models.BooleanField(verbose_name=_("should be in menu"), default=False)
+    is_infopage = models.BooleanField(verbose_name=_("is an info page"), default=False)
 
     def __str__(self):
         return self.title

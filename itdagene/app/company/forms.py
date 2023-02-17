@@ -1,10 +1,10 @@
+from crispy_forms.bootstrap import FieldWithButtons, StrictButton
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout
 from django.db.models import Q
 from django.forms.models import ModelForm
 from django.utils.translation import gettext_lazy as _
 
-from crispy_forms.bootstrap import FieldWithButtons, StrictButton
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout
 from itdagene.app.company import COMPANY_STATUS
 from itdagene.app.company.models import (
     Company,
@@ -22,7 +22,7 @@ class PackageForm(ModelForm):
 
     class Meta:
         model = Package
-        exclude = ("is_full", )
+        exclude = ("is_full",)
 
 
 class CompanyForm(ModelForm):
@@ -36,49 +36,46 @@ class CompanyForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(CompanyForm, self).__init__(*args, **kwargs)
         users = User.objects.filter(
-            is_active=True,
-            is_staff=True,
-            year=Preference.current_preference().year).order_by("first_name")
+            is_active=True, is_staff=True, year=Preference.current_preference().year
+        ).order_by("first_name")
         self.fields["contact"].choices = [("", "----")] + [
             (user.pk, user.get_full_name()) for user in users
         ]
-        waiting_lists = Package.objects.filter(is_full=True,
-                                               has_waiting_list=True)
+        waiting_lists = Package.objects.filter(is_full=True, has_waiting_list=True)
         self.fields["waiting_for_package"].queryset = waiting_lists
 
 
 class BookCompanyForm(ModelForm):
-
     class Meta:
         model = Company
-        fields = ("package", )
+        fields = ("package",)
 
     def __init__(self, *args, **kwargs):
         super(BookCompanyForm, self).__init__(*args, **kwargs)
         packages = Package.objects.filter(
-            Q(is_full=False) or Q(companies=self.instance))
+            Q(is_full=False) or Q(companies=self.instance)
+        )
         self.fields["package"].queryset = packages
 
         self.helper = FormHelper()
         self.helper.layout = Layout(
             FieldWithButtons(
                 "package",
-                StrictButton(_("Save"), type="submit",
-                             css_class="btn-success"),
-            ))
+                StrictButton(_("Save"), type="submit", css_class="btn-success"),
+            )
+        )
 
 
 class WaitingListCompanyForm(ModelForm):
-
     class Meta:
         model = Company
-        fields = ("waiting_for_package", )
+        fields = ("waiting_for_package",)
 
     def __init__(self, *args, **kwargs):
         super(WaitingListCompanyForm, self).__init__(*args, **kwargs)
         waiting_lists = Package.objects.filter(
-            is_full=True,
-            has_waiting_list=True).exclude(companies=self.instance)
+            is_full=True, has_waiting_list=True
+        ).exclude(companies=self.instance)
         self.fields["waiting_for_package"].queryset = waiting_lists
         self.fields["waiting_for_package"].help_text = None
 
@@ -86,23 +83,21 @@ class WaitingListCompanyForm(ModelForm):
         self.helper.layout = Layout(
             FieldWithButtons(
                 "waiting_for_package",
-                StrictButton(_("Save"), type="submit",
-                             css_class="btn-success"),
-            ))
+                StrictButton(_("Save"), type="submit", css_class="btn-success"),
+            )
+        )
 
 
 class ResponsibilityForm(ModelForm):
-
     class Meta:
         model = Company
-        fields = ("contact", )
+        fields = ("contact",)
 
     def __init__(self, *args, **kwargs):
         super(ResponsibilityForm, self).__init__(*args, **kwargs)
         users = User.objects.filter(
-            is_active=True,
-            is_staff=True,
-            year=Preference.current_preference().year).order_by("first_name")
+            is_active=True, is_staff=True, year=Preference.current_preference().year
+        ).order_by("first_name")
         self.fields["contact"].choices = [("", "----")] + [
             (user.pk, user.get_full_name()) for user in users
         ]
@@ -114,7 +109,7 @@ class CompanyContactForm(ModelForm):
 
     class Meta:
         model = CompanyContact
-        exclude = ("company", )
+        exclude = ("company",)
 
     def __init__(self, *args, **kwargs):
         super(CompanyContactForm, self).__init__(*args, **kwargs)
@@ -122,10 +117,9 @@ class CompanyContactForm(ModelForm):
 
 
 class CompanyStatusForm(ModelForm):
-
     class Meta:
         model = Company
-        fields = ("status", )
+        fields = ("status",)
 
     def __init__(self, *args, **kwargs):
         super(CompanyStatusForm, self).__init__(*args, **kwargs)
@@ -135,9 +129,9 @@ class CompanyStatusForm(ModelForm):
         self.helper.layout = Layout(
             FieldWithButtons(
                 "status",
-                StrictButton(_("Save"), type="submit",
-                             css_class="btn-success"),
-            ))
+                StrictButton(_("Save"), type="submit", css_class="btn-success"),
+            )
+        )
 
 
 class ContractForm(ModelForm):
@@ -165,5 +159,4 @@ class KeyInformationForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(KeyInformationForm, self).__init__(*args, **kwargs)
-        self.action_url = "/bdb/key_information/" + str(
-            self.instance.pk) + "/add/"
+        self.action_url = "/bdb/key_information/" + str(self.instance.pk) + "/add/"

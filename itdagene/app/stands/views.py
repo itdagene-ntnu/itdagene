@@ -17,10 +17,7 @@ def list(request):
     return render(
         request,
         "stands/list.html",
-        {
-            "stands": stands,
-            "title": _("Stands")
-        },
+        {"stands": stands, "title": _("Stands")},
     )
 
 
@@ -33,10 +30,7 @@ def add(request):
             stand = form.save()
             add_message(request, SUCCESS, _("Stand saved."))
             return redirect(reverse("itdagene.stands.view", args=[stand.pk]))
-    return render(request, "stands/form.html", {
-        "title": _("Add stand"),
-        "form": form
-    })
+    return render(request, "stands/form.html", {"title": _("Add stand"), "form": form})
 
 
 @staff_required()
@@ -89,9 +83,5 @@ def delete(request, pk):
     return render(
         request,
         "stands/delete.html",
-        {
-            "stand": stand,
-            "title": _("Delete stand"),
-            "description": str(stand)
-        },
+        {"stand": stand, "title": _("Delete stand"), "description": str(stand)},
     )

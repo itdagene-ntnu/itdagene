@@ -71,10 +71,9 @@ def add(request):
             else:
                 return redirect(reverse("itdagene.frontpage"))
 
-    return render(request, "feedback/form.html", {
-        "title": _("Add Issue"),
-        "form": form
-    })
+    return render(
+        request, "feedback/form.html", {"title": _("Add Issue"), "form": form}
+    )
 
 
 @permission_required("feedback.change_issue")
@@ -94,28 +93,18 @@ def edit(request, id=None):
     return render(
         request,
         "feedback/form.html",
-        {
-            "title": _("Edit Issue"),
-            "description": issue,
-            "issue": issue,
-            "form": form
-        },
+        {"title": _("Edit Issue"), "description": issue, "issue": issue, "form": form},
     )
 
 
 @permission_required("feedback.add_issue")
 def my_issues(request):
-    assigned = Issue.objects.filter(
-        assigned_user=request.user).order_by("is_solved")
+    assigned = Issue.objects.filter(assigned_user=request.user).order_by("is_solved")
     created = Issue.objects.filter(creator=request.user).order_by("is_solved")
     return render(
         request,
         "feedback/issues/mine.html",
-        {
-            "assigned": assigned,
-            "created": created,
-            "title": _("My Issues")
-        },
+        {"assigned": assigned, "created": created, "title": _("My Issues")},
     )
 
 

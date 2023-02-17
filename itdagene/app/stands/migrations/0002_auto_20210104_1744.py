@@ -13,8 +13,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="digitalstand",
             name="chat_url",
-            field=models.CharField(blank=True,
-                                   max_length=100,
-                                   verbose_name="Chat link"),
+            field=models.CharField(
+                blank=True, max_length=100, verbose_name="Chat link"
+            ),
         ),
     ]

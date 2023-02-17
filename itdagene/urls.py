@@ -6,8 +6,8 @@ from django.http import HttpResponsePermanentRedirect
 from django.urls import include, re_path, reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
-
 from graphene_django.views import GraphQLView
+
 from itdagene.app.feedback.views.evalutions import handle_evaluation
 from itdagene.app.frontpage.views import frontpage
 from itdagene.core.views import error403, error404, error500, under_development
@@ -24,9 +24,9 @@ urlpatterns = [
     re_path(r"^errors/error403/$", error403),
     re_path(r"^errors/error404/$", error404),
     re_path(r"^errors/error500/$", error500),
-    re_path(r"^under-development/$",
-            under_development,
-            name="itdagene.under_development"),
+    re_path(
+        r"^under-development/$", under_development, name="itdagene.under_development"
+    ),
     re_path(r"^experiences/", include("itdagene.app.experiences.urls")),
     re_path(r"^admin/", include("itdagene.app.itdageneadmin.urls")),
     re_path(r"^comments/", include("itdagene.app.comments.urls")),
@@ -55,8 +55,7 @@ if settings.GOOGLE_AUTH:
         re_path("", include("social_django.urls", namespace="social")),
         re_path(
             r"^login/$",
-            TemplateView.as_view(
-                template_name="registration/google_login.html"),
+            TemplateView.as_view(template_name="registration/google_login.html"),
             name="itdagene.login",
         ),
     ]
@@ -66,7 +65,8 @@ urlpatterns += [
     re_path(
         r"^jobb/$",
         lambda r: HttpResponsePermanentRedirect(
-            reverse("itdagene.frontpage.joblistings")),
+            reverse("itdagene.frontpage.joblistings")
+        ),
     ),
     re_path(
         r"^dashboard/$",
@@ -79,8 +79,8 @@ urlpatterns += [
 # You will then expose all the contracts uploaded...
 if settings.DEBUG:
     urlpatterns += static(
-        settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(
-            settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+        settings.STATIC_URL, document_root=settings.STATIC_ROOT
+    ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # Must be the last one
 urlpatterns += [re_path(r"^", include("itdagene.app.pages.urls"))]
@@ -88,5 +88,4 @@ urlpatterns += [re_path(r"^", include("itdagene.app.pages.urls"))]
 if settings.DEBUG:
     import debug_toolbar
 
-    urlpatterns = [re_path(r"^__debug__/", include(debug_toolbar.urls))
-                   ] + urlpatterns
+    urlpatterns = [re_path(r"^__debug__/", include(debug_toolbar.urls))] + urlpatterns

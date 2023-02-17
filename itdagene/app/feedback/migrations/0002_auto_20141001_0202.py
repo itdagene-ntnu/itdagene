@@ -12,8 +12,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterUniqueTogether(name="evaluationhash",
-                                       unique_together=None),
+        migrations.AlterUniqueTogether(name="evaluationhash", unique_together=None),
         migrations.RemoveField(model_name="evaluationhash", name="company"),
         migrations.RemoveField(model_name="evaluationhash", name="preference"),
         migrations.RemoveField(model_name="evaluation", name="hash"),
