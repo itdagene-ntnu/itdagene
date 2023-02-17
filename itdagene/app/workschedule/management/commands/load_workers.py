@@ -16,7 +16,9 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         path = args[0]
         if not os.path.exists(path):
-            print("First argument should be the path to the file with worker info")
+            print(
+                "First argument should be the path to the file with worker info"
+            )
             return
 
         json_data = open(path)
@@ -32,7 +34,8 @@ class Command(BaseCommand):
             if "name" in worker:
                 w.name = worker["name"]
             else:
-                w.name = ("%s %s" % (worker["firstname"], worker["lastname"]),)
+                w.name = ("%s %s" %
+                          (worker["firstname"], worker["lastname"]), )
 
             try:
                 w.t_shirt_size = int(worker["storrelse"])

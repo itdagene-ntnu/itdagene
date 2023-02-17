@@ -1,7 +1,7 @@
 from django.contrib.messages import SUCCESS, add_message
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from itdagene.app.feedback.forms import EvaluationForm
 from itdagene.app.feedback.models import Evaluation
@@ -21,13 +21,12 @@ def handle_evaluation(request, hash):
             add_message(
                 request,
                 SUCCESS,
-                _(
-                    "Thank you for your interest I itDAGENE . We "
-                    "hope you will come back next next year."
-                ),
+                _("Thank you for your interest I itDAGENE . We "
+                  "hope you will come back next next year."),
             )
             return redirect(reverse("itdagene.frontpage.frontpage"))
-    return render(request, "feedback/evaluations/handle_evaluate.html", {"form": form})
+    return render(request, "feedback/evaluations/handle_evaluate.html",
+                  {"form": form})
 
 
 @staff_required()
@@ -36,41 +35,36 @@ def report(request, year=None):
         preferences = Preference.current_preference()
     else:
         preferences = get_object_or_404(Preference, year=year)
-    evaluations = Evaluation.objects.filter(preference=preferences, has_answers=True)
+    evaluations = Evaluation.objects.filter(preference=preferences,
+                                            has_answers=True)
 
     if evaluations.count():
         if evaluations.exclude(internship_marathon_rating=0).count():
             avg_internship_marathon_rating = (
-                sum([e.internship_marathon_rating for e in evaluations])
-                / evaluations.exclude(internship_marathon_rating=0).count()
-            )
+                sum([e.internship_marathon_rating for e in evaluations]) /
+                evaluations.exclude(internship_marathon_rating=0).count())
 
         if evaluations.exclude(course_rating=0).count():
-            avg_course_rating = (
-                sum([e.course_rating for e in evaluations])
-                / evaluations.exclude(course_rating=0).count()
-            )
+            avg_course_rating = (sum([e.course_rating for e in evaluations]) /
+                                 evaluations.exclude(course_rating=0).count())
 
         if evaluations.exclude(visitors_rating=0).count():
             avg_visitors_rating = (
-                sum([e.visitors_rating for e in evaluations]) / evaluations.count()
-            )
+                sum([e.visitors_rating
+                     for e in evaluations]) / evaluations.count())
 
         if evaluations.exclude(interview_location_rating=0).count():
             avg_interview_location_rating = (
-                sum([e.interview_location_rating for e in evaluations])
-                / evaluations.exclude(interview_location_rating=0).count()
-            )
+                sum([e.interview_location_rating for e in evaluations]) /
+                evaluations.exclude(interview_location_rating=0).count())
 
         if evaluations.exclude(banquet_rating=0).count():
             avg_banquet_rating = (
-                sum([e.banquet_rating for e in evaluations])
-                / evaluations.exclude(banquet_rating=0).count()
-            )
+                sum([e.banquet_rating for e in evaluations]) /
+                evaluations.exclude(banquet_rating=0).count())
 
-        percentage_want_to_come_back = (
-            evaluations.filter(want_to_come_back=True).count() / evaluations.count()
-        ) * 100
+        percentage_want_to_come_back = (evaluations.filter(
+            want_to_come_back=True).count() / evaluations.count()) * 100
 
     title = _("Evaluation of itDAGENE")
     description = preferences.year

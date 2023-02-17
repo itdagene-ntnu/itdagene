@@ -15,8 +15,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="contract",
             name="timestamp",
-            field=models.DateField(
-                help_text="Signing date, not uploaded date", verbose_name="date"
-            ),
+            field=models.DateField(help_text="Signing date, not uploaded date",
+                                   verbose_name="date"),
         ),
     ]

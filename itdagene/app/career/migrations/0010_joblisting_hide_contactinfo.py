@@ -12,7 +12,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="joblisting",
             name="hide_contactinfo",
-            field=models.BooleanField(default=False, verbose_name="Hide contact info"),
+            field=models.BooleanField(default=False,
+                                      verbose_name="Hide contact info"),
             preserve_default=True,
         )
     ]

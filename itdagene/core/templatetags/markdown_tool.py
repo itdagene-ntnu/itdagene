@@ -10,7 +10,7 @@ register = Library()
 @stringfilter
 def markdownize(value):
     return mark_safe(
-        markdown.markdown(
-            value, extensions=["nl2br"], safe_mode=True, enable_attributes=False
-        )
-    )
+        markdown.markdown(value,
+                          extensions=["nl2br"],
+                          safe_mode=True,
+                          enable_attributes=False))

@@ -2,6 +2,7 @@ import re
 
 from django.conf import settings
 from django.template import Library
+
 from sorl.thumbnail.shortcuts import get_thumbnail
 
 register = Library()
@@ -24,7 +25,8 @@ def load_thumbnails(value):
     for i in images:
         width = re.search(r"width:( )?(\d+)px;", i[3])
         if width:
-            width = int(width.group().replace("width:", "").replace("px;", "").strip())
+            width = int(width.group().replace("width:",
+                                              "").replace("px;", "").strip())
             if width > 1000:
                 width = 1000
 
@@ -36,8 +38,8 @@ def load_thumbnails(value):
         if float:
             value = value.replace(
                 "style=",
-                'class="pull-%s" style='
-                % float.group().replace("float:", "").replace(";", "").strip(),
+                'class="pull-%s" style=' %
+                float.group().replace("float:", "").replace(";", "").strip(),
             )
 
         image = i[2]

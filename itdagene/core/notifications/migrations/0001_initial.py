@@ -32,22 +32,24 @@ class Migration(migrations.Migration):
                         choices=[(0, b"Low"), (1, b"Medium"), (2, b"High")],
                     ),
                 ),
-                ("date", models.DateTimeField(auto_now=True, verbose_name="dato")),
+                ("date",
+                 models.DateTimeField(auto_now=True, verbose_name="dato")),
                 ("message", models.TextField(verbose_name="melding")),
                 ("object_id", models.PositiveIntegerField()),
                 (
                     "send_mail",
-                    models.BooleanField(default=True, verbose_name="send epost"),
+                    models.BooleanField(default=True,
+                                        verbose_name="send epost"),
                 ),
                 (
                     "sent_mail",
-                    models.BooleanField(default=False, verbose_name="sendt epost"),
+                    models.BooleanField(default=False,
+                                        verbose_name="sendt epost"),
                 ),
                 (
                     "content_type",
-                    models.ForeignKey(
-                        to="contenttypes.ContentType", on_delete=models.CASCADE
-                    ),
+                    models.ForeignKey(to="contenttypes.ContentType",
+                                      on_delete=models.CASCADE),
                 ),
                 (
                     "user",
@@ -59,7 +61,7 @@ class Migration(migrations.Migration):
                 ),
             ],
             options={},
-            bases=(models.Model,),
+            bases=(models.Model, ),
         ),
         migrations.CreateModel(
             name="Subscription",
@@ -76,9 +78,8 @@ class Migration(migrations.Migration):
                 ("object_id", models.PositiveIntegerField()),
                 (
                     "content_type",
-                    models.ForeignKey(
-                        to="contenttypes.ContentType", on_delete=models.CASCADE
-                    ),
+                    models.ForeignKey(to="contenttypes.ContentType",
+                                      on_delete=models.CASCADE),
                 ),
                 (
                     "subscribers",
@@ -91,6 +92,6 @@ class Migration(migrations.Migration):
                 ),
             ],
             options={},
-            bases=(models.Model,),
+            bases=(models.Model, ),
         ),
     ]

@@ -12,7 +12,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="worker",
             name="email",
-            field=models.EmailField(blank=True, max_length=254, verbose_name="email"),
+            field=models.EmailField(blank=True,
+                                    max_length=254,
+                                    verbose_name="email"),
         ),
         migrations.AlterField(
             model_name="worker",

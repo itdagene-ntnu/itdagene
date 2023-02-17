@@ -26,14 +26,16 @@ class Migration(migrations.Migration):
                 ),
                 ("date_created", models.DateTimeField(editable=False)),
                 ("date_saved", models.DateTimeField(editable=False)),
-                ("title", models.CharField(max_length=80, verbose_name="title")),
+                ("title", models.CharField(max_length=80,
+                                           verbose_name="title")),
                 ("description", models.TextField(verbose_name="description")),
                 ("deadline", models.DateTimeField(verbose_name="deadline")),
                 (
                     "todo_per_company",
                     models.BooleanField(
                         default=False,
-                        help_text="If unchecked there will only be created a todo for each board-user",
+                        help_text=
+                        "If unchecked there will only be created a todo for each board-user",
                         verbose_name="todo for each company",
                     ),
                 ),
@@ -57,7 +59,7 @@ class Migration(migrations.Migration):
                 ),
             ],
             options={"abstract": False},
-            bases=(models.Model,),
+            bases=(models.Model, ),
         ),
         migrations.CreateModel(
             name="Todo",
@@ -73,20 +75,22 @@ class Migration(migrations.Migration):
                 ),
                 ("date_created", models.DateTimeField(editable=False)),
                 ("date_saved", models.DateTimeField(editable=False)),
-                ("title", models.CharField(max_length=80, verbose_name="title")),
+                ("title", models.CharField(max_length=80,
+                                           verbose_name="title")),
                 (
                     "description",
                     models.TextField(verbose_name="description", blank=True),
                 ),
                 (
                     "deadline",
-                    models.DateTimeField(
-                        null=True, verbose_name="deadline", blank=True
-                    ),
+                    models.DateTimeField(null=True,
+                                         verbose_name="deadline",
+                                         blank=True),
                 ),
                 (
                     "finished",
-                    models.BooleanField(default=False, verbose_name="finished"),
+                    models.BooleanField(default=False,
+                                        verbose_name="finished"),
                 ),
                 (
                     "company",
@@ -139,6 +143,6 @@ class Migration(migrations.Migration):
                 ),
             ],
             options={"abstract": False},
-            bases=(models.Model,),
+            bases=(models.Model, ),
         ),
     ]

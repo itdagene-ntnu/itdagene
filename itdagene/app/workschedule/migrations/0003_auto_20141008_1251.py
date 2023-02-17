@@ -9,6 +9,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterModelOptions(
-            name="worker", options={"permissions": (("view_worker", "Can see worker"),)}
-        )
+            name="worker",
+            options={"permissions": (("view_worker", "Can see worker"), )})
     ]

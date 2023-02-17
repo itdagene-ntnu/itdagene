@@ -23,11 +23,13 @@ class Migration(migrations.Migration):
                 ),
                 ("date_created", models.DateTimeField(editable=False)),
                 ("date_saved", models.DateTimeField(editable=False)),
-                ("title", models.CharField(max_length=100, verbose_name="title")),
+                ("title", models.CharField(max_length=100,
+                                           verbose_name="title")),
                 ("content", models.TextField(verbose_name="content")),
                 (
                     "image",
-                    models.ImageField(upload_to="announcements/", verbose_name="image"),
+                    models.ImageField(upload_to="announcements/",
+                                      verbose_name="image"),
                 ),
                 (
                     "creator",
@@ -52,6 +54,6 @@ class Migration(migrations.Migration):
                 "verbose_name": "announcement",
                 "verbose_name_plural": "announcements",
             },
-            bases=(models.Model,),
+            bases=(models.Model, ),
         )
     ]

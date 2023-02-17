@@ -22,9 +22,9 @@ urlpatterns = [
     ),
     re_path(r"^(?P<id>\d+)/edit$", edit, name="itdagene.meetings.edit"),
     re_path(r"^(?P<id>\d+)/attend$", attend, name="itdagene.meetings.attend"),
-    re_path(
-        r"^(?P<id>\d+)/not-attend$", not_attend, name="itdagene.meetings.not_attend"
-    ),
+    re_path(r"^(?P<id>\d+)/not-attend$",
+            not_attend,
+            name="itdagene.meetings.not_attend"),
     re_path(
         r"^(?P<id>\d+)/send-invites$",
         send_invites,

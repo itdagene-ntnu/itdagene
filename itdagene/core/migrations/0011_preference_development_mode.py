@@ -13,7 +13,8 @@ class Migration(migrations.Migration):
             name="development_mode",
             field=models.BooleanField(
                 default=False,
-                help_text="This option puts the site in development mode. The public page will be disabled.",
+                help_text=
+                "This option puts the site in development mode. The public page will be disabled.",
                 verbose_name="Development Mode",
             ),
             preserve_default=True,

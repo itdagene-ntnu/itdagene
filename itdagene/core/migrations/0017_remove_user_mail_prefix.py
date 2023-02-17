@@ -7,4 +7,6 @@ class Migration(migrations.Migration):
 
     dependencies = [("core", "0016_auto_20141007_2055")]
 
-    operations = [migrations.RemoveField(model_name="user", name="mail_prefix")]
+    operations = [
+        migrations.RemoveField(model_name="user", name="mail_prefix")
+    ]

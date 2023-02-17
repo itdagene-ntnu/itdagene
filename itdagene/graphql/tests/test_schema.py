@@ -1,6 +1,6 @@
 from django.test import TestCase
-from graphene.test import Client
 
+from graphene.test import Client
 from itdagene.graphql.schema import schema
 
 

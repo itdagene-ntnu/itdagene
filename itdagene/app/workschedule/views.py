@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from itdagene.app.workschedule.forms import WorkerForm, WorkScheduleForm
 from itdagene.app.workschedule.models import Worker, WorkerInSchedule, WorkSchedule
@@ -15,7 +15,10 @@ def add_worker(request):
         if form.is_valid():
             form.save()
             return redirect(reverse("itdagene.workschedule.list"))
-    return render(request, "worker/form.html", {"form": form, "title": _("Add Worker")})
+    return render(request, "worker/form.html", {
+        "form": form,
+        "title": _("Add Worker")
+    })
 
 
 @permission_required("workschedule.add_workschedule")
@@ -29,7 +32,10 @@ def add_task(request):
     return render(
         request,
         "workschedule/form.html",
-        {"form": form, "title": _("Add Work Schedule")},
+        {
+            "form": form,
+            "title": _("Add Work Schedule")
+        },
     )
 
 
@@ -46,7 +52,12 @@ def edit_worker(request, id):
     return render(
         request,
         "worker/form.html",
-        {"form": form, "title": _("Edit Worker"), "description": str(ws), "worker": ws},
+        {
+            "form": form,
+            "title": _("Edit Worker"),
+            "description": str(ws),
+            "worker": ws
+        },
     )
 
 
@@ -63,7 +74,12 @@ def edit_task(request, id):
     return render(
         request,
         "workschedule/form.html",
-        {"form": form, "title": _("Edit Task"), "description": str(ws), "task": ws},
+        {
+            "form": form,
+            "title": _("Edit Task"),
+            "description": str(ws),
+            "task": ws
+        },
     )
 
 
@@ -122,8 +138,7 @@ def change_attendance(request, id):
     worker.has_met = not worker.has_met
     worker.save()
     return redirect(
-        reverse("itdagene.workschedule.view_task", args=[worker.schedule.pk])
-    )
+        reverse("itdagene.workschedule.view_task", args=[worker.schedule.pk]))
 
 
 # @permission_required('workschedule.view_workschedule')

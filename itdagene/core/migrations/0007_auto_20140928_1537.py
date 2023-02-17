@@ -11,9 +11,12 @@ class Migration(migrations.Migration):
         migrations.AlterModelOptions(
             name="user",
             options={
-                "verbose_name": "user",
-                "verbose_name_plural": "users",
-                "permissions": (("send_welcome_email", "Can send welcome emails"),),
+                "verbose_name":
+                "user",
+                "verbose_name_plural":
+                "users",
+                "permissions":
+                (("send_welcome_email", "Can send welcome emails"), ),
             },
         )
     ]

@@ -11,13 +11,15 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="company",
             name="phone",
-            field=models.CharField(
-                max_length=20, null=True, verbose_name="Phone", blank=True
-            ),
+            field=models.CharField(max_length=20,
+                                   null=True,
+                                   verbose_name="Phone",
+                                   blank=True),
         ),
         migrations.AlterField(
             model_name="contract",
             name="file",
-            field=models.FileField(upload_to="contracts/", verbose_name="file"),
+            field=models.FileField(upload_to="contracts/",
+                                   verbose_name="file"),
         ),
     ]

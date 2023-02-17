@@ -13,7 +13,8 @@ class Migration(migrations.Migration):
             name="visitors_rating",
             field=models.IntegerField(
                 default=0,
-                verbose_name="Are you satisfied with the number of people that visited your stand?",
+                verbose_name=
+                "Are you satisfied with the number of people that visited your stand?",
                 choices=[
                     (0, "Did not use"),
                     (1, "1: Very bad"),

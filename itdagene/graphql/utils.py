@@ -1,4 +1,5 @@
 from django.conf import settings
+
 from sorl.thumbnail import get_thumbnail
 
 

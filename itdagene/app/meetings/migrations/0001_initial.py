@@ -27,7 +27,9 @@ class Migration(migrations.Migration):
                 ("start_time", models.TimeField(verbose_name="from time")),
                 (
                     "end_time",
-                    models.TimeField(null=True, verbose_name="to time", blank=True),
+                    models.TimeField(null=True,
+                                     verbose_name="to time",
+                                     blank=True),
                 ),
                 (
                     "type",
@@ -46,17 +48,20 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "location",
-                    models.CharField(
-                        max_length=40, verbose_name="location", blank=True
-                    ),
+                    models.CharField(max_length=40,
+                                     verbose_name="location",
+                                     blank=True),
                 ),
                 (
                     "abstract",
-                    models.TextField(null=True, verbose_name="abstract", blank=True),
+                    models.TextField(null=True,
+                                     verbose_name="abstract",
+                                     blank=True),
                 ),
                 (
                     "is_board_meeting",
-                    models.BooleanField(default=True, verbose_name="is board meeting"),
+                    models.BooleanField(default=True,
+                                        verbose_name="is board meeting"),
                 ),
                 (
                     "creator",
@@ -88,8 +93,11 @@ class Migration(migrations.Migration):
                     ),
                 ),
             ],
-            options={"verbose_name": "meeting", "verbose_name_plural": "meetings"},
-            bases=(models.Model,),
+            options={
+                "verbose_name": "meeting",
+                "verbose_name_plural": "meetings"
+            },
+            bases=(models.Model, ),
         ),
         migrations.CreateModel(
             name="Penalty",
@@ -117,8 +125,7 @@ class Migration(migrations.Migration):
                 (
                     "bottles",
                     models.PositiveIntegerField(
-                        default=2, verbose_name="number of bottles"
-                    ),
+                        default=2, verbose_name="number of bottles"),
                 ),
                 ("reason", models.TextField(verbose_name="reason")),
                 (
@@ -160,7 +167,7 @@ class Migration(migrations.Migration):
                 ),
             ],
             options={"abstract": False},
-            bases=(models.Model,),
+            bases=(models.Model, ),
         ),
         migrations.CreateModel(
             name="ReplyMeeting",
@@ -178,7 +185,8 @@ class Migration(migrations.Migration):
                 ("date_saved", models.DateTimeField(editable=False)),
                 (
                     "is_attending",
-                    models.NullBooleanField(default=False, verbose_name="attending"),
+                    models.NullBooleanField(default=False,
+                                            verbose_name="attending"),
                 ),
                 (
                     "creator",
@@ -217,6 +225,6 @@ class Migration(migrations.Migration):
                 ),
             ],
             options={"abstract": False},
-            bases=(models.Model,),
+            bases=(models.Model, ),
         ),
     ]

@@ -16,7 +16,8 @@ class Migration(migrations.Migration):
             name="communication_rating",
             field=models.IntegerField(
                 default=0,
-                verbose_name="What do you think about the communication and information given in advance of the event?",
+                verbose_name=
+                "What do you think about the communication and information given in advance of the event?",
                 choices=[
                     (0, "Did not use"),
                     (1, "1: Very bad"),
@@ -31,16 +32,16 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="evaluation",
             name="has_banquet",
-            field=models.BooleanField(
-                default=False, verbose_name="Were you at the banquet?"
-            ),
+            field=models.BooleanField(default=False,
+                                      verbose_name="Were you at the banquet?"),
             preserve_default=True,
         ),
         migrations.AlterField(
             model_name="evaluation",
             name="improvement",
             field=models.TextField(
-                verbose_name="What could have been done better? Something else you want to comment?",
+                verbose_name=
+                "What could have been done better? Something else you want to comment?",
                 blank=True,
             ),
             preserve_default=True,
@@ -49,7 +50,8 @@ class Migration(migrations.Migration):
             model_name="evaluation",
             name="internship_marathon_improvement",
             field=models.TextField(
-                verbose_name="What could have been done better at the internship marathon?",
+                verbose_name=
+                "What could have been done better at the internship marathon?",
                 blank=True,
             ),
             preserve_default=True,
@@ -75,7 +77,8 @@ class Migration(migrations.Migration):
             model_name="evaluation",
             name="interview_location_improvement",
             field=models.TextField(
-                verbose_name="What could have been done better at the interview room?",
+                verbose_name=
+                "What could have been done better at the interview room?",
                 blank=True,
             ),
             preserve_default=True,
@@ -85,7 +88,8 @@ class Migration(migrations.Migration):
             name="visitors_rating",
             field=models.IntegerField(
                 default=0,
-                verbose_name="How satisfied are you with the number of people that visited your stand?",
+                verbose_name=
+                "How satisfied are you with the number of people that visited your stand?",
                 choices=[
                     (0, "Did not use"),
                     (1, "1: Very bad"),

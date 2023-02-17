@@ -23,8 +23,10 @@ class Migration(migrations.Migration):
                 ),
                 ("date_created", models.DateTimeField(editable=False)),
                 ("date_saved", models.DateTimeField(editable=False)),
-                ("title", models.CharField(max_length=100, verbose_name="title")),
-                ("slug", models.SlugField(max_length=100, verbose_name="slug")),
+                ("title", models.CharField(max_length=100,
+                                           verbose_name="title")),
+                ("slug", models.SlugField(max_length=100,
+                                          verbose_name="slug")),
                 ("content", models.TextField(verbose_name="content")),
                 (
                     "language",
@@ -34,18 +36,17 @@ class Migration(migrations.Migration):
                         choices=[("nb", "Norsk"), ("en", "English")],
                     ),
                 ),
-                ("active", models.BooleanField(default=False, verbose_name="active")),
+                ("active",
+                 models.BooleanField(default=False, verbose_name="active")),
                 (
                     "need_auth",
-                    models.BooleanField(
-                        default=False, verbose_name="need authentication"
-                    ),
+                    models.BooleanField(default=False,
+                                        verbose_name="need authentication"),
                 ),
                 (
                     "menu",
-                    models.BooleanField(
-                        default=False, verbose_name="should be in menu"
-                    ),
+                    models.BooleanField(default=False,
+                                        verbose_name="should be in menu"),
                 ),
                 (
                     "creator",
@@ -66,7 +67,10 @@ class Migration(migrations.Migration):
                     ),
                 ),
             ],
-            options={"verbose_name": "Page", "verbose_name_plural": "Pages"},
-            bases=(models.Model,),
+            options={
+                "verbose_name": "Page",
+                "verbose_name_plural": "Pages"
+            },
+            bases=(models.Model, ),
         )
     ]

@@ -11,7 +11,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="worker",
             name="preference",
-            field=models.PositiveIntegerField(default=2014, verbose_name="year"),
+            field=models.PositiveIntegerField(default=2014,
+                                              verbose_name="year"),
             preserve_default=False,
         )
     ]

@@ -83,9 +83,10 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="joblisting",
             name="towns",
-            field=models.ManyToManyField(
-                to="career.Town", null=True, verbose_name="town", blank=True
-            ),
+            field=models.ManyToManyField(to="career.Town",
+                                         null=True,
+                                         verbose_name="town",
+                                         blank=True),
             preserve_default=True,
         ),
     ]

@@ -16,12 +16,14 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="joblisting",
             name="from_year",
-            field=models.PositiveIntegerField(default=1, verbose_name="from year"),
+            field=models.PositiveIntegerField(default=1,
+                                              verbose_name="from year"),
         ),
         migrations.AlterField(
             model_name="joblisting",
             name="to_year",
-            field=models.PositiveIntegerField(default=5, verbose_name="to year"),
+            field=models.PositiveIntegerField(default=5,
+                                              verbose_name="to year"),
         ),
         migrations.AlterField(
             model_name="joblisting",
@@ -29,7 +31,8 @@ class Migration(migrations.Migration):
             field=models.CharField(
                 max_length=20,
                 verbose_name="type",
-                choices=[(b"si", "Summer internship"), (b"pp", "Permanent position")],
+                choices=[(b"si", "Summer internship"),
+                         (b"pp", "Permanent position")],
             ),
         ),
     ]

@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import SUCCESS, add_message
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from itdagene.app.events.models import Event
 from itdagene.app.stands.forms import DigitalStandForm
@@ -17,7 +17,10 @@ def list(request):
     return render(
         request,
         "stands/list.html",
-        {"stands": stands, "title": _("Stands")},
+        {
+            "stands": stands,
+            "title": _("Stands")
+        },
     )
 
 
@@ -30,7 +33,10 @@ def add(request):
             stand = form.save()
             add_message(request, SUCCESS, _("Stand saved."))
             return redirect(reverse("itdagene.stands.view", args=[stand.pk]))
-    return render(request, "stands/form.html", {"title": _("Add stand"), "form": form})
+    return render(request, "stands/form.html", {
+        "title": _("Add stand"),
+        "form": form
+    })
 
 
 @staff_required()
@@ -83,5 +89,9 @@ def delete(request, pk):
     return render(
         request,
         "stands/delete.html",
-        {"stand": stand, "title": _("Delete stand"), "description": str(stand)},
+        {
+            "stand": stand,
+            "title": _("Delete stand"),
+            "description": str(stand)
+        },
     )

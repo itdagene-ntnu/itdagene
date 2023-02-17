@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
             options={
                 "verbose_name": "user",
                 "verbose_name_plural": "users",
-                "permissions": ("send_welcome_mail",),
+                "permissions": ("send_welcome_mail", ),
             },
         )
     ]

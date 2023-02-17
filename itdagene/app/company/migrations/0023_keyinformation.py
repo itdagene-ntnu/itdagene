@@ -29,9 +29,11 @@ class Migration(migrations.Migration):
                 ("date_saved", models.DateTimeField(editable=False)),
                 (
                     "name",
-                    models.CharField(max_length=20, verbose_name="information name"),
+                    models.CharField(max_length=20,
+                                     verbose_name="information name"),
                 ),
-                ("value", models.CharField(max_length=20, verbose_name="value")),
+                ("value", models.CharField(max_length=20,
+                                           verbose_name="value")),
                 (
                     "company",
                     models.ForeignKey(

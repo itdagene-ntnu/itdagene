@@ -13,7 +13,8 @@ class Migration(migrations.Migration):
             name="mail_prefix",
             field=models.CharField(
                 default="",
-                help_text="This is a mail prefix for your itdagene mail. The address will be value@itdagene.no. This is typicaly you name or username. Don't use a group name.",
+                help_text=
+                "This is a mail prefix for your itdagene mail. The address will be value@itdagene.no. This is typicaly you name or username. Don't use a group name.",
                 unique=True,
                 max_length=40,
                 verbose_name="Mail prefix",

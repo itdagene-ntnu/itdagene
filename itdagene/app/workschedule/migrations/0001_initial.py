@@ -25,12 +25,14 @@ class Migration(migrations.Migration):
                 ("date_saved", models.DateTimeField(editable=False)),
                 (
                     "username",
-                    models.CharField(
-                        max_length=20, verbose_name="username", blank=True
-                    ),
+                    models.CharField(max_length=20,
+                                     verbose_name="username",
+                                     blank=True),
                 ),
-                ("name", models.CharField(max_length=100, verbose_name="name")),
-                ("phone", models.IntegerField(default=0, verbose_name="phone number")),
+                ("name", models.CharField(max_length=100,
+                                          verbose_name="name")),
+                ("phone",
+                 models.IntegerField(default=0, verbose_name="phone number")),
                 (
                     "t_shirt_size",
                     models.IntegerField(
@@ -50,7 +52,9 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "email",
-                    models.EmailField(max_length=75, verbose_name="email", blank=True),
+                    models.EmailField(max_length=75,
+                                      verbose_name="email",
+                                      blank=True),
                 ),
                 (
                     "creator",
@@ -72,7 +76,7 @@ class Migration(migrations.Migration):
                 ),
             ],
             options={"abstract": False},
-            bases=(models.Model,),
+            bases=(models.Model, ),
         ),
         migrations.CreateModel(
             name="WorkerInSchedule",
@@ -88,7 +92,8 @@ class Migration(migrations.Migration):
                 ),
                 ("date_created", models.DateTimeField(editable=False)),
                 ("date_saved", models.DateTimeField(editable=False)),
-                ("has_met", models.BooleanField(default=False, verbose_name="has met")),
+                ("has_met",
+                 models.BooleanField(default=False, verbose_name="has met")),
                 (
                     "creator",
                     models.ForeignKey(
@@ -109,7 +114,7 @@ class Migration(migrations.Migration):
                 ),
             ],
             options={"abstract": False},
-            bases=(models.Model,),
+            bases=(models.Model, ),
         ),
         migrations.CreateModel(
             name="WorkSchedule",
@@ -125,7 +130,8 @@ class Migration(migrations.Migration):
                 ),
                 ("date_created", models.DateTimeField(editable=False)),
                 ("date_saved", models.DateTimeField(editable=False)),
-                ("title", models.CharField(max_length=80, verbose_name="title")),
+                ("title", models.CharField(max_length=80,
+                                           verbose_name="title")),
                 ("date", models.DateField(verbose_name="date")),
                 ("start_time", models.TimeField(verbose_name="start time")),
                 ("end_time", models.TimeField(verbose_name="end time")),
@@ -152,9 +158,10 @@ class Migration(migrations.Migration):
             options={
                 "verbose_name": "work schedule",
                 "verbose_name_plural": "work schedules",
-                "permissions": (("view_workschedule", "Can see workschedule"),),
+                "permissions":
+                (("view_workschedule", "Can see workschedule"), ),
             },
-            bases=(models.Model,),
+            bases=(models.Model, ),
         ),
         migrations.AddField(
             model_name="workerinschedule",

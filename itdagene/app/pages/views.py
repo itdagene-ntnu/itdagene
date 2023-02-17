@@ -4,7 +4,7 @@ from django.contrib.messages import SUCCESS, add_message
 from django.core.cache import cache
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from itdagene.app.pages.forms import PageForm
 from itdagene.app.pages.models import Page
@@ -37,7 +37,10 @@ def add(request):
         else:
             return render(request, "pages/form.html", {"form": form})
     form = PageForm()
-    return render(request, "pages/form.html", {"form": form, "title": _("Add Page")})
+    return render(request, "pages/form.html", {
+        "form": form,
+        "title": _("Add Page")
+    })
 
 
 @permission_required("pages.change_page")
@@ -77,13 +80,18 @@ def delete(request, slug, lang_code="nb"):
     return render(
         request,
         "pages/delete.html",
-        {"page": page, "title": _("Delete Page"), "description": page.title},
+        {
+            "page": page,
+            "title": _("Delete Page"),
+            "description": page.title
+        },
     )
 
 
 @staff_required()
 def admin(request):
     pages = Page.objects.all().order_by("menu", "active")
-    return render(
-        request, "pages/admin.html", {"pages": pages, "title": _("Pages Admin")}
-    )
+    return render(request, "pages/admin.html", {
+        "pages": pages,
+        "title": _("Pages Admin")
+    })

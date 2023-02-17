@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import SUCCESS, add_message
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from itdagene.app.company.forms import PackageForm
 from itdagene.app.company.models import Package
@@ -15,7 +15,10 @@ def list(request):
     return render(
         request,
         "company/packages/base.html",
-        {"packages": packages, "title": _("Packages")},
+        {
+            "packages": packages,
+            "title": _("Packages")
+        },
     )
 
 
@@ -25,7 +28,11 @@ def view(request, id):
     return render(
         request,
         "company/packages/view.html",
-        {"package": package, "title": _("Package"), "description": package},
+        {
+            "package": package,
+            "title": _("Package"),
+            "description": package
+        },
     )
 
 
@@ -38,9 +45,10 @@ def add(request):
             form.save()
             add_message(request, SUCCESS, _("Package added."))
             return redirect(reverse("itdagene.company.packages.list"))
-    return render(
-        request, "company/form.html", {"form": form, "title": _("Add Package")}
-    )
+    return render(request, "company/form.html", {
+        "form": form,
+        "title": _("Add Package")
+    })
 
 
 @permission_required("company.change_package")

@@ -1,7 +1,7 @@
 from django.template import Library
 from django.utils import formats
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 register = Library()
 
@@ -54,5 +54,4 @@ def datetime(value, arg=None):
             return ""
     return mark_safe(
         '<span class="date"><span class="date-ts"> for %s %s</span><span class="date-normal" '
-        'style="display:none;">%s</span></span>' % (ts, _("ago"), normal)
-    )
+        'style="display:none;">%s</span></span>' % (ts, _("ago"), normal))

@@ -27,8 +27,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="ticket",
             name="email",
-            field=models.EmailField(
-                blank=True, max_length=254, verbose_name="e-mail address"
-            ),
+            field=models.EmailField(blank=True,
+                                    max_length=254,
+                                    verbose_name="e-mail address"),
         ),
     ]

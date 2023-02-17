@@ -17,7 +17,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="notification",
             name="sent_mail",
-            field=models.BooleanField(default=True, verbose_name="sendt epost"),
+            field=models.BooleanField(default=True,
+                                      verbose_name="sendt epost"),
             preserve_default=True,
         ),
     ]

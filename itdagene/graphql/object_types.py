@@ -1,9 +1,9 @@
-import graphene
 from django.db.models import Q
+
+import graphene
 from graphene import relay
 from graphene_django import DjangoObjectType
 from graphene_django.registry import Registry
-
 from itdagene.app.career.models import Joblisting as ItdageneJoblisting
 from itdagene.app.career.models import Town as ItdageneTown
 from itdagene.app.company.models import Company as ItdageneCompany
@@ -20,7 +20,7 @@ from itdagene.graphql.utils import resize_image
 class Town(DjangoObjectType):
     class Meta:
         model = ItdageneTown
-        interfaces = (relay.Node,)
+        interfaces = (relay.Node, )
         description = "Town entity"
         only_fields = ("id", "name")
 
@@ -108,11 +108,13 @@ class Page(DjangoObjectType):
 class User(DjangoObjectType):
     full_name = graphene.String()
     role = graphene.String()
-    photo = graphene.Field(graphene.String, height=graphene.Int(), width=graphene.Int())
+    photo = graphene.Field(graphene.String,
+                           height=graphene.Int(),
+                           width=graphene.Int())
 
     class Meta:
         model = ItdageneUser
-        interfaces = (relay.Node,)
+        interfaces = (relay.Node, )
         description = "User entity"
         only_fields = ("id", "firstName", "lastName", "email", "year", "role")
 
@@ -143,7 +145,7 @@ class Event(DjangoObjectType):
             "max_participants",
             "date",
         )
-        interfaces = (relay.Node,)
+        interfaces = (relay.Node, )
 
     @classmethod
     def get_queryset(cls):
@@ -155,9 +157,8 @@ class Event(DjangoObjectType):
 
 
 class Stand(DjangoObjectType):
-    events = graphene.List(
-        graphene.NonNull(Event), description="The stand's associated events"
-    )
+    events = graphene.List(graphene.NonNull(Event),
+                           description="The stand's associated events")
 
     class Meta:
         model = ItdageneStand
@@ -171,7 +172,7 @@ class Stand(DjangoObjectType):
             "active",
             "company",
         )
-        interfaces = (relay.Node,)
+        interfaces = (relay.Node, )
 
     def resolve_company(self, info, **kwargs):
         return info.context.loaders.Companyloader.load(self.company_id)
@@ -187,7 +188,7 @@ class Stand(DjangoObjectType):
 class KeyInformation(DjangoObjectType):
     class Meta:
         model = ItdageneKeyInformation
-        interfaces = (relay.Node,)
+        interfaces = (relay.Node, )
         description = "Key information about a company"
         only_fields = ("id", "name", "value")
 
@@ -216,7 +217,7 @@ class Company(DjangoObjectType):
             "is_collabrator",
             "joblistings",
         )
-        interfaces = (relay.Node,)
+        interfaces = (relay.Node, )
 
     @classmethod
     def get_queryset(cls):
@@ -255,7 +256,7 @@ class MainCollaborator(Company):
             "video",
             "poster",
         )
-        interfaces = (relay.Node,)
+        interfaces = (relay.Node, )
         # This has to be added to avoid GraphQL using this definiton for all company references
         registry = Registry()
 
@@ -279,12 +280,13 @@ class MetaData(DjangoObjectType):
     companies_last_day = graphene.List(graphene.NonNull(Company))
     collaborators = graphene.List(
         graphene.NonNull(Company),
-        description="List the collaborators, not including the main collaborator",
+        description=
+        "List the collaborators, not including the main collaborator",
     )
 
     main_collaborator = graphene.Field(
-        MainCollaborator, description="Main collaborator for current years event"
-    )
+        MainCollaborator,
+        description="Main collaborator for current years event")
 
     board_members = graphene.NonNull(graphene.List(graphene.NonNull(User)))
     interest_form = graphene.String()
@@ -306,11 +308,8 @@ class MetaData(DjangoObjectType):
             return ItdageneCompany.get_collaborators()
 
     def resolve_board_members(self, info):
-        return (
-            ItdageneUser.objects.filter(year=self.year, is_active=True)
-            .all()
-            .prefetch_related("groups")
-        )
+        return (ItdageneUser.objects.filter(
+            year=self.year, is_active=True).all().prefetch_related("groups"))
 
     def resolve_interest_form(self, info):
         if self.show_interest_form:
@@ -325,13 +324,14 @@ class MetaData(DjangoObjectType):
             "end_date",
             "year",
             "nr_of_stands",
-            "companies_first_day" "companies_last_day",
+            "companies_first_day"
+            "companies_last_day",
             "collaborators",
             "main_collaborator",
             "board_members",
             "interest_form",
         )
-        interfaces = (relay.Node,)
+        interfaces = (relay.Node, )
 
 
 class SearchResult(graphene.Union):

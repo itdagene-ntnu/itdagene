@@ -11,6 +11,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="joblisting",
             name="deadline",
-            field=models.DateTimeField(null=True, verbose_name="deadline", blank=True),
+            field=models.DateTimeField(null=True,
+                                       verbose_name="deadline",
+                                       blank=True),
         )
     ]

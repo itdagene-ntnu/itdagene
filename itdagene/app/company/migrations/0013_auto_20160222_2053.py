@@ -11,7 +11,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="companycontact",
             name="current",
-            field=models.BooleanField(default=False, verbose_name="Current contact"),
+            field=models.BooleanField(default=False,
+                                      verbose_name="Current contact"),
             preserve_default=True,
         )
     ]

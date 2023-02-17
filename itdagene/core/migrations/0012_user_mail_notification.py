@@ -11,9 +11,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="user",
             name="mail_notification",
-            field=models.BooleanField(
-                default=True, verbose_name="Send mail notifications"
-            ),
+            field=models.BooleanField(default=True,
+                                      verbose_name="Send mail notifications"),
             preserve_default=True,
         )
     ]

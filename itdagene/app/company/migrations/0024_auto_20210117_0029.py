@@ -13,7 +13,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="keyinformation",
             name="name",
-            field=models.CharField(max_length=40, verbose_name="information name"),
+            field=models.CharField(max_length=40,
+                                   verbose_name="information name"),
         ),
         migrations.AlterField(
             model_name="keyinformation",

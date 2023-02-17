@@ -23,12 +23,10 @@ from itdagene.core.models import Preference
 @staff_required()
 def list_companies(request):
     if request.user.is_staff:
-        user_companies = (
-            Company.objects.filter(contact=request.user)
-            .order_by("status", "name")
-            .select_related("package", "contact")
-            .prefetch_related("company_contacts", "contracts")
-        )
+        user_companies = (Company.objects.filter(
+            contact=request.user).order_by("status", "name").select_related(
+                "package", "contact").prefetch_related("company_contacts",
+                                                       "contracts"))
         # Put "Not intereset" last
         temp_companies = []  # Queries are lazy, use list() to execute
         not_interested_companies = []
@@ -43,12 +41,10 @@ def list_companies(request):
         user_companies = temp_companies + signed_companies + not_interested_companies
     else:
         user_companies = None
-    companies = (
-        Company.objects.filter(active=True)
-        .order_by("name")
-        .select_related("contact", "package")
-        .prefetch_related("waiting_for_package", "contracts")
-    )
+    companies = (Company.objects.filter(
+        active=True).order_by("name").select_related(
+            "contact", "package").prefetch_related("waiting_for_package",
+                                                   "contracts"))
     return render(
         request,
         "company/base.html",
@@ -64,11 +60,9 @@ def list_companies(request):
 @staff_required()
 def view(request, id):
     company = get_object_or_404(
-        Company.objects.select_related().prefetch_related(), pk=id
-    )
+        Company.objects.select_related().prefetch_related(), pk=id)
     evaluation, created = Evaluation.objects.get_or_create(
-        company=company, preference=Preference.current_preference()
-    )
+        company=company, preference=Preference.current_preference())
     return render(
         request,
         "company/view.html",
@@ -138,9 +132,10 @@ def add(request):
             company = form.save()
             add_message(request, SUCCESS, _("Company saved."))
             return redirect(company.get_absolute_url())
-    return render(
-        request, "company/form.html", {"title": _("Add Company"), "form": form}
-    )
+    return render(request, "company/form.html", {
+        "title": _("Add Company"),
+        "form": form
+    })
 
 
 @permission_required("company.change_company")
@@ -211,5 +206,8 @@ def set_responsibilities(request):
     return render(
         request,
         "company/set_responsibilities.html",
-        {"formset": formset, "title": _("Set Responsibilities")},
+        {
+            "formset": formset,
+            "title": _("Set Responsibilities")
+        },
     )

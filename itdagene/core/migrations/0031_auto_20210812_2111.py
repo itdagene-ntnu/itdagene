@@ -15,7 +15,8 @@ class Migration(migrations.Migration):
             name="interest_form_url",
             field=models.URLField(
                 default="https://interesse.itdagene.no",
-                help_text="What is the URL to the company participation interest form?",
+                help_text=
+                "What is the URL to the company participation interest form?",
                 verbose_name="Interest form URL",
             ),
         ),
@@ -24,7 +25,8 @@ class Migration(migrations.Migration):
             name="show_interest_form",
             field=models.BooleanField(
                 default=True,
-                help_text="Should the company participation interest form be visible on the front page?",
+                help_text=
+                "Should the company participation interest form be visible on the front page?",
                 verbose_name="Show interest form",
             ),
         ),
