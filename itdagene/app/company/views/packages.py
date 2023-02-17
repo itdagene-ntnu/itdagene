@@ -15,10 +15,7 @@ def list(request):
     return render(
         request,
         "company/packages/base.html",
-        {
-            "packages": packages,
-            "title": _("Packages")
-        },
+        {"packages": packages, "title": _("Packages")},
     )
 
 
@@ -28,11 +25,7 @@ def view(request, id):
     return render(
         request,
         "company/packages/view.html",
-        {
-            "package": package,
-            "title": _("Package"),
-            "description": package
-        },
+        {"package": package, "title": _("Package"), "description": package},
     )
 
 
@@ -45,10 +38,9 @@ def add(request):
             form.save()
             add_message(request, SUCCESS, _("Package added."))
             return redirect(reverse("itdagene.company.packages.list"))
-    return render(request, "company/form.html", {
-        "form": form,
-        "title": _("Add Package")
-    })
+    return render(
+        request, "company/form.html", {"form": form, "title": _("Add Package")}
+    )
 
 
 @permission_required("company.change_package")

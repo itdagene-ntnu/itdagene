@@ -15,8 +15,7 @@ class Migration(migrations.Migration):
             name="view_companies",
             field=models.BooleanField(
                 default=False,
-                help_text=
-                "Should all companies be displayed on the front page?",
+                help_text="Should all companies be displayed on the front page?",
                 verbose_name="view all comapnies",
             ),
         ),
@@ -25,8 +24,7 @@ class Migration(migrations.Migration):
             name="view_hsp",
             field=models.BooleanField(
                 default=False,
-                help_text=
-                "Should the main collaborator be displayed on the front page?",
+                help_text="Should the main collaborator be displayed on the front page?",
                 verbose_name="view main collaborator",
             ),
         ),
@@ -35,8 +33,7 @@ class Migration(migrations.Migration):
             name="view_sp",
             field=models.BooleanField(
                 default=False,
-                help_text=
-                "Should all collaborators be displayed on the front page?",
+                help_text="Should all collaborators be displayed on the front page?",
                 verbose_name="view partners",
             ),
         ),

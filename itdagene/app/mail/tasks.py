@@ -29,7 +29,8 @@ def send_comment_email(self, comment):
 def send_admin_mail(self, log_item):
     mail_admins(
         "Log: " + str(log_item),
-        str(log_item) + "\n Read more at http://{}{}".format(
-            settings.SITE["domain"],
-            log_item.content_object.get_absolute_url()),
+        str(log_item)
+        + "\n Read more at http://{}{}".format(
+            settings.SITE["domain"], log_item.content_object.get_absolute_url()
+        ),
     )

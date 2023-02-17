@@ -11,10 +11,9 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="user",
             name="language",
-            field=models.CharField(default="nb",
-                                   max_length=3,
-                                   choices=[("nb", "Norsk"),
-                                            ("en", "English")]),
+            field=models.CharField(
+                default="nb", max_length=3, choices=[("nb", "Norsk"), ("en", "English")]
+            ),
             preserve_default=True,
         )
     ]

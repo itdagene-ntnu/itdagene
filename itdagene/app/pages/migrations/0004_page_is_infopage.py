@@ -13,7 +13,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="page",
             name="is_infopage",
-            field=models.BooleanField(default=False,
-                                      verbose_name="is an info page"),
+            field=models.BooleanField(default=False, verbose_name="is an info page"),
         ),
     ]

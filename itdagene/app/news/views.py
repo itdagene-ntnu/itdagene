@@ -16,12 +16,11 @@ def create_announcement(request):
         if form.is_valid():
             announcement = form.save()
             return redirect(
-                reverse("itdagene.news.edit_announcement",
-                        args=[announcement.pk]))
-    return render(request, "news/edit.html", {
-        "form": form,
-        "title": _("Add Announcement")
-    })
+                reverse("itdagene.news.edit_announcement", args=[announcement.pk])
+            )
+    return render(
+        request, "news/edit.html", {"form": form, "title": _("Add Announcement")}
+    )
 
 
 @permission_required("news.change_announcement")
@@ -38,10 +37,9 @@ def edit_announcement(request, id=False):
     if request.method == "POST" and form.is_valid():
         form.save()
         return redirect(reverse("itdagene.news.admin"))
-    return render(request, "news/edit.html", {
-        "form": form,
-        "title": _("Edit Announcement")
-    })
+    return render(
+        request, "news/edit.html", {"form": form, "title": _("Edit Announcement")}
+    )
 
 
 @staff_required()
@@ -50,8 +48,5 @@ def admin(request):
     return render(
         request,
         "news/admin.html",
-        {
-            "announcements": announcements,
-            "title": _("Announcement Admin")
-        },
+        {"announcements": announcements, "title": _("Announcement Admin")},
     )

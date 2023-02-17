@@ -11,13 +11,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="preference",
             name="view_companies",
-            field=models.BooleanField(default=False,
-                                      verbose_name="view all comapnies"),
+            field=models.BooleanField(default=False, verbose_name="view all comapnies"),
         ),
         migrations.AddField(
             model_name="preference",
             name="view_hsp",
-            field=models.BooleanField(default=False,
-                                      verbose_name="view main collaborator"),
+            field=models.BooleanField(
+                default=False, verbose_name="view main collaborator"
+            ),
         ),
     ]

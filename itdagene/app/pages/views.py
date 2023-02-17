@@ -37,10 +37,7 @@ def add(request):
         else:
             return render(request, "pages/form.html", {"form": form})
     form = PageForm()
-    return render(request, "pages/form.html", {
-        "form": form,
-        "title": _("Add Page")
-    })
+    return render(request, "pages/form.html", {"form": form, "title": _("Add Page")})
 
 
 @permission_required("pages.change_page")
@@ -80,18 +77,13 @@ def delete(request, slug, lang_code="nb"):
     return render(
         request,
         "pages/delete.html",
-        {
-            "page": page,
-            "title": _("Delete Page"),
-            "description": page.title
-        },
+        {"page": page, "title": _("Delete Page"), "description": page.title},
     )
 
 
 @staff_required()
 def admin(request):
     pages = Page.objects.all().order_by("menu", "active")
-    return render(request, "pages/admin.html", {
-        "pages": pages,
-        "title": _("Pages Admin")
-    })
+    return render(
+        request, "pages/admin.html", {"pages": pages, "title": _("Pages Admin")}
+    )

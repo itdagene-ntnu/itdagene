@@ -13,8 +13,7 @@ class Migration(migrations.Migration):
             name="mail_prefix",
             field=models.CharField(
                 default="",
-                help_text=
-                "This is a mail prefix for your itdagene mail. The address will be value@itdagene.no.",
+                help_text="This is a mail prefix for your itdagene mail. The address will be value@itdagene.no.",
                 max_length=40,
                 verbose_name="Mail prefix",
             ),

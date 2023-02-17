@@ -19,9 +19,13 @@ def log(request, first_object=0):
         previous = int(first_object) - 40
     else:
         previous = None
-    log = (LogItem.objects.all().select_related(
-        "user", "content_type").prefetch_related("content_object").order_by(
-            "timestamp").reverse()[int(first_object):int(first_object) + 40])
+    log = (
+        LogItem.objects.all()
+        .select_related("user", "content_type")
+        .prefetch_related("content_object")
+        .order_by("timestamp")
+        .reverse()[int(first_object) : int(first_object) + 40]
+    )
     return render(
         request,
         "admin/log.html",
@@ -48,5 +52,6 @@ def companies_reset(request):
         add_message(request, SUCCESS, _("Companies reset"))
         return redirect(reverse("itdagene.itdageneadmin.landing_page"))
 
-    return render(request, "admin/companies_reset.html",
-                  {"title": _("Reset companies")})
+    return render(
+        request, "admin/companies_reset.html", {"title": _("Reset companies")}
+    )

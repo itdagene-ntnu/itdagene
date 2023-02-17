@@ -24,11 +24,7 @@ def add_contract(request, company_id):
     return render(
         request,
         "company/form.html",
-        {
-            "title": _("Add Contract"),
-            "form": form,
-            "company": company
-        },
+        {"title": _("Add Contract"), "form": form, "company": company},
     )
 
 
@@ -65,7 +61,7 @@ def download_contract(request, company_id, id):
     abspath = open(contract.file.path, "rb")
     response = HttpResponse(content=abspath.read())
     response["Content-Type"] = "application/octet-stream"
-    response[
-        "Content-Disposition"] = "attachment; filename=%s" % os.path.basename(
-            contract.file.path)
+    response["Content-Disposition"] = "attachment; filename=%s" % os.path.basename(
+        contract.file.path
+    )
     return response

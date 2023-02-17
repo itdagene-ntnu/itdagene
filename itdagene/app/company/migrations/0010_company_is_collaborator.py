@@ -11,8 +11,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="company",
             name="is_collaborator",
-            field=models.BooleanField(default=False,
-                                      verbose_name="collaborator"),
+            field=models.BooleanField(default=False, verbose_name="collaborator"),
             preserve_default=True,
         )
     ]

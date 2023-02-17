@@ -19,10 +19,9 @@ def add_todo(request):
             todo.save(notify_subscribers=False)
             add_message(request, SUCCESS, _("Todo added."))
             return redirect(reverse("itdagene.frontpage"))
-    return render(request, "todo/todo_form.html", {
-        "form": form,
-        "title": _("Add Todo")
-    })
+    return render(
+        request, "todo/todo_form.html", {"form": form, "title": _("Add Todo")}
+    )
 
 
 @permission_required("todo.change_todo")
@@ -36,10 +35,9 @@ def change_todo(request, pk):
             todo.save(notify_subscribers=False)
             add_message(request, SUCCESS, _("Todo changed."))
             return redirect(reverse("itdagene.frontpage"))
-    return render(request, "todo/todo_form.html", {
-        "form": form,
-        "title": _("Change Todo")
-    })
+    return render(
+        request, "todo/todo_form.html", {"form": form, "title": _("Change Todo")}
+    )
 
 
 @permission_required("todo.delete_todo")
@@ -51,10 +49,9 @@ def delete_todo(request, pk):
         add_message(request, SUCCESS, _("Todo deleted."))
         return redirect(reverse("itdagene.frontpage"))
 
-    return render(request, "todo/delete_todo.html", {
-        "todo": todo,
-        "title": _("Delete Todo")
-    })
+    return render(
+        request, "todo/delete_todo.html", {"todo": todo, "title": _("Delete Todo")}
+    )
 
 
 def view_todo(request, pk):
@@ -62,11 +59,7 @@ def view_todo(request, pk):
     return render(
         request,
         "todo/view_todo.html",
-        {
-            "todo": todo,
-            "title": _("Todo"),
-            "now": timezone.now()
-        },
+        {"todo": todo, "title": _("Todo"), "now": timezone.now()},
     )
 
 

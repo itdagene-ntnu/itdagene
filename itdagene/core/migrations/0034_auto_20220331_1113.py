@@ -16,8 +16,7 @@ class Migration(migrations.Migration):
             field=models.TextField(
                 blank=True,
                 default="",
-                help_text=
-                "Introduction of main collaborator to be displayed above video on front page",
+                help_text="Introduction of main collaborator to be displayed above video on front page",
                 verbose_name="Main collaborator introduction",
             ),
         ),
@@ -46,8 +45,7 @@ class Migration(migrations.Migration):
             name="view_hsp",
             field=models.BooleanField(
                 default=False,
-                help_text=
-                "Should the main collaborator be displayed on the front page?",
+                help_text="Should the main collaborator be displayed on the front page?",
                 verbose_name="view main collaborator",
             ),
         ),

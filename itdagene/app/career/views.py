@@ -14,16 +14,13 @@ from itdagene.core.decorators import staff_required
 @staff_required()
 def list(request):
     joblistings = Joblisting.objects.filter(
-        (Q(deadline__gte=timezone.now()) | Q(deadline__isnull=True)),
-        is_active=True)
+        (Q(deadline__gte=timezone.now()) | Q(deadline__isnull=True)), is_active=True
+    )
 
     return render(
         request,
         "career/list.html",
-        {
-            "joblistings": joblistings,
-            "title": _("Joblistings")
-        },
+        {"joblistings": joblistings, "title": _("Joblistings")},
     )
 
 
@@ -35,12 +32,10 @@ def add(request):
         if form.is_valid():
             joblisting = form.save()
             add_message(request, SUCCESS, _("Joblisting saved."))
-            return redirect(
-                reverse("itdagene.career.view", args=[joblisting.pk]))
-    return render(request, "career/form.html", {
-        "title": _("Add Joblisting"),
-        "form": form
-    })
+            return redirect(reverse("itdagene.career.view", args=[joblisting.pk]))
+    return render(
+        request, "career/form.html", {"title": _("Add Joblisting"), "form": form}
+    )
 
 
 @staff_required()
@@ -67,8 +62,7 @@ def edit(request, pk):
         if form.is_valid():
             form.save()
             add_message(request, SUCCESS, _("Joblisting saved."))
-            return redirect(
-                reverse("itdagene.career.view", args=[joblisting.pk]))
+            return redirect(reverse("itdagene.career.view", args=[joblisting.pk]))
     return render(
         request,
         "career/form.html",
@@ -110,7 +104,4 @@ def add_town(request):
             form.save()
             add_message(request, SUCCESS, _("Town added."))
             return redirect(reverse("itdagene.career.list"))
-    return render(request, "career/form.html", {
-        "form": form,
-        "title": _("Add Town")
-    })
+    return render(request, "career/form.html", {"form": form, "title": _("Add Town")})

@@ -33,20 +33,18 @@ class Migration(migrations.Migration):
                             (0, b"Low"),
                             (1, b"Medium"),
                             (2, b"High"),
-                            (3,
-                             b"Very High. Will send email to administrators"),
+                            (3, b"Very High. Will send email to administrators"),
                         ],
                     ),
                 ),
-                ("timestamp",
-                 models.DateTimeField(auto_now=True, verbose_name="dato")),
-                ("action",
-                 models.CharField(max_length=16, verbose_name="handling")),
+                ("timestamp", models.DateTimeField(auto_now=True, verbose_name="dato")),
+                ("action", models.CharField(max_length=16, verbose_name="handling")),
                 ("object_id", models.PositiveIntegerField()),
                 (
                     "content_type",
-                    models.ForeignKey(to="contenttypes.ContentType",
-                                      on_delete=models.CASCADE),
+                    models.ForeignKey(
+                        to="contenttypes.ContentType", on_delete=models.CASCADE
+                    ),
                 ),
                 (
                     "user",
@@ -58,6 +56,6 @@ class Migration(migrations.Migration):
                 ),
             ],
             options={},
-            bases=(models.Model, ),
+            bases=(models.Model,),
         )
     ]

@@ -24,11 +24,9 @@ class Event(BaseModel):
     time_start = models.TimeField(verbose_name=_("start time"))
     time_end = models.TimeField(verbose_name=_("end time"))
     description = models.TextField(verbose_name=_("description"))
-    type = models.PositiveIntegerField(choices=EVENT_TYPES,
-                                       verbose_name=_("type"))
+    type = models.PositiveIntegerField(choices=EVENT_TYPES, verbose_name=_("type"))
     location = models.CharField(max_length=30, verbose_name=_("location"))
-    is_internal = models.BooleanField(verbose_name=_("internal event"),
-                                      default=False)
+    is_internal = models.BooleanField(verbose_name=_("internal event"), default=False)
     company = models.ForeignKey(
         Company,
         null=True,
@@ -36,10 +34,10 @@ class Event(BaseModel):
         blank=True,
         verbose_name=_("hosting company"),
     )
-    uses_tickets = models.BooleanField(verbose_name=_("uses tickets"),
-                                       default=False)
+    uses_tickets = models.BooleanField(verbose_name=_("uses tickets"), default=False)
     max_participants = models.PositiveIntegerField(
-        null=True, blank=True, verbose_name=_("max nr of participants"))
+        null=True, blank=True, verbose_name=_("max nr of participants")
+    )
     stand = models.ForeignKey(
         DigitalStand,
         null=True,
@@ -56,10 +54,9 @@ class Event(BaseModel):
 
 
 class Ticket(BaseModel):
-    event = models.ForeignKey(Event,
-                              related_name="tickets",
-                              on_delete=models.CASCADE,
-                              verbose_name=_("event"))
+    event = models.ForeignKey(
+        Event, related_name="tickets", on_delete=models.CASCADE, verbose_name=_("event")
+    )
     company = models.ForeignKey(
         Company,
         related_name="tickets",
@@ -73,7 +70,7 @@ class Ticket(BaseModel):
     email = models.EmailField(_("e-mail address"), blank=True)
 
     class Meta:
-        ordering = ("last_name", )
+        ordering = ("last_name",)
 
     def __str__(self):
         return "%s: %s" % (self.event.title, self.full_name())

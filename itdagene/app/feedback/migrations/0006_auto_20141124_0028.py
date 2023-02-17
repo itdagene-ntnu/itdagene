@@ -11,8 +11,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="evaluation",
             name="hash",
-            field=models.CharField(unique=True,
-                                   max_length=100,
-                                   verbose_name="Hash"),
+            field=models.CharField(unique=True, max_length=100, verbose_name="Hash"),
         )
     ]

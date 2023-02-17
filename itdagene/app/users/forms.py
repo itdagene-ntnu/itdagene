@@ -31,8 +31,9 @@ class UserCreateForm(UserCreationForm):
             User._default_manager.get(username=username)
         except User.DoesNotExist:
             return username
-        raise forms.ValidationError(self.error_messages["duplicate_username"],
-                                    code="duplicate_username")
+        raise forms.ValidationError(
+            self.error_messages["duplicate_username"], code="duplicate_username"
+        )
 
 
 class UserEditForm(forms.ModelForm):

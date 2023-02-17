@@ -31,8 +31,10 @@ def cut(value, arg):
 @register.simple_tag
 def chosen(oid):
     return mark_safe(
-        '<script type="text/javascript">$(document).ready(function(){ $("' +
-        oid + "\").chosen({ width: '100%' }); });</script>")
+        '<script type="text/javascript">$(document).ready(function(){ $("'
+        + oid
+        + "\").chosen({ width: '100%' }); });</script>"
+    )
 
 
 @register.filter
@@ -43,6 +45,5 @@ def date_is_not_expired(value, arg=None):
     if value:
         from django.utils import timezone
 
-        return date(value.year, value.month,
-                    value.day) >= timezone.now().date()
+        return date(value.year, value.month, value.day) >= timezone.now().date()
     return True

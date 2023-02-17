@@ -13,8 +13,7 @@ class Migration(migrations.Migration):
             name="display_getting_started",
             field=models.BooleanField(
                 default=True,
-                help_text=
-                "When this setting is enabled a getting started element is visible in the admin menu. This contains usefull information about how to use this site.",
+                help_text="When this setting is enabled a getting started element is visible in the admin menu. This contains usefull information about how to use this site.",
                 verbose_name="Display getting started in admin menu",
             ),
             preserve_default=True,

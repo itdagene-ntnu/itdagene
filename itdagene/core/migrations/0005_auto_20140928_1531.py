@@ -9,5 +9,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterModelOptions(
-            name="user", options={"permissions": ("send_welcome_mail", )})
+            name="user", options={"permissions": ("send_welcome_mail",)}
+        )
     ]

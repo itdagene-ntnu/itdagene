@@ -17,16 +17,14 @@ BOARD_POSITION = (
 
 
 class Experience(BaseModel):
-    year = models.ForeignKey(Preference,
-                             verbose_name=_("Preference"),
-                             on_delete=models.CASCADE)
-    position = models.PositiveIntegerField(choices=BOARD_POSITION,
-                                           default=8,
-                                           verbose_name=_("Position"))
+    year = models.ForeignKey(
+        Preference, verbose_name=_("Preference"), on_delete=models.CASCADE
+    )
+    position = models.PositiveIntegerField(
+        choices=BOARD_POSITION, default=8, verbose_name=_("Position")
+    )
     last_updated = models.DateField(auto_now=True)
-    text = models.TextField(blank=True,
-                            null=True,
-                            verbose_name=_("Experiences"))
+    text = models.TextField(blank=True, null=True, verbose_name=_("Experiences"))
 
     def __str__(self):
         return str(BOARD_POSITION[self.position][1])

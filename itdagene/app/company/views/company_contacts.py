@@ -20,10 +20,10 @@ def add_contact(request, company):
         if form.is_valid():
             contact = form.save(commit=False)
             contact.company = company
-            contact.phone = contact.phone.replace(
-                " ", "") if contact.phone else None
-            contact.mobile_phone = (contact.mobile_phone.replace(" ", "")
-                                    if contact.mobile_phone else None)
+            contact.phone = contact.phone.replace(" ", "") if contact.phone else None
+            contact.mobile_phone = (
+                contact.mobile_phone.replace(" ", "") if contact.mobile_phone else None
+            )
             contact.email = contact.email.lower() if contact.email else None
             contact.save()
             return redirect(company.get_absolute_url())
@@ -69,8 +69,7 @@ def edit_contact(request, contact_id):
         if form.is_valid():
             contact = form.save()
             add_message(request, SUCCESS, _("Company contect saved."))
-            return redirect(
-                reverse("itdagene.company.view", args=[contact.company.pk]))
+            return redirect(reverse("itdagene.company.view", args=[contact.company.pk]))
 
     return render(
         request,
@@ -100,7 +99,6 @@ def vcard(request, id):
 
 
 class Person:
-
     def __init__(self):
         self.first_name = ""
         self.last_name = ""

@@ -5,41 +5,25 @@ from django.contrib.messages import ERROR, INFO, SUCCESS, WARNING
 from django.utils.translation import gettext_lazy as _
 
 SITE = {
-    "project_name":
-    "itDAGENE 2018",
-    "name":
-    "itDAGENE",
-    "email":
-    "web@itdagene.no",
-    "contact_email":
-    "styret@itdagene.no",
-    "domain":
-    "itdagene.no",
-    "mail_base":
-    "https://itdagene.no",
-    "address":
-    "Sem Sælands vei 7-9",
-    "town":
-    "Trondheim",
-    "zip_code":
-    "7491",
-    "organization_number":
-    "912 601 625",
-    "analytics":
-    "UA-111908666-1",
-    "drift_mail_prefix":
-    "web",
-    "description":
-    "itDAGENE er en arbeidslivsmesse hvor studenter blir kjent med fremtidige "
+    "project_name": "itDAGENE 2018",
+    "name": "itDAGENE",
+    "email": "web@itdagene.no",
+    "contact_email": "styret@itdagene.no",
+    "domain": "itdagene.no",
+    "mail_base": "https://itdagene.no",
+    "address": "Sem Sælands vei 7-9",
+    "town": "Trondheim",
+    "zip_code": "7491",
+    "organization_number": "912 601 625",
+    "analytics": "UA-111908666-1",
+    "drift_mail_prefix": "web",
+    "description": "itDAGENE er en arbeidslivsmesse hvor studenter blir kjent med fremtidige "
     "arbeidsgivere. Messen arrangeres av studenter for studenter, overskuddet går "
     "til studentenes ekskursjon i tredjeklasse. itDAGENE arrangeres en gang i året "
     "av data- og kommunikasjonsteknologi ved NTNU i Trondheim.",
-    "twitter_username":
-    "@itDAGENE",
-    "twitter_url":
-    "https://twitter.com/itDAGENE",
-    "instagram_tag":
-    "ITDAGENE",
+    "twitter_username": "@itDAGENE",
+    "twitter_url": "https://twitter.com/itDAGENE",
+    "instagram_tag": "ITDAGENE",
 }
 
 PATH = os.path.dirname(os.path.dirname(__file__))
@@ -49,8 +33,7 @@ ALLOWED_HOSTS = []
 
 SHELL_PLUS = "ipython"
 
-ADMINS = (("itDAGENE Web",
-           "%s@%s" % (SITE["drift_mail_prefix"], "itdagene.no")), )
+ADMINS = (("itDAGENE Web", "%s@%s" % (SITE["drift_mail_prefix"], "itdagene.no")),)
 MANAGERS = ADMINS
 
 THUMBNAIL_UPSCALE = False
@@ -70,7 +53,7 @@ LANGUAGE_CODE = "nb"
 DEFAULT_LANGUAGE = "nb"
 LANGUAGES = (("nb", "Norsk"), ("en", "English"))
 
-LOCALE_PATHS = (os.path.join(PATH, "locale"), )
+LOCALE_PATHS = (os.path.join(PATH, "locale"),)
 
 PROFILE_TYPES = (
     ("b", _("Board member")),
@@ -87,13 +70,13 @@ MEDIA_URL = "/uploads/"
 STATIC_ROOT = os.path.join(PATH, "files", "static")
 STATIC_URL = "/static/"
 
-STATICFILES_DIRS = (os.path.join(PATH, "assets"), )
+STATICFILES_DIRS = (os.path.join(PATH, "assets"),)
 
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 )
-INTERNAL_IPS = ("127.0.0.1", )
+INTERNAL_IPS = ("127.0.0.1",)
 
 MIDDLEWARE = [
     "raven.contrib.django.raven_compat.middleware.SentryResponseErrorIdMiddleware",
@@ -168,21 +151,15 @@ EMAIL_SUBJECT_PREFIX = "[%s] " % (SITE["name"])
 SERVER_EMAIL = "%s <%s>" % (SITE["name"], SITE["email"])
 DEFAULT_FROM_EMAIL = SERVER_EMAIL
 
-MESSAGE_TAGS = {
-    SUCCESS: "success",
-    INFO: "info",
-    WARNING: "warning",
-    ERROR: "danger"
-}
+MESSAGE_TAGS = {SUCCESS: "success", INFO: "info", WARNING: "warning", ERROR: "danger"}
 
-CORS_ORIGIN_WHITELIST = ("https://itdagene.no", )
+CORS_ORIGIN_WHITELIST = ("https://itdagene.no",)
 GRAPHENE = {
     "MIDDLEWARE": [
         "itdagene.graphql.middleware.LoaderMiddleware",
         "itdagene.graphql.middleware.ResolveLimitMiddleware",
     ],
-    "SCHEMA":
-    "itdagene.graphql.schema.schema",
+    "SCHEMA": "itdagene.graphql.schema.schema",
 }
 
 GRAPHENE_RESOLVER_LIMIT = 3000
@@ -192,25 +169,27 @@ CELERY_TASK_SERIALIZER = "pickle"
 CELERY_RESULT_SERIALIZER = "pickle"
 CELERY_ACCEPT_CONTENT = ["pickle"]
 
-TEMPLATES = [{
-    "BACKEND": "django.template.backends.django.DjangoTemplates",
-    "DIRS": [os.path.join(PATH, "templates")],
-    "APP_DIRS": True,
-    "OPTIONS": {
-        "context_processors": [
-            "django.contrib.auth.context_processors.auth",
-            "django.template.context_processors.debug",
-            "django.template.context_processors.i18n",
-            "django.template.context_processors.media",
-            "django.template.context_processors.static",
-            "django.contrib.messages.context_processors.messages",
-            "django.template.context_processors.request",
-            "itdagene.core.context_processors.site_processor",
-            "itdagene.core.context_processors.utils_processor",
-            "itdagene.app.pages.context_processors.menu_pages",
-        ]
-    },
-}]
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [os.path.join(PATH, "templates")],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.contrib.auth.context_processors.auth",
+                "django.template.context_processors.debug",
+                "django.template.context_processors.i18n",
+                "django.template.context_processors.media",
+                "django.template.context_processors.static",
+                "django.contrib.messages.context_processors.messages",
+                "django.template.context_processors.request",
+                "itdagene.core.context_processors.site_processor",
+                "itdagene.core.context_processors.utils_processor",
+                "itdagene.app.pages.context_processors.menu_pages",
+            ]
+        },
+    }
+]
 
 # Metabase config
 METABASE_SITE_URL = ""
@@ -226,10 +205,7 @@ def skip_if_testing(*args, **kwargs):
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": True,
-    "root": {
-        "level": "DEBUG",
-        "handlers": ["sentry", "console", "syslog"]
-    },
+    "root": {"level": "DEBUG", "handlers": ["sentry", "console", "syslog"]},
     "filters": {
         "skip_if_testing": {
             "()": "django.utils.log.CallbackFilter",
@@ -238,16 +214,14 @@ LOGGING = {
     },
     "formatters": {
         "verbose": {
-            "format":
-            "%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s"
+            "format": "%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s"
         }
     },
     "handlers": {
         "sentry": {
             "level": "WARNING",
             "filters": ["skip_if_testing"],
-            "class":
-            "raven.contrib.django.raven_compat.handlers.SentryHandler",
+            "class": "raven.contrib.django.raven_compat.handlers.SentryHandler",
         },
         "console": {
             "level": "DEBUG",
@@ -261,25 +235,15 @@ LOGGING = {
             "facility": "local7",
             "formatter": "verbose",
         },
-        "null": {
-            "level": "DEBUG",
-            "class": "logging.NullHandler"
-        },
+        "null": {"level": "DEBUG", "class": "logging.NullHandler"},
     },
     "loggers": {
-        "raven": {
-            "level": "DEBUG",
-            "handlers": ["console"],
-            "propagate": False
-        },
+        "raven": {"level": "DEBUG", "handlers": ["console"], "propagate": False},
         "sentry.errors": {
             "level": "DEBUG",
             "handlers": ["console"],
             "propagate": False,
         },
-        "django.security.DisallowedHost": {
-            "handlers": ["null"],
-            "propagate": False
-        },
+        "django.security.DisallowedHost": {"handlers": ["null"], "propagate": False},
     },
 }

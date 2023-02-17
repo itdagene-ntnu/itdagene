@@ -47,9 +47,7 @@ class Migration(migrations.Migration):
                 ("last_updated", models.DateField(auto_now=True)),
                 (
                     "text",
-                    models.TextField(null=True,
-                                     verbose_name="Experiences",
-                                     blank=True),
+                    models.TextField(null=True, verbose_name="Experiences", blank=True),
                 ),
                 (
                     "creator",
@@ -79,6 +77,6 @@ class Migration(migrations.Migration):
                 ),
             ],
             options={"abstract": False},
-            bases=(models.Model, ),
+            bases=(models.Model,),
         )
     ]

@@ -11,9 +11,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="company",
             name="payment_email",
-            field=models.EmailField(max_length=75,
-                                    verbose_name="payment email",
-                                    blank=True),
+            field=models.EmailField(
+                max_length=75, verbose_name="payment email", blank=True
+            ),
             preserve_default=True,
         )
     ]

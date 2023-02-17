@@ -1,6 +1,7 @@
-from itdagene.app.company.models import Company
 from promise import Promise
 from promise.dataloader import DataLoader
+
+from itdagene.app.company.models import Company
 
 
 class CompanyLoader(DataLoader):

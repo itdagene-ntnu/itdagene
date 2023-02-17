@@ -14,10 +14,9 @@ from itdagene.core.models import User
 @superuser_required()
 def list(request):
     groups = Group.objects.all()
-    return render(request, "admin/groups/list.html", {
-        "groups": groups,
-        "title": _("Groups")
-    })
+    return render(
+        request, "admin/groups/list.html", {"groups": groups, "title": _("Groups")}
+    )
 
 
 @permission_required("auth.change_group")
@@ -44,12 +43,12 @@ def add(request):
             group = form.save()
             LogItem.log_it(group, "CREATE", 2)
             return redirect(
-                reverse("itdagene.itdageneadmin.groups.view", args=[group.pk]))
+                reverse("itdagene.itdageneadmin.groups.view", args=[group.pk])
+            )
     form = GroupForm()
-    return render(request, "admin/groups/edit.html", {
-        "form": form,
-        "title": _("Add Group")
-    })
+    return render(
+        request, "admin/groups/edit.html", {"form": form, "title": _("Add Group")}
+    )
 
 
 @permission_required("auth.change_group")
@@ -60,16 +59,13 @@ def edit(request, id):
         if form.is_valid():
             group = form.save()
             return redirect(
-                reverse("itdagene.itdageneadmin.groups.view", args=[group.pk]))
+                reverse("itdagene.itdageneadmin.groups.view", args=[group.pk])
+            )
     form = GroupForm(instance=group)
     return render(
         request,
         "admin/groups/edit.html",
-        {
-            "form": form,
-            "title": _("Edit Group"),
-            "description": group.name
-        },
+        {"form": form, "title": _("Edit Group"), "description": group.name},
     )
 
 

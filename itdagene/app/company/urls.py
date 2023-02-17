@@ -18,14 +18,10 @@ from itdagene.app.company.views import (
 )
 
 urlpatterns = [
-    re_path(r"^companies/$",
-            list_companies,
-            name="itdagene.company.list_companies"),
+    re_path(r"^companies/$", list_companies, name="itdagene.company.list_companies"),
     re_path(r"^companies/(?P<id>\d+)/$", view, name="itdagene.company.view"),
     re_path(r"^companies/add/$", add, name="itdagene.company.add"),
-    re_path(r"^companies/(?P<id>\d+)/edit$",
-            edit,
-            name="itdagene.company.edit"),
+    re_path(r"^companies/(?P<id>\d+)/edit$", edit, name="itdagene.company.edit"),
     re_path(
         r"^companies/(?P<id>\d+)/book/$",
         book_company,
@@ -91,15 +87,11 @@ urlpatterns = [
         contracts.download_contract,
         name="itdagene.company.contracts.download_contract",
     ),
-    re_path(r"^packages/$",
-            packages.list,
-            name="itdagene.company.packages.list"),
-    re_path(r"^packages/add$",
-            packages.add,
-            name="itdagene.company.packages.add"),
-    re_path(r"^packages/(?P<id>\d+)/$",
-            packages.view,
-            name="itdagene.company.packages.view"),
+    re_path(r"^packages/$", packages.list, name="itdagene.company.packages.list"),
+    re_path(r"^packages/add$", packages.add, name="itdagene.company.packages.add"),
+    re_path(
+        r"^packages/(?P<id>\d+)/$", packages.view, name="itdagene.company.packages.view"
+    ),
     re_path(
         r"^packages/(?P<id>\d+)/edit$",
         packages.edit,

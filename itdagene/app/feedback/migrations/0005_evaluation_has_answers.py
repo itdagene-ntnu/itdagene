@@ -11,8 +11,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="evaluation",
             name="has_answers",
-            field=models.BooleanField(default=False,
-                                      verbose_name="has answers"),
+            field=models.BooleanField(default=False, verbose_name="has answers"),
             preserve_default=True,
         )
     ]

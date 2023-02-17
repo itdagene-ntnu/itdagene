@@ -51,8 +51,7 @@ class Migration(migrations.Migration):
                 ),
                 ("date_created", models.DateTimeField(editable=False)),
                 ("date_saved", models.DateTimeField(editable=False)),
-                ("title", models.CharField(max_length=160,
-                                           verbose_name="title")),
+                ("title", models.CharField(max_length=160, verbose_name="title")),
                 (
                     "type",
                     models.CharField(
@@ -77,9 +76,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "deadline",
-                    models.DateField(blank=True,
-                                     null=True,
-                                     verbose_name="deadline"),
+                    models.DateField(blank=True, null=True, verbose_name="deadline"),
                 ),
                 ("from_year", models.PositiveIntegerField(default=1)),
                 ("to_year", models.PositiveIntegerField(default=5)),
@@ -140,8 +137,7 @@ class Migration(migrations.Migration):
                 ),
                 ("date_created", models.DateTimeField(editable=False)),
                 ("date_saved", models.DateTimeField(editable=False)),
-                ("name", models.CharField(max_length=100,
-                                          verbose_name="name")),
+                ("name", models.CharField(max_length=100, verbose_name="name")),
                 (
                     "creator",
                     models.ForeignKey(
@@ -168,17 +164,14 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="joblisting",
             name="towns",
-            field=models.ManyToManyField(blank=True,
-                                         null=True,
-                                         to="career.Town",
-                                         verbose_name="town"),
+            field=models.ManyToManyField(
+                blank=True, null=True, to="career.Town", verbose_name="town"
+            ),
         ),
         migrations.AlterField(
             model_name="joblisting",
             name="deadline",
-            field=models.DateTimeField(blank=True,
-                                       null=True,
-                                       verbose_name="deadline"),
+            field=models.DateTimeField(blank=True, null=True, verbose_name="deadline"),
         ),
         migrations.RenameField(
             model_name="joblisting",
@@ -187,7 +180,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterModelOptions(
             name="joblisting",
-            options={"ordering": ("-deadline", )},
+            options={"ordering": ("-deadline",)},
         ),
         migrations.AddField(
             model_name="joblisting",
@@ -207,49 +200,43 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="joblisting",
             name="from_year",
-            field=models.PositiveIntegerField(default=1,
-                                              verbose_name="from year"),
+            field=models.PositiveIntegerField(default=1, verbose_name="from year"),
         ),
         migrations.AlterField(
             model_name="joblisting",
             name="to_year",
-            field=models.PositiveIntegerField(default=5,
-                                              verbose_name="to year"),
+            field=models.PositiveIntegerField(default=5, verbose_name="to year"),
         ),
         migrations.AlterField(
             model_name="joblisting",
             name="type",
             field=models.CharField(
-                choices=[(b"si", "Summer internship"),
-                         (b"pp", "Permanent position")],
+                choices=[(b"si", "Summer internship"), (b"pp", "Permanent position")],
                 max_length=20,
                 verbose_name="type",
             ),
         ),
         migrations.AlterModelOptions(
             name="joblisting",
-            options={"ordering": ("deadline", )},
+            options={"ordering": ("deadline",)},
         ),
         migrations.AddField(
             model_name="joblisting",
             name="hide_contactinfo",
-            field=models.BooleanField(default=False,
-                                      verbose_name="Hide contact info"),
+            field=models.BooleanField(default=False, verbose_name="Hide contact info"),
         ),
         migrations.AlterField(
             model_name="joblisting",
             name="image",
-            field=models.ImageField(blank=True,
-                                    null=True,
-                                    upload_to="joblistings/",
-                                    verbose_name="image"),
+            field=models.ImageField(
+                blank=True, null=True, upload_to="joblistings/", verbose_name="image"
+            ),
         ),
         migrations.AlterField(
             model_name="joblisting",
             name="type",
             field=models.CharField(
-                choices=[("si", "Summer internship"),
-                         ("pp", "Permanent position")],
+                choices=[("si", "Summer internship"), ("pp", "Permanent position")],
                 max_length=20,
                 verbose_name="type",
             ),
@@ -257,9 +244,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="joblisting",
             name="towns",
-            field=models.ManyToManyField(blank=True,
-                                         to="career.Town",
-                                         verbose_name="town"),
+            field=models.ManyToManyField(
+                blank=True, to="career.Town", verbose_name="town"
+            ),
         ),
         migrations.AlterField(
             model_name="joblisting",
@@ -274,10 +261,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterModelOptions(
             name="joblisting",
-            options={
-                "base_manager_name": "objects",
-                "ordering": ("deadline", "pk")
-            },
+            options={"base_manager_name": "objects", "ordering": ("deadline", "pk")},
         ),
         migrations.AlterModelManagers(
             name="joblisting",

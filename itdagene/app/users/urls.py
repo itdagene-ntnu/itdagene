@@ -21,14 +21,11 @@ urlpatterns = [
         name="itdagene.users.send_welcome_email",
     ),
     re_path(r"^(?P<pk>\d+)/vcard/$", vcard, name="itdagene.users.vcard"),
-    re_path(r"^(?P<pk>\d+)/edit/$", user_edit,
-            name="itdagene.users.user_edit"),
+    re_path(r"^(?P<pk>\d+)/edit/$", user_edit, name="itdagene.users.user_edit"),
     re_path(
         r"^(?P<pk>\d+)/edit/password/$",
         user_edit_password,
         name="itdagene.users.user_edit_password",
     ),
-    re_path(r"^(?P<pk>\d+)/delete/$",
-            user_delete,
-            name="itdagene.users.user_delete"),
+    re_path(r"^(?P<pk>\d+)/delete/$", user_delete, name="itdagene.users.user_delete"),
 ]

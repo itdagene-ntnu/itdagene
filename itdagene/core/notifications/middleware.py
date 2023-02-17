@@ -6,6 +6,7 @@ class NotificationsMiddleware(MiddlewareMixin):
     This middleware is used to remove notifications automatically. This was a performance issue.
     It disabled. This needs caching to work.
     """
+
     def process_request(self, request):
 
         user = getattr(request, "user", None)
@@ -13,7 +14,8 @@ class NotificationsMiddleware(MiddlewareMixin):
 
             path = request.path
             notifications = request.user.notifications.prefetch_related(
-                "content_object").all()
+                "content_object"
+            ).all()
 
             for notification in notifications:
                 if notification.content_object.get_absolute_url() == path:

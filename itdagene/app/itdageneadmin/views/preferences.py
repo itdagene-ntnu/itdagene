@@ -24,21 +24,19 @@ def edit(request):
                 preference, created = Preference.objects.get_or_create(
                     year=preference.year,
                     defaults={
-                        "active":
-                        True,
-                        "start_date":
-                        datetime.strptime("%s-09-11" % preference.year,
-                                          "%Y-%m-%d"),
-                        "end_date":
-                        datetime.strptime("%s-09-12" % preference.year,
-                                          "%Y-%m-%d"),
+                        "active": True,
+                        "start_date": datetime.strptime(
+                            "%s-09-11" % preference.year, "%Y-%m-%d"
+                        ),
+                        "end_date": datetime.strptime(
+                            "%s-09-12" % preference.year, "%Y-%m-%d"
+                        ),
                     },
                 )
             else:
                 preference.save(log_it=False, notify_subscribers=False)
 
-            for preference_object in Preference.objects.exclude(
-                    id=preference.id):
+            for preference_object in Preference.objects.exclude(id=preference.id):
                 preference_object.active = False
                 preference_object.save(log_it=False, notify_subscribers=False)
 
@@ -47,9 +45,5 @@ def edit(request):
     return render(
         request,
         "admin/preferences/edit.html",
-        {
-            "pref": current_pref,
-            "form": form,
-            "title": _("Preferences")
-        },
+        {"pref": current_pref, "form": form, "title": _("Preferences")},
     )

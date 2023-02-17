@@ -13,8 +13,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="joblisting",
             name="towns",
-            field=models.ManyToManyField(blank=True,
-                                         to="career.Town",
-                                         verbose_name="town"),
+            field=models.ManyToManyField(
+                blank=True, to="career.Town", verbose_name="town"
+            ),
         )
     ]
