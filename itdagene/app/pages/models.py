@@ -6,6 +6,8 @@ from django.utils.translation import gettext_lazy as _
 from itdagene.core.log.models import LogItem
 from itdagene.core.models import BaseModel
 
+""
+
 
 class Page(BaseModel):
     title = models.CharField(max_length=100, verbose_name=_("title"))
@@ -23,6 +25,7 @@ class Page(BaseModel):
     is_infopage = models.BooleanField(verbose_name=_("is an info page"), default=False)
 
     video_file = models.FileField(upload_to="pageVideos/", null=True, blank=True)
+
     def __str__(self):
         return self.title
 
