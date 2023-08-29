@@ -90,6 +90,7 @@ class Page(DjangoObjectType):
             "slug",
             "title",
             "language",
+            "video_file",
             "menu",
             "content",
             "ingress",
