@@ -91,6 +91,7 @@ class Query(graphene.ObjectType):
         Page,
         language=graphene.String(default_value="nb"),
         slug=graphene.NonNull(graphene.String),
+        video_file=graphene.String(default_value=None),
         description="Get info page.\n\n Each page identified with"
         + "a slug can be translated into multiple languages. "
         + "Each entity is identified by an id or the unique together pair (slug, language)",

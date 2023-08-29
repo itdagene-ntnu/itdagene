@@ -12,6 +12,7 @@ class PageForm(ModelForm):
             "content",
             "ingress",
             "language",
+            "video_file",
             "active",
             "need_auth",
             "menu",

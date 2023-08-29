@@ -22,6 +22,7 @@ class Page(BaseModel):
     menu = models.BooleanField(verbose_name=_("should be in menu"), default=False)
     is_infopage = models.BooleanField(verbose_name=_("is an info page"), default=False)
 
+    video_file = models.FileField(upload_to="pageVideos/", null=True, blank=True)
     def __str__(self):
         return self.title
 
