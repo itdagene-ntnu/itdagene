@@ -9,8 +9,13 @@ def vcard_string(person):
     """
     # vobject API is a bit verbose...
     v = vobject.vCard()
+
+    print("__init__")
+
     v.add("n")
-    v.n.value = vobject.vcard.Name(family=person.last_name, given=person.first_name)
+    v.n.value = vobject.vcard.Name(
+        family=person.last_name, given=person.first_name
+    )
     v.add("fn")
     v.fn.value = "%s %s" % (person.first_name, person.last_name)
     v.add("email")
