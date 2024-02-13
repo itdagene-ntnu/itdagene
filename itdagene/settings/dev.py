@@ -1,5 +1,5 @@
-from .base import GRAPHENE
-from .debug_toolbar import *
+from itdagene.settings.base import GRAPHENE
+# from itdagene.settings.debug_toolbar import *
 
 DEBUG = True
 THUMBNAIL_DEBUG = False
@@ -22,8 +22,12 @@ GRAPHENE["MIDDLEWARE"] += ["graphene_django.debug.DjangoDebugMiddleware"]
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-    "handlers": {"console": {"level": "DEBUG", "class": "logging.StreamHandler"}},
-    "loggers": {"django.db.backends": {"handlers": ["console"], "level": "DEBUG"}},
+    "handlers": {
+        "console": {"level": "DEBUG", "class": "logging.StreamHandler"}
+    },
+    "loggers": {
+        "django.db.backends": {"handlers": ["console"], "level": "DEBUG"}
+    },
 }
 
 CORS_ORIGIN_WHITELIST = [

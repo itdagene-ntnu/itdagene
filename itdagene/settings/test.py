@@ -1,6 +1,4 @@
-# -*- coding: utf8 -*-
-
-from .base import INSTALLED_APPS
+# from itdagene.settings.base import INSTALLED_APPS
 
 DATABASES = {
     "TEST": {
