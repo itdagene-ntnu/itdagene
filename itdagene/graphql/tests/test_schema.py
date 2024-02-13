@@ -5,16 +5,16 @@ from itdagene.graphql.schema import schema
 
 
 class TestSchema(TestCase):
-    def test_schema_will_compile(self):
+    def test_schema_will_compile(self) -> None:
         Client(schema)
 
-    def test_schema_ping(self):
+    def test_schema_ping(self) -> None:
         client = Client(schema)
-        executed = client.execute("""{ ping }""")
-        self.assertEqual(executed, {"data": {"ping": "pong"}})
+        executed = client.execute("{ ping }")
+        self.assertEqual({"data": {"ping": "pong"}}, executed)
 
-    def test_introspection_query(self):
-        """Schama introspection should be successful"""
+    def test_introspection_query(self) -> None:
+        """Schama introspection should be successful."""
         # source https://github.com/graphql/graphiql/blob/master/src/utility/introspectionQueries.js
         query = """
   query IntrospectionQuery {
@@ -112,4 +112,4 @@ class TestSchema(TestCase):
         client = Client(schema)
         executed = client.execute(query)
         self.assertIsNone(executed.get("errors"))
-        self.assertIsNotNone(executed["data"])
+        self.assertIsNotNone(executed.get("data"))
