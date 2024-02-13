@@ -7,7 +7,9 @@ from graphene_django.registry import Registry
 from itdagene.app.career.models import Joblisting as ItdageneJoblisting
 from itdagene.app.career.models import Town as ItdageneTown
 from itdagene.app.company.models import Company as ItdageneCompany
-from itdagene.app.company.models import KeyInformation as ItdageneKeyInformation
+from itdagene.app.company.models import (
+    KeyInformation as ItdageneKeyInformation,
+)
 from itdagene.app.events.models import Event as ItdageneEvent
 from itdagene.app.pages.models import Page as ItdagenePage
 from itdagene.app.stands.models import DigitalStand as ItdageneStand
@@ -31,11 +33,11 @@ class Joblisting(DjangoObjectType):
     class Meta:
         model = ItdageneJoblisting
         connection_class = CountableConnectionBase
-        #        filter_fields = [
-        #            'type',
-        #            'to_year',
-        #            'from_year',
-        #        ]
+        # filter_fields = [
+        #     'type',
+        #     'to_year',
+        #     'from_year',
+        # ]
         description = "Joblisting entity"
         only_fields = (
             "id",
@@ -60,10 +62,9 @@ class Joblisting(DjangoObjectType):
     def resolve_towns(self, info, **kwargs):
         return self.towns.all()
 
-    def resolve_sharing_image(self, info, **kwargs):
-        if not self.company.logo:
-            return None
-        return resize_image(self.company.logo, width=1200, height=630)
+    def resolve_sharing_image(self, info, **kwargs) -> str | None:
+        if self.company.logo:
+            return resize_image(self.company.logo, width=1200, height=630)
 
     def resolve_company(self, info, **kwargs):
         return info.context.loaders.Companyloader.load(self.company_id)
@@ -76,9 +77,8 @@ class Joblisting(DjangoObjectType):
     def get_node(cls, context, id):
         try:
             return ItdageneJoblisting.objects.get(pk=id)
-        except Exception as e:
-            print(e)
-            return None
+        except Exception:
+            pass
 
 
 class Page(DjangoObjectType):
@@ -109,7 +109,9 @@ class Page(DjangoObjectType):
 class User(DjangoObjectType):
     full_name = graphene.String()
     role = graphene.String()
-    photo = graphene.Field(graphene.String, height=graphene.Int(), width=graphene.Int())
+    photo = graphene.Field(
+        graphene.String, height=graphene.Int(), width=graphene.Int()
+    )
 
     class Meta:
         model = ItdageneUser
@@ -148,8 +150,7 @@ class Event(DjangoObjectType):
 
     @classmethod
     def get_queryset(cls):
-        """
-        When fetching all events, we do not want stand events,
+        """When fetching all events, we do not want stand events,
         unless they are of the type 'promoted stand event' (7)
         """
         return ItdageneEvent.objects.filter(Q(stand=None) | Q(type=7))
@@ -227,9 +228,8 @@ class Company(DjangoObjectType):
     def get_node(cls, context, id):
         try:
             return cls.get_queryset().get(pk=id)
-        except Exception as e:
-            print(e)
-            return None
+        except Exception:
+            pass
 
     def resolve_logo(self, info, **kwargs):
         return resize_image(self.logo, **kwargs)
@@ -257,7 +257,8 @@ class MainCollaborator(Company):
             "poster",
         )
         interfaces = (relay.Node,)
-        # This has to be added to avoid GraphQL using this definiton for all company references
+        # This has to be added to avoid GraphQL using this definiton for all
+        # company references
         registry = Registry()
 
     intro = graphene.String()
@@ -275,7 +276,6 @@ class MainCollaborator(Company):
 
 
 class MetaData(DjangoObjectType):
-
     companies_first_day = graphene.List(graphene.NonNull(Company))
     companies_last_day = graphene.List(graphene.NonNull(Company))
     collaborators = graphene.List(
@@ -284,7 +284,8 @@ class MetaData(DjangoObjectType):
     )
 
     main_collaborator = graphene.Field(
-        MainCollaborator, description="Main collaborator for current years event"
+        MainCollaborator,
+        description="Main collaborator for current years event",
     )
 
     board_members = graphene.NonNull(graphene.List(graphene.NonNull(User)))
@@ -326,7 +327,8 @@ class MetaData(DjangoObjectType):
             "end_date",
             "year",
             "nr_of_stands",
-            "companies_first_day" "companies_last_day",
+            "companies_first_day",
+            "companies_last_day",
             "collaborators",
             "main_collaborator",
             "board_members",

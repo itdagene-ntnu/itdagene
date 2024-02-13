@@ -2,13 +2,14 @@ from django.conf import settings
 from sorl.thumbnail import get_thumbnail
 
 
-def resolve_image_url(image):
+def resolve_image_url(image) -> str:
     return f"{settings.HOST_URL}{image.url}"
 
 
-def resize_image(input_image, **kwargs):
+def resize_image(input_image, **kwargs) -> str | None:
     if not input_image:
         return None
+
     height = kwargs.get("height")
     width = kwargs.get("width")
     if not height and not width:

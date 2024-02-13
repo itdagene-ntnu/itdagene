@@ -1,5 +1,5 @@
 import graphene
 
-from .query import Query
+from itdagene.graphql.query import Query
 
 schema = graphene.Schema(query=Query)

@@ -30,7 +30,7 @@ class OrderedDjangoFilterConnectionField(DjangoFilterConnectionField):
         filtering_args,
         root,
         info,
-        **args
+        **args,
     ):
         filter_kwargs = {k: v for k, v in args.items() if k in filtering_args}
         qs = filterset_class(
@@ -38,8 +38,7 @@ class OrderedDjangoFilterConnectionField(DjangoFilterConnectionField):
             queryset=default_manager.get_queryset(),
             request=info.context,
         ).qs
-        order = args.get("orderBy", None)
-        if order:
+        if order := args.get("orderBy", None):
             qs = qs.order_by(*order)
         return super(DjangoFilterConnectionField, cls).connection_resolver(
             resolver,
@@ -49,7 +48,7 @@ class OrderedDjangoFilterConnectionField(DjangoFilterConnectionField):
             enforce_first_or_last,
             root,
             info,
-            **args
+            **args,
         )
 
 
@@ -84,7 +83,8 @@ class Query(graphene.ObjectType):
         on="active_objects",
     )
     current_meta_data = graphene.Field(
-        graphene.NonNull(MetaData), description="Metadata about the current years event"
+        graphene.NonNull(MetaData),
+        description="Metadata about the current years event",
     )
 
     page = graphene.Field(
@@ -92,19 +92,25 @@ class Query(graphene.ObjectType):
         language=graphene.String(default_value="nb"),
         slug=graphene.NonNull(graphene.String),
         video_file=graphene.String(default_value=None),
-        description="Get info page.\n\n Each page identified with"
-        + "a slug can be translated into multiple languages. "
-        + "Each entity is identified by an id or the unique together pair (slug, language)",
+        description=(
+            "Get info page.\n\n Each page identified with a slug can be "
+            "translated into multiple languages. Each entity is identified by "
+            "an id or the unique together pair (slug, language)"
+        ),
     )
     pages = graphene.List(
         Page,
         language=graphene.String(default_value="nb"),
-        slugs=graphene.List(graphene.NonNull(graphene.String), default_value=None),
+        slugs=graphene.List(
+            graphene.NonNull(graphene.String), default_value=None
+        ),
         infopage=graphene.Boolean(),
-        description="Get info page.\n\n Each page identified with "
-        + "a slug can be translated into multiple languages. "
-        + "Each entity is identified by an id or the unique together pair (slug, language). "
-        + "If slugs are left empty, it will return all pages",
+        description=(
+            "Get info page.\n\n Each page identified with a slug can be "
+            "translated into multiple languages. Each entity is identified by "
+            "an id or the unique together pair (slug, language). If slugs are "
+            "left empty, it will return all pages"
+        ),
     )
 
     stands = graphene.List(
@@ -122,19 +128,24 @@ class Query(graphene.ObjectType):
         description="Get a stand by slug.",
     )
 
-    events = graphene.List(graphene.NonNull(Event), description="All the events")
+    events = graphene.List(
+        graphene.NonNull(Event), description="All the events"
+    )
     ping = graphene.String(description="ping -> pong")
-    resolve_count = graphene.Int(description="Resovle count")
+    resolve_count = graphene.Int(description="Resolve count")
 
     # debug = graphene.Field(DjangoDebug, name='__debug') if settings.DEBUG else None
 
-    def resolve_ping(self, *args, **kwargs):
+    def resolve_ping(self, *args, **kwargs) -> str:
         return "pong"
 
-    def resolve_nodes(self, info, ids):
-        return [relay.Node.get_node_from_global_id(info, node_id) for node_id in ids]
+    def resolve_nodes(self, info, ids) -> list:
+        return [
+            relay.Node.get_node_from_global_id(info, node_id)
+            for node_id in ids
+        ]
 
-    def resolve_search(self, info, query, types):
+    def resolve_search(self, info, query, types) -> list:
         return _search(query, types)
 
     def resolve_joblisting(self, info, slug):
@@ -143,14 +154,18 @@ class Query(graphene.ObjectType):
     def resolve_page(self, info, language, slug):
         return Page.get_queryset().get(language=language, slug=slug)
 
-    def resolve_pages(self, info, language, slugs=None, infopage=None):
+    def resolve_pages(self, info, language, slugs=None, infopage=None) -> list:
         if slugs is None:
             if infopage is None:
                 return list(Page.get_queryset().filter(language=language))
             return list(
-                Page.get_queryset().filter(language=language, is_infopage=infopage)
+                Page.get_queryset().filter(
+                    language=language, is_infopage=infopage
+                )
             )
-        return list(Page.get_queryset().filter(language=language, slug__in=slugs))
+        return list(
+            Page.get_queryset().filter(language=language, slug__in=slugs)
+        )
 
     def resolve_current_meta_data(self, info):
         return Preference.current_preference()
@@ -159,7 +174,9 @@ class Query(graphene.ObjectType):
         return info.context.count
 
     def resolve_events(self, info):
-        return Event.get_queryset().filter(date__year=now().year, is_internal=False)
+        return Event.get_queryset().filter(
+            date__year=now().year, is_internal=False
+        )
 
     def resolve_stand(self, info, slug):
         return Stand.get_queryset().get(slug=slug)

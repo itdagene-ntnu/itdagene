@@ -1,5 +1,6 @@
 import graphene
-from graphene import Int, relay
+from graphene import Int
+from graphene.relay import Connection
 
 
 class OpengraphMetadata(graphene.Interface):
@@ -8,7 +9,7 @@ class OpengraphMetadata(graphene.Interface):
     sharing_image = graphene.String(required=False)
 
 
-class CountableConnectionBase(relay.Connection):
+class CountableConnectionBase(Connection):
     class Meta:
         abstract = True
 
@@ -39,9 +40,6 @@ class SearchType(graphene.Enum):
     PAGE = "PAGE"
 
     @property
-    def description(self):
+    def description(self) -> str | None:
         if self == SearchType.COMPANY_WITH_JOBLISTING:
-            return (
-                "Search for companies with one or more joblisting. Useful for filtering"
-            )
-        return None
+            return "Search for companies with one or more joblisting. Useful for filtering"
