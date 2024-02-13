@@ -38,7 +38,8 @@ class OrderedDjangoFilterConnectionField(DjangoFilterConnectionField):
             queryset=default_manager.get_queryset(),
             request=info.context,
         ).qs
-        if order := args.get("orderBy", None):
+        order = args.get("orderBy", None)
+        if order:
             qs = qs.order_by(*order)
         return super(DjangoFilterConnectionField, cls).connection_resolver(
             resolver,
