@@ -1,3 +1,4 @@
+from typing import Optional
 import graphene
 from django.db.models import Q
 from graphene import relay
@@ -62,7 +63,7 @@ class Joblisting(DjangoObjectType):
     def resolve_towns(self, info, **kwargs):
         return self.towns.all()
 
-    def resolve_sharing_image(self, info, **kwargs) -> str | None:
+    def resolve_sharing_image(self, info, **kwargs) -> Optional[str]:
         if self.company.logo:
             return resize_image(self.company.logo, width=1200, height=630)
 

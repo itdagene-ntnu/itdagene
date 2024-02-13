@@ -1,3 +1,4 @@
+from typing import Optional
 import graphene
 from graphene import Int
 from graphene.relay import Connection
@@ -40,6 +41,6 @@ class SearchType(graphene.Enum):
     PAGE = "PAGE"
 
     @property
-    def description(self) -> str | None:
+    def description(self) -> Optional[str]:
         if self == SearchType.COMPANY_WITH_JOBLISTING:
             return "Search for companies with one or more joblisting. Useful for filtering"
