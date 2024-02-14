@@ -7,8 +7,7 @@ COLLECTING_STATIC = "collectstatic" in sys.argv  # Check if collecting static fi
 
 if COLLECTING_STATIC:
     SECRET_KEY = "no-secret"
-    pass
 elif TESTING:
     from itdagene.settings.test import *
-else:
-    from itdagene.settings.local import *
+# else:
+#     from itdagene.settings.local import *
