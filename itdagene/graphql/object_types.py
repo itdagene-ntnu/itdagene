@@ -59,13 +59,12 @@ class Joblisting(DjangoObjectType):
         )
         interfaces = (Node, OpengraphMetadata)
 
-    def resolve_towns(self, info, **kwargs) -> list:
+    def resolve_towns(self, info: Any, **kwargs) -> list:
         return self.towns.all()
 
-    def resolve_sharing_image(self, info, **kwargs) -> Optional[str]:
-        if not self.company.logo:
-            return None
-        return resize_image(self.company.logo, width=1200, height=630)
+    def resolve_sharing_image(self, info: Any, **kwargs) -> Optional[str]:
+        if self.company.logo:
+            return resize_image(self.company.logo, width=1200, height=630)
 
     def resolve_company(self, info, **kwargs):
         return info.context.loaders.Companyloader.load(self.company_id)

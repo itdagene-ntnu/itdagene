@@ -16,7 +16,7 @@ class CountableConnectionBase(Connection):
 
     total_count = Int()
 
-    def resolve_total_count(self, info, **kwargs):
+    def resolve_total_count(self, info, **kwargs) -> Optional[int]:
         return self.iterable.count()
 
 
@@ -47,4 +47,3 @@ class SearchType(Enum):
                 "Search for companies with one or more joblisting. Useful for "
                 "filtering"
             )
-        return None

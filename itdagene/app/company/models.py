@@ -148,7 +148,6 @@ class Company(BaseModel):
     def latest_contract(self):
         if self.contracts.all().count():
             return self.contracts.all().order_by("timestamp").reverse()[0]
-        return None
 
     def current_contract(self):
         c = Contract.objects.filter(
@@ -156,7 +155,6 @@ class Company(BaseModel):
         )
         if c.count() > 0:
             return c[0]
-        return None
 
     @classmethod
     def get_signed_with_packages(cls):
@@ -194,7 +192,7 @@ class Company(BaseModel):
         try:
             return cls.objects.get(package__name="Hovedsamarbeidspartner")
         except Company.DoesNotExist:
-            return None
+            pass
 
 
 class KeyInformation(BaseModel):

@@ -20,5 +20,5 @@ class CompanyLoader(DataLoader):
 
 
 class Loaders:
-    def __init__(self):
+    def __init__(self) -> None:
         self.Companyloader = CompanyLoader()

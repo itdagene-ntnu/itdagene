@@ -1,4 +1,5 @@
 from typing import List
+
 from django.db.models import Q
 
 from itdagene.app.career.models import Joblisting as ItdageneJoblisting
