@@ -1,19 +1,22 @@
-from __future__ import unicode_literals
-
-from django.db import migrations, models
+from django.db import migrations
+from django.db.migrations import AddField
+from django.db.models import BooleanField
 
 
 class Migration(migrations.Migration):
-
     dependencies = [("core", "0003_user_photo")]
 
     operations = [
-        migrations.AddField(
+        AddField(
             model_name="preference",
             name="display_getting_started",
-            field=models.BooleanField(
+            field=BooleanField(
                 default=True,
-                help_text="When this setting is enabled a getting started element is visible in the admin menu. This contains usefull information about how to use this site.",
+                help_text=(
+                    "When this setting is enabled a getting started element "
+                    "is visible in the admin menu. This contains usefull "
+                    "information about how to use this site."
+                ),
                 verbose_name="Display getting started in admin menu",
             ),
             preserve_default=True,

@@ -1,34 +1,33 @@
-from __future__ import unicode_literals
-
-from django.db import migrations, models
+from django.db import migrations
+from django.db.migrations import AlterField
+from django.db.models import CharField, ImageField, PositiveIntegerField
 
 
 class Migration(migrations.Migration):
-
     dependencies = [("core", "0018_delete_userproxy")]
 
     operations = [
-        migrations.AlterField(
+        AlterField(
             model_name="user",
             name="language",
-            field=models.CharField(
+            field=CharField(
                 default="nb",
                 max_length=3,
                 verbose_name="Language",
                 choices=[("nb", "Norsk"), ("en", "English")],
             ),
         ),
-        migrations.AlterField(
+        AlterField(
             model_name="user",
             name="photo",
-            field=models.ImageField(
+            field=ImageField(
                 upload_to="photos/users/", null=True, verbose_name="Photo", blank=True
             ),
         ),
-        migrations.AlterField(
+        AlterField(
             model_name="user",
             name="year",
-            field=models.PositiveIntegerField(
+            field=PositiveIntegerField(
                 default=2015,
                 max_length=3000,
                 blank=True,

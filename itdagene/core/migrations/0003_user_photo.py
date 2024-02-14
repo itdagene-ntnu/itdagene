@@ -1,17 +1,16 @@
-from __future__ import unicode_literals
-
-from django.db import migrations, models
+from django.db import migrations
+from django.db.migrations import AddField
+from django.db.models import ImageField
 
 
 class Migration(migrations.Migration):
-
     dependencies = [("core", "0002_user_phone")]
 
     operations = [
-        migrations.AddField(
+        AddField(
             model_name="user",
             name="photo",
-            field=models.ImageField(null=True, upload_to="photos/users/", blank=True),
+            field=ImageField(null=True, upload_to="photos/users/", blank=True),
             preserve_default=True,
         )
     ]

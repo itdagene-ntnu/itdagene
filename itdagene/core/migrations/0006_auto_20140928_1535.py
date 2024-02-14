@@ -1,14 +1,12 @@
-from __future__ import unicode_literals
-
-from django.db import migrations, models
+from django.db import migrations
+from django.db.migrations import AlterModelOptions
 
 
 class Migration(migrations.Migration):
-
     dependencies = [("core", "0005_auto_20140928_1531")]
 
     operations = [
-        migrations.AlterModelOptions(
+        AlterModelOptions(
             name="user",
             options={
                 "verbose_name": "user",

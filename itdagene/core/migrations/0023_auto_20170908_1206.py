@@ -1,18 +1,16 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
-from django.db import migrations, models
+from django.db import migrations
+from django.db.migrations import AlterField
+from django.db.models import PositiveIntegerField
 
 
 class Migration(migrations.Migration):
-
     dependencies = [("core", "0022_auto_20160215_1141")]
 
     operations = [
-        migrations.AlterField(
+        AlterField(
             model_name="user",
             name="year",
-            field=models.PositiveIntegerField(
+            field=PositiveIntegerField(
                 default=2017,
                 max_length=3000,
                 blank=True,

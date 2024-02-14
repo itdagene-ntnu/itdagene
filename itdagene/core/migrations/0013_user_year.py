@@ -1,17 +1,16 @@
-from __future__ import unicode_literals
-
-from django.db import migrations, models
+from django.db import migrations
+from django.db.migrations import AddField
+from django.db.models import PositiveIntegerField
 
 
 class Migration(migrations.Migration):
-
     dependencies = [("core", "0012_user_mail_notification")]
 
     operations = [
-        migrations.AddField(
+        AddField(
             model_name="user",
             name="year",
-            field=models.PositiveIntegerField(
+            field=PositiveIntegerField(
                 default=2014,
                 help_text="Year the user was active.",
                 max_length=3000,
