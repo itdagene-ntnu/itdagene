@@ -1,3 +1,5 @@
+from typing import Any, Optional
+
 from django.utils.timezone import now
 from graphene import ID, Boolean, Field, Int, List, NonNull, ObjectType, String
 from graphene.relay import Node
@@ -24,8 +26,8 @@ class OrderedDjangoFilterConnectionField(DjangoFilterConnectionField):
         resolver,
         connection,
         default_manager,
-        max_limit,
-        enforce_first_or_last,
+        max_limit: int,
+        enforce_first_or_last: bool,
         filterset_class,
         filtering_args,
         root,
@@ -135,19 +137,25 @@ class Query(ObjectType):
     def resolve_ping(self, *args, **kwargs) -> str:
         return "pong"
 
-    def resolve_nodes(self, info, ids) -> list:
+    def resolve_nodes(self, info: str, ids: list[str]) -> list:
         return [Node.get_node_from_global_id(info, node_id) for node_id in ids]
 
-    def resolve_search(self, info, query, types) -> list:
+    def resolve_search(self, info: Any, query: str, types: list[str]) -> list:
         return _search(query, types)
 
-    def resolve_joblisting(self, info, slug):
+    def resolve_joblisting(self, info: Any, slug: str):
         return Joblisting.get_queryset().get(slug=slug)
 
-    def resolve_page(self, info, language, slug):
+    def resolve_page(self, info: Any, language: str, slug: str):
         return Page.get_queryset().get(language=language, slug=slug)
 
-    def resolve_pages(self, info, language, slugs=None, infopage=None) -> list:
+    def resolve_pages(
+        self,
+        info: Any,
+        language: str,
+        slugs: Optional[list[str]] = None,
+        infopage: Optional[bool] = None,
+    ) -> list:
         if slugs is None:
             if infopage is None:
                 return list(Page.get_queryset().filter(language=language))
@@ -156,19 +164,19 @@ class Query(ObjectType):
             )
         return list(Page.get_queryset().filter(language=language, slug__in=slugs))
 
-    def resolve_current_meta_data(self, info):
+    def resolve_current_meta_data(self, info: Any):
         return Preference.current_preference()
 
     def resolve_resolve_count(self, info, **kwargs):
         return info.context.count
 
-    def resolve_events(self, info):
+    def resolve_events(self, info: Any):
         return Event.get_queryset().filter(date__year=now().year, is_internal=False)
 
-    def resolve_stand(self, info, slug):
+    def resolve_stand(self, info: Any, slug: str):
         return Stand.get_queryset().get(slug=slug)
 
-    def resolve_stands(self, info, shuffle=False):
+    def resolve_stands(self, info: Any, shuffle: bool = False):
         if shuffle:
             return Stand.get_queryset().order_by("?")
         return Stand.get_queryset()

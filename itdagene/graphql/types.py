@@ -42,7 +42,6 @@ class SearchType(Enum):
 
     @property
     def description(self) -> Optional[str]:
-        # TODO: 3.10: Replace return type with str | None
         if self == SearchType.COMPANY_WITH_JOBLISTING:
             return (
                 "Search for companies with one or more joblisting. Useful for "

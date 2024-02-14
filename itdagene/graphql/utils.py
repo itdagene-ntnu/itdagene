@@ -9,7 +9,6 @@ def resolve_image_url(image) -> str:
 
 
 def resize_image(input_image, **kwargs) -> Optional[str]:
-    # TODO: 3.10: Replace return type with str | None
     if not input_image:
         return
     height = kwargs.get("height")

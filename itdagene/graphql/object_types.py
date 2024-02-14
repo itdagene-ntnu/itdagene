@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Any, Optional
 
 from django.db.models import Q
 from graphene import Boolean, Field, Int, List, NonNull, String, Union
@@ -59,11 +59,10 @@ class Joblisting(DjangoObjectType):
         )
         interfaces = (Node, OpengraphMetadata)
 
-    def resolve_towns(self, info, **kwargs):
+    def resolve_towns(self, info, **kwargs) -> list[Town]:
         return self.towns.all()
 
     def resolve_sharing_image(self, info, **kwargs) -> Optional[str]:
-        # TODO: 3.10: Replace return type with str | None
         if not self.company.logo:
             return None
         return resize_image(self.company.logo, width=1200, height=630)
@@ -76,9 +75,9 @@ class Joblisting(DjangoObjectType):
         return ItdageneJoblisting.objects.all()
 
     @classmethod
-    def get_node(cls, context, id):
+    def get_node(cls, context: Any, id_):
         try:
-            return ItdageneJoblisting.objects.get(pk=id)
+            return ItdageneJoblisting.objects.get(pk=id_)
         except Exception:
             pass
 
@@ -100,7 +99,7 @@ class Page(DjangoObjectType):
             "date_created",
         )
 
-    def resolve_description(self, info, **kwargs):
+    def resolve_description(self, info: Any, **kwargs):
         return self.ingress
 
     @classmethod
@@ -119,13 +118,13 @@ class User(DjangoObjectType):
         description = "User entity"
         only_fields = ("id", "firstName", "lastName", "email", "year", "role")
 
-    def resolve_full_name(self, info):
+    def resolve_full_name(self, info: Any) -> Optional[str]:
         return self.get_full_name()
 
-    def resolve_role(self, info):
+    def resolve_role(self, info: Any) -> Optional[str]:
         return self.role()
 
-    def resolve_photo(self, info, **kwargs):
+    def resolve_photo(self, info: Any, **kwargs) -> Optional[str]:
         return resize_image(self.photo, format="JPEG", quality=80, **kwargs)
 
 
@@ -150,8 +149,8 @@ class Event(DjangoObjectType):
 
     @classmethod
     def get_queryset(cls):
-        """When fetching all events, we do not want stand events,
-        unless they are of the type 'promoted stand event' (7)
+        """When fetching all events, we do not want stand events, unless
+        they are of the type 'promoted stand event' (7).
         """
         return ItdageneEvent.objects.filter(Q(stand=None) | Q(type=7))
 
@@ -176,7 +175,7 @@ class Stand(DjangoObjectType):
     def resolve_company(self, info, **kwargs):
         return info.context.loaders.Companyloader.load(self.company_id)
 
-    def resolve_events(self, info, **kwargs):
+    def resolve_events(self, info: Any, **kwargs):
         return ItdageneEvent.objects.filter(stand=self)
 
     @classmethod
@@ -223,19 +222,19 @@ class Company(DjangoObjectType):
         return ItdageneCompany.get_last_day() | ItdageneCompany.get_first_day()
 
     @classmethod
-    def get_node(cls, context, id):
+    def get_node(cls, context: Any, id_):
         try:
-            return cls.get_queryset().get(pk=id)
+            return cls.get_queryset().get(pk=id_)
         except Exception:
             pass
 
-    def resolve_logo(self, info, **kwargs):
+    def resolve_logo(self, info: Any, **kwargs):
         return resize_image(self.logo, **kwargs)
 
-    def resolve_key_information(self, info, **kwargs):
+    def resolve_key_information(self, info: Any, **kwargs) -> list[KeyInformation]:
         return ItdageneKeyInformation.objects.filter(company=self)
 
-    def resolve_stand(self, info, **kwargs):
+    def resolve_stand(self, info: Any, **kwargs):
         return Stand.get_queryset().filter(company=self).first()
 
 
@@ -262,18 +261,17 @@ class MainCollaborator(Company):
     video = String()
     poster = String()
 
-    def resolve_intro(self, info):
+    def resolve_intro(self, info: Any) -> Optional[str]:
         return Preference.current_preference().hsp_intro
 
-    def resolve_video(self, info):
+    def resolve_video(self, info: Any) -> Optional[str]:
         return Preference.current_preference().hsp_video
 
-    def resolve_poster(self, info):
+    def resolve_poster(self, info: Any) -> Optional[str]:
         return Preference.current_preference().hsp_poster
 
 
 class MetaData(DjangoObjectType):
-
     companies_first_day = List(NonNull(Company))
     companies_last_day = List(NonNull(Company))
     collaborators = List(
@@ -289,30 +287,30 @@ class MetaData(DjangoObjectType):
     board_members = NonNull(List(NonNull(User)))
     interest_form = String()
 
-    def resolve_main_collaborator(self, info):
+    def resolve_main_collaborator(self, info: Any):
         if self.view_hsp:
             return ItdageneCompany.get_main_collaborator()
 
-    def resolve_companies_first_day(self, info):
+    def resolve_companies_first_day(self, info: Any):
         if self.view_companies:
             return ItdageneCompany.get_first_day()
 
-    def resolve_companies_last_day(self, info):
+    def resolve_companies_last_day(self, info: Any):
         if self.view_companies:
             return ItdageneCompany.get_last_day()
 
-    def resolve_collaborators(self, info):
+    def resolve_collaborators(self, info: Any):
         if self.view_sp:
             return ItdageneCompany.get_collaborators()
 
-    def resolve_board_members(self, info):
+    def resolve_board_members(self, info: Any):
         return (
             ItdageneUser.objects.filter(year=self.year, is_active=True)
             .all()
             .prefetch_related("groups")
         )
 
-    def resolve_interest_form(self, info):
+    def resolve_interest_form(self, info: Any) -> Optional[str]:
         if self.show_interest_form:
             return self.interest_form_url
 

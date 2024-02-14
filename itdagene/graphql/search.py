@@ -9,7 +9,7 @@ from itdagene.graphql.types import SearchType
 MAX_COUNT = 10
 
 
-def search(query, types):
+def search(query: str, types: list[str]) -> list:
     result = []
 
     alternatives = (
@@ -29,29 +29,29 @@ def search(query, types):
     return result
 
 
-def query_companies_with_joblisting(query, count):
+def query_companies_with_joblisting(query: str, count: int):
     return ItdageneCompany.objects.filter(
         pk__in=ItdageneJoblisting.active_objects.values_list("company")
     ).filter(name__icontains=query)[:count]
 
 
-def query_towns_with_joblisting(query, count):
+def query_towns_with_joblisting(query: str, count: int):
     return Town.objects.filter(
         pk__in=ItdageneJoblisting.active_objects.values_list("towns")
     ).filter(name__icontains=query)[:count]
 
 
-def query_companies(query, count):
+def query_companies(query: str, count: int):
     return Company.get_queryset().filter(name__icontains=query)[:count]
 
 
-def query_pages(query, count):
+def query_pages(query: str, count: int):
     return Page.get_queryset().filter(
         Q(title__icontains=query) | Q(content__icontains=query)
     )[:count]
 
 
-def query_joblistings(query, count):
+def query_joblistings(query: str, count: int):
     return ItdageneJoblisting.active_objects.filter(
         Q(title__icontains=query) | Q(description__icontains=query)
     )[:count]

@@ -12,7 +12,6 @@ class CompanyLoader(DataLoader):
             qs = list(Company.objects.filter(pk__in=keys))
 
             def get_company(key) -> Optional[Company]:
-                # TODO: 3.10: Replace return type with Company | None
                 return next((x for x in qs if x.pk == key), None)
 
             return [get_company(key) for key in keys]
