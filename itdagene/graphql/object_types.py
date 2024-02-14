@@ -227,7 +227,7 @@ class Company(DjangoObjectType):
         except Exception:
             pass
 
-    def resolve_logo(self, info: Any, **kwargs):
+    def resolve_logo(self, info: Any, **kwargs) -> Optional[str]:
         return resize_image(self.logo, **kwargs)
 
     def resolve_key_information(self, info: Any, **kwargs) -> list:
