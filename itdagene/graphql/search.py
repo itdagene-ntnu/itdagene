@@ -6,7 +6,7 @@ from itdagene.app.company.models import Company as ItdageneCompany
 from itdagene.graphql.object_types import Company, Page
 from itdagene.graphql.types import SearchType
 
-max_count = 10
+MAX_COUNT = 10
 
 
 def search(query, types):
@@ -20,11 +20,11 @@ def search(query, types):
         (SearchType.PAGE, query_pages),
     )
 
-    for type, query_func in alternatives:
-        if type not in types:
+    for type_, query_func in alternatives:
+        if type_ not in types:
             continue
 
-        result = result + list(query_func(query, max_count))
+        result.extend(list(query_func(query, MAX_COUNT)))
 
     return result
 

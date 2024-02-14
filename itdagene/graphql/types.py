@@ -1,14 +1,16 @@
-import graphene
-from graphene import Int, relay
+from typing import Optional
+
+from graphene import Enum, Int, Interface, String
+from graphene.relay import Connection
 
 
-class OpengraphMetadata(graphene.Interface):
-    title = graphene.String(required=True)
-    description = graphene.String(required=False)
-    sharing_image = graphene.String(required=False)
+class OpengraphMetadata(Interface):
+    title = String(required=True)
+    description = String(required=False)
+    sharing_image = String(required=False)
 
 
-class CountableConnectionBase(relay.Connection):
+class CountableConnectionBase(Connection):
     class Meta:
         abstract = True
 
@@ -18,7 +20,7 @@ class CountableConnectionBase(relay.Connection):
         return self.iterable.count()
 
 
-class OrderByJoblistingType(graphene.Enum):
+class OrderByJoblistingType(Enum):
     DEADLINE = "deadline"
     DEADLINE_INVERSE = "-deadline"
     CREATED = "-date_created"
@@ -31,7 +33,7 @@ class OrderByJoblistingType(graphene.Enum):
     COMPANY_NAME_INVERSE = "-company__name"
 
 
-class SearchType(graphene.Enum):
+class SearchType(Enum):
     COMPANY = "COMPANY"
     COMPANY_WITH_JOBLISTING = "COMPANY_WITH_JOBLISTING"
     TOWNS_WITH_JOBLISTING = "TOWNS_WITH_JOBLISTING"
@@ -39,9 +41,11 @@ class SearchType(graphene.Enum):
     PAGE = "PAGE"
 
     @property
-    def description(self):
+    def description(self) -> Optional[str]:
+        # TODO: 3.10: Replace return type with str | None
         if self == SearchType.COMPANY_WITH_JOBLISTING:
             return (
-                "Search for companies with one or more joblisting. Useful for filtering"
+                "Search for companies with one or more joblisting. Useful for "
+                "filtering"
             )
         return None

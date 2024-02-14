@@ -1,6 +1,8 @@
-import graphene
+from typing import Optional
+
 from django.db.models import Q
-from graphene import relay
+from graphene import Boolean, Field, Int, List, NonNull, String, Union
+from graphene.relay import Node
 from graphene_django import DjangoObjectType
 from graphene_django.registry import Registry
 
@@ -20,22 +22,22 @@ from itdagene.graphql.utils import resize_image
 class Town(DjangoObjectType):
     class Meta:
         model = ItdageneTown
-        interfaces = (relay.Node,)
+        interfaces = (Node,)
         description = "Town entity"
         only_fields = ("id", "name")
 
 
 class Joblisting(DjangoObjectType):
-    towns = graphene.NonNull(graphene.List(graphene.NonNull(Town)))
+    towns = NonNull(List(NonNull(Town)))
 
     class Meta:
         model = ItdageneJoblisting
         connection_class = CountableConnectionBase
-        #        filter_fields = [
-        #            'type',
-        #            'to_year',
-        #            'from_year',
-        #        ]
+        # filter_fields = [
+        #     'type',
+        #     'to_year',
+        #     'from_year',
+        # ]
         description = "Joblisting entity"
         only_fields = (
             "id",
@@ -55,12 +57,13 @@ class Joblisting(DjangoObjectType):
             "is_summerjob_marathon",
             "is_active",
         )
-        interfaces = (relay.Node, OpengraphMetadata)
+        interfaces = (Node, OpengraphMetadata)
 
     def resolve_towns(self, info, **kwargs):
         return self.towns.all()
 
-    def resolve_sharing_image(self, info, **kwargs):
+    def resolve_sharing_image(self, info, **kwargs) -> Optional[str]:
+        # TODO: 3.10: Replace return type with str | None
         if not self.company.logo:
             return None
         return resize_image(self.company.logo, width=1200, height=630)
@@ -76,15 +79,14 @@ class Joblisting(DjangoObjectType):
     def get_node(cls, context, id):
         try:
             return ItdageneJoblisting.objects.get(pk=id)
-        except Exception as e:
-            print(e)
-            return None
+        except Exception:
+            pass
 
 
 class Page(DjangoObjectType):
     class Meta:
         model = ItdagenePage
-        interfaces = (relay.Node, OpengraphMetadata)
+        interfaces = (Node, OpengraphMetadata)
         description = "(info)Page entity"
         only_fields = (
             "slug",
@@ -107,13 +109,13 @@ class Page(DjangoObjectType):
 
 
 class User(DjangoObjectType):
-    full_name = graphene.String()
-    role = graphene.String()
-    photo = graphene.Field(graphene.String, height=graphene.Int(), width=graphene.Int())
+    full_name = String()
+    role = String()
+    photo = Field(String, height=Int(), width=Int())
 
     class Meta:
         model = ItdageneUser
-        interfaces = (relay.Node,)
+        interfaces = (Node,)
         description = "User entity"
         only_fields = ("id", "firstName", "lastName", "email", "year", "role")
 
@@ -144,21 +146,18 @@ class Event(DjangoObjectType):
             "max_participants",
             "date",
         )
-        interfaces = (relay.Node,)
+        interfaces = (Node,)
 
     @classmethod
     def get_queryset(cls):
-        """
-        When fetching all events, we do not want stand events,
+        """When fetching all events, we do not want stand events,
         unless they are of the type 'promoted stand event' (7)
         """
         return ItdageneEvent.objects.filter(Q(stand=None) | Q(type=7))
 
 
 class Stand(DjangoObjectType):
-    events = graphene.List(
-        graphene.NonNull(Event), description="The stand's associated events"
-    )
+    events = List(NonNull(Event), description="The stand's associated events")
 
     class Meta:
         model = ItdageneStand
@@ -172,7 +171,7 @@ class Stand(DjangoObjectType):
             "active",
             "company",
         )
-        interfaces = (relay.Node,)
+        interfaces = (Node,)
 
     def resolve_company(self, info, **kwargs):
         return info.context.loaders.Companyloader.load(self.company_id)
@@ -188,20 +187,20 @@ class Stand(DjangoObjectType):
 class KeyInformation(DjangoObjectType):
     class Meta:
         model = ItdageneKeyInformation
-        interfaces = (relay.Node,)
+        interfaces = (Node,)
         description = "Key information about a company"
         only_fields = ("id", "name", "value")
 
 
 class Company(DjangoObjectType):
-    logo = graphene.Field(
-        graphene.String,
-        height=graphene.Int(),
-        width=graphene.Int(),
-        padding=graphene.Boolean(),
+    logo = Field(
+        String,
+        height=Int(),
+        width=Int(),
+        padding=Boolean(),
     )
-    key_information = graphene.List(
-        graphene.NonNull(KeyInformation),
+    key_information = List(
+        NonNull(KeyInformation),
         description="Key information about the company.",
     )
 
@@ -217,7 +216,7 @@ class Company(DjangoObjectType):
             "is_collabrator",
             "joblistings",
         )
-        interfaces = (relay.Node,)
+        interfaces = (Node,)
 
     @classmethod
     def get_queryset(cls):
@@ -227,9 +226,8 @@ class Company(DjangoObjectType):
     def get_node(cls, context, id):
         try:
             return cls.get_queryset().get(pk=id)
-        except Exception as e:
-            print(e)
-            return None
+        except Exception:
+            pass
 
     def resolve_logo(self, info, **kwargs):
         return resize_image(self.logo, **kwargs)
@@ -256,13 +254,13 @@ class MainCollaborator(Company):
             "video",
             "poster",
         )
-        interfaces = (relay.Node,)
+        interfaces = (Node,)
         # This has to be added to avoid GraphQL using this definiton for all company references
         registry = Registry()
 
-    intro = graphene.String()
-    video = graphene.String()
-    poster = graphene.String()
+    intro = String()
+    video = String()
+    poster = String()
 
     def resolve_intro(self, info):
         return Preference.current_preference().hsp_intro
@@ -276,19 +274,20 @@ class MainCollaborator(Company):
 
 class MetaData(DjangoObjectType):
 
-    companies_first_day = graphene.List(graphene.NonNull(Company))
-    companies_last_day = graphene.List(graphene.NonNull(Company))
-    collaborators = graphene.List(
-        graphene.NonNull(Company),
+    companies_first_day = List(NonNull(Company))
+    companies_last_day = List(NonNull(Company))
+    collaborators = List(
+        NonNull(Company),
         description="List the collaborators, not including the main collaborator",
     )
 
-    main_collaborator = graphene.Field(
-        MainCollaborator, description="Main collaborator for current years event"
+    main_collaborator = Field(
+        MainCollaborator,
+        description="Main collaborator for current years event",
     )
 
-    board_members = graphene.NonNull(graphene.List(graphene.NonNull(User)))
-    interest_form = graphene.String()
+    board_members = NonNull(List(NonNull(User)))
+    interest_form = String()
 
     def resolve_main_collaborator(self, info):
         if self.view_hsp:
@@ -326,15 +325,16 @@ class MetaData(DjangoObjectType):
             "end_date",
             "year",
             "nr_of_stands",
-            "companies_first_day" "companies_last_day",
+            "companies_first_day",
+            "companies_last_day",
             "collaborators",
             "main_collaborator",
             "board_members",
             "interest_form",
         )
-        interfaces = (relay.Node,)
+        interfaces = (Node,)
 
 
-class SearchResult(graphene.Union):
+class SearchResult(Union):
     class Meta:
         types = (Joblisting, Company, Page, Town)

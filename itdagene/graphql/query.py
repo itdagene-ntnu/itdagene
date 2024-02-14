@@ -1,6 +1,6 @@
-import graphene
 from django.utils.timezone import now
-from graphene import relay
+from graphene import ID, Boolean, Field, Int, List, NonNull, ObjectType, String
+from graphene.relay import Node
 from graphene_django.filter import DjangoFilterConnectionField
 
 from itdagene.core.models import Preference
@@ -53,88 +53,92 @@ class OrderedDjangoFilterConnectionField(DjangoFilterConnectionField):
         )
 
 
-class Query(graphene.ObjectType):
-    node = relay.Node.Field(description="Get node by ID")
-    nodes = graphene.List(
-        relay.Node,
+class Query(ObjectType):
+    node = Node.Field(description="Get node by ID")
+    nodes = List(
+        Node,
         required=True,
-        ids=graphene.List(graphene.NonNull(graphene.ID), required=True),
+        ids=List(NonNull(ID), required=True),
         description="Get nodes by IDs",
     )
-    search = graphene.List(
+    search = List(
         SearchResult,
         required=True,
-        query=graphene.String(),
-        types=graphene.List(SearchType, required=True),
+        query=String(),
+        types=List(SearchType, required=True),
         description="Search for different types of objects. Will return max 10 of each type.",
     )
-    joblisting = graphene.Field(
+    joblisting = Field(
         Joblisting,
-        slug=graphene.NonNull(graphene.String),
+        slug=NonNull(String),
         description="Get a joblisting by its slug.",
     )
 
     joblistings = OrderedDjangoFilterConnectionField(
         Joblisting,
         filterset_class=JoblistingFilter,
-        orderBy=graphene.List(of_type=OrderByJoblistingType),
+        orderBy=List(of_type=OrderByJoblistingType),
         max_limit=100,
         enforce_first_or_last=True,
         description="List and paginate joblistings",
         on="active_objects",
     )
-    current_meta_data = graphene.Field(
-        graphene.NonNull(MetaData), description="Metadata about the current years event"
+    current_meta_data = Field(
+        NonNull(MetaData), description="Metadata about the current years event"
     )
 
-    page = graphene.Field(
+    page = Field(
         Page,
-        language=graphene.String(default_value="nb"),
-        slug=graphene.NonNull(graphene.String),
-        video_file=graphene.String(default_value=None),
-        description="Get info page.\n\n Each page identified with"
-        + "a slug can be translated into multiple languages. "
-        + "Each entity is identified by an id or the unique together pair (slug, language)",
+        language=String(default_value="nb"),
+        slug=NonNull(String),
+        video_file=String(default_value=None),
+        description=(
+            "Get info page.\n\n Each page identified with a slug can be "
+            "translated into multiple languages. Each entity is identified by "
+            "an id or the unique together pair (slug, language)"
+        ),
     )
-    pages = graphene.List(
+    pages = List(
         Page,
-        language=graphene.String(default_value="nb"),
-        slugs=graphene.List(graphene.NonNull(graphene.String), default_value=None),
-        infopage=graphene.Boolean(),
-        description="Get info page.\n\n Each page identified with "
-        + "a slug can be translated into multiple languages. "
-        + "Each entity is identified by an id or the unique together pair (slug, language). "
-        + "If slugs are left empty, it will return all pages",
+        language=String(default_value="nb"),
+        slugs=List(NonNull(String), default_value=None),
+        infopage=Boolean(),
+        description=(
+            "Get info page.\n\n Each page identified with a slug can be "
+            "translated into multiple languages. Each entity is identified by "
+            "an id or the unique together pair (slug, language). If slugs are "
+            "left empty, it will return all pages"
+        ),
     )
 
-    stands = graphene.List(
-        graphene.NonNull(Stand),
-        shuffle=graphene.Boolean(
+    stands = List(
+        NonNull(Stand),
+        shuffle=Boolean(
             required=False,
             default_value=None,
             description="Randomize the order of the the stands (optional argument)",
         ),
         description="Get all stands",
     )
-    stand = graphene.Field(
+    stand = Field(
         Stand,
-        slug=graphene.NonNull(graphene.String),
+        slug=NonNull(String),
         description="Get a stand by slug.",
     )
 
-    events = graphene.List(graphene.NonNull(Event), description="All the events")
-    ping = graphene.String(description="ping -> pong")
-    resolve_count = graphene.Int(description="Resovle count")
+    events = List(NonNull(Event), description="All the events")
+    ping = String(description="ping -> pong")
+    resolve_count = Int(description="Resolve count")
 
-    # debug = graphene.Field(DjangoDebug, name='__debug') if settings.DEBUG else None
+    # debug = Field(DjangoDebug, name='__debug') if settings.DEBUG else None
 
-    def resolve_ping(self, *args, **kwargs):
+    def resolve_ping(self, *args, **kwargs) -> str:
         return "pong"
 
-    def resolve_nodes(self, info, ids):
-        return [relay.Node.get_node_from_global_id(info, node_id) for node_id in ids]
+    def resolve_nodes(self, info, ids) -> list:
+        return [Node.get_node_from_global_id(info, node_id) for node_id in ids]
 
-    def resolve_search(self, info, query, types):
+    def resolve_search(self, info, query, types) -> list:
         return _search(query, types)
 
     def resolve_joblisting(self, info, slug):
@@ -143,7 +147,7 @@ class Query(graphene.ObjectType):
     def resolve_page(self, info, language, slug):
         return Page.get_queryset().get(language=language, slug=slug)
 
-    def resolve_pages(self, info, language, slugs=None, infopage=None):
+    def resolve_pages(self, info, language, slugs=None, infopage=None) -> list:
         if slugs is None:
             if infopage is None:
                 return list(Page.get_queryset().filter(language=language))

@@ -12,7 +12,7 @@ from itdagene.graphql.schema import schema
 
 
 class TestJoblistings(TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         User.objects.create(is_superuser=True)
         self.company = Company.objects.create()
         self.client = Client(schema)
@@ -57,29 +57,29 @@ class TestJoblistings(TestCase):
         }
         """
 
-    def test_no_joblisting(self):
+    def test_no_joblisting(self) -> None:
         executed = self.client.execute(self.joblistings_query)
         self.assertIsNone(executed.get("errors"))
-        self.assertEqual(executed["data"]["joblistings"]["edges"], [])
+        self.assertEqual([], executed["data"]["joblistings"]["edges"])
 
-    def test_inactive_joblisting_is_not_in_connection(self):
+    def test_inactive_joblisting_is_not_in_connection(self) -> None:
         Joblisting.objects.create(
             company=self.company, deadline=timezone.now() - timedelta(days=1)
         )
         executed = self.client.execute(self.joblistings_query)
         self.assertIsNone(executed.get("errors"))
-        self.assertEqual(executed["data"]["joblistings"]["edges"], [])
+        self.assertEqual([], executed["data"]["joblistings"]["edges"])
 
-    def test_active_joblisting_is_in_connection(self):
+    def test_active_joblisting_is_in_connection(self) -> None:
         Joblisting.objects.create(
             company=self.company, deadline=timezone.now() + timedelta(days=1)
         )
         executed = self.client.execute(self.joblistings_query)
         self.assertIsNone(executed.get("errors"))
-        self.assertEqual(len(executed["data"]["joblistings"]["edges"]), 1)
+        self.assertEqual(1, len(executed["data"]["joblistings"]["edges"]))
 
-    def test_inactive_joblisting_is_node(self):
-        """Ensure old joblisting urls are still valid"""
+    def test_inactive_joblisting_is_node(self) -> None:
+        """Ensure old joblisting urls are still valid."""
         joblisting = Joblisting.objects.create(
             company=self.company, deadline=timezone.now() - timedelta(days=1)
         )
@@ -92,11 +92,12 @@ class TestJoblistings(TestCase):
         self.assertIsNotNone(executed["data"]["node"])
 
         self.assertEqual(
-            executed["data"]["node"], {"id": global_id, "__typename": "Joblisting"}
+            {"id": global_id, "__typename": "Joblisting"},
+            executed["data"]["node"],
         )
 
-    def test_only_active_is_in_search(self):
-        """Ensure old joblisting urls are still valid"""
+    def test_only_active_is_in_search(self) -> None:
+        """Ensure old joblisting urls are still valid."""
         title = "Title"
         active = Joblisting.objects.create(
             company=self.company,
@@ -116,10 +117,10 @@ class TestJoblistings(TestCase):
         expected = {"data": {"search": [{"id": global_id, "__typename": "Joblisting"}]}}
 
         self.assertIsNone(executed.get("errors"))
-        self.assertEqual(executed, expected)
+        self.assertEqual(expected, executed)
 
-    def test_only_companies_with_joblistings_is_in_search(self):
-        """Ensure old joblisting urls are still valid"""
+    def test_only_companies_with_joblistings_is_in_search(self) -> None:
+        """Ensure old joblisting urls are still valid."""
         name = "name"
         active_company = Company.objects.create(name=name)
         inactive_company = Company.objects.create(name=name)
@@ -127,7 +128,8 @@ class TestJoblistings(TestCase):
             company=active_company, deadline=timezone.now() + timedelta(days=1)
         )
         Joblisting.objects.create(
-            company=inactive_company, deadline=timezone.now() - timedelta(days=1)
+            company=inactive_company,
+            deadline=timezone.now() - timedelta(days=1),
         )
         global_id = to_global_id("Company", active_company.pk)
         executed = self.client.execute(
@@ -137,4 +139,4 @@ class TestJoblistings(TestCase):
         expected = {"data": {"search": [{"id": global_id, "__typename": "Company"}]}}
 
         self.assertIsNone(executed.get("errors"))
-        self.assertEqual(executed, expected)
+        self.assertEqual(expected, executed)
