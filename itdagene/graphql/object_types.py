@@ -59,7 +59,7 @@ class Joblisting(DjangoObjectType):
         )
         interfaces = (Node, OpengraphMetadata)
 
-    def resolve_towns(self, info, **kwargs) -> list[Town]:
+    def resolve_towns(self, info, **kwargs) -> list:
         return self.towns.all()
 
     def resolve_sharing_image(self, info, **kwargs) -> Optional[str]:
@@ -231,7 +231,7 @@ class Company(DjangoObjectType):
     def resolve_logo(self, info: Any, **kwargs):
         return resize_image(self.logo, **kwargs)
 
-    def resolve_key_information(self, info: Any, **kwargs) -> list[KeyInformation]:
+    def resolve_key_information(self, info: Any, **kwargs) -> list:
         return ItdageneKeyInformation.objects.filter(company=self)
 
     def resolve_stand(self, info: Any, **kwargs):

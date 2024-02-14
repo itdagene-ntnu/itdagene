@@ -137,10 +137,10 @@ class Query(ObjectType):
     def resolve_ping(self, *args, **kwargs) -> str:
         return "pong"
 
-    def resolve_nodes(self, info: str, ids: list[str]) -> list:
+    def resolve_nodes(self, info: str, ids: list) -> list:
         return [Node.get_node_from_global_id(info, node_id) for node_id in ids]
 
-    def resolve_search(self, info: Any, query: str, types: list[str]) -> list:
+    def resolve_search(self, info: Any, query: str, types: list) -> list:
         return _search(query, types)
 
     def resolve_joblisting(self, info: Any, slug: str):
@@ -153,7 +153,7 @@ class Query(ObjectType):
         self,
         info: Any,
         language: str,
-        slugs: Optional[list[str]] = None,
+        slugs: Optional[list] = None,
         infopage: Optional[bool] = None,
     ) -> list:
         if slugs is None:

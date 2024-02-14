@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import List, Optional
 
 from promise import Promise
 from promise.dataloader import DataLoader
@@ -7,8 +7,8 @@ from itdagene.app.company.models import Company
 
 
 class CompanyLoader(DataLoader):
-    def batch_load_fn(self, keys) -> Promise[list[Optional[Company]]]:
-        def do_work() -> list[Optional[Company]]:
+    def batch_load_fn(self, keys) -> Promise[List[Optional[Company]]]:
+        def do_work() -> List[Optional[Company]]:
             qs = list(Company.objects.filter(pk__in=keys))
 
             def get_company(key) -> Optional[Company]:

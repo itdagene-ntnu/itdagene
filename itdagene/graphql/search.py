@@ -1,3 +1,4 @@
+from typing import List
 from django.db.models import Q
 
 from itdagene.app.career.models import Joblisting as ItdageneJoblisting
@@ -9,7 +10,7 @@ from itdagene.graphql.types import SearchType
 MAX_COUNT = 10
 
 
-def search(query: str, types: list[str]) -> list:
+def search(query: str, types: List[str]) -> list:
     result = []
 
     alternatives = (
