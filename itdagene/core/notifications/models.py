@@ -14,7 +14,6 @@ from django.db.models import (
 )
 from django.utils.translation import gettext_lazy as _
 
-from itdagene.app.mail.tasks import send_notification_message
 from itdagene.core.auth import get_current_user
 from itdagene.core.models import BaseModel, User
 
@@ -47,6 +46,8 @@ class Notification(Model):
         notification = super(Notification, self).save(*args, **kwargs)
 
         if self.send_mail and not self.sent_mail:
+            from itdagene.app.mail.tasks import send_notification_message
+
             send_notification_message.delay(self)
             self.send_mail = True
             notification = super(Notification, self).save(
