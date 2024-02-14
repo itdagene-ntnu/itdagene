@@ -1,16 +1,15 @@
-from __future__ import unicode_literals
-
-from django.db import migrations, models
+from django.db import migrations
+from django.db.migrations import AlterField
+from django.db.models import BooleanField
 
 
 class Migration(migrations.Migration):
-
     dependencies = [("notifications", "0004_auto_20140929_0323")]
 
     operations = [
-        migrations.AlterField(
+        AlterField(
             model_name="notification",
             name="read",
-            field=models.BooleanField(default=False),
+            field=BooleanField(default=False),
         )
     ]
