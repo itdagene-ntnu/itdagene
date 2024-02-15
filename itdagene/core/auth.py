@@ -5,8 +5,6 @@ from threading import local
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
 
-from itdagene.core.models import User
-
 USER_ATTR_NAME = getattr(settings, "LOCAL_USER_ATTR_NAME", "_current_user")
 
 _thread_locals = local()
@@ -17,10 +15,11 @@ def set_current_user_function(user_function) -> None:
 
 
 def set_current_user(user=None) -> None:
-    set_current_user_function(lambda self: user)
+    set_current_user_function(lambda _: user)
 
 
 def get_current_user():
+    from itdagene.core.models import User
 
     current_user = getattr(_thread_locals, USER_ATTR_NAME, None)
 

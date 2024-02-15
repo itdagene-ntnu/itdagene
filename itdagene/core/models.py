@@ -26,6 +26,7 @@ from raven.breadcrumbs import record
 from social_core.exceptions import AuthForbidden
 
 from itdagene.core.auth import get_current_user
+from itdagene.core.notifications.models import Subscription
 
 
 def user_default_year() -> int:
@@ -135,7 +136,6 @@ class BaseModel(Model):
 
         super(BaseModel, self).save(*args, **kwargs)
 
-        from itdagene.core.notifications.models import Subscription
 
         Subscription.subscribe(self, user)
 
