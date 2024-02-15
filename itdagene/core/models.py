@@ -136,7 +136,6 @@ class BaseModel(Model):
 
         super(BaseModel, self).save(*args, **kwargs)
 
-
         Subscription.subscribe(self, user)
 
         if notify_subscribers:
