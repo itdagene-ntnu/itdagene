@@ -114,9 +114,9 @@ class BaseModel(Model):
 
     def save(
         self,
-        notify_subscribers=True,
-        log_it=True,
-        log_priority=0,
+        notify_subscribers: bool = True,
+        log_it: bool = True,
+        log_priority: int = 0,
         *args,
         **kwargs,
     ) -> None:
@@ -135,19 +135,20 @@ class BaseModel(Model):
 
         super(BaseModel, self).save(*args, **kwargs)
 
+        # Problems when top-layer import from notifications/models.py
         from itdagene.core.notifications.models import Subscription
 
         Subscription.subscribe(self, user)
 
         if notify_subscribers:
+            from itdagene.core.log.models import LogItem
+
             Subscription.notify_subscribers(self)
 
         if log_it:
-            from itdagene.core.log.models import LogItem
-
             LogItem.log_it(self, action, log_priority)
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         c_type = ContentType.objects.get_for_model(self)
         return f"/{c_type.app_label}/{c_type}s/{self.pk}/"
 
