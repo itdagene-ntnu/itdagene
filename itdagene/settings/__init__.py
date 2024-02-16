@@ -9,5 +9,6 @@ if COLLECTING_STATIC:
     SECRET_KEY = "no-secret"
 elif TESTING:
     from itdagene.settings.test import *
-# else:
-#     from itdagene.settings.local import *
+else:
+    # ? itdagene/settings/local.py is in .gitignore. Does this file exist?
+    from itdagene.settings.local import *
