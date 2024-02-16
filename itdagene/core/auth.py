@@ -19,6 +19,7 @@ def set_current_user(user=None) -> None:
 
 
 def get_current_user():
+    # Problems when top-layer import from core/models.py
     from itdagene.core.models import User
 
     current_user = getattr(_thread_locals, USER_ATTR_NAME, None)

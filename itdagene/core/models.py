@@ -135,17 +135,18 @@ class BaseModel(Model):
 
         super(BaseModel, self).save(*args, **kwargs)
 
-        # Problems when top-layer import from notifications/models.py
+        # Problems when top-layer import from core/notifications/models.py
         from itdagene.core.notifications.models import Subscription
 
         Subscription.subscribe(self, user)
 
         if notify_subscribers:
-            from itdagene.core.log.models import LogItem
-
             Subscription.notify_subscribers(self)
 
         if log_it:
+            # Problems when top-layer import from core/notifications/models.py
+            from itdagene.core.log.models import LogItem
+
             LogItem.log_it(self, action, log_priority)
 
     def get_absolute_url(self) -> str:
