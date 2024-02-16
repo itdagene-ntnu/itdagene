@@ -10,5 +10,4 @@ if COLLECTING_STATIC:
 elif TESTING:
     from itdagene.settings.test import *
 else:
-    # ? itdagene/settings/local.py is in .gitignore. Does this file exist?
     from itdagene.settings.local import *
