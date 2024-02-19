@@ -10,4 +10,3 @@ def todo_list(user):
             .filter(Q(finished=True, deadline__gte=timezone.now()) | Q(finished=False))
             .order_by("deadline")
         )
-    return None
