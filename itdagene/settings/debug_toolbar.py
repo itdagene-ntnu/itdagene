@@ -1,6 +1,6 @@
 from itdagene.settings.base import INSTALLED_APPS, MIDDLEWARE
 
-INSTALLED_APPS = INSTALLED_APPS + ["debug_toolbar"]
+INSTALLED_APPS.append("debug_toolbar")
 
 DEBUG_TOOLBAR_PANELS = [
     "debug_toolbar.panels.versions.VersionsPanel",
@@ -16,4 +16,4 @@ DEBUG_TOOLBAR_PANELS = [
     "debug_toolbar.panels.logging.LoggingPanel",
     "debug_toolbar.panels.redirects.RedirectsPanel",
 ]
-MIDDLEWARE = MIDDLEWARE + ["debug_toolbar.middleware.DebugToolbarMiddleware"]
+MIDDLEWARE.append("debug_toolbar.middleware.DebugToolbarMiddleware")

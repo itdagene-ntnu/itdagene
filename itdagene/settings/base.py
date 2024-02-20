@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 
 SHELL_PLUS = "ipython"
 
-ADMINS = (("itDAGENE Web", "%s@%s" % (SITE["drift_mail_prefix"], "itdagene.no")),)
+ADMINS = (("itDAGENE Web", f"{SITE['drift_mail_prefix']}@itdagene.no"),)
 MANAGERS = ADMINS
 
 THUMBNAIL_UPSCALE = False
@@ -41,11 +41,13 @@ THUMBNAIL_UPSCALE = False
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+
 """
 DATE_FORMAT = 'd.m.Y'
 TIME_FORMAT = 'H:i'
 DATETIME_FORMAT = DATE_FORMAT + ' ' + TIME_FORMAT
 """
+
 LOGIN_URL = "/login/"
 LOGIN_REDIRECT_URL = "/"
 
@@ -147,11 +149,16 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 AUTH_USER_MODEL = "core.User"
 
-EMAIL_SUBJECT_PREFIX = "[%s] " % (SITE["name"])
-SERVER_EMAIL = "%s <%s>" % (SITE["name"], SITE["email"])
+EMAIL_SUBJECT_PREFIX = f"[{SITE['name']}] "
+SERVER_EMAIL = f"{SITE['name']} <{SITE['email']}>"
 DEFAULT_FROM_EMAIL = SERVER_EMAIL
 
-MESSAGE_TAGS = {SUCCESS: "success", INFO: "info", WARNING: "warning", ERROR: "danger"}
+MESSAGE_TAGS = {
+    SUCCESS: "success",
+    INFO: "info",
+    WARNING: "warning",
+    ERROR: "danger",
+}
 
 CORS_ORIGIN_WHITELIST = ("https://itdagene.no",)
 GRAPHENE = {
@@ -198,7 +205,7 @@ METABASE_SECRET_KEY = ""
 TESTING = "test" in sys.argv  # Check if manage.py test has been run
 
 
-def skip_if_testing(*args, **kwargs):
+def skip_if_testing(*args, **kwargs) -> bool:
     return not TESTING
 
 
@@ -238,12 +245,19 @@ LOGGING = {
         "null": {"level": "DEBUG", "class": "logging.NullHandler"},
     },
     "loggers": {
-        "raven": {"level": "DEBUG", "handlers": ["console"], "propagate": False},
+        "raven": {
+            "level": "DEBUG",
+            "handlers": ["console"],
+            "propagate": False,
+        },
         "sentry.errors": {
             "level": "DEBUG",
             "handlers": ["console"],
             "propagate": False,
         },
-        "django.security.DisallowedHost": {"handlers": ["null"], "propagate": False},
+        "django.security.DisallowedHost": {
+            "handlers": ["null"],
+            "propagate": False,
+        },
     },
 }

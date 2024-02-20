@@ -1,23 +1,32 @@
 from __future__ import unicode_literals
 
 from django.conf import settings
-from django.db import migrations, models
+from django.db import migrations
+from django.db.migrations import CreateModel, swappable_dependency
+from django.db.models import (
+    CASCADE,
+    AutoField,
+    CharField,
+    DateTimeField,
+    ForeignKey,
+    Model,
+    PositiveIntegerField,
+)
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        swappable_dependency(settings.AUTH_USER_MODEL),
         ("contenttypes", "0001_initial"),
     ]
 
     operations = [
-        migrations.CreateModel(
+        CreateModel(
             name="LogItem",
             fields=[
                 (
                     "id",
-                    models.AutoField(
+                    AutoField(
                         verbose_name="ID",
                         serialize=False,
                         auto_created=True,
@@ -26,36 +35,37 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "priority",
-                    models.PositiveIntegerField(
+                    PositiveIntegerField(
                         default=1,
                         verbose_name="prioritet",
                         choices=[
-                            (0, b"Low"),
-                            (1, b"Medium"),
-                            (2, b"High"),
-                            (3, b"Very High. Will send email to administrators"),
+                            (0, "Low"),
+                            (1, "Medium"),
+                            (2, "High"),
+                            (3, "Very High. Will send email to administrators"),
                         ],
                     ),
                 ),
-                ("timestamp", models.DateTimeField(auto_now=True, verbose_name="dato")),
-                ("action", models.CharField(max_length=16, verbose_name="handling")),
-                ("object_id", models.PositiveIntegerField()),
+                (
+                    "timestamp",
+                    DateTimeField(auto_now=True, verbose_name="dato"),
+                ),
+                ("action", CharField(max_length=16, verbose_name="handling")),
+                ("object_id", PositiveIntegerField()),
                 (
                     "content_type",
-                    models.ForeignKey(
-                        to="contenttypes.ContentType", on_delete=models.CASCADE
-                    ),
+                    ForeignKey(to="contenttypes.ContentType", on_delete=CASCADE),
                 ),
                 (
                     "user",
-                    models.ForeignKey(
+                    ForeignKey(
                         verbose_name="bruker",
-                        on_delete=models.CASCADE,
+                        on_delete=CASCADE,
                         to=settings.AUTH_USER_MODEL,
                     ),
                 ),
             ],
             options={},
-            bases=(models.Model,),
+            bases=(Model,),
         )
     ]
