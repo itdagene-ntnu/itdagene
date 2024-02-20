@@ -10,7 +10,7 @@ register = Library()
 def active(request: HttpRequest, pattern: str) -> str:
     if len(pattern) > 1 and re.search(pattern, request.path):
         return " active "
-    elif request.path == "/" and pattern == "/":
+    if request.path == "/" and pattern == "/":
         return " active "
     return ""
 
