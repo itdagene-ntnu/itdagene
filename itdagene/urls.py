@@ -1,3 +1,4 @@
+import debug_toolbar
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -90,9 +91,7 @@ if settings.DEBUG:
     )
 
 # Must be the last one
-urlpatterns.extend([re_path(r"^", include("itdagene.app.pages.urls"))])
+urlpatterns.append(re_path(r"^", include("itdagene.app.pages.urls")))
 
 if settings.DEBUG:
-    import debug_toolbar
-
     urlpatterns.insert(0, re_path(r"^__debug__/", include(debug_toolbar.urls)))
