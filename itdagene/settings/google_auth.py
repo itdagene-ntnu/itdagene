@@ -2,11 +2,10 @@ import os
 import sys
 
 from itdagene.settings.base import AUTH_USER_MODEL
-from itdagene.settings.debug_toolbar import MIDDLEWARE
+from itdagene.settings.debug_toolbar import MIDDLEWARE  # ? Unused import
 
 # Usge:
 # You must provide these in your config:
-#
 # from itdagene.settings.google_auth import *
 # SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = ""
 # SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ""
@@ -47,7 +46,7 @@ SOCIAL_AUTH_PIPELINE = (
     "social_core.pipeline.social_auth.social_details",
     "social_core.pipeline.social_auth.social_uid",
     "itdagene.core.models.auth_allowed",
-    # 'social_core.pipeline.social_auth.auth_allowed',
+    # "social_core.pipeline.social_auth.auth_allowed",
     "social_core.pipeline.social_auth.load_extra_data",
     "itdagene.core.models.get_user",
     "social.pipeline.social_auth.associate_user",

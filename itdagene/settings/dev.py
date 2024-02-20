@@ -1,5 +1,5 @@
-from .base import GRAPHENE
-from .debug_toolbar import *
+from itdagene.settings.base import GRAPHENE
+from itdagene.settings.debug_toolbar import *
 
 DEBUG = True
 THUMBNAIL_DEBUG = False
@@ -17,7 +17,7 @@ DATABASES = {
         "PORT": "",
     }
 }
-GRAPHENE["MIDDLEWARE"] += ["graphene_django.debug.DjangoDebugMiddleware"]
+GRAPHENE["MIDDLEWARE"].append("graphene_django.debug.DjangoDebugMiddleware")
 
 LOGGING = {
     "version": 1,
