@@ -23,4 +23,4 @@ python-social-auth==0.3.6
 PyJWT==2.8.0
 graphene-django==2.2
 django-cors-headers==3.3.0
-importlib-metadata==4.13.0
+importlib-metadata==7.0.1
