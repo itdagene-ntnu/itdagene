@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 from itdagene.core.models import BaseModel, Preference
 
+
 BOARD_POSITION = (
     (0, "Leder"),
     (1, "Nestleder"),

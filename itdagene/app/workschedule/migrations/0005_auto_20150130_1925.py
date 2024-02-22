@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [("workschedule", "0004_worker_preference")]
 
     operations = [

@@ -6,6 +6,7 @@ from itdagene.app.company.models import Company
 from itdagene.app.stands.models import DigitalStand
 from itdagene.core.models import BaseModel
 
+
 EVENT_TYPES = (
     (0, _("Course")),
     (1, _("Company presentation")),

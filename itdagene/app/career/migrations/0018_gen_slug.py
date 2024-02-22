@@ -14,7 +14,6 @@ def gen_slug(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [("career", "0017_joblisting_slug")]
 
     operations = [

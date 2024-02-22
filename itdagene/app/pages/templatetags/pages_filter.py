@@ -4,6 +4,7 @@ from django.conf import settings
 from django.template import Library
 from sorl.thumbnail.shortcuts import get_thumbnail
 
+
 register = Library()
 
 

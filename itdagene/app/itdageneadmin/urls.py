@@ -8,6 +8,7 @@ from itdagene.app.itdageneadmin.views import (
     preferences,
 )
 
+
 urlpatterns = [
     re_path(r"^$", landing_page, name="itdagene.itdageneadmin.landing_page"),
     re_path(r"^log$", log, name="itdagene.itdageneadmin.log"),

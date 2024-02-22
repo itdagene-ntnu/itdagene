@@ -3,6 +3,7 @@ from django.urls import re_path
 
 from itdagene.app.feedback.views import evalutions, issues
 
+
 urlpatterns = [
     re_path(r"^$", lambda r: HttpResponsePermanentRedirect("/feedback/issues/")),
     re_path(

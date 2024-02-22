@@ -8,6 +8,7 @@ from itdagene.app.company.models import (
     Package,
 )
 
+
 admin.site.register(Package)
 admin.site.register(CompanyContact)
 admin.site.register(Company)

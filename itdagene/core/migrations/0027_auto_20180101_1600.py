@@ -6,7 +6,6 @@ import itdagene.core.models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [("core", "0026_auto_20171231_1831")]
 
     operations = [

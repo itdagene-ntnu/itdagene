@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from itdagene.app.career.models import Joblisting, Town
 
+
 admin.site.register(Town)
 
 

@@ -1,5 +1,6 @@
 from itdagene.settings.base import INSTALLED_APPS  # ? Unused import
 
+
 DATABASES = {
     "TEST": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",

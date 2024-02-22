@@ -11,6 +11,7 @@ from itdagene.app.meetings.views import (
     send_invites,
 )
 
+
 urlpatterns = [
     re_path(r"^$", list, name="itdagene.meetings.list"),
     re_path(r"^add$", add, name="itdagene.meetings.add"),

@@ -6,6 +6,7 @@ from itdagene.app.company.forms import (
     WaitingListCompanyForm,
 )
 
+
 register = Library()
 
 

@@ -13,6 +13,7 @@ from itdagene.app.feedback.views.evalutions import handle_evaluation
 from itdagene.app.frontpage.views import frontpage
 from itdagene.core.views import error403, error404, error500, under_development
 
+
 handler403 = error403
 handler404 = error404
 handler500 = error500

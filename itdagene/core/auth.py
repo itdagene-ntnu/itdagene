@@ -5,6 +5,7 @@ from threading import local
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
 
+
 USER_ATTR_NAME = getattr(settings, "LOCAL_USER_ATTR_NAME", "_current_user")
 
 _thread_locals = local()

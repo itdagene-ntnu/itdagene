@@ -1,6 +1,7 @@
 from itdagene.settings.base import GRAPHENE
 from itdagene.settings.debug_toolbar import *
 
+
 DEBUG = True
 THUMBNAIL_DEBUG = False
 HOST_URL = "http://localhost:8000"

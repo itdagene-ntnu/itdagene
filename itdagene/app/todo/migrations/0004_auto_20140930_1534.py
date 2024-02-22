@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [("todo", "0003_remove_todo_title")]
 
     operations = [

@@ -2,6 +2,7 @@ from django.conf import settings
 from django.template import Library
 from jwt import encode
 
+
 register = Library()
 
 

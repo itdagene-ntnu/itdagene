@@ -19,7 +19,6 @@ class Town(BaseModel):
 
 
 class Joblisting(BaseModel):
-
     active_objects = JoblistingManager()
     objects = models.Manager()
 

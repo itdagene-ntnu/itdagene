@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [("feedback", "0005_evaluation_has_answers")]
 
     operations = [

@@ -11,6 +11,7 @@ from itdagene.app.users.views import (
     user_list,
 )
 
+
 urlpatterns = [
     re_path(r"^$", user_list, name="itdagene.users.user_list"),
     re_path(r"^create/$", user_create, name="itdagene.users.user_create"),

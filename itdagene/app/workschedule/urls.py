@@ -2,6 +2,7 @@ from django.urls import re_path
 
 from itdagene.app.workschedule import views
 
+
 urlpatterns = [
     # re_path(r'^$', views.list, name='itdagene.workschedule.list'),
     re_path(r"^add_task$", views.add_task, name="itdagene.workschedule.add_task"),

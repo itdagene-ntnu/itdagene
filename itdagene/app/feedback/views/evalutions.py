@@ -8,6 +8,7 @@ from itdagene.app.feedback.models import Evaluation
 from itdagene.core.decorators import staff_required
 from itdagene.core.models import Preference
 
+
 EN = [1065]
 
 

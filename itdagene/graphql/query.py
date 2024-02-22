@@ -32,7 +32,7 @@ class OrderedDjangoFilterConnectionField(DjangoFilterConnectionField):
         filtering_args,
         root,
         info,
-        **args
+        **args,
     ):
         filter_kwargs = {k: v for k, v in args.items() if k in filtering_args}
         qs = filterset_class(
@@ -51,7 +51,7 @@ class OrderedDjangoFilterConnectionField(DjangoFilterConnectionField):
             enforce_first_or_last,
             root,
             info,
-            **args
+            **args,
         )
 
 

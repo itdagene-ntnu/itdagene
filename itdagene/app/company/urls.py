@@ -17,6 +17,7 @@ from itdagene.app.company.views import (
     waiting_list,
 )
 
+
 urlpatterns = [
     re_path(r"^companies/$", list_companies, name="itdagene.company.list_companies"),
     re_path(r"^companies/(?P<id>\d+)/$", view, name="itdagene.company.view"),

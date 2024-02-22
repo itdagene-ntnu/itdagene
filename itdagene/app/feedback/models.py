@@ -10,6 +10,7 @@ from itdagene.app.company.models import Company
 from itdagene.core.log.models import LogItem
 from itdagene.core.models import BaseModel, Preference, User
 
+
 APPS = (
     ("all", _("All")),
     ("admin", _("Admin")),
@@ -95,7 +96,6 @@ RATINGS = (
 
 
 class Evaluation(models.Model):
-
     company = models.ForeignKey(
         Company, verbose_name="Company", on_delete=models.CASCADE
     )

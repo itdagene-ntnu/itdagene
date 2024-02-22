@@ -1,5 +1,6 @@
 from itdagene.settings.base import INSTALLED_APPS, MIDDLEWARE
 
+
 INSTALLED_APPS.append("debug_toolbar")
 
 DEBUG_TOOLBAR_PANELS = [

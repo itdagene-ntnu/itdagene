@@ -40,7 +40,6 @@ def log(request, first_object=0):
 
 @superuser_required()
 def companies_reset(request):
-
     if request.method == "POST":
         Company.objects.all().update(
             status=COMPANY_STATUS_NOT_CONTACTED,

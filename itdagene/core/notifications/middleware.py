@@ -10,7 +10,6 @@ class NotificationsMiddleware(MiddlewareMixin):
     def process_request(self, request):
         user = getattr(request, "user", None)
         if user and user.is_authenticated:
-
             path = request.path
             notifications = request.user.notifications.prefetch_related(
                 "content_object"

@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("stands", "0001_initial"),
         ("events", "0005_merge_20170405_1016"),

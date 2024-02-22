@@ -3,11 +3,11 @@ import datetime
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
-from django.utils.translation import gettext_lazy as _
-from django.utils.translation import ugettext
+from django.utils.translation import gettext_lazy as _, ugettext
 
 from itdagene.core.log.models import LogItem
 from itdagene.core.models import BaseModel, Preference, User
+
 
 MEETING_TYPES = (
     (0, _("Board meeting")),

@@ -1,5 +1,6 @@
 from django.utils.translation import gettext_lazy as _
 
+
 COMPANY_STATUS_NOT_CONTACTED = 0
 COMPANY_STATUS_CONTACTED = 4
 COMPANY_STATUS_NOT_INTERESTED = 1

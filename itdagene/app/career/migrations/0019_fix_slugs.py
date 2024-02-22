@@ -12,7 +12,6 @@ def fix_slug(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [("career", "0018_gen_slug")]
 
     operations = [

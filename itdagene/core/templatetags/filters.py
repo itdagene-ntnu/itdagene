@@ -8,6 +8,7 @@ from django.utils.safestring import mark_safe
 from django.utils.timesince import timesince
 from django.utils.translation import gettext_lazy as _
 
+
 register = Library()
 
 

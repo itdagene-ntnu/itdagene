@@ -9,6 +9,7 @@ from itdagene.app.events.views import (
     view_event,
 )
 
+
 urlpatterns = [
     re_path(r"^$", list_events, name="itdagene.events.list_events"),
     re_path(r"^add/$", add_event, name="itdagene.events.add_event"),

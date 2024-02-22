@@ -2,11 +2,11 @@ from typing import List
 
 from django.db.models import Q
 
-from itdagene.app.career.models import Joblisting as ItdageneJoblisting
-from itdagene.app.career.models import Town
+from itdagene.app.career.models import Joblisting as ItdageneJoblisting, Town
 from itdagene.app.company.models import Company as ItdageneCompany
 from itdagene.graphql.object_types import Company, Page
 from itdagene.graphql.types import SearchType
+
 
 MAX_COUNT = 10
 

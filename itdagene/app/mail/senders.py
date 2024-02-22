@@ -13,7 +13,6 @@ from itdagene.core.notifications.models import Subscription
 def send_email(
     recipients, subject, template, template_html, params, sender=settings.SERVER_EMAIL
 ):
-
     params["site"] = settings.SITE
 
     mail_contents = render_to_string("mail/%s" % (template,), params)
@@ -31,9 +30,7 @@ def send_email(
 
 
 def users_send_welcome_email(user):
-
     with translation.override(user.language):
-
         new_password = generate_password()
         user.set_password(new_password)
         user.save()
@@ -49,12 +46,10 @@ def users_send_welcome_email(user):
 
 def notifications_send_email(notification):
     for user in notification.users.all():
-
         if not user.mail_notification:
             continue
 
         with translation.override(user.language):
-
             context = {"notification": notification}
 
             template, template_html = (
@@ -69,9 +64,7 @@ def notifications_send_email(notification):
 
 def meeting_send_invite(users, meeting):
     for user in users:
-
         with translation.override(user.language):
-
             context = {"meeting": meeting}
             template, template_html = "meetings/invite.txt", "meetings/invite.html"
             send_email(
@@ -88,7 +81,6 @@ def send_comment_email(comment):
     attached_object = comment.object
 
     if attached_object:
-
         all_object_comments = Comment.objects.filter(
             object_id=comment.object_id, content_type=comment.content_type
         )
@@ -110,12 +102,10 @@ def send_comment_email(comment):
         users = list(set(users))
 
         for user in users:
-
             if not user.mail_notification:
                 continue
 
             with translation.override(user.language):
-
                 context = {"comment": comment}
 
                 template, template_html = "comment/new.txt", "comment/new.html"

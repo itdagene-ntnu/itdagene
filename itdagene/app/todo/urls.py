@@ -8,6 +8,7 @@ from itdagene.app.todo.views import (
     view_todo,
 )
 
+
 urlpatterns = [
     re_path(r"add/$", add_todo, name="itdagene.todo.add_todo"),
     re_path(r"^(?P<pk>\d+)/change/$", change_todo, name="itdagene.todo.change_todo"),

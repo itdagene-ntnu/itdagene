@@ -5,6 +5,7 @@ from django.template import Library
 
 from itdagene.core.notifications.models import Notification
 
+
 register = Library()
 
 

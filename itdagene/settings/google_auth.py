@@ -4,6 +4,7 @@ import sys
 from itdagene.settings.base import AUTH_USER_MODEL
 from itdagene.settings.debug_toolbar import MIDDLEWARE  # ? Unused import
 
+
 # Usge:
 # You must provide these in your config:
 # from itdagene.settings.google_auth import *
