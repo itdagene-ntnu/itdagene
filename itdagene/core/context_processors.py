@@ -1,23 +1,15 @@
+from typing import Any, Dict
+
 from django.conf import settings
 
 from itdagene.core.models import Preference
 
 
-def site_processor(request):
-    """
-    Return site information in templates.
-    """
-    context = {}
-    context["site"] = settings.SITE
-
-    return context
+def site_processor(request: Any) -> dict:
+    """Find site information in templates."""
+    return {"site": settings.SITE}
 
 
-def utils_processor(request):
-    """
-    Return site information in templates.
-    """
-    context = {}
-    context["preferences"] = Preference.current_preference()
-
-    return context
+def utils_processor(request: Any) -> Dict[str, Preference]:
+    """Find site information in templates."""
+    return {"preferences": Preference.current_preference()}
