@@ -1,3 +1,16 @@
 [tool.black]
 line-length = 88
 target-version = ["py37"]
+
+[tool.isort]
+profile = "black"
+combine_as_imports = true
+lines_after_imports = 2
+skip_glob = [
+    "**/templates/*",
+    ".tox/*",
+    "node_modules/*",
+    "venv/*",
+    "itdagene/assets/*",
+    "itdagene/locale/*",
+]
