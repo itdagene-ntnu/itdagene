@@ -1,39 +1,35 @@
-from django.db import migrations
-from django.db.migrations import AlterField
-from django.db.models import (
-    BooleanField,
-    DateTimeField,
-    PositiveIntegerField,
-    TextField,
-)
+from __future__ import unicode_literals
+
+from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
+
     dependencies = [("notifications", "0006_auto_20141123_2025")]
 
     operations = [
-        AlterField(
+        migrations.AlterField(
             model_name="notification",
             name="date",
-            field=DateTimeField(auto_now=True, verbose_name="dato"),
+            field=models.DateTimeField(auto_now=True, verbose_name="dato"),
         ),
-        AlterField(
+        migrations.AlterField(
             model_name="notification",
             name="message",
-            field=TextField(verbose_name="melding"),
+            field=models.TextField(verbose_name="melding"),
         ),
-        AlterField(
+        migrations.AlterField(
             model_name="notification",
             name="priority",
-            field=PositiveIntegerField(
+            field=models.PositiveIntegerField(
                 default=1,
                 verbose_name="prioritet",
-                choices=[(0, "Low"), (1, "Medium"), (2, "High")],
+                choices=[(0, b"Low"), (1, b"Medium"), (2, b"High")],
             ),
         ),
-        AlterField(
+        migrations.AlterField(
             model_name="notification",
             name="sent_mail",
-            field=BooleanField(default=False, verbose_name="sendt mail"),
+            field=models.BooleanField(default=False, verbose_name="sendt mail"),
         ),
     ]

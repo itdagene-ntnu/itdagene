@@ -1,32 +1,23 @@
+from __future__ import unicode_literals
+
 from django.conf import settings
-from django.db import migrations
-from django.db.migrations import CreateModel, swappable_dependency
-from django.db.models import (
-    CASCADE,
-    AutoField,
-    BooleanField,
-    DateTimeField,
-    ForeignKey,
-    ManyToManyField,
-    Model,
-    PositiveIntegerField,
-    TextField,
-)
+from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
+
     dependencies = [
-        swappable_dependency(settings.AUTH_USER_MODEL),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ("contenttypes", "0001_initial"),
     ]
 
     operations = [
-        CreateModel(
+        migrations.CreateModel(
             name="Notification",
             fields=[
                 (
                     "id",
-                    AutoField(
+                    models.AutoField(
                         verbose_name="ID",
                         serialize=False,
                         auto_created=True,
@@ -35,59 +26,63 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "priority",
-                    PositiveIntegerField(
+                    models.PositiveIntegerField(
                         default=1,
                         verbose_name="prioritet",
-                        choices=[(0, "Low"), (1, "Medium"), (2, "High")],
+                        choices=[(0, b"Low"), (1, b"Medium"), (2, b"High")],
                     ),
                 ),
-                ("date", DateTimeField(auto_now=True, verbose_name="dato")),
-                ("message", TextField(verbose_name="melding")),
-                ("object_id", PositiveIntegerField()),
+                ("date", models.DateTimeField(auto_now=True, verbose_name="dato")),
+                ("message", models.TextField(verbose_name="melding")),
+                ("object_id", models.PositiveIntegerField()),
                 (
                     "send_mail",
-                    BooleanField(default=True, verbose_name="send epost"),
+                    models.BooleanField(default=True, verbose_name="send epost"),
                 ),
                 (
                     "sent_mail",
-                    BooleanField(default=False, verbose_name="sendt epost"),
+                    models.BooleanField(default=False, verbose_name="sendt epost"),
                 ),
                 (
                     "content_type",
-                    ForeignKey(to="contenttypes.ContentType", on_delete=CASCADE),
+                    models.ForeignKey(
+                        to="contenttypes.ContentType", on_delete=models.CASCADE
+                    ),
                 ),
                 (
                     "user",
-                    ForeignKey(
+                    models.ForeignKey(
                         verbose_name="bruker",
-                        on_delete=CASCADE,
+                        on_delete=models.CASCADE,
                         to=settings.AUTH_USER_MODEL,
                     ),
                 ),
             ],
             options={},
-            bases=(Model,),
+            bases=(models.Model,),
         ),
-        CreateModel(
+        migrations.CreateModel(
             name="Subscription",
             fields=[
                 (
                     "id",
-                    AutoField(
+                    models.AutoField(
                         verbose_name="ID",
                         serialize=False,
                         auto_created=True,
                         primary_key=True,
                     ),
                 ),
-                ("object_id", PositiveIntegerField()),
+                ("object_id", models.PositiveIntegerField()),
                 (
                     "content_type",
-                    ForeignKey(to="contenttypes.ContentType", on_delete=CASCADE),
+                    models.ForeignKey(
+                        to="contenttypes.ContentType", on_delete=models.CASCADE
+                    ),
                 ),
                 (
                     "subscribers",
-                    ManyToManyField(
+                    models.ManyToManyField(
                         related_name="subscriptions",
                         null=True,
                         to=settings.AUTH_USER_MODEL,
@@ -96,6 +91,6 @@ class Migration(migrations.Migration):
                 ),
             ],
             options={},
-            bases=(Model,),
+            bases=(models.Model,),
         ),
     ]
