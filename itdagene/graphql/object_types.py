@@ -6,18 +6,15 @@ from graphene.relay import Node
 from graphene_django import DjangoObjectType
 from graphene_django.registry import Registry
 
-from itdagene.app.career.models import (
-    Joblisting as ItdageneJoblisting,
-    Town as ItdageneTown,
-)
-from itdagene.app.company.models import (
-    Company as ItdageneCompany,
-    KeyInformation as ItdageneKeyInformation,
-)
+from itdagene.app.career.models import Joblisting as ItdageneJoblisting
+from itdagene.app.career.models import Town as ItdageneTown
+from itdagene.app.company.models import Company as ItdageneCompany
+from itdagene.app.company.models import KeyInformation as ItdageneKeyInformation
 from itdagene.app.events.models import Event as ItdageneEvent
 from itdagene.app.pages.models import Page as ItdagenePage
 from itdagene.app.stands.models import DigitalStand as ItdageneStand
-from itdagene.core.models import Preference, User as ItdageneUser
+from itdagene.core.models import Preference
+from itdagene.core.models import User as ItdageneUser
 from itdagene.graphql.types import CountableConnectionBase, OpengraphMetadata
 from itdagene.graphql.utils import resize_image
 
