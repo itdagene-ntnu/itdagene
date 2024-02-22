@@ -2,13 +2,12 @@ from django.utils.deprecation import MiddlewareMixin
 
 
 class NotificationsMiddleware(MiddlewareMixin):
-    """
-    This middleware is used to remove notifications automatically. This was a performance issue.
-    It disabled. This needs caching to work.
+    """This middleware is used to remove notifications automatically.
+    This was a performance issue. It disabled. This needs caching to
+    work.
     """
 
     def process_request(self, request):
-
         user = getattr(request, "user", None)
         if user and user.is_authenticated:
 
