@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import CharField, IntegerField
 from django.contrib.auth.models import Group
 from django.forms.forms import Form
 from django.forms.models import ModelForm
@@ -19,10 +20,10 @@ class UserForm(ModelForm):
 
 
 class RegisterUserForm(forms.Form):
-    username = forms.CharField(max_length=8)
-    first_name = forms.CharField()
-    last_name = forms.CharField()
-    phone = forms.IntegerField()
+    username = CharField(max_length=8)
+    first_name = CharField()
+    last_name = CharField()
+    phone = IntegerField()
 
 
 class GroupForm(ModelForm):
@@ -32,7 +33,7 @@ class GroupForm(ModelForm):
 
 
 class AddUserToGroupForm(Form):
-    username = forms.CharField()
+    username = CharField()
 
 
 class PreferenceForm(ModelForm):

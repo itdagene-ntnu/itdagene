@@ -1,5 +1,7 @@
+from typing import Any
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.messages import SUCCESS, add_message
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
@@ -11,7 +13,7 @@ from itdagene.core.decorators import staff_required
 
 
 @staff_required()
-def list(request, solved=False):
+def list(request: HttpRequest, solved: bool = False) -> HttpResponse:
     bugs = Issue.objects.filter(is_solved=solved, type=0)
     features = Issue.objects.filter(is_solved=solved, type=1)
     cache_bugs = Issue.objects.filter(is_solved=solved, type=2)
@@ -28,16 +30,17 @@ def list(request, solved=False):
 
 
 @staff_required()
-def solved_list(request):
+def solved_list(request: HttpRequest) -> HttpResponse:
     return list(request, solved=True)
 
 
 @login_required()
-def view(request, id):
-    if request.user.is_staff:
-        issue = get_object_or_404(Issue, pk=id)
-    else:
-        issue = get_object_or_404(Issue, pk=id, creator=request.user)
+def view(request: HttpRequest, id_) -> HttpResponse:
+    issue = (
+        get_object_or_404(Issue, pk=id_)
+        if request.user.is_staff
+        else get_object_or_404(Issue, pk=id_, creator=request.user)
+    )
 
     form = IssueAssignForm(instance=issue)
     if request.method == "POST":
@@ -59,7 +62,7 @@ def view(request, id):
 
 
 @permission_required("feedback.add_issue")
-def add(request):
+def add(request: HttpRequest) -> HttpResponse:
     form = IssueForm()
     if request.method == "POST":
         form = IssueForm(request.POST)
@@ -68,17 +71,15 @@ def add(request):
             add_message(request, SUCCESS, _("Thank you for the feedback."))
             if request.user.is_staff:
                 return redirect(reverse("itdagene.feedback.issues.list"))
-            else:
-                return redirect(reverse("itdagene.frontpage"))
-
+            return redirect(reverse("itdagene.frontpage"))
     return render(
         request, "feedback/form.html", {"title": _("Add Issue"), "form": form}
     )
 
 
 @permission_required("feedback.change_issue")
-def edit(request, id=None):
-    issue = get_object_or_404(Issue, pk=id)
+def edit(request: HttpRequest, id_=None) -> HttpResponse:
+    issue = get_object_or_404(Issue, pk=id_)
     form = IssueForm(instance=issue)
     if request.method == "POST":
         form = IssueForm(request.POST, instance=issue)
@@ -87,19 +88,24 @@ def edit(request, id=None):
             add_message(request, SUCCESS, _("The issue has changed."))
             if request.user.is_staff:
                 return redirect(reverse("itdagene.feedback.issues.list"))
-            else:
-                return redirect(reverse("itdagene.frontpage"))
-
+            return redirect(reverse("itdagene.frontpage"))
     return render(
         request,
         "feedback/form.html",
-        {"title": _("Edit Issue"), "description": issue, "issue": issue, "form": form},
+        {
+            "title": _("Edit Issue"),
+            "description": issue,
+            "issue": issue,
+            "form": form,
+        },
     )
 
 
 @permission_required("feedback.add_issue")
-def my_issues(request):
-    assigned = Issue.objects.filter(assigned_user=request.user).order_by("is_solved")
+def my_issues(request: HttpRequest) -> HttpResponse:
+    assigned = Issue.objects.filter(assigned_user=request.user).order_by(
+        "is_solved"
+    )
     created = Issue.objects.filter(creator=request.user).order_by("is_solved")
     return render(
         request,
@@ -109,8 +115,8 @@ def my_issues(request):
 
 
 @permission_required("feedback.change_issue")
-def solved(request, id):
-    issue = get_object_or_404(Issue, pk=id)
+def solved(request: Any, id_) -> HttpResponse:
+    issue = get_object_or_404(Issue, pk=id_)
     issue.solved_date = timezone.now()
     issue.is_solved = True
     issue.status = 3

@@ -1,6 +1,8 @@
 from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import SUCCESS, add_message
-from django.shortcuts import get_object_or_404, redirect, render, reverse
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 
@@ -10,13 +12,13 @@ from itdagene.core.decorators import staff_required
 
 
 @staff_required()
-def list_events(request):
+def list_events(request: HttpRequest) -> HttpResponse:
     events = Event.objects.filter(date__year=now().year)
     return render(request, "events/base.html", {"events": events, "title": _("Events")})
 
 
 @permission_required("events.add_event")
-def add_event(request):
+def add_event(request: HttpRequest) -> HttpResponse:
     form = EventForm()
     if request.method == "POST":
         form = EventForm(request.POST)
@@ -28,7 +30,7 @@ def add_event(request):
 
 
 @permission_required("events.change_event")
-def edit_event(request, pk):
+def edit_event(request: HttpRequest, pk) -> HttpResponse:
     event = get_object_or_404(Event, pk=pk)
     form = EventForm(instance=event)
     if request.method == "POST":
@@ -50,7 +52,7 @@ def edit_event(request, pk):
 
 
 @permission_required("events.delete_event")
-def delete_event(request, pk):
+def delete_event(request: HttpRequest, pk) -> HttpResponse:
     event = get_object_or_404(Event, pk=pk)
     if request.method == "POST":
         event.delete()
@@ -64,7 +66,7 @@ def delete_event(request, pk):
 
 
 @staff_required()
-def view_event(request, pk):
+def view_event(request: HttpRequest, pk) -> HttpResponse:
     event = get_object_or_404(Event, pk=pk)
     form = EventTicketForm(instance=Ticket(event=event))
     if request.method == "POST":
@@ -81,7 +83,7 @@ def view_event(request, pk):
 
 
 @staff_required()
-def edit_ticket(request, pk):
+def edit_ticket(request: HttpRequest, pk) -> HttpResponse:
     ticket = get_object_or_404(Ticket, pk=pk)
     form = EventTicketForm(instance=ticket)
     if request.method == "POST":
@@ -90,7 +92,6 @@ def edit_ticket(request, pk):
             form.save()
             add_message(request, SUCCESS, _("Ticket saved."))
             return redirect(ticket.event.get_absolute_url())
-
     return render(
         request,
         "events/form.html",

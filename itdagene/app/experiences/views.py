@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import SUCCESS, add_message
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -11,7 +12,7 @@ from itdagene.core.models import Preference
 
 
 @staff_required()
-def list(request):
+def list(request: HttpRequest) -> HttpResponse:
     experience_lists = []
     for pref in Preference.objects.all().order_by("-year"):
         experience_lists.append(
@@ -28,8 +29,8 @@ def list(request):
 
 
 @staff_required()
-def view(request, id):
-    experience = get_object_or_404(Experience, pk=id)
+def view(request: HttpRequest, id_) -> HttpResponse:
+    experience = get_object_or_404(Experience, pk=id_)
     return render(
         request,
         "experiences/view.html",
@@ -42,7 +43,7 @@ def view(request, id):
 
 
 @permission_required("experiences.add_experience")
-def add(request):
+def add(request: HttpRequest) -> HttpResponse:
     form = ExperienceForm()
     if request.method == "POST":
         form = ExperienceForm(request.POST)
@@ -52,22 +53,20 @@ def add(request):
             data.save()
             add_message(request, SUCCESS, _("Experience added."))
             return redirect(reverse("itdagene.experiences.view", args=[data.pk]))
-
     return render(
         request, "experiences/form.html", {"form": form, "title": _("Add Experience")}
     )
 
 
 @permission_required("experiences.change_experience")
-def edit(request, id):
-    es = get_object_or_404(Experience, pk=id)
+def edit(request: HttpRequest, id_) -> HttpResponse:
+    es = get_object_or_404(Experience, pk=id_)
     form = ExperienceForm(instance=es)
     if request.method == "POST":
         form = ExperienceForm(request.POST, instance=es)
         if form.is_valid():
             data = form.save()
             return redirect(reverse("itdagene.experiences.view", args=[data.pk]))
-
     return render(
         request,
         "experiences/form.html",
