@@ -1,8 +1,10 @@
 import os
 import sys
 
+import graphql
 from django.contrib.messages import ERROR, INFO, SUCCESS, WARNING
 from django.utils.translation import gettext_lazy as _
+from graphql import GraphQLError
 
 
 SITE = {
@@ -262,3 +264,7 @@ LOGGING = {
         },
     },
 }
+
+# Monkey patch for graphene_django to support Django 4, and will eventually be
+# removed by https://github.com/itdagene-ntnu/itdagene/issues/318
+graphql.error.format_error = GraphQLError.formatted
