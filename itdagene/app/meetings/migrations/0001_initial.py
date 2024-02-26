@@ -177,7 +177,7 @@ class Migration(migrations.Migration):
                 ("date_saved", models.DateTimeField(editable=False)),
                 (
                     "is_attending",
-                    models.NullBooleanField(default=False, verbose_name="attending"),
+                    models.BooleanField(default=False, verbose_name="attending"),
                 ),
                 (
                     "creator",

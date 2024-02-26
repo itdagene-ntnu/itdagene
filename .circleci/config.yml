@@ -2,7 +2,7 @@ version: 2
 jobs:
   tests-python:
     docker:
-      - image: python:3.7
+      - image: python:3.11
       - image: postgres:10.6-alpine
         environment:
           POSTGRES_USER: itdagene
@@ -37,7 +37,7 @@ jobs:
       - run:
           name: Tests
           command: |
-            tox -e python3.7
+            tox -e python3.11
             tox -e coverage
 
   tests-javascript:

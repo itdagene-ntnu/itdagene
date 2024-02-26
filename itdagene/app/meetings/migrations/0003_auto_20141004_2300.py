@@ -22,6 +22,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="replymeeting",
             name="is_attending",
-            field=models.NullBooleanField(verbose_name="attending"),
+            field=models.BooleanField(verbose_name="attending"),
         ),
     ]
