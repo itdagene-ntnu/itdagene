@@ -14,7 +14,7 @@ django-cache-panel==0.1
 django-extensions==2.1.5
 ipython==7.19.0
 sqlparse==0.4.4
-redis==5.0.1
+redis==5.0.2
 django-redis==4.10.0
 celery==4.4.0
 raven==6.10.0
