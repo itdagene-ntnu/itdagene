@@ -4,7 +4,7 @@ Markdown==3.3.4
 Pillow==9.2.0
 django-widget-tweaks==1.4.9
 psycopg2==2.8.5
-python-dateutil==2.9.0
+python-dateutil==2.9.0.post0
 pytidylib==0.3.2
 vobject==0.9.6.1
 sorl-thumbnail==12.7.0
