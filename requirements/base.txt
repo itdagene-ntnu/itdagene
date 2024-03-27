@@ -6,7 +6,7 @@ django-widget-tweaks==1.4.9
 psycopg2==2.8.5
 python-dateutil==2.9.0.post0
 pytidylib==0.3.2
-vobject==0.9.6.1
+vobject==0.9.7
 sorl-thumbnail==12.7.0
 django-crispy-forms==1.9.1
 django-debug-toolbar==2.2.1
