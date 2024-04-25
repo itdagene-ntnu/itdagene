@@ -18,7 +18,7 @@ redis==5.0.3
 django-redis==4.10.0
 celery==4.4.0
 raven==6.10.0
-social-auth-app-django==3.1.0
+social-auth-app-django==5.4.1
 python-social-auth==0.3.6
 PyJWT==2.8.0
 graphene-django==2.2
