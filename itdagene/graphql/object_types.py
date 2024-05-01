@@ -109,22 +109,13 @@ class Page(DjangoObjectType):
 class User(DjangoObjectType):
     full_name = String()
     role = String()
-    linkedin = String()
     photo = Field(String, height=Int(), width=Int())
 
     class Meta:
         model = ItdageneUser
         interfaces = (Node,)
         description = "User entity"
-        only_fields = (
-            "id",
-            "firstName",
-            "lastName",
-            "email",
-            "year",
-            "role",
-            "linkedin",
-        )
+        only_fields = ("id", "firstName", "lastName", "email", "year", "role")
 
     def resolve_full_name(self, info: Any) -> Optional[str]:
         return self.get_full_name()

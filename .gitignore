@@ -45,6 +45,3 @@ yarn-error.log
 
 celerybeat-schedule
 celerybeat.pid
-
-# pyenv
-.python-version

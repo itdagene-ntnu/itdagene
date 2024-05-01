@@ -48,9 +48,6 @@ def get_user(backend, details: dict, user: Any = None, *args, **kwargs) -> dict:
 
 class User(AbstractUser):
     phone = IntegerField(blank=True, null=True, verbose_name=_("phone number"))
-    linkedin = CharField(
-        max_length=255, blank=True, null=True, verbose_name=_("LinkedIn")
-    )
     photo = ImageField(
         upload_to="photos/users/",
         blank=True,
