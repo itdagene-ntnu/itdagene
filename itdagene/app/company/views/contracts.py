@@ -65,3 +65,26 @@ def download_contract(request, company_id, id):
         contract.file.path
     )
     return response
+
+
+@permission_required("company.delete_contract")
+def delete_contract(request, company_id, id):
+    company = get_object_or_404(Company, pk=company_id)
+    contract = get_object_or_404(Contract, pk=id)
+    if contract.company != company:
+        raise Http404
+
+    if request.method == "POST":
+        contract.delete()
+        return redirect(company.get_absolute_url())
+    else:
+        return render(
+            request,
+            "company/contracts/delete.html",
+            {
+                "contract": contract,
+                "company": contract.company,
+                "title": _("Delete Contract"),
+                "description": contract,
+            },
+        )

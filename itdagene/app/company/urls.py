@@ -88,6 +88,11 @@ urlpatterns = [
         contracts.download_contract,
         name="itdagene.company.contracts.download_contract",
     ),
+    re_path(
+        r"^contracts/(?P<company_id>\d+)/delete/(?P<id>\d+)/$",
+        contracts.delete_contract,
+        name="itdagene.company.contracts.delete_contract",
+    ),
     re_path(r"^packages/$", packages.list, name="itdagene.company.packages.list"),
     re_path(r"^packages/add$", packages.add, name="itdagene.company.packages.add"),
     re_path(
