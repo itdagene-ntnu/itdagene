@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0nReport-Msgid-Bugs-To: web@itdagene.no\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-27 15:20+0200\n"
+"POT-Creation-Date: 2024-05-27 15:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Eirik Lorgen Tanberg <eirik.lorgen@itdagene.no>\n"
 "Language: NB\n"
@@ -111,6 +111,7 @@ msgstr "Sommerjobbmaraton"
 #: app/company/templates/company/contacts/delete.html:10
 #: app/company/templates/company/contracts/delete.html:10
 #: app/events/templates/events/delete.html:10
+#: app/faq/templates/faq/delete.html:10
 #: app/itdageneadmin/templates/admin/companies_reset.html:9
 #: app/pages/templates/pages/delete.html:10
 #: app/stands/templates/stands/delete.html:10
@@ -1075,6 +1076,14 @@ msgstr "Spørsmål"
 msgid "Answer"
 msgstr "Svar"
 
+#: app/faq/templates/faq/delete.html:16
+msgid "Are you sure you want to delete the question '%(question)s'?"
+msgstr "Er du sikker på at du vil slette spørsmålet '%(question)s'?"
+
+#: app/faq/templates/faq/delete.html:20
+msgid "Delete question"
+msgstr "Slett spørsmål"
+
 #: app/faq/templates/faq/submenu.html:5 app/faq/views.py:12
 msgid "All Questions"
 msgstr "Alle Spørsmål"
@@ -1094,6 +1103,14 @@ msgstr "Spørsmål lagret."
 #: app/faq/views.py:39
 msgid "Edit Question"
 msgstr "Rediger Spørsmål"
+
+#: app/faq/views.py:47
+msgid "Question deleted."
+msgstr "Spørsmål slettet."
+
+#: app/faq/views.py:52
+msgid "Delete Question"
+msgstr "Slett Spørsmål"
 
 #: app/feedback/models.py:15
 msgid "All"

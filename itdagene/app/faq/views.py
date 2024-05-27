@@ -37,6 +37,17 @@ def edit(request, pk):
             "question": question,
             "form": form,
             "title": _("Edit Question"),
-            "description": question,
         },
+    )
+
+def delete(request, pk):
+    question = get_object_or_404(Question, pk=pk)
+    if request.method == "POST":
+        question.delete()
+        add_message(request, SUCCESS, _("Question deleted."))
+        return redirect(reverse("itdagene.faq.list_questions"))
+    return render(
+        request,
+        "faq/delete.html",
+        {"question": question, "title": _("Delete Question"), "description": str(question)},
     )

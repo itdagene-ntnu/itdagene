@@ -20,7 +20,7 @@
                         <td>{{ question.answer|truncatechars:100 }}</td>
                         <td>
                           <a href="{% url "itdagene.faq.edit" question.pk %}""><i class="fas fa-pen"></i> {% trans "Edit" %}</a>
-                          <a href="{% url "itdagene.faq.list_questions" %}""><i class="fas fa-trash"></i> {% trans "Delete" %}</a>
+                          <a href="{% url "itdagene.faq.delete" question.pk %}""><i class="fas fa-trash"></i> {% trans "Delete" %}</a>
                         </td>
                     </tr>
                 {% endfor %}
