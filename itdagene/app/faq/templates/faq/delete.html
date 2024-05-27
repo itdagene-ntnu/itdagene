@@ -10,7 +10,7 @@
             <h3 class="card-title">{% trans "Danger Zone" %}</h3>
         </div>
         <div class="card-body">
-             <form method="post" action="{% url "itdagene.faq.delete" question.pk %}">
+             <form method="post" action="{% url "itdagene.faq.delete_question" question.pk %}">
                 {% csrf_token %}
                 <p>
                     {% blocktrans with question=question %}Are you sure you want to delete the question '{{ question }}'?{% endblocktrans %}

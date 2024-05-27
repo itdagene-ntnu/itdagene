@@ -1,9 +1,10 @@
 from django.shortcuts import render
 
-from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.decorators import permission_required
 from itdagene.app.faq.forms import QuestionForm
 from django.contrib.messages import SUCCESS, add_message
 from django.shortcuts import get_object_or_404, redirect, render, reverse
+from django.utils.translation import gettext_lazy as _
 
 from itdagene.app.faq.models import Question
 
@@ -11,7 +12,8 @@ def list_questions(request):
     questions = Question.objects.all()
     return render(request, "faq/base.html", {"questions": questions, "title": _("All Questions")})
 
-def add(request):
+@permission_required("faq.add_question")
+def add_question(request):
     form = QuestionForm()
     if request.method == "POST":
         form = QuestionForm(request.POST)
@@ -21,7 +23,8 @@ def add(request):
             return redirect(reverse("itdagene.faq.list_questions"))
     return render(request, "faq/form.html", {"form": form, "title": _("Add Question")})
 
-def edit(request, pk):
+@permission_required("faq.edit_question")
+def edit_question(request, pk):
     question = get_object_or_404(Question, pk=pk)
     form = QuestionForm(instance=question)
     if request.method == "POST":
@@ -40,7 +43,8 @@ def edit(request, pk):
         },
     )
 
-def delete(request, pk):
+@permission_required("faq.delete_question")
+def delete_question(request, pk):
     question = get_object_or_404(Question, pk=pk)
     if request.method == "POST":
         question.delete()

@@ -8,7 +8,7 @@ class Question(BaseModel):
     answer = models.TextField(verbose_name=_("answer"))
 
     def get_absolute_url(self):
-        return reverse("itdagene.faq.add")
+        return reverse("itdagene.faq.add_question")
 
     def __str__(self):
 	    return self.question

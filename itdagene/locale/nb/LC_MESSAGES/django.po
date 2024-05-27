@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0nReport-Msgid-Bugs-To: web@itdagene.no\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-27 15:27+0200\n"
+"POT-Creation-Date: 2024-05-27 15:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Eirik Lorgen Tanberg <eirik.lorgen@itdagene.no>\n"
 "Language: NB\n"
@@ -752,7 +752,7 @@ msgstr "Legg til nøkkelinformasjon"
 #: app/company/templates/company/view.html:90
 #: app/company/templates/company/view.html:118
 #: app/company/templates/company/view.html:156
-#: app/events/templates/events/base.html:31 app/faq/templates/faq/base.html:23
+#: app/events/templates/events/base.html:31 app/faq/templates/faq/base.html:26
 #: app/pages/templates/pages/admin.html:49
 #: app/stands/templates/stands/list.html:40
 msgid "Delete"
@@ -776,7 +776,7 @@ msgstr "Last ned vcard-fil"
 #: app/company/templates/company/view.html:141
 #: app/company/templates/company/view.html:156
 #: app/events/templates/events/base.html:28
-#: app/events/templates/events/view.html:46 app/faq/templates/faq/base.html:22
+#: app/events/templates/events/view.html:46 app/faq/templates/faq/base.html:23
 #: app/news/templates/news/admin.html:23
 #: app/pages/templates/pages/admin.html:46
 #: app/stands/templates/stands/list.html:37
@@ -1084,31 +1084,31 @@ msgstr "Er du sikker på at du vil slette spørsmålet '%(question)s'?"
 msgid "Delete question"
 msgstr "Slett spørsmål"
 
-#: app/faq/templates/faq/submenu.html:5 app/faq/views.py:12
+#: app/faq/templates/faq/submenu.html:5 app/faq/views.py:13
 msgid "All Questions"
 msgstr "Alle Spørsmål"
 
-#: app/faq/templates/faq/submenu.html:9 app/faq/views.py:22
+#: app/faq/templates/faq/submenu.html:9 app/faq/views.py:24
 msgid "Add Question"
 msgstr "Legg til Spørsmål"
 
-#: app/faq/views.py:20
+#: app/faq/views.py:22
 msgid "Question added."
 msgstr "Spørsmål opprettet."
 
-#: app/faq/views.py:31
+#: app/faq/views.py:34
 msgid "Question saved."
 msgstr "Spørsmål lagret."
 
-#: app/faq/views.py:39
+#: app/faq/views.py:42
 msgid "Edit Question"
 msgstr "Rediger Spørsmål"
 
-#: app/faq/views.py:47
+#: app/faq/views.py:51
 msgid "Question deleted."
 msgstr "Spørsmål slettet."
 
-#: app/faq/views.py:52
+#: app/faq/views.py:56
 msgid "Delete Question"
 msgstr "Slett Spørsmål"
 
