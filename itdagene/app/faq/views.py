@@ -9,7 +9,7 @@ from itdagene.app.faq.models import Question
 
 def list_questions(request):
     questions = Question.objects.all()
-    return render(request, "faq/base.html", {"questions": questions, "title": _("Questions")})
+    return render(request, "faq/base.html", {"questions": questions, "title": _("All Questions")})
 
 def add(request):
     form = QuestionForm()
@@ -37,5 +37,6 @@ def edit(request, pk):
             "question": question,
             "form": form,
             "title": _("Edit Question"),
+            "description": question,
         },
     )
