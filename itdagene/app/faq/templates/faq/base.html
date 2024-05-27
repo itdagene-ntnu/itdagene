@@ -1,0 +1,42 @@
+{% extends "base_admin.html" %}
+{% load i18n staticfiles %}
+
+{% block content %}
+    <div class="row">
+    <div class="col-lg-12">
+    <div class="card card-outline card-primary">
+        <div class="card-body no-padding">
+            <table class="table table-hover tablesorter" id="myTable">
+                <thead>
+                <tr>
+                    <th>{% trans "Question" %}</th>
+                    <th>{% trans "Answer" %}</th>
+                    <th>{% trans "Actions" %}</th>
+                </tr>
+                </thead>
+                {% for question in questions %}
+                    <tr>
+                        <td>{{ question }}</td>
+                        <td>{{ question.answer|truncatechars:100 }}</td>
+                        <td>
+                          <a href="{% url "itdagene.faq.edit" question.pk %}""><i class="fas fa-pen"></i> {% trans "Edit" %}</a>
+                          <a href="{% url "itdagene.faq.list_questions" %}""><i class="fas fa-trash"></i> {% trans "Delete" %}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    </div>
+    </div>
+{% endblock %}
+{% block inline-scripts %}
+    <script src="{% static "lib/tablesorter/dist/js/jquery.tablesorter.combined.min.js" %}"></script>
+    <script>
+        $(document).ready(function()
+                {
+                    $("#myTable").tablesorter({textExtraction: 'complex'});
+                }
+        );
+    </script>
+{% endblock %}

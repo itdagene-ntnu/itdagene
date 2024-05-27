@@ -118,6 +118,7 @@ INSTALLED_APPS = [
     "itdagene.graphql",
     "itdagene.app.frontpage",
     "itdagene.app.pages",
+    "itdagene.app.faq",
     "itdagene.app.news",
     "itdagene.app.mail",
     "itdagene.app.users",

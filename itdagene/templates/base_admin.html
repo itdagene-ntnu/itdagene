@@ -122,6 +122,17 @@
                         {% endcomment %}
                         {% endif %}
                         {% if request.user.is_staff %}
+                            <li class="nav-item {% menu_open request 'faq' %} has-treeview">
+                                <a class="nav-link {% active request 'faq' %}" href="#">
+                                    <i class="nav-icon fas fa-question"></i>
+                                    <p>{% trans "FAQ" %}
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                {% include 'faq/submenu.html' %}
+                            </li>
+                        {% endif %}
+                        {% if request.user.is_staff %}
                             <li class="nav-item {% menu_open request 'events' %} has-treeview">
                                 <a class="nav-link {% active request 'events' %}" href="#">
                                     <i class="nav-icon fas fa-calendar"></i>
