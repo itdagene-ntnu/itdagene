@@ -133,6 +133,7 @@ INSTALLED_APPS = [
     "itdagene.app.workschedule",
     "itdagene.app.experiences",
     "itdagene.app.stands",
+    "itdagene.app.gallery",
     "graphene_django",
     "corsheaders",
 ]
