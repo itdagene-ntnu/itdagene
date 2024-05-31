@@ -163,14 +163,12 @@ class Event(DjangoObjectType):
         """
         return ItdageneEvent.objects.filter(Q(stand=None) | Q(type=7))
 
+
 class Question(DjangoObjectType):
     class Meta:
         model = ItdageneQuestion
         description = "A question for the FAQ"
-        only_fields = (
-            "question",
-            "answer"
-        )
+        only_fields = ("question", "answer")
         interfaces = (Node,)
 
     @classmethod

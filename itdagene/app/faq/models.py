@@ -1,7 +1,9 @@
 from django.db import models
+from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
+
 from itdagene.core.models import BaseModel
 
-from django.utils.translation import gettext_lazy as _
 
 class Question(BaseModel):
     question = models.CharField(max_length=100, verbose_name=_("question"))
@@ -11,4 +13,4 @@ class Question(BaseModel):
         return reverse("itdagene.faq.add_question")
 
     def __str__(self):
-	    return self.question
+        return self.question

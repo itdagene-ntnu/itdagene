@@ -9,10 +9,10 @@ from itdagene.core.models import Preference
 from itdagene.graphql.filters import JoblistingFilter
 from itdagene.graphql.object_types import (
     Event,
-    Question,
     Joblisting,
     MetaData,
     Page,
+    Question,
     SearchResult,
     Stand,
 )
@@ -114,10 +114,7 @@ class Query(ObjectType):
         ),
     )
 
-    questions = List(
-        Question,
-        description="Get all questions"
-    )
+    questions = List(Question, description="Get all questions")
 
     stands = List(
         NonNull(Stand),
