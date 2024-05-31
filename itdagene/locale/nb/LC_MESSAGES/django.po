@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0nReport-Msgid-Bugs-To: web@itdagene.no\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-27 15:44+0200\n"
+"POT-Creation-Date: 2024-05-31 16:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Eirik Lorgen Tanberg <eirik.lorgen@itdagene.no>\n"
 "Language: NB\n"
@@ -113,17 +113,18 @@ msgstr "Video"
 msgid "sommerjobbmaraton"
 msgstr "Sommerjobbmaraton"
 
-#: app/career/templates/career/delete.html:10
-#: app/company/templates/company/contacts/delete.html:10
-#: app/company/templates/company/contracts/delete.html:10
-#: app/events/templates/events/delete.html:10
-#: app/faq/templates/faq/delete.html:10
-#: app/itdageneadmin/templates/admin/companies_reset.html:9
-#: app/pages/templates/pages/delete.html:10
-#: app/stands/templates/stands/delete.html:10
-#: app/todo/templates/todo/delete_todo.html:10
-#: app/users/templates/users/delete.html:10
-#: app/users/templates/users/send_welcome_email.html:10
+#: itdagene/app/career/templates/career/delete.html:10
+#: itdagene/app/company/templates/company/contacts/delete.html:10
+#: itdagene/app/company/templates/company/contracts/delete.html:10
+#: itdagene/app/events/templates/events/delete.html:10
+#: itdagene/app/faq/templates/faq/delete.html:10
+#: itdagene/app/gallery/templates/gallery/delete.html:10
+#: itdagene/app/itdageneadmin/templates/admin/companies_reset.html:9
+#: itdagene/app/pages/templates/pages/delete.html:10
+#: itdagene/app/stands/templates/stands/delete.html:10
+#: itdagene/app/todo/templates/todo/delete_todo.html:10
+#: itdagene/app/users/templates/users/delete.html:10
+#: itdagene/app/users/templates/users/send_welcome_email.html:10
 msgid "Danger Zone"
 msgstr "Faresone"
 
@@ -197,7 +198,7 @@ msgstr "ASAP"
 #: itdagene/app/career/templates/career/submenu.html:7
 #: itdagene/app/career/views.py:23
 #: itdagene/app/company/templates/company/view.html:127
-#: itdagene/templates/base_admin.html:161
+#: itdagene/templates/base_admin.html:172
 msgid "Joblistings"
 msgstr "Jobbannonser"
 
@@ -561,7 +562,7 @@ msgstr "Kontakter"
 
 #: itdagene/app/company/templates/company/base.html:69
 #: itdagene/app/company/views/__init__.py:59
-#: itdagene/templates/base_admin.html:150
+#: itdagene/templates/base_admin.html:161
 msgid "Companies"
 msgstr "Bedrifter"
 
@@ -611,23 +612,19 @@ msgstr "Er du sikker på at du vil slette kontakten \"%(contact)s\"?"
 msgid "Delete Contact"
 msgstr "Slett Kontakt"
 
-#: app/company/templates/company/contracts/delete.html:15
-#, fuzzy, python-format
-#| msgid "Are you sure you want to delete the contact \"%(contact)s\"?"
+#: itdagene/app/company/templates/company/contracts/delete.html:15
 msgid ""
 "Are you sure you want to delete the contract \"%(contract)s\" for the "
 "company \"%(company)s\"?"
 msgstr "Er du sikker på at du vil slette kontakten \"%(contact)s\"?"
 
-#: app/company/templates/company/contracts/delete.html:16
-#: app/company/views/contracts.py:87
-#, fuzzy
-#| msgid "Delete Contact"
+#: itdagene/app/company/templates/company/contracts/delete.html:16
+#: itdagene/app/company/views/contracts.py:87
 msgid "Delete Contract"
 msgstr "Slett Kontrakt"
 
-#: app/company/templates/company/economics/base.html:11
-#: app/company/templates/company/view.html:46
+#: itdagene/app/company/templates/company/economics/base.html:11
+#: itdagene/app/company/templates/company/view.html:46
 msgid "Payment email"
 msgstr "Betalingsepostaddresse"
 
@@ -663,7 +660,7 @@ msgstr "Venteliste"
 
 #: itdagene/app/company/templates/company/packages/submenu.html:9
 #: itdagene/app/company/views/packages.py:18
-#: itdagene/templates/base_admin.html:171
+#: itdagene/templates/base_admin.html:182
 msgid "Packages"
 msgstr "Pakker"
 
@@ -770,12 +767,14 @@ msgstr "Nøkkelinformasjon"
 msgid "Add key information"
 msgstr "Legg til nøkkelinformasjon"
 
-#: app/company/templates/company/view.html:90
-#: app/company/templates/company/view.html:118
-#: app/company/templates/company/view.html:156
-#: app/events/templates/events/base.html:31 app/faq/templates/faq/base.html:26
-#: app/pages/templates/pages/admin.html:49
-#: app/stands/templates/stands/list.html:40
+#: itdagene/app/company/templates/company/view.html:90
+#: itdagene/app/company/templates/company/view.html:118
+#: itdagene/app/company/templates/company/view.html:156
+#: itdagene/app/events/templates/events/base.html:31
+#: itdagene/app/faq/templates/faq/base.html:26
+#: itdagene/app/gallery/templates/gallery/base.html:21
+#: itdagene/app/pages/templates/pages/admin.html:49
+#: itdagene/app/stands/templates/stands/list.html:40
 msgid "Delete"
 msgstr "Slett"
 
@@ -793,15 +792,16 @@ msgstr "Epost"
 msgid "Download vcard-file"
 msgstr "Last ned vcard-fil"
 
-#: app/company/templates/company/view.html:117
-#: app/company/templates/company/view.html:141
-#: app/company/templates/company/view.html:156
-#: app/events/templates/events/base.html:28
-#: app/events/templates/events/view.html:46 app/faq/templates/faq/base.html:23
-#: app/news/templates/news/admin.html:23
-#: app/pages/templates/pages/admin.html:46
-#: app/stands/templates/stands/list.html:37
-#: app/stands/templates/stands/view.html:70
+#: itdagene/app/company/templates/company/view.html:117
+#: itdagene/app/company/templates/company/view.html:141
+#: itdagene/app/company/templates/company/view.html:156
+#: itdagene/app/events/templates/events/base.html:28
+#: itdagene/app/events/templates/events/view.html:46
+#: itdagene/app/faq/templates/faq/base.html:23
+#: itdagene/app/news/templates/news/admin.html:23
+#: itdagene/app/pages/templates/pages/admin.html:46
+#: itdagene/app/stands/templates/stands/list.html:37
+#: itdagene/app/stands/templates/stands/view.html:70
 msgid "Edit"
 msgstr "Rediger"
 
@@ -955,12 +955,14 @@ msgstr "Dato"
 msgid "Time"
 msgstr "Klokkeslett"
 
-#: app/events/templates/events/base.html:16
-#: app/events/templates/events/view.html:38 app/faq/templates/faq/base.html:14
-#: app/news/templates/news/admin.html:14
-#: app/pages/templates/pages/admin.html:16
-#: app/stands/templates/stands/list.html:17
-#: app/workschedule/templates/workschedule/view.html:42
+#: itdagene/app/events/templates/events/base.html:16
+#: itdagene/app/events/templates/events/view.html:38
+#: itdagene/app/faq/templates/faq/base.html:14
+#: itdagene/app/gallery/templates/gallery/base.html:13
+#: itdagene/app/news/templates/news/admin.html:14
+#: itdagene/app/pages/templates/pages/admin.html:16
+#: itdagene/app/stands/templates/stands/list.html:17
+#: itdagene/app/workschedule/templates/workschedule/view.html:42
 msgid "Actions"
 msgstr "Handlinger"
 
@@ -975,7 +977,7 @@ msgstr "Slett arrangement"
 
 #: itdagene/app/events/templates/events/submenu.html:5
 #: itdagene/app/events/views.py:15 itdagene/app/feedback/models.py:20
-#: itdagene/templates/base_admin.html:139
+#: itdagene/templates/base_admin.html:150
 msgid "Events"
 msgstr "Arrangementer"
 
@@ -1059,7 +1061,7 @@ msgstr "Posisjon"
 
 #: itdagene/app/experiences/models.py:28
 #: itdagene/app/experiences/templates/experiences/submenu.html:5
-#: itdagene/app/experiences/views.py:26 itdagene/templates/base_admin.html:243
+#: itdagene/app/experiences/views.py:26 itdagene/templates/base_admin.html:254
 msgid "Experiences"
 msgstr "Erfaringer"
 
@@ -1086,66 +1088,67 @@ msgstr "Erfaring"
 msgid "Experience added."
 msgstr "Erfaring lagt til"
 
-#: app/faq/models.py:7
+#: itdagene/app/faq/models.py:9
 msgid "question"
 msgstr "spørsmål"
 
-#: app/faq/models.py:8
+#: itdagene/app/faq/models.py:10
 msgid "answer"
 msgstr "svar"
 
-#: app/faq/templates/faq/base.html:12
+#: itdagene/app/faq/templates/faq/base.html:12
 msgid "Question"
 msgstr "Spørsmål"
 
-#: app/faq/templates/faq/base.html:13
+#: itdagene/app/faq/templates/faq/base.html:13
 msgid "Answer"
 msgstr "Svar"
 
-#: app/faq/templates/faq/delete.html:16
+#: itdagene/app/faq/templates/faq/delete.html:16
+#, python-format
 msgid "Are you sure you want to delete the question '%(question)s'?"
 msgstr "Er du sikker på at du vil slette spørsmålet '%(question)s'?"
 
-#: app/faq/templates/faq/delete.html:20
+#: itdagene/app/faq/templates/faq/delete.html:20
 msgid "Delete question"
 msgstr "Slett spørsmål"
 
-#: app/faq/templates/faq/submenu.html:5 app/faq/views.py:13
+#: itdagene/app/faq/templates/faq/submenu.html:5 itdagene/app/faq/views.py:13
 msgid "All Questions"
 msgstr "Alle Spørsmål"
 
-#: app/faq/templates/faq/submenu.html:9 app/faq/views.py:24
+#: itdagene/app/faq/templates/faq/submenu.html:9 itdagene/app/faq/views.py:26
 msgid "Add Question"
 msgstr "Legg til Spørsmål"
 
-#: app/faq/views.py:22
+#: itdagene/app/faq/views.py:24
 msgid "Question added."
 msgstr "Spørsmål opprettet."
 
-#: app/faq/views.py:34
+#: itdagene/app/faq/views.py:37
 msgid "Question saved."
 msgstr "Spørsmål lagret."
 
-#: app/faq/views.py:42
+#: itdagene/app/faq/views.py:45
 msgid "Edit Question"
 msgstr "Rediger Spørsmål"
 
-#: app/faq/views.py:51
+#: itdagene/app/faq/views.py:55
 msgid "Question deleted."
 msgstr "Spørsmål slettet."
 
-#: app/faq/views.py:56
+#: itdagene/app/faq/views.py:62
 msgid "Delete Question"
 msgstr "Slett Spørsmål"
 
-#: app/feedback/models.py:15
+#: itdagene/app/feedback/models.py:15
 msgid "All"
 msgstr "Alle"
 
 #: itdagene/app/feedback/models.py:16
 #: itdagene/app/itdageneadmin/templates/admin/submenu.html:9
 #: itdagene/app/itdageneadmin/views/__init__.py:13
-#: itdagene/templates/base_admin.html:221
+#: itdagene/templates/base_admin.html:232
 msgid "Admin"
 msgstr "Admin"
 
@@ -1161,7 +1164,7 @@ msgstr "Karriere"
 msgid "Core"
 msgstr "Kjerne"
 
-#: itdagene/app/feedback/models.py:21 itdagene/templates/base_admin.html:232
+#: itdagene/app/feedback/models.py:21 itdagene/templates/base_admin.html:243
 msgid "Feedback"
 msgstr "Tilbakemelding"
 
@@ -1177,7 +1180,7 @@ msgstr "Epost"
 
 #: itdagene/app/feedback/models.py:25
 #: itdagene/app/meetings/templates/meetings/submenu.html:4
-#: itdagene/app/meetings/views.py:33 itdagene/templates/base_admin.html:193
+#: itdagene/app/meetings/views.py:33 itdagene/templates/base_admin.html:204
 msgid "Meetings"
 msgstr "Møter"
 
@@ -1513,7 +1516,47 @@ msgstr "Mine problemer"
 msgid "Company Comments"
 msgstr "Bedritskommentarer"
 
-#: app/itdageneadmin/templates/admin/base.html:5
+#: itdagene/app/gallery/models.py:9
+msgid "Photo name"
+msgstr "Bilde navn"
+
+#: itdagene/app/gallery/models.py:10
+#: itdagene/app/gallery/templates/gallery/base.html:12
+#: itdagene/core/models.py:58
+msgid "Photo"
+msgstr "Bilde"
+
+#: itdagene/app/gallery/templates/gallery/delete.html:16
+msgid "Are you sure you want to delete the photo '%(photo)s'?"
+msgstr "Er du sikker på at du vil slette bildet \"%(photo)s\"?"
+
+#: itdagene/app/gallery/templates/gallery/delete.html:20
+msgid "Delete photo"
+msgstr "Slett bilde"
+
+#: itdagene/app/gallery/templates/gallery/submenu.html:5
+#: itdagene/app/gallery/views.py:13
+msgid "All Photos"
+msgstr "Alle Bilder"
+
+#: itdagene/app/gallery/templates/gallery/submenu.html:9
+#: itdagene/app/gallery/views.py:26
+msgid "Add Photo"
+msgstr "Legg Til Bilde"
+
+#: itdagene/app/gallery/views.py:24
+msgid "Photo added."
+msgstr "Bilde lagt til."
+
+#: itdagene/app/gallery/views.py:34
+msgid "Photo deleted."
+msgstr "Bilde slettet."
+
+#: itdagene/app/gallery/views.py:39
+msgid "Delete Photo"
+msgstr "Slett Bilde"
+
+#: itdagene/app/itdageneadmin/templates/admin/base.html:5
 msgid "Administration"
 msgstr "Administrasjon"
 
@@ -2113,7 +2156,7 @@ msgstr "Standhendelser"
 msgid "Add stand event"
 msgstr "Opprett Standhendelse"
 
-#: itdagene/app/stands/views.py:20 itdagene/templates/base_admin.html:182
+#: itdagene/app/stands/views.py:20 itdagene/templates/base_admin.html:193
 msgid "Stands"
 msgstr "Stands"
 
@@ -2188,10 +2231,8 @@ msgstr "Slett Bruker"
 
 #: itdagene/app/users/templates/users/detail.html:29
 #: itdagene/app/users/templates/users/list.html:18 itdagene/core/models.py:52
-#, fuzzy
-#| msgid "Link"
 msgid "LinkedIn"
-msgstr "Link"
+msgstr "LinkedIn"
 
 #: itdagene/app/users/templates/users/detail.html:33 itdagene/core/models.py:64
 msgid "Language"
@@ -2250,7 +2291,7 @@ msgid ""
 msgstr "Dette vil endre passordet og sende det i en epost."
 
 #: itdagene/app/users/templates/users/submenu.html:8
-#: itdagene/templates/base_admin.html:211
+#: itdagene/templates/base_admin.html:222
 msgid "Users"
 msgstr "Brukere"
 
@@ -2360,7 +2401,7 @@ msgid "Workers"
 msgstr ""
 
 #: itdagene/app/workschedule/templates/workschedule/submenu.html:4
-#: itdagene/templates/base_admin.html:201
+#: itdagene/templates/base_admin.html:212
 msgid "Workschedules"
 msgstr ""
 
@@ -2407,11 +2448,7 @@ msgstr ""
 msgid "action"
 msgstr ""
 
-#: core/models.py:58
-msgid "Photo"
-msgstr "Bilde"
-
-#: core/models.py:67
+#: itdagene/core/models.py:67
 msgid "Send mail notifications"
 msgstr ""
 
@@ -2580,11 +2617,15 @@ msgstr "Profil"
 msgid "Logout"
 msgstr "Logg ut"
 
-#: templates/base_admin.html:128
+#: itdagene/templates/base_admin.html:128
 msgid "FAQ"
 msgstr ""
 
-#: templates/markdown_help.html:4
+#: itdagene/templates/base_admin.html:139
+msgid "Gallery"
+msgstr "Galleri"
+
+#: itdagene/templates/markdown_help.html:4
 msgid "Markdown Help"
 msgstr "Markdownhjelp"
 
