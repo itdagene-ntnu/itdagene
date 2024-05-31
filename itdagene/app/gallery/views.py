@@ -20,7 +20,7 @@ def add_photo(request):
     if request.method == "POST":
         form = PhotoForm(request.POST, request.FILES)
         if form.is_valid():
-            photo = form.save()
+            form.save()
             add_message(request, SUCCESS, _("Photo added."))
             return redirect(reverse("itdagene.gallery.list_photos"))
     return render(request, "gallery/form.html", {"form": form, "title": _("Add Photo")})
