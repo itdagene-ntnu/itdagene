@@ -43,6 +43,7 @@ urlpatterns = [
     re_path(r"^career/", include("itdagene.app.career.urls")),
     re_path(r"^workschedules/", include("itdagene.app.workschedule.urls")),
     re_path(r"^stands/", include("itdagene.app.stands.urls")),
+    re_path(r"^gallery/", include("itdagene.app.gallery.urls")),
     re_path(
         r"^evaluate/(?P<hash>[a-zA-Z0-9]+)/$",
         handle_evaluation,
