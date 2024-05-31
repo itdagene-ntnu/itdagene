@@ -12,6 +12,7 @@ from itdagene.graphql.object_types import (
     Joblisting,
     MetaData,
     Page,
+    Question,
     SearchResult,
     Stand,
 )
@@ -113,6 +114,8 @@ class Query(ObjectType):
         ),
     )
 
+    questions = List(Question, description="Get all questions")
+
     stands = List(
         NonNull(Stand),
         shuffle=Boolean(
@@ -163,6 +166,9 @@ class Query(ObjectType):
                 Page.get_queryset().filter(language=language, is_infopage=infopage)
             )
         return list(Page.get_queryset().filter(language=language, slug__in=slugs))
+
+    def resolve_questions(self, info: Any) -> list:
+        return Question.get_queryset().all()
 
     def resolve_current_meta_data(self, info: Any):
         return Preference.current_preference()
