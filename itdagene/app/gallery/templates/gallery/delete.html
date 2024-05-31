@@ -13,7 +13,7 @@
              <form method="post" action="{% url "itdagene.gallery.delete_photo" photo.pk %}">
                 {% csrf_token %}
                 <p>
-                    {% blocktrans with question=question %}Are you sure you want to delete the photo '{{ photo.name }}'?{% endblocktrans %}
+                    {% blocktrans with question=question %}Are you sure you want to delete the photo '{{ photo }}'?{% endblocktrans %}
                 </p>
                 <p>
                     <button type="submit" class="btn btn-danger">

@@ -6,7 +6,7 @@ from itdagene.core.models import BaseModel
 
 class Photo(BaseModel):
     name = models.CharField(max_length=100, unique=True, verbose_name=_("Photo name"))
-    photo = models.ImageField(upload_to="gallery")
+    photo = models.ImageField(upload_to="gallery", verbose_name=_("Photo"))
 
     def get_absolute_url(self):
         return reverse("itdagene.gallery.add_photo")
