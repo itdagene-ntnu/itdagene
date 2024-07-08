@@ -9,7 +9,7 @@ pytidylib==0.3.2
 vobject==0.9.7
 sorl-thumbnail==12.7.0
 django-crispy-forms==1.9.1
-django-debug-toolbar==2.2.1
+django-debug-toolbar==4.4.5
 django-cache-panel==0.1
 django-extensions==2.1.5
 ipython==7.19.0
