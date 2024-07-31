@@ -1,6 +1,6 @@
 from django import forms
-from django.forms import CharField, IntegerField
 from django.contrib.auth.models import Group
+from django.forms import CharField, IntegerField
 from django.forms.forms import Form
 from django.forms.models import ModelForm
 

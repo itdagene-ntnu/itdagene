@@ -30,13 +30,13 @@ class ForceDefaultLanguageMiddleware(MiddlewareMixin):
 class UnderDevelopmentMiddleware(MiddlewareMixin):
     def process_request(self, request: HttpRequest) -> Optional[HttpResponseRedirect]:
         if request.path == reverse("itdagene.under_development"):
-            return
+            return None
         if "login" in request.path:
-            return
+            return None
         if not Preference.current_preference().development_mode:
-            return
+            return None
         if request.user.is_authenticated and request.user.is_staff:
-            return
+            return None
         return HttpResponseRedirect(reverse("itdagene.under_development"))
 
 

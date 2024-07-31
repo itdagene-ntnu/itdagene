@@ -29,9 +29,7 @@ def handle_evaluation(request: HttpRequest, hash_: str) -> HttpResponse:
                 ),
             )
             return redirect(reverse("itdagene.frontpage.frontpage"))
-    return render(
-        request, "feedback/evaluations/handle_evaluate.html", {"form": form}
-    )
+    return render(request, "feedback/evaluations/handle_evaluate.html", {"form": form})
 
 
 @staff_required()
@@ -41,9 +39,7 @@ def report(request: HttpRequest, year=None) -> HttpResponse:
         if year is None
         else get_object_or_404(Preference, year=year)
     )
-    evaluations = Evaluation.objects.filter(
-        preference=preferences, has_answers=True
-    )
+    evaluations = Evaluation.objects.filter(preference=preferences, has_answers=True)
 
     # Unused variables
     if evaluations.count():
@@ -61,8 +57,7 @@ def report(request: HttpRequest, year=None) -> HttpResponse:
 
         if evaluations.exclude(visitors_rating=0).count():
             avg_visitors_rating = (
-                sum(e.visitors_rating for e in evaluations)
-                / evaluations.count()
+                sum(e.visitors_rating for e in evaluations) / evaluations.count()
             )
 
         if evaluations.exclude(interview_location_rating=0).count():
@@ -78,8 +73,7 @@ def report(request: HttpRequest, year=None) -> HttpResponse:
             )
 
         percentage_want_to_come_back = (
-            evaluations.filter(want_to_come_back=True).count()
-            / evaluations.count()
+            evaluations.filter(want_to_come_back=True).count() / evaluations.count()
         ) * 100
 
     title = _("Evaluation of itDAGENE")

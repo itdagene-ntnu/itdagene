@@ -24,9 +24,7 @@ BOARD_POSITION = (
 
 
 class Experience(BaseModel):
-    year = ForeignKey(
-        Preference, verbose_name=_("Preference"), on_delete=CASCADE
-    )
+    year = ForeignKey(Preference, verbose_name=_("Preference"), on_delete=CASCADE)
     position = PositiveIntegerField(
         choices=BOARD_POSITION, default=8, verbose_name=_("Position")
     )

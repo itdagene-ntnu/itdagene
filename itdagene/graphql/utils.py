@@ -10,7 +10,7 @@ def resolve_image_url(image) -> str:
 
 def resize_image(input_image, **kwargs) -> Optional[str]:
     if not input_image:
-        return
+        return None
     height = kwargs.get("height")
     width = kwargs.get("width")
     if not height and not width:

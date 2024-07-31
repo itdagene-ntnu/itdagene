@@ -4,14 +4,14 @@ from string import ascii_uppercase, digits
 from django.db.models import (
     CASCADE,
     SET_NULL,
+    BooleanField,
+    CharField,
+    DateTimeField,
     ForeignKey,
+    IntegerField,
+    Model,
     PositiveIntegerField,
     TextField,
-    CharField,
-    BooleanField,
-    DateTimeField,
-    Model,
-    IntegerField,
 )
 from django.urls import reverse
 from django.utils import timezone
@@ -56,12 +56,8 @@ STATUS = (
 class Issue(BaseModel):
     title = CharField(max_length=100, verbose_name=_("title"))
     app = CharField(max_length=50, choices=APPS, verbose_name=_("app"))
-    type = PositiveIntegerField(
-        default=1, choices=TYPES, verbose_name=_("type")
-    )
-    status = PositiveIntegerField(
-        default=0, choices=STATUS, verbose_name=_("status")
-    )
+    type = PositiveIntegerField(default=1, choices=TYPES, verbose_name=_("type"))
+    status = PositiveIntegerField(default=0, choices=STATUS, verbose_name=_("status"))
     description = TextField(verbose_name=_("description"))
     is_solved = BooleanField(verbose_name=_("is solved"), default=False)
     assigned_user = ForeignKey(
@@ -73,9 +69,7 @@ class Issue(BaseModel):
         on_delete=SET_NULL,
     )
     deadline = DateTimeField(blank=True, null=True, verbose_name=_("deadline"))
-    solved_date = DateTimeField(
-        blank=True, null=True, verbose_name=_("solved date")
-    )
+    solved_date = DateTimeField(blank=True, null=True, verbose_name=_("solved date"))
 
     def __str__(self) -> str:
         return f"{self.get_app_display()}: {self.title}"
@@ -107,9 +101,7 @@ RATINGS = (
 
 class Evaluation(Model):
     company = ForeignKey(Company, verbose_name="Company", on_delete=CASCADE)
-    preference = ForeignKey(
-        Preference, verbose_name="Preference", on_delete=CASCADE
-    )
+    preference = ForeignKey(Preference, verbose_name="Preference", on_delete=CASCADE)
     hash = CharField(max_length=100, verbose_name=_("Hash"), unique=True)
     has_answers = BooleanField(default=False, verbose_name=_("has answers"))
     communication_rating = IntegerField(
@@ -128,9 +120,7 @@ class Evaluation(Model):
     )
     internship_marathon_improvement = TextField(
         blank=True,
-        verbose_name=_(
-            "What could have been done better at the internship marathon?"
-        ),
+        verbose_name=_("What could have been done better at the internship marathon?"),
     )
     course_rating = IntegerField(
         choices=RATINGS, verbose_name=_("How did the course go?"), default=0
@@ -155,9 +145,7 @@ class Evaluation(Model):
     )
     interview_location_improvement = TextField(
         blank=True,
-        verbose_name=_(
-            "What could have been done better at the interview room?"
-        ),
+        verbose_name=_("What could have been done better at the interview room?"),
     )
     has_banquet = BooleanField(
         verbose_name=_("Were you at the banquet?"), default=False
@@ -182,9 +170,7 @@ class Evaluation(Model):
 
     def save(self, *args, **kwargs) -> None:
         if not self.pk:
-            self.hash = "".join(
-                choices(ascii_uppercase + digits, k=50)
-            )
+            self.hash = "".join(choices(ascii_uppercase + digits, k=50))
 
         super(Evaluation, self).save(*args, **kwargs)
 

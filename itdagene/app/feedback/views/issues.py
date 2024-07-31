@@ -1,4 +1,5 @@
 from typing import Any
+
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.messages import SUCCESS, add_message
 from django.http import HttpRequest, HttpResponse
@@ -103,9 +104,7 @@ def edit(request: HttpRequest, id_=None) -> HttpResponse:
 
 @permission_required("feedback.add_issue")
 def my_issues(request: HttpRequest) -> HttpResponse:
-    assigned = Issue.objects.filter(assigned_user=request.user).order_by(
-        "is_solved"
-    )
+    assigned = Issue.objects.filter(assigned_user=request.user).order_by("is_solved")
     created = Issue.objects.filter(creator=request.user).order_by("is_solved")
     return render(
         request,

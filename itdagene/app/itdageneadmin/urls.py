@@ -12,15 +12,9 @@ from itdagene.app.itdageneadmin.views import (
 urlpatterns = [
     re_path(r"^$", landing_page, name="itdagene.itdageneadmin.landing_page"),
     re_path(r"^log$", log, name="itdagene.itdageneadmin.log"),
-    re_path(
-        r"^log/(?P<first_object>\d+)$", log, name="itdagene.itdageneadmin.log"
-    ),
-    re_path(
-        r"^groups/$", groups.list, name="itdagene.itdageneadmin.groups.list"
-    ),
-    re_path(
-        r"^groups/add$", groups.add, name="itdagene.itdageneadmin.groups.add"
-    ),
+    re_path(r"^log/(?P<first_object>\d+)$", log, name="itdagene.itdageneadmin.log"),
+    re_path(r"^groups/$", groups.list, name="itdagene.itdageneadmin.groups.list"),
+    re_path(r"^groups/add$", groups.add, name="itdagene.itdageneadmin.groups.add"),
     re_path(
         r"^groups/(?P<id>\d+)/$",
         groups.view,

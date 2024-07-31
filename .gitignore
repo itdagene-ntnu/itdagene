@@ -34,6 +34,7 @@ node_modules/
 itdagene/assets/frontend/itdagene.css
 itdagene/assets/frontend/itdagene.js
 .coverage
+.mypy_cache/
 .tox/
 coverage.xml
 dump.rdb
@@ -42,6 +43,5 @@ dump.rdb
 yarn-error.log
 
 # Celerystuff
-
 celerybeat-schedule
 celerybeat.pid

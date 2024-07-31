@@ -1,5 +1,6 @@
 import os
 import sys
+from typing import Union
 
 from django.contrib.messages import ERROR, INFO, SUCCESS, WARNING
 from django.utils.translation import gettext_lazy as _
@@ -30,7 +31,7 @@ SITE = {
 PATH = os.path.dirname(os.path.dirname(__file__))
 sys.path.insert(0, os.path.join(PATH, "itdagene"))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS: list = []
 
 SHELL_PLUS = "ipython"
 
@@ -161,8 +162,8 @@ MESSAGE_TAGS = {
     ERROR: "danger",
 }
 
-CORS_ORIGIN_WHITELIST = ("https://itdagene.no",)
-GRAPHENE = {
+CORS_ORIGIN_WHITELIST = ["https://itdagene.no"]
+GRAPHENE: dict[str, Union[list[str], str]] = {
     "MIDDLEWARE": [
         "itdagene.graphql.middleware.LoaderMiddleware",
         "itdagene.graphql.middleware.ResolveLimitMiddleware",
