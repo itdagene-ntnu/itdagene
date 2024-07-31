@@ -25,9 +25,7 @@ def load_thumbnails(value):
     for i in images:
         width = re.search(r"width:( )?(\d+)px;", i[3])
         if width is not None:
-            width = int(
-                width.group().replace("width:", "").replace("px;", "").strip()
-            )
+            width = int(width.group().replace("width:", "").replace("px;", "").strip())
             if width > 1000:
                 width = 1000
 
