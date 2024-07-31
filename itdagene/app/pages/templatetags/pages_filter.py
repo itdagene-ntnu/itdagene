@@ -11,8 +11,8 @@ register = Library()
 @register.filter
 def load_thumbnails(value):
     images = re.findall(
-        '<img class="thumbnail"( alt="([a-zA-Z0-9\.\:\/_ -]+)?")? '
-        'src="([a-zA-Z0-9\.\:\/_ -]+)"([a-zA-Z0-9\.\:\;\/_=" -]+)?>',
+        r'<img class="thumbnail"( alt="([a-zA-Z0-9\.\:\/_ -]+)?")? '
+        r'src="([a-zA-Z0-9\.\:\/_ -]+)"([a-zA-Z0-9\.\:\;\/_=" -]+)?>',
         value,
     )
     if settings.DEBUG:
@@ -25,7 +25,9 @@ def load_thumbnails(value):
     for i in images:
         width = re.search(r"width:( )?(\d+)px;", i[3])
         if width is not None:
-            width = int(width.group().replace("width:", "").replace("px;", "").strip())
+            width = int(
+                width.group().replace("width:", "").replace("px;", "").strip()
+            )
             if width > 1000:
                 width = 1000
 
