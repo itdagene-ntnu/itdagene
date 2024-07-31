@@ -30,7 +30,7 @@ SITE = {
 PATH = os.path.dirname(os.path.dirname(__file__))
 sys.path.insert(0, os.path.join(PATH, "itdagene"))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS: list = []
 
 SHELL_PLUS = "ipython"
 
@@ -163,7 +163,7 @@ MESSAGE_TAGS = {
     ERROR: "danger",
 }
 
-CORS_ORIGIN_WHITELIST = ("https://itdagene.no",)
+CORS_ORIGIN_WHITELIST = ["https://itdagene.no"]
 GRAPHENE = {
     "MIDDLEWARE": [
         "itdagene.graphql.middleware.LoaderMiddleware",

@@ -13,3 +13,22 @@ skip_glob = [
     "itdagene/assets/*",
     "itdagene/locale/*",
 ]
+
+[tool.mypy]
+python_version = "3.7"
+ignore_missing_imports = true
+warn_redundant_casts = true
+no_implicit_optional = true
+check_untyped_defs = true
+warn_unused_ignores = true
+strict_optional = true
+# disallow_untyped_defs = true
+exclude = [
+    "/migrations/",
+    "/templates/",
+    ".tox/",
+    "node_modules/",
+    "venv/",
+    "itdagene/assets/",
+    "itdagene/locale/",
+]

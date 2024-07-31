@@ -18,7 +18,7 @@ DATABASES = {
         "PORT": "",
     }
 }
-GRAPHENE["MIDDLEWARE"].append("graphene_django.debug.DjangoDebugMiddleware")
+GRAPHENE["MIDDLEWARE"].append("graphene_django.debug.DjangoDebugMiddleware")  # type: ignore
 
 LOGGING = {
     "version": 1,
