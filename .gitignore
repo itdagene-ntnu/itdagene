@@ -1,4 +1,4 @@
-#file endings not of generated files
+# file endings not of generated files
 *.pyc
 *.pyo
 *.orig
@@ -9,7 +9,7 @@ project.db
 pickle*.txt
 .vscode
 
-#generated buildout stuff
+# generated buildout stuff
 bin
 develop-eggs
 downloads
