@@ -44,3 +44,11 @@ exclude = [
     "itdagene/assets/",
     "itdagene/locale/",
 ]
+
+[[tool.mypy.overrides]]
+module = "itdagene.app.stands.models"
+disable_error_code = ["misc"]
+
+[[tool.mypy.overrides]]
+module = "itdagene.core.templatetags.markdown_tool"
+disable_error_code = ["import-untyped"]
