@@ -17,9 +17,7 @@ skip_glob = [
 [tool.mypy]
 python_version = "3.7"
 check_untyped_defs = true
-# disallow_any_generics = true
 # disallow_incomplete_defs = true
-# disallow_untyped_decorators = true
 # disallow_untyped_defs = true
 ignore_missing_imports = true
 implicit_optional = false
@@ -35,20 +33,8 @@ enable_error_code = [
     "possibly-undefined",
     "truthy-bool",
 ]
-exclude = [
-    "/migrations/",
-    "/templates/",
-    ".tox/",
-    "node_modules/",
-    "venv/",
-    "itdagene/assets/",
-    "itdagene/locale/",
-]
+exclude = ["migrations", "venv", ".tox"]
 
 [[tool.mypy.overrides]]
 module = "itdagene.app.stands.models"
 disable_error_code = ["misc"]
-
-[[tool.mypy.overrides]]
-module = "itdagene.core.templatetags.markdown_tool"
-disable_error_code = ["import"]
