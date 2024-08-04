@@ -4,11 +4,7 @@ from django.forms import MultipleChoiceField
 from django.forms.models import ModelForm
 from django.utils.translation import gettext_lazy as _
 
-from itdagene.app.workschedule.models import (
-    Worker,
-    WorkerInSchedule,
-    WorkSchedule,
-)
+from itdagene.app.workschedule.models import Worker, WorkerInSchedule, WorkSchedule
 from itdagene.core.models import Preference
 
 
@@ -40,9 +36,7 @@ class WorkScheduleForm(ModelForm):
         workschedule = super(WorkScheduleForm, self).save(commit=commit)
 
         for i in self.cleaned_data["invites"]:
-            WorkerInSchedule.objects.get_or_create(
-                schedule=workschedule, worker_id=i
-            )
+            WorkerInSchedule.objects.get_or_create(schedule=workschedule, worker_id=i)
 
         return workschedule
 
