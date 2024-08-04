@@ -35,6 +35,7 @@ urlpatterns = [
     re_path(r"^admin/", include("itdagene.app.itdageneadmin.urls")),
     re_path(r"^comments/", include("itdagene.app.comments.urls")),
     re_path(r"^events/", include("itdagene.app.events.urls")),
+    re_path(r"^faq/", include("itdagene.app.faq.urls")),
     re_path(r"^feedback/", include("itdagene.app.feedback.urls")),
     re_path(r"^meetings/", include("itdagene.app.meetings.urls")),
     re_path(r"^news/", include("itdagene.app.news.urls")),
@@ -42,6 +43,7 @@ urlpatterns = [
     re_path(r"^career/", include("itdagene.app.career.urls")),
     re_path(r"^workschedules/", include("itdagene.app.workschedule.urls")),
     re_path(r"^stands/", include("itdagene.app.stands.urls")),
+    re_path(r"^gallery/", include("itdagene.app.gallery.urls")),
     re_path(
         r"^evaluate/(?P<hash>[a-zA-Z0-9]+)/$",
         handle_evaluation,

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0nReport-Msgid-Bugs-To: web@itdagene.no\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-22 14:23+0200\n"
+"POT-Creation-Date: 2024-05-31 16:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Eirik Lorgen Tanberg <eirik.lorgen@itdagene.no>\n"
 "Language: NB\n"
@@ -14,8 +14,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: itdagene/app/career/models.py:14 itdagene/app/company/models.py:12
-#: itdagene/app/company/models.py:65 itdagene/app/workschedule/models.py:19
+#: itdagene/app/career/models.py:15 itdagene/app/company/models.py:13
+#: itdagene/app/company/models.py:66 itdagene/app/workschedule/models.py:20
 msgid "name"
 msgstr "Navn"
 
@@ -27,27 +27,27 @@ msgstr "Sommerjobb"
 msgid "Permanent position"
 msgstr "Permanent Stilling"
 
-#: itdagene/app/career/models.py:28 itdagene/app/events/models.py:15
+#: itdagene/app/career/models.py:28 itdagene/app/events/models.py:17
 #: itdagene/app/feedback/templates/feedback/evaluations/report.html:83
-#: itdagene/app/meetings/models.py:17
+#: itdagene/app/meetings/models.py:19
 msgid "Other"
 msgstr "Annet"
 
-#: itdagene/app/career/models.py:34 itdagene/app/company/models.py:129
-#: itdagene/app/company/models.py:206 itdagene/app/company/models.py:217
-#: itdagene/app/company/models.py:253 itdagene/app/events/models.py:65
+#: itdagene/app/career/models.py:34 itdagene/app/company/models.py:130
+#: itdagene/app/company/models.py:205 itdagene/app/company/models.py:216
+#: itdagene/app/company/models.py:252 itdagene/app/events/models.py:67
 msgid "company"
 msgstr "Bedrift"
 
-#: itdagene/app/career/models.py:37 itdagene/app/events/models.py:21
-#: itdagene/app/feedback/models.py:44 itdagene/app/news/models.py:7
-#: itdagene/app/pages/models.py:10 itdagene/app/workschedule/models.py:52
+#: itdagene/app/career/models.py:37 itdagene/app/events/models.py:23
+#: itdagene/app/feedback/models.py:46 itdagene/app/news/models.py:8
+#: itdagene/app/pages/models.py:14 itdagene/app/workschedule/models.py:53
 msgid "title"
 msgstr "Tittel"
 
-#: itdagene/app/career/models.py:38 itdagene/app/events/models.py:26
-#: itdagene/app/feedback/models.py:46 itdagene/app/meetings/models.py:26
-#: itdagene/app/meetings/models.py:132
+#: itdagene/app/career/models.py:38 itdagene/app/events/models.py:28
+#: itdagene/app/feedback/models.py:48 itdagene/app/meetings/models.py:28
+#: itdagene/app/meetings/models.py:134
 msgid "type"
 msgstr "Type"
 
@@ -56,7 +56,7 @@ msgstr "Type"
 #: itdagene/app/experiences/templates/experiences/view.html:10
 #: itdagene/app/feedback/templates/feedback/issues/view.html:46
 #: itdagene/app/stands/templates/stands/view.html:20
-#: itdagene/app/workschedule/models.py:56
+#: itdagene/app/workschedule/models.py:57
 #: itdagene/app/workschedule/templates/worker/view.html:40
 #: itdagene/app/workschedule/templates/workschedule/view.html:24
 msgid "Description"
@@ -66,12 +66,12 @@ msgstr "Beskrivelse"
 msgid "contact"
 msgstr "Kontakt"
 
-#: itdagene/app/career/models.py:48 itdagene/app/news/models.py:10
+#: itdagene/app/career/models.py:48 itdagene/app/news/models.py:11
 msgid "image"
 msgstr "Bilde"
 
-#: itdagene/app/career/models.py:50 itdagene/app/feedback/models.py:60
-#: itdagene/app/todo/models.py:12
+#: itdagene/app/career/models.py:50 itdagene/app/feedback/models.py:62
+#: itdagene/app/todo/models.py:13
 msgid "deadline"
 msgstr "Frist"
 
@@ -87,16 +87,16 @@ msgstr "Til år"
 msgid "town"
 msgstr "By"
 
-#: itdagene/app/career/models.py:54 itdagene/app/company/models.py:66
+#: itdagene/app/career/models.py:54 itdagene/app/company/models.py:67
 msgid "url"
 msgstr "URL"
 
-#: itdagene/app/career/models.py:55 itdagene/app/company/models.py:112
-#: itdagene/app/pages/models.py:17 itdagene/core/models.py:156
+#: itdagene/app/career/models.py:55 itdagene/app/company/models.py:113
+#: itdagene/app/pages/models.py:21 itdagene/core/models.py:186
 msgid "active"
 msgstr "Aktiv"
 
-#: itdagene/app/career/models.py:56 itdagene/app/feedback/models.py:20
+#: itdagene/app/career/models.py:56 itdagene/app/feedback/models.py:22
 #: itdagene/templates/base_admin.html:102
 msgid "Frontpage"
 msgstr "Fremside"
@@ -115,7 +115,10 @@ msgstr "Sommerjobbmaraton"
 
 #: itdagene/app/career/templates/career/delete.html:10
 #: itdagene/app/company/templates/company/contacts/delete.html:10
+#: itdagene/app/company/templates/company/contracts/delete.html:10
 #: itdagene/app/events/templates/events/delete.html:10
+#: itdagene/app/faq/templates/faq/delete.html:10
+#: itdagene/app/gallery/templates/gallery/delete.html:10
 #: itdagene/app/itdageneadmin/templates/admin/companies_reset.html:9
 #: itdagene/app/pages/templates/pages/delete.html:10
 #: itdagene/app/stands/templates/stands/delete.html:10
@@ -139,9 +142,9 @@ msgstr "Slett jobbannonse"
 #: itdagene/app/career/templates/career/view.html:12
 #: itdagene/app/company/templates/company/base.html:75
 #: itdagene/app/company/templates/company/economics/base.html:10
-#: itdagene/app/company/views/__init__.py:78
+#: itdagene/app/company/views/__init__.py:79
 #: itdagene/app/events/templates/events/view.html:37
-#: itdagene/app/stands/models.py:26
+#: itdagene/app/stands/models.py:27
 #: itdagene/app/stands/templates/stands/list.html:12
 #: itdagene/app/stands/templates/stands/view.html:12
 msgid "Company"
@@ -193,9 +196,9 @@ msgid "ASAP"
 msgstr "ASAP"
 
 #: itdagene/app/career/templates/career/submenu.html:7
-#: itdagene/app/career/views.py:22
+#: itdagene/app/career/views.py:23
 #: itdagene/app/company/templates/company/view.html:127
-#: itdagene/templates/base_admin.html:150
+#: itdagene/templates/base_admin.html:172
 msgid "Joblistings"
 msgstr "Jobbannonser"
 
@@ -239,51 +242,51 @@ msgstr "Video Link"
 msgid "Is summerjob marathon"
 msgstr "Er sommerjobbmaraton"
 
-#: itdagene/app/career/views.py:33 itdagene/app/career/views.py:63
+#: itdagene/app/career/views.py:34 itdagene/app/career/views.py:64
 msgid "Joblisting saved."
 msgstr "Jobbannonse lagret"
 
-#: itdagene/app/career/views.py:36
+#: itdagene/app/career/views.py:37
 msgid "Add Joblisting"
 msgstr "Opprett Jobbannonse"
 
-#: itdagene/app/career/views.py:48
+#: itdagene/app/career/views.py:49
 msgid "Joblisting"
 msgstr "Jobbannonse"
 
-#: itdagene/app/career/views.py:69
+#: itdagene/app/career/views.py:70
 msgid "Edit Joblisting"
 msgstr "Rediger Jobbannonse"
 
-#: itdagene/app/career/views.py:83
+#: itdagene/app/career/views.py:84
 msgid "Joblisting deleted."
 msgstr "Jobbannonse slettet"
 
-#: itdagene/app/career/views.py:91
+#: itdagene/app/career/views.py:92
 msgid "Delete Joblisting"
 msgstr "Slett Jobbannonse"
 
-#: itdagene/app/career/views.py:104
+#: itdagene/app/career/views.py:105
 msgid "Town added."
 msgstr "By lagt til"
 
-#: itdagene/app/career/views.py:106
+#: itdagene/app/career/views.py:107
 msgid "Add Town"
 msgstr "Legg til by"
 
-#: itdagene/app/comments/models.py:9 itdagene/app/meetings/models.py:101
-#: itdagene/app/todo/models.py:9 itdagene/core/log/models.py:20
+#: itdagene/app/comments/models.py:10 itdagene/app/meetings/models.py:103
+#: itdagene/app/todo/models.py:10 itdagene/core/log/models.py:27
 msgid "user"
 msgstr "Bruker"
 
-#: itdagene/app/comments/models.py:10
+#: itdagene/app/comments/models.py:11
 msgid "comment"
 msgstr "Kommentar"
 
-#: itdagene/app/comments/models.py:11 itdagene/app/company/models.py:257
-#: itdagene/app/events/models.py:22 itdagene/app/meetings/models.py:22
-#: itdagene/app/workschedule/models.py:53 itdagene/core/log/models.py:24
-#: itdagene/core/notifications/models.py:17
+#: itdagene/app/comments/models.py:12 itdagene/app/company/models.py:256
+#: itdagene/app/events/models.py:24 itdagene/app/meetings/models.py:24
+#: itdagene/app/workschedule/models.py:54 itdagene/core/log/models.py:31
+#: itdagene/core/notifications/models.py:28
 msgid "date"
 msgstr "Dato"
 
@@ -301,36 +304,35 @@ msgstr "Legg til kommentar"
 #: itdagene/app/itdageneadmin/templates/admin/log.html:20
 #: itdagene/app/todo/templates/todo/panels/todo_list.html:22
 #: itdagene/app/todo/templates/todo/view_todo.html:13
-#: itdagene/core/templatetags/filters.py:57
 msgid "ago"
 msgstr "siden"
 
-#: itdagene/app/comments/views.py:24
+#: itdagene/app/comments/views.py:25
 msgid "Could not post comment"
 msgstr "Kunne ikke legge ut kommentar"
 
-#: itdagene/app/company/__init__.py:10
+#: itdagene/app/company/__init__.py:11
 msgid "Not contacted"
 msgstr "Ikke Kontaktet"
 
-#: itdagene/app/company/__init__.py:11
+#: itdagene/app/company/__init__.py:12
 msgid "Contacted"
 msgstr "Kontaktet"
 
-#: itdagene/app/company/__init__.py:12
+#: itdagene/app/company/__init__.py:13
 msgid "Not interested"
 msgstr "Ikke Interessert"
 
-#: itdagene/app/company/__init__.py:13
+#: itdagene/app/company/__init__.py:14
 msgid "Interested"
 msgstr "Interessert"
 
-#: itdagene/app/company/__init__.py:14
+#: itdagene/app/company/__init__.py:15
 msgid "Signed"
 msgstr "Signert"
 
-#: itdagene/app/company/forms.py:63 itdagene/app/company/forms.py:85
-#: itdagene/app/company/forms.py:131
+#: itdagene/app/company/forms.py:64 itdagene/app/company/forms.py:86
+#: itdagene/app/company/forms.py:132
 #: itdagene/app/company/templates/company/set_responsibilities.html:26
 #: itdagene/app/events/templates/events/view.html:65
 #: itdagene/app/feedback/templates/feedback/evaluations/handle_evaluate.html:47
@@ -339,45 +341,45 @@ msgstr "Signert"
 msgid "Save"
 msgstr "Lagre"
 
-#: itdagene/app/company/models.py:14 itdagene/app/company/models.py:93
-#: itdagene/app/events/models.py:25 itdagene/app/feedback/models.py:50
-#: itdagene/app/stands/models.py:28 itdagene/app/todo/models.py:11
+#: itdagene/app/company/models.py:15 itdagene/app/company/models.py:94
+#: itdagene/app/events/models.py:27 itdagene/app/feedback/models.py:52
+#: itdagene/app/stands/models.py:29 itdagene/app/todo/models.py:12
 msgid "description"
 msgstr "Beskrivelse"
 
-#: itdagene/app/company/models.py:14
+#: itdagene/app/company/models.py:15
 msgid "This field supports markdown"
 msgstr "Dette feltet støtter markdown"
 
-#: itdagene/app/company/models.py:16
+#: itdagene/app/company/models.py:17
 msgid "price"
 msgstr "Pris"
 
-#: itdagene/app/company/models.py:18
+#: itdagene/app/company/models.py:19
 msgid "number of packages to sell"
 msgstr "Antall pakker å selge"
 
-#: itdagene/app/company/models.py:23
+#: itdagene/app/company/models.py:24
 msgid "has waiting list"
 msgstr "Har venteliste"
 
-#: itdagene/app/company/models.py:26
+#: itdagene/app/company/models.py:27
 msgid "includes course"
 msgstr "Inkluderer kurs"
 
-#: itdagene/app/company/models.py:28
+#: itdagene/app/company/models.py:29
 msgid "is full"
 msgstr "Er full"
 
-#: itdagene/app/company/models.py:60 itdagene/app/company/models.py:100
+#: itdagene/app/company/models.py:61 itdagene/app/company/models.py:101
 msgid "package"
 msgstr "Pakke"
 
-#: itdagene/app/company/models.py:61
+#: itdagene/app/company/models.py:62
 msgid "packages"
 msgstr "Pakker"
 
-#: itdagene/app/company/models.py:68
+#: itdagene/app/company/models.py:69
 #: itdagene/app/company/templates/company/view.html:111
 #: itdagene/app/users/templates/users/detail.html:25
 #: itdagene/app/users/templates/users/list.html:17
@@ -386,139 +388,139 @@ msgstr "Pakker"
 msgid "Phone"
 msgstr "Telefon"
 
-#: itdagene/app/company/models.py:71
+#: itdagene/app/company/models.py:72
 msgid "logo"
 msgstr "Logo"
 
-#: itdagene/app/company/models.py:77
+#: itdagene/app/company/models.py:78
 msgid "logo_inverted"
 msgstr "Logo Invertert"
 
-#: itdagene/app/company/models.py:80
+#: itdagene/app/company/models.py:81
 msgid "logo_vector"
 msgstr "Logo Vektorformat"
 
-#: itdagene/app/company/models.py:83 itdagene/app/feedback/models.py:48
+#: itdagene/app/company/models.py:84 itdagene/app/feedback/models.py:50
 #: itdagene/app/feedback/templates/feedback/issues/view.html:20
 msgid "status"
 msgstr "Status"
 
-#: itdagene/app/company/models.py:91
+#: itdagene/app/company/models.py:92
 #: itdagene/app/company/templates/company/view.html:36
 msgid "itDAGENE contact"
 msgstr "itDAGENE-kontakt"
 
-#: itdagene/app/company/models.py:106
+#: itdagene/app/company/models.py:107
 msgid "waiting for package"
 msgstr "Venter på pakke"
 
-#: itdagene/app/company/models.py:108
+#: itdagene/app/company/models.py:109
 msgid "address"
 msgstr "Addresse"
 
-#: itdagene/app/company/models.py:109
+#: itdagene/app/company/models.py:110
 msgid "payment address"
 msgstr "Betalingsaddresse"
 
-#: itdagene/app/company/models.py:110
+#: itdagene/app/company/models.py:111
 msgid "payment email"
 msgstr "Betalingsepostaddresse"
 
-#: itdagene/app/company/models.py:113
+#: itdagene/app/company/models.py:114
 msgid "profile"
 msgstr "Profil"
 
-#: itdagene/app/company/models.py:130
+#: itdagene/app/company/models.py:131
 msgid "companies"
 msgstr "Bedrifter"
 
-#: itdagene/app/company/models.py:200
+#: itdagene/app/company/models.py:199
 msgid "information name"
 msgstr "Informasjonsnavn"
 
-#: itdagene/app/company/models.py:201
+#: itdagene/app/company/models.py:200
 msgid "value"
 msgstr "Verdi"
 
-#: itdagene/app/company/models.py:220 itdagene/app/events/models.py:67
+#: itdagene/app/company/models.py:219 itdagene/app/events/models.py:69
 msgid "first name"
 msgstr "Fornavn"
 
-#: itdagene/app/company/models.py:221 itdagene/app/events/models.py:68
+#: itdagene/app/company/models.py:220 itdagene/app/events/models.py:70
 msgid "last name"
 msgstr "Etternavn"
 
-#: itdagene/app/company/models.py:222 itdagene/app/events/models.py:69
+#: itdagene/app/company/models.py:221 itdagene/app/events/models.py:71
 msgid "e-mail address"
 msgstr "Epostaddresse"
 
-#: itdagene/app/company/models.py:224 itdagene/app/workschedule/models.py:20
-#: itdagene/core/models.py:37
+#: itdagene/app/company/models.py:223 itdagene/app/workschedule/models.py:21
+#: itdagene/core/models.py:50
 msgid "phone number"
 msgstr "Telefonnummer"
 
-#: itdagene/app/company/models.py:227
+#: itdagene/app/company/models.py:226
 msgid "mobile phone number"
 msgstr "Mobiltelefonnummber"
 
-#: itdagene/app/company/models.py:229
+#: itdagene/app/company/models.py:228
 msgid "position"
 msgstr "Posisjon"
 
-#: itdagene/app/company/models.py:230
+#: itdagene/app/company/models.py:229
 #: itdagene/app/company/templates/company/view.html:109
 msgid "Current contact"
 msgstr "Nåværende kontakt"
 
-#: itdagene/app/company/models.py:244
+#: itdagene/app/company/models.py:243
 msgid "company contact"
 msgstr "Bedriftskontakt"
 
-#: itdagene/app/company/models.py:245
+#: itdagene/app/company/models.py:244
 msgid "company contacts"
 msgstr "Bedriftskontakter"
 
-#: itdagene/app/company/models.py:257
+#: itdagene/app/company/models.py:256
 msgid "Signing date, not uploaded date"
 msgstr "Signeringsdato, ikke opplastningsdato"
 
-#: itdagene/app/company/models.py:259
+#: itdagene/app/company/models.py:258
 msgid "file"
 msgstr "Fil"
 
-#: itdagene/app/company/models.py:262
+#: itdagene/app/company/models.py:261
 msgid "banquet tickets"
 msgstr "Bankettbilletter"
 
-#: itdagene/app/company/models.py:263 itdagene/app/company/models.py:269
+#: itdagene/app/company/models.py:262 itdagene/app/company/models.py:268
 msgid "Total, not additional"
 msgstr "Totalt, ikke ekstra"
 
-#: itdagene/app/company/models.py:265
+#: itdagene/app/company/models.py:264
 msgid "joblistings"
 msgstr "Jobbannonser"
 
-#: itdagene/app/company/models.py:268
+#: itdagene/app/company/models.py:267
 msgid "interview room"
 msgstr "Intervjurom"
 
-#: itdagene/app/company/models.py:271
+#: itdagene/app/company/models.py:270
 msgid "is billed"
 msgstr "Er fakturert"
 
-#: itdagene/app/company/models.py:272
+#: itdagene/app/company/models.py:271
 msgid "has paid"
 msgstr "Has betalt"
 
-#: itdagene/app/company/models.py:287
+#: itdagene/app/company/models.py:286
 msgid "contract"
 msgstr "Kontrakt"
 
-#: itdagene/app/company/models.py:288
+#: itdagene/app/company/models.py:287
 msgid "contracts"
 msgstr "Kontrakter"
 
-#: itdagene/app/company/models.py:292
+#: itdagene/app/company/models.py:291
 msgid "users"
 msgstr "Brukere"
 
@@ -535,7 +537,7 @@ msgstr "Status"
 #: itdagene/app/company/templates/company/base.html:26
 #: itdagene/app/company/templates/company/base.html:77
 #: itdagene/app/company/templates/company/view.html:27
-#: itdagene/app/company/views/packages.py:27
+#: itdagene/app/company/views/packages.py:28
 msgid "Package"
 msgstr "Pakke"
 
@@ -547,7 +549,7 @@ msgstr "Telefonnummer"
 #: itdagene/app/company/templates/company/base.html:30
 #: itdagene/app/company/templates/company/packages/base.html:13
 #: itdagene/app/company/templates/company/view.html:33
-#: itdagene/app/events/models.py:9
+#: itdagene/app/events/models.py:11
 #: itdagene/app/feedback/templates/feedback/evaluations/report.html:27
 #: itdagene/app/feedback/templates/feedback/evaluations/report.html:53
 msgid "Course"
@@ -559,8 +561,8 @@ msgid "Contacts"
 msgstr "Kontakter"
 
 #: itdagene/app/company/templates/company/base.html:69
-#: itdagene/app/company/views/__init__.py:58
-#: itdagene/templates/base_admin.html:139
+#: itdagene/app/company/views/__init__.py:59
+#: itdagene/templates/base_admin.html:161
 msgid "Companies"
 msgstr "Bedrifter"
 
@@ -606,9 +608,20 @@ msgid "Are you sure you want to delete the contact \"%(contact)s\"?"
 msgstr "Er du sikker på at du vil slette kontakten \"%(contact)s\"?"
 
 #: itdagene/app/company/templates/company/contacts/delete.html:16
-#: itdagene/app/company/views/company_contacts.py:55
+#: itdagene/app/company/views/company_contacts.py:56
 msgid "Delete Contact"
 msgstr "Slett Kontakt"
+
+#: itdagene/app/company/templates/company/contracts/delete.html:15
+msgid ""
+"Are you sure you want to delete the contract \"%(contract)s\" for the "
+"company \"%(company)s\"?"
+msgstr "Er du sikker på at du vil slette kontakten \"%(contact)s\"?"
+
+#: itdagene/app/company/templates/company/contracts/delete.html:16
+#: itdagene/app/company/views/contracts.py:87
+msgid "Delete Contract"
+msgstr "Slett Kontrakt"
 
 #: itdagene/app/company/templates/company/economics/base.html:11
 #: itdagene/app/company/templates/company/view.html:46
@@ -646,18 +659,18 @@ msgid "Waiting list"
 msgstr "Venteliste"
 
 #: itdagene/app/company/templates/company/packages/submenu.html:9
-#: itdagene/app/company/views/packages.py:17
-#: itdagene/templates/base_admin.html:160
+#: itdagene/app/company/views/packages.py:18
+#: itdagene/templates/base_admin.html:182
 msgid "Packages"
 msgstr "Pakker"
 
 #: itdagene/app/company/templates/company/packages/submenu.html:17
-#: itdagene/app/company/views/packages.py:41
+#: itdagene/app/company/views/packages.py:42
 msgid "Add Package"
 msgstr "Opprett Pakke"
 
 #: itdagene/app/company/templates/company/packages/submenu.html:26
-#: itdagene/app/company/views/packages.py:62
+#: itdagene/app/company/views/packages.py:63
 msgid "Edit Package"
 msgstr "Rediger Pakke"
 
@@ -701,7 +714,7 @@ msgid "All Companies"
 msgstr "Alle Bedrifter"
 
 #: itdagene/app/company/templates/company/submenu.html:15
-#: itdagene/app/company/views/__init__.py:141
+#: itdagene/app/company/views/__init__.py:142
 msgid "Add Company"
 msgstr "Legg Til Bedrift"
 
@@ -710,17 +723,17 @@ msgid "Edit Company"
 msgstr "Rediger Bedrift"
 
 #: itdagene/app/company/templates/company/submenu.html:34
-#: itdagene/app/company/views/company_contacts.py:33
+#: itdagene/app/company/views/company_contacts.py:34
 msgid "Add Contact"
 msgstr "Legg Til Kontakt"
 
 #: itdagene/app/company/templates/company/submenu.html:42
-#: itdagene/app/company/views/contracts.py:26
+#: itdagene/app/company/views/contracts.py:27
 msgid "Add Contract"
 msgstr "Legg Til Kontrakt"
 
 #: itdagene/app/company/templates/company/submenu.html:53
-#: itdagene/app/company/views/__init__.py:213
+#: itdagene/app/company/views/__init__.py:214
 msgid "Set Responsibilities"
 msgstr "Sett Ansvarsområder"
 
@@ -730,7 +743,7 @@ msgid "Company evalutions"
 msgstr "Bedriftsevalueringer"
 
 #: itdagene/app/company/templates/company/submenu.html:69
-#: itdagene/app/company/views/economics.py:21
+#: itdagene/app/company/views/economics.py:22
 msgid "Economic Overview"
 msgstr "Økonomioversikt"
 
@@ -756,7 +769,10 @@ msgstr "Legg til nøkkelinformasjon"
 
 #: itdagene/app/company/templates/company/view.html:90
 #: itdagene/app/company/templates/company/view.html:118
+#: itdagene/app/company/templates/company/view.html:156
 #: itdagene/app/events/templates/events/base.html:31
+#: itdagene/app/faq/templates/faq/base.html:26
+#: itdagene/app/gallery/templates/gallery/base.html:21
 #: itdagene/app/pages/templates/pages/admin.html:49
 #: itdagene/app/stands/templates/stands/list.html:40
 msgid "Delete"
@@ -778,8 +794,10 @@ msgstr "Last ned vcard-fil"
 
 #: itdagene/app/company/templates/company/view.html:117
 #: itdagene/app/company/templates/company/view.html:141
+#: itdagene/app/company/templates/company/view.html:156
 #: itdagene/app/events/templates/events/base.html:28
 #: itdagene/app/events/templates/events/view.html:46
+#: itdagene/app/faq/templates/faq/base.html:23
 #: itdagene/app/news/templates/news/admin.html:23
 #: itdagene/app/pages/templates/pages/admin.html:46
 #: itdagene/app/stands/templates/stands/list.html:37
@@ -795,120 +813,120 @@ msgstr "Ingen Frist"
 msgid "Download file"
 msgstr ""
 
-#: itdagene/app/company/views/__init__.py:96
+#: itdagene/app/company/views/__init__.py:97
 #, python-format
 msgid "%s was booked."
 msgstr "%s ble booket."
 
-#: itdagene/app/company/views/__init__.py:110
+#: itdagene/app/company/views/__init__.py:111
 msgid "Added to waiting list"
 msgstr "Lagt til venteliste"
 
-#: itdagene/app/company/views/__init__.py:124
+#: itdagene/app/company/views/__init__.py:125
 msgid "Status changed"
 msgstr "Status oppdatert"
 
-#: itdagene/app/company/views/__init__.py:138
-#: itdagene/app/company/views/__init__.py:153
+#: itdagene/app/company/views/__init__.py:139
+#: itdagene/app/company/views/__init__.py:154
 msgid "Company saved."
 msgstr "Bedrift lagret"
 
-#: itdagene/app/company/views/__init__.py:161
+#: itdagene/app/company/views/__init__.py:162
 msgid "Change Company"
 msgstr "Rediger Bedrift"
 
-#: itdagene/app/company/views/__init__.py:182
+#: itdagene/app/company/views/__init__.py:183
 msgid "Add Key information for "
 msgstr "Legg til nøkkelinformasjon for "
 
-#: itdagene/app/company/views/__init__.py:208
+#: itdagene/app/company/views/__init__.py:209
 msgid "Changed responsibilities."
 msgstr "Rediger Ansvarsområder"
 
-#: itdagene/app/company/views/company_contacts.py:70
+#: itdagene/app/company/views/company_contacts.py:71
 msgid "Company contect saved."
 msgstr "Bedriftskontakt lagret"
 
-#: itdagene/app/company/views/company_contacts.py:79
+#: itdagene/app/company/views/company_contacts.py:80
 msgid "Change Contact"
 msgstr "Rediger Kontakt"
 
-#: itdagene/app/company/views/contracts.py:21
+#: itdagene/app/company/views/contracts.py:22
 msgid "Contract added."
 msgstr "Kontrakt lagt til"
 
-#: itdagene/app/company/views/contracts.py:49
+#: itdagene/app/company/views/contracts.py:50
 msgid "Change Contract"
 msgstr "Rediger Kontrakt"
 
-#: itdagene/app/company/views/packages.py:38
+#: itdagene/app/company/views/packages.py:39
 msgid "Package added."
 msgstr "Pakke lagt til"
 
-#: itdagene/app/company/views/packages.py:54
+#: itdagene/app/company/views/packages.py:55
 msgid "Package saved."
 msgstr "Pakke lagret"
 
-#: itdagene/app/events/models.py:10
+#: itdagene/app/events/models.py:12
 msgid "Company presentation"
 msgstr "Bedriftspresentasjon"
 
-#: itdagene/app/events/models.py:11
+#: itdagene/app/events/models.py:13
 #: itdagene/app/feedback/templates/feedback/evaluations/report.html:36
 #: itdagene/app/feedback/templates/feedback/evaluations/report.html:65
-#: itdagene/app/meetings/models.py:14
+#: itdagene/app/meetings/models.py:16
 msgid "Banquet"
 msgstr "Bankett"
 
-#: itdagene/app/events/models.py:12
+#: itdagene/app/events/models.py:14
 msgid "Summer internship marathon"
 msgstr "Sommerjobbmaraton"
 
-#: itdagene/app/events/models.py:13
+#: itdagene/app/events/models.py:15
 msgid "Baloon drop"
 msgstr "Ballongslipp"
 
-#: itdagene/app/events/models.py:14
+#: itdagene/app/events/models.py:16
 msgid "Competition"
 msgstr "Konkurranse"
 
-#: itdagene/app/events/models.py:16
+#: itdagene/app/events/models.py:18
 msgid "Promoted company event"
 msgstr "Promotert bedriftsarrangement"
 
-#: itdagene/app/events/models.py:23 itdagene/app/workschedule/models.py:54
+#: itdagene/app/events/models.py:25 itdagene/app/workschedule/models.py:55
 msgid "start time"
 msgstr "starttid"
 
-#: itdagene/app/events/models.py:24 itdagene/app/workschedule/models.py:55
+#: itdagene/app/events/models.py:26 itdagene/app/workschedule/models.py:56
 msgid "end time"
 msgstr "sluttid"
 
-#: itdagene/app/events/models.py:27 itdagene/app/meetings/models.py:28
+#: itdagene/app/events/models.py:29 itdagene/app/meetings/models.py:30
 msgid "location"
 msgstr "sted"
 
-#: itdagene/app/events/models.py:28
+#: itdagene/app/events/models.py:30
 msgid "internal event"
 msgstr "internarrangement"
 
-#: itdagene/app/events/models.py:34
+#: itdagene/app/events/models.py:36
 msgid "hosting company"
 msgstr "Arrangerende bedrift"
 
-#: itdagene/app/events/models.py:36
+#: itdagene/app/events/models.py:38
 msgid "uses tickets"
 msgstr "Bruker billetter"
 
-#: itdagene/app/events/models.py:38
+#: itdagene/app/events/models.py:40
 msgid "max nr of participants"
 msgstr "Maks antall deltagere"
 
-#: itdagene/app/events/models.py:45
+#: itdagene/app/events/models.py:47
 msgid "Associated stand"
 msgstr "Assosiert stand"
 
-#: itdagene/app/events/models.py:57
+#: itdagene/app/events/models.py:59
 msgid "event"
 msgstr "Arrangement"
 
@@ -939,6 +957,8 @@ msgstr "Klokkeslett"
 
 #: itdagene/app/events/templates/events/base.html:16
 #: itdagene/app/events/templates/events/view.html:38
+#: itdagene/app/faq/templates/faq/base.html:14
+#: itdagene/app/gallery/templates/gallery/base.html:13
 #: itdagene/app/news/templates/news/admin.html:14
 #: itdagene/app/pages/templates/pages/admin.html:16
 #: itdagene/app/stands/templates/stands/list.html:17
@@ -956,23 +976,23 @@ msgid "Delete event"
 msgstr "Slett arrangement"
 
 #: itdagene/app/events/templates/events/submenu.html:5
-#: itdagene/app/events/views.py:14 itdagene/app/feedback/models.py:18
-#: itdagene/templates/base_admin.html:128
+#: itdagene/app/events/views.py:15 itdagene/app/feedback/models.py:20
+#: itdagene/templates/base_admin.html:150
 msgid "Events"
 msgstr "Arrangementer"
 
 #: itdagene/app/events/templates/events/submenu.html:10
-#: itdagene/app/events/views.py:26
+#: itdagene/app/events/views.py:27
 msgid "Add Event"
 msgstr "Opprett Arrangement"
 
 #: itdagene/app/events/templates/events/submenu.html:16
-#: itdagene/app/events/views.py:45
+#: itdagene/app/events/views.py:46
 msgid "Edit Event"
 msgstr "Rediger Arrangement"
 
 #: itdagene/app/events/templates/events/submenu.html:25
-#: itdagene/app/events/views.py:61
+#: itdagene/app/events/views.py:62
 msgid "Delete Event"
 msgstr "Slett Arrangement"
 
@@ -985,7 +1005,7 @@ msgstr "Sted"
 
 #: itdagene/app/events/templates/events/view.html:36
 #: itdagene/app/itdageneadmin/templates/admin/groups/list.html:12
-#: itdagene/app/users/templates/users/detail.html:47
+#: itdagene/app/users/templates/users/detail.html:51
 #: itdagene/app/users/templates/users/list.html:14
 #: itdagene/app/workschedule/templates/worker/view.html:14
 #: itdagene/app/workschedule/templates/workschedule/list.html:82
@@ -1003,45 +1023,45 @@ msgstr "Legg til billett"
 msgid "Add"
 msgstr "Legg til"
 
-#: itdagene/app/events/views.py:24
+#: itdagene/app/events/views.py:25
 msgid "Event added."
 msgstr "Arrangement lagt til"
 
-#: itdagene/app/events/views.py:37
+#: itdagene/app/events/views.py:38
 msgid "Event saved."
 msgstr "Arrangement lagret"
 
-#: itdagene/app/events/views.py:56
+#: itdagene/app/events/views.py:57
 msgid "Event deleted."
 msgstr "Arrangement slettet"
 
-#: itdagene/app/events/views.py:73
+#: itdagene/app/events/views.py:74
 msgid "Ticket was saved."
 msgstr "Billett ble lagret"
 
-#: itdagene/app/events/views.py:78
+#: itdagene/app/events/views.py:79
 msgid "Event"
 msgstr "Arrangement"
 
-#: itdagene/app/events/views.py:90
+#: itdagene/app/events/views.py:91
 msgid "Ticket saved."
 msgstr "Billett lagret"
 
-#: itdagene/app/events/views.py:96
+#: itdagene/app/events/views.py:97
 msgid "Edit Ticket"
 msgstr "Rediger billett"
 
-#: itdagene/app/experiences/models.py:20 itdagene/core/models.py:226
+#: itdagene/app/experiences/models.py:22 itdagene/core/models.py:260
 msgid "Preference"
 msgstr "Innstillinger"
 
-#: itdagene/app/experiences/models.py:23
+#: itdagene/app/experiences/models.py:25
 msgid "Position"
 msgstr "Posisjon"
 
-#: itdagene/app/experiences/models.py:26
+#: itdagene/app/experiences/models.py:28
 #: itdagene/app/experiences/templates/experiences/submenu.html:5
-#: itdagene/app/experiences/views.py:25 itdagene/templates/base_admin.html:232
+#: itdagene/app/experiences/views.py:26 itdagene/templates/base_admin.html:254
 msgid "Experiences"
 msgstr "Erfaringer"
 
@@ -1051,236 +1071,289 @@ msgid "Last updated"
 msgstr "Sist oppdatert"
 
 #: itdagene/app/experiences/templates/experiences/submenu.html:7
-#: itdagene/app/experiences/views.py:56
+#: itdagene/app/experiences/views.py:57
 msgid "Add Experience"
 msgstr "Legg til erfaring"
 
 #: itdagene/app/experiences/templates/experiences/submenu.html:11
-#: itdagene/app/experiences/views.py:76
+#: itdagene/app/experiences/views.py:77
 msgid "Edit Experience"
 msgstr "Rediger erfaring"
 
-#: itdagene/app/experiences/views.py:37
+#: itdagene/app/experiences/views.py:38
 msgid "Experience"
 msgstr "Erfaring"
 
-#: itdagene/app/experiences/views.py:52
+#: itdagene/app/experiences/views.py:53
 msgid "Experience added."
 msgstr "Erfaring lagt til"
 
-#: itdagene/app/feedback/models.py:13
+#: itdagene/app/faq/models.py:9
+msgid "question"
+msgstr "spørsmål"
+
+#: itdagene/app/faq/models.py:10
+msgid "answer"
+msgstr "svar"
+
+#: itdagene/app/faq/templates/faq/base.html:12
+msgid "Question"
+msgstr "Spørsmål"
+
+#: itdagene/app/faq/templates/faq/base.html:13
+msgid "Answer"
+msgstr "Svar"
+
+#: itdagene/app/faq/templates/faq/delete.html:16
+#, python-format
+msgid "Are you sure you want to delete the question '%(question)s'?"
+msgstr "Er du sikker på at du vil slette spørsmålet '%(question)s'?"
+
+#: itdagene/app/faq/templates/faq/delete.html:20
+msgid "Delete question"
+msgstr "Slett spørsmål"
+
+#: itdagene/app/faq/templates/faq/submenu.html:5 itdagene/app/faq/views.py:13
+msgid "All Questions"
+msgstr "Alle Spørsmål"
+
+#: itdagene/app/faq/templates/faq/submenu.html:9 itdagene/app/faq/views.py:26
+msgid "Add Question"
+msgstr "Legg til Spørsmål"
+
+#: itdagene/app/faq/views.py:24
+msgid "Question added."
+msgstr "Spørsmål opprettet."
+
+#: itdagene/app/faq/views.py:37
+msgid "Question saved."
+msgstr "Spørsmål lagret."
+
+#: itdagene/app/faq/views.py:45
+msgid "Edit Question"
+msgstr "Rediger Spørsmål"
+
+#: itdagene/app/faq/views.py:55
+msgid "Question deleted."
+msgstr "Spørsmål slettet."
+
+#: itdagene/app/faq/views.py:62
+msgid "Delete Question"
+msgstr "Slett Spørsmål"
+
+#: itdagene/app/feedback/models.py:15
 msgid "All"
 msgstr "Alle"
 
-#: itdagene/app/feedback/models.py:14
+#: itdagene/app/feedback/models.py:16
 #: itdagene/app/itdageneadmin/templates/admin/submenu.html:9
-#: itdagene/app/itdageneadmin/views/__init__.py:12
-#: itdagene/templates/base_admin.html:210
+#: itdagene/app/itdageneadmin/views/__init__.py:13
+#: itdagene/templates/base_admin.html:232
 msgid "Admin"
 msgstr "Admin"
 
-#: itdagene/app/feedback/models.py:15
+#: itdagene/app/feedback/models.py:17
 msgid "BDB"
 msgstr "BDB"
 
-#: itdagene/app/feedback/models.py:16
+#: itdagene/app/feedback/models.py:18
 msgid "Career"
 msgstr "Karriere"
 
-#: itdagene/app/feedback/models.py:17
+#: itdagene/app/feedback/models.py:19
 msgid "Core"
 msgstr "Kjerne"
 
-#: itdagene/app/feedback/models.py:19 itdagene/templates/base_admin.html:221
+#: itdagene/app/feedback/models.py:21 itdagene/templates/base_admin.html:243
 msgid "Feedback"
 msgstr "Tilbakemelding"
 
-#: itdagene/app/feedback/models.py:21 itdagene/app/meetings/models.py:15
+#: itdagene/app/feedback/models.py:23 itdagene/app/meetings/models.py:17
 msgid "Logistics"
 msgstr "Logistikk"
 
-#: itdagene/app/feedback/models.py:22
+#: itdagene/app/feedback/models.py:24
 #: itdagene/app/workschedule/templates/worker/view.html:18
 #: itdagene/app/workschedule/templates/workschedule/list.html:84
 msgid "Mail"
 msgstr "Epost"
 
-#: itdagene/app/feedback/models.py:23
+#: itdagene/app/feedback/models.py:25
 #: itdagene/app/meetings/templates/meetings/submenu.html:4
-#: itdagene/app/meetings/views.py:32 itdagene/templates/base_admin.html:182
+#: itdagene/app/meetings/views.py:33 itdagene/templates/base_admin.html:204
 msgid "Meetings"
 msgstr "Møter"
 
-#: itdagene/app/feedback/models.py:24
+#: itdagene/app/feedback/models.py:26
 msgid "News"
 msgstr "Nyheter"
 
-#: itdagene/app/feedback/models.py:25
+#: itdagene/app/feedback/models.py:27
 msgid "Notifications"
 msgstr "Varsler"
 
-#: itdagene/app/feedback/models.py:26 itdagene/app/pages/models.py:29
+#: itdagene/app/feedback/models.py:28 itdagene/app/pages/models.py:35
 #: itdagene/app/pages/templates/pages/submenu.html:7
 #: itdagene/templates/base_admin.html:110
 msgid "Pages"
 msgstr "Sider"
 
-#: itdagene/app/feedback/models.py:27
+#: itdagene/app/feedback/models.py:29
 msgid "Profiles"
 msgstr "Profiler"
 
-#: itdagene/app/feedback/models.py:28 itdagene/app/todo/views.py:61
+#: itdagene/app/feedback/models.py:30 itdagene/app/todo/views.py:62
 msgid "Todo"
 msgstr "Gjøremål"
 
-#: itdagene/app/feedback/models.py:29
+#: itdagene/app/feedback/models.py:31
 msgid "Venue"
 msgstr "Lokale"
 
-#: itdagene/app/feedback/models.py:30
+#: itdagene/app/feedback/models.py:32
 msgid "Workschedule"
 msgstr "Arbeidskalender"
 
-#: itdagene/app/feedback/models.py:33
+#: itdagene/app/feedback/models.py:35
 msgid "Bug"
 msgstr "Feil"
 
-#: itdagene/app/feedback/models.py:33
+#: itdagene/app/feedback/models.py:35
 msgid "Feature"
 msgstr "Funksjonalitet"
 
-#: itdagene/app/feedback/models.py:33
+#: itdagene/app/feedback/models.py:35
 msgid "Cache problem"
 msgstr "Lagringsproblem"
 
-#: itdagene/app/feedback/models.py:36
+#: itdagene/app/feedback/models.py:38
 msgid "New"
 msgstr "Ny"
 
-#: itdagene/app/feedback/models.py:37
+#: itdagene/app/feedback/models.py:39
 msgid "In progress"
 msgstr "Under Behandling"
 
-#: itdagene/app/feedback/models.py:38
+#: itdagene/app/feedback/models.py:40
 msgid "Needs feedback"
 msgstr "Trenger Tilbakemelding"
 
-#: itdagene/app/feedback/models.py:39
+#: itdagene/app/feedback/models.py:41
 msgid "Finished"
 msgstr "Ferdig"
 
-#: itdagene/app/feedback/models.py:45
+#: itdagene/app/feedback/models.py:47
 msgid "app"
 msgstr "app"
 
-#: itdagene/app/feedback/models.py:51
+#: itdagene/app/feedback/models.py:53
 msgid "is solved"
 msgstr "Er løst"
 
-#: itdagene/app/feedback/models.py:57
+#: itdagene/app/feedback/models.py:59
 msgid "assigned user"
 msgstr "Tildelt Bruker"
 
-#: itdagene/app/feedback/models.py:62
+#: itdagene/app/feedback/models.py:64
 msgid "solved date"
 msgstr "Løst Dato"
 
-#: itdagene/app/feedback/models.py:82
+#: itdagene/app/feedback/models.py:84
 msgid "issue"
 msgstr "Problem"
 
-#: itdagene/app/feedback/models.py:83
+#: itdagene/app/feedback/models.py:85
 msgid "issues"
 msgstr "Problemer"
 
-#: itdagene/app/feedback/models.py:87
+#: itdagene/app/feedback/models.py:89
 msgid "Did not use"
 msgstr "Brukte ikke"
 
-#: itdagene/app/feedback/models.py:88
+#: itdagene/app/feedback/models.py:90
 msgid "1: Very bad"
 msgstr "1: Veldig dårlig"
 
-#: itdagene/app/feedback/models.py:89
+#: itdagene/app/feedback/models.py:91
 msgid "2: Bad"
 msgstr "3: Dårlig"
 
-#: itdagene/app/feedback/models.py:90
+#: itdagene/app/feedback/models.py:92
 msgid "3: Not bad or good"
 msgstr "3: Nøytralt"
 
-#: itdagene/app/feedback/models.py:91
+#: itdagene/app/feedback/models.py:93
 msgid "4: Good"
 msgstr "4: Bra"
 
-#: itdagene/app/feedback/models.py:92
+#: itdagene/app/feedback/models.py:94
 msgid "5: Very good"
 msgstr "5: Veldig bra"
 
-#: itdagene/app/feedback/models.py:104
+#: itdagene/app/feedback/models.py:105
 msgid "Hash"
 msgstr "Hash"
 
-#: itdagene/app/feedback/models.py:105
+#: itdagene/app/feedback/models.py:106
 msgid "has answers"
 msgstr "Har Svar"
 
-#: itdagene/app/feedback/models.py:110
+#: itdagene/app/feedback/models.py:111
 msgid ""
 "What do you think about the communication and information given in advance "
 "of the event?"
 msgstr "Hva synes du om kommunikasjon og informasjon gitt før arrangementet?"
 
-#: itdagene/app/feedback/models.py:117
+#: itdagene/app/feedback/models.py:118
 msgid "How did the internship marathon go?"
 msgstr "Hvordan gikk sommerjobbmaratonen?"
 
-#: itdagene/app/feedback/models.py:122
+#: itdagene/app/feedback/models.py:123
 msgid "What could have been done better at the internship marathon?"
 msgstr "Hva kunne vært gjort bedre på sommerjobmaratonen?"
 
-#: itdagene/app/feedback/models.py:125
+#: itdagene/app/feedback/models.py:126
 msgid "How did the course go?"
 msgstr "Hvordan gikk kurset?"
 
-#: itdagene/app/feedback/models.py:128
+#: itdagene/app/feedback/models.py:129
 msgid "Could the course be handled better?"
 msgstr "Kunne kurset blitt gjort bedre?"
 
-#: itdagene/app/feedback/models.py:133
+#: itdagene/app/feedback/models.py:134
 msgid ""
 "How satisfied are you with the number of people that visited your stand?"
 msgstr "Hvor fornøyd er dere med antallet som besøkte standen din?"
 
-#: itdagene/app/feedback/models.py:138
+#: itdagene/app/feedback/models.py:139
 msgid "Did you use interview rooms?"
 msgstr "Brukte dere intervjurom?"
 
-#: itdagene/app/feedback/models.py:141
+#: itdagene/app/feedback/models.py:142
 msgid "How was the interview room?"
 msgstr "Hvordan opplevdes intervjurommet?"
 
-#: itdagene/app/feedback/models.py:145
+#: itdagene/app/feedback/models.py:146
 msgid "What could have been done better at the interview room?"
 msgstr "Hva kunne forbedres med intervjurommene?"
 
-#: itdagene/app/feedback/models.py:148
+#: itdagene/app/feedback/models.py:149
 msgid "Were you at the banquet?"
 msgstr "Var dere på banketten?"
 
-#: itdagene/app/feedback/models.py:151
+#: itdagene/app/feedback/models.py:152
 msgid "How did the banquet go?"
 msgstr "Hvordan gikk banketten?"
 
-#: itdagene/app/feedback/models.py:154
+#: itdagene/app/feedback/models.py:155
 msgid "What could have been done better at the banquet?"
 msgstr "Hva kunne blitt gjort bedre på banketten?"
 
-#: itdagene/app/feedback/models.py:159
+#: itdagene/app/feedback/models.py:160
 msgid "What could have been done better? Something else you want to comment?"
 msgstr "Hva kunne blitt gjort bedre? Andre kommentarer?"
 
-#: itdagene/app/feedback/models.py:163
+#: itdagene/app/feedback/models.py:164
 msgid "Interested in being contacted next year?"
 msgstr "Er dere interessert i å bli kontaktet neste år?"
 
@@ -1377,7 +1450,7 @@ msgid "Assigned user"
 msgstr "Tildelt bruker"
 
 #: itdagene/app/feedback/templates/feedback/submenu.html:8
-#: itdagene/app/feedback/views/issues.py:24
+#: itdagene/app/feedback/views/issues.py:25
 msgid "Issues"
 msgstr "Problemer"
 
@@ -1401,47 +1474,87 @@ msgstr "Rediger problem"
 msgid "Mark issue as solved"
 msgstr "Merk problem som løst"
 
-#: itdagene/app/feedback/views/evalutions.py:24
+#: itdagene/app/feedback/views/evalutions.py:26
 msgid ""
 "Thank you for your interest I itDAGENE . We hope you will come back next "
 "next year."
 msgstr "Vi takker for din interesse i itDAGENE!"
 
-#: itdagene/app/feedback/views/evalutions.py:74
+#: itdagene/app/feedback/views/evalutions.py:76
 msgid "Evaluation of itDAGENE"
 msgstr "Evaluering av itDAGENE"
 
-#: itdagene/app/feedback/views/issues.py:52
+#: itdagene/app/feedback/views/issues.py:53
 msgid "Assign a user:"
 msgstr "Tildel bruker:"
 
-#: itdagene/app/feedback/views/issues.py:53
+#: itdagene/app/feedback/views/issues.py:54
 msgid "Issue"
 msgstr "Problem"
 
-#: itdagene/app/feedback/views/issues.py:67
+#: itdagene/app/feedback/views/issues.py:68
 msgid "Thank you for the feedback."
 msgstr "Takk for tilbakemeldingen"
 
-#: itdagene/app/feedback/views/issues.py:74
+#: itdagene/app/feedback/views/issues.py:75
 msgid "Add Issue"
 msgstr "Opprett Problem"
 
-#: itdagene/app/feedback/views/issues.py:86
+#: itdagene/app/feedback/views/issues.py:87
 msgid "The issue has changed."
 msgstr "Problemet har blitt redigert"
 
-#: itdagene/app/feedback/views/issues.py:95
+#: itdagene/app/feedback/views/issues.py:96
 msgid "Edit Issue"
 msgstr "Rediger problem"
 
-#: itdagene/app/feedback/views/issues.py:106
+#: itdagene/app/feedback/views/issues.py:107
 msgid "My Issues"
 msgstr "Mine problemer"
 
 #: itdagene/app/frontpage/templates/frontpage.html:30
 msgid "Company Comments"
 msgstr "Bedritskommentarer"
+
+#: itdagene/app/gallery/models.py:9
+msgid "Photo name"
+msgstr "Bilde navn"
+
+#: itdagene/app/gallery/models.py:10
+#: itdagene/app/gallery/templates/gallery/base.html:12
+#: itdagene/core/models.py:58
+msgid "Photo"
+msgstr "Bilde"
+
+#: itdagene/app/gallery/templates/gallery/delete.html:16
+msgid "Are you sure you want to delete the photo '%(photo)s'?"
+msgstr "Er du sikker på at du vil slette bildet \"%(photo)s\"?"
+
+#: itdagene/app/gallery/templates/gallery/delete.html:20
+msgid "Delete photo"
+msgstr "Slett bilde"
+
+#: itdagene/app/gallery/templates/gallery/submenu.html:5
+#: itdagene/app/gallery/views.py:13
+msgid "All Photos"
+msgstr "Alle Bilder"
+
+#: itdagene/app/gallery/templates/gallery/submenu.html:9
+#: itdagene/app/gallery/views.py:26
+msgid "Add Photo"
+msgstr "Legg Til Bilde"
+
+#: itdagene/app/gallery/views.py:24
+msgid "Photo added."
+msgstr "Bilde lagt til."
+
+#: itdagene/app/gallery/views.py:34
+msgid "Photo deleted."
+msgstr "Bilde slettet."
+
+#: itdagene/app/gallery/views.py:39
+msgid "Delete Photo"
+msgstr "Slett Bilde"
 
 #: itdagene/app/itdageneadmin/templates/admin/base.html:5
 msgid "Administration"
@@ -1483,7 +1596,7 @@ msgstr "Samarbeidspartnerstatus"
 
 #: itdagene/app/itdageneadmin/templates/admin/companies_reset.html:23
 #: itdagene/app/itdageneadmin/templates/admin/dashboard.html:9
-#: itdagene/app/itdageneadmin/views/__init__.py:56
+#: itdagene/app/itdageneadmin/views/__init__.py:55
 msgid "Reset companies"
 msgstr "Tilbakestill bedrifter"
 
@@ -1530,54 +1643,54 @@ msgid "Next"
 msgstr "Neste"
 
 #: itdagene/app/itdageneadmin/templates/admin/submenu.html:14
-#: itdagene/app/itdageneadmin/views/__init__.py:35
+#: itdagene/app/itdageneadmin/views/__init__.py:36
 msgid "Log"
 msgstr "Logg"
 
 #: itdagene/app/itdageneadmin/templates/admin/submenu.html:21
-#: itdagene/app/itdageneadmin/views/preferences.py:47
-#: itdagene/core/models.py:227
+#: itdagene/app/itdageneadmin/views/preferences.py:48
+#: itdagene/core/models.py:261
 msgid "Preferences"
 msgstr "Innstillinger"
 
 #: itdagene/app/itdageneadmin/templates/admin/submenu.html:28
-#: itdagene/app/itdageneadmin/views/groups.py:17
-#: itdagene/app/users/templates/users/detail.html:41
+#: itdagene/app/itdageneadmin/views/groups.py:18
+#: itdagene/app/users/templates/users/detail.html:45
 msgid "Groups"
 msgstr "Grupper"
 
 #: itdagene/app/itdageneadmin/templates/admin/submenu.html:35
-#: itdagene/app/itdageneadmin/views/groups.py:49
+#: itdagene/app/itdageneadmin/views/groups.py:50
 msgid "Add Group"
 msgstr "Opprett Gruppe"
 
 #: itdagene/app/itdageneadmin/templates/admin/submenu.html:43
-#: itdagene/app/itdageneadmin/views/groups.py:67
+#: itdagene/app/itdageneadmin/views/groups.py:68
 msgid "Edit Group"
 msgstr "Rediger Gruppe"
 
-#: itdagene/app/itdageneadmin/views/__init__.py:52
+#: itdagene/app/itdageneadmin/views/__init__.py:51
 msgid "Companies reset"
 msgstr "Bedrifter tilbakestilt"
 
-#: itdagene/app/itdageneadmin/views/groups.py:31
+#: itdagene/app/itdageneadmin/views/groups.py:32
 msgid "View Group"
 msgstr "Vis Gruppe"
 
-#: itdagene/app/mail/senders.py:42
+#: itdagene/app/mail/senders.py:40
 msgid "Welcome to"
 msgstr "Velkommen til"
 
-#: itdagene/app/mail/senders.py:65
+#: itdagene/app/mail/senders.py:61
 msgid "New notification"
 msgstr "Nytt varsel"
 
-#: itdagene/app/mail/senders.py:78
+#: itdagene/app/mail/senders.py:72
 #, python-format
 msgid "Meeting Invite %s %s"
 msgstr "Møteinvitasjon %s %s"
 
-#: itdagene/app/mail/senders.py:124
+#: itdagene/app/mail/senders.py:115
 #, python-format
 msgid "New comment on %s"
 msgstr "Ny kommentar på %s"
@@ -1625,7 +1738,7 @@ msgid "I am"
 msgstr "Jeg"
 
 #: itdagene/app/mail/templates/mail/meetings/invite.html:19
-#: itdagene/app/meetings/models.py:103
+#: itdagene/app/meetings/models.py:105
 #: itdagene/app/meetings/templates/meetings/view.html:71
 msgid "attending"
 msgstr "kommer"
@@ -1698,81 +1811,81 @@ msgstr "Logg inn på itdagene.no"
 msgid "You can login at http://%(domain)s/login"
 msgstr "Du kan logge inn på http://%(domain)s/login"
 
-#: itdagene/app/meetings/forms.py:10
+#: itdagene/app/meetings/forms.py:11
 msgid "Invite"
 msgstr "Inviter"
 
-#: itdagene/app/meetings/forms.py:12
+#: itdagene/app/meetings/forms.py:13
 msgid "Invite current board"
 msgstr "Inviter nåværende styre"
 
-#: itdagene/app/meetings/models.py:12
+#: itdagene/app/meetings/models.py:14
 msgid "Board meeting"
 msgstr "Styremøte"
 
-#: itdagene/app/meetings/models.py:13
+#: itdagene/app/meetings/models.py:15
 msgid "Web"
 msgstr "Web"
 
-#: itdagene/app/meetings/models.py:16
+#: itdagene/app/meetings/models.py:18
 msgid "Marketing"
 msgstr "Markedsføring"
 
-#: itdagene/app/meetings/models.py:23
+#: itdagene/app/meetings/models.py:25
 msgid "from time"
 msgstr "fra klokkeslett"
 
-#: itdagene/app/meetings/models.py:24
+#: itdagene/app/meetings/models.py:26
 msgid "to time"
 msgstr "til klokkeslett"
 
-#: itdagene/app/meetings/models.py:29
+#: itdagene/app/meetings/models.py:31
 msgid "Meeting Agenda"
 msgstr "Møteagenda"
 
-#: itdagene/app/meetings/models.py:30
+#: itdagene/app/meetings/models.py:32
 msgid "abstract"
 msgstr "abstrakt"
 
-#: itdagene/app/meetings/models.py:32
+#: itdagene/app/meetings/models.py:34
 msgid "is board meeting"
 msgstr "Er styremøte"
 
-#: itdagene/app/meetings/models.py:40
+#: itdagene/app/meetings/models.py:42
 msgid "referee"
 msgstr "Referent"
 
-#: itdagene/app/meetings/models.py:90 itdagene/app/meetings/models.py:98
-#: itdagene/app/meetings/models.py:128
+#: itdagene/app/meetings/models.py:92 itdagene/app/meetings/models.py:100
+#: itdagene/app/meetings/models.py:130
 msgid "meeting"
 msgstr "møte"
 
-#: itdagene/app/meetings/models.py:91
+#: itdagene/app/meetings/models.py:93
 msgid "meetings"
 msgstr "møter"
 
-#: itdagene/app/meetings/models.py:107
+#: itdagene/app/meetings/models.py:109
 #, python-format
 msgid "Meeting participation: %(user)s"
 msgstr "Møtedeltagelse: %(user)s"
 
-#: itdagene/app/meetings/models.py:117
+#: itdagene/app/meetings/models.py:119
 msgid "Beer"
 msgstr "Øl"
 
-#: itdagene/app/meetings/models.py:117
+#: itdagene/app/meetings/models.py:119
 msgid "Wine"
 msgstr "Vin"
 
-#: itdagene/app/meetings/models.py:121
+#: itdagene/app/meetings/models.py:123
 msgid "person"
 msgstr "Person"
 
-#: itdagene/app/meetings/models.py:135
+#: itdagene/app/meetings/models.py:137
 msgid "number of bottles"
 msgstr "Antall flasker"
 
-#: itdagene/app/meetings/models.py:137
+#: itdagene/app/meetings/models.py:139
 msgid "reason"
 msgstr "Grunn"
 
@@ -1797,17 +1910,17 @@ msgid "Bottles of wine"
 msgstr "Vinflasker"
 
 #: itdagene/app/meetings/templates/meetings/submenu.html:6
-#: itdagene/app/meetings/views.py:49
+#: itdagene/app/meetings/views.py:50
 msgid "Add Meeting"
 msgstr "Opprett Møte"
 
 #: itdagene/app/meetings/templates/meetings/submenu.html:10
-#: itdagene/app/meetings/views.py:139
+#: itdagene/app/meetings/views.py:140
 msgid "Edit Meeting"
 msgstr "Rediger Møte"
 
 #: itdagene/app/meetings/templates/meetings/submenu.html:11
-#: itdagene/app/meetings/views.py:90
+#: itdagene/app/meetings/views.py:91
 msgid "Add Penalties"
 msgstr "Legg til straffer"
 
@@ -1843,31 +1956,31 @@ msgstr "Kommer ikke"
 msgid "Awating reply"
 msgstr "Venter på svar"
 
-#: itdagene/app/meetings/views.py:46
+#: itdagene/app/meetings/views.py:47
 msgid "Meeting added."
 msgstr "Møte opprettet"
 
-#: itdagene/app/meetings/views.py:66
+#: itdagene/app/meetings/views.py:67
 msgid "Meeting"
 msgstr "Møte"
 
-#: itdagene/app/meetings/views.py:103
+#: itdagene/app/meetings/views.py:104
 msgid "All participants will receive a mail shortly."
 msgstr "Alle deltagere vil motta en epost snart."
 
-#: itdagene/app/news/models.py:8 itdagene/app/pages/models.py:12
+#: itdagene/app/news/models.py:9 itdagene/app/pages/models.py:16
 msgid "content"
 msgstr "innhold"
 
-#: itdagene/app/news/models.py:12
+#: itdagene/app/news/models.py:13
 msgid "public"
 msgstr "offentlig"
 
-#: itdagene/app/news/models.py:15
+#: itdagene/app/news/models.py:16
 msgid "announcement"
 msgstr "annonsering"
 
-#: itdagene/app/news/models.py:16
+#: itdagene/app/news/models.py:17
 msgid "announcements"
 msgstr "annonseringer"
 
@@ -1881,12 +1994,12 @@ msgid "Announcements"
 msgstr "Annonseringer"
 
 #: itdagene/app/news/templates/news/submenu.html:12
-#: itdagene/app/news/views.py:21
+#: itdagene/app/news/views.py:22
 msgid "Add Announcement"
 msgstr "Opprett Annonsering"
 
 #: itdagene/app/news/templates/news/submenu.html:19
-#: itdagene/app/news/views.py:40
+#: itdagene/app/news/views.py:41
 msgid "Edit Announcement"
 msgstr "Rediger Annonsering"
 
@@ -1894,37 +2007,37 @@ msgstr "Rediger Annonsering"
 msgid "View Announcement"
 msgstr "Vis Annonsering"
 
-#: itdagene/app/news/views.py:50
+#: itdagene/app/news/views.py:51
 msgid "Announcement Admin"
 msgstr "Annonseringsadmin"
 
-#: itdagene/app/pages/models.py:11
+#: itdagene/app/pages/models.py:15
 msgid "slug"
 msgstr "slug"
 
-#: itdagene/app/pages/models.py:13
+#: itdagene/app/pages/models.py:17
 msgid "ingress"
 msgstr "ingress"
 
-#: itdagene/app/pages/models.py:19
+#: itdagene/app/pages/models.py:23
 msgid "need authentication"
 msgstr "krever innlogging"
 
-#: itdagene/app/pages/models.py:21
+#: itdagene/app/pages/models.py:25
 msgid "should be in menu"
 msgstr "skal være i meny"
 
-#: itdagene/app/pages/models.py:22
+#: itdagene/app/pages/models.py:26
 msgid "is an info page"
 msgstr "er en infoside"
 
-#: itdagene/app/pages/models.py:28
+#: itdagene/app/pages/models.py:34
 #: itdagene/app/pages/templates/pages/admin.html:12
 msgid "Page"
 msgstr "Side"
 
 #: itdagene/app/pages/templates/pages/admin.html:13
-#: itdagene/app/stands/models.py:21
+#: itdagene/app/stands/models.py:22
 #: itdagene/app/stands/templates/stands/list.html:16
 msgid "Active"
 msgstr "Aktiv"
@@ -1943,45 +2056,45 @@ msgid "Delete page"
 msgstr "Slett side"
 
 #: itdagene/app/pages/templates/pages/submenu.html:13
-#: itdagene/app/pages/views.py:39
+#: itdagene/app/pages/views.py:40
 msgid "Add Page"
 msgstr "Opprett Side"
 
 #: itdagene/app/pages/templates/pages/submenu.html:20
-#: itdagene/app/pages/views.py:63
+#: itdagene/app/pages/views.py:64
 msgid "Edit Page"
 msgstr "Rediger Side"
 
 #: itdagene/app/pages/templates/pages/submenu.html:30
-#: itdagene/app/pages/views.py:79
+#: itdagene/app/pages/views.py:80
 msgid "Delete Page"
 msgstr "Slett Side"
 
-#: itdagene/app/pages/views.py:21
+#: itdagene/app/pages/views.py:22
 msgid "The page is not available in your language."
 msgstr "Denne siden er ikke tilgjengelig i ditt språk."
 
-#: itdagene/app/pages/views.py:74
+#: itdagene/app/pages/views.py:75
 msgid "Page deleted."
 msgstr "Side slettet."
 
-#: itdagene/app/pages/views.py:87
+#: itdagene/app/pages/views.py:88
 msgid "Pages Admin"
 msgstr "Sideadmin"
 
-#: itdagene/app/stands/models.py:16
+#: itdagene/app/stands/models.py:17
 msgid "Slug for stand. Will be autogenerated if left empty"
 msgstr "Slug for stand. Blir autogenerert om tom."
 
-#: itdagene/app/stands/models.py:18
+#: itdagene/app/stands/models.py:19
 msgid "Livestream link"
 msgstr "Livestreamlink"
 
-#: itdagene/app/stands/models.py:19
+#: itdagene/app/stands/models.py:20
 msgid "Q&A link"
 msgstr "Q&A-link"
 
-#: itdagene/app/stands/models.py:20
+#: itdagene/app/stands/models.py:21
 msgid "Chat link"
 msgstr "Chat-link"
 
@@ -1992,7 +2105,7 @@ msgstr "Er du sikker på at du vil slette standen %(stand)s?"
 
 #: itdagene/app/stands/templates/stands/delete.html:16
 #: itdagene/app/stands/templates/stands/submenu.html:30
-#: itdagene/app/stands/views.py:83
+#: itdagene/app/stands/views.py:86
 msgid "Delete stand"
 msgstr "Slett stand"
 
@@ -2010,12 +2123,12 @@ msgid "Stands list"
 msgstr "Standliste"
 
 #: itdagene/app/stands/templates/stands/submenu.html:14
-#: itdagene/app/stands/views.py:30
+#: itdagene/app/stands/views.py:33
 msgid "Add stand"
 msgstr "Opprett Stand"
 
 #: itdagene/app/stands/templates/stands/submenu.html:23
-#: itdagene/app/stands/views.py:64
+#: itdagene/app/stands/views.py:67
 msgid "Edit stand"
 msgstr "Rediger Stand"
 
@@ -2043,27 +2156,27 @@ msgstr "Standhendelser"
 msgid "Add stand event"
 msgstr "Opprett Standhendelse"
 
-#: itdagene/app/stands/views.py:17 itdagene/templates/base_admin.html:171
+#: itdagene/app/stands/views.py:20 itdagene/templates/base_admin.html:193
 msgid "Stands"
 msgstr "Stands"
 
-#: itdagene/app/stands/views.py:28
+#: itdagene/app/stands/views.py:31
 msgid "Stand saved."
 msgstr "Stand lagret."
 
-#: itdagene/app/stands/views.py:43
+#: itdagene/app/stands/views.py:46
 msgid "Stand"
 msgstr "Stand"
 
-#: itdagene/app/stands/views.py:58
+#: itdagene/app/stands/views.py:61
 msgid "stand saved."
 msgstr "Stand lagret."
 
-#: itdagene/app/stands/views.py:77
+#: itdagene/app/stands/views.py:80
 msgid "stand deleted."
 msgstr "Stand slettet."
 
-#: itdagene/app/todo/models.py:13
+#: itdagene/app/todo/models.py:14
 msgid "finished"
 msgstr "Ferdig."
 
@@ -2073,7 +2186,7 @@ msgid "Are you sure you want to delete the todo \"%(todo)s\"?"
 msgstr "Er du sikker på at du vil slette \"%(todo)s\"?"
 
 #: itdagene/app/todo/templates/todo/delete_todo.html:16
-#: itdagene/app/todo/views.py:52
+#: itdagene/app/todo/views.py:53
 msgid "Delete Todo"
 msgstr "Slett To-do"
 
@@ -2087,23 +2200,23 @@ msgid "left"
 msgstr "igjen"
 
 #: itdagene/app/todo/templates/todo/panels/todo_list.html:43
-#: itdagene/app/todo/views.py:22
+#: itdagene/app/todo/views.py:23
 msgid "Add Todo"
 msgstr "Opprett To-do"
 
-#: itdagene/app/todo/views.py:19
+#: itdagene/app/todo/views.py:20
 msgid "Todo added."
 msgstr "To-do lagt til"
 
-#: itdagene/app/todo/views.py:35
+#: itdagene/app/todo/views.py:36
 msgid "Todo changed."
 msgstr "To-do oppdatert."
 
-#: itdagene/app/todo/views.py:38
+#: itdagene/app/todo/views.py:39
 msgid "Change Todo"
 msgstr "Rediger to-do"
 
-#: itdagene/app/todo/views.py:48
+#: itdagene/app/todo/views.py:49
 msgid "Todo deleted."
 msgstr "To-do slettet."
 
@@ -2116,40 +2229,45 @@ msgstr "Er du sikker på at du vil slette brukeren %(user)s?"
 msgid "Delete user"
 msgstr "Slett Bruker"
 
-#: itdagene/app/users/templates/users/detail.html:29 itdagene/core/models.py:45
+#: itdagene/app/users/templates/users/detail.html:29
+#: itdagene/app/users/templates/users/list.html:18 itdagene/core/models.py:52
+msgid "LinkedIn"
+msgstr "LinkedIn"
+
+#: itdagene/app/users/templates/users/detail.html:33 itdagene/core/models.py:64
 msgid "Language"
 msgstr "Språk"
 
-#: itdagene/app/users/templates/users/detail.html:82
+#: itdagene/app/users/templates/users/detail.html:86
 msgid "Go Back"
 msgstr "Tilbake"
 
-#: itdagene/app/users/templates/users/detail.html:83
+#: itdagene/app/users/templates/users/detail.html:87
 msgid "vCard"
 msgstr ""
 
-#: itdagene/app/users/templates/users/detail.html:85
-#: itdagene/app/users/templates/users/list.html:35
+#: itdagene/app/users/templates/users/detail.html:89
+#: itdagene/app/users/templates/users/list.html:37
 #: itdagene/app/users/templates/users/submenu.html:32
-#: itdagene/app/users/views.py:106
+#: itdagene/app/users/views.py:107
 msgid "Edit User"
 msgstr "Rediger Bruker"
 
-#: itdagene/app/users/templates/users/detail.html:86
+#: itdagene/app/users/templates/users/detail.html:90
 msgid "Edit Password"
 msgstr "Rediger Passord"
 
-#: itdagene/app/users/templates/users/detail.html:89
+#: itdagene/app/users/templates/users/detail.html:93
 #: itdagene/app/users/templates/users/send_welcome_email.html:17
 #: itdagene/app/users/templates/users/submenu.html:24
-#: itdagene/app/users/views.py:182
+#: itdagene/app/users/views.py:183
 msgid "Send welcome email"
 msgstr "Send velkomstepost"
 
-#: itdagene/app/users/templates/users/detail.html:92
-#: itdagene/app/users/templates/users/list.html:39
+#: itdagene/app/users/templates/users/detail.html:96
+#: itdagene/app/users/templates/users/list.html:41
 #: itdagene/app/users/templates/users/submenu.html:40
-#: itdagene/app/users/views.py:72
+#: itdagene/app/users/views.py:73
 msgid "Delete User"
 msgstr "Slett Bruker"
 
@@ -2157,8 +2275,8 @@ msgstr "Slett Bruker"
 msgid "Year"
 msgstr "År"
 
-#: itdagene/app/users/templates/users/list.html:36
-#: itdagene/app/users/views.py:141
+#: itdagene/app/users/templates/users/list.html:38
+#: itdagene/app/users/views.py:142
 msgid "Change Password"
 msgstr "Endre Passord"
 
@@ -2173,60 +2291,60 @@ msgid ""
 msgstr "Dette vil endre passordet og sende det i en epost."
 
 #: itdagene/app/users/templates/users/submenu.html:8
-#: itdagene/templates/base_admin.html:200
+#: itdagene/templates/base_admin.html:222
 msgid "Users"
 msgstr "Brukere"
 
 #: itdagene/app/users/templates/users/submenu.html:15
-#: itdagene/app/users/views.py:166
+#: itdagene/app/users/views.py:167
 msgid "Create User"
 msgstr "Opprett Bruker"
 
-#: itdagene/app/users/views.py:28
+#: itdagene/app/users/views.py:29
 msgid "User Admin"
 msgstr "Brukeradministrator"
 
-#: itdagene/app/users/views.py:52
+#: itdagene/app/users/views.py:53
 msgid "User Detail"
 msgstr "Brukerdetaljer"
 
-#: itdagene/app/users/views.py:175
+#: itdagene/app/users/views.py:176
 msgid "The welcome email has been sent."
 msgstr "Velkomsepost sendt."
 
-#: itdagene/app/workschedule/forms.py:9
+#: itdagene/app/workschedule/forms.py:10
 msgid "Add worker"
 msgstr "Legg til arbeider"
 
-#: itdagene/app/workschedule/models.py:22
+#: itdagene/app/workschedule/models.py:23
 msgid "t-shirt size"
 msgstr ""
 
-#: itdagene/app/workschedule/models.py:24
+#: itdagene/app/workschedule/models.py:25
 msgid "email"
 msgstr ""
 
-#: itdagene/app/workschedule/models.py:25 itdagene/core/models.py:157
+#: itdagene/app/workschedule/models.py:26 itdagene/core/models.py:187
 msgid "year"
 msgstr "år"
 
-#: itdagene/app/workschedule/models.py:82
+#: itdagene/app/workschedule/models.py:83
 msgid "work schedule"
 msgstr ""
 
-#: itdagene/app/workschedule/models.py:83
+#: itdagene/app/workschedule/models.py:84
 msgid "work schedules"
 msgstr ""
 
-#: itdagene/app/workschedule/models.py:94
+#: itdagene/app/workschedule/models.py:95
 msgid "schedule"
 msgstr ""
 
-#: itdagene/app/workschedule/models.py:100
+#: itdagene/app/workschedule/models.py:101
 msgid "worker"
 msgstr ""
 
-#: itdagene/app/workschedule/models.py:102
+#: itdagene/app/workschedule/models.py:103
 msgid "has met"
 msgstr ""
 
@@ -2263,7 +2381,7 @@ msgstr ""
 
 #: itdagene/app/workschedule/templates/workschedule/list.html:17
 #: itdagene/app/workschedule/templates/workschedule/list.html:52
-#: itdagene/app/workschedule/views.py:112
+#: itdagene/app/workschedule/views.py:113
 msgid "Task"
 msgstr ""
 
@@ -2278,12 +2396,12 @@ msgstr ""
 
 #: itdagene/app/workschedule/templates/workschedule/list.html:76
 #: itdagene/app/workschedule/templates/workschedule/view.html:34
-#: itdagene/settings/base.py:61
+#: itdagene/settings/base.py:64
 msgid "Workers"
 msgstr ""
 
 #: itdagene/app/workschedule/templates/workschedule/submenu.html:4
-#: itdagene/templates/base_admin.html:190
+#: itdagene/templates/base_admin.html:212
 msgid "Workschedules"
 msgstr ""
 
@@ -2292,17 +2410,17 @@ msgid "Add Task"
 msgstr ""
 
 #: itdagene/app/workschedule/templates/workschedule/submenu.html:11
-#: itdagene/app/workschedule/views.py:65
+#: itdagene/app/workschedule/views.py:66
 msgid "Edit Task"
 msgstr ""
 
 #: itdagene/app/workschedule/templates/workschedule/submenu.html:15
-#: itdagene/app/workschedule/views.py:17
+#: itdagene/app/workschedule/views.py:18
 msgid "Add Worker"
 msgstr ""
 
 #: itdagene/app/workschedule/templates/workschedule/submenu.html:19
-#: itdagene/app/workschedule/views.py:48
+#: itdagene/app/workschedule/views.py:49
 msgid "Edit Worker"
 msgstr ""
 
@@ -2318,138 +2436,134 @@ msgstr ""
 msgid "Change Attendance"
 msgstr ""
 
-#: itdagene/app/workschedule/views.py:31
+#: itdagene/app/workschedule/views.py:32
 msgid "Add Work Schedule"
 msgstr ""
 
-#: itdagene/core/log/models.py:22 itdagene/core/notifications/models.py:14
+#: itdagene/core/log/models.py:29 itdagene/core/notifications/models.py:25
 msgid "priority"
 msgstr ""
 
-#: itdagene/core/log/models.py:25
+#: itdagene/core/log/models.py:32
 msgid "action"
 msgstr ""
 
-#: itdagene/core/models.py:39
-msgid "Photo"
-msgstr "Bilde"
-
-#: itdagene/core/models.py:48
+#: itdagene/core/models.py:67
 msgid "Send mail notifications"
 msgstr ""
 
-#: itdagene/core/models.py:51
+#: itdagene/core/models.py:70
 msgid "Active Year"
 msgstr "Aktivt år"
 
-#: itdagene/core/models.py:52
+#: itdagene/core/models.py:71
 msgid "Year the user was active."
 msgstr "År brukeren var aktiv"
 
-#: itdagene/core/models.py:150
+#: itdagene/core/models.py:179
 msgid "Development Mode"
 msgstr "Utviklermodus"
 
-#: itdagene/core/models.py:152
+#: itdagene/core/models.py:181
 msgid ""
 "This option puts the site in development mode. The public page will be "
 "disabled."
 msgstr ""
 "Setter nettsiden i utviklermodus. Den offentlige siden vil bli utilgjengelig."
 
-#: itdagene/core/models.py:158
+#: itdagene/core/models.py:188
 msgid "start date"
 msgstr "Startdato"
 
-#: itdagene/core/models.py:159
+#: itdagene/core/models.py:189
 msgid "end date"
 msgstr "Sluttdato"
 
-#: itdagene/core/models.py:162
+#: itdagene/core/models.py:192
 msgid "number of stands"
 msgstr "Antall stands"
 
-#: itdagene/core/models.py:163
+#: itdagene/core/models.py:193
 msgid "This is for each day, not the sum of each day"
 msgstr "Dette gjelder per dag, ikke totalt."
 
-#: itdagene/core/models.py:166
+#: itdagene/core/models.py:196
 msgid "view partners"
 msgstr "Vis samarbeidspartnere"
 
-#: itdagene/core/models.py:167
+#: itdagene/core/models.py:197
 msgid "Should all collaborators be displayed on the front page?"
 msgstr "Skal alle samarbeidspartnere bli vist på nettsiden?"
 
-#: itdagene/core/models.py:171
+#: itdagene/core/models.py:201
 msgid "view main collaborator"
 msgstr "Vis hovedsamarbeidspartner"
 
-#: itdagene/core/models.py:172
+#: itdagene/core/models.py:202
 msgid "Should the main collaborator be displayed on the front page?"
 msgstr "Skal hovedsamarbeidspartner bli vist på nettsiden?"
 
-#: itdagene/core/models.py:176
+#: itdagene/core/models.py:206
 msgid "view all comapnies"
 msgstr "Vis alle bedrifter"
 
-#: itdagene/core/models.py:177
+#: itdagene/core/models.py:207
 msgid "Should all companies be displayed on the front page?"
 msgstr "Skal alle bedrifter vises på nettsiden?"
 
-#: itdagene/core/models.py:184
+#: itdagene/core/models.py:214
 msgid "Main collaborator introduction"
 msgstr "Hovedsamarbeidspartnerintroduksjon"
 
-#: itdagene/core/models.py:186
+#: itdagene/core/models.py:216
 msgid ""
 "Introduction of main collaborator to be displayed above video on front page"
 msgstr ""
 "Introduksjon av hovedsamarbeidspartner. Vises over videoen på fremsiden."
 
-#: itdagene/core/models.py:192
+#: itdagene/core/models.py:223
 msgid "Main collaborator video URL"
 msgstr "Hovedsamarbeidspartner video URL"
 
-#: itdagene/core/models.py:193
+#: itdagene/core/models.py:224
 msgid "URL to the video introduction of main collaborator"
 msgstr ""
 "URL til videointroduksjon av HSP, f. eks. https://cdn.itdagene.no/HSP.mp4"
 
-#: itdagene/core/models.py:198
+#: itdagene/core/models.py:229
 msgid "Main collaborator poster URL"
 msgstr "Hovedsamarbeidspartner poster URL"
 
-#: itdagene/core/models.py:199
+#: itdagene/core/models.py:230
 msgid "URL to the image to display before video is played"
 msgstr "URL til bilde som vises før videoen spilles av"
 
-#: itdagene/core/models.py:203
+#: itdagene/core/models.py:234
 msgid "Show interest form"
 msgstr "Vis interesseskjema"
 
-#: itdagene/core/models.py:204
+#: itdagene/core/models.py:236
 msgid ""
 "Should the company participation interest form be visible on the front page?"
 msgstr "Skal interesseskjema for bedrifter bli vist på nettsiden?"
 
-#: itdagene/core/models.py:209
+#: itdagene/core/models.py:243
 msgid "Interest form URL"
 msgstr "Interesseskjema URL"
 
-#: itdagene/core/models.py:210
+#: itdagene/core/models.py:244
 msgid "What is the URL to the company participation interest form?"
 msgstr "Hva er URL-addressen til interesseskjemaet?"
 
-#: itdagene/core/notifications/models.py:18
+#: itdagene/core/notifications/models.py:29
 msgid "message"
 msgstr "melding"
 
-#: itdagene/core/notifications/models.py:23
+#: itdagene/core/notifications/models.py:34
 msgid "send mail"
 msgstr ""
 
-#: itdagene/core/notifications/models.py:24
+#: itdagene/core/notifications/models.py:35
 msgid "sent mail"
 msgstr ""
 
@@ -2458,31 +2572,31 @@ msgstr ""
 msgid "You have %(notification_count)s notifications"
 msgstr ""
 
-#: itdagene/core/views.py:7
+#: itdagene/core/views.py:11
 msgid "Permission Denied"
 msgstr "Ingen Tilgang"
 
-#: itdagene/core/views.py:11
+#: itdagene/core/views.py:15
 msgid "Page not Found"
 msgstr "Side Ikke Funnet"
 
-#: itdagene/core/views.py:15
+#: itdagene/core/views.py:19
 msgid "Internal Server Error"
 msgstr "Intern serverfeil"
 
-#: itdagene/core/views.py:23
+#: itdagene/core/views.py:27
 msgid "Under Development"
 msgstr "Under Utvikling"
 
-#: itdagene/settings/base.py:59
+#: itdagene/settings/base.py:62
 msgid "Board member"
 msgstr "Styremedlem"
 
-#: itdagene/settings/base.py:60
+#: itdagene/settings/base.py:63
 msgid "Company profile"
 msgstr "Bedriftsprofil"
 
-#: itdagene/settings/base.py:62
+#: itdagene/settings/base.py:65
 msgid "Unknown"
 msgstr "Ukjent"
 
@@ -2502,6 +2616,14 @@ msgstr "Profil"
 #: itdagene/templates/base_admin.html:66
 msgid "Logout"
 msgstr "Logg ut"
+
+#: itdagene/templates/base_admin.html:128
+msgid "FAQ"
+msgstr ""
+
+#: itdagene/templates/base_admin.html:139
+msgid "Gallery"
+msgstr "Galleri"
 
 #: itdagene/templates/markdown_help.html:4
 msgid "Markdown Help"
@@ -2578,9 +2700,9 @@ msgid ""
 "a> if you should have had permission to this object. Copy the info below "
 "into the email."
 msgstr ""
-"Send en epost til <a href=\"mailto:%(prefix)s@%(domain)s\">%(prefix)s@"
-"%(domain)s</a> om du skulle hatt tilgang til dette. Inkluder informasjonen "
-"under inn i eposten. "
+"Send en epost til <a href=\"mailto:"
+"%(prefix)s@%(domain)s\">%(prefix)s@%(domain)s</a> om du skulle hatt tilgang "
+"til dette. Inkluder informasjonen under inn i eposten. "
 
 #: itdagene/templates/static/404.html:16
 msgid "Oops! Page not found."

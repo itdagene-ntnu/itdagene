@@ -9,10 +9,10 @@ register = Library()
 
 
 @register.filter
-def load_thumbnails(value):
-    images = re.findall(  # noqa
-        '<img class="thumbnail"( alt="([a-zA-Z0-9\.\:\/_ -]+)?")? '  # noqa
-        'src="([a-zA-Z0-9\.\:\/_ -]+)"([a-zA-Z0-9\.\:\;\/_=" -]+)?>',  # noqa
+def load_thumbnails(value: str) -> str:
+    images = re.findall(
+        r'<img class="thumbnail"( alt="([a-zA-Z0-9\.\:\/_ -]+)?")? '
+        r'src="([a-zA-Z0-9\.\:\/_ -]+)"([a-zA-Z0-9\.\:\;\/_=" -]+)?>',
         value,
     )
     if settings.DEBUG:
@@ -23,25 +23,29 @@ def load_thumbnails(value):
     else:
         url = "http://%s" % settings.SITE_URL
     for i in images:
-        width = re.search(r"width:( )?(\d+)px;", i[3])
-        if width:
-            width = int(width.group().replace("width:", "").replace("px;", "").strip())
-            if width > 1000:
-                width = 1000
+        re_match = re.search(r"width:( )?(\d+)px;", i[3])
 
-            value = value.replace(i[3], ' style="width: %d;"' % width)
+        if re_match is not None:
+            width = int(
+                re_match.group().replace("width:", "").replace("px;", "").strip()
+            )
+            width = min(width, 1000)
+            value = value.replace(i[3], f' style="width: {width};"')
         else:
             width = 1000
 
-        float = re.search(r"float:([ ]+)?(\w+);", i[3])
-        if float:
+        float_ = re.search(r"float:([ ]+)?(\w+);", i[3])
+
+        if float_:
             value = value.replace(
                 "style=",
-                'class="pull-%s" style='
-                % float.group().replace("float:", "").replace(";", "").strip(),
+                'class="pull-'
+                f'{float_.group().replace("float:", "").replace(";", "").strip()}"'
+                " style=",
             )
 
         image = i[2]
-        im = get_thumbnail("%s%s" % (url, image), "%d" % width)
+        im = get_thumbnail(f"{url}{image}", str(width))
         value = value.replace(image, im.url)
+
     return value

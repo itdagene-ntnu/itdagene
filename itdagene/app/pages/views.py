@@ -62,7 +62,7 @@ def edit(request, slug, lang_code="nb"):
             "form": form,
             "page": page,
             "title": _("Edit Page"),
-            "description": page.title,
+            "description": page.title,  # type: ignore
         },
     )
 
@@ -85,5 +85,7 @@ def delete(request, slug, lang_code="nb"):
 def admin(request):
     pages = Page.objects.all().order_by("menu", "active")
     return render(
-        request, "pages/admin.html", {"pages": pages, "title": _("Pages Admin")}
+        request,
+        "pages/admin.html",
+        {"pages": pages, "title": _("Pages Admin")},
     )

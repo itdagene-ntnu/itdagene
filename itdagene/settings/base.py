@@ -119,6 +119,7 @@ INSTALLED_APPS = [
     "itdagene.graphql",
     "itdagene.app.frontpage",
     "itdagene.app.pages",
+    "itdagene.app.faq",
     "itdagene.app.news",
     "itdagene.app.mail",
     "itdagene.app.users",
@@ -133,6 +134,7 @@ INSTALLED_APPS = [
     "itdagene.app.workschedule",
     "itdagene.app.experiences",
     "itdagene.app.stands",
+    "itdagene.app.gallery",
     "graphene_django",
     "corsheaders",
 ]
@@ -163,7 +165,7 @@ MESSAGE_TAGS = {
 }
 
 CORS_ORIGIN_WHITELIST = ["https://itdagene.no"]
-GRAPHENE: dict[str, Union[list[str], str]] = {
+GRAPHENE = {
     "MIDDLEWARE": [
         "itdagene.graphql.middleware.LoaderMiddleware",
         "itdagene.graphql.middleware.ResolveLimitMiddleware",

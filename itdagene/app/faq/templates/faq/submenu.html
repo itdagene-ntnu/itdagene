@@ -1,0 +1,11 @@
+{% load i18n %}
+{% load menu %}
+<ul class="nav nav-treeview">
+    <li class="nav-item">
+        <a class="nav-link {% active request 'faq/$' %}" href="{% url "itdagene.faq.list_questions" %}"><i class="nav-icon far fa-circle"></i> {% trans "All Questions" %}</a>
+    </li>
+        <li class="nav-item">
+            <a class="nav-link {% active request 'faq/add' %}" href="{% url "itdagene.faq.add_question" %}">
+                <i class="nav-icon far fa-circle"></i> {% trans "Add Question" %}</a>
+        </li>
+</ul>

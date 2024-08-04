@@ -11,6 +11,7 @@ from itdagene.app.career.models import Town as ItdageneTown
 from itdagene.app.company.models import Company as ItdageneCompany
 from itdagene.app.company.models import KeyInformation as ItdageneKeyInformation
 from itdagene.app.events.models import Event as ItdageneEvent
+from itdagene.app.faq.models import Question as ItdageneQuestion
 from itdagene.app.pages.models import Page as ItdagenePage
 from itdagene.app.stands.models import DigitalStand as ItdageneStand
 from itdagene.core.models import Preference
@@ -110,13 +111,22 @@ class Page(DjangoObjectType):
 class User(DjangoObjectType):
     full_name = String()
     role = String()
+    linkedin = String()
     photo = Field(String, height=Int(), width=Int())
 
     class Meta:
         model = ItdageneUser
         interfaces = (Node,)
         description = "User entity"
-        only_fields = ("id", "firstName", "lastName", "email", "year", "role")
+        only_fields = (
+            "id",
+            "firstName",
+            "lastName",
+            "email",
+            "year",
+            "role",
+            "linkedin",
+        )
 
     def resolve_full_name(self, info: Any) -> Optional[str]:
         return self.get_full_name()
@@ -153,6 +163,18 @@ class Event(DjangoObjectType):
         they are of the type 'promoted stand event' (7).
         """
         return ItdageneEvent.objects.filter(Q(stand=None) | Q(type=7))
+
+
+class Question(DjangoObjectType):
+    class Meta:
+        model = ItdageneQuestion
+        description = "A question for the FAQ"
+        only_fields = ("question", "answer")
+        interfaces = (Node,)
+
+    @classmethod
+    def get_queryset(cls):
+        return ItdageneQuestion.objects.all()
 
 
 class Stand(DjangoObjectType):

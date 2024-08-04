@@ -44,6 +44,4 @@ class SearchType(Enum):
     def description(self) -> Optional[str]:
         if self != SearchType.COMPANY_WITH_JOBLISTING:
             return None
-        return (
-            "Search for companies with one or more joblisting. Useful for " "filtering"
-        )
+        return "Search for companies with one or more joblisting. Useful for filtering"

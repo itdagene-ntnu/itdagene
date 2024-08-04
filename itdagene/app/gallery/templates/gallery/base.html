@@ -1,0 +1,41 @@
+{% extends "base_admin.html" %}
+{% load i18n staticfiles %}
+
+{% block content %}
+    <div class="row">
+    <div class="col-lg-12">
+    <div class="card card-outline card-primary">
+        <div class="card-body no-padding">
+            <table class="table table-hover tablesorter" id="myTable">
+                <thead>
+                <tr>
+                    <th>{% trans "Photo" %}</th>
+                    <th>{% trans "Actions" %}</th>
+                </tr>
+                </thead>
+                {% for photo in photos %}
+                    <tr>
+                        <td>{{ photo.name }}</td>
+                        <td>
+                            {% if perms.faq.delete_question %}
+                                <a href="{% url "itdagene.gallery.delete_photo" photo.pk %}""><i class="fas fa-trash"></i> {% trans "Delete" %}</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    </div>
+    </div>
+{% endblock %}
+{% block inline-scripts %}
+    <script src="{% static "lib/tablesorter/dist/js/jquery.tablesorter.combined.min.js" %}"></script>
+    <script>
+        $(document).ready(function()
+                {
+                    $("#myTable").tablesorter({textExtraction: 'complex'});
+                }
+        );
+    </script>
+{% endblock %}

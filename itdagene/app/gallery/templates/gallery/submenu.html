@@ -1,0 +1,11 @@
+{% load i18n %}
+{% load menu %}
+<ul class="nav nav-treeview">
+    <li class="nav-item">
+        <a class="nav-link {% active request 'gallery/$' %}" href="{% url "itdagene.gallery.list_photos" %}"><i class="nav-icon far fa-circle"></i> {% trans "All Photos" %}</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {% active request 'gallery/add' %}" href="{% url "itdagene.gallery.add_photo" %}">
+            <i class="nav-icon far fa-circle"></i> {% trans "Add Photo" %}</a>
+    </li>
+</ul>

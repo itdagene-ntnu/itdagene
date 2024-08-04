@@ -1,4 +1,4 @@
-#file endings not of generated files
+# file endings not of generated files
 *.pyc
 *.pyo
 *.orig
@@ -7,7 +7,8 @@
 .idea
 project.db
 pickle*.txt
-#generated buildout stuff
+
+# generated buildout stuff
 bin
 develop-eggs
 downloads
@@ -33,6 +34,7 @@ node_modules/
 itdagene/assets/frontend/itdagene.css
 itdagene/assets/frontend/itdagene.js
 .coverage
+.mypy_cache/
 .tox/
 coverage.xml
 dump.rdb
@@ -41,6 +43,5 @@ dump.rdb
 yarn-error.log
 
 # Celerystuff
-
 celerybeat-schedule
 celerybeat.pid
