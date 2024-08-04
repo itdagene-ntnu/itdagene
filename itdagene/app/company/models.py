@@ -1,3 +1,8 @@
+from __future__ import annotations
+
+from collections.abc import Collection
+from typing import Optional
+
 from django.core.exceptions import ValidationError
 from django.db.models import (
     CASCADE,
@@ -39,7 +44,7 @@ class Package(BaseModel):
     is_full = BooleanField(verbose_name=_("is full"), default=False)
 
     def __str__(self) -> str:
-        return self.name
+        return str(self.name)
 
     def get_absolute_url(self) -> str:
         return reverse("itdagene.company.packages.view", args=[self.pk])
@@ -57,7 +62,7 @@ class Package(BaseModel):
                 package.is_full = False
             package.save(log_it=False, notify_subscribers=False)
 
-    def save(self, log_it: bool = True, *args, **kwargs) -> None:
+    def save(self, log_it=True, *args, **kwargs):
         action = "EDIT" if self.pk else "CREATE"
         super(Package, self).save(*args, **kwargs)
         if log_it:
@@ -125,7 +130,7 @@ class Company(BaseModel):
     has_public_profile = BooleanField(verbose_name=_("profile"), default=False)
 
     def __str__(self) -> str:
-        return self.name
+        return str(self.name)
 
     def get_absolute_url(self) -> str:
         return reverse("itdagene.company.view", args=[self.pk])
@@ -143,29 +148,31 @@ class Company(BaseModel):
         ordering = ("name",)
 
     @property
-    def nr_of_banquet_tickets(self):
+    def nr_of_banquet_tickets(self) -> int:
         contract = self.latest_contract()
         if contract is not None:
             return contract.banquet_tickets
         return 0
 
     @property
-    def nr_of_joblistings(self):
+    def nr_of_joblistings(self) -> int:
         contract = self.latest_contract()
         if contract:
             return contract.joblistings
         return 0
 
-    def latest_contract(self):
+    def latest_contract(self) -> Optional[Contract]:
         if self.contracts.all().count():
             return self.contracts.all().order_by("timestamp").reverse()[0]
+        return None
 
-    def current_contract(self):
+    def current_contract(self) -> Optional[Contract]:
         c = Contract.objects.filter(
             company=self, timestamp__year=Preference.current_preference().year
         )
         if c.count() > 0:
             return c[0]
+        return None
 
     @classmethod
     def get_signed_with_packages(cls):
@@ -287,7 +294,7 @@ class Contract(BaseModel):
     def save(self, *args, **kwargs) -> None:
         super(Contract, self).save(*args, **kwargs)
 
-    def clean_fields(self, exclude=None) -> None:
+    def clean_fields(self, exclude: Optional[Collection[str]] = None) -> None:
         if getattr(self, "company", False):
             if self.company.tickets.all().count() >= self.company.nr_of_banquet_tickets:
                 raise ValidationError("Cannot add more tickets to this company.")

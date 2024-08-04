@@ -15,4 +15,4 @@ class Announcement(BaseModel):
         verbose_name_plural = _("announcements")
 
     def __str__(self) -> str:
-        return self.title
+        return str(self.title)

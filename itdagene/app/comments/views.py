@@ -1,3 +1,5 @@
+from typing import Optional
+
 from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import ERROR, add_message
 from django.http import HttpRequest, HttpResponse
@@ -10,7 +12,7 @@ from itdagene.app.mail.tasks import send_comment_email
 
 
 @permission_required("comments.add_comment")
-def add(request: HttpRequest) -> HttpResponse:
+def add(request: HttpRequest) -> Optional[HttpResponse]:
     if request.method == "POST":
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -26,3 +28,4 @@ def add(request: HttpRequest) -> HttpResponse:
             add_message(request, ERROR, _("Could not post comment"))
             object_ = form.instance.object
             return redirect(object_.get_absolute_url())
+    return None

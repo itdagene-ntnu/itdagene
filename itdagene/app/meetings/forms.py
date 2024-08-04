@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.forms import BooleanField, MultipleChoiceField
 from django.forms.models import ModelForm
 from django.shortcuts import get_object_or_404
@@ -25,7 +27,7 @@ class MeetingForm(ModelForm):
             (user.pk, user.get_full_name()) for user in users
         ]
 
-    def save(self, commit: bool = True):
+    def save(self, commit: bool = True) -> MeetingForm:
         pref = Preference.current_preference()
         meeting = super(MeetingForm, self).save(commit=commit)
 

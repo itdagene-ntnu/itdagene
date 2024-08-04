@@ -27,7 +27,7 @@ class Town(BaseModel):
     name = CharField(max_length=100, verbose_name=_("name"))
 
     def __str__(self) -> str:
-        return self.name
+        return str(self.name)
 
 
 class Joblisting(BaseModel):
@@ -77,7 +77,7 @@ class Joblisting(BaseModel):
     )
 
     def __str__(self) -> str:
-        return self.title
+        return str(self.title)
 
     def get_absolute_url(self) -> str:
         return reverse("itdagene.career.view", args=[self.pk])

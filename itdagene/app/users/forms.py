@@ -1,5 +1,5 @@
-from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from django.forms import ModelForm, ValidationError
 
 from itdagene.core.models import User
 
@@ -32,12 +32,13 @@ class UserCreateForm(UserCreationForm):
             User._default_manager.get(username=username)
         except User.DoesNotExist:
             return username
-        raise forms.ValidationError(
-            self.error_messages["duplicate_username"], code="duplicate_username"
+        raise ValidationError(
+            self.error_messages["duplicate_username"],
+            code="duplicate_username",
         )
 
 
-class UserEditForm(forms.ModelForm):
+class UserEditForm(ModelForm):
     class Meta:
         model = User
         fields = (
@@ -57,7 +58,7 @@ class UserEditForm(forms.ModelForm):
         )
 
 
-class SimpleUserEditForm(forms.ModelForm):
+class SimpleUserEditForm(ModelForm):
     class Meta:
         model = User
         fields = (

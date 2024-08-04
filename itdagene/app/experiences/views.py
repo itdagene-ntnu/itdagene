@@ -37,7 +37,7 @@ def view(request: HttpRequest, id_) -> HttpResponse:
         {
             "experience": experience,
             "title": _("Experience"),
-            "description": str(experience) + " " + str(experience.year.year),
+            "description": f"{experience} {experience.year.year}",
         },
     )
 
@@ -74,6 +74,6 @@ def edit(request: HttpRequest, id_) -> HttpResponse:
             "form": form,
             "experience": es,
             "title": _("Edit Experience"),
-            "description": str(es) + " " + str(es.year.year),
+            "description": f"{es} {es.year.year}",
         },
     )

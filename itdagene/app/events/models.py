@@ -59,7 +59,7 @@ class Event(BaseModel):
     )
 
     def __str__(self) -> str:
-        return self.title
+        return str(self.title)
 
     def get_absolute_url(self) -> str:
         return reverse("itdagene.events.view_event", args=[self.pk])
@@ -87,7 +87,7 @@ class Ticket(BaseModel):
     class Meta:
         ordering = ("last_name",)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.event.title}: {self.full_name()}"
 
     def full_name(self) -> str:

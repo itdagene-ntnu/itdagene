@@ -32,4 +32,4 @@ class Experience(BaseModel):
     text = TextField(blank=True, null=True, verbose_name=_("Experiences"))
 
     def __str__(self) -> str:
-        return str(BOARD_POSITION[self.position][1])
+        return BOARD_POSITION[self.position][1]

@@ -1,4 +1,15 @@
-from django.db import models
+from django.db.models import (
+    CASCADE,
+    BooleanField,
+    CharField,
+    DateField,
+    EmailField,
+    ForeignKey,
+    IntegerField,
+    PositiveIntegerField,
+    TextField,
+    TimeField,
+)
 from django.utils.translation import gettext_lazy as _
 
 from itdagene.core.log.models import LogItem
@@ -17,18 +28,18 @@ class Worker(BaseModel):
         (8, "XXXXL"),
     )
 
-    name = models.CharField(max_length=100, verbose_name=_("name"))
-    phone = models.IntegerField(verbose_name=_("phone number"), default=0)
-    t_shirt_size = models.IntegerField(
+    name = CharField(max_length=100, verbose_name=_("name"))
+    phone = IntegerField(verbose_name=_("phone number"), default=0)
+    t_shirt_size = IntegerField(
         choices=SIZES, verbose_name=_("t-shirt size"), default=0
     )
-    email = models.EmailField(verbose_name=_("email"), blank=True)
-    preference = models.PositiveIntegerField(verbose_name=_("year"))
+    email = EmailField(verbose_name=_("email"), blank=True)
+    preference = PositiveIntegerField(verbose_name=_("year"))
 
-    def __str__(self):
-        return self.name
+    def __str__(self) -> str:
+        return str(self.name)
 
-    def schedules(self):
+    def schedules(self) -> list:
         return [
             i.schedule
             for i in self.in_schedules.all().order_by(
@@ -36,7 +47,7 @@ class Worker(BaseModel):
             )
         ]
 
-    def as_dict(self):
+    def as_dict(self) -> dict:
         return {
             "name": str(self.name),
             "phone": self.phone,
@@ -50,19 +61,19 @@ class Worker(BaseModel):
 
 
 class WorkSchedule(BaseModel):
-    title = models.CharField(max_length=80, verbose_name=_("title"))
-    date = models.DateField(verbose_name=_("date"))
-    start_time = models.TimeField(verbose_name=_("start time"))
-    end_time = models.TimeField(verbose_name=_("end time"))
-    description = models.TextField(blank=True, verbose_name=_("Description"))
+    title = CharField(max_length=80, verbose_name=_("title"))
+    date = DateField(verbose_name=_("date"))
+    start_time = TimeField(verbose_name=_("start time"))
+    end_time = TimeField(verbose_name=_("end time"))
+    description = TextField(blank=True, verbose_name=_("Description"))
 
-    def __str__(self):
-        return self.title
+    def __str__(self) -> str:
+        return str(self.title)
 
-    def workers(self):
+    def workers(self) -> list:
         return [w.worker for w in self.workers_in_schedule.all()]
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs) -> None:
         if self.pk:
             action = "EDIT"
         else:
@@ -70,7 +81,7 @@ class WorkSchedule(BaseModel):
         super(WorkSchedule, self).save(*args, **kwargs)
         LogItem.log_it(self, action, 1)
 
-    def as_dict(self):
+    def as_dict(self) -> dict:
         return {
             "title": self.title,
             "date": str(self.date),
@@ -88,24 +99,24 @@ class WorkSchedule(BaseModel):
 
 
 class WorkerInSchedule(BaseModel):
-    schedule = models.ForeignKey(
+    schedule = ForeignKey(
         WorkSchedule,
-        on_delete=models.CASCADE,
+        on_delete=CASCADE,
         related_name="workers_in_schedule",
         verbose_name=_("schedule"),
     )
-    worker = models.ForeignKey(
+    worker = ForeignKey(
         Worker,
-        on_delete=models.CASCADE,
+        on_delete=CASCADE,
         related_name="in_schedules",
         verbose_name=_("worker"),
     )
-    has_met = models.BooleanField(verbose_name=_("has met"), default=False)
+    has_met = BooleanField(verbose_name=_("has met"), default=False)
 
     def __str__(self):
-        return "%s: %s" % (str(self.schedule), self.worker.name)
+        return f"{self.schedule}: {self.worker.name}"
 
-    def as_dict(self):
+    def as_dict(self) -> dict:
         return {
             "title": self.schedule.title,
             "date": str(self.schedule.date),

@@ -1,19 +1,32 @@
-from django import forms
+from __future__ import annotations
+
+from django.forms import MultipleChoiceField
 from django.forms.models import ModelForm
 from django.utils.translation import gettext_lazy as _
 
-from itdagene.app.workschedule.models import Worker, WorkerInSchedule, WorkSchedule
+from itdagene.app.workschedule.models import (
+    Worker,
+    WorkerInSchedule,
+    WorkSchedule,
+)
 from itdagene.core.models import Preference
 
 
 class WorkScheduleForm(ModelForm):
-    invites = forms.MultipleChoiceField(label=_("Add worker"), required=False)
+    invites = MultipleChoiceField(label=_("Add worker"), required=False)
 
     class Meta:
         model = WorkSchedule
-        fields = ("title", "date", "start_time", "end_time", "description", "invites")
+        fields = (
+            "title",
+            "date",
+            "start_time",
+            "end_time",
+            "description",
+            "invites",
+        )
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super(WorkScheduleForm, self).__init__(*args, **kwargs)
         workers = Worker.objects.filter(
             preference=Preference.current_preference().year
@@ -23,11 +36,13 @@ class WorkScheduleForm(ModelForm):
         ]
         self.fields["invites"].widget.attrs["class"] = "chosen"
 
-    def save(self, commit=True):
+    def save(self, commit: bool = True) -> WorkScheduleForm:
         workschedule = super(WorkScheduleForm, self).save(commit=commit)
 
         for i in self.cleaned_data["invites"]:
-            WorkerInSchedule.objects.get_or_create(schedule=workschedule, worker_id=i)
+            WorkerInSchedule.objects.get_or_create(
+                schedule=workschedule, worker_id=i
+            )
 
         return workschedule
 
@@ -37,10 +52,10 @@ class WorkerForm(ModelForm):
         model = Worker
         fields = ("name", "phone", "email", "t_shirt_size")
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super(WorkerForm, self).__init__(*args, **kwargs)
 
-    def save(self):
+    def save(self) -> WorkerForm:
         pref = Preference.current_preference()
         worker = super(WorkerForm, self).save(commit=False)
         worker.preference = pref.year

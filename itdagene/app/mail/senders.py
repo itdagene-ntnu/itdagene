@@ -11,16 +11,21 @@ from itdagene.core.notifications.models import Subscription
 
 
 def send_email(
-    recipients, subject, template, template_html, params, sender=settings.SERVER_EMAIL
+    recipients,
+    subject: str,
+    template: str,
+    template_html: str,
+    params: dict,
+    sender: str = settings.SERVER_EMAIL,
 ):
     params["site"] = settings.SITE
 
-    mail_contents = render_to_string("mail/%s" % (template,), params)
-    mail_contents_html = render_to_string("mail/%s" % (template_html,), params)
+    mail_contents = render_to_string(f"mail/{template}", params)
+    mail_contents_html = render_to_string(f"mail/{template_html}", params)
 
     connection = get_connection(fail_silently=True)
 
-    messages = []
+    messages: list = []
     for recipient in recipients:
         message = EmailMultiAlternatives(subject, mail_contents, sender, [recipient])
         message.attach_alternative(mail_contents_html, "text/html")
@@ -29,7 +34,7 @@ def send_email(
     return connection.send_messages(messages)
 
 
-def users_send_welcome_email(user):
+def users_send_welcome_email(user) -> None:
     with translation.override(user.language):
         new_password = generate_password()
         user.set_password(new_password)
@@ -44,7 +49,7 @@ def users_send_welcome_email(user):
         )
 
 
-def notifications_send_email(notification):
+def notifications_send_email(notification) -> None:
     for user in notification.users.all():
         if not user.mail_notification:
             continue
@@ -58,15 +63,22 @@ def notifications_send_email(notification):
             )
 
             send_email(
-                [user.email], _("New notification"), template, template_html, context
+                [user.email],
+                _("New notification"),
+                template,
+                template_html,
+                context,
             )
 
 
-def meeting_send_invite(users, meeting):
+def meeting_send_invite(users, meeting) -> None:
     for user in users:
         with translation.override(user.language):
             context = {"meeting": meeting}
-            template, template_html = "meetings/invite.txt", "meetings/invite.html"
+            template, template_html = (
+                "meetings/invite.txt",
+                "meetings/invite.html",
+            )
             send_email(
                 [user.email],
                 _("Meeting Invite %s %s")
@@ -77,7 +89,7 @@ def meeting_send_invite(users, meeting):
             )
 
 
-def send_comment_email(comment):
+def send_comment_email(comment) -> None:
     attached_object = comment.object
 
     if attached_object:
