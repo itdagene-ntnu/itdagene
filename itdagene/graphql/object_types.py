@@ -66,6 +66,7 @@ class Joblisting(DjangoObjectType):
     def resolve_sharing_image(self, info: Any, **kwargs) -> Optional[str]:
         if self.company.logo:
             return resize_image(self.company.logo, width=1200, height=630)
+        return None
 
     def resolve_company(self, info, **kwargs):
         return info.context.loaders.Companyloader.load(self.company_id)
@@ -334,6 +335,7 @@ class MetaData(DjangoObjectType):
     def resolve_interest_form(self, info: Any) -> Optional[str]:
         if self.show_interest_form:
             return self.interest_form_url
+        return None
 
     class Meta:
         model = Preference

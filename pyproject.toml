@@ -13,3 +13,28 @@ skip_glob = [
     "itdagene/assets/*",
     "itdagene/locale/*",
 ]
+
+[tool.mypy]
+python_version = "3.7"
+check_untyped_defs = true
+# disallow_incomplete_defs = true
+# disallow_untyped_defs = true
+ignore_missing_imports = true
+implicit_optional = false
+strict_equality = true
+strict_optional = true
+warn_redundant_casts = true
+warn_unreachable = true
+warn_unused_configs = true
+warn_unused_ignores = true
+enable_error_code = [
+    "redundant-self",
+    "redundant-expr",
+    "possibly-undefined",
+    "truthy-bool",
+]
+exclude = ["migrations", "venv", ".tox"]
+
+[[tool.mypy.overrides]]
+module = "itdagene.app.stands.models"
+disable_error_code = ["misc"]

@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any
 
 from django.conf import settings
 
@@ -10,6 +10,6 @@ def site_processor(request: Any) -> dict:
     return {"site": settings.SITE}
 
 
-def utils_processor(request: Any) -> Dict[str, Preference]:
+def utils_processor(request: Any) -> dict:
     """Find site information in templates."""
     return {"preferences": Preference.current_preference()}
