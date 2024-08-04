@@ -12,49 +12,50 @@ class Command(BaseCommand):
     requires_model_validation = False
     help = ""
 
-    def handle(self, *args, **options):
+    def handle(self, *args, **options) -> None:
         path = args[0]
         if not os.path.exists(path):
             print("First argument should be the path to the file with worker info")
             return
 
-        json_data = open(path)
-        data = json.load(json_data)
+        with open(path, encoding="utf-8") as json_data:
+            data = json.load(json_data)
+
         count = 0
 
         for worker in data:
             w = Worker(
                 phone=int(worker["tlf"]),
                 username=worker["username"],
-                email="%s@stud.ntnu.no" % worker["username"],
+                email=f"{worker['username']}@stud.ntnu.no",
             )
             if "name" in worker:
                 w.name = worker["name"]
             else:
-                w.name = ("%s %s" % (worker["firstname"], worker["lastname"]),)
+                w.name = (f"{worker['firstname']} {worker['lastname']}",)
 
             try:
                 w.t_shirt_size = int(worker["storrelse"])
             except ValueError:
-                str = worker["storrelse"].upper()
-                if str == "XS":
+                str_ = worker["storrelse"].upper()
+                if str_ == "XS":
                     w.t_shirt_size = 1
-                elif str == "S":
+                elif str_ == "S":
                     w.t_shirt_size = 2
-                elif str == "M":
+                elif str_ == "M":
                     w.t_shirt_size = 3
-                elif str == "L":
+                elif str_ == "L":
                     w.t_shirt_size = 4
-                elif str == "XL":
+                elif str_ == "XL":
                     w.t_shirt_size = 5
-                elif str == "XXL":
+                elif str_ == "XXL":
                     w.t_shirt_size = 6
-                elif str == "XXXL":
+                elif str_ == "XXXL":
                     w.t_shirt_size = 7
-                elif str == "XXXXL":
+                elif str_ == "XXXXL":
                     w.t_shirt_size = 8
 
             w.save()
             count += 1
 
-        print("Added %d workers" % count)
+        print(f"Added {count} workers")

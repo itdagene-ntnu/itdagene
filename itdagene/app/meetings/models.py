@@ -112,7 +112,7 @@ class ReplyMeeting(BaseModel):
     is_attending = BooleanField(verbose_name=_("attending"), null=True, blank=True)
 
     def __str__(self) -> str:
-        return gettext("Meeting participation: %(user)s") % {"user": str(self.user)}
+        return gettext(f"Meeting participation: {self.user}")
 
     def get_absolute_url(self) -> str:
         return reverse("itdagene.meetings.meeting", args=(self.meeting.pk,))

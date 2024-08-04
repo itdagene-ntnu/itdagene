@@ -203,5 +203,5 @@ def vcard(request: HttpRequest, pk) -> HttpResponse:
     output = vcard_string(person)
     filename = slugify(person.get_full_name())
     response = HttpResponse(output, content_type="text/x-vCard")
-    response["Content-Disposition"] = "attachment; filename=%s" % filename
+    response["Content-Disposition"] = f"attachment; filename={filename}"
     return response

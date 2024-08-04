@@ -42,7 +42,7 @@ def users_send_welcome_email(user) -> None:
 
         send_email(
             [user.email],
-            "%s %s" % (_("Welcome to"), settings.SITE["name"]),
+            f"{_('Welcome to')} {settings.SITE['name']}",
             "users/welcome_mail.txt",
             "users/welcome_mail.html",
             {"user": user, "password": new_password},
@@ -81,8 +81,7 @@ def meeting_send_invite(users, meeting) -> None:
             )
             send_email(
                 [user.email],
-                _("Meeting Invite %s %s")
-                % (str(meeting), formats.date_format(meeting.date)),
+                _(f"Meeting Invite {meeting} {formats.date_format(meeting.date)}"),
                 template,
                 template_html,
                 context,
@@ -124,7 +123,7 @@ def send_comment_email(comment) -> None:
 
                 send_email(
                     [user.email],
-                    _("New comment on %s") % str(comment.object),
+                    _(f"New comment on {comment.object}"),
                     template,
                     template_html,
                     context,
