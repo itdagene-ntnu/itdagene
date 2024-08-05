@@ -1,6 +1,6 @@
 mypy==1.4.1
 
 # stubs
-types-Markdown==3.3.4
+types-Markdown==3.6.0.20240316
 types-bleach==6.1.0.1
 # django-stubs==1.2.0
