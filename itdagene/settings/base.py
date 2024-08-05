@@ -1,6 +1,5 @@
 import os
 import sys
-from typing import Union
 
 from django.contrib.messages import ERROR, INFO, SUCCESS, WARNING
 from django.utils.translation import gettext_lazy as _

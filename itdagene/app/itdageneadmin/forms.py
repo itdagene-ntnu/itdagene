@@ -1,4 +1,3 @@
-from django import forms
 from django.contrib.auth.models import Group
 from django.forms import CharField, IntegerField
 from django.forms.forms import Form
@@ -19,7 +18,7 @@ class UserForm(ModelForm):
         )
 
 
-class RegisterUserForm(forms.Form):
+class RegisterUserForm(Form):
     username = CharField(max_length=8)
     first_name = CharField()
     last_name = CharField()
