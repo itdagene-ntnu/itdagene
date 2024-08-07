@@ -36,11 +36,11 @@ def solved_list(request: HttpRequest) -> HttpResponse:
 
 
 @login_required()
-def view(request: HttpRequest, id_) -> HttpResponse:
+def view(request: HttpRequest, id) -> HttpResponse:
     issue = (
-        get_object_or_404(Issue, pk=id_)
+        get_object_or_404(Issue, pk=id)
         if request.user.is_staff
-        else get_object_or_404(Issue, pk=id_, creator=request.user)
+        else get_object_or_404(Issue, pk=id, creator=request.user)
     )
 
     form = IssueAssignForm(instance=issue)
@@ -79,8 +79,8 @@ def add(request: HttpRequest) -> HttpResponse:
 
 
 @permission_required("feedback.change_issue")
-def edit(request: HttpRequest, id_=None) -> HttpResponse:
-    issue = get_object_or_404(Issue, pk=id_)
+def edit(request: HttpRequest, id=None) -> HttpResponse:
+    issue = get_object_or_404(Issue, pk=id)
     form = IssueForm(instance=issue)
     if request.method == "POST":
         form = IssueForm(request.POST, instance=issue)
@@ -114,8 +114,8 @@ def my_issues(request: HttpRequest) -> HttpResponse:
 
 
 @permission_required("feedback.change_issue")
-def solved(request: Any, id_) -> HttpResponse:
-    issue = get_object_or_404(Issue, pk=id_)
+def solved(request: Any, id) -> HttpResponse:
+    issue = get_object_or_404(Issue, pk=id)
     issue.solved_date = timezone.now()
     issue.is_solved = True
     issue.status = 3

@@ -22,8 +22,8 @@ def list(request: HttpRequest) -> HttpResponse:
 
 
 @permission_required("auth.change_group")
-def view(request: HttpRequest, id_) -> HttpResponse:
-    group = get_object_or_404(Group, pk=id_)
+def view(request: HttpRequest, id) -> HttpResponse:
+    group = get_object_or_404(Group, pk=id)
     members = User.objects.filter(groups=group)
     return render(
         request,
@@ -56,8 +56,8 @@ def add(request: HttpRequest) -> HttpResponse:
 
 
 @permission_required("auth.change_group")
-def edit(request: HttpRequest, id_) -> HttpResponse:
-    group = get_object_or_404(Group, id=id_)
+def edit(request: HttpRequest, id) -> HttpResponse:
+    group = get_object_or_404(Group, id=id)
     if request.method == "POST":
         form = GroupForm(request.POST, instance=group)
         if form.is_valid():
@@ -74,9 +74,9 @@ def edit(request: HttpRequest, id_) -> HttpResponse:
 
 
 @permission_required("auth.change_user")
-def add_user(request: HttpRequest, id_) -> HttpResponse:
+def add_user(request: HttpRequest, id) -> HttpResponse:
     if request.method == "POST":
-        group = get_object_or_404(Group, pk=id_)
+        group = get_object_or_404(Group, pk=id)
         form = AddUserToGroupForm(request.POST)
         if form.is_valid():
             try:

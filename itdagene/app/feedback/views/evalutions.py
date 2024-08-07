@@ -41,7 +41,7 @@ def report(request: HttpRequest, year=None) -> HttpResponse:
     )
     evaluations = Evaluation.objects.filter(preference=preferences, has_answers=True)
 
-    # Unused variables
+    # Unused variables, but they are included in `locals()`
     if evaluations.count():
         if evaluations.exclude(internship_marathon_rating=0).count():
             avg_internship_marathon_rating = (
@@ -79,5 +79,4 @@ def report(request: HttpRequest, year=None) -> HttpResponse:
     title = _("Evaluation of itDAGENE")
     description = preferences.year
     prev_year = preferences.year - 1
-
     return render(request, "feedback/evaluations/report.html", locals())

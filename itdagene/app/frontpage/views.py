@@ -17,7 +17,7 @@ def frontpage(request: HttpRequest) -> HttpResponse:
     todos = todo_list(request.user)
     now = timezone.now()
 
-    # Unused variables
+    # These also look like unused variables, but are in fact not
     if request.user.is_staff:
         open_issues = Issue.objects.filter(is_solved=False).count()
         assigned_you_issues = Issue.objects.filter(

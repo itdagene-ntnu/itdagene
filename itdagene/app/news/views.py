@@ -27,9 +27,9 @@ def create_announcement(request: HttpRequest) -> HttpResponse:
 
 
 @permission_required("news.change_announcement")
-def edit_announcement(request: HttpRequest, id_: bool = False) -> HttpResponse:
-    if id_:
-        ann = get_object_or_404(Announcement, pk=id_)
+def edit_announcement(request: HttpRequest, id=False) -> HttpResponse:
+    if id:
+        ann = get_object_or_404(Announcement, pk=id)
         form = AnnouncementForm(instance=ann)
         if request.method == "POST":
             form = AnnouncementForm(request.POST, request.FILES, instance=ann)

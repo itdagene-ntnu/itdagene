@@ -57,8 +57,8 @@ def add(request: HttpRequest) -> HttpResponse:
 
 
 @staff_required()
-def meeting(request: HttpRequest, id_) -> HttpResponse:
-    meeting_ = get_object_or_404(Meeting, pk=id_)
+def meeting(request: HttpRequest, id) -> HttpResponse:
+    meeting_ = get_object_or_404(Meeting, pk=id)
     try:
         reply = ReplyMeeting.objects.get(meeting=meeting_, user=request.user)
     except (TypeError, ReplyMeeting.DoesNotExist):
@@ -76,9 +76,9 @@ def meeting(request: HttpRequest, id_) -> HttpResponse:
 
 
 @permission_required("meetings.change_meeting")
-def add_penalties(request: HttpRequest, id_) -> HttpResponse:
-    if id_:
-        meeting_ = get_object_or_404(Meeting, pk=id_)
+def add_penalties(request: HttpRequest, id) -> HttpResponse:
+    if id:
+        meeting_ = get_object_or_404(Meeting, pk=id)
         form = PenaltyForm()
         if request.method == "POST":
             form = PenaltyForm(request.POST)
@@ -103,9 +103,9 @@ def add_penalties(request: HttpRequest, id_) -> HttpResponse:
 
 
 @staff_required()
-def send_invites(request: HttpRequest, id_) -> HttpResponse:
-    meeting_ = get_object_or_404(Meeting, pk=id_)
-    replies = ReplyMeeting.objects.filter(meeting__pk=id_, is_attending=None)
+def send_invites(request: HttpRequest, id) -> HttpResponse:
+    meeting_ = get_object_or_404(Meeting, pk=id)
+    replies = ReplyMeeting.objects.filter(meeting__pk=id, is_attending=None)
     users = [r.user for r in replies]
     meeting_send_invite.delay(users, meeting_)
     add_message(request, SUCCESS, _("All participants will receive a mail shortly."))
@@ -113,24 +113,24 @@ def send_invites(request: HttpRequest, id_) -> HttpResponse:
 
 
 @staff_required()
-def attend(request: HttpRequest, id_) -> HttpResponse:
-    reply = get_object_or_404(ReplyMeeting, meeting__pk=id_, user=request.user)
+def attend(request: HttpRequest, id) -> HttpResponse:
+    reply = get_object_or_404(ReplyMeeting, meeting__pk=id, user=request.user)
     reply.is_attending = True
     reply.save()
     return redirect(reverse("itdagene.meetings.meeting", args=[reply.meeting.pk]))
 
 
 @staff_required()
-def not_attend(request: HttpRequest, id_) -> HttpResponse:
-    reply = get_object_or_404(ReplyMeeting, meeting__pk=id_, user=request.user)
+def not_attend(request: HttpRequest, id) -> HttpResponse:
+    reply = get_object_or_404(ReplyMeeting, meeting__pk=id, user=request.user)
     reply.is_attending = False
     reply.save()
     return redirect(reverse("itdagene.meetings.meeting", args=[reply.meeting.pk]))
 
 
 @permission_required("meetings.change_meeting")
-def edit(request: HttpRequest, id_: bool = False) -> HttpResponse:
-    meeting_ = get_object_or_404(Meeting, pk=id_)
+def edit(request: HttpRequest, id=False) -> HttpResponse:
+    meeting_ = get_object_or_404(Meeting, pk=id)
     form = MeetingForm(instance=meeting_)
     if request.method == "POST":
         form = MeetingForm(request.POST, instance=meeting_)

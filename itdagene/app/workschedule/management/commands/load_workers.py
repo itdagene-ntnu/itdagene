@@ -38,22 +38,8 @@ class Command(BaseCommand):
                 w.t_shirt_size = int(worker["storrelse"])
             except ValueError:
                 str_ = worker["storrelse"].upper()
-                if str_ == "XS":
-                    w.t_shirt_size = 1
-                elif str_ == "S":
-                    w.t_shirt_size = 2
-                elif str_ == "M":
-                    w.t_shirt_size = 3
-                elif str_ == "L":
-                    w.t_shirt_size = 4
-                elif str_ == "XL":
-                    w.t_shirt_size = 5
-                elif str_ == "XXL":
-                    w.t_shirt_size = 6
-                elif str_ == "XXXL":
-                    w.t_shirt_size = 7
-                elif str_ == "XXXXL":
-                    w.t_shirt_size = 8
+                sizes = ("XS", "S", "M", "L", "XL", "XXL", "XXXL", "XXXXL")
+                w.t_shirt_size = sizes.index(str_) + 1
 
             w.save()
             count += 1

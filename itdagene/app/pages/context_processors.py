@@ -1,4 +1,3 @@
-# -*- coding: utf8 -*-
 from typing import Any
 
 from itdagene.app.pages.models import Page

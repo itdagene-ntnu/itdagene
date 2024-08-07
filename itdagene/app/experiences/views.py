@@ -29,8 +29,8 @@ def list(request: HttpRequest) -> HttpResponse:
 
 
 @staff_required()
-def view(request: HttpRequest, id_) -> HttpResponse:
-    experience = get_object_or_404(Experience, pk=id_)
+def view(request: HttpRequest, id) -> HttpResponse:
+    experience = get_object_or_404(Experience, pk=id)
     return render(
         request,
         "experiences/view.html",
@@ -59,8 +59,8 @@ def add(request: HttpRequest) -> HttpResponse:
 
 
 @permission_required("experiences.change_experience")
-def edit(request: HttpRequest, id_) -> HttpResponse:
-    es = get_object_or_404(Experience, pk=id_)
+def edit(request: HttpRequest, id) -> HttpResponse:
+    es = get_object_or_404(Experience, pk=id)
     form = ExperienceForm(instance=es)
     if request.method == "POST":
         form = ExperienceForm(request.POST, instance=es)

@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 from django.conf import settings
 from django.db.models import (
@@ -64,16 +64,13 @@ class Meeting(BaseModel):
         super(Meeting, self).save(*args, **kwargs)
 
     def attending(self) -> list:
-        att = list(self.replies.filter(is_attending=True))
-        return att
+        return list(self.replies.filter(is_attending=True))
 
     def not_attending(self) -> list:
-        att = list(self.replies.filter(is_attending=False))
-        return att
+        return list(self.replies.filter(is_attending=False))
 
     def awaiting_reply(self) -> list:
-        att = list(self.replies.filter(is_attending=None))
-        return att
+        return list(self.replies.filter(is_attending=None))
 
     def attending_link(self) -> str:
         return (
@@ -90,11 +87,11 @@ class Meeting(BaseModel):
     def get_absolute_url(self) -> str:
         return reverse("itdagene.meetings.meeting", args=(self.pk,))
 
-    def get_start_date(self) -> datetime.datetime:
-        return datetime.datetime.combine(self.date, self.start_time)
+    def get_start_date(self) -> datetime:
+        return datetime.combine(self.date, self.start_time)
 
-    def get_end_date(self) -> datetime.datetime:
-        return datetime.datetime.combine(self.date, self.end_time)
+    def get_end_date(self) -> datetime:
+        return datetime.combine(self.date, self.end_time)
 
     class Meta:
         verbose_name = _("meeting")
