@@ -92,9 +92,9 @@ def vcard(request, id):
     person.email = contact.email
     person.phone = contact.phone
     output = vcard_string(person)
-    filename = "%s%s.vcf" % (person.first_name, person.last_name)
+    filename = f"{person.first_name}{person.last_name}.vcf"
     response = HttpResponse(output, content_type="text/x-vCard")
-    response["Content-Disposition"] = "attachment; filename=%s" % filename
+    response["Content-Disposition"] = f"attachment; filename={filename}"
     return response
 
 

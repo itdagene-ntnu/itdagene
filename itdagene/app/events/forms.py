@@ -28,7 +28,7 @@ class EventTicketForm(ModelForm):
         model = Ticket
         fields = ("company", "first_name", "last_name", "email")
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super(EventTicketForm, self).__init__(*args, **kwargs)
         companies = Company.objects.filter(active=True)
         self.fields["company"].queryset = companies

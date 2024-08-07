@@ -21,7 +21,7 @@ def load_thumbnails(value: str) -> str:
         else:
             url = "http://dev.itdagene.no"
     else:
-        url = "http://%s" % settings.SITE_URL
+        url = f"http://{settings.SITE_URL}"
     for i in images:
         re_match = re.search(r"width:( )?(\d+)px;", i[3])
 

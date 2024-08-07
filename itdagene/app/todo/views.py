@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import SUCCESS, add_message
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
@@ -10,7 +11,7 @@ from itdagene.app.todo.models import Todo
 
 
 @permission_required("todo.add_todo")
-def add_todo(request):
+def add_todo(request: HttpRequest) -> HttpResponse:
     form = TodoForm()
     if request.method == "POST":
         form = TodoForm(request.POST)
@@ -25,7 +26,7 @@ def add_todo(request):
 
 
 @permission_required("todo.change_todo")
-def change_todo(request, pk):
+def change_todo(request: HttpRequest, pk) -> HttpResponse:
     todo = get_object_or_404(Todo, pk=pk, user=request.user)
     form = TodoForm(instance=todo)
     if request.method == "POST":
@@ -36,12 +37,14 @@ def change_todo(request, pk):
             add_message(request, SUCCESS, _("Todo changed."))
             return redirect(reverse("itdagene.frontpage"))
     return render(
-        request, "todo/todo_form.html", {"form": form, "title": _("Change Todo")}
+        request,
+        "todo/todo_form.html",
+        {"form": form, "title": _("Change Todo")},
     )
 
 
 @permission_required("todo.delete_todo")
-def delete_todo(request, pk):
+def delete_todo(request: HttpRequest, pk) -> HttpResponse:
     todo = get_object_or_404(Todo, pk=pk, user=request.user)
 
     if request.method == "POST":
@@ -50,11 +53,13 @@ def delete_todo(request, pk):
         return redirect(reverse("itdagene.frontpage"))
 
     return render(
-        request, "todo/delete_todo.html", {"todo": todo, "title": _("Delete Todo")}
+        request,
+        "todo/delete_todo.html",
+        {"todo": todo, "title": _("Delete Todo")},
     )
 
 
-def view_todo(request, pk):
+def view_todo(request: HttpRequest, pk) -> HttpResponse:
     todo = get_object_or_404(Todo, pk=pk, user=request.user)
     return render(
         request,
@@ -63,7 +68,7 @@ def view_todo(request, pk):
     )
 
 
-def change_status(request, pk):
+def change_status(request: HttpRequest, pk) -> HttpResponse:
     todo = get_object_or_404(Todo, pk=pk, user=request.user)
     todo.finished = not todo.finished
     todo.save(notify_subscribers=False)

@@ -1,11 +1,10 @@
-from django.db import models
-from django.db.models import Q
+from django.db.models import Manager, Q, QuerySet
 from django.db.models.aggregates import Sum
 from django.utils import timezone
 
 
-class JoblistingManager(models.Manager):
-    def active(self):
+class JoblistingManager(Manager):
+    def active(self) -> QuerySet:
         return (
             super(JoblistingManager, self)
             .get_queryset()
@@ -15,7 +14,7 @@ class JoblistingManager(models.Manager):
             )
         )
 
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet:
         return (
             super(JoblistingManager, self)
             .get_queryset()

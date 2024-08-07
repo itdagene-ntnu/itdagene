@@ -1,4 +1,6 @@
-from django import forms
+from __future__ import annotations
+
+from django.forms import BooleanField, MultipleChoiceField
 from django.forms.models import ModelForm
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
@@ -8,16 +10,14 @@ from itdagene.core.models import Preference, User
 
 
 class MeetingForm(ModelForm):
-    invites = forms.MultipleChoiceField(label=_("Invite"), required=False)
-    invite_current_board = forms.BooleanField(
-        label=_("Invite current board"), required=False
-    )
+    invites = MultipleChoiceField(label=_("Invite"), required=False)
+    invite_current_board = BooleanField(label=_("Invite current board"), required=False)
 
     class Meta:
         model = Meeting
         exclude = ("is_board_meeting", "preference")
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super(MeetingForm, self).__init__(*args, **kwargs)
         pref = Preference.current_preference()
         users = User.objects.filter(is_active=True, is_staff=True, year=pref.year)
@@ -27,7 +27,7 @@ class MeetingForm(ModelForm):
             (user.pk, user.get_full_name()) for user in users
         ]
 
-    def save(self, commit=True):
+    def save(self, commit: bool = True) -> MeetingForm:
         pref = Preference.current_preference()
         meeting = super(MeetingForm, self).save(commit=commit)
 
@@ -57,7 +57,7 @@ class PenaltyForm(ModelForm):
         model = Penalty
         exclude = ("meeting",)
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super(PenaltyForm, self).__init__(*args, **kwargs)
         pref = Preference.current_preference()
         users = User.objects.filter(is_active=True, is_staff=True, year=pref.year)

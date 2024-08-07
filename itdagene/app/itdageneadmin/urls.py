@@ -16,7 +16,9 @@ urlpatterns = [
     re_path(r"^groups/$", groups.list, name="itdagene.itdageneadmin.groups.list"),
     re_path(r"^groups/add$", groups.add, name="itdagene.itdageneadmin.groups.add"),
     re_path(
-        r"^groups/(?P<id>\d+)/$", groups.view, name="itdagene.itdageneadmin.groups.view"
+        r"^groups/(?P<id>\d+)/$",
+        groups.view,
+        name="itdagene.itdageneadmin.groups.view",
     ),
     re_path(
         r"^groups/(?P<id>\d+)/edit$",

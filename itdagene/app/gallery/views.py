@@ -1,21 +1,25 @@
 from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import SUCCESS, add_message
-from django.shortcuts import get_object_or_404, redirect, render, reverse
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from itdagene.app.gallery.forms import PhotoForm
 from itdagene.app.gallery.models import Photo
 
 
-def list_photos(request):
+def list_photos(request: HttpRequest) -> HttpResponse:
     photos = Photo.objects.all()
     return render(
-        request, "gallery/base.html", {"photos": photos, "title": _("All Photos")}
+        request,
+        "gallery/base.html",
+        {"photos": photos, "title": _("All Photos")},
     )
 
 
 @permission_required("gallery.add_photo")
-def add_photo(request):
+def add_photo(request: HttpRequest) -> HttpResponse:
     form = PhotoForm()
     if request.method == "POST":
         form = PhotoForm(request.POST, request.FILES)
@@ -27,7 +31,7 @@ def add_photo(request):
 
 
 @permission_required("gallery.delete_photo")
-def delete_photo(request, pk):
+def delete_photo(request: HttpRequest, pk) -> HttpResponse:
     photo = get_object_or_404(Photo, pk=pk)
     if request.method == "POST":
         photo.delete()
@@ -36,5 +40,9 @@ def delete_photo(request, pk):
     return render(
         request,
         "gallery/delete.html",
-        {"photo": photo, "title": _("Delete Photo"), "description": str(photo)},
+        {
+            "photo": photo,
+            "title": _("Delete Photo"),
+            "description": str(photo),
+        },
     )

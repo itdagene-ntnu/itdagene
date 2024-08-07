@@ -1,3 +1,5 @@
+from typing import Any
+
 from django import forms
 from django.forms.models import ModelForm
 
@@ -16,7 +18,7 @@ class IssueAssignForm(ModelForm):
         model = Issue
         fields = ("assigned_user",)
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super(IssueAssignForm, self).__init__(*args, **kwargs)
         users = User.objects.filter(is_active=True, is_staff=True).order_by(
             "first_name"
@@ -29,6 +31,6 @@ class EvaluationForm(forms.ModelForm):
         model = Evaluation
         exclude = ("hash", "company", "has_answers", "preference")
 
-    def save(self, commit=True, *args, **kwargs):
+    def save(self, commit: Any = True, *args, **kwargs) -> None:
         self.instance.has_answers = True
         super(EvaluationForm, self).save(*args, **kwargs)

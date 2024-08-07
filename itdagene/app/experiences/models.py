@@ -1,4 +1,10 @@
-from django.db import models
+from django.db.models import (
+    CASCADE,
+    DateField,
+    ForeignKey,
+    PositiveIntegerField,
+    TextField,
+)
 from django.utils.translation import gettext_lazy as _
 
 from itdagene.core.models import BaseModel, Preference
@@ -18,14 +24,12 @@ BOARD_POSITION = (
 
 
 class Experience(BaseModel):
-    year = models.ForeignKey(
-        Preference, verbose_name=_("Preference"), on_delete=models.CASCADE
-    )
-    position = models.PositiveIntegerField(
+    year = ForeignKey(Preference, verbose_name=_("Preference"), on_delete=CASCADE)
+    position = PositiveIntegerField(
         choices=BOARD_POSITION, default=8, verbose_name=_("Position")
     )
-    last_updated = models.DateField(auto_now=True)
-    text = models.TextField(blank=True, null=True, verbose_name=_("Experiences"))
+    last_updated = DateField(auto_now=True)
+    text = TextField(blank=True, null=True, verbose_name=_("Experiences"))
 
-    def __str__(self):
-        return str(BOARD_POSITION[self.position][1])
+    def __str__(self) -> str:
+        return BOARD_POSITION[self.position][1]
