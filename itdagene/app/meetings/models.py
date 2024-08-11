@@ -13,7 +13,6 @@ from django.db.models import (
     TimeField,
 )
 from django.urls import reverse
-from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 
 from itdagene.core.log.models import LogItem
@@ -109,7 +108,7 @@ class ReplyMeeting(BaseModel):
     is_attending = BooleanField(verbose_name=_("attending"), null=True, blank=True)
 
     def __str__(self) -> str:
-        return gettext(f"Meeting participation: {self.user}")
+        return _(f"Meeting participation: {self.user}")
 
     def get_absolute_url(self) -> str:
         return reverse("itdagene.meetings.meeting", args=(self.meeting.pk,))

@@ -1,3 +1,5 @@
+from typing import Any
+
 from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import SUCCESS, add_message
 from django.http import HttpRequest, HttpResponse
@@ -26,7 +28,7 @@ def add_todo(request: HttpRequest) -> HttpResponse:
 
 
 @permission_required("todo.change_todo")
-def change_todo(request: HttpRequest, pk) -> HttpResponse:
+def change_todo(request: HttpRequest, pk: Any) -> HttpResponse:
     todo = get_object_or_404(Todo, pk=pk, user=request.user)
     form = TodoForm(instance=todo)
     if request.method == "POST":
@@ -44,7 +46,7 @@ def change_todo(request: HttpRequest, pk) -> HttpResponse:
 
 
 @permission_required("todo.delete_todo")
-def delete_todo(request: HttpRequest, pk) -> HttpResponse:
+def delete_todo(request: HttpRequest, pk: Any) -> HttpResponse:
     todo = get_object_or_404(Todo, pk=pk, user=request.user)
 
     if request.method == "POST":
@@ -59,7 +61,7 @@ def delete_todo(request: HttpRequest, pk) -> HttpResponse:
     )
 
 
-def view_todo(request: HttpRequest, pk) -> HttpResponse:
+def view_todo(request: HttpRequest, pk: Any) -> HttpResponse:
     todo = get_object_or_404(Todo, pk=pk, user=request.user)
     return render(
         request,
@@ -68,7 +70,7 @@ def view_todo(request: HttpRequest, pk) -> HttpResponse:
     )
 
 
-def change_status(request: HttpRequest, pk) -> HttpResponse:
+def change_status(request: HttpRequest, pk: Any) -> HttpResponse:
     todo = get_object_or_404(Todo, pk=pk, user=request.user)
     todo.finished = not todo.finished
     todo.save(notify_subscribers=False)

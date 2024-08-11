@@ -76,7 +76,7 @@ class Joblisting(DjangoObjectType):
         return ItdageneJoblisting.objects.all()
 
     @classmethod
-    def get_node(cls, context: Any, id):
+    def get_node(cls, context: Any, id: Any):
         try:
             return ItdageneJoblisting.objects.get(pk=id)
         except Exception:

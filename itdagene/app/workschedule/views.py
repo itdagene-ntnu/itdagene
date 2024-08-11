@@ -1,4 +1,7 @@
+from typing import Any
+
 from django.contrib.auth.decorators import permission_required
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -8,7 +11,7 @@ from itdagene.app.workschedule.models import Worker, WorkerInSchedule, WorkSched
 
 
 @permission_required("workschedule.add_worker")
-def add_worker(request):
+def add_worker(request: HttpRequest) -> HttpResponse:
     form = WorkerForm()
     if request.method == "POST":
         form = WorkerForm(request.POST)
@@ -19,7 +22,7 @@ def add_worker(request):
 
 
 @permission_required("workschedule.add_workschedule")
-def add_task(request):
+def add_task(request: HttpRequest) -> HttpResponse:
     form = WorkScheduleForm()
     if request.method == "POST":
         form = WorkScheduleForm(request.POST)
@@ -34,7 +37,7 @@ def add_task(request):
 
 
 @permission_required("workschedule.change_worker")
-def edit_worker(request, id):
+def edit_worker(request: HttpRequest, id: Any) -> HttpResponse:
     ws = get_object_or_404(Worker, pk=id)
     form = WorkerForm(instance=ws)
     if request.method == "POST":
@@ -51,7 +54,7 @@ def edit_worker(request, id):
 
 
 @permission_required("workschedule.change_workschedule")
-def edit_task(request, id):
+def edit_task(request: HttpRequest, id: Any) -> HttpResponse:
     ws = get_object_or_404(WorkSchedule, pk=id)
     form = WorkScheduleForm(instance=ws)
     if request.method == "POST":
@@ -68,13 +71,12 @@ def edit_task(request, id):
 
 
 # @permission_required('workschedule.view_workschedule')
-# def list(request):
+# def list(request: HttpRequest) -> HttpResponse:
 #    workers = Worker.objects.filter(preference=Preference.current_preference().year)
 #    pref = Preference.current_preference()
 #    start_date = pref.start_date
 #    end_date = pref.end_date
-#
-#    days = []
+#    days: list = []
 #    number = 1
 #    for dt in rrule(DAILY, dtstart=start_date, until=end_date):
 #        days.append(
@@ -85,10 +87,13 @@ def edit_task(request, id):
 #            }
 #        )
 #        number += 1
-#
-#    other = WorkSchedule.objects.filter(date__year=pref.year
-#                                        ).exclude(date__gte=start_date,
-#                                                  date__lte=end_date).order_by('date')
+#    other = (
+#        WorkSchedule
+#        .objects
+#        .filter(date__year=pref.year)
+#        .exclude(date__gte=start_date, date__lte=end_date)
+#        .order_by('date')
+#    )
 #    return render(
 #        request, 'workschedule/list.html',
 #        {
@@ -101,7 +106,7 @@ def edit_task(request, id):
 
 
 @permission_required("workschedule.view_workschedule")
-def view_task(request, id):
+def view_task(request: HttpRequest, id: Any) -> HttpResponse:
     task = get_object_or_404(WorkSchedule, pk=id)
     attendance = WorkerInSchedule.objects.filter(schedule=task)
     return render(
@@ -117,7 +122,7 @@ def view_task(request, id):
 
 
 @permission_required("workschedule.change_worker")
-def change_attendance(request, id):
+def change_attendance(request: Any, id: Any) -> HttpResponse:
     worker = get_object_or_404(WorkerInSchedule, pk=id)
     worker.has_met = not worker.has_met
     worker.save()
@@ -127,7 +132,7 @@ def change_attendance(request, id):
 
 
 # @permission_required('workschedule.view_workschedule')
-# def view_worker(request, id):
+# def view_worker(request: HttpRequest, id: Any) -> HttpResponse:
 #    worker = get_object_or_404(Worker, pk=id)
 #    return render(
 #        request, 'worker/view.html',

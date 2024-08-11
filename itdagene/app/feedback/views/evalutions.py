@@ -13,8 +13,8 @@ from itdagene.core.models import Preference
 EN = [1065]
 
 
-def handle_evaluation(request: HttpRequest, hash_: str) -> HttpResponse:
-    evaluation = get_object_or_404(Evaluation, hash=hash_)
+def handle_evaluation(request: HttpRequest, hash: str) -> HttpResponse:
+    evaluation = get_object_or_404(Evaluation, hash=hash)
     form = EvaluationForm(instance=evaluation)
     if request.method == "POST":
         form = EvaluationForm(request.POST, instance=evaluation)

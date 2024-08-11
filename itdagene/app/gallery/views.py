@@ -1,3 +1,5 @@
+from typing import Any
+
 from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import SUCCESS, add_message
 from django.http import HttpRequest, HttpResponse
@@ -31,7 +33,7 @@ def add_photo(request: HttpRequest) -> HttpResponse:
 
 
 @permission_required("gallery.delete_photo")
-def delete_photo(request: HttpRequest, pk) -> HttpResponse:
+def delete_photo(request: HttpRequest, pk: Any) -> HttpResponse:
     photo = get_object_or_404(Photo, pk=pk)
     if request.method == "POST":
         photo.delete()

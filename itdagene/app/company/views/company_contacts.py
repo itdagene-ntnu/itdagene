@@ -1,6 +1,8 @@
+from typing import Any
+
 from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import SUCCESS, add_message
-from django.http import HttpResponse
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -12,7 +14,7 @@ from itdagene.core.decorators import staff_required
 
 
 @permission_required("company.add_companycontact")
-def add_contact(request, company):
+def add_contact(request: HttpRequest, company: Company) -> HttpResponse:
     company = get_object_or_404(Company, pk=company)
     form = CompanyContactForm()
     if request.method == "POST":
@@ -40,7 +42,7 @@ def add_contact(request, company):
 
 
 @permission_required("company.delete_companycontact")
-def delete_contact(request, contact_id):
+def delete_contact(request: HttpRequest, contact_id: Any) -> HttpResponse:
     contact = get_object_or_404(CompanyContact, pk=contact_id)
     company = contact.company
     if request.method == "POST":
@@ -60,7 +62,7 @@ def delete_contact(request, contact_id):
 
 
 @permission_required("company.change_companycontact")
-def edit_contact(request, contact_id):
+def edit_contact(request: HttpRequest, contact_id: Any) -> HttpResponse:
     contact = get_object_or_404(CompanyContact, pk=contact_id)
     form = CompanyContactForm(instance=contact)
 
@@ -84,7 +86,7 @@ def edit_contact(request, contact_id):
 
 
 @staff_required()
-def vcard(request, id):
+def vcard(request: Any, id: Any) -> HttpResponse:
     contact = get_object_or_404(CompanyContact, pk=id)
     person = Person()
     person.first_name = contact.first_name

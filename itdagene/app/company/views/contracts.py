@@ -13,7 +13,7 @@ from itdagene.core.decorators import staff_required
 
 
 @permission_required("company.add_contract")
-def add_contract(request: HttpRequest, company_id) -> HttpResponse:
+def add_contract(request: HttpRequest, company_id: Any) -> HttpResponse:
     company = get_object_or_404(Company, pk=company_id)
     form = ContractForm()
     if request.method == "POST":
@@ -32,7 +32,7 @@ def add_contract(request: HttpRequest, company_id) -> HttpResponse:
 
 
 @permission_required("company.change_contract")
-def edit_contract(request: HttpRequest, company_id, id) -> HttpResponse:
+def edit_contract(request: HttpRequest, company_id: Any, id: Any) -> HttpResponse:
     company = get_object_or_404(Company, pk=company_id)
     contract = get_object_or_404(Contract, pk=id)
     if contract.company != company:
@@ -57,7 +57,7 @@ def edit_contract(request: HttpRequest, company_id, id) -> HttpResponse:
 
 
 @staff_required()
-def download_contract(request: Any, company_id, id) -> HttpResponse:
+def download_contract(request: Any, company_id: Any, id: Any) -> HttpResponse:
     contract = get_object_or_404(Contract, pk=id, company__id=company_id)
     abspath = open(contract.file.path, "rb")
     response = HttpResponse(content=abspath.read())
@@ -69,7 +69,7 @@ def download_contract(request: Any, company_id, id) -> HttpResponse:
 
 
 @permission_required("company.delete_contract")
-def delete_contract(request: HttpRequest, company_id, id) -> HttpResponse:
+def delete_contract(request: HttpRequest, company_id: Any, id: Any) -> HttpResponse:
     company = get_object_or_404(Company, pk=company_id)
     contract = get_object_or_404(Contract, pk=id)
     if contract.company != company:

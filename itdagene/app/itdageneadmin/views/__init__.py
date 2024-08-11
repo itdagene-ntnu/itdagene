@@ -15,7 +15,7 @@ def landing_page(request: HttpRequest) -> HttpResponse:
 
 
 @superuser_required()
-def log(request: HttpRequest, first_object=0):
+def log(request: HttpRequest, first_object: int = 0) -> HttpResponse:
     first_object = int(first_object)
     previous = first_object - 40 if first_object > 40 else None
     log_ = (

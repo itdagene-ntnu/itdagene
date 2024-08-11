@@ -1,3 +1,5 @@
+from typing import Any
+
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.models import Group
 from django.http import HttpRequest, HttpResponse
@@ -22,7 +24,7 @@ def list(request: HttpRequest) -> HttpResponse:
 
 
 @permission_required("auth.change_group")
-def view(request: HttpRequest, id) -> HttpResponse:
+def view(request: HttpRequest, id: Any) -> HttpResponse:
     group = get_object_or_404(Group, pk=id)
     members = User.objects.filter(groups=group)
     return render(
@@ -74,7 +76,7 @@ def edit(request: HttpRequest, id) -> HttpResponse:
 
 
 @permission_required("auth.change_user")
-def add_user(request: HttpRequest, id) -> HttpResponse:
+def add_user(request: HttpRequest, id: Any) -> HttpResponse:
     if request.method == "POST":
         group = get_object_or_404(Group, pk=id)
         form = AddUserToGroupForm(request.POST)

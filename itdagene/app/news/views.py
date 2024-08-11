@@ -1,3 +1,5 @@
+from typing import Any
+
 from django.contrib.auth.decorators import permission_required
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -27,7 +29,7 @@ def create_announcement(request: HttpRequest) -> HttpResponse:
 
 
 @permission_required("news.change_announcement")
-def edit_announcement(request: HttpRequest, id=False) -> HttpResponse:
+def edit_announcement(request: HttpRequest, id: Any = False) -> HttpResponse:
     if id:
         ann = get_object_or_404(Announcement, pk=id)
         form = AnnouncementForm(instance=ann)

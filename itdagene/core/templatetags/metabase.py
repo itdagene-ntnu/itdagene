@@ -7,7 +7,7 @@ register = Library()
 
 
 @register.simple_tag
-def metabase(dash_id, style) -> str:
+def metabase(dash_id: int, style: str) -> str:
     payload = {"resource": {"dashboard": int(dash_id)}, "params": {}}
     token = encode(payload, settings.METABASE_SECRET_KEY, algorithm="HS256")
-    return settings.METABASE_SITE_URL + "/embed/dashboard/" + token + style
+    return f"{settings.METABASE_SITE_URL}/embed/dashboard/{token}{style}"

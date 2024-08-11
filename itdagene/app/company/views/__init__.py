@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Any, Optional
 
 from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import SUCCESS, add_message
@@ -32,9 +32,9 @@ def list_companies(request: HttpRequest) -> HttpResponse:
             .prefetch_related("company_contacts", "contracts")
         )
         # Put "Not intereset" last
-        temp_companies = []  # Queries are lazy, use list() to execute
-        not_interested_companies = []
-        signed_companies = []
+        temp_companies: list = []  # Queries are lazy, use list() to execute
+        not_interested_companies: list = []
+        signed_companies: list = []
         for company in list(user_companies):
             if company.status == 1:
                 not_interested_companies.append(company)
@@ -64,7 +64,7 @@ def list_companies(request: HttpRequest) -> HttpResponse:
 
 
 @staff_required()
-def view(request: HttpRequest, id) -> HttpResponse:
+def view(request: HttpRequest, id: Any) -> HttpResponse:
     company = get_object_or_404(
         Company.objects.select_related().prefetch_related(), pk=id
     )
@@ -84,7 +84,7 @@ def view(request: HttpRequest, id) -> HttpResponse:
 
 
 @staff_required()
-def book_company(request: HttpRequest, id) -> HttpResponse:
+def book_company(request: HttpRequest, id: Any) -> HttpResponse:
     if request.method == "POST":
         company = get_object_or_404(Company, pk=id)
         form = BookCompanyForm(request.POST, instance=company)
@@ -104,7 +104,7 @@ def book_company(request: HttpRequest, id) -> HttpResponse:
 
 
 @staff_required()
-def waiting_list(request: HttpRequest, id) -> HttpResponse:
+def waiting_list(request: HttpRequest, id: Any) -> HttpResponse:
     if request.method == "POST":
         company = get_object_or_404(Company, pk=id)
         form = WaitingListCompanyForm(request.POST, instance=company)
@@ -118,7 +118,7 @@ def waiting_list(request: HttpRequest, id) -> HttpResponse:
 
 
 @staff_required()
-def set_status(request: HttpRequest, id) -> HttpResponse:
+def set_status(request: HttpRequest, id: Any) -> HttpResponse:
     if request.method == "POST":
         company = get_object_or_404(Company, pk=id)
         form = CompanyStatusForm(request.POST, instance=company)
@@ -146,7 +146,7 @@ def add(request: HttpRequest) -> HttpResponse:
 
 
 @permission_required("company.change_company")
-def edit(request: HttpRequest, id=False) -> HttpResponse:
+def edit(request: HttpRequest, id: Any = False) -> HttpResponse:
     company = get_object_or_404(Company, pk=id)
     form = CompanyForm(instance=company)
     if request.method == "POST":
@@ -191,7 +191,7 @@ def add_key_information(request: HttpRequest, company: Company) -> HttpResponse:
 
 
 @permission_required("company.edit_company")
-def delete_key_information(request: HttpRequest, id) -> Optional[HttpResponse]:
+def delete_key_information(request: HttpRequest, id: Any) -> Optional[HttpResponse]:
     info = get_object_or_404(KeyInformation, pk=id)
     company = info.company
     if request.method == "POST":

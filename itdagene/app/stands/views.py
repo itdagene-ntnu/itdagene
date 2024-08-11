@@ -1,3 +1,5 @@
+from typing import Any
+
 from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import SUCCESS, add_message
 from django.http import HttpRequest, HttpResponse
@@ -35,7 +37,7 @@ def add(request: HttpRequest) -> HttpResponse:
 
 
 @staff_required()
-def view(request: HttpRequest, pk) -> HttpResponse:
+def view(request: HttpRequest, pk: Any) -> HttpResponse:
     stand = get_object_or_404(DigitalStand, pk=pk)
     stand_events = Event.objects.filter(stand=stand)
     return render(
@@ -51,7 +53,7 @@ def view(request: HttpRequest, pk) -> HttpResponse:
 
 
 @permission_required("stands.change_stand")
-def edit(request: HttpRequest, pk) -> HttpResponse:
+def edit(request: HttpRequest, pk: Any) -> HttpResponse:
     stand = get_object_or_404(DigitalStand, pk=pk)
     form = DigitalStandForm(instance=stand)
 
@@ -74,7 +76,7 @@ def edit(request: HttpRequest, pk) -> HttpResponse:
 
 
 @permission_required("stands.delete_stand")
-def delete(request: HttpRequest, pk) -> HttpResponse:
+def delete(request: HttpRequest, pk: Any) -> HttpResponse:
     stand = get_object_or_404(DigitalStand, pk=pk)
     if request.method == "POST":
         stand.delete()

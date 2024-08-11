@@ -1,3 +1,5 @@
+from typing import Any
+
 from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import SUCCESS, add_message
 from django.http import HttpRequest, HttpResponse
@@ -30,7 +32,7 @@ def add_event(request: HttpRequest) -> HttpResponse:
 
 
 @permission_required("events.change_event")
-def edit_event(request: HttpRequest, pk) -> HttpResponse:
+def edit_event(request: HttpRequest, pk: Any) -> HttpResponse:
     event = get_object_or_404(Event, pk=pk)
     form = EventForm(instance=event)
     if request.method == "POST":
@@ -52,7 +54,7 @@ def edit_event(request: HttpRequest, pk) -> HttpResponse:
 
 
 @permission_required("events.delete_event")
-def delete_event(request: HttpRequest, pk) -> HttpResponse:
+def delete_event(request: HttpRequest, pk: Any) -> HttpResponse:
     event = get_object_or_404(Event, pk=pk)
     if request.method == "POST":
         event.delete()
@@ -66,7 +68,7 @@ def delete_event(request: HttpRequest, pk) -> HttpResponse:
 
 
 @staff_required()
-def view_event(request: HttpRequest, pk) -> HttpResponse:
+def view_event(request: HttpRequest, pk: Any) -> HttpResponse:
     event = get_object_or_404(Event, pk=pk)
     form = EventTicketForm(instance=Ticket(event=event))
     if request.method == "POST":
@@ -83,7 +85,7 @@ def view_event(request: HttpRequest, pk) -> HttpResponse:
 
 
 @staff_required()
-def edit_ticket(request: HttpRequest, pk) -> HttpResponse:
+def edit_ticket(request: HttpRequest, pk: Any) -> HttpResponse:
     ticket = get_object_or_404(Ticket, pk=pk)
     form = EventTicketForm(instance=ticket)
     if request.method == "POST":

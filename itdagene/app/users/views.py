@@ -1,3 +1,5 @@
+from typing import Any
+
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.forms import PasswordChangeForm, SetPasswordForm
 from django.contrib.messages import SUCCESS, add_message
@@ -33,7 +35,7 @@ def user_list(request: HttpRequest) -> HttpResponse:
 
 
 @login_required
-def user_detail(request: HttpRequest, pk) -> HttpResponse:
+def user_detail(request: HttpRequest, pk: Any) -> HttpResponse:
     try:
         if not request.user.is_staff:
             person = (
@@ -59,7 +61,7 @@ def user_detail(request: HttpRequest, pk) -> HttpResponse:
 
 
 @permission_required("core.delete_user")
-def user_delete(request: HttpRequest, pk) -> HttpResponse:
+def user_delete(request: HttpRequest, pk: Any) -> HttpResponse:
     person = get_object_or_404(User, pk=pk, is_active=True)
 
     if request.method == "POST":
@@ -79,7 +81,7 @@ def user_delete(request: HttpRequest, pk) -> HttpResponse:
 
 
 @login_required
-def user_edit(request: HttpRequest, pk) -> HttpResponse:
+def user_edit(request: HttpRequest, pk: Any) -> HttpResponse:
     if not request.user.has_perm("core.change_user") and not request.user.pk == int(pk):
         return redirect(reverse("itdagene.users.user_list"))
 
@@ -112,7 +114,7 @@ def user_edit(request: HttpRequest, pk) -> HttpResponse:
 
 
 @login_required
-def user_edit_password(request: HttpRequest, pk) -> HttpResponse:
+def user_edit_password(request: HttpRequest, pk: Any) -> HttpResponse:
     if not request.user.has_perm("core.change_user") and not request.user.pk == int(pk):
         return redirect(reverse("itdagene.users.user_list"))
 
@@ -169,7 +171,7 @@ def user_create(request: HttpRequest) -> HttpResponse:
 
 
 @permission_required("core.send_welcome_email")
-def send_welcome_email(request: HttpRequest, pk) -> HttpResponse:
+def send_welcome_email(request: HttpRequest, pk: Any) -> HttpResponse:
     user = get_object_or_404(User, pk=pk)
     if request.method == "POST":
         users_send_welcome_email(user)
@@ -187,7 +189,7 @@ def send_welcome_email(request: HttpRequest, pk) -> HttpResponse:
 
 
 @login_required()
-def vcard(request: HttpRequest, pk) -> HttpResponse:
+def vcard(request: HttpRequest, pk: Any) -> HttpResponse:
     try:
         if not request.user.is_staff:
             person = (

@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.admin import ModelAdmin
 
 from itdagene.app.career.models import Joblisting, Town
 
@@ -6,7 +7,7 @@ from itdagene.app.career.models import Joblisting, Town
 admin.site.register(Town)
 
 
-class JoblistingAdmin(admin.ModelAdmin):
+class JoblistingAdmin(ModelAdmin):
     list_display = ("title", "company")
 
 

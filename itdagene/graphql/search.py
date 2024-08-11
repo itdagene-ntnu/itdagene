@@ -1,5 +1,6 @@
 from django.db.models import Q
 
+from itdagene.app.career.managers import JoblistingManager
 from itdagene.app.career.models import Joblisting as ItdageneJoblisting
 from itdagene.app.career.models import Town
 from itdagene.app.company.models import Company as ItdageneCompany
@@ -11,7 +12,7 @@ MAX_COUNT = 10
 
 
 def search(query: str, types: list) -> list:
-    result = []
+    result: list = []
 
     alternatives = (
         (SearchType.COMPANY, query_companies),
@@ -52,7 +53,7 @@ def query_pages(query: str, count: int):
     )[:count]
 
 
-def query_joblistings(query: str, count: int):
+def query_joblistings(query: str, count: int) -> JoblistingManager:
     return ItdageneJoblisting.active_objects.filter(
         Q(title__icontains=query) | Q(description__icontains=query)
     )[:count]

@@ -1,3 +1,5 @@
+from typing import Any, List
+
 from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import SUCCESS, add_message
 from django.http import HttpRequest, HttpResponse
@@ -13,7 +15,7 @@ from itdagene.core.models import Preference
 
 @staff_required()
 def list(request: HttpRequest) -> HttpResponse:
-    experience_lists = []
+    experience_lists: List = []
     for pref in Preference.objects.all().order_by("-year"):
         experience_lists.append(
             (
@@ -29,7 +31,7 @@ def list(request: HttpRequest) -> HttpResponse:
 
 
 @staff_required()
-def view(request: HttpRequest, id) -> HttpResponse:
+def view(request: HttpRequest, id: Any) -> HttpResponse:
     experience = get_object_or_404(Experience, pk=id)
     return render(
         request,
@@ -59,7 +61,7 @@ def add(request: HttpRequest) -> HttpResponse:
 
 
 @permission_required("experiences.change_experience")
-def edit(request: HttpRequest, id) -> HttpResponse:
+def edit(request: HttpRequest, id: Any) -> HttpResponse:
     es = get_object_or_404(Experience, pk=id)
     form = ExperienceForm(instance=es)
     if request.method == "POST":

@@ -1,3 +1,5 @@
+from typing import Any
+
 from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import SUCCESS, add_message
 from django.http import HttpRequest, HttpResponse
@@ -31,7 +33,7 @@ def add_question(request: HttpRequest) -> HttpResponse:
 
 
 @permission_required("faq.edit_question")
-def edit_question(request: HttpRequest, pk) -> HttpResponse:
+def edit_question(request: HttpRequest, pk: Any) -> HttpResponse:
     question = get_object_or_404(Question, pk=pk)
     form = QuestionForm(instance=question)
     if request.method == "POST":
@@ -52,7 +54,7 @@ def edit_question(request: HttpRequest, pk) -> HttpResponse:
 
 
 @permission_required("faq.delete_question")
-def delete_question(request: HttpRequest, pk) -> HttpResponse:
+def delete_question(request: HttpRequest, pk: Any) -> HttpResponse:
     question = get_object_or_404(Question, pk=pk)
     if request.method == "POST":
         question.delete()

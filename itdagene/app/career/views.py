@@ -1,3 +1,5 @@
+from typing import Any
+
 from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import SUCCESS, add_message
 from django.db.models import Q
@@ -43,7 +45,7 @@ def add(request: HttpRequest) -> HttpResponse:
 
 
 @staff_required()
-def view(request: HttpRequest, pk) -> HttpResponse:
+def view(request: HttpRequest, pk: Any) -> HttpResponse:
     joblisting = get_object_or_404(Joblisting, pk=pk)
     return render(
         request,
@@ -57,7 +59,7 @@ def view(request: HttpRequest, pk) -> HttpResponse:
 
 
 @permission_required("career.change_joblisting")
-def edit(request: HttpRequest, pk) -> HttpResponse:
+def edit(request: HttpRequest, pk: Any) -> HttpResponse:
     joblisting = get_object_or_404(Joblisting, pk=pk)
     form = JoblistingForm(instance=joblisting)
 
@@ -80,7 +82,7 @@ def edit(request: HttpRequest, pk) -> HttpResponse:
 
 
 @permission_required("career.delete_joblisting")
-def delete(request: HttpRequest, pk) -> HttpResponse:
+def delete(request: HttpRequest, pk: Any) -> HttpResponse:
     joblisting = get_object_or_404(Joblisting, pk=pk)
     if request.method == "POST":
         joblisting.is_active = False

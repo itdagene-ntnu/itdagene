@@ -1,5 +1,8 @@
+from typing import Any
+
 from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import SUCCESS, add_message
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -10,7 +13,7 @@ from itdagene.core.decorators import staff_required
 
 
 @staff_required()
-def list(request):
+def list(request: HttpRequest) -> HttpResponse:
     packages = Package.objects.all()
     return render(
         request,
@@ -20,7 +23,7 @@ def list(request):
 
 
 @staff_required()
-def view(request, id):
+def view(request: HttpRequest, id: Any) -> HttpResponse:
     package = get_object_or_404(Package, pk=id)
     return render(
         request,
@@ -30,7 +33,7 @@ def view(request, id):
 
 
 @permission_required("company.change_package")
-def add(request):
+def add(request: HttpRequest) -> HttpResponse:
     form = PackageForm()
     if request.method == "POST":
         form = PackageForm(request.POST)
@@ -44,7 +47,7 @@ def add(request):
 
 
 @permission_required("company.change_package")
-def edit(request, id):
+def edit(request: HttpRequest, id: Any) -> HttpResponse:
     package = get_object_or_404(Package, pk=id)
     form = PackageForm(instance=package)
 

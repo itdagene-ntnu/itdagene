@@ -1,3 +1,5 @@
+from typing import Any, List
+
 from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import SUCCESS, add_message
 from django.http import Http404, HttpRequest, HttpResponse
@@ -14,9 +16,9 @@ from itdagene.core.models import Preference, User
 
 @staff_required()
 def list(request: HttpRequest) -> HttpResponse:
-    meeting_lists = []
-    penalty_lists = []
-    year_list = []
+    meeting_lists: List = []
+    penalty_lists: List[Penalties] = []
+    year_list: List[int] = []
     for pref in Preference.objects.all().order_by("-year"):
         year_list.append(pref.year)
         meeting_lists.append(
@@ -57,7 +59,7 @@ def add(request: HttpRequest) -> HttpResponse:
 
 
 @staff_required()
-def meeting(request: HttpRequest, id) -> HttpResponse:
+def meeting(request: HttpRequest, id: Any) -> HttpResponse:
     meeting_ = get_object_or_404(Meeting, pk=id)
     try:
         reply = ReplyMeeting.objects.get(meeting=meeting_, user=request.user)
@@ -76,7 +78,7 @@ def meeting(request: HttpRequest, id) -> HttpResponse:
 
 
 @permission_required("meetings.change_meeting")
-def add_penalties(request: HttpRequest, id) -> HttpResponse:
+def add_penalties(request: HttpRequest, id: Any) -> HttpResponse:
     if id:
         meeting_ = get_object_or_404(Meeting, pk=id)
         form = PenaltyForm()
@@ -103,7 +105,7 @@ def add_penalties(request: HttpRequest, id) -> HttpResponse:
 
 
 @staff_required()
-def send_invites(request: HttpRequest, id) -> HttpResponse:
+def send_invites(request: HttpRequest, id: Any) -> HttpResponse:
     meeting_ = get_object_or_404(Meeting, pk=id)
     replies = ReplyMeeting.objects.filter(meeting__pk=id, is_attending=None)
     users = [r.user for r in replies]
@@ -113,7 +115,7 @@ def send_invites(request: HttpRequest, id) -> HttpResponse:
 
 
 @staff_required()
-def attend(request: HttpRequest, id) -> HttpResponse:
+def attend(request: HttpRequest, id: Any) -> HttpResponse:
     reply = get_object_or_404(ReplyMeeting, meeting__pk=id, user=request.user)
     reply.is_attending = True
     reply.save()
@@ -121,7 +123,7 @@ def attend(request: HttpRequest, id) -> HttpResponse:
 
 
 @staff_required()
-def not_attend(request: HttpRequest, id) -> HttpResponse:
+def not_attend(request: HttpRequest, id: Any) -> HttpResponse:
     reply = get_object_or_404(ReplyMeeting, meeting__pk=id, user=request.user)
     reply.is_attending = False
     reply.save()
@@ -129,7 +131,7 @@ def not_attend(request: HttpRequest, id) -> HttpResponse:
 
 
 @permission_required("meetings.change_meeting")
-def edit(request: HttpRequest, id=False) -> HttpResponse:
+def edit(request: HttpRequest, id: Any = False) -> HttpResponse:
     meeting_ = get_object_or_404(Meeting, pk=id)
     form = MeetingForm(instance=meeting_)
     if request.method == "POST":
