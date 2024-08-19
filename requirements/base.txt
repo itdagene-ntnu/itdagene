@@ -1,6 +1,6 @@
 django==2.2.28
 django-filter==2.1.0
-Markdown==3.3.4
+Markdown==3.7
 bleach==6.0.0
 bleach-allowlist==1.0.3
 Pillow==9.2.0
