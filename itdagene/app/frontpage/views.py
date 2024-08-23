@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Prefetch
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
 
@@ -12,10 +13,11 @@ from itdagene.app.todo import todo_list
 
 
 @login_required
-def frontpage(request):
+def frontpage(request: HttpRequest) -> HttpResponse:
     todos = todo_list(request.user)
     now = timezone.now()
 
+    # These also look like unused variables, but are in fact not
     if request.user.is_staff:
         open_issues = Issue.objects.filter(is_solved=False).count()
         assigned_you_issues = Issue.objects.filter(

@@ -1,5 +1,8 @@
+from typing import Any
+
 from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import SUCCESS, add_message
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -11,7 +14,7 @@ from itdagene.core.decorators import staff_required
 
 
 @staff_required()
-def list(request):
+def list(request: HttpRequest) -> HttpResponse:
     stands = DigitalStand.objects.all()
 
     return render(
@@ -22,7 +25,7 @@ def list(request):
 
 
 @permission_required("stands.add_stand")
-def add(request):
+def add(request: HttpRequest) -> HttpResponse:
     form = DigitalStandForm()
     if request.method == "POST":
         form = DigitalStandForm(request.POST)
@@ -34,7 +37,7 @@ def add(request):
 
 
 @staff_required()
-def view(request, pk):
+def view(request: HttpRequest, pk: Any) -> HttpResponse:
     stand = get_object_or_404(DigitalStand, pk=pk)
     stand_events = Event.objects.filter(stand=stand)
     return render(
@@ -50,7 +53,7 @@ def view(request, pk):
 
 
 @permission_required("stands.change_stand")
-def edit(request, pk):
+def edit(request: HttpRequest, pk: Any) -> HttpResponse:
     stand = get_object_or_404(DigitalStand, pk=pk)
     form = DigitalStandForm(instance=stand)
 
@@ -73,7 +76,7 @@ def edit(request, pk):
 
 
 @permission_required("stands.delete_stand")
-def delete(request, pk):
+def delete(request: HttpRequest, pk: Any) -> HttpResponse:
     stand = get_object_or_404(DigitalStand, pk=pk)
     if request.method == "POST":
         stand.delete()
@@ -83,5 +86,9 @@ def delete(request, pk):
     return render(
         request,
         "stands/delete.html",
-        {"stand": stand, "title": _("Delete stand"), "description": str(stand)},
+        {
+            "stand": stand,
+            "title": _("Delete stand"),
+            "description": str(stand),
+        },
     )

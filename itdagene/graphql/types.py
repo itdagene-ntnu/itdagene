@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Any, Optional
 
 from graphene import Enum, Int, Interface, String
 from graphene.relay import Connection
@@ -16,7 +16,7 @@ class CountableConnectionBase(Connection):
 
     total_count = Int()
 
-    def resolve_total_count(self, info, **kwargs) -> Optional[int]:
+    def resolve_total_count(self, info: Any, **kwargs) -> Optional[int]:
         return self.iterable.count()
 
 

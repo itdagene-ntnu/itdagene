@@ -33,7 +33,7 @@ class CompanyForm(ModelForm):
         model = Company
         exclude = ("package", "active")
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super(CompanyForm, self).__init__(*args, **kwargs)
         users = User.objects.filter(
             is_active=True, is_staff=True, year=Preference.current_preference().year
@@ -50,7 +50,7 @@ class BookCompanyForm(ModelForm):
         model = Company
         fields = ("package",)
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super(BookCompanyForm, self).__init__(*args, **kwargs)
         packages = Package.objects.filter(
             Q(is_full=False) or Q(companies=self.instance)
@@ -71,7 +71,7 @@ class WaitingListCompanyForm(ModelForm):
         model = Company
         fields = ("waiting_for_package",)
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super(WaitingListCompanyForm, self).__init__(*args, **kwargs)
         waiting_lists = Package.objects.filter(
             is_full=True, has_waiting_list=True
@@ -93,7 +93,7 @@ class ResponsibilityForm(ModelForm):
         model = Company
         fields = ("contact",)
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super(ResponsibilityForm, self).__init__(*args, **kwargs)
         users = User.objects.filter(
             is_active=True, is_staff=True, year=Preference.current_preference().year
@@ -111,7 +111,7 @@ class CompanyContactForm(ModelForm):
         model = CompanyContact
         exclude = ("company",)
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super(CompanyContactForm, self).__init__(*args, **kwargs)
         self.action_url = "/bdb/contacts/" + str(self.instance.pk) + "/add/"
 
@@ -121,7 +121,7 @@ class CompanyStatusForm(ModelForm):
         model = Company
         fields = ("status",)
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super(CompanyStatusForm, self).__init__(*args, **kwargs)
         self.fields["status"].choices = list(COMPANY_STATUS)
 
@@ -157,6 +157,6 @@ class KeyInformationForm(ModelForm):
         model = KeyInformation
         fields = ("name", "value")
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super(KeyInformationForm, self).__init__(*args, **kwargs)
         self.action_url = "/bdb/key_information/" + str(self.instance.pk) + "/add/"

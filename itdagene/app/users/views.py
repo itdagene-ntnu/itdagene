@@ -1,22 +1,24 @@
+from typing import Any
+
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.forms import PasswordChangeForm, SetPasswordForm
 from django.contrib.messages import SUCCESS, add_message
 from django.db.models import Q
-from django.shortcuts import Http404, HttpResponse, get_object_or_404, redirect, render
+from django.http import Http404, HttpRequest
+from django.shortcuts import HttpResponse, get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 from itdagene.app.mail.senders import users_send_welcome_email
 from itdagene.app.users import vcard_string
+from itdagene.app.users.forms import SimpleUserEditForm, UserCreateForm, UserEditForm
 from itdagene.core.log.models import LogItem
 from itdagene.core.models import Preference, User
 
-from .forms import SimpleUserEditForm, UserCreateForm, UserEditForm
-
 
 @login_required
-def user_list(request):
+def user_list(request: HttpRequest) -> HttpResponse:
     if not request.user.is_staff:
         persons = User.objects.filter(Q(is_staff=True) | Q(id=request.user.id)).filter(
             is_active=True, year=request.user.year
@@ -26,12 +28,14 @@ def user_list(request):
 
     persons = persons.order_by("-year", "username")
     return render(
-        request, "users/list.html", {"persons": persons, "title": _("User Admin")}
+        request,
+        "users/list.html",
+        {"persons": persons, "title": _("User Admin")},
     )
 
 
 @login_required
-def user_detail(request, pk):
+def user_detail(request: HttpRequest, pk: Any) -> HttpResponse:
     try:
         if not request.user.is_staff:
             person = (
@@ -57,7 +61,7 @@ def user_detail(request, pk):
 
 
 @permission_required("core.delete_user")
-def user_delete(request, pk):
+def user_delete(request: HttpRequest, pk: Any) -> HttpResponse:
     person = get_object_or_404(User, pk=pk, is_active=True)
 
     if request.method == "POST":
@@ -77,7 +81,7 @@ def user_delete(request, pk):
 
 
 @login_required
-def user_edit(request, pk):
+def user_edit(request: HttpRequest, pk: Any) -> HttpResponse:
     if not request.user.has_perm("core.change_user") and not request.user.pk == int(pk):
         return redirect(reverse("itdagene.users.user_list"))
 
@@ -92,11 +96,10 @@ def user_edit(request, pk):
             person = form.save()
             LogItem.log_it(person, "EDIT", 2)
             return redirect(reverse("itdagene.users.user_detail", args=[person.pk]))
+    elif request.user.is_superuser:
+        form = UserEditForm(instance=person)
     else:
-        if request.user.is_superuser:
-            form = UserEditForm(instance=person)
-        else:
-            form = SimpleUserEditForm(instance=person)
+        form = SimpleUserEditForm(instance=person)
 
     return render(
         request,
@@ -111,7 +114,7 @@ def user_edit(request, pk):
 
 
 @login_required
-def user_edit_password(request, pk):
+def user_edit_password(request: HttpRequest, pk: Any) -> HttpResponse:
     if not request.user.has_perm("core.change_user") and not request.user.pk == int(pk):
         return redirect(reverse("itdagene.users.user_list"))
 
@@ -127,11 +130,10 @@ def user_edit_password(request, pk):
             form.save()
             return redirect(reverse("itdagene.users.user_detail", args=[person.pk]))
 
+    elif request.user.is_superuser:
+        form = SetPasswordForm(person)
     else:
-        if request.user.is_superuser:
-            form = SetPasswordForm(person)
-        else:
-            form = PasswordChangeForm(person)
+        form = PasswordChangeForm(person)
 
     return render(
         request,
@@ -146,7 +148,7 @@ def user_edit_password(request, pk):
 
 
 @permission_required("core.add_user")
-def user_create(request):
+def user_create(request: HttpRequest) -> HttpResponse:
     if request.method == "POST":
         form = UserCreateForm(request.POST, request.FILES)
 
@@ -169,7 +171,7 @@ def user_create(request):
 
 
 @permission_required("core.send_welcome_email")
-def send_welcome_email(request, pk):
+def send_welcome_email(request: HttpRequest, pk: Any) -> HttpResponse:
     user = get_object_or_404(User, pk=pk)
     if request.method == "POST":
         users_send_welcome_email(user)
@@ -187,7 +189,7 @@ def send_welcome_email(request, pk):
 
 
 @login_required()
-def vcard(request, pk):
+def vcard(request: HttpRequest, pk: Any) -> HttpResponse:
     try:
         if not request.user.is_staff:
             person = (
@@ -203,5 +205,5 @@ def vcard(request, pk):
     output = vcard_string(person)
     filename = slugify(person.get_full_name())
     response = HttpResponse(output, content_type="text/x-vCard")
-    response["Content-Disposition"] = "attachment; filename=%s" % filename
+    response["Content-Disposition"] = f"attachment; filename={filename}"
     return response

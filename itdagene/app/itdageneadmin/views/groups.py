@@ -1,6 +1,8 @@
+from typing import Any
+
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.models import Group
-from django.http import HttpResponse
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -12,15 +14,17 @@ from itdagene.core.models import User
 
 
 @superuser_required()
-def list(request):
+def list(request: HttpRequest) -> HttpResponse:
     groups = Group.objects.all()
     return render(
-        request, "admin/groups/list.html", {"groups": groups, "title": _("Groups")}
+        request,
+        "admin/groups/list.html",
+        {"groups": groups, "title": _("Groups")},
     )
 
 
 @permission_required("auth.change_group")
-def view(request, id):
+def view(request: HttpRequest, id: Any) -> HttpResponse:
     group = get_object_or_404(Group, pk=id)
     members = User.objects.filter(groups=group)
     return render(
@@ -36,7 +40,7 @@ def view(request, id):
 
 
 @permission_required("auth.add_group")
-def add(request):
+def add(request: HttpRequest) -> HttpResponse:
     if request.method == "POST":
         form = GroupForm(request.POST)
         if form.is_valid():
@@ -47,12 +51,14 @@ def add(request):
             )
     form = GroupForm()
     return render(
-        request, "admin/groups/edit.html", {"form": form, "title": _("Add Group")}
+        request,
+        "admin/groups/edit.html",
+        {"form": form, "title": _("Add Group")},
     )
 
 
 @permission_required("auth.change_group")
-def edit(request, id):
+def edit(request: HttpRequest, id) -> HttpResponse:
     group = get_object_or_404(Group, id=id)
     if request.method == "POST":
         form = GroupForm(request.POST, instance=group)
@@ -70,22 +76,20 @@ def edit(request, id):
 
 
 @permission_required("auth.change_user")
-def add_user(request, id):
+def add_user(request: HttpRequest, id: Any) -> HttpResponse:
     if request.method == "POST":
         group = get_object_or_404(Group, pk=id)
         form = AddUserToGroupForm(request.POST)
         if form.is_valid():
             try:
-                u = form.cleaned_data["username"]
-                user = User.objects.get(username=u)
+                username = form.cleaned_data["username"]
+                user = User.objects.get(username=username)
                 user.groups.add(group)
             except (TypeError, User.DoesNotExist):
                 return HttpResponse("User does not exists", status=404)
         users = group.user_set.all()
         output = ""
-        for u in users:
-            output += "<li>" + str(u.profile) + "</li>"
+        for user in users:
+            output += f"<li>{user.profile}</li>"
         return HttpResponse(output)
-
-    else:
-        return HttpResponse("No post-data", status=500)
+    return HttpResponse("No post-data", status=500)

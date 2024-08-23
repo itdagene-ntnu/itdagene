@@ -12,7 +12,7 @@ def economic_overview(request):
         .exclude(contracts=None)
         .select_related()
     )
-    companies = []
+    companies: list = []
     for company in all_companies:
         if company.current_contract():
             companies.append(company)

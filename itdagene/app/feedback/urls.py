@@ -7,7 +7,9 @@ from itdagene.app.feedback.views import evalutions, issues
 urlpatterns = [
     re_path(r"^$", lambda r: HttpResponsePermanentRedirect("/feedback/issues/")),
     re_path(
-        r"^report/$", evalutions.report, name="itdagene.feedback.evalutions.report"
+        r"^report/$",
+        evalutions.report,
+        name="itdagene.feedback.evalutions.report",
     ),
     re_path(
         r"^report/(?P<year>\d{4})/$",
@@ -26,14 +28,20 @@ urlpatterns = [
         name="itdagene.feedback.issues.solved_list",
     ),
     re_path(
-        r"^issues/mine/$", issues.my_issues, name="itdagene.feedback.issues.my_issues"
+        r"^issues/mine/$",
+        issues.my_issues,
+        name="itdagene.feedback.issues.my_issues",
     ),
     re_path(r"^issues/add$", issues.add, name="itdagene.feedback.issues.add"),
     re_path(
-        r"^issues/(?P<id>\d+)/$", issues.view, name="itdagene.feedback.issues.view"
+        r"^issues/(?P<id>\d+)/$",
+        issues.view,
+        name="itdagene.feedback.issues.view",
     ),
     re_path(
-        r"^issues/(?P<id>\d+)/edit$", issues.edit, name="itdagene.feedback.issues.edit"
+        r"^issues/(?P<id>\d+)/edit$",
+        issues.edit,
+        name="itdagene.feedback.issues.edit",
     ),
     re_path(
         r"^issues/(?P<id>\d+)/solved$",

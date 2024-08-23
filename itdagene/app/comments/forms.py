@@ -1,4 +1,4 @@
-from django import forms
+from django.forms import Textarea
 from django.forms.models import ModelForm
 from django.forms.widgets import HiddenInput
 
@@ -12,5 +12,5 @@ class CommentForm(ModelForm):
         widgets = {
             "object_id": HiddenInput(),
             "content_type": HiddenInput(),
-            "comment": forms.Textarea(attrs={"rows": 3}),
+            "comment": Textarea(attrs={"rows": 3}),
         }
