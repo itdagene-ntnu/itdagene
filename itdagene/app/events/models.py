@@ -27,6 +27,7 @@ class Event(BaseModel):
     description = models.TextField(verbose_name=_("description"))
     type = models.PositiveIntegerField(choices=EVENT_TYPES, verbose_name=_("type"))
     location = models.CharField(max_length=30, verbose_name=_("location"))
+    cover_image = models.ImageField(upload_to="event_covers/", default=None, blank=True, null=True, verbose_name=_("cover image"))
     is_internal = models.BooleanField(verbose_name=_("internal event"), default=False)
     company = models.ForeignKey(
         Company,
