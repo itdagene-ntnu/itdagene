@@ -12,6 +12,7 @@ class EventForm(ModelForm):
             "date",
             "time_start",
             "time_end",
+            "cover_image",
             "description",
             "type",
             "location",

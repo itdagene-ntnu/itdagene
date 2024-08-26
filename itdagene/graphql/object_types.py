@@ -147,6 +147,7 @@ class Event(DjangoObjectType):
             "title",
             "time_start",
             "time_end",
+            "cover_image",
             "description",
             "type",
             "location",
