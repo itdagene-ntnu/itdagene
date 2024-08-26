@@ -1,5 +1,8 @@
+from typing import Any, List
+
 from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import SUCCESS, add_message
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -11,8 +14,8 @@ from itdagene.core.models import Preference
 
 
 @staff_required()
-def list(request):
-    experience_lists = []
+def list(request: HttpRequest) -> HttpResponse:
+    experience_lists: List = []
     for pref in Preference.objects.all().order_by("-year"):
         experience_lists.append(
             (
@@ -28,7 +31,7 @@ def list(request):
 
 
 @staff_required()
-def view(request, id):
+def view(request: HttpRequest, id: Any) -> HttpResponse:
     experience = get_object_or_404(Experience, pk=id)
     return render(
         request,
@@ -36,13 +39,13 @@ def view(request, id):
         {
             "experience": experience,
             "title": _("Experience"),
-            "description": str(experience) + " " + str(experience.year.year),
+            "description": f"{experience} {experience.year.year}",
         },
     )
 
 
 @permission_required("experiences.add_experience")
-def add(request):
+def add(request: HttpRequest) -> HttpResponse:
     form = ExperienceForm()
     if request.method == "POST":
         form = ExperienceForm(request.POST)
@@ -52,14 +55,13 @@ def add(request):
             data.save()
             add_message(request, SUCCESS, _("Experience added."))
             return redirect(reverse("itdagene.experiences.view", args=[data.pk]))
-
     return render(
         request, "experiences/form.html", {"form": form, "title": _("Add Experience")}
     )
 
 
 @permission_required("experiences.change_experience")
-def edit(request, id):
+def edit(request: HttpRequest, id: Any) -> HttpResponse:
     es = get_object_or_404(Experience, pk=id)
     form = ExperienceForm(instance=es)
     if request.method == "POST":
@@ -67,7 +69,6 @@ def edit(request, id):
         if form.is_valid():
             data = form.save()
             return redirect(reverse("itdagene.experiences.view", args=[data.pk]))
-
     return render(
         request,
         "experiences/form.html",
@@ -75,6 +76,6 @@ def edit(request, id):
             "form": form,
             "experience": es,
             "title": _("Edit Experience"),
-            "description": str(es) + " " + str(es.year.year),
+            "description": f"{es} {es.year.year}",
         },
     )

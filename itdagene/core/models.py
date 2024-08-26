@@ -282,7 +282,7 @@ class Preference(BaseModel):
         return pref
 
     @classmethod
-    def get_preference_by_year(cls, year) -> BaseModel:
+    def get_preference_by_year(cls, year: int) -> BaseModel:
         try:
             return cls.objects.get(year=int(year), active=True)
         except cls.DoesNotExist:

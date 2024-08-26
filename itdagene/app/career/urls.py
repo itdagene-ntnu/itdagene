@@ -8,7 +8,9 @@ urlpatterns = [
     re_path(r"^joblistings/add/$", views.add, name="itdagene.career.add"),
     re_path(r"^joblistings/(?P<pk>\d+)/$", views.view, name="itdagene.career.view"),
     re_path(
-        r"^joblistings/(?P<pk>\d+)/edit/$", views.edit, name="itdagene.career.edit"
+        r"^joblistings/(?P<pk>\d+)/edit/$",
+        views.edit,
+        name="itdagene.career.edit",
     ),
     re_path(
         r"^joblistings/(?P<pk>\d+)/delete/$",
@@ -16,6 +18,8 @@ urlpatterns = [
         name="itdagene.career.delete",
     ),
     re_path(
-        r"^joblistings/add_town/$", views.add_town, name="itdagene.career.add_town"
+        r"^joblistings/add_town/$",
+        views.add_town,
+        name="itdagene.career.add_town",
     ),
 ]

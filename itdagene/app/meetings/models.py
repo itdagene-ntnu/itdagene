@@ -1,10 +1,19 @@
-import datetime
+from datetime import datetime
 
 from django.conf import settings
-from django.db import models
+from django.db.models import (
+    CASCADE,
+    SET_NULL,
+    BooleanField,
+    CharField,
+    DateField,
+    ForeignKey,
+    PositiveIntegerField,
+    TextField,
+    TimeField,
+)
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from django.utils.translation import ugettext
 
 from itdagene.core.log.models import LogItem
 from itdagene.core.models import BaseModel, Preference, User
@@ -21,72 +30,67 @@ MEETING_TYPES = (
 
 
 class Meeting(BaseModel):
-    date = models.DateField(verbose_name=_("date"))
-    start_time = models.TimeField(verbose_name=_("from time"))
-    end_time = models.TimeField(blank=True, null=True, verbose_name=_("to time"))
-    type = models.PositiveIntegerField(
+    date = DateField(verbose_name=_("date"))
+    start_time = TimeField(verbose_name=_("from time"))
+    end_time = TimeField(blank=True, null=True, verbose_name=_("to time"))
+    type = PositiveIntegerField(
         choices=MEETING_TYPES, default=0, verbose_name=_("type")
     )
-    location = models.CharField(max_length=40, blank=True, verbose_name=_("location"))
-    agenda = models.TextField(blank=True, null=True, verbose_name=_("Meeting Agenda"))
-    abstract = models.TextField(blank=True, null=True, verbose_name=_("abstract"))
-    is_board_meeting = models.BooleanField(
-        default=True, verbose_name=_("is board meeting")
-    )
-    referee = models.ForeignKey(
+    location = CharField(max_length=40, blank=True, verbose_name=_("location"))
+    agenda = TextField(blank=True, null=True, verbose_name=_("Meeting Agenda"))
+    abstract = TextField(blank=True, null=True, verbose_name=_("abstract"))
+    is_board_meeting = BooleanField(default=True, verbose_name=_("is board meeting"))
+    referee = ForeignKey(
         User,
         related_name="refereed_meetings",
-        on_delete=models.SET_NULL,
+        on_delete=SET_NULL,
         null=True,
         blank=True,
         verbose_name=_("referee"),
     )
-    preference = models.ForeignKey(
+    preference = ForeignKey(
         Preference,
-        on_delete=models.SET_NULL,
+        on_delete=SET_NULL,
         verbose_name="Preference",
         blank=True,
         null=True,
     )
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.get_type_display()
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs) -> None:
         super(Meeting, self).save(*args, **kwargs)
 
-    def attending(self):
-        att = list(self.replies.filter(is_attending=True))
-        return att
+    def attending(self) -> list:
+        return list(self.replies.filter(is_attending=True))
 
-    def not_attending(self):
-        att = list(self.replies.filter(is_attending=False))
-        return att
+    def not_attending(self) -> list:
+        return list(self.replies.filter(is_attending=False))
 
-    def awaiting_reply(self):
-        att = list(self.replies.filter(is_attending=None))
-        return att
+    def awaiting_reply(self) -> list:
+        return list(self.replies.filter(is_attending=None))
 
-    def attending_link(self):
-        return "http://%s%s" % (
-            settings.SITE["domain"],
-            reverse("itdagene.meetings.attend", args=[self.pk]),
+    def attending_link(self) -> str:
+        return (
+            f"http://{settings.SITE['domain']}"
+            f"{reverse('itdagene.meetings.attend', args=[self.pk])}"
         )
 
-    def not_attending_link(self):
-        return "http://%s%s" % (
-            settings.SITE["domain"],
-            reverse("itdagene.meetings.not_attend", args=[self.pk]),
+    def not_attending_link(self) -> str:
+        return (
+            f"http://{settings.SITE['domain']}"
+            f"{reverse('itdagene.meetings.not_attend', args=[self.pk])}"
         )
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         return reverse("itdagene.meetings.meeting", args=(self.pk,))
 
-    def get_start_date(self):
-        return datetime.datetime.combine(self.date, self.start_time)
+    def get_start_date(self) -> datetime:
+        return datetime.combine(self.date, self.start_time)
 
-    def get_end_date(self):
-        return datetime.datetime.combine(self.date, self.end_time)
+    def get_end_date(self) -> datetime:
+        return datetime.combine(self.date, self.end_time)
 
     class Meta:
         verbose_name = _("meeting")
@@ -94,59 +98,50 @@ class Meeting(BaseModel):
 
 
 class ReplyMeeting(BaseModel):
-    meeting = models.ForeignKey(
+    meeting = ForeignKey(
         Meeting,
         related_name="replies",
         verbose_name=_("meeting"),
-        on_delete=models.CASCADE,
+        on_delete=CASCADE,
     )
-    user = models.ForeignKey(User, verbose_name=_("user"), on_delete=models.CASCADE)
-    is_attending = models.NullBooleanField(
-        verbose_name=_("attending"), null=True, blank=True
-    )
+    user = ForeignKey(User, verbose_name=_("user"), on_delete=CASCADE)
+    is_attending = BooleanField(verbose_name=_("attending"), null=True, blank=True)
 
-    def __str__(self):
-        return ugettext("Meeting participation: %(user)s") % {"user": str(self.user)}
+    def __str__(self) -> str:
+        return _(f"Meeting participation: {self.user}")
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         return reverse("itdagene.meetings.meeting", args=(self.meeting.pk,))
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs) -> None:
         super(ReplyMeeting, self).save()
 
 
 class Penalty(BaseModel):
     TYPES = (("beer", _("Beer")), ("wine", _("Wine")))
-    user = models.ForeignKey(
+    user = ForeignKey(
         User,
         related_name="penalties",
         verbose_name=_("person"),
-        on_delete=models.CASCADE,
+        on_delete=CASCADE,
     )
-    meeting = models.ForeignKey(
+    meeting = ForeignKey(
         Meeting,
         blank=True,
         null=True,
         verbose_name=_("meeting"),
-        on_delete=models.SET_NULL,
+        on_delete=SET_NULL,
     )
-    type = models.CharField(
+    type = CharField(
         max_length=10, default="beer", choices=TYPES, verbose_name=_("type")
     )
-    bottles = models.PositiveIntegerField(
-        default=2, verbose_name=_("number of bottles")
-    )
-    reason = models.TextField(verbose_name=_("reason"))
+    bottles = PositiveIntegerField(default=2, verbose_name=_("number of bottles"))
+    reason = TextField(verbose_name=_("reason"))
 
-    def __str__(self):
-        return (
-            self.user.username + " " + str(self.bottles) + " " + self.get_type_display()
-        )
+    def __str__(self) -> str:
+        return f"{self.user.username} {self.bottles} {self.get_type_display()}"
 
-    def save(self, *args, **kwargs):
-        if self.pk:
-            action = "EDIT"
-        else:
-            action = "CREATE"
+    def save(self, *args, **kwargs) -> None:
+        action = "EDIT" if self.pk else "CREATE"
         super(Penalty, self).save(*args, **kwargs)
         LogItem.log_it(self, action, 1)

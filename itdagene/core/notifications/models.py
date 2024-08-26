@@ -64,13 +64,13 @@ class Notification(Model):
         return user.notifications.all()
 
     @classmethod
-    def notify(cls, object_, users) -> None:
-        send_mail = bool(object_.notification_priority())
+    def notify(cls, object: Any, users) -> None:
+        send_mail = bool(object.notification_priority())
 
         notification = Notification(
-            content_object=object_,
-            priority=object_.notification_priority(),
-            message=object_.notification_message(),
+            content_object=object,
+            priority=object.notification_priority(),
+            message=object.notification_message(),
             send_mail=send_mail,
         )
 
@@ -90,15 +90,15 @@ class Subscription(Model):
         unique_together = ("content_type", "object_id")
 
     @classmethod
-    def notify_subscribers(cls, object_: BaseModel):
+    def notify_subscribers(cls, object: BaseModel) -> None:
         notification_object_ct = ContentType.objects.get_for_model(
-            object_.notification_object()
+            object.notification_object()
         )
 
         try:
             subscription = Subscription.objects.get(
                 content_type=notification_object_ct,
-                object_id=object_.notification_object().id,
+                object_id=object.notification_object().id,
             )
 
             subscribers = subscription.subscribers.all()
@@ -107,7 +107,7 @@ class Subscription(Model):
             if current_user:
                 subscribers = subscribers.exclude(id=current_user.id)
 
-            Notification.notify(object_, subscribers.distinct("pk"))
+            Notification.notify(object, subscribers.distinct("pk"))
 
         except cls.DoesNotExist:
             return
@@ -121,13 +121,13 @@ class Subscription(Model):
         subscription.save()
 
     @classmethod
-    def get_or_create(cls, object_):
-        content_type = ContentType.objects.get_for_model(object_)
+    def get_or_create(cls, object):
+        content_type = ContentType.objects.get_for_model(object)
         try:
             subscription = Subscription.objects.get(
-                content_type=content_type, object_id=object_.id
+                content_type=content_type, object_id=object.id
             )
         except (TypeError, Subscription.DoesNotExist):
-            subscription = Subscription(content_type=content_type, object_id=object_.id)
+            subscription = Subscription(content_type=content_type, object_id=object.id)
             subscription.save()
         return subscription

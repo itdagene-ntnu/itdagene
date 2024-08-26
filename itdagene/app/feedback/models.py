@@ -1,7 +1,18 @@
-import random
-import string
+from random import choices
+from string import ascii_uppercase, digits
 
-from django.db import models
+from django.db.models import (
+    CASCADE,
+    SET_NULL,
+    BooleanField,
+    CharField,
+    DateTimeField,
+    ForeignKey,
+    IntegerField,
+    Model,
+    PositiveIntegerField,
+    TextField,
+)
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -43,38 +54,31 @@ STATUS = (
 
 
 class Issue(BaseModel):
-    title = models.CharField(max_length=100, verbose_name=_("title"))
-    app = models.CharField(max_length=50, choices=APPS, verbose_name=_("app"))
-    type = models.PositiveIntegerField(default=1, choices=TYPES, verbose_name=_("type"))
-    status = models.PositiveIntegerField(
-        default=0, choices=STATUS, verbose_name=_("status")
-    )
-    description = models.TextField(verbose_name=_("description"))
-    is_solved = models.BooleanField(verbose_name=_("is solved"), default=False)
-    assigned_user = models.ForeignKey(
+    title = CharField(max_length=100, verbose_name=_("title"))
+    app = CharField(max_length=50, choices=APPS, verbose_name=_("app"))
+    type = PositiveIntegerField(default=1, choices=TYPES, verbose_name=_("type"))
+    status = PositiveIntegerField(default=0, choices=STATUS, verbose_name=_("status"))
+    description = TextField(verbose_name=_("description"))
+    is_solved = BooleanField(verbose_name=_("is solved"), default=False)
+    assigned_user = ForeignKey(
         User,
         related_name="assigned_issues",
         blank=True,
         null=True,
         verbose_name=_("assigned user"),
-        on_delete=models.SET_NULL,
+        on_delete=SET_NULL,
     )
-    deadline = models.DateTimeField(blank=True, null=True, verbose_name=_("deadline"))
-    solved_date = models.DateTimeField(
-        blank=True, null=True, verbose_name=_("solved date")
-    )
+    deadline = DateTimeField(blank=True, null=True, verbose_name=_("deadline"))
+    solved_date = DateTimeField(blank=True, null=True, verbose_name=_("solved date"))
 
-    def __str__(self):
-        return self.get_app_display() + ": " + self.title
+    def __str__(self) -> str:
+        return f"{self.get_app_display()}: {self.title}"
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         return reverse("itdagene.feedback.issues.view", args=[self.pk])
 
-    def save(self, *args, **kwargs):
-        if self.pk:
-            action = "EDIT"
-        else:
-            action = "CREATE"
+    def save(self, *args, **kwargs) -> None:
+        action = "EDIT" if self.pk else "CREATE"
         if self.is_solved and self.solved_date is None:
             self.solved_date = timezone.now()
         super(Issue, self).save(*args, **kwargs)
@@ -95,16 +99,12 @@ RATINGS = (
 )
 
 
-class Evaluation(models.Model):
-    company = models.ForeignKey(
-        Company, verbose_name="Company", on_delete=models.CASCADE
-    )
-    preference = models.ForeignKey(
-        Preference, verbose_name="Preference", on_delete=models.CASCADE
-    )
-    hash = models.CharField(max_length=100, verbose_name=_("Hash"), unique=True)
-    has_answers = models.BooleanField(default=False, verbose_name=_("has answers"))
-    communication_rating = models.IntegerField(
+class Evaluation(Model):
+    company = ForeignKey(Company, verbose_name="Company", on_delete=CASCADE)
+    preference = ForeignKey(Preference, verbose_name="Preference", on_delete=CASCADE)
+    hash = CharField(max_length=100, verbose_name=_("Hash"), unique=True)
+    has_answers = BooleanField(default=False, verbose_name=_("has answers"))
+    communication_rating = IntegerField(
         choices=RATINGS,
         blank=False,
         verbose_name=_(
@@ -113,64 +113,66 @@ class Evaluation(models.Model):
         ),
         default=0,
     )
-    internship_marathon_rating = models.IntegerField(
+    internship_marathon_rating = IntegerField(
         choices=RATINGS,
         verbose_name=_("How did the internship marathon go?"),
         default=0,
     )
-    internship_marathon_improvement = models.TextField(
+    internship_marathon_improvement = TextField(
         blank=True,
         verbose_name=_("What could have been done better at the internship marathon?"),
     )
-    course_rating = models.IntegerField(
+    course_rating = IntegerField(
         choices=RATINGS, verbose_name=_("How did the course go?"), default=0
     )
-    course_improvement = models.TextField(
+    course_improvement = TextField(
         blank=True, verbose_name=_("Could the course be handled better?")
     )
-    visitors_rating = models.IntegerField(
+    visitors_rating = IntegerField(
         choices=RATINGS,
         verbose_name=_(
             "How satisfied are you with the number of people that visited your stand?"
         ),
         default=0,
     )
-    has_interview_location = models.BooleanField(
+    has_interview_location = BooleanField(
         verbose_name=_("Did you use interview rooms?"), default=False
     )
-    interview_location_rating = models.IntegerField(
-        choices=RATINGS, verbose_name=_("How was the interview room?"), default=0
+    interview_location_rating = IntegerField(
+        choices=RATINGS,
+        verbose_name=_("How was the interview room?"),
+        default=0,
     )
-    interview_location_improvement = models.TextField(
+    interview_location_improvement = TextField(
         blank=True,
         verbose_name=_("What could have been done better at the interview room?"),
     )
-    has_banquet = models.BooleanField(
+    has_banquet = BooleanField(
         verbose_name=_("Were you at the banquet?"), default=False
     )
-    banquet_rating = models.IntegerField(
+    banquet_rating = IntegerField(
         choices=RATINGS, verbose_name=_("How did the banquet go?"), default=0
     )
-    banquet_improvement = models.TextField(
-        blank=True, verbose_name=_("What could have been done better at the banquet?")
+    banquet_improvement = TextField(
+        blank=True,
+        verbose_name=_("What could have been done better at the banquet?"),
     )
-    improvement = models.TextField(
+    improvement = TextField(
         blank=True,
         verbose_name=_(
             "What could have been done better? Something else you want to comment?"
         ),
     )
-    want_to_come_back = models.BooleanField(
-        verbose_name=_("Interested in being contacted next year?"), default=False
+    want_to_come_back = BooleanField(
+        verbose_name=_("Interested in being contacted next year?"),
+        default=False,
     )
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs) -> None:
         if not self.pk:
-            self.hash = "".join(
-                random.choice(string.ascii_uppercase + string.digits) for _ in range(50)
-            )
+            self.hash = "".join(choices(ascii_uppercase + digits, k=50))
 
         super(Evaluation, self).save(*args, **kwargs)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.hash

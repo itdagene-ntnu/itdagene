@@ -1,6 +1,9 @@
+import os
+from typing import Any
+
 from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import SUCCESS, add_message
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import gettext_lazy as _
 
@@ -10,7 +13,7 @@ from itdagene.core.decorators import staff_required
 
 
 @permission_required("company.add_contract")
-def add_contract(request, company_id):
+def add_contract(request: HttpRequest, company_id: Any) -> HttpResponse:
     company = get_object_or_404(Company, pk=company_id)
     form = ContractForm()
     if request.method == "POST":
@@ -29,7 +32,7 @@ def add_contract(request, company_id):
 
 
 @permission_required("company.change_contract")
-def edit_contract(request, company_id, id):
+def edit_contract(request: HttpRequest, company_id: Any, id: Any) -> HttpResponse:
     company = get_object_or_404(Company, pk=company_id)
     contract = get_object_or_404(Contract, pk=id)
     if contract.company != company:
@@ -54,21 +57,19 @@ def edit_contract(request, company_id, id):
 
 
 @staff_required()
-def download_contract(request, company_id, id):
-    import os
-
+def download_contract(request: Any, company_id: Any, id: Any) -> HttpResponse:
     contract = get_object_or_404(Contract, pk=id, company__id=company_id)
     abspath = open(contract.file.path, "rb")
     response = HttpResponse(content=abspath.read())
     response["Content-Type"] = "application/octet-stream"
-    response["Content-Disposition"] = "attachment; filename=%s" % os.path.basename(
-        contract.file.path
-    )
+    response[
+        "Content-Disposition"
+    ] = f"attachment; filename={os.path.basename(contract.file.path)}"
     return response
 
 
 @permission_required("company.delete_contract")
-def delete_contract(request, company_id, id):
+def delete_contract(request: HttpRequest, company_id: Any, id: Any) -> HttpResponse:
     company = get_object_or_404(Company, pk=company_id)
     contract = get_object_or_404(Contract, pk=id)
     if contract.company != company:
@@ -77,14 +78,13 @@ def delete_contract(request, company_id, id):
     if request.method == "POST":
         contract.delete()
         return redirect(company.get_absolute_url())
-    else:
-        return render(
-            request,
-            "company/contracts/delete.html",
-            {
-                "contract": contract,
-                "company": contract.company,
-                "title": _("Delete Contract"),
-                "description": contract,
-            },
-        )
+    return render(
+        request,
+        "company/contracts/delete.html",
+        {
+            "contract": contract,
+            "company": contract.company,
+            "title": _("Delete Contract"),
+            "description": contract,
+        },
+    )

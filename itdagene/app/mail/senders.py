@@ -3,7 +3,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.mail import EmailMultiAlternatives, get_connection
 from django.template.loader import render_to_string
 from django.utils import formats, translation
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext_lazy as _
 
 from itdagene.app.comments.models import Comment
 from itdagene.core.auth import generate_password
@@ -11,16 +11,21 @@ from itdagene.core.notifications.models import Subscription
 
 
 def send_email(
-    recipients, subject, template, template_html, params, sender=settings.SERVER_EMAIL
+    recipients,
+    subject: str,
+    template: str,
+    template_html: str,
+    params: dict,
+    sender: str = settings.SERVER_EMAIL,
 ):
     params["site"] = settings.SITE
 
-    mail_contents = render_to_string("mail/%s" % (template,), params)
-    mail_contents_html = render_to_string("mail/%s" % (template_html,), params)
+    mail_contents = render_to_string(f"mail/{template}", params)
+    mail_contents_html = render_to_string(f"mail/{template_html}", params)
 
     connection = get_connection(fail_silently=True)
 
-    messages = []
+    messages: list = []
     for recipient in recipients:
         message = EmailMultiAlternatives(subject, mail_contents, sender, [recipient])
         message.attach_alternative(mail_contents_html, "text/html")
@@ -29,7 +34,7 @@ def send_email(
     return connection.send_messages(messages)
 
 
-def users_send_welcome_email(user):
+def users_send_welcome_email(user) -> None:
     with translation.override(user.language):
         new_password = generate_password()
         user.set_password(new_password)
@@ -37,14 +42,14 @@ def users_send_welcome_email(user):
 
         send_email(
             [user.email],
-            "%s %s" % (_("Welcome to"), settings.SITE["name"]),
+            f"{_('Welcome to')} {settings.SITE['name']}",
             "users/welcome_mail.txt",
             "users/welcome_mail.html",
             {"user": user, "password": new_password},
         )
 
 
-def notifications_send_email(notification):
+def notifications_send_email(notification) -> None:
     for user in notification.users.all():
         if not user.mail_notification:
             continue
@@ -58,26 +63,32 @@ def notifications_send_email(notification):
             )
 
             send_email(
-                [user.email], _("New notification"), template, template_html, context
-            )
-
-
-def meeting_send_invite(users, meeting):
-    for user in users:
-        with translation.override(user.language):
-            context = {"meeting": meeting}
-            template, template_html = "meetings/invite.txt", "meetings/invite.html"
-            send_email(
                 [user.email],
-                _("Meeting Invite %s %s")
-                % (str(meeting), formats.date_format(meeting.date)),
+                _("New notification"),
                 template,
                 template_html,
                 context,
             )
 
 
-def send_comment_email(comment):
+def meeting_send_invite(users, meeting) -> None:
+    for user in users:
+        with translation.override(user.language):
+            context = {"meeting": meeting}
+            template, template_html = (
+                "meetings/invite.txt",
+                "meetings/invite.html",
+            )
+            send_email(
+                [user.email],
+                _(f"Meeting Invite {meeting} {formats.date_format(meeting.date)}"),
+                template,
+                template_html,
+                context,
+            )
+
+
+def send_comment_email(comment) -> None:
     attached_object = comment.object
 
     if attached_object:
@@ -112,7 +123,7 @@ def send_comment_email(comment):
 
                 send_email(
                     [user.email],
-                    _("New comment on %s") % str(comment.object),
+                    _(f"New comment on {comment.object}"),
                     template,
                     template_html,
                     context,

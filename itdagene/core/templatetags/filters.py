@@ -13,7 +13,7 @@ register = Library()
 
 
 @register.filter
-def boolean(value, arg: Any = None) -> str:
+def boolean(value: Any, arg: Any = None) -> str:
     """Finds HTML markup for a Glyphicon based on the truthiness of the
     `value`.
     """
@@ -23,7 +23,7 @@ def boolean(value, arg: Any = None) -> str:
 
 
 @register.filter
-def has_contract_for_current_year(value, arg=None) -> bool:
+def has_contract_for_current_year(value: list, arg=None) -> bool:
     """Decides whether the contract passed as `value` is from current
     year.
     """

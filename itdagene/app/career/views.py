@@ -1,6 +1,9 @@
+from typing import Any
+
 from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import SUCCESS, add_message
 from django.db.models import Q
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
@@ -12,9 +15,10 @@ from itdagene.core.decorators import staff_required
 
 
 @staff_required()
-def list(request):
+def list(request: HttpRequest) -> HttpResponse:
     joblistings = Joblisting.objects.filter(
-        (Q(deadline__gte=timezone.now()) | Q(deadline__isnull=True)), is_active=True
+        (Q(deadline__gte=timezone.now()) | Q(deadline__isnull=True)),
+        is_active=True,
     )
 
     return render(
@@ -25,7 +29,7 @@ def list(request):
 
 
 @permission_required("career.add_joblisting")
-def add(request):
+def add(request: HttpRequest) -> HttpResponse:
     form = JoblistingForm()
     if request.method == "POST":
         form = JoblistingForm(request.POST, request.FILES)
@@ -34,12 +38,14 @@ def add(request):
             add_message(request, SUCCESS, _("Joblisting saved."))
             return redirect(reverse("itdagene.career.view", args=[joblisting.pk]))
     return render(
-        request, "career/form.html", {"title": _("Add Joblisting"), "form": form}
+        request,
+        "career/form.html",
+        {"title": _("Add Joblisting"), "form": form},
     )
 
 
 @staff_required()
-def view(request, pk):
+def view(request: HttpRequest, pk: Any) -> HttpResponse:
     joblisting = get_object_or_404(Joblisting, pk=pk)
     return render(
         request,
@@ -53,7 +59,7 @@ def view(request, pk):
 
 
 @permission_required("career.change_joblisting")
-def edit(request, pk):
+def edit(request: HttpRequest, pk: Any) -> HttpResponse:
     joblisting = get_object_or_404(Joblisting, pk=pk)
     form = JoblistingForm(instance=joblisting)
 
@@ -76,14 +82,13 @@ def edit(request, pk):
 
 
 @permission_required("career.delete_joblisting")
-def delete(request, pk):
+def delete(request: HttpRequest, pk: Any) -> HttpResponse:
     joblisting = get_object_or_404(Joblisting, pk=pk)
     if request.method == "POST":
         joblisting.is_active = False
         joblisting.save()
         add_message(request, SUCCESS, _("Joblisting deleted."))
         return redirect(reverse("itdagene.career.list"))
-
     return render(
         request,
         "career/delete.html",
@@ -96,7 +101,7 @@ def delete(request, pk):
 
 
 @permission_required("career.add_town")
-def add_town(request):
+def add_town(request: HttpRequest) -> HttpResponse:
     form = JoblistingTownForm()
     if request.method == "POST":
         form = JoblistingTownForm(request.POST)

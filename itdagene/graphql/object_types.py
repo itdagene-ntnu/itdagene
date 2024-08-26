@@ -76,9 +76,9 @@ class Joblisting(DjangoObjectType):
         return ItdageneJoblisting.objects.all()
 
     @classmethod
-    def get_node(cls, context: Any, id_):
+    def get_node(cls, context: Any, id: Any):
         try:
-            return ItdageneJoblisting.objects.get(pk=id_)
+            return ItdageneJoblisting.objects.get(pk=id)
         except Exception:
             pass
 
@@ -245,9 +245,9 @@ class Company(DjangoObjectType):
         return ItdageneCompany.get_last_day() | ItdageneCompany.get_first_day()
 
     @classmethod
-    def get_node(cls, context: Any, id_):
+    def get_node(cls, context: Any, id):
         try:
-            return cls.get_queryset().get(pk=id_)
+            return cls.get_queryset().get(pk=id)
         except Exception:
             pass
 
@@ -325,6 +325,7 @@ class MetaData(DjangoObjectType):
     def resolve_collaborators(self, info: Any):
         if self.view_sp:
             return ItdageneCompany.get_collaborators()
+        return None
 
     def resolve_board_members(self, info: Any):
         return (
