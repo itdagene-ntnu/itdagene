@@ -12,6 +12,7 @@ from itdagene.graphql.object_types import (
     Joblisting,
     MetaData,
     Page,
+    Photo,
     Question,
     SearchResult,
     Stand,
@@ -115,6 +116,8 @@ class Query(ObjectType):
     )
 
     questions = List(Question, description="Get all questions")
+
+    photos = List(Photo, description="Get all photos")
 
     stands = List(
         NonNull(Stand),
