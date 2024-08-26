@@ -39,7 +39,7 @@ def edit_photo(request: HttpRequest, pk: Any) -> HttpResponse:
     if request.method == "POST":
         form = PhotoForm(request.POST, request.FILES, instance=photo)
         if form.is_valid():
-            question = form.save()
+            photo = form.save()
             add_message(request, SUCCESS, _("Photo saved."))
             return redirect(reverse("itdagene.gallery.list_photos"))
     return render(

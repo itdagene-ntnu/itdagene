@@ -1,4 +1,4 @@
-from django.db.models import BooleanField, CharField, ImageField
+from django.db.models import BooleanField, ImageField
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
