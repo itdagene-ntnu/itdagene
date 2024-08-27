@@ -23,7 +23,7 @@ def list_events(request: HttpRequest) -> HttpResponse:
 def add_event(request: HttpRequest) -> HttpResponse:
     form = EventForm()
     if request.method == "POST":
-        form = EventForm(request.POST)
+        form = EventForm(request.POST, request.FILES)
         if form.is_valid():
             event = form.save()
             add_message(request, SUCCESS, _("Event added."))
