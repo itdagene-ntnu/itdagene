@@ -39,7 +39,13 @@ class Event(BaseModel):
     description = TextField(verbose_name=_("description"))
     type = PositiveIntegerField(choices=EVENT_TYPES, verbose_name=_("type"))
     location = CharField(max_length=30, verbose_name=_("location"))
-    cover_image = ImageField(upload_to="event_covers/", default=None, blank=True, null=True, verbose_name=_("cover image"))
+    cover_image = ImageField(
+        upload_to="event_covers/",
+        default=None,
+        blank=True,
+        null=True,
+        verbose_name=_("cover image"),
+    )
     is_internal = BooleanField(verbose_name=_("internal event"), default=False)
     company = ForeignKey(
         Company,
