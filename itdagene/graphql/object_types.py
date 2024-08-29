@@ -12,6 +12,7 @@ from itdagene.app.company.models import Company as ItdageneCompany
 from itdagene.app.company.models import KeyInformation as ItdageneKeyInformation
 from itdagene.app.events.models import Event as ItdageneEvent
 from itdagene.app.faq.models import Question as ItdageneQuestion
+from itdagene.app.gallery.models import Photo as ItdagenePhoto
 from itdagene.app.pages.models import Page as ItdagenePage
 from itdagene.app.stands.models import DigitalStand as ItdageneStand
 from itdagene.core.models import Preference
@@ -176,6 +177,18 @@ class Question(DjangoObjectType):
     @classmethod
     def get_queryset(cls):
         return ItdageneQuestion.objects.all()
+
+
+class Photo(DjangoObjectType):
+    class Meta:
+        model = ItdagenePhoto
+        description = "A photo for the gallery"
+        only_fiels = "photo"
+        interfaces = (Node,)
+
+    @classmethod
+    def get_queryset(cls):
+        return ItdagenePhoto.objects.all().filter(active=True)
 
 
 class Stand(DjangoObjectType):

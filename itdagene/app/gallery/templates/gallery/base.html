@@ -10,16 +10,31 @@
                 <thead>
                 <tr>
                     <th>{% trans "Photo" %}</th>
+                    <th>{% trans "Active" %}</th>
                     <th>{% trans "Actions" %}</th>
                 </tr>
                 </thead>
                 {% for photo in photos %}
                     <tr>
-                        <td>{{ photo.name }}</td>
                         <td>
+                            <a href="https://itdagene.no/uploads/gallery/{{ photo.filename }}" target="_blank">{{ photo.filename }}</a>
+                        </td>
+                        <td>
+                            {% if photo.active %}
+                                <i style="color: green;" class="fas fa-check"></i>
+                            {% else %}
+                                <i style="color: red;" class="fas fa-times"></i>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <span class="btn-group">
+                            {% if perms.gallery.edit_photo %}
+                                <a href="{% url "itdagene.gallery.edit_photo" photo.pk %}""><i class="fas fa-pen"></i> {% trans "Edit" %}</a>
+                            {% endif %}
                             {% if perms.faq.delete_question %}
                                 <a href="{% url "itdagene.gallery.delete_photo" photo.pk %}""><i class="fas fa-trash"></i> {% trans "Delete" %}</a>
                             {% endif %}
+                            </span>
                         </td>
                     </tr>
                 {% endfor %}

@@ -8,5 +8,5 @@ class PhotoForm(ModelForm):
         model = Photo
         fields = (
             "photo",
-            "name",
+            "active",
         )
