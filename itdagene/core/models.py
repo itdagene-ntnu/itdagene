@@ -268,7 +268,7 @@ class Preference(BaseModel):
             pref = Preference.objects.get(active=True)
         except Preference.DoesNotExist:
             year = now().year
-            pref, _ = Preference.objects.get_or_create(
+            pref, _created = Preference.objects.get_or_create(
                 year=year,
                 defaults={
                     "active": True,
@@ -287,7 +287,7 @@ class Preference(BaseModel):
             return cls.objects.get(year=int(year), active=True)
         except cls.DoesNotExist:
             year = now().year
-            pref, _ = Preference.objects.get_or_create(
+            pref, _created = Preference.objects.get_or_create(
                 year=year,
                 defaults={
                     "active": True,

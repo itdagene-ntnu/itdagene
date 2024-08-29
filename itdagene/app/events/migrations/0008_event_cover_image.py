@@ -6,13 +6,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('events', '0007_auto_20210111_1817'),
+        ("events", "0007_auto_20210111_1817"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='event',
-            name='cover_image',
-            field=models.ImageField(blank=True, default=None, null=True, upload_to='event_covers/', verbose_name='cover image'),
+            model_name="event",
+            name="cover_image",
+            field=models.ImageField(
+                blank=True,
+                default=None,
+                null=True,
+                upload_to="event_covers/",
+                verbose_name="cover image",
+            ),
         ),
     ]
