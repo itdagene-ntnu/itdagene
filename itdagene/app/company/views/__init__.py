@@ -68,7 +68,7 @@ def view(request: HttpRequest, id: Any) -> HttpResponse:
     company = get_object_or_404(
         Company.objects.select_related().prefetch_related(), pk=id
     )
-    evaluation, _ = Evaluation.objects.get_or_create(
+    evaluation, _created = Evaluation.objects.get_or_create(
         company=company, preference=Preference.current_preference()
     )
     return render(
