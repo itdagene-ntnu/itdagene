@@ -36,7 +36,7 @@ def edit_event(request: HttpRequest, pk: Any) -> HttpResponse:
     event = get_object_or_404(Event, pk=pk)
     form = EventForm(instance=event)
     if request.method == "POST":
-        form = EventForm(request.POST, instance=event)
+        form = EventForm(request.POST, request.FILES, instance=event)
         if form.is_valid():
             event = form.save()
             add_message(request, SUCCESS, _("Event saved."))
