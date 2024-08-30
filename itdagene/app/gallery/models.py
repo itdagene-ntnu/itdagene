@@ -6,7 +6,7 @@ from itdagene.core.models import BaseModel
 
 
 class Photo(BaseModel):
-    photo = ImageField(upload_to="gallery", verbose_name=_("Photo"))
+    photo = ImageField(upload_to="gallery", verbose_name=_("photo"))
     active = BooleanField(verbose_name=_("active"), default=False)
 
     def get_absolute_url(self) -> str:
