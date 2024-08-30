@@ -172,7 +172,7 @@ class Query(ObjectType):
 
     def resolve_questions(self, info: Any) -> list:
         return Question.get_queryset().all()
-        
+
     def resolve_photos(self, info: Any) -> list:
         return Photo.get_queryset()
 
