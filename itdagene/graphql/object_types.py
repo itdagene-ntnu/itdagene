@@ -183,12 +183,12 @@ class Photo(DjangoObjectType):
     class Meta:
         model = ItdagenePhoto
         description = "A photo for the gallery"
-        only_fiels = "photo"
+        only_fields = ("photo",)
         interfaces = (Node,)
 
     @classmethod
     def get_queryset(cls):
-        return ItdagenePhoto.objects.all().filter(active=True)
+        return ItdagenePhoto.objects.filter(active=True)
 
 
 class Stand(DjangoObjectType):

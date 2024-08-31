@@ -117,7 +117,7 @@ class Query(ObjectType):
 
     questions = List(Question, description="Get all questions")
 
-    photos = List(Photo, description="Get all photos")
+    photos = List(NonNull(Photo), description="Get all photos")
 
     stands = List(
         NonNull(Stand),
@@ -172,6 +172,9 @@ class Query(ObjectType):
 
     def resolve_questions(self, info: Any) -> list:
         return Question.get_queryset().all()
+
+    def resolve_photos(self, info: Any) -> list:
+        return Photo.get_queryset()
 
     def resolve_current_meta_data(self, info: Any):
         return Preference.current_preference()
