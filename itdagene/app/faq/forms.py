@@ -9,4 +9,5 @@ class QuestionForm(ModelForm):
         fields = (
             "question",
             "answer",
+            "is_for_companies",
         )
