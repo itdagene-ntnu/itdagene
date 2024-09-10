@@ -1111,7 +1111,7 @@ msgstr "svar"
 
 #: itdagene/app/faq/models.py:11 itdagene/app/faq/templates/faq/base.html:14
 msgid "For companies"
-msgstr "For Bedrifter"
+msgstr "For bedrifter"
 
 #: itdagene/app/faq/templates/faq/base.html:12
 msgid "Question"
