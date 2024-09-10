@@ -25,7 +25,7 @@ class Photo(BaseModel):
     def delete(self, using=None, keep_parents=False):
         """
         Actually delete the image file when model is deleted.
-        Django recommends doing periodical cleanup instead since this 
+        Django recommends doing periodical cleanup instead since this
         solution may lead to orphaned files if a runtime error happens.
         """
         storage = self.photo.storage
