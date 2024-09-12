@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0nReport-Msgid-Bugs-To: web@itdagene.no\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-25 20:41+0200\n"
+"POT-Creation-Date: 2024-09-10 13:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Eirik Lorgen Tanberg <eirik.lorgen@itdagene.no>\n"
 "Language: NB\n"
@@ -27,7 +27,7 @@ msgstr "Sommerjobb"
 msgid "Permanent position"
 msgstr "Permanent Stilling"
 
-#: itdagene/app/career/models.py:40 itdagene/app/events/models.py:28
+#: itdagene/app/career/models.py:40 itdagene/app/events/models.py:29
 #: itdagene/app/feedback/templates/feedback/evaluations/report.html:83
 #: itdagene/app/meetings/models.py:28
 msgid "Other"
@@ -35,17 +35,17 @@ msgstr "Annet"
 
 #: itdagene/app/career/models.py:46 itdagene/app/company/models.py:146
 #: itdagene/app/company/models.py:223 itdagene/app/company/models.py:234
-#: itdagene/app/company/models.py:270 itdagene/app/events/models.py:81
+#: itdagene/app/company/models.py:270 itdagene/app/events/models.py:89
 msgid "company"
 msgstr "Bedrift"
 
-#: itdagene/app/career/models.py:49 itdagene/app/events/models.py:34
+#: itdagene/app/career/models.py:49 itdagene/app/events/models.py:35
 #: itdagene/app/feedback/models.py:57 itdagene/app/news/models.py:8
 #: itdagene/app/pages/models.py:11 itdagene/app/workschedule/models.py:64
 msgid "title"
 msgstr "Tittel"
 
-#: itdagene/app/career/models.py:50 itdagene/app/events/models.py:39
+#: itdagene/app/career/models.py:50 itdagene/app/events/models.py:40
 #: itdagene/app/feedback/models.py:59 itdagene/app/meetings/models.py:37
 #: itdagene/app/meetings/models.py:136
 msgid "type"
@@ -92,7 +92,7 @@ msgid "url"
 msgstr "URL"
 
 #: itdagene/app/career/models.py:70 itdagene/app/company/models.py:129
-#: itdagene/app/gallery/models.py:11 itdagene/app/pages/models.py:20
+#: itdagene/app/gallery/models.py:10 itdagene/app/pages/models.py:20
 #: itdagene/core/models.py:186
 msgid "active"
 msgstr "aktiv"
@@ -285,7 +285,7 @@ msgid "comment"
 msgstr "Kommentar"
 
 #: itdagene/app/comments/models.py:20 itdagene/app/company/models.py:274
-#: itdagene/app/events/models.py:35 itdagene/app/meetings/models.py:33
+#: itdagene/app/events/models.py:36 itdagene/app/meetings/models.py:33
 #: itdagene/app/workschedule/models.py:65 itdagene/core/log/models.py:31
 #: itdagene/core/notifications/models.py:28
 msgid "date"
@@ -343,7 +343,7 @@ msgid "Save"
 msgstr "Lagre"
 
 #: itdagene/app/company/models.py:33 itdagene/app/company/models.py:110
-#: itdagene/app/events/models.py:38 itdagene/app/feedback/models.py:61
+#: itdagene/app/events/models.py:39 itdagene/app/feedback/models.py:61
 #: itdagene/app/stands/models.py:37 itdagene/app/todo/models.py:12
 msgid "description"
 msgstr "Beskrivelse"
@@ -443,15 +443,15 @@ msgstr "Informasjonsnavn"
 msgid "value"
 msgstr "Verdi"
 
-#: itdagene/app/company/models.py:237 itdagene/app/events/models.py:83
+#: itdagene/app/company/models.py:237 itdagene/app/events/models.py:91
 msgid "first name"
 msgstr "Fornavn"
 
-#: itdagene/app/company/models.py:238 itdagene/app/events/models.py:84
+#: itdagene/app/company/models.py:238 itdagene/app/events/models.py:92
 msgid "last name"
 msgstr "Etternavn"
 
-#: itdagene/app/company/models.py:239 itdagene/app/events/models.py:85
+#: itdagene/app/company/models.py:239 itdagene/app/events/models.py:93
 msgid "e-mail address"
 msgstr "Epostaddresse"
 
@@ -550,7 +550,7 @@ msgstr "Telefonnummer"
 #: itdagene/app/company/templates/company/base.html:30
 #: itdagene/app/company/templates/company/packages/base.html:13
 #: itdagene/app/company/templates/company/view.html:33
-#: itdagene/app/events/models.py:22
+#: itdagene/app/events/models.py:23
 #: itdagene/app/feedback/templates/feedback/evaluations/report.html:27
 #: itdagene/app/feedback/templates/feedback/evaluations/report.html:53
 msgid "Course"
@@ -776,8 +776,8 @@ msgstr "Legg til nøkkelinformasjon"
 #: itdagene/app/company/templates/company/view.html:118
 #: itdagene/app/company/templates/company/view.html:156
 #: itdagene/app/events/templates/events/base.html:31
-#: itdagene/app/faq/templates/faq/base.html:26
-#: itdagene/app/gallery/templates/gallery/base.html:31
+#: itdagene/app/faq/templates/faq/base.html:28
+#: itdagene/app/gallery/templates/gallery/base.html:35
 #: itdagene/app/pages/templates/pages/admin.html:49
 #: itdagene/app/stands/templates/stands/list.html:40
 msgid "Delete"
@@ -802,7 +802,8 @@ msgstr "Last ned vcard-fil"
 #: itdagene/app/company/templates/company/view.html:156
 #: itdagene/app/events/templates/events/base.html:28
 #: itdagene/app/events/templates/events/view.html:46
-#: itdagene/app/faq/templates/faq/base.html:23
+#: itdagene/app/faq/templates/faq/base.html:25
+#: itdagene/app/gallery/templates/gallery/base.html:32
 #: itdagene/app/news/templates/news/admin.html:23
 #: itdagene/app/pages/templates/pages/admin.html:46
 #: itdagene/app/stands/templates/stands/list.html:37
@@ -873,66 +874,72 @@ msgstr "Pakke lagt til"
 msgid "Package saved."
 msgstr "Pakke lagret"
 
-#: itdagene/app/events/models.py:23
+#: itdagene/app/events/models.py:24
 msgid "Company presentation"
 msgstr "Bedriftspresentasjon"
 
-#: itdagene/app/events/models.py:24
+#: itdagene/app/events/models.py:25
 #: itdagene/app/feedback/templates/feedback/evaluations/report.html:36
 #: itdagene/app/feedback/templates/feedback/evaluations/report.html:65
 #: itdagene/app/meetings/models.py:25
 msgid "Banquet"
 msgstr "Bankett"
 
-#: itdagene/app/events/models.py:25
+#: itdagene/app/events/models.py:26
 msgid "Summer internship marathon"
 msgstr "Sommerjobbmaraton"
 
-#: itdagene/app/events/models.py:26
+#: itdagene/app/events/models.py:27
 msgid "Baloon drop"
 msgstr "Ballongslipp"
 
-#: itdagene/app/events/models.py:27
+#: itdagene/app/events/models.py:28
 msgid "Competition"
 msgstr "Konkurranse"
 
-#: itdagene/app/events/models.py:29
+#: itdagene/app/events/models.py:30
 msgid "Promoted company event"
 msgstr "Promotert bedriftsarrangement"
 
-#: itdagene/app/events/models.py:36 itdagene/app/workschedule/models.py:66
+#: itdagene/app/events/models.py:37 itdagene/app/workschedule/models.py:66
 msgid "start time"
 msgstr "starttid"
 
-#: itdagene/app/events/models.py:37 itdagene/app/workschedule/models.py:67
+#: itdagene/app/events/models.py:38 itdagene/app/workschedule/models.py:67
 msgid "end time"
 msgstr "sluttid"
 
-#: itdagene/app/events/models.py:40 itdagene/app/meetings/models.py:39
+#: itdagene/app/events/models.py:41 itdagene/app/meetings/models.py:39
 msgid "location"
 msgstr "sted"
 
-#: itdagene/app/events/models.py:41
+#: itdagene/app/events/models.py:47
+#, fuzzy
+#| msgid "image"
+msgid "cover image"
+msgstr "Bilde"
+
+#: itdagene/app/events/models.py:49
 msgid "internal event"
 msgstr "internarrangement"
 
-#: itdagene/app/events/models.py:47
+#: itdagene/app/events/models.py:55
 msgid "hosting company"
 msgstr "Arrangerende bedrift"
 
-#: itdagene/app/events/models.py:49
+#: itdagene/app/events/models.py:57
 msgid "uses tickets"
 msgstr "Bruker billetter"
 
-#: itdagene/app/events/models.py:51
+#: itdagene/app/events/models.py:59
 msgid "max nr of participants"
 msgstr "Maks antall deltagere"
 
-#: itdagene/app/events/models.py:58
+#: itdagene/app/events/models.py:66
 msgid "Associated stand"
 msgstr "Assosiert stand"
 
-#: itdagene/app/events/models.py:73
+#: itdagene/app/events/models.py:81
 msgid "event"
 msgstr "Arrangement"
 
@@ -963,7 +970,7 @@ msgstr "Klokkeslett"
 
 #: itdagene/app/events/templates/events/base.html:16
 #: itdagene/app/events/templates/events/view.html:38
-#: itdagene/app/faq/templates/faq/base.html:14
+#: itdagene/app/faq/templates/faq/base.html:15
 #: itdagene/app/gallery/templates/gallery/base.html:14
 #: itdagene/app/news/templates/news/admin.html:14
 #: itdagene/app/pages/templates/pages/admin.html:16
@@ -1101,6 +1108,10 @@ msgstr "spørsmål"
 #: itdagene/app/faq/models.py:10
 msgid "answer"
 msgstr "svar"
+
+#: itdagene/app/faq/models.py:11 itdagene/app/faq/templates/faq/base.html:14
+msgid "For companies"
+msgstr "For bedrifter"
 
 #: itdagene/app/faq/templates/faq/base.html:12
 msgid "Question"
@@ -1523,14 +1534,22 @@ msgid "Company Comments"
 msgstr "Bedritskommentarer"
 
 #: itdagene/app/gallery/models.py:9
-msgid "Photo name"
-msgstr "Bilde navn"
+#, fuzzy
+#| msgid "Photo"
+msgid "photo"
+msgstr "Bilde"
 
-#: itdagene/app/gallery/models.py:10
 #: itdagene/app/gallery/templates/gallery/base.html:12
 #: itdagene/core/models.py:58
 msgid "Photo"
 msgstr "Bilde"
+
+#: itdagene/app/gallery/templates/gallery/base.html:13
+#: itdagene/app/pages/templates/pages/admin.html:13
+#: itdagene/app/stands/models.py:30
+#: itdagene/app/stands/templates/stands/list.html:16
+msgid "Active"
+msgstr "Aktiv"
 
 #: itdagene/app/gallery/templates/gallery/delete.html:16
 #, python-format
@@ -1555,11 +1574,23 @@ msgstr "Legg Til Bilde"
 msgid "Photo added."
 msgstr "Bilde lagt til."
 
-#: itdagene/app/gallery/views.py:40
+#: itdagene/app/gallery/views.py:43
+#, fuzzy
+#| msgid "Photo added."
+msgid "Photo saved."
+msgstr "Bilde lagt til."
+
+#: itdagene/app/gallery/views.py:51
+#, fuzzy
+#| msgid "Add Photo"
+msgid "Edit Photo"
+msgstr "Legg Til Bilde"
+
+#: itdagene/app/gallery/views.py:61
 msgid "Photo deleted."
 msgstr "Bilde slettet."
 
-#: itdagene/app/gallery/views.py:47
+#: itdagene/app/gallery/views.py:68
 msgid "Delete Photo"
 msgstr "Slett Bilde"
 
@@ -2039,12 +2070,6 @@ msgstr "er en infoside"
 #: itdagene/app/pages/templates/pages/admin.html:12
 msgid "Page"
 msgstr "Side"
-
-#: itdagene/app/pages/templates/pages/admin.html:13
-#: itdagene/app/stands/models.py:30
-#: itdagene/app/stands/templates/stands/list.html:16
-msgid "Active"
-msgstr "Aktiv"
 
 #: itdagene/app/pages/templates/pages/admin.html:14
 msgid "Info page"
@@ -2765,6 +2790,24 @@ msgstr ""
 ">\n"
 "\n"
 "                "
+
+#, fuzzy
+#~| msgid "For companies"
+#~ msgid "For Companies"
+#~ msgstr "For Bedrifter"
+
+#, fuzzy
+#~| msgid "Your Companies"
+#~ msgid "Dine companies"
+#~ msgstr "Dine Bedrifter"
+
+#, fuzzy
+#~| msgid "Your Companies"
+#~ msgid "is for companies"
+#~ msgstr "For bedrifter"
+
+#~ msgid "Photo name"
+#~ msgstr "Bilde navn"
 
 #~ msgid "Welcome to"
 #~ msgstr "Velkommen til"

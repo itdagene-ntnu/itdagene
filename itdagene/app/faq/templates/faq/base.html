@@ -11,6 +11,7 @@
                 <tr>
                     <th>{% trans "Question" %}</th>
                     <th>{% trans "Answer" %}</th>
+                    <th>{% trans "For companies" %}</th>
                     <th>{% trans "Actions" %}</th>
                 </tr>
                 </thead>
@@ -18,6 +19,13 @@
                     <tr>
                         <td>{{ question }}</td>
                         <td>{{ question.answer|truncatechars:100 }}</td>
+                        <td>                        
+                            {% if question.is_for_companies %}
+                                <i style="color: green;" class="fas fa-check"></i>
+                            {% else %}
+                                <i style="color: red;" class="fas fa-times"></i>
+                            {% endif %}
+                        </td>
                         <td>
                             {% if perms.faq.edit_question %}
                             <a href="{% url "itdagene.faq.edit_question" question.pk %}""><i class="fas fa-pen"></i> {% trans "Edit" %}</a>
