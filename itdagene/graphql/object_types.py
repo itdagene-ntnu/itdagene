@@ -171,7 +171,7 @@ class Question(DjangoObjectType):
     class Meta:
         model = ItdageneQuestion
         description = "A question for the FAQ"
-        only_fields = ("question", "answer")
+        only_fields = ("question", "answer", "is_for_companies")
         interfaces = (Node,)
 
     @classmethod
