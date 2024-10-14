@@ -24,5 +24,5 @@ social-auth-app-django==3.1.0
 python-social-auth==0.3.6
 PyJWT==2.8.0
 graphene-django==2.2
-django-cors-headers==3.3.0
+django-cors-headers==4.5.0
 importlib-metadata==4.13.0
