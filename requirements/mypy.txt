@@ -1,4 +1,4 @@
-mypy==1.4.1
+mypy==1.12.0
 
 # stubs
 types-Markdown==3.3.4
