@@ -16,6 +16,9 @@ class NotificationsMiddleware(MiddlewareMixin):
             ).all()
 
             for notification in notifications:
+                if not notification.content_object:
+                    notification.delete()
+                    continue
                 if notification.content_object.get_absolute_url() == path:
                     notification.users.remove(user)
                     if notification.users.count == 0:
