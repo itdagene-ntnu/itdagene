@@ -28,7 +28,7 @@ Setup python environment
 ```bash
 $ python3 -m venv venv
 $ source venv/bin/activate
-$ pip install -r requirements/dev.txt
+$ pip install -r requirements/base.txt
 $ echo "from itdagene.settings.dev import *" > itdagene/settings/local.py
 $ docker-compose up -d # This starts the database & redis
 ```
@@ -72,14 +72,17 @@ $ python manage.py migrate
 ## i18n
 
 To update translations change them in [this file](itdagene/locale/nb/LC_MESSAGES/django.po) and then run
+
 ```bash
 $ python manage.py compilemessages
 ```
 
 If you have added new messages or changed them in code please run
+
 ```bash
 $ python manage.py makemessages -l nb --ignore venv
 ```
+
 to update the `.po` file first.
 
 ## Testing
