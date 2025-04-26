@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0nReport-Msgid-Bugs-To: web@itdagene.no\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-10 13:06+0200\n"
+"POT-Creation-Date: 2025-04-26 16:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Eirik Lorgen Tanberg <eirik.lorgen@itdagene.no>\n"
 "Language: NB\n"
@@ -143,7 +143,7 @@ msgstr "Slett jobbannonse"
 #: itdagene/app/career/templates/career/view.html:12
 #: itdagene/app/company/templates/company/base.html:75
 #: itdagene/app/company/templates/company/economics/base.html:10
-#: itdagene/app/company/views/__init__.py:81
+#: itdagene/app/company/views/__init__.py:80
 #: itdagene/app/events/templates/events/view.html:37
 #: itdagene/app/stands/models.py:35
 #: itdagene/app/stands/templates/stands/list.html:12
@@ -198,7 +198,7 @@ msgstr "ASAP"
 
 #: itdagene/app/career/templates/career/submenu.html:7
 #: itdagene/app/career/views.py:27
-#: itdagene/app/company/templates/company/view.html:127
+#: itdagene/app/company/templates/company/view.html:124
 #: itdagene/templates/base_admin.html:172
 msgid "Joblistings"
 msgstr "Jobbannonser"
@@ -305,6 +305,7 @@ msgstr "Legg til kommentar"
 #: itdagene/app/itdageneadmin/templates/admin/log.html:20
 #: itdagene/app/todo/templates/todo/panels/todo_list.html:22
 #: itdagene/app/todo/templates/todo/view_todo.html:13
+#: itdagene/core/templatetags/filters.py:59
 msgid "ago"
 msgstr "siden"
 
@@ -331,16 +332,6 @@ msgstr "Interessert"
 #: itdagene/app/company/__init__.py:15
 msgid "Signed"
 msgstr "Signert"
-
-#: itdagene/app/company/forms.py:64 itdagene/app/company/forms.py:86
-#: itdagene/app/company/forms.py:132
-#: itdagene/app/company/templates/company/set_responsibilities.html:26
-#: itdagene/app/events/templates/events/view.html:65
-#: itdagene/app/feedback/templates/feedback/evaluations/handle_evaluate.html:47
-#: itdagene/templates/form.html:26 itdagene/templates/form.html:43
-#: itdagene/templates/form_clean.html:25 itdagene/templates/form_clean.html:42
-msgid "Save"
-msgstr "Lagre"
 
 #: itdagene/app/company/models.py:33 itdagene/app/company/models.py:110
 #: itdagene/app/events/models.py:39 itdagene/app/feedback/models.py:61
@@ -381,7 +372,7 @@ msgid "packages"
 msgstr "Pakker"
 
 #: itdagene/app/company/models.py:80
-#: itdagene/app/company/templates/company/view.html:111
+#: itdagene/app/company/templates/company/view.html:108
 #: itdagene/app/users/templates/users/detail.html:25
 #: itdagene/app/users/templates/users/list.html:17
 #: itdagene/app/workschedule/templates/worker/view.html:16
@@ -469,7 +460,7 @@ msgid "position"
 msgstr "Posisjon"
 
 #: itdagene/app/company/models.py:250
-#: itdagene/app/company/templates/company/view.html:109
+#: itdagene/app/company/templates/company/view.html:106
 msgid "Current contact"
 msgstr "Nåværende kontakt"
 
@@ -557,12 +548,12 @@ msgid "Course"
 msgstr "Kurs"
 
 #: itdagene/app/company/templates/company/base.html:33
-#: itdagene/app/company/templates/company/view.html:102
+#: itdagene/app/company/templates/company/view.html:99
 msgid "Contacts"
 msgstr "Kontakter"
 
 #: itdagene/app/company/templates/company/base.html:69
-#: itdagene/app/company/views/__init__.py:61
+#: itdagene/app/company/views/__init__.py:59
 #: itdagene/templates/base_admin.html:161
 msgid "Companies"
 msgstr "Bedrifter"
@@ -581,7 +572,7 @@ msgid "Assigned to"
 msgstr "Tildelt"
 
 #: itdagene/app/company/templates/company/base.html:80
-#: itdagene/app/company/templates/company/view.html:151
+#: itdagene/app/company/templates/company/view.html:148
 msgid "Contracts"
 msgstr "Kontrakter"
 
@@ -714,12 +705,20 @@ msgstr "Inkluderer kurs"
 msgid "Companies that has bought this package"
 msgstr "Bedrifter som har kjøpte denne pakken"
 
+#: itdagene/app/company/templates/company/set_responsibilities.html:26
+#: itdagene/app/events/templates/events/view.html:65
+#: itdagene/app/feedback/templates/feedback/evaluations/handle_evaluate.html:47
+#: itdagene/templates/form.html:26 itdagene/templates/form.html:43
+#: itdagene/templates/form_clean.html:25 itdagene/templates/form_clean.html:42
+msgid "Save"
+msgstr "Lagre"
+
 #: itdagene/app/company/templates/company/submenu.html:8
 msgid "All Companies"
 msgstr "Alle Bedrifter"
 
 #: itdagene/app/company/templates/company/submenu.html:15
-#: itdagene/app/company/views/__init__.py:144
+#: itdagene/app/company/views/__init__.py:96
 msgid "Add Company"
 msgstr "Legg Til Bedrift"
 
@@ -738,7 +737,7 @@ msgid "Add Contract"
 msgstr "Legg Til Kontrakt"
 
 #: itdagene/app/company/templates/company/submenu.html:53
-#: itdagene/app/company/views/__init__.py:217
+#: itdagene/app/company/views/__init__.py:169
 msgid "Set Responsibilities"
 msgstr "Sett Ansvarsområder"
 
@@ -764,45 +763,45 @@ msgstr "Evaluering"
 msgid "View evaluation form"
 msgstr "Vis evalueringsskjema"
 
-#: itdagene/app/company/templates/company/view.html:75
+#: itdagene/app/company/templates/company/view.html:72
 msgid "Key information"
 msgstr "Nøkkelinformasjon"
 
-#: itdagene/app/company/templates/company/view.html:77
+#: itdagene/app/company/templates/company/view.html:74
 msgid "Add key information"
 msgstr "Legg til nøkkelinformasjon"
 
-#: itdagene/app/company/templates/company/view.html:90
-#: itdagene/app/company/templates/company/view.html:118
-#: itdagene/app/company/templates/company/view.html:156
+#: itdagene/app/company/templates/company/view.html:87
+#: itdagene/app/company/templates/company/view.html:115
+#: itdagene/app/company/templates/company/view.html:153
 #: itdagene/app/events/templates/events/base.html:31
-#: itdagene/app/faq/templates/faq/base.html:28
+#: itdagene/app/faq/templates/faq/base.html:34
 #: itdagene/app/gallery/templates/gallery/base.html:35
 #: itdagene/app/pages/templates/pages/admin.html:49
 #: itdagene/app/stands/templates/stands/list.html:40
 msgid "Delete"
 msgstr "Slett"
 
-#: itdagene/app/company/templates/company/view.html:112
+#: itdagene/app/company/templates/company/view.html:109
 msgid "Mobile"
 msgstr "Mobil"
 
-#: itdagene/app/company/templates/company/view.html:114
+#: itdagene/app/company/templates/company/view.html:111
 #: itdagene/app/users/templates/users/detail.html:21
 #: itdagene/app/users/templates/users/list.html:16
 msgid "Email"
 msgstr "Epost"
 
-#: itdagene/app/company/templates/company/view.html:116
+#: itdagene/app/company/templates/company/view.html:113
 msgid "Download vcard-file"
 msgstr "Last ned vcard-fil"
 
-#: itdagene/app/company/templates/company/view.html:117
-#: itdagene/app/company/templates/company/view.html:141
-#: itdagene/app/company/templates/company/view.html:156
+#: itdagene/app/company/templates/company/view.html:114
+#: itdagene/app/company/templates/company/view.html:138
+#: itdagene/app/company/templates/company/view.html:153
 #: itdagene/app/events/templates/events/base.html:28
 #: itdagene/app/events/templates/events/view.html:46
-#: itdagene/app/faq/templates/faq/base.html:25
+#: itdagene/app/faq/templates/faq/base.html:31
 #: itdagene/app/gallery/templates/gallery/base.html:32
 #: itdagene/app/news/templates/news/admin.html:23
 #: itdagene/app/pages/templates/pages/admin.html:46
@@ -811,44 +810,36 @@ msgstr "Last ned vcard-fil"
 msgid "Edit"
 msgstr "Rediger"
 
-#: itdagene/app/company/templates/company/view.html:139
+#: itdagene/app/company/templates/company/view.html:136
 msgid "No deadline"
 msgstr "Ingen Frist"
 
-#: itdagene/app/company/templates/company/view.html:156
+#: itdagene/app/company/templates/company/view.html:153
 msgid "Download file"
 msgstr ""
 
-#: itdagene/app/company/views/__init__.py:99
-#, fuzzy, python-brace-format
-#| msgid "%s was booked."
-msgid "{company.name} was booked."
-msgstr "%s ble booket."
-
-#: itdagene/app/company/views/__init__.py:113
-msgid "Added to waiting list"
-msgstr "Lagt til venteliste"
-
-#: itdagene/app/company/views/__init__.py:127
-msgid "Status changed"
-msgstr "Status oppdatert"
-
-#: itdagene/app/company/views/__init__.py:141
-#: itdagene/app/company/views/__init__.py:156
+#: itdagene/app/company/views/__init__.py:93
+#: itdagene/app/company/views/__init__.py:108
 msgid "Company saved."
 msgstr "Bedrift lagret"
 
-#: itdagene/app/company/views/__init__.py:164
+#: itdagene/app/company/views/__init__.py:116
 msgid "Change Company"
 msgstr "Rediger Bedrift"
 
-#: itdagene/app/company/views/__init__.py:185
+#: itdagene/app/company/views/__init__.py:137
 msgid "Add Key information for "
 msgstr "Legg til nøkkelinformasjon for "
 
-#: itdagene/app/company/views/__init__.py:212
+#: itdagene/app/company/views/__init__.py:164
 msgid "Changed responsibilities."
-msgstr "Rediger Ansvarsområder"
+msgstr "Ansvarsområder endret"
+
+#: itdagene/app/company/views/__init__.py:186
+#, fuzzy
+#| msgid "information name"
+msgid "Company information updated"
+msgstr "Informasjonsnavn"
 
 #: itdagene/app/company/views/company_contacts.py:73
 msgid "Company contect saved."
@@ -1715,19 +1706,13 @@ msgstr "Bedrifter tilbakestilt"
 msgid "View Group"
 msgstr "Vis Gruppe"
 
+#: itdagene/app/mail/senders.py:45
+msgid "Welcome to"
+msgstr "Velkommen til"
+
 #: itdagene/app/mail/senders.py:67
 msgid "New notification"
 msgstr "Nytt varsel"
-
-#: itdagene/app/mail/senders.py:84
-msgid "Meeting Invite {meeting} {formats.date_format(meeting.date)}"
-msgstr ""
-
-#: itdagene/app/mail/senders.py:126
-#, fuzzy, python-brace-format
-#| msgid "New comment on %s"
-msgid "New comment on {comment.object}"
-msgstr "Ny kommentar på %s"
 
 #: itdagene/app/mail/templates/mail/comment/new.html:6
 #: itdagene/app/mail/templates/mail/comment/new.txt:6
@@ -1897,12 +1882,6 @@ msgstr "møte"
 #: itdagene/app/meetings/models.py:97
 msgid "meetings"
 msgstr "møter"
-
-#: itdagene/app/meetings/models.py:111
-#, fuzzy, python-brace-format
-#| msgid "Meeting participation: %(user)s"
-msgid "Meeting participation: {self.user}"
-msgstr "Møtedeltagelse: %(user)s"
 
 #: itdagene/app/meetings/models.py:121
 msgid "Beer"
@@ -2791,6 +2770,27 @@ msgstr ""
 "\n"
 "                "
 
+#, fuzzy, python-brace-format
+#~| msgid "%s was booked."
+#~ msgid "{company.name} was booked."
+#~ msgstr "%s ble booket."
+
+#~ msgid "Added to waiting list"
+#~ msgstr "Lagt til venteliste"
+
+#~ msgid "Status changed"
+#~ msgstr "Status oppdatert"
+
+#, fuzzy, python-brace-format
+#~| msgid "New comment on %s"
+#~ msgid "New comment on {comment.object}"
+#~ msgstr "Ny kommentar på %s"
+
+#, fuzzy, python-brace-format
+#~| msgid "Meeting participation: %(user)s"
+#~ msgid "Meeting participation: {self.user}"
+#~ msgstr "Møtedeltagelse: %(user)s"
+
 #, fuzzy
 #~| msgid "For companies"
 #~ msgid "For Companies"
@@ -2808,9 +2808,6 @@ msgstr ""
 
 #~ msgid "Photo name"
 #~ msgstr "Bilde navn"
-
-#~ msgid "Welcome to"
-#~ msgstr "Velkommen til"
 
 #, python-format
 #~ msgid "Meeting Invite %s %s"
