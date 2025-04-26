@@ -70,6 +70,7 @@ class CompanyContactForm(ModelForm):
         super(CompanyContactForm, self).__init__(*args, **kwargs)
         self.action_url = "/bdb/contacts/" + str(self.instance.pk) + "/add/"
 
+
 class CompanyPackageForm(ModelForm):
     class Meta:
         model = Company

@@ -1,8 +1,6 @@
 from django.template import Library
 
-from itdagene.app.company.forms import (
-    CompanyPackageForm,
-)
+from itdagene.app.company.forms import CompanyPackageForm
 
 
 register = Library()
