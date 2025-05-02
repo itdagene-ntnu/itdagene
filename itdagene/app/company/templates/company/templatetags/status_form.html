@@ -1,5 +1,0 @@
-{% load i18n widget_tweaks crispy_forms_tags %}
-<form action="{% url "itdagene.company.set_status" form.instance.pk %}" method="post">
-    {% csrf_token %}
-    {% crispy form %}
-</form>

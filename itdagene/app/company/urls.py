@@ -3,41 +3,29 @@ from django.urls import re_path
 from itdagene.app.company.views import (
     add,
     add_key_information,
-    book_company,
     company_contacts,
     contracts,
     delete_key_information,
     economics,
     edit,
+    edit_company_package,
     list_companies,
     packages,
     set_responsibilities,
-    set_status,
     view,
-    waiting_list,
 )
 
 
 urlpatterns = [
     re_path(r"^companies/$", list_companies, name="itdagene.company.list_companies"),
     re_path(r"^companies/(?P<id>\d+)/$", view, name="itdagene.company.view"),
+    re_path(
+        r"^companies/(?P<id>\d+)/edit_package$",
+        edit_company_package,
+        name="itdagene.company.edit_company_package",
+    ),
     re_path(r"^companies/add/$", add, name="itdagene.company.add"),
     re_path(r"^companies/(?P<id>\d+)/edit$", edit, name="itdagene.company.edit"),
-    re_path(
-        r"^companies/(?P<id>\d+)/book/$",
-        book_company,
-        name="itdagene.company.book_company",
-    ),
-    re_path(
-        r"^companies/(?P<id>\d+)/waiting_list",
-        waiting_list,
-        name="itdagene.company.waiting_list",
-    ),
-    re_path(
-        r"^companies/(?P<id>\d+)/set-status$",
-        set_status,
-        name="itdagene.company.set_status",
-    ),
     re_path(
         r"^key_information/(?P<company>\d+)/add/$",
         add_key_information,

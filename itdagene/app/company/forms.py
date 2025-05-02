@@ -1,9 +1,7 @@
-from crispy_forms.bootstrap import FieldWithButtons, StrictButton
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout
+from crispy_forms.layout import Submit
 from django.db.models import Q
 from django.forms.models import ModelForm
-from django.utils.translation import gettext_lazy as _
 
 from itdagene.app.company import COMPANY_STATUS
 from itdagene.app.company.models import (
@@ -45,49 +43,6 @@ class CompanyForm(ModelForm):
         self.fields["waiting_for_package"].queryset = waiting_lists
 
 
-class BookCompanyForm(ModelForm):
-    class Meta:
-        model = Company
-        fields = ("package",)
-
-    def __init__(self, *args, **kwargs) -> None:
-        super(BookCompanyForm, self).__init__(*args, **kwargs)
-        packages = Package.objects.filter(
-            Q(is_full=False) or Q(companies=self.instance)
-        )
-        self.fields["package"].queryset = packages
-
-        self.helper = FormHelper()
-        self.helper.layout = Layout(
-            FieldWithButtons(
-                "package",
-                StrictButton(_("Save"), type="submit", css_class="btn-success"),
-            )
-        )
-
-
-class WaitingListCompanyForm(ModelForm):
-    class Meta:
-        model = Company
-        fields = ("waiting_for_package",)
-
-    def __init__(self, *args, **kwargs) -> None:
-        super(WaitingListCompanyForm, self).__init__(*args, **kwargs)
-        waiting_lists = Package.objects.filter(
-            is_full=True, has_waiting_list=True
-        ).exclude(companies=self.instance)
-        self.fields["waiting_for_package"].queryset = waiting_lists
-        self.fields["waiting_for_package"].help_text = None
-
-        self.helper = FormHelper()
-        self.helper.layout = Layout(
-            FieldWithButtons(
-                "waiting_for_package",
-                StrictButton(_("Save"), type="submit", css_class="btn-success"),
-            )
-        )
-
-
 class ResponsibilityForm(ModelForm):
     class Meta:
         model = Company
@@ -116,22 +71,26 @@ class CompanyContactForm(ModelForm):
         self.action_url = "/bdb/contacts/" + str(self.instance.pk) + "/add/"
 
 
-class CompanyStatusForm(ModelForm):
+class CompanyPackageForm(ModelForm):
     class Meta:
         model = Company
-        fields = ("status",)
+        fields = ("package", "status", "waiting_for_package")
 
     def __init__(self, *args, **kwargs) -> None:
-        super(CompanyStatusForm, self).__init__(*args, **kwargs)
+        super(CompanyPackageForm, self).__init__(*args, **kwargs)
+
+        packages = Package.objects.filter(Q(is_full=False) | Q(companies=self.instance))
+        waiting_for_package = Package.objects.filter(
+            Q(is_full=True) & Q(has_waiting_list=True)
+        ).exclude(companies=self.instance)
+
+        self.fields["package"].queryset = packages
+        self.fields["waiting_for_package"].queryset = waiting_for_package
         self.fields["status"].choices = list(COMPANY_STATUS)
 
         self.helper = FormHelper()
-        self.helper.layout = Layout(
-            FieldWithButtons(
-                "status",
-                StrictButton(_("Save"), type="submit", css_class="btn-success"),
-            )
-        )
+        self.helper.form_method = "post"
+        self.helper.add_input(Submit("submit", "Lagre", css_class="btn btn-success"))
 
 
 class ContractForm(ModelForm):

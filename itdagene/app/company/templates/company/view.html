@@ -1,6 +1,6 @@
 {% extends "company/base.html" %}
 {% load i18n comments companies core %}
-
+{% load i18n widget_tweaks crispy_forms_tags %}
 
 {% block content %}
 
@@ -53,13 +53,10 @@
                             </dl>
                         </div>
                         <div class="col-lg-6">
-
-                            {% book_form company %}
-
-                            {% waiting_list_form company %}
-
-                            {% status_form company %}
-
+                            <form action="{% url "itdagene.company.edit_company_package" company.pk %}" method="post">
+                                {% csrf_token %}
+                                {% crispy form %}
+                            </form>
                         </div>
                     </div>
                 </div>

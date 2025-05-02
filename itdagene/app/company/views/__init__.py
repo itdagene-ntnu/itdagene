@@ -3,18 +3,16 @@ from typing import Any, Optional
 from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import SUCCESS, add_message
 from django.forms.models import modelformset_factory
-from django.http import Http404, HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from itdagene.app.company.forms import (
-    BookCompanyForm,
     CompanyForm,
-    CompanyStatusForm,
+    CompanyPackageForm,
     KeyInformationForm,
     ResponsibilityForm,
-    WaitingListCompanyForm,
 )
 from itdagene.app.company.models import Company, KeyInformation, Package
 from itdagene.app.feedback.models import Evaluation
@@ -71,6 +69,7 @@ def view(request: HttpRequest, id: Any) -> HttpResponse:
     evaluation, _created = Evaluation.objects.get_or_create(
         company=company, preference=Preference.current_preference()
     )
+    package_form = CompanyPackageForm(instance=company)
     return render(
         request,
         "company/view.html",
@@ -79,56 +78,9 @@ def view(request: HttpRequest, id: Any) -> HttpResponse:
             "evaluation": evaluation,
             "title": company,
             "description": _("Company"),
+            "form": package_form,
         },
     )
-
-
-@staff_required()
-def book_company(request: HttpRequest, id: Any) -> HttpResponse:
-    if request.method == "POST":
-        company = get_object_or_404(Company, pk=id)
-        form = BookCompanyForm(request.POST, instance=company)
-        if form.is_valid():
-            Package.update_available_spots()
-            company = form.save(commit=False)
-            if company.package:
-                if company.package.is_full:
-                    company.waiting_list.add(company.package)
-                    company.package = None
-            company.save()
-            add_message(request, SUCCESS, _(f"{company.name} was booked."))
-
-        return redirect(company.get_absolute_url())
-    else:
-        raise Http404
-
-
-@staff_required()
-def waiting_list(request: HttpRequest, id: Any) -> HttpResponse:
-    if request.method == "POST":
-        company = get_object_or_404(Company, pk=id)
-        form = WaitingListCompanyForm(request.POST, instance=company)
-        if form.is_valid():
-            form.save()
-            add_message(request, SUCCESS, _("Added to waiting list"))
-
-        return redirect(company.get_absolute_url())
-    else:
-        raise Http404
-
-
-@staff_required()
-def set_status(request: HttpRequest, id: Any) -> HttpResponse:
-    if request.method == "POST":
-        company = get_object_or_404(Company, pk=id)
-        form = CompanyStatusForm(request.POST, instance=company)
-        if form.is_valid():
-            form.save()
-            add_message(request, SUCCESS, _("Status changed"))
-
-        return redirect(company.get_absolute_url())
-    else:
-        raise Http404
 
 
 @permission_required("company.add_company")
@@ -215,4 +167,30 @@ def set_responsibilities(request: HttpRequest) -> HttpResponse:
         request,
         "company/set_responsibilities.html",
         {"formset": formset, "title": _("Set Responsibilities")},
+    )
+
+
+@staff_required()
+def edit_company_package(request: HttpRequest, id: Any) -> HttpResponse:
+    company = get_object_or_404(Company, pk=id)
+    form = CompanyPackageForm()
+    if request.method == "POST":
+        form = CompanyPackageForm(request.POST, instance=company)
+        if form.is_valid():
+            Package.update_available_spots()
+            form.save()
+            if company.package:
+                if company.package.is_full:
+                    company.waiting_list.add(company.package)
+                    company.package = None
+            add_message(request, SUCCESS, _("Company information updated"))
+        return redirect(company.get_absolute_url())
+
+    return render(
+        request,
+        "company/view.html",
+        {
+            "company": company,
+            "form": form,
+        },
     )
