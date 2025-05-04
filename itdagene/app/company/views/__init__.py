@@ -14,7 +14,7 @@ from itdagene.app.company.forms import (
     KeyInformationForm,
     ResponsibilityForm,
 )
-from itdagene.app.company.models import Company, KeyInformation, Package
+from itdagene.app.company.models import Company, KeyInformation
 from itdagene.app.feedback.models import Evaluation
 from itdagene.core.decorators import staff_required
 from itdagene.core.models import Preference
@@ -173,16 +173,11 @@ def set_responsibilities(request: HttpRequest) -> HttpResponse:
 @staff_required()
 def edit_company_package(request: HttpRequest, id: Any) -> HttpResponse:
     company = get_object_or_404(Company, pk=id)
-    form = CompanyPackageForm()
+    form = CompanyPackageForm(instance=company)
     if request.method == "POST":
         form = CompanyPackageForm(request.POST, instance=company)
         if form.is_valid():
-            Package.update_available_spots()
             form.save()
-            if company.package:
-                if company.package.is_full:
-                    company.waiting_list.add(company.package)
-                    company.package = None
             add_message(request, SUCCESS, _("Company information updated"))
         return redirect(company.get_absolute_url())
 
