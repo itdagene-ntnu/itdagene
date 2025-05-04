@@ -14,7 +14,7 @@ from itdagene.app.company.forms import (
     KeyInformationForm,
     ResponsibilityForm,
 )
-from itdagene.app.company.models import Company, KeyInformation, Package
+from itdagene.app.company.models import Company, KeyInformation
 from itdagene.app.feedback.models import Evaluation
 from itdagene.core.decorators import staff_required
 from itdagene.core.models import Preference
