@@ -79,7 +79,9 @@ class CompanyPackageForm(ModelForm):
     def __init__(self, *args, **kwargs) -> None:
         super(CompanyPackageForm, self).__init__(*args, **kwargs)
 
-        packages = Package.objects.filter(Q(is_full=False) | Q(companies=self.instance))
+        packages = Package.objects.filter(
+            Q(is_full=False) | Q(companies=self.instance)
+        ).distinct()
         waiting_for_package = Package.objects.filter(
             Q(is_full=True) & Q(has_waiting_list=True)
         ).exclude(companies=self.instance)
