@@ -1,0 +1,101 @@
+{% extends "base_admin.html" %}
+{% load i18n staticfiles %}
+
+{% block content %}
+<div class="container">
+  <h2>{% trans "Current Ordering" %}</h2>
+  
+  <div id="photo-list">
+
+    <div class="htmx-indicator" style="display:none;">
+      <div class="text-primary spinner-border" role="status">
+        <span class="visually-hidden">{% trans "Loading..." %}</span>
+      </div>
+    </div>
+    
+
+    <form hx-post="{% url 'itdagene.gallery.reorder_photos' %}" 
+          hx-trigger="submit" 
+          hx-target="#photo-list" 
+          hx-indicator=".htmx-indicator" 
+          method="POST">
+      {% csrf_token %}
+      
+      <ul id="sortable-photos" class="list-group mb-4">
+        {% for photo in photos %}
+        <li class="list-group-item d-flex align-items-center" data-id="{{ photo.pk }}">
+          <input type="hidden" name="photo_order" value="{{ photo.pk }}">
+          <div class="drag-handle me-3">
+            <i class="fas fa-grip-vertical text-muted"></i>
+          </div>
+          <div class="me-3">
+            <img src="{{ photo.photo.url }}" alt="{{ photo.pk }}" class="img-thumbnail" style="max-width: 100px; max-height: 100px;">
+          </div>
+          <div>
+            <p class="mb-0"><span class="badge bg-secondary">{{ photo.order }}</span></p>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+      
+      <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary">{% trans "Save New Order" %}</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var el = document.getElementById('sortable-photos');
+    var sortable = new Sortable(el, {
+      animation: 150,
+      ghostClass: 'sortable-ghost',
+      dragClass: 'sortable-drag',
+      handle: '.drag-handle',
+      onEnd: function(evt) {
+        var items = el.querySelectorAll('li');
+        items.forEach(function(item, index) {
+          var orderBadge = item.querySelector('.badge');
+          if (orderBadge) {
+            orderBadge.textContent = index + 1;
+          }
+        });
+      }
+    });
+  });
+</script>
+
+<style>
+  .sortable-ghost {
+    opacity: 0.5;
+    background: #c8ebfb;
+  }
+  
+  .sortable-drag {
+    background: #f8f9fa;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  }
+  
+  .drag-handle {
+    cursor: grab;
+  }
+  
+  .drag-handle:active {
+    cursor: grabbing;
+  }
+  
+  .htmx-request .htmx-indicator {
+    display: block !important;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background: rgba(255,255,255,0.8);
+    padding: 20px;
+    border-radius: 5px;
+  }
+</style>
+{% endblock content %}

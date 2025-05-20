@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0nReport-Msgid-Bugs-To: web@itdagene.no\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-26 16:37+0200\n"
+"POT-Creation-Date: 2025-05-20 19:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Eirik Lorgen Tanberg <eirik.lorgen@itdagene.no>\n"
 "Language: NB\n"
@@ -92,7 +92,7 @@ msgid "url"
 msgstr "URL"
 
 #: itdagene/app/career/models.py:70 itdagene/app/company/models.py:129
-#: itdagene/app/gallery/models.py:10 itdagene/app/pages/models.py:20
+#: itdagene/app/gallery/models.py:16 itdagene/app/pages/models.py:20
 #: itdagene/core/models.py:186
 msgid "active"
 msgstr "aktiv"
@@ -775,7 +775,7 @@ msgstr "Legg til nøkkelinformasjon"
 #: itdagene/app/company/templates/company/view.html:115
 #: itdagene/app/company/templates/company/view.html:153
 #: itdagene/app/events/templates/events/base.html:31
-#: itdagene/app/faq/templates/faq/base.html:34
+#: itdagene/app/faq/templates/faq/base.html:28
 #: itdagene/app/gallery/templates/gallery/base.html:35
 #: itdagene/app/pages/templates/pages/admin.html:49
 #: itdagene/app/stands/templates/stands/list.html:40
@@ -801,7 +801,7 @@ msgstr "Last ned vcard-fil"
 #: itdagene/app/company/templates/company/view.html:153
 #: itdagene/app/events/templates/events/base.html:28
 #: itdagene/app/events/templates/events/view.html:46
-#: itdagene/app/faq/templates/faq/base.html:31
+#: itdagene/app/faq/templates/faq/base.html:25
 #: itdagene/app/gallery/templates/gallery/base.html:32
 #: itdagene/app/news/templates/news/admin.html:23
 #: itdagene/app/pages/templates/pages/admin.html:46
@@ -818,8 +818,22 @@ msgstr "Ingen Frist"
 msgid "Download file"
 msgstr ""
 
-#: itdagene/app/company/views/__init__.py:93
-#: itdagene/app/company/views/__init__.py:108
+#: itdagene/app/company/views/__init__.py:99
+#, fuzzy, python-brace-format
+#| msgid "%s was booked."
+msgid "{company.name} was booked."
+msgstr "%s ble booket."
+
+#: itdagene/app/company/views/__init__.py:113
+msgid "Added to waiting list"
+msgstr "Lagt til venteliste"
+
+#: itdagene/app/company/views/__init__.py:127
+msgid "Status changed"
+msgstr "Status oppdatert"
+
+#: itdagene/app/company/views/__init__.py:141
+#: itdagene/app/company/views/__init__.py:156
 msgid "Company saved."
 msgstr "Bedrift lagret"
 
@@ -1524,11 +1538,19 @@ msgstr "Mine problemer"
 msgid "Company Comments"
 msgstr "Bedritskommentarer"
 
-#: itdagene/app/gallery/models.py:9
+#: itdagene/app/gallery/models.py:11
+msgid "This value can not be zero and below"
+msgstr ""
+
+#: itdagene/app/gallery/models.py:15
 #, fuzzy
 #| msgid "Photo"
 msgid "photo"
 msgstr "Bilde"
+
+#: itdagene/app/gallery/models.py:19
+msgid "display_order"
+msgstr "rekkefølge"
 
 #: itdagene/app/gallery/templates/gallery/base.html:12
 #: itdagene/core/models.py:58
@@ -1551,6 +1573,18 @@ msgstr "Er du sikker på at du vil slette bildet \"%(photo)s\"?"
 msgid "Delete photo"
 msgstr "Slett bilde"
 
+#: itdagene/app/gallery/templates/gallery/reorder_photos.html:6
+msgid "Current Ordering"
+msgstr "Nåværende rekkefølge"
+
+#: itdagene/app/gallery/templates/gallery/reorder_photos.html:12
+msgid "Loading..."
+msgstr "Laster"
+
+#: itdagene/app/gallery/templates/gallery/reorder_photos.html:42
+msgid "Save New Order"
+msgstr "Lagre rekkefølge"
+
 #: itdagene/app/gallery/templates/gallery/submenu.html:5
 #: itdagene/app/gallery/views.py:19
 msgid "All Photos"
@@ -1560,6 +1594,10 @@ msgstr "Alle Bilder"
 #: itdagene/app/gallery/views.py:32
 msgid "Add Photo"
 msgstr "Legg Til Bilde"
+
+#: itdagene/app/gallery/templates/gallery/submenu.html:13
+msgid "Reorder Photos"
+msgstr "Endre rekkefølge"
 
 #: itdagene/app/gallery/views.py:30
 msgid "Photo added."
@@ -1584,6 +1622,16 @@ msgstr "Bilde slettet."
 #: itdagene/app/gallery/views.py:68
 msgid "Delete Photo"
 msgstr "Slett Bilde"
+
+#: itdagene/app/gallery/views.py:95
+#, fuzzy
+#| msgid "Photo deleted."
+msgid "Photo order updated."
+msgstr "Bilderekkefølge endret"
+
+#: itdagene/app/gallery/views.py:103
+msgid "Update Photo Order"
+msgstr "Oppdater rekkefølge"
 
 #: itdagene/app/itdageneadmin/templates/admin/base.html:5
 msgid "Administration"
@@ -2769,27 +2817,6 @@ msgstr ""
 ">\n"
 "\n"
 "                "
-
-#, fuzzy, python-brace-format
-#~| msgid "%s was booked."
-#~ msgid "{company.name} was booked."
-#~ msgstr "%s ble booket."
-
-#~ msgid "Added to waiting list"
-#~ msgstr "Lagt til venteliste"
-
-#~ msgid "Status changed"
-#~ msgstr "Status oppdatert"
-
-#, fuzzy, python-brace-format
-#~| msgid "New comment on %s"
-#~ msgid "New comment on {comment.object}"
-#~ msgstr "Ny kommentar på %s"
-
-#, fuzzy, python-brace-format
-#~| msgid "Meeting participation: %(user)s"
-#~ msgid "Meeting participation: {self.user}"
-#~ msgstr "Møtedeltagelse: %(user)s"
 
 #, fuzzy
 #~| msgid "For companies"

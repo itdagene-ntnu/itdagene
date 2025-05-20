@@ -183,7 +183,7 @@ class Photo(DjangoObjectType):
     class Meta:
         model = ItdagenePhoto
         description = "A photo for the gallery"
-        only_fields = ("photo",)
+        only_fields = ("photo", "order")
         interfaces = (Node,)
 
     @classmethod
