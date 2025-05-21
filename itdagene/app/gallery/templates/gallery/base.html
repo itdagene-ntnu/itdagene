@@ -18,6 +18,7 @@
                     <tr>
                         <td>
                             <a href="https://itdagene.no/uploads/gallery/{{ photo.filename }}" target="_blank">{{ photo.filename }}</a>
+                            <img src="{{ photo.photo.url }}" alt="{{ photo }}" style="max-width: 69px; max-height: 69px;">
                         </td>
                         <td>
                             {% if photo.active %}

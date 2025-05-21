@@ -12,7 +12,7 @@ from itdagene.app.gallery.models import Photo
 
 
 def list_photos(request: HttpRequest) -> HttpResponse:
-    photos = Photo.objects.all()
+    photos = Photo.objects.all().order_by("order")
     return render(
         request,
         "gallery/base.html",
@@ -67,5 +67,39 @@ def delete_photo(request: HttpRequest, pk: Any) -> HttpResponse:
             "photo": photo,
             "title": _("Delete Photo"),
             "description": str(photo),
+        },
+    )
+
+
+@permission_required("gallery.edit_photo")
+def reorder_photos(request: HttpRequest) -> HttpResponse:
+    photos = Photo.objects.all().order_by("order")
+
+    if request.method == "POST":
+        photo_orders = request.POST.getlist("photo_order")
+
+        # Midlertidig fase: unngå unique conflict ved å bruke midlertidige verdier
+        temp_mapping = {}
+        for i, order_value in enumerate(photo_orders, start=1):
+            photo = Photo.objects.get(id=order_value)
+            photo.order = i * 100  # midlertidig unik verdi
+            photo.save()
+            temp_mapping[order_value] = photo  # lagre referansen
+
+        # Endelig rekkefølge
+        for i, order_value in enumerate(photo_orders, start=1):
+            photo = temp_mapping[order_value]
+            photo.order = i
+            photo.save()
+
+        add_message(request, SUCCESS, _("Photo order updated."))
+        return redirect(reverse("itdagene.gallery.list_photos"))
+
+    return render(
+        request,
+        "gallery/reorder_photos.html",
+        {
+            "photos": photos,
+            "title": _("Update Photo Order"),
         },
     )
