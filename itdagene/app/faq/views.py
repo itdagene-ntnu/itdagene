@@ -32,7 +32,7 @@ def add_question(request: HttpRequest) -> HttpResponse:
     return render(request, "faq/form.html", {"form": form, "title": _("Add Question")})
 
 
-@permission_required("faq.edit_question")
+@permission_required("faq.change_question")
 def edit_question(request: HttpRequest, pk: Any) -> HttpResponse:
     question = get_object_or_404(Question, pk=pk)
     form = QuestionForm(instance=question)

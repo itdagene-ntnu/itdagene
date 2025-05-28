@@ -27,7 +27,7 @@
                             {% endif %}
                         </td>
                         <td>
-                            {% if perms.faq.edit_question %}
+                            {% if perms.faq.change_question %}
                             <a href="{% url "itdagene.faq.edit_question" question.pk %}""><i class="fas fa-pen"></i> {% trans "Edit" %}</a>
                           {% endif %}
                             {% if perms.faq.delete_question %}
