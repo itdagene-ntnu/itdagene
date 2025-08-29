@@ -58,6 +58,7 @@ class Joblisting(DjangoObjectType):
             "video_url",
             "is_summerjob_marathon",
             "is_active",
+            "is_displayed",
         )
         interfaces = (Node, OpengraphMetadata)
 

@@ -18,9 +18,20 @@ class JoblistingManager(Manager):
         return (
             super(JoblistingManager, self)
             .get_queryset()
+            .annotate(exclusivity=Sum("company__package__max"))
+            .order_by("exclusivity", "deadline", "id")
+        )
+
+    def to_display(self) -> QuerySet:
+        return (
+            super(JoblistingManager, self)
+            .get_queryset()
             .filter(
-                (Q(deadline__gte=timezone.now()) | Q(deadline__isnull=True)),
-                is_active=True,
+                (
+                    (Q(deadline__gte=timezone.now()) | Q(deadline__isnull=True))
+                    & Q(is_displayed=True)
+                    & Q(is_active=True)
+                ),
             )
             .annotate(exclusivity=Sum("company__package__max"))
             .order_by("exclusivity", "deadline", "id")

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0nReport-Msgid-Bugs-To: web@itdagene.no\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-20 19:26+0200\n"
+"POT-Creation-Date: 2025-08-27 17:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Eirik Lorgen Tanberg <eirik.lorgen@itdagene.no>\n"
 "Language: NB\n"
@@ -19,39 +19,39 @@ msgstr ""
 msgid "name"
 msgstr "Navn"
 
-#: itdagene/app/career/models.py:38
+#: itdagene/app/career/models.py:44
 msgid "Summer internship"
 msgstr "Sommerjobb"
 
-#: itdagene/app/career/models.py:39
+#: itdagene/app/career/models.py:45
 msgid "Permanent position"
 msgstr "Permanent Stilling"
 
-#: itdagene/app/career/models.py:40 itdagene/app/events/models.py:29
+#: itdagene/app/career/models.py:46 itdagene/app/events/models.py:29
 #: itdagene/app/feedback/templates/feedback/evaluations/report.html:83
 #: itdagene/app/meetings/models.py:28
 msgid "Other"
 msgstr "Annet"
 
-#: itdagene/app/career/models.py:46 itdagene/app/company/models.py:146
+#: itdagene/app/career/models.py:52 itdagene/app/company/models.py:146
 #: itdagene/app/company/models.py:223 itdagene/app/company/models.py:234
 #: itdagene/app/company/models.py:270 itdagene/app/events/models.py:89
 msgid "company"
 msgstr "Bedrift"
 
-#: itdagene/app/career/models.py:49 itdagene/app/events/models.py:35
+#: itdagene/app/career/models.py:55 itdagene/app/events/models.py:35
 #: itdagene/app/feedback/models.py:57 itdagene/app/news/models.py:8
 #: itdagene/app/pages/models.py:11 itdagene/app/workschedule/models.py:64
 msgid "title"
 msgstr "Tittel"
 
-#: itdagene/app/career/models.py:50 itdagene/app/events/models.py:40
+#: itdagene/app/career/models.py:56 itdagene/app/events/models.py:40
 #: itdagene/app/feedback/models.py:59 itdagene/app/meetings/models.py:37
 #: itdagene/app/meetings/models.py:136
 msgid "type"
 msgstr "Type"
 
-#: itdagene/app/career/models.py:51
+#: itdagene/app/career/models.py:57
 #: itdagene/app/career/templates/career/view.html:24
 #: itdagene/app/experiences/templates/experiences/view.html:10
 #: itdagene/app/feedback/templates/feedback/issues/view.html:46
@@ -62,57 +62,129 @@ msgstr "Type"
 msgid "Description"
 msgstr "Beskrivelse"
 
-#: itdagene/app/career/models.py:56
+#: itdagene/app/career/models.py:62
 msgid "contact"
 msgstr "Kontakt"
 
-#: itdagene/app/career/models.py:63 itdagene/app/news/models.py:10
+#: itdagene/app/career/models.py:69 itdagene/app/news/models.py:10
 msgid "image"
 msgstr "Bilde"
 
-#: itdagene/app/career/models.py:65 itdagene/app/feedback/models.py:71
+#: itdagene/app/career/models.py:71 itdagene/app/feedback/models.py:71
 #: itdagene/app/todo/models.py:13
 msgid "deadline"
 msgstr "Frist"
 
-#: itdagene/app/career/models.py:66
+#: itdagene/app/career/models.py:72
 msgid "from year"
 msgstr "Fra år"
 
-#: itdagene/app/career/models.py:67
+#: itdagene/app/career/models.py:73
 msgid "to year"
 msgstr "Til år"
 
-#: itdagene/app/career/models.py:68
+#: itdagene/app/career/models.py:74
 msgid "town"
 msgstr "By"
 
-#: itdagene/app/career/models.py:69 itdagene/app/company/models.py:79
+#: itdagene/app/career/models.py:75 itdagene/app/company/models.py:79
 msgid "url"
 msgstr "URL"
 
-#: itdagene/app/career/models.py:70 itdagene/app/company/models.py:129
+#: itdagene/app/career/models.py:76 itdagene/app/company/models.py:129
 #: itdagene/app/gallery/models.py:16 itdagene/app/pages/models.py:20
 #: itdagene/core/models.py:186
 msgid "active"
 msgstr "aktiv"
 
-#: itdagene/app/career/models.py:71 itdagene/app/feedback/models.py:33
+#: itdagene/app/career/models.py:77 itdagene/app/feedback/models.py:33
 #: itdagene/templates/base_admin.html:102
 msgid "Frontpage"
 msgstr "Fremside"
 
-#: itdagene/app/career/models.py:72
+#: itdagene/app/career/models.py:78
 msgid "Hide contact info"
 msgstr "Skjul kontaktinformasjon"
 
-#: itdagene/app/career/models.py:74
+#: itdagene/app/career/models.py:80
 msgid "video"
 msgstr "Video"
 
-#: itdagene/app/career/models.py:76
+#: itdagene/app/career/models.py:82
 msgid "sommerjobbmaraton"
 msgstr "Sommerjobbmaraton"
+
+#: itdagene/app/career/models.py:84
+msgid "Show on website"
+msgstr "Vis på nettsiden"
+
+#: itdagene/app/career/templates/career/archive_list.html:12
+#: itdagene/app/career/templates/career/list.html:12
+#: itdagene/app/career/templates/career/view.html:12
+#: itdagene/app/company/templates/company/base.html:75
+#: itdagene/app/company/templates/company/economics/base.html:10
+#: itdagene/app/company/views/__init__.py:80
+#: itdagene/app/events/templates/events/view.html:37
+#: itdagene/app/stands/models.py:35
+#: itdagene/app/stands/templates/stands/list.html:12
+#: itdagene/app/stands/templates/stands/view.html:12
+msgid "Company"
+msgstr "Bedrift"
+
+#: itdagene/app/career/templates/career/archive_list.html:13
+#: itdagene/app/career/templates/career/list.html:13
+#: itdagene/app/career/templates/career/view.html:16
+#: itdagene/app/company/templates/company/packages/base.html:11
+#: itdagene/app/events/templates/events/base.html:12
+#: itdagene/app/feedback/templates/feedback/issues/list.html:14
+#: itdagene/app/feedback/templates/feedback/issues/list.html:42
+#: itdagene/app/feedback/templates/feedback/issues/list.html:70
+#: itdagene/app/feedback/templates/feedback/issues/mine.html:15
+#: itdagene/app/feedback/templates/feedback/issues/mine.html:44
+#: itdagene/app/workschedule/templates/worker/view.html:36
+msgid "Title"
+msgstr "Tittel"
+
+#: itdagene/app/career/templates/career/archive_list.html:14
+#: itdagene/app/career/templates/career/list.html:14
+#: itdagene/app/career/templates/career/view.html:20
+#: itdagene/app/events/templates/events/view.html:15
+#: itdagene/app/feedback/templates/feedback/issues/view.html:18
+#: itdagene/app/meetings/templates/meetings/list.html:21
+msgid "Type"
+msgstr "Type"
+
+#: itdagene/app/career/templates/career/archive_list.html:15
+#: itdagene/app/career/templates/career/list.html:15
+#: itdagene/app/career/templates/career/view.html:34
+#: itdagene/app/feedback/templates/feedback/issues/view.html:29
+msgid "Deadline"
+msgstr "Frist"
+
+#: itdagene/app/career/templates/career/archive_list.html:16
+#: itdagene/app/career/templates/career/list.html:16
+msgid "Created"
+msgstr "Opprettet"
+
+#: itdagene/app/career/templates/career/archive_list.html:17
+#: itdagene/app/career/templates/career/list.html:17
+#: itdagene/app/stands/templates/stands/list.html:15
+msgid "Creator"
+msgstr "Opprettet Av"
+
+#: itdagene/app/career/templates/career/archive_list.html:18
+#: itdagene/app/gallery/templates/gallery/base.html:13
+#: itdagene/app/pages/templates/pages/admin.html:13
+#: itdagene/app/stands/models.py:30
+#: itdagene/app/stands/templates/stands/list.html:16
+msgid "Active"
+msgstr "Aktiv"
+
+#: itdagene/app/career/templates/career/archive_list.html:28
+#: itdagene/app/career/templates/career/list.html:28
+#: itdagene/app/career/templates/career/view.html:36
+msgid "ASAP"
+msgstr "ASAP"
 
 #: itdagene/app/career/templates/career/delete.html:10
 #: itdagene/app/company/templates/company/contacts/delete.html:10
@@ -139,65 +211,12 @@ msgstr "Er du sikker på at du vil slette jobbannonsen %(joblisting)s?"
 msgid "Delete joblisting"
 msgstr "Slett jobbannonse"
 
-#: itdagene/app/career/templates/career/list.html:12
-#: itdagene/app/career/templates/career/view.html:12
-#: itdagene/app/company/templates/company/base.html:75
-#: itdagene/app/company/templates/company/economics/base.html:10
-#: itdagene/app/company/views/__init__.py:80
-#: itdagene/app/events/templates/events/view.html:37
-#: itdagene/app/stands/models.py:35
-#: itdagene/app/stands/templates/stands/list.html:12
-#: itdagene/app/stands/templates/stands/view.html:12
-msgid "Company"
-msgstr "Bedrift"
-
-#: itdagene/app/career/templates/career/list.html:13
-#: itdagene/app/career/templates/career/view.html:16
-#: itdagene/app/company/templates/company/packages/base.html:11
-#: itdagene/app/events/templates/events/base.html:12
-#: itdagene/app/feedback/templates/feedback/issues/list.html:14
-#: itdagene/app/feedback/templates/feedback/issues/list.html:42
-#: itdagene/app/feedback/templates/feedback/issues/list.html:70
-#: itdagene/app/feedback/templates/feedback/issues/mine.html:15
-#: itdagene/app/feedback/templates/feedback/issues/mine.html:44
-#: itdagene/app/workschedule/templates/worker/view.html:36
-msgid "Title"
-msgstr "Tittel"
-
-#: itdagene/app/career/templates/career/list.html:14
-#: itdagene/app/career/templates/career/view.html:20
-#: itdagene/app/events/templates/events/view.html:15
-#: itdagene/app/feedback/templates/feedback/issues/view.html:18
-#: itdagene/app/meetings/templates/meetings/list.html:21
-msgid "Type"
-msgstr "Type"
-
-#: itdagene/app/career/templates/career/list.html:15
-#: itdagene/app/career/templates/career/view.html:34
-#: itdagene/app/feedback/templates/feedback/issues/view.html:29
-msgid "Deadline"
-msgstr "Frist"
-
-#: itdagene/app/career/templates/career/list.html:16
-msgid "Created"
-msgstr "Opprettet"
-
-#: itdagene/app/career/templates/career/list.html:17
-#: itdagene/app/stands/templates/stands/list.html:15
-msgid "Creator"
-msgstr "Opprettet Av"
-
 #: itdagene/app/career/templates/career/list.html:18
-msgid "Marathon"
-msgstr "Maraton"
-
-#: itdagene/app/career/templates/career/list.html:28
-#: itdagene/app/career/templates/career/view.html:36
-msgid "ASAP"
-msgstr "ASAP"
+msgid "Displayed"
+msgstr "Vises"
 
 #: itdagene/app/career/templates/career/submenu.html:7
-#: itdagene/app/career/views.py:27
+#: itdagene/app/career/views.py:24 itdagene/app/career/views.py:35
 #: itdagene/app/company/templates/company/view.html:124
 #: itdagene/templates/base_admin.html:172
 msgid "Joblistings"
@@ -214,6 +233,10 @@ msgstr "Rediger Jobbannonse"
 #: itdagene/app/career/templates/career/submenu.html:40
 msgid "Add town"
 msgstr "Legg til by"
+
+#: itdagene/app/career/templates/career/submenu.html:47
+msgid "Joblistings archive"
+msgstr "Jobbannonse-arkiv"
 
 #: itdagene/app/career/templates/career/view.html:29
 msgid "Contact"
@@ -243,35 +266,39 @@ msgstr "Video Link"
 msgid "Is summerjob marathon"
 msgstr "Er sommerjobbmaraton"
 
-#: itdagene/app/career/views.py:38 itdagene/app/career/views.py:70
+#: itdagene/app/career/templates/career/view.html:69
+msgid "Is displayed"
+msgstr "Vises på nettsiden"
+
+#: itdagene/app/career/views.py:46 itdagene/app/career/views.py:78
 msgid "Joblisting saved."
 msgstr "Jobbannonse lagret"
 
-#: itdagene/app/career/views.py:43
+#: itdagene/app/career/views.py:51
 msgid "Add Joblisting"
 msgstr "Opprett Jobbannonse"
 
-#: itdagene/app/career/views.py:55
+#: itdagene/app/career/views.py:63
 msgid "Joblisting"
 msgstr "Jobbannonse"
 
-#: itdagene/app/career/views.py:76
+#: itdagene/app/career/views.py:84
 msgid "Edit Joblisting"
 msgstr "Rediger Jobbannonse"
 
-#: itdagene/app/career/views.py:90
+#: itdagene/app/career/views.py:97
 msgid "Joblisting deleted."
 msgstr "Jobbannonse slettet"
 
-#: itdagene/app/career/views.py:97
+#: itdagene/app/career/views.py:104
 msgid "Delete Joblisting"
 msgstr "Slett Jobbannonse"
 
-#: itdagene/app/career/views.py:110
+#: itdagene/app/career/views.py:117
 msgid "Town added."
 msgstr "By lagt til"
 
-#: itdagene/app/career/views.py:112
+#: itdagene/app/career/views.py:119
 msgid "Add Town"
 msgstr "Legg til by"
 
@@ -775,8 +802,8 @@ msgstr "Legg til nøkkelinformasjon"
 #: itdagene/app/company/templates/company/view.html:115
 #: itdagene/app/company/templates/company/view.html:153
 #: itdagene/app/events/templates/events/base.html:31
-#: itdagene/app/faq/templates/faq/base.html:28
-#: itdagene/app/gallery/templates/gallery/base.html:35
+#: itdagene/app/faq/templates/faq/base.html:34
+#: itdagene/app/gallery/templates/gallery/base.html:36
 #: itdagene/app/pages/templates/pages/admin.html:49
 #: itdagene/app/stands/templates/stands/list.html:40
 msgid "Delete"
@@ -801,8 +828,8 @@ msgstr "Last ned vcard-fil"
 #: itdagene/app/company/templates/company/view.html:153
 #: itdagene/app/events/templates/events/base.html:28
 #: itdagene/app/events/templates/events/view.html:46
-#: itdagene/app/faq/templates/faq/base.html:25
-#: itdagene/app/gallery/templates/gallery/base.html:32
+#: itdagene/app/faq/templates/faq/base.html:31
+#: itdagene/app/gallery/templates/gallery/base.html:33
 #: itdagene/app/news/templates/news/admin.html:23
 #: itdagene/app/pages/templates/pages/admin.html:46
 #: itdagene/app/stands/templates/stands/list.html:37
@@ -818,22 +845,8 @@ msgstr "Ingen Frist"
 msgid "Download file"
 msgstr ""
 
-#: itdagene/app/company/views/__init__.py:99
-#, fuzzy, python-brace-format
-#| msgid "%s was booked."
-msgid "{company.name} was booked."
-msgstr "%s ble booket."
-
-#: itdagene/app/company/views/__init__.py:113
-msgid "Added to waiting list"
-msgstr "Lagt til venteliste"
-
-#: itdagene/app/company/views/__init__.py:127
-msgid "Status changed"
-msgstr "Status oppdatert"
-
-#: itdagene/app/company/views/__init__.py:141
-#: itdagene/app/company/views/__init__.py:156
+#: itdagene/app/company/views/__init__.py:93
+#: itdagene/app/company/views/__init__.py:108
 msgid "Company saved."
 msgstr "Bedrift lagret"
 
@@ -849,7 +862,7 @@ msgstr "Legg til nøkkelinformasjon for "
 msgid "Changed responsibilities."
 msgstr "Ansvarsområder endret"
 
-#: itdagene/app/company/views/__init__.py:186
+#: itdagene/app/company/views/__init__.py:181
 #, fuzzy
 #| msgid "information name"
 msgid "Company information updated"
@@ -1556,13 +1569,6 @@ msgstr "rekkefølge"
 #: itdagene/core/models.py:58
 msgid "Photo"
 msgstr "Bilde"
-
-#: itdagene/app/gallery/templates/gallery/base.html:13
-#: itdagene/app/pages/templates/pages/admin.html:13
-#: itdagene/app/stands/models.py:30
-#: itdagene/app/stands/templates/stands/list.html:16
-msgid "Active"
-msgstr "Aktiv"
 
 #: itdagene/app/gallery/templates/gallery/delete.html:16
 #, python-format
@@ -2817,6 +2823,25 @@ msgstr ""
 ">\n"
 "\n"
 "                "
+
+#, fuzzy
+#~| msgid "should be in menu"
+#~ msgid "Should be displayed"
+#~ msgstr "skal være i meny"
+
+#~ msgid "Marathon"
+#~ msgstr "Maraton"
+
+#, fuzzy, python-brace-format
+#~| msgid "%s was booked."
+#~ msgid "{company.name} was booked."
+#~ msgstr "%s ble booket."
+
+#~ msgid "Added to waiting list"
+#~ msgstr "Lagt til venteliste"
+
+#~ msgid "Status changed"
+#~ msgstr "Status oppdatert"
 
 #, fuzzy
 #~| msgid "For companies"

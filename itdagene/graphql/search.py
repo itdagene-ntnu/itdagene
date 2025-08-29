@@ -33,7 +33,7 @@ def search(query: str, types: list) -> list:
 
 def query_companies_with_joblisting(query: str, count: int):
     return ItdageneCompany.objects.filter(
-        pk__in=ItdageneJoblisting.active_objects.values_list("company")
+        pk__in=ItdageneJoblisting.displayed_objects.values_list("company")
     ).filter(name__icontains=query)[:count]
 
 
@@ -54,6 +54,6 @@ def query_pages(query: str, count: int):
 
 
 def query_joblistings(query: str, count: int) -> JoblistingManager:
-    return ItdageneJoblisting.active_objects.filter(
+    return ItdageneJoblisting.displayed_objects.filter(
         Q(title__icontains=query) | Q(description__icontains=query)
     )[:count]

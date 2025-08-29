@@ -2,11 +2,9 @@ from typing import Any
 
 from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import SUCCESS, add_message
-from django.db.models import Q
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
-from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from itdagene.app.career.forms import JoblistingForm, JoblistingTownForm
@@ -16,15 +14,23 @@ from itdagene.core.decorators import staff_required
 
 @staff_required()
 def list(request: HttpRequest) -> HttpResponse:
-    joblistings = Joblisting.objects.filter(
-        (Q(deadline__gte=timezone.now()) | Q(deadline__isnull=True)),
-        is_active=True,
-    )
+    joblistings = Joblisting.active_objects.active()
 
     return render(
         request,
         "career/list.html",
         {"joblistings": joblistings, "title": _("Joblistings")},
+    )
+
+
+@permission_required("career.change_joblisting")
+def list_archive(request: HttpRequest) -> HttpResponse:
+    joblistings = Joblisting.objects.all()
+
+    return render(
+        request,
+        "career/archive_list.html",
+        {"joblistings": joblistings, "title": _("Joblistings archive")},
     )
 
 
@@ -85,8 +91,7 @@ def edit(request: HttpRequest, pk: Any) -> HttpResponse:
 def delete(request: HttpRequest, pk: Any) -> HttpResponse:
     joblisting = get_object_or_404(Joblisting, pk=pk)
     if request.method == "POST":
-        joblisting.is_active = False
-        joblisting.save()
+        joblisting.delete()
         add_message(request, SUCCESS, _("Joblisting deleted."))
         return redirect(reverse("itdagene.career.list"))
     return render(

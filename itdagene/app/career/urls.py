@@ -22,4 +22,5 @@ urlpatterns = [
         views.add_town,
         name="itdagene.career.add_town",
     ),
+    re_path(r"joblistings/archive", views.list_archive, name="itdagene.career.archive"),
 ]
