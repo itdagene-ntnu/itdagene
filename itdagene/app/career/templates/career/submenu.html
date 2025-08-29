@@ -41,4 +41,11 @@
             </a>
         </li>
     {% endif %}
+
+    <li class="nav-item">
+        <a class="nav-link {% active request 'career/joblistings/archive/$' %}" href="{% url "itdagene.career.archive" %}">
+            <i class="far fa-circle"></i> {% trans "Joblistings archive" %}
+        </a>
+    </li>
+    
 </ul>

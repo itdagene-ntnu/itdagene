@@ -22,6 +22,7 @@ class JoblistingForm(ModelForm):
             "image",
             "frontpage",
             "hide_contactinfo",
+            "is_displayed",
         )
 
 

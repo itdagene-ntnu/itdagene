@@ -15,7 +15,7 @@
                             <th>{% trans "Deadline" %}</th>
                             <th>{% trans "Created" %}</th>
                             <th>{% trans "Creator" %}</th>
-                            <th>{% trans "Displayed" %}</th>
+                            <th>{% trans "Active" %}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -29,7 +29,7 @@
                                 <td>{{ joblisting.date_created|date }}</td>
                                 <td>{{ joblisting.creator }}</td>
                                 <td>
-                                    {% if joblisting.is_displayed %}
+                                    {% if joblisting.is_active and not joblisting.has_deadline_passed%}
                                         <i style="color: green;" class="fas fa-check"></i>
                                     {% else %}
                                         <i style="color: red;" class="fas fa-times"></i>

@@ -34,6 +34,12 @@ class Joblisting(BaseModel):
     active_objects = JoblistingManager()
     objects = Manager()
 
+    class DisplayedJoblistingManager(JoblistingManager):
+        def get_queryset(self):
+            return super().to_display()
+
+    displayed_objects = DisplayedJoblistingManager()
+
     JOB_TYPES = (
         ("si", _("Summer internship")),
         ("pp", _("Permanent position")),
@@ -75,6 +81,7 @@ class Joblisting(BaseModel):
     is_summerjob_marathon = BooleanField(
         default=False, verbose_name=_("sommerjobbmaraton")
     )
+    is_displayed = BooleanField(verbose_name=_("Show on website"), default=True)
 
     def __str__(self) -> str:
         return str(self.title)
@@ -83,6 +90,8 @@ class Joblisting(BaseModel):
         return reverse("itdagene.career.view", args=[self.pk])
 
     def has_deadline_passed(self) -> bool:
+        if self.deadline is None:
+            return False
         return self.deadline < timezone.now()
 
     def get_towns(self) -> str:

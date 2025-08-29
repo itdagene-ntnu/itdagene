@@ -37,9 +37,19 @@ class OrderedDjangoFilterConnectionField(DjangoFilterConnectionField):
         **args,
     ):
         filter_kwargs = {k: v for k, v in args.items() if k in filtering_args}
+
+        # Sjekk 'on'-argumentet for å velge riktig manager
+        on_manager_name = args.get("on", None)
+        if on_manager_name:
+            manager = getattr(default_manager.model, on_manager_name)
+            queryset = manager.get_queryset()
+        else:
+            # Fallback til standard managerens queryset hvis 'on' ikke er spesifisert
+            queryset = default_manager.get_queryset()
+
         qs = filterset_class(
             data=filter_kwargs,
-            queryset=default_manager.get_queryset(),
+            queryset=queryset,
             request=info.context,
         ).qs
         order = args.get("orderBy", None)
@@ -85,7 +95,7 @@ class Query(ObjectType):
         max_limit=100,
         enforce_first_or_last=True,
         description="List and paginate joblistings",
-        on="active_objects",
+        on="displayed_objects",
     )
     current_meta_data = Field(
         NonNull(MetaData), description="Metadata about the current years event"
