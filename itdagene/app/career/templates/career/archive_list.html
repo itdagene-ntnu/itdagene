@@ -30,8 +30,10 @@
                                 <td>{{ joblisting.creator }}</td>
                                 <td>
                                     {% if joblisting.is_active and not joblisting.has_deadline_passed%}
+                                        <span style="display: none;">1</span>
                                         <i style="color: green;" class="fas fa-check"></i>
                                     {% else %}
+                                        <span style="display: none;">0</span>
                                         <i style="color: red;" class="fas fa-times"></i>
                                     {% endif %}
                                 </td>
