@@ -67,3 +67,20 @@ def edit(request: HttpRequest, id: Any) -> HttpResponse:
             "description": package,
         },
     )
+
+
+@permission_required("company.delete_package")
+def delete(request: HttpRequest, id: Any) -> HttpResponse:
+    package = get_object_or_404(Package, pk=id)
+    if request.method == "POST":
+        package.delete()
+        return redirect(reverse("itdagene.company.packages.list"))
+    return render(
+        request,
+        "company/packages/delete.html",
+        {
+            "package": package,
+            "title": _("Delete Package"),
+            "description": package,
+        },
+    )

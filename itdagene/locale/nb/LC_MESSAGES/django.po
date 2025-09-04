@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0nReport-Msgid-Bugs-To: web@itdagene.no\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-27 17:35+0200\n"
+"POT-Creation-Date: 2025-09-04 14:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Eirik Lorgen Tanberg <eirik.lorgen@itdagene.no>\n"
 "Language: NB\n"
@@ -189,6 +189,7 @@ msgstr "ASAP"
 #: itdagene/app/career/templates/career/delete.html:10
 #: itdagene/app/company/templates/company/contacts/delete.html:10
 #: itdagene/app/company/templates/company/contracts/delete.html:10
+#: itdagene/app/company/templates/company/packages/delete.html:10
 #: itdagene/app/events/templates/events/delete.html:10
 #: itdagene/app/faq/templates/faq/delete.html:10
 #: itdagene/app/gallery/templates/gallery/delete.html:10
@@ -216,7 +217,7 @@ msgid "Displayed"
 msgstr "Vises"
 
 #: itdagene/app/career/templates/career/submenu.html:7
-#: itdagene/app/career/views.py:24 itdagene/app/career/views.py:35
+#: itdagene/app/career/views.py:22
 #: itdagene/app/company/templates/company/view.html:124
 #: itdagene/templates/base_admin.html:172
 msgid "Joblistings"
@@ -235,6 +236,7 @@ msgid "Add town"
 msgstr "Legg til by"
 
 #: itdagene/app/career/templates/career/submenu.html:47
+#: itdagene/app/career/views.py:33
 msgid "Joblistings archive"
 msgstr "Jobbannonse-arkiv"
 
@@ -270,35 +272,35 @@ msgstr "Er sommerjobbmaraton"
 msgid "Is displayed"
 msgstr "Vises på nettsiden"
 
-#: itdagene/app/career/views.py:46 itdagene/app/career/views.py:78
+#: itdagene/app/career/views.py:44 itdagene/app/career/views.py:76
 msgid "Joblisting saved."
 msgstr "Jobbannonse lagret"
 
-#: itdagene/app/career/views.py:51
+#: itdagene/app/career/views.py:49
 msgid "Add Joblisting"
 msgstr "Opprett Jobbannonse"
 
-#: itdagene/app/career/views.py:63
+#: itdagene/app/career/views.py:61
 msgid "Joblisting"
 msgstr "Jobbannonse"
 
-#: itdagene/app/career/views.py:84
+#: itdagene/app/career/views.py:82
 msgid "Edit Joblisting"
 msgstr "Rediger Jobbannonse"
 
-#: itdagene/app/career/views.py:97
+#: itdagene/app/career/views.py:95
 msgid "Joblisting deleted."
 msgstr "Jobbannonse slettet"
 
-#: itdagene/app/career/views.py:104
+#: itdagene/app/career/views.py:102
 msgid "Delete Joblisting"
 msgstr "Slett Jobbannonse"
 
-#: itdagene/app/career/views.py:117
+#: itdagene/app/career/views.py:115
 msgid "Town added."
 msgstr "By lagt til"
 
-#: itdagene/app/career/views.py:119
+#: itdagene/app/career/views.py:117
 msgid "Add Town"
 msgstr "Legg til by"
 
@@ -681,6 +683,15 @@ msgstr "Signert/Kapasitet"
 msgid "Waiting list"
 msgstr "Venteliste"
 
+#: itdagene/app/company/templates/company/packages/delete.html:15
+msgid "Are you sure you want to delete the package \"%(package)s\"?"
+msgstr "Er du sikker på at du vil slette pakken %(package)s?"
+
+#: itdagene/app/company/templates/company/packages/delete.html:16
+#: itdagene/app/company/templates/company/packages/submenu.html:33
+msgid "Delete Package"
+msgstr "Slett Pakke"
+
 #: itdagene/app/company/templates/company/packages/submenu.html:9
 #: itdagene/app/company/views/packages.py:21
 #: itdagene/templates/base_admin.html:182
@@ -891,6 +902,12 @@ msgstr "Pakke lagt til"
 #: itdagene/app/company/views/packages.py:58
 msgid "Package saved."
 msgstr "Pakke lagret"
+
+#: itdagene/app/company/views/packages.py:83
+#, fuzzy
+#| msgid "Delete page"
+msgid "Delete package"
+msgstr "Slett side"
 
 #: itdagene/app/events/models.py:24
 msgid "Company presentation"
@@ -2823,6 +2840,15 @@ msgstr ""
 ">\n"
 "\n"
 "                "
+
+#, fuzzy, python-format
+#~| msgid ""
+#~| "Are you sure you want to delete the contract \"%(contract)s\" for the "
+#~| "company \"%(company)s\"?"
+#~ msgid ""
+#~ "Are you sure you want to delete the contract \"%(package)s\" for the "
+#~ "company \"%(company)s\"?"
+#~ msgstr "Er du sikker på at du vil slette kontakten \"%(contact)s\"?"
 
 #, fuzzy
 #~| msgid "should be in menu"
