@@ -904,8 +904,6 @@ msgid "Package saved."
 msgstr "Pakke lagret"
 
 #: itdagene/app/company/views/packages.py:83
-#, fuzzy
-#| msgid "Delete page"
 msgid "Delete package"
 msgstr "Slett side"
 
