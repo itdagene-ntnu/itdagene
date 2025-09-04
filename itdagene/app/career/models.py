@@ -69,8 +69,8 @@ class Joblisting(BaseModel):
         verbose_name=_("image"),
     )
     deadline = DateTimeField(null=True, blank=True, verbose_name=_("deadline"))
-    from_year = PositiveIntegerField(default=1, verbose_name=_("from year"))
-    to_year = PositiveIntegerField(default=5, verbose_name=_("to year"))
+    from_grade = PositiveIntegerField(default=1, verbose_name=_("from grade"))
+    to_grade = PositiveIntegerField(default=5, verbose_name=_("to grade"))
     towns = ManyToManyField(Town, blank=True, verbose_name=_("town"))
     url = URLField(blank=True, verbose_name=_("url"))
     is_active = BooleanField(verbose_name=_("active"), default=True)
@@ -99,8 +99,8 @@ class Joblisting(BaseModel):
         return ", ".join(towns)
 
     def get_classes(self) -> str:
-        if self.from_year != self.to_year:
-            return f"{self.from_year}-{self.to_year}"
+        if self.from_grade != self.to_grade:
+            return f"{self.from_grade}-{self.to_grade}"
         return self.to_year
 
     def save(self, *args, **kwargs):
