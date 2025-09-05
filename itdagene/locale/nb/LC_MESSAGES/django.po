@@ -76,12 +76,12 @@ msgid "deadline"
 msgstr "Frist"
 
 #: itdagene/app/career/models.py:72
-msgid "from year"
-msgstr "Fra år"
+msgid "From grade"
+msgstr "Fra Trinn"
 
 #: itdagene/app/career/models.py:73
-msgid "to year"
-msgstr "Til år"
+msgid "to grade"
+msgstr "Til Trinn"
 
 #: itdagene/app/career/models.py:74
 msgid "town"
@@ -245,12 +245,12 @@ msgid "Contact"
 msgstr "Kontakt"
 
 #: itdagene/app/career/templates/career/view.html:39
-msgid "From Year"
-msgstr "Fra år"
+msgid "from grade"
+msgstr "Fra Trinn"
 
 #: itdagene/app/career/templates/career/view.html:43
-msgid "To Year"
-msgstr "Til år"
+msgid "To grade"
+msgstr "Til Trinn"
 
 #: itdagene/app/career/templates/career/view.html:47
 msgid "Towns"
