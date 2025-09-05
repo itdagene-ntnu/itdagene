@@ -1,0 +1,24 @@
+{% extends "base_admin.html" %}
+
+{% load i18n %}
+
+{% block content %}
+<div class="row">
+<div class="col-lg-12">
+    
+    <div class="card card-outline card-danger card-solid">
+        <div class="card-header">
+            <h3 class="card-title">{% trans "Danger Zone" %}</h3>
+        </div>
+        <div class="card-body">
+             <form method="post" action="{% url "itdagene.company.packages.delete" package.pk %}">
+                {% csrf_token %}
+                <p>{% blocktrans with package=package %}Are you sure you want to delete the package "{{ package }}"?{% endblocktrans %}</p>
+                <p><button type="submit" class="btn btn-danger">{% trans "Delete Package" %}</button></p>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}

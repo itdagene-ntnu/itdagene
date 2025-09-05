@@ -27,6 +27,13 @@
             </a>
         </li>
         {% endif %}
+        {% if perms.company.delete_package %}
+            <li class="nav-item">
+                <a class="nav-link {% active request 'packages/[0-9]+/delete' %}" href="{% url "itdagene.company.packages.delete" package.pk %}">
+                    <i class="far fa-circle"></i> {% trans "Delete Package" %}
+                </a>
+            </li>
+        {% endif %}
     {% endif %}
 
 </ul>

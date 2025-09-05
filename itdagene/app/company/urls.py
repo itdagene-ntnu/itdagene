@@ -92,6 +92,11 @@ urlpatterns = [
         name="itdagene.company.packages.edit",
     ),
     re_path(
+        r"packages/(?P<id>\d+)/delete$",
+        packages.delete,
+        name="itdagene.company.packages.delete",
+    ),
+    re_path(
         r"^economics/$",
         economics.economic_overview,
         name="itdagene.company.economics.economic_overview",
