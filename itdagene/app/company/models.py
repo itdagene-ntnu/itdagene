@@ -22,7 +22,7 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from sorl.thumbnail import ImageField
 
-from itdagene.app.company import COMPANY_STATUS, COMPANY_STATUS_SIGNED
+from itdagene.app.company import COMPANY_STATUS
 from itdagene.core.log.models import LogItem
 from itdagene.core.models import BaseModel, Preference, User
 
