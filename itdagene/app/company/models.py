@@ -22,7 +22,7 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from sorl.thumbnail import ImageField
 
-from itdagene.app.company import COMPANY_STATUS
+from itdagene.app.company import COMPANY_STATUS, COMPANY_STATUS_SIGNED
 from itdagene.core.log.models import LogItem
 from itdagene.core.models import BaseModel, Preference, User
 
@@ -56,7 +56,7 @@ class Package(BaseModel):
     @classmethod
     def update_available_spots(cls) -> None:
         for package in Package.objects.all():
-            if package.companies.all().count() >= package.max:
+            if package.max is not None and package.companies.all().count() >= package.max:
                 package.is_full = True
             else:
                 package.is_full = False
@@ -207,10 +207,7 @@ class Company(BaseModel):
 
     @classmethod
     def get_main_collaborator(cls):
-        try:
-            return cls.objects.get(package__name="Hovedsamarbeidspartner")
-        except Company.DoesNotExist:
-            pass
+        return cls.objects.filter(package__name="Hovedsamarbeidspartner").first()
 
 
 class KeyInformation(BaseModel):
