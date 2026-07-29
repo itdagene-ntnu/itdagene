@@ -56,7 +56,10 @@ class Package(BaseModel):
     @classmethod
     def update_available_spots(cls) -> None:
         for package in Package.objects.all():
-            if package.max is not None and package.companies.all().count() >= package.max:
+            if (
+                package.max is not None
+                and package.companies.all().count() >= package.max
+            ):
                 package.is_full = True
             else:
                 package.is_full = False

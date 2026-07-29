@@ -161,11 +161,24 @@ class Event(DjangoObjectType):
         interfaces = (Node,)
 
     @classmethod
+    def get_public_queryset(cls):
+        """Return events that may be exposed by the public GraphQL API."""
+        return ItdageneEvent.objects.filter(
+            date__year=Preference.current_preference().year,
+            is_internal=False,
+        )
+
+    @classmethod
     def get_queryset(cls):
-        """When fetching all events, we do not want stand events, unless
-        they are of the type 'promoted stand event' (7).
-        """
-        return ItdageneEvent.objects.filter(Q(stand=None) | Q(type=7))
+        """Return the public program, excluding non-promoted stand events."""
+        return cls.get_public_queryset().filter(Q(stand=None) | Q(type=7))
+
+    @classmethod
+    def get_node(cls, context: Any, id: Any):
+        try:
+            return cls.get_public_queryset().get(pk=id)
+        except (ItdageneEvent.DoesNotExist, TypeError, ValueError):
+            return None
 
 
 class Question(DjangoObjectType):
@@ -213,7 +226,7 @@ class Stand(DjangoObjectType):
         return info.context.loaders.Companyloader.load(self.company_id)
 
     def resolve_events(self, info: Any, **kwargs):
-        return ItdageneEvent.objects.filter(stand=self)
+        return Event.get_public_queryset().filter(stand=self)
 
     @classmethod
     def get_queryset(cls):
