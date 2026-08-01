@@ -1,6 +1,6 @@
 from typing import Optional
 
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.deprecation import MiddlewareMixin
@@ -44,3 +44,12 @@ class CurrentUserMiddleware(MiddlewareMixin):
     def process_request(self, request: HttpRequest) -> None:
         user = getattr(request, "user", None)
         set_current_user_function(lambda: user)
+
+    def process_response(
+        self, request: HttpRequest, response: HttpResponse
+    ) -> HttpResponse:
+        # A reused worker thread must never attribute work performed after this
+        # request to its authenticated user. This also keeps request-isolated
+        # tests from retaining a deleted user in thread-local state.
+        set_current_user_function(lambda: None)
+        return response

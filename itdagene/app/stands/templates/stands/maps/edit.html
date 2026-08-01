@@ -1,0 +1,79 @@
+{% extends "base_admin.html" %}
+{% load i18n l10n %}
+
+{% block inline-styles %}
+    <style>
+        .stand-map-canvas { position: relative; display: inline-block; max-width: 100%; }
+        .stand-map-canvas img { display: block; max-width: 100%; height: auto; }
+        .stand-map-marker { position: absolute; transform: translate(-50%, -50%); cursor: move; touch-action: none; border: 2px solid #fff; border-radius: 50%; background: #007bff; color: #fff; min-width: 2rem; min-height: 2rem; }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="card card-outline card-primary"><div class="card-body">
+        <h3>{% blocktrans with revision=release.revision %}Revision {{ revision }}{% endblocktrans %} - {{ release.get_status_display }}</h3>
+        {% if release.status == "draft" and perms.stands.publish_standmaprelease %}
+            <form method="post" action="{% url "itdagene.stand_maps.publish" release.pk %}" class="mb-4">
+                {% csrf_token %}<input type="hidden" name="lock_version" value="{{ release.lock_version }}"><button type="submit" class="btn btn-success">{% trans "Publish" %}</button>
+                <span class="text-muted">{% trans "Publishing makes this release immutable and supersedes the prior published release." %}</span>
+            </form>
+        {% endif %}
+        {% if release.status != "draft" %}<p class="alert alert-info">{% trans "This historical release is read-only." %}</p>{% endif %}
+    </div></div>
+
+    {% if release.status == "draft" %}
+        <div class="card card-outline card-secondary"><div class="card-body">
+            <h4>{% trans "Add event-day map" %}</h4>
+            <form method="post" enctype="multipart/form-data">{% csrf_token %}<input type="hidden" name="action" value="save-map"><input type="hidden" name="lock_version" value="{{ release.lock_version }}">{{ new_map_form.as_p }}<button class="btn btn-primary" type="submit">{% trans "Save map" %}</button></form>
+        </div></div>
+    {% endif %}
+
+    {% for editor_map in editor_maps %}
+        <div class="card card-outline card-primary"><div class="card-header"><h4 class="card-title">{{ editor_map.stand_map.date }}{% if editor_map.stand_map.label %}: {{ editor_map.stand_map.label }}{% endif %}</h4></div><div class="card-body">
+            {% if release.status == "draft" %}
+                <details><summary>{% trans "Edit map details" %}</summary><form method="post" enctype="multipart/form-data">{% csrf_token %}<input type="hidden" name="action" value="save-map"><input type="hidden" name="map_id" value="{{ editor_map.stand_map.pk }}"><input type="hidden" name="lock_version" value="{{ release.lock_version }}">{{ editor_map.map_form.as_p }}<button class="btn btn-primary" type="submit">{% trans "Save map" %}</button></form></details>
+            {% endif %}
+            <div class="stand-map-canvas" data-map-id="{{ editor_map.stand_map.pk }}" data-editable="{% if release.status == "draft" %}true{% else %}false{% endif %}"><img src="{{ editor_map.stand_map.background.url }}" alt="{% blocktrans with date=editor_map.stand_map.date %}Stand map for {{ date }}{% endblocktrans %}">
+                {% for placement, placement_form in editor_map.placement_forms %}{% if release.status == "draft" %}<button type="button" class="stand-map-marker" data-placement="{{ placement.pk }}" style="left: {{ placement.x_percent|unlocalize }}%; top: {{ placement.y_percent|unlocalize }}%;" aria-label="{% blocktrans with company=placement.company_name %}Move {{ company }} marker{% endblocktrans %}" title="{{ placement.company_name }}">{{ placement.stand_number }}</button>{% else %}<span class="stand-map-marker" style="left: {{ placement.x_percent|unlocalize }}%; top: {{ placement.y_percent|unlocalize }}%;" title="{{ placement.company_name }}">{{ placement.stand_number }}</span>{% endif %}{% endfor %}
+            </div>
+            {% for placement, placement_form in editor_map.placement_forms %}
+                <form method="post" class="border-top pt-3 mt-3 placement-form" id="placement-form-{{ placement.pk }}">{% csrf_token %}<input type="hidden" name="action" value="save-placement"><input type="hidden" name="map_id" value="{{ editor_map.stand_map.pk }}"><input type="hidden" name="placement_id" value="{{ placement.pk }}"><input type="hidden" name="lock_version" value="{{ release.lock_version }}">{{ placement_form.as_p }}{% if release.status == "draft" %}<button class="btn btn-primary" type="submit">{% trans "Save placement" %}</button>{% endif %}</form>
+                {% if release.status == "draft" %}<form method="post" class="mt-1">{% csrf_token %}<input type="hidden" name="action" value="delete-placement"><input type="hidden" name="placement_id" value="{{ placement.pk }}"><input type="hidden" name="lock_version" value="{{ release.lock_version }}"><button class="btn btn-link text-danger" type="submit">{% trans "Remove marker" %}</button></form>{% endif %}
+            {% endfor %}
+            {% if release.status == "draft" %}
+                <details class="mt-4"><summary>{% trans "Add placement marker" %}</summary><form method="post" class="placement-form">{% csrf_token %}<input type="hidden" name="action" value="save-placement"><input type="hidden" name="map_id" value="{{ editor_map.stand_map.pk }}"><input type="hidden" name="lock_version" value="{{ release.lock_version }}">{{ editor_map.new_placement_form.as_p }}<button class="btn btn-primary" type="submit">{% trans "Add marker" %}</button></form></details>
+                <form method="post" class="mt-3">{% csrf_token %}<input type="hidden" name="action" value="delete-map"><input type="hidden" name="map_id" value="{{ editor_map.stand_map.pk }}"><input type="hidden" name="lock_version" value="{{ release.lock_version }}"><button class="btn btn-danger" type="submit">{% trans "Remove map" %}</button></form>
+            {% endif %}
+        </div></div>
+    {% endfor %}
+{% endblock %}
+
+{% block inline-scripts %}
+    <script>
+        (function () {
+            function updateMarker(marker, event) {
+                var canvas = marker.parentElement, bounds = canvas.getBoundingClientRect();
+                var x = Math.max(0, Math.min(100, ((event.clientX - bounds.left) / bounds.width) * 100));
+                var y = Math.max(0, Math.min(100, ((event.clientY - bounds.top) / bounds.height) * 100));
+                marker.style.left = x + "%"; marker.style.top = y + "%";
+                var form = document.getElementById("placement-form-" + marker.dataset.placement);
+                if (form) { form.querySelector("[name=x_percent]").value = x.toFixed(2); form.querySelector("[name=y_percent]").value = y.toFixed(2); }
+            }
+            document.querySelectorAll(".stand-map-marker").forEach(function (marker) {
+                if (marker.parentElement.dataset.editable !== "true") { return; }
+                marker.addEventListener("pointerdown", function (event) {
+                    event.preventDefault();
+                    function move(moveEvent) { updateMarker(marker, moveEvent); }
+                    function up() {
+                        window.removeEventListener("pointermove", move);
+                        window.removeEventListener("pointerup", up);
+                        window.removeEventListener("pointercancel", up);
+                    }
+                    window.addEventListener("pointermove", move);
+                    window.addEventListener("pointerup", up);
+                    window.addEventListener("pointercancel", up);
+                });
+            });
+        }());
+    </script>
+{% endblock %}

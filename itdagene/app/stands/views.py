@@ -1,16 +1,33 @@
+import mimetypes
 from typing import Any
 
 from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import SUCCESS, add_message
-from django.http import HttpRequest, HttpResponse
+from django.http import FileResponse, HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from itdagene.app.events.models import Event
 from itdagene.app.stands.forms import DigitalStandForm
-from itdagene.app.stands.models import DigitalStand
+from itdagene.app.stands.models import DigitalStand, StandMap, StandMapRelease
 from itdagene.core.decorators import staff_required
+from itdagene.core.models import Preference
+
+
+def published_map_background(request: HttpRequest, pk: Any) -> HttpResponse:
+    stand_map = get_object_or_404(
+        StandMap,
+        pk=pk,
+        release__preference=Preference.current_preference(),
+        release__status=StandMapRelease.PUBLISHED,
+    )
+    content_type = (
+        mimetypes.guess_type(stand_map.background.name)[0] or "application/octet-stream"
+    )
+    response = FileResponse(stand_map.background.open("rb"), content_type=content_type)
+    response["Cache-Control"] = "public, max-age=31536000, immutable"
+    return response
 
 
 @staff_required()

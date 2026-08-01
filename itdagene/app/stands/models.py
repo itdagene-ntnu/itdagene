@@ -1,8 +1,18 @@
-from django.db import models
+from django.core.exceptions import ValidationError
+from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db import models, transaction
 from django.db.models import (
+    PROTECT,
+    SET_NULL,
     BooleanField,
     CharField,
+    DateField,
+    DateTimeField,
+    DecimalField,
     ForeignKey,
+    ImageField,
+    IntegerField,
+    Q,
     SlugField,
     TextField,
     URLField,
@@ -13,7 +23,7 @@ from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 
 from itdagene.app.company.models import Company
-from itdagene.core.models import BaseModel
+from itdagene.core.models import BaseModel, Preference, User
 
 
 class DigitalStand(BaseModel):
@@ -57,10 +67,245 @@ class DigitalStand(BaseModel):
             self.slug = slug
         super(DigitalStand, self).save(*args, **kwargs)
 
-        @classmethod
-        def get_first_day(cls):
-            return cls.objects.filter(company__in=Company.get_first_day())
+    @classmethod
+    def get_first_day(cls):
+        return cls.objects.filter(company__in=Company.get_first_day())
 
-        @classmethod
-        def get_last_day(cls):
-            return cls.objects.filter(company__in=Company.get_last_day())
+    @classmethod
+    def get_last_day(cls):
+        return cls.objects.filter(company__in=Company.get_last_day())
+
+
+class StandMapRelease(models.Model):
+    DRAFT = "draft"
+    PUBLISHED = "published"
+    SUPERSEDED = "superseded"
+    STATUS_CHOICES = (
+        (DRAFT, _("Draft")),
+        (PUBLISHED, _("Published")),
+        (SUPERSEDED, _("Superseded")),
+    )
+
+    preference = ForeignKey(
+        Preference, on_delete=PROTECT, related_name="stand_map_releases"
+    )
+    revision = IntegerField()
+    status = CharField(max_length=12, choices=STATUS_CHOICES, default=DRAFT)
+    lock_version = IntegerField(default=1)
+    created_at = DateTimeField(auto_now_add=True)
+    updated_at = DateTimeField(auto_now=True)
+    published_at = DateTimeField(null=True, blank=True)
+    published_by = ForeignKey(
+        User,
+        null=True,
+        blank=True,
+        on_delete=SET_NULL,
+        related_name="published_stand_map_releases",
+    )
+
+    class Meta:
+        unique_together = (("preference", "revision"),)
+        permissions = (("publish_standmaprelease", "Can publish stand map release"),)
+        ordering = ("-revision",)
+        constraints = (
+            models.UniqueConstraint(
+                fields=("preference",),
+                condition=Q(status="published"),
+                name="stands_one_published_release_per_preference",
+            ),
+        )
+
+    def __str__(self):
+        return "{} r{}".format(self.preference.year, self.revision)
+
+    def clean(self):
+        if self.revision < 1:
+            raise ValidationError({"revision": _("Revision must be positive.")})
+
+    def save(self, *args, **kwargs):
+        if self.pk:
+            previous = type(self).objects.filter(pk=self.pk).values("status").first()
+            if previous and previous["status"] != self.DRAFT:
+                raise ValidationError(
+                    _("Published and superseded releases are immutable.")
+                )
+        super(StandMapRelease, self).save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        status = (
+            type(self)
+            .objects.filter(pk=self.pk)
+            .values_list("status", flat=True)
+            .first()
+            if self.pk
+            else self.status
+        )
+        if status != self.DRAFT:
+            raise ValidationError(_("Published and superseded releases are immutable."))
+        return super(StandMapRelease, self).delete(*args, **kwargs)
+
+    def validate_complete(self):
+        maps = list(self.maps.all().prefetch_related("placements"))
+        expected_dates = set()
+        current_date = self.preference.start_date
+        while current_date <= self.preference.end_date:
+            expected_dates.add(current_date)
+            current_date = current_date.fromordinal(current_date.toordinal() + 1)
+        if not maps or {stand_map.date for stand_map in maps} != expected_dates:
+            raise ValidationError(_("A map is required for every event day."))
+        if any(
+            not stand_map.background
+            or not stand_map.location
+            or not stand_map.placements.exists()
+            for stand_map in maps
+        ):
+            raise ValidationError(
+                _(
+                    "Every map needs a location, background, and at least one "
+                    "placement."
+                )
+            )
+
+    @classmethod
+    def publish(cls, release_id, expected_lock_version, user):
+        with transaction.atomic():
+            release_preference_id = cls.objects.values_list(
+                "preference_id", flat=True
+            ).get(pk=release_id)
+            # Serialize publication at the edition level. Locking only the
+            # selected draft would still allow two different drafts to publish
+            # concurrently when no prior release exists.
+            Preference.objects.select_for_update().get(pk=release_preference_id)
+            release = cls.objects.select_for_update().get(pk=release_id)
+            if release.status != cls.DRAFT:
+                raise ValidationError(_("Only draft releases can be published."))
+            if release.lock_version != expected_lock_version:
+                raise ValidationError(
+                    _("This draft changed. Reload it before publishing.")
+                )
+            release.validate_complete()
+            cls.objects.filter(
+                preference=release.preference, status=cls.PUBLISHED
+            ).update(status=cls.SUPERSEDED)
+            updated = cls.objects.filter(
+                pk=release.pk, lock_version=expected_lock_version, status=cls.DRAFT
+            ).update(
+                status=cls.PUBLISHED,
+                published_at=now(),
+                published_by=user,
+                lock_version=expected_lock_version + 1,
+            )
+            if updated != 1:
+                raise ValidationError(
+                    _("This draft changed. Reload it before publishing.")
+                )
+            return cls.objects.get(pk=release.pk)
+
+
+class StandMap(models.Model):
+    release = ForeignKey(StandMapRelease, on_delete=models.CASCADE, related_name="maps")
+    date = DateField()
+    label = CharField(max_length=100, blank=True)
+    location = CharField(max_length=255)
+    background = ImageField(upload_to="stand_maps/")
+
+    class Meta:
+        unique_together = (("release", "date"),)
+        ordering = ("date",)
+
+    def clean(self):
+        if (
+            self.date < self.release.preference.start_date
+            or self.date > self.release.preference.end_date
+        ):
+            raise ValidationError({"date": _("Map date must be within this edition.")})
+
+    def save(self, *args, **kwargs):
+        if not StandMapRelease.objects.filter(
+            pk=self.release_id, status=StandMapRelease.DRAFT
+        ).exists():
+            raise ValidationError(_("Published maps are immutable."))
+        self.clean()
+        super(StandMap, self).save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        if not StandMapRelease.objects.filter(
+            pk=self.release_id, status=StandMapRelease.DRAFT
+        ).exists():
+            raise ValidationError(_("Published maps are immutable."))
+        return super(StandMap, self).delete(*args, **kwargs)
+
+
+class StandPlacement(models.Model):
+    stand_map = ForeignKey(
+        StandMap, on_delete=models.CASCADE, related_name="placements"
+    )
+    company = ForeignKey(
+        Company, on_delete=PROTECT, related_name="stand_map_placements"
+    )
+    stand_number = CharField(max_length=30)
+    x_percent = DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        validators=[MinValueValidator(0), MaxValueValidator(100)],
+    )
+    y_percent = DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        validators=[MinValueValidator(0), MaxValueValidator(100)],
+    )
+    company_name = CharField(max_length=140, editable=False)
+    company_slug = SlugField(max_length=150, editable=False)
+
+    class Meta:
+        unique_together = (
+            ("stand_map", "stand_number"),
+            ("stand_map", "company"),
+            ("stand_map", "company_slug"),
+        )
+        ordering = ("stand_number",)
+
+    def clean(self):
+        if not StandMap.objects.filter(
+            pk=self.stand_map_id, release__status=StandMapRelease.DRAFT
+        ).exists():
+            raise ValidationError(_("Published placements are immutable."))
+
+    def save(self, *args, **kwargs):
+        if not StandMap.objects.filter(
+            pk=self.stand_map_id, release__status=StandMapRelease.DRAFT
+        ).exists():
+            raise ValidationError(_("Published placements are immutable."))
+        previous_company_id = None
+        if self.pk:
+            previous_company_id = (
+                type(self)
+                .objects.filter(pk=self.pk)
+                .values_list("company_id", flat=True)
+                .first()
+            )
+        if not self.pk or previous_company_id != self.company_id:
+            self.company_name = self.company.name
+            company_slug = slugify(self.company.name) or "company-{}".format(
+                self.company_id
+            )
+            if (
+                type(self)
+                .objects.filter(
+                    stand_map=self.stand_map,
+                    company_slug=company_slug,
+                )
+                .exclude(pk=self.pk)
+                .exists()
+            ):
+                company_slug = "{}-{}".format(company_slug, self.company_id)
+            self.company_slug = company_slug
+        self.clean()
+        super(StandPlacement, self).save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        if not StandMap.objects.filter(
+            pk=self.stand_map_id, release__status=StandMapRelease.DRAFT
+        ).exists():
+            raise ValidationError(_("Published placements are immutable."))
+        return super(StandPlacement, self).delete(*args, **kwargs)

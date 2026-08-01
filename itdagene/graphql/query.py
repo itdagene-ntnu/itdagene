@@ -4,9 +4,11 @@ from graphene import ID, Boolean, Field, Int, List, NonNull, ObjectType, String
 from graphene.relay import Node
 from graphene_django.filter import DjangoFilterConnectionField
 
+from itdagene.app.stands.models import StandMapRelease
 from itdagene.core.models import Preference
 from itdagene.graphql.filters import JoblistingFilter
 from itdagene.graphql.object_types import (
+    CurrentStandMap,
     Event,
     Joblisting,
     MetaData,
@@ -98,6 +100,10 @@ class Query(ObjectType):
     )
     current_meta_data = Field(
         NonNull(MetaData), description="Metadata about the current years event"
+    )
+    current_stand_map = Field(
+        CurrentStandMap,
+        description="Published stand map for the current edition.",
     )
 
     page = Field(
@@ -191,6 +197,18 @@ class Query(ObjectType):
 
     def resolve_current_meta_data(self, info: Any):
         return Preference.current_preference()
+
+    def resolve_current_stand_map(self, info: Any):
+        preference = Preference.current_preference()
+        return (
+            StandMapRelease.objects.filter(
+                preference=preference,
+                status=StandMapRelease.PUBLISHED,
+            )
+            .prefetch_related("maps__placements")
+            .order_by("-revision")
+            .first()
+        )
 
     def resolve_resolve_count(self, info, **kwargs):
         return info.context.count

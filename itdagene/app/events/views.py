@@ -5,18 +5,49 @@ from django.contrib.messages import SUCCESS, add_message
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
-from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 
-from itdagene.app.events.forms import EventForm, EventTicketForm
+from itdagene.app.events.forms import EventFilterForm, EventForm, EventTicketForm
 from itdagene.app.events.models import Event, Ticket
 from itdagene.core.decorators import staff_required
+from itdagene.core.models import Preference
 
 
 @staff_required()
 def list_events(request: HttpRequest) -> HttpResponse:
-    events = Event.objects.filter(date__year=now().year)
-    return render(request, "events/base.html", {"events": events, "title": _("Events")})
+    edition_year = Preference.current_preference().year
+    events = Event.objects.filter(date__year=edition_year).select_related(
+        "company", "stand"
+    )
+    filter_form = EventFilterForm(
+        request.GET or None,
+        edition_year=edition_year,
+    )
+    if filter_form.is_valid():
+        day = filter_form.cleaned_data["day"]
+        event_type = filter_form.cleaned_data["type"]
+        internal = filter_form.cleaned_data["internal"]
+        company = filter_form.cleaned_data["company"]
+        search = filter_form.cleaned_data["q"]
+        if day:
+            events = events.filter(date=day)
+        if event_type is not None:
+            events = events.filter(type=event_type)
+        if internal is not None:
+            events = events.filter(is_internal=internal)
+        if company:
+            events = events.filter(company=company)
+        if search:
+            events = events.filter(title__icontains=search)
+    return render(
+        request,
+        "events/base.html",
+        {
+            "events": events.order_by("date", "time_start", "time_end", "title"),
+            "filter_form": filter_form,
+            "title": _("Events"),
+        },
+    )
 
 
 @permission_required("events.add_event")

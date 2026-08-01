@@ -16,6 +16,14 @@
         </li>
     {% endif %}
 
+    {% if perms.stands.view_standmaprelease %}
+        <li class="nav-item">
+            <a class="nav-link {% active request 'admin/stand-maps' %}" href="{% url "itdagene.stand_maps.list" %}">
+                <i class="far fa-circle"></i> {% trans "Stand maps" %}
+            </a>
+        </li>
+    {% endif %}
+
     {% if stand.pk %}
         {% if perms.stands.change_stand %}
             <li class="nav-item">

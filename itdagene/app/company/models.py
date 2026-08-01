@@ -22,7 +22,7 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from sorl.thumbnail import ImageField
 
-from itdagene.app.company import COMPANY_STATUS
+from itdagene.app.company import COMPANY_STATUS, COMPANY_STATUS_SIGNED
 from itdagene.core.log.models import LogItem
 from itdagene.core.models import BaseModel, Preference, User
 
@@ -179,7 +179,11 @@ class Company(BaseModel):
 
     @classmethod
     def get_signed_with_packages(cls):
-        return cls.objects.filter(status=3).exclude(package=None).order_by("?")
+        return cls.objects.filter(
+            active=True,
+            status=COMPANY_STATUS_SIGNED,
+            package__isnull=False,
+        ).order_by("name", "pk")
 
     @classmethod
     def get_first_day(cls):
@@ -187,8 +191,7 @@ class Company(BaseModel):
             cls.get_signed_with_packages()
             .select_related("package")
             .filter(package__has_stand_first_day=True)
-            .exclude(logo="")
-            .order_by("package__max")
+            .order_by("name", "pk")
         )
 
     @classmethod
@@ -197,8 +200,7 @@ class Company(BaseModel):
             cls.get_signed_with_packages()
             .select_related("package")
             .filter(package__has_stand_last_day=True)
-            .exclude(logo="")
-            .order_by("package__max")
+            .order_by("name", "pk")
         )
 
     # This is really hacky but should work. There is really no good way of doing it
@@ -206,11 +208,15 @@ class Company(BaseModel):
 
     @classmethod
     def get_collaborators(cls):
-        return cls.objects.filter(package__name="Samarbeidspartner")
+        return cls.get_signed_with_packages().filter(package__name="Samarbeidspartner")
 
     @classmethod
     def get_main_collaborator(cls):
-        return cls.objects.filter(package__name="Hovedsamarbeidspartner").first()
+        return (
+            cls.get_signed_with_packages()
+            .filter(package__name="Hovedsamarbeidspartner")
+            .first()
+        )
 
 
 class KeyInformation(BaseModel):

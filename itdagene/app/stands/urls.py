@@ -4,6 +4,11 @@ from itdagene.app.stands import views
 
 
 urlpatterns = [
+    re_path(
+        r"^maps/(?P<pk>\d+)/background/$",
+        views.published_map_background,
+        name="itdagene.stands.map_background",
+    ),
     re_path(r"^stands/$", views.list, name="itdagene.stands.list"),
     re_path(r"^stands/add/$", views.add, name="itdagene.stands.add"),
     re_path(r"^stands/(?P<pk>\d+)/$", views.view, name="itdagene.stands.view"),

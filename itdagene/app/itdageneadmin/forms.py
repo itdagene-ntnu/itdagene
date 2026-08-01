@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib.auth.models import Group
 from django.forms import CharField, IntegerField
 from django.forms.forms import Form
@@ -39,3 +40,8 @@ class PreferenceForm(ModelForm):
     class Meta:
         model = Preference
         exclude = ("active",)
+        widgets = {
+            "start_date": forms.DateInput(attrs={"type": "date"}),
+            "end_date": forms.DateInput(attrs={"type": "date"}),
+            "event_start_time": forms.TimeInput(attrs={"type": "time"}),
+        }

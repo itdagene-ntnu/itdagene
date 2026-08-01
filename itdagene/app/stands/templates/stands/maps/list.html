@@ -1,0 +1,25 @@
+{% extends "base_admin.html" %}
+{% load i18n %}
+
+{% block content %}
+    <div class="card card-outline card-primary">
+        <div class="card-header">
+            <h3 class="card-title">{% trans "Stand map releases" %}</h3>
+            {% if perms.stands.add_standmaprelease %}
+                <a class="btn btn-primary float-right" href="{% url "itdagene.stand_maps.create" %}">{% trans "Create draft" %}</a>
+            {% endif %}
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-hover">
+                <thead><tr><th>{% trans "Revision" %}</th><th>{% trans "Status" %}</th><th>{% trans "Updated" %}</th><th>{% trans "Published" %}</th><th></th></tr></thead>
+                <tbody>
+                    {% for release in releases %}
+                        <tr><td>{{ release.revision }}</td><td>{{ release.get_status_display }}</td><td>{{ release.updated_at }}</td><td>{{ release.published_at|default:"-" }}</td><td><a class="btn btn-sm btn-primary" href="{% url "itdagene.stand_maps.edit" release.pk %}">{% trans "Open" %}</a></td></tr>
+                    {% empty %}
+                        <tr><td colspan="5">{% trans "No stand map releases exist for this edition." %}</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

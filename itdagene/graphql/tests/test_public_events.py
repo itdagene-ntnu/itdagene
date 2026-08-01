@@ -7,7 +7,8 @@ from django.utils.timezone import now
 from graphene.test import Client
 from graphql_relay import to_global_id
 
-from itdagene.app.company.models import Company
+from itdagene.app.company import COMPANY_STATUS_SIGNED
+from itdagene.app.company.models import Company, Package
 from itdagene.app.events.models import Event
 from itdagene.app.stands.models import DigitalStand
 from itdagene.core.models import Preference, User
@@ -25,8 +26,20 @@ class TestPublicEvents(TestCase):
             year=self.edition_year,
             start_date=date(self.edition_year, 9, 14),
             end_date=date(self.edition_year, 9, 15),
+            program_published=True,
         )
-        self.company = Company.objects.create(name="Public company")
+        package = Package.objects.create(
+            name="Stand package",
+            description="Includes a stand",
+            price=1,
+            has_stand_first_day=True,
+            has_stand_last_day=True,
+        )
+        self.company = Company.objects.create(
+            name="Public company",
+            package=package,
+            status=COMPANY_STATUS_SIGNED,
+        )
         self.stand = DigitalStand.objects.create(
             active=True,
             company=self.company,
@@ -234,3 +247,31 @@ class TestPublicEvents(TestCase):
             ],
             executed["data"]["nodes"],
         )
+
+    def test_unpublished_program_is_hidden_from_every_event_entry_point(self) -> None:
+        event = self.create_event("Hidden program event", stand=self.stand)
+        self.preference.program_published = False
+        self.preference.save()
+        cache.clear()
+
+        executed = self.client.execute(
+            """
+            query ($node: ID!, $nodes: [ID!]!, $slug: String!) {
+              events { id }
+              stand(slug: $slug) { events { id } }
+              node(id: $node) { id }
+              nodes(ids: $nodes) { id }
+            }
+            """,
+            variable_values={
+                "node": to_global_id("Event", event.pk),
+                "nodes": [to_global_id("Event", event.pk)],
+                "slug": self.stand.slug,
+            },
+        )
+
+        self.assertIsNone(executed.get("errors"))
+        self.assertEqual([], executed["data"]["events"])
+        self.assertEqual([], executed["data"]["stand"]["events"])
+        self.assertIsNone(executed["data"]["node"])
+        self.assertEqual([None], executed["data"]["nodes"])

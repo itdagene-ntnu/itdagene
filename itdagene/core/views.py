@@ -8,15 +8,30 @@ from itdagene.core.models import Preference
 
 
 def error403(request: HttpRequest, exception: Any, **kwargs) -> HttpResponse:
-    return render(request, "static/403.html", {"title": _("Permission Denied")})
+    return render(
+        request,
+        "static/403.html",
+        {"title": _("Permission Denied")},
+        status=403,
+    )
 
 
 def error404(request: HttpRequest, exception: Any, **kwargs) -> HttpResponse:
-    return render(request, "static/404.html", {"title": _("Page not Found")})
+    return render(
+        request,
+        "static/404.html",
+        {"title": _("Page not Found")},
+        status=404,
+    )
 
 
 def error500(request: HttpRequest, **kwargs) -> HttpResponse:
-    return render(request, "static/500.html", {"title": _("Internal Server Error")})
+    return render(
+        request,
+        "static/500.html",
+        {"title": _("Internal Server Error")},
+        status=500,
+    )
 
 
 def under_development(request: HttpRequest, **kwargs) -> HttpResponse:

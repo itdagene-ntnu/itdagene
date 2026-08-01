@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, time
 from typing import Any
 
 from django.conf import settings
@@ -17,6 +17,7 @@ from django.db.models import (
     Model,
     PositiveIntegerField,
     TextField,
+    TimeField,
     URLField,
 )
 from django.urls import reverse
@@ -243,6 +244,20 @@ class Preference(BaseModel):
         verbose_name=_("Interest form URL"),
         help_text=_("What is the URL to the company participation interest form?"),
         default="https://interesse.itdagene.no",
+    )
+    program_published = BooleanField(
+        default=False,
+        verbose_name=_("program published"),
+        help_text=_("Whether the public program may be displayed."),
+    )
+    venue = CharField(
+        max_length=255,
+        default="Realfagbygget, NTNU",
+        verbose_name=_("venue"),
+    )
+    event_start_time = TimeField(
+        default=time(10, 0),
+        verbose_name=_("event start time"),
     )
 
     def __str__(self) -> str:
