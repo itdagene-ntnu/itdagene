@@ -120,14 +120,14 @@ class StandMapRelease(models.Model):
 
     def clean(self):
         if self.revision < 1:
-            raise ValidationError({"revision": _("Revision must be positive.")})
+            raise ValidationError({"revision": _("Versjonsnummeret må være positivt.")})
 
     def save(self, *args, **kwargs):
         if self.pk:
             previous = type(self).objects.filter(pk=self.pk).values("status").first()
             if previous and previous["status"] != self.DRAFT:
                 raise ValidationError(
-                    _("Published and superseded releases are immutable.")
+                    _("Publiserte og erstattede versjoner kan ikke endres.")
                 )
         super(StandMapRelease, self).save(*args, **kwargs)
 
@@ -141,7 +141,9 @@ class StandMapRelease(models.Model):
             else self.status
         )
         if status != self.DRAFT:
-            raise ValidationError(_("Published and superseded releases are immutable."))
+            raise ValidationError(
+                _("Publiserte og erstattede versjoner kan ikke endres.")
+            )
         return super(StandMapRelease, self).delete(*args, **kwargs)
 
     def validate_complete(self):
@@ -152,7 +154,7 @@ class StandMapRelease(models.Model):
             expected_dates.add(current_date)
             current_date = current_date.fromordinal(current_date.toordinal() + 1)
         if not maps or {stand_map.date for stand_map in maps} != expected_dates:
-            raise ValidationError(_("A map is required for every event day."))
+            raise ValidationError(_("Det må finnes et kart for hver messedag."))
         if any(
             not stand_map.background
             or not stand_map.location
@@ -161,8 +163,8 @@ class StandMapRelease(models.Model):
         ):
             raise ValidationError(
                 _(
-                    "Every map needs a location, background, and at least one "
-                    "placement."
+                    "Hvert kart må ha et sted, bakgrunnsbilde og minst én "
+                    "standplassering."
                 )
             )
 
@@ -178,10 +180,10 @@ class StandMapRelease(models.Model):
             Preference.objects.select_for_update().get(pk=release_preference_id)
             release = cls.objects.select_for_update().get(pk=release_id)
             if release.status != cls.DRAFT:
-                raise ValidationError(_("Only draft releases can be published."))
+                raise ValidationError(_("Bare kladder kan publiseres."))
             if release.lock_version != expected_lock_version:
                 raise ValidationError(
-                    _("This draft changed. Reload it before publishing.")
+                    _("Kladden er endret. Last siden på nytt før du publiserer.")
                 )
             release.validate_complete()
             cls.objects.filter(
@@ -197,7 +199,7 @@ class StandMapRelease(models.Model):
             )
             if updated != 1:
                 raise ValidationError(
-                    _("This draft changed. Reload it before publishing.")
+                    _("Kladden er endret. Last siden på nytt før du publiserer.")
                 )
             return cls.objects.get(pk=release.pk)
 
@@ -218,13 +220,15 @@ class StandMap(models.Model):
             self.date < self.release.preference.start_date
             or self.date > self.release.preference.end_date
         ):
-            raise ValidationError({"date": _("Map date must be within this edition.")})
+            raise ValidationError(
+                {"date": _("Kartdatoen må være innenfor årets messedager.")}
+            )
 
     def save(self, *args, **kwargs):
         if not StandMapRelease.objects.filter(
             pk=self.release_id, status=StandMapRelease.DRAFT
         ).exists():
-            raise ValidationError(_("Published maps are immutable."))
+            raise ValidationError(_("Publiserte kart kan ikke endres."))
         self.clean()
         super(StandMap, self).save(*args, **kwargs)
 
@@ -232,7 +236,7 @@ class StandMap(models.Model):
         if not StandMapRelease.objects.filter(
             pk=self.release_id, status=StandMapRelease.DRAFT
         ).exists():
-            raise ValidationError(_("Published maps are immutable."))
+            raise ValidationError(_("Publiserte kart kan ikke endres."))
         return super(StandMap, self).delete(*args, **kwargs)
 
 
@@ -265,17 +269,32 @@ class StandPlacement(models.Model):
         )
         ordering = ("stand_number",)
 
+    @classmethod
+    def next_available_number(cls, stand_map):
+        used_numbers = set()
+        for value in cls.objects.filter(stand_map=stand_map).values_list(
+            "stand_number", flat=True
+        ):
+            normalized = value.strip()
+            if normalized.isdigit() and int(normalized) > 0:
+                used_numbers.add(int(normalized))
+
+        candidate = 1
+        while candidate in used_numbers:
+            candidate += 1
+        return str(candidate)
+
     def clean(self):
         if not StandMap.objects.filter(
             pk=self.stand_map_id, release__status=StandMapRelease.DRAFT
         ).exists():
-            raise ValidationError(_("Published placements are immutable."))
+            raise ValidationError(_("Publiserte standplasseringer kan ikke endres."))
 
     def save(self, *args, **kwargs):
         if not StandMap.objects.filter(
             pk=self.stand_map_id, release__status=StandMapRelease.DRAFT
         ).exists():
-            raise ValidationError(_("Published placements are immutable."))
+            raise ValidationError(_("Publiserte standplasseringer kan ikke endres."))
         previous_company_id = None
         if self.pk:
             previous_company_id = (
@@ -307,5 +326,5 @@ class StandPlacement(models.Model):
         if not StandMap.objects.filter(
             pk=self.stand_map_id, release__status=StandMapRelease.DRAFT
         ).exists():
-            raise ValidationError(_("Published placements are immutable."))
+            raise ValidationError(_("Publiserte standplasseringer kan ikke endres."))
         return super(StandPlacement, self).delete(*args, **kwargs)

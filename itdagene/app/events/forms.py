@@ -1,9 +1,12 @@
+from datetime import date
+
 from django import forms
 from django.forms.models import ModelForm
 from django.utils.translation import gettext_lazy as _
 
 from itdagene.app.company.models import Company
 from itdagene.app.events.models import EVENT_TYPES, Event, Ticket
+from itdagene.core.models import Preference
 
 
 class EventFilterForm(forms.Form):
@@ -68,6 +71,29 @@ class EventForm(ModelForm):
             "time_start": forms.TimeInput(attrs={"type": "time"}),
             "time_end": forms.TimeInput(attrs={"type": "time"}),
         }
+
+    def __init__(self, *args, preference=None, **kwargs) -> None:
+        super(EventForm, self).__init__(*args, **kwargs)
+        self.preference = preference or Preference.current_preference()
+        self.edition_year = self.preference.year or self.preference.start_date.year
+        self.fields["date"].widget.attrs.update(
+            {
+                "min": date(self.edition_year, 1, 1).isoformat(),
+                "max": date(self.edition_year, 12, 31).isoformat(),
+            }
+        )
+        if not self.is_bound and not self.instance.pk:
+            self.fields["date"].initial = self.preference.start_date
+
+    def clean_date(self):
+        event_date = self.cleaned_data["date"]
+        keeps_archived_date = self.instance.pk and event_date == self.instance.date
+        if event_date.year == self.edition_year or keeps_archived_date:
+            return event_date
+        raise forms.ValidationError(
+            _("Datoen må være i %(year)s for å vises i årets program."),
+            params={"year": self.edition_year},
+        )
 
 
 class EventTicketForm(ModelForm):

@@ -54,6 +54,7 @@ class TestPublicEvents(TestCase):
         self,
         title: str,
         *,
+        event_date: Optional[date] = None,
         year: Optional[int] = None,
         event_type: int = 0,
         internal: bool = False,
@@ -62,7 +63,7 @@ class TestPublicEvents(TestCase):
         event_year = year if year is not None else self.edition_year
         return Event.objects.create(
             title=title,
-            date=date(event_year, 9, 14),
+            date=event_date or date(event_year, 9, 14),
             time_start=time(9, 0),
             time_end=time(10, 0),
             description=f"Description for {title}",
@@ -105,6 +106,49 @@ class TestPublicEvents(TestCase):
                 {
                     "id": to_global_id("Event", promoted_stand_event.pk),
                     "title": promoted_stand_event.title,
+                },
+            ],
+            executed["data"]["events"],
+        )
+
+    def test_public_program_can_include_dates_outside_the_fair_period(self) -> None:
+        before_fair = self.create_event(
+            "Before the event",
+            event_date=date(self.edition_year, 9, 13),
+        )
+        first_day = self.create_event(
+            "First event day",
+            event_date=self.preference.start_date,
+        )
+        last_day = self.create_event(
+            "Last event day",
+            event_date=self.preference.end_date,
+        )
+        after_fair = self.create_event(
+            "After the event",
+            event_date=date(self.edition_year, 9, 16),
+        )
+
+        executed = self.client.execute("{ events { id title } }")
+
+        self.assertIsNone(executed.get("errors"))
+        self.assertCountEqual(
+            [
+                {
+                    "id": to_global_id("Event", before_fair.pk),
+                    "title": before_fair.title,
+                },
+                {
+                    "id": to_global_id("Event", first_day.pk),
+                    "title": first_day.title,
+                },
+                {
+                    "id": to_global_id("Event", last_day.pk),
+                    "title": last_day.title,
+                },
+                {
+                    "id": to_global_id("Event", after_fair.pk),
+                    "title": after_fair.title,
                 },
             ],
             executed["data"]["events"],

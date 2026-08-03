@@ -25,6 +25,7 @@ itdagene/uploads/
 env/
 venv/
 itdagene/settings/local.py
+itdagene/settings/lo
 itdagene/settings/docker.py
 src/
 /static/

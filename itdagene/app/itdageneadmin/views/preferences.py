@@ -46,5 +46,5 @@ def edit(request: HttpRequest) -> HttpResponse:
     return render(
         request,
         "admin/preferences/edit.html",
-        {"pref": current_pref, "form": form, "title": _("Preferences")},
+        {"pref": current_pref, "form": form, "title": _("Innstillinger")},
     )

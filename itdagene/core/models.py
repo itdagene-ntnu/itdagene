@@ -247,17 +247,22 @@ class Preference(BaseModel):
     )
     program_published = BooleanField(
         default=False,
-        verbose_name=_("program published"),
-        help_text=_("Whether the public program may be displayed."),
+        verbose_name=_("Vis program"),
+        help_text=_("Skal programmet for itDAGENE vises på nettsiden?"),
+    )
+    stands_published = BooleanField(
+        default=False,
+        verbose_name=_("Vis stands"),
+        help_text=_("Skal årets standkart og standplasseringer vises på nettsiden?"),
     )
     venue = CharField(
         max_length=255,
         default="Realfagbygget, NTNU",
-        verbose_name=_("venue"),
+        verbose_name=_("Sted"),
     )
     event_start_time = TimeField(
         default=time(10, 0),
-        verbose_name=_("event start time"),
+        verbose_name=_("Starttid for itDAGENE (nedtelling)"),
     )
 
     def __str__(self) -> str:

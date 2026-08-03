@@ -1,0 +1,74 @@
+{% load i18n %}
+
+<aside
+    class="stand-map-placement-popover"
+    id="new-placement-popover-{{ editor_map.stand_map.pk }}"
+    data-placement-popover
+    aria-label="{% trans "Legg til stand" %}"
+    hidden
+>
+    <div class="stand-map-placement-popover__header">
+        <strong>
+            {% trans "Ny stand" %}
+            <span data-proposed-stand-number>{{ editor_map.new_placement_form.stand_number.value }}</span>
+        </strong>
+        <button type="button" class="stand-map-placement-popover__close" data-placement-close>
+            {% trans "Lukk" %}
+        </button>
+    </div>
+
+    <form method="post" class="placement-form" id="new-placement-form-{{ editor_map.stand_map.pk }}">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="save-placement">
+        <input type="hidden" name="map_id" value="{{ editor_map.stand_map.pk }}">
+        <input type="hidden" name="lock_version" value="{{ release.lock_version }}">
+
+        {{ editor_map.new_placement_form.non_field_errors }}
+
+        <div class="stand-company-search">
+            <label for="company-filter-{{ editor_map.stand_map.pk }}">{% trans "Finn bedrift" %}</label>
+            <input
+                type="search"
+                class="form-control"
+                id="company-filter-{{ editor_map.stand_map.pk }}"
+                data-company-filter
+                autocomplete="off"
+                placeholder="{% trans "Søk på bedriftsnavn" %}"
+                aria-controls="{{ editor_map.new_placement_form.company.id_for_label }}"
+            >
+            <p class="stand-company-search__status" data-company-filter-status aria-live="polite"></p>
+        </div>
+
+        <div class="stand-map-placement-popover__company">
+            {{ editor_map.new_placement_form.company.errors }}
+            <label for="{{ editor_map.new_placement_form.company.id_for_label }}">{% trans "Velg bedrift" %}</label>
+            {{ editor_map.new_placement_form.company }}
+        </div>
+
+        <details class="stand-map-placement-popover__advanced">
+            <summary>{% trans "Endre nummer eller posisjon" %}</summary>
+            <div class="stand-map-placement-popover__grid">
+                <div>
+                    {{ editor_map.new_placement_form.stand_number.errors }}
+                    <label for="{{ editor_map.new_placement_form.stand_number.id_for_label }}">{% trans "Standnummer" %}</label>
+                    {{ editor_map.new_placement_form.stand_number }}
+                </div>
+                <div>
+                    {{ editor_map.new_placement_form.x_percent.errors }}
+                    <label for="{{ editor_map.new_placement_form.x_percent.id_for_label }}">{% trans "X-posisjon (%)" %}</label>
+                    {{ editor_map.new_placement_form.x_percent }}
+                </div>
+                <div>
+                    {{ editor_map.new_placement_form.y_percent.errors }}
+                    <label for="{{ editor_map.new_placement_form.y_percent.id_for_label }}">{% trans "Y-posisjon (%)" %}</label>
+                    {{ editor_map.new_placement_form.y_percent }}
+                </div>
+            </div>
+        </details>
+
+        <p class="stand-map-coordinate-status" aria-live="polite"></p>
+        <button class="btn btn-primary stand-map-placement-popover__submit" type="submit">
+            {% trans "Legg til og fortsett" %}
+        </button>
+    </form>
+</aside>

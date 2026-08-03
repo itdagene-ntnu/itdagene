@@ -29,6 +29,7 @@ class TestCurrentStandMap(TestCase):
             year=self.year,
             start_date=date(self.year, 9, 14),
             end_date=date(self.year, 9, 14),
+            stands_published=True,
         )
         self.company = Company.objects.create(name="Map company")
         self.client = Client(schema)
@@ -120,3 +121,17 @@ class TestCurrentStandMap(TestCase):
             },
             result["maps"][0]["placements"][0],
         )
+
+    def test_visibility_setting_hides_an_existing_published_release(self):
+        self.publish(self.preference, 1, "current.png")
+        self.preference.stands_published = False
+        self.preference.save()
+        cache.clear()
+
+        executed = self.client.execute(
+            "{ currentMetaData { standsPublished } currentStandMap { edition } }"
+        )
+
+        self.assertIsNone(executed.get("errors"))
+        self.assertFalse(executed["data"]["currentMetaData"]["standsPublished"])
+        self.assertIsNone(executed["data"]["currentStandMap"])

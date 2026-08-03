@@ -52,9 +52,10 @@ def list_events(request: HttpRequest) -> HttpResponse:
 
 @permission_required("events.add_event")
 def add_event(request: HttpRequest) -> HttpResponse:
-    form = EventForm()
+    preference = Preference.current_preference()
+    form = EventForm(preference=preference)
     if request.method == "POST":
-        form = EventForm(request.POST, request.FILES)
+        form = EventForm(request.POST, request.FILES, preference=preference)
         if form.is_valid():
             event = form.save()
             add_message(request, SUCCESS, _("Event added."))
@@ -65,9 +66,15 @@ def add_event(request: HttpRequest) -> HttpResponse:
 @permission_required("events.change_event")
 def edit_event(request: HttpRequest, pk: Any) -> HttpResponse:
     event = get_object_or_404(Event, pk=pk)
-    form = EventForm(instance=event)
+    preference = Preference.current_preference()
+    form = EventForm(instance=event, preference=preference)
     if request.method == "POST":
-        form = EventForm(request.POST, request.FILES, instance=event)
+        form = EventForm(
+            request.POST,
+            request.FILES,
+            instance=event,
+            preference=preference,
+        )
         if form.is_valid():
             event = form.save()
             add_message(request, SUCCESS, _("Event saved."))

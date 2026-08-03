@@ -200,6 +200,8 @@ class Query(ObjectType):
 
     def resolve_current_stand_map(self, info: Any):
         preference = Preference.current_preference()
+        if not preference.stands_published:
+            return None
         return (
             StandMapRelease.objects.filter(
                 preference=preference,

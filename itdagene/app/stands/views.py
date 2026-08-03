@@ -20,13 +20,15 @@ def published_map_background(request: HttpRequest, pk: Any) -> HttpResponse:
         StandMap,
         pk=pk,
         release__preference=Preference.current_preference(),
+        release__preference__stands_published=True,
         release__status=StandMapRelease.PUBLISHED,
     )
     content_type = (
         mimetypes.guess_type(stand_map.background.name)[0] or "application/octet-stream"
     )
     response = FileResponse(stand_map.background.open("rb"), content_type=content_type)
-    response["Cache-Control"] = "public, max-age=31536000, immutable"
+    response["Cache-Control"] = "no-store, max-age=0"
+    response["Pragma"] = "no-cache"
     return response
 
 
@@ -37,7 +39,7 @@ def list(request: HttpRequest) -> HttpResponse:
     return render(
         request,
         "stands/list.html",
-        {"stands": stands, "title": _("Stands")},
+        {"stands": stands, "title": _("Stander")},
     )
 
 
@@ -48,9 +50,13 @@ def add(request: HttpRequest) -> HttpResponse:
         form = DigitalStandForm(request.POST)
         if form.is_valid():
             stand = form.save()
-            add_message(request, SUCCESS, _("Stand saved."))
+            add_message(request, SUCCESS, _("Standen er lagret."))
             return redirect(reverse("itdagene.stands.view", args=[stand.pk]))
-    return render(request, "stands/form.html", {"title": _("Add stand"), "form": form})
+    return render(
+        request,
+        "stands/form.html",
+        {"title": _("Legg til stand"), "form": form},
+    )
 
 
 @staff_required()
@@ -78,13 +84,13 @@ def edit(request: HttpRequest, pk: Any) -> HttpResponse:
         form = DigitalStandForm(request.POST, request.FILES, instance=stand)
         if form.is_valid():
             form.save()
-            add_message(request, SUCCESS, _("stand saved."))
+            add_message(request, SUCCESS, _("Standen er lagret."))
             return redirect(reverse("itdagene.stands.view", args=[stand.pk]))
     return render(
         request,
         "stands/form.html",
         {
-            "title": _("Edit stand"),
+            "title": _("Rediger stand"),
             "form": form,
             "description": str(stand),
             "stand": stand,
@@ -97,7 +103,7 @@ def delete(request: HttpRequest, pk: Any) -> HttpResponse:
     stand = get_object_or_404(DigitalStand, pk=pk)
     if request.method == "POST":
         stand.delete()
-        add_message(request, SUCCESS, _("stand deleted."))
+        add_message(request, SUCCESS, _("Standen er slettet."))
         return redirect(reverse("itdagene.stands.list"))
 
     return render(
@@ -105,7 +111,7 @@ def delete(request: HttpRequest, pk: Any) -> HttpResponse:
         "stands/delete.html",
         {
             "stand": stand,
-            "title": _("Delete stand"),
+            "title": _("Slett stand"),
             "description": str(stand),
         },
     )

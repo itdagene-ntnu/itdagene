@@ -7,17 +7,17 @@
             <table class="table table-hover tablesorter" id="myTable">
                 <thead>
                 <tr>
-                    <th>{% trans "User" %}</th>
-                    <th>{% trans "Timestamp" %}</th>
-                    <th>{% trans "Object" %}</th>
-                    <th>{% trans "Action" %}</th>
+                    <th>{% trans "Bruker" %}</th>
+                    <th>{% trans "Tidspunkt" %}</th>
+                    <th>{% trans "Objekt" %}</th>
+                    <th>{% trans "Handling" %}</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for logitem in log %}
                 <tr>
                     <td><a href="{% url "itdagene.users.user_detail" logitem.user.pk %}">{{ logitem.user.get_full_name }}</a></td>
-                    <td>{{ logitem.timestamp|timesince }} {% trans "ago" %}</td>
+                    <td>{% trans "For" %} {{ logitem.timestamp|timesince }} {% trans "siden" %}</td>
                     <td>({{ logitem.content_type }}): {{ logitem.content_object }}</td>
                     <td><a href="{{ logitem.content_object.get_absolute_url }}">{{ logitem }}</a></td>
                 </tr>
@@ -28,7 +28,7 @@
         </div>
         <div class="card-footer">
             <div class="btn-group">
-                {% if previous %}<a href="{% url "itdagene.itdageneadmin.log" previous %}" class="btn btn-primary">{% trans "Previous" %}</a>{% endif %} <a href="{% url "itdagene.itdageneadmin.log" next %}" class="btn btn-primary">{% trans "Next" %}</a>
+                {% if previous %}<a href="{% url "itdagene.itdageneadmin.log" previous %}" class="btn btn-primary">{% trans "Forrige" %}</a>{% endif %} <a href="{% url "itdagene.itdageneadmin.log" next %}" class="btn btn-primary">{% trans "Neste" %}</a>
             </div>
         </div>
     </div>
@@ -43,4 +43,3 @@
         );
     </script>
 {% endblock %}
-

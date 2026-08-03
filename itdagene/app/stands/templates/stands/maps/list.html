@@ -2,21 +2,37 @@
 {% load i18n %}
 
 {% block content %}
+    {% if preference.stands_published and public_release %}
+        <p class="alert alert-success">
+            <strong>{% trans "Offentlig nettside: standkartet vises" %}</strong><br>
+            {% blocktrans with revision=public_release.revision %}Vis stands er slått på, og versjon {{ revision }} er synlig på nettsiden.{% endblocktrans %}
+        </p>
+    {% elif preference.stands_published %}
+        <p class="alert alert-warning">
+            <strong>{% trans "Offentlig nettside: plassholderen vises" %}</strong><br>
+            {% trans "Vis stands er slått på, men ingen standkartversjon er publisert ennå." %}
+        </p>
+    {% else %}
+        <p class="alert alert-warning">
+            <strong>{% trans "Offentlig nettside: plassholderen vises" %}</strong><br>
+            {% trans "Vis stands er slått av under Innstillinger. Publiserte versjoner forblir skjult til innstillingen slås på." %}
+        </p>
+    {% endif %}
     <div class="card card-outline card-primary">
         <div class="card-header">
-            <h3 class="card-title">{% trans "Stand map releases" %}</h3>
+            <h3 class="card-title">{% trans "Versjoner av standkart" %}</h3>
             {% if perms.stands.add_standmaprelease %}
-                <a class="btn btn-primary float-right" href="{% url "itdagene.stand_maps.create" %}">{% trans "Create draft" %}</a>
+                <a class="btn btn-primary float-right" href="{% url "itdagene.stand_maps.create" %}">{% trans "Opprett kladd" %}</a>
             {% endif %}
         </div>
         <div class="card-body p-0">
             <table class="table table-hover">
-                <thead><tr><th>{% trans "Revision" %}</th><th>{% trans "Status" %}</th><th>{% trans "Updated" %}</th><th>{% trans "Published" %}</th><th></th></tr></thead>
+                <thead><tr><th>{% trans "Versjon" %}</th><th>{% trans "Status" %}</th><th>{% trans "Sist oppdatert" %}</th><th>{% trans "Publisert" %}</th><th></th></tr></thead>
                 <tbody>
                     {% for release in releases %}
-                        <tr><td>{{ release.revision }}</td><td>{{ release.get_status_display }}</td><td>{{ release.updated_at }}</td><td>{{ release.published_at|default:"-" }}</td><td><a class="btn btn-sm btn-primary" href="{% url "itdagene.stand_maps.edit" release.pk %}">{% trans "Open" %}</a></td></tr>
+                        <tr><td>{{ release.revision }}</td><td>{% if release.status == "draft" %}{% trans "Kladd" %}{% elif release.status == "published" %}{% trans "Publisert" %}{% else %}{% trans "Erstattet" %}{% endif %}</td><td>{{ release.updated_at }}</td><td>{{ release.published_at|default:"-" }}</td><td><a class="btn btn-sm btn-primary" href="{% url "itdagene.stand_maps.edit" release.pk %}">{% trans "Åpne" %}</a></td></tr>
                     {% empty %}
-                        <tr><td colspan="5">{% trans "No stand map releases exist for this edition." %}</td></tr>
+                        <tr><td colspan="5">{% trans "Det finnes ingen standkart for årets utgave." %}</td></tr>
                     {% endfor %}
                 </tbody>
             </table>

@@ -397,6 +397,7 @@ class MetaData(DjangoObjectType):
             "board_members",
             "interest_form",
             "program_published",
+            "stands_published",
             "venue",
             "event_start_time",
         )

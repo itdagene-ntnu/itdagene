@@ -11,7 +11,7 @@ from itdagene.core.log.models import LogItem
 
 @superuser_required()
 def landing_page(request: HttpRequest) -> HttpResponse:
-    return render(request, "admin/dashboard.html", {"title": _("Admin")})
+    return render(request, "admin/dashboard.html", {"title": _("Administrasjon")})
 
 
 @superuser_required()
@@ -32,7 +32,7 @@ def log(request: HttpRequest, first_object: int = 0) -> HttpResponse:
             "log": log_,
             "previous": previous,
             "next": first_object + 41,
-            "title": _("Log"),
+            "title": _("Logg"),
         },
     )
 
@@ -47,8 +47,10 @@ def companies_reset(request: HttpRequest) -> HttpResponse:
         )
         Company.waiting_for_package.through.objects.all().delete()
 
-        add_message(request, SUCCESS, _("Companies reset"))
+        add_message(request, SUCCESS, _("Bedriftsdataene er nullstilt"))
         return redirect(reverse("itdagene.itdageneadmin.landing_page"))
     return render(
-        request, "admin/companies_reset.html", {"title": _("Reset companies")}
+        request,
+        "admin/companies_reset.html",
+        {"title": _("Nullstill bedriftsdata")},
     )

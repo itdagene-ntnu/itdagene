@@ -3,68 +3,560 @@
 
 {% block inline-styles %}
     <style>
-        .stand-map-canvas { position: relative; display: inline-block; max-width: 100%; }
-        .stand-map-canvas img { display: block; max-width: 100%; height: auto; }
-        .stand-map-marker { position: absolute; transform: translate(-50%, -50%); cursor: move; touch-action: none; border: 2px solid #fff; border-radius: 50%; background: #007bff; color: #fff; min-width: 2rem; min-height: 2rem; }
+        .stand-map-canvas {
+            position: relative;
+            display: inline-block;
+            max-width: 100%;
+            scroll-margin-top: 5rem;
+            cursor: crosshair;
+        }
+
+        .stand-map-canvas[data-editable="false"] {
+            cursor: default;
+        }
+
+        .stand-map-canvas img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .stand-map-marker {
+            position: absolute;
+            display: inline-grid;
+            width: 2rem;
+            height: 2rem;
+            min-width: 0;
+            min-height: 0;
+            padding: 0;
+            place-items: center;
+            transform: translate(-50%, -50%);
+            border: 2px solid #fff;
+            border-radius: 50%;
+            background: #007bff;
+            color: #fff;
+            font-size: 0.8rem;
+            font-weight: 700;
+            line-height: 1;
+            touch-action: none;
+            transition: transform 160ms cubic-bezier(0.16, 1, 0.3, 1);
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .stand-map-canvas[data-placing="true"] .stand-map-marker:not(.stand-map-marker--preview) {
+            transform: translate(-50%, -50%) scale(0.66);
+        }
+
+        .stand-map-canvas[data-editable="true"] .stand-map-marker {
+            cursor: grab;
+        }
+
+        .stand-map-canvas[data-editable="true"] .stand-map-marker:active,
+        .stand-map-canvas[data-editable="true"] .stand-map-marker[data-dragging="true"] {
+            cursor: grabbing;
+        }
+
+        .stand-map-canvas[data-editable="false"] .stand-map-marker {
+            cursor: default;
+        }
+
+        .stand-map-marker--preview {
+            z-index: 1;
+            width: 2.25rem;
+            height: 2.25rem;
+            border-style: dashed;
+            background: #007bff;
+            pointer-events: none;
+        }
+
+        .stand-map-marker--preview::before,
+        .stand-map-marker--preview::after {
+            position: absolute;
+            width: 0.75rem;
+            height: 2px;
+            border-radius: 999px;
+            background: #fff;
+            content: "";
+        }
+
+        .stand-map-marker--preview::after {
+            transform: rotate(90deg);
+        }
+
+        .stand-map-instructions {
+            max-width: 48rem;
+        }
+
+        .stand-map-coordinate-entry {
+            margin-bottom: 0.75rem;
+            padding: 0;
+            font-weight: 700;
+        }
+
+        .stand-map-readonly {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+            gap: 1rem;
+            margin: 1rem 0 2rem;
+            padding: 1rem;
+            border: 1px solid #dee2e6;
+            background: #f8f9fa;
+        }
+
+        .stand-map-readonly div {
+            min-width: 0;
+        }
+
+        .stand-map-readonly dt {
+            margin-bottom: 0.25rem;
+            color: #6c757d;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .stand-map-readonly dd {
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .stand-company-search {
+            max-width: 36rem;
+            margin: 1rem 0;
+        }
+
+        .stand-company-search label {
+            display: block;
+            margin-bottom: 0.35rem;
+            font-weight: 700;
+        }
+
+        .stand-company-search__status {
+            min-height: 1.25rem;
+            margin: 0.35rem 0 0;
+            color: #6c757d;
+        }
+
+        .stand-map-placement-popover {
+            position: fixed;
+            z-index: 2;
+            width: min(18rem, calc(100% - 1rem));
+            max-height: min(80vh, calc(100% - 1rem));
+            padding: 0.85rem;
+            overflow-y: auto;
+            border: 1px solid #b8cbd8;
+            border-radius: 0.35rem;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 0.75rem 2rem rgba(15, 55, 82, 0.18);
+            cursor: default;
+            animation: stand-map-popover-in 160ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .stand-map-placement-popover[hidden] {
+            display: none;
+        }
+
+        .stand-map-placement-popover__header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-bottom: 0.55rem;
+            border-bottom: 1px solid #dbe5eb;
+        }
+
+        .stand-map-placement-popover__close {
+            padding: 0;
+            border: 0;
+            background: transparent;
+            color: #425466;
+            font: inherit;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .stand-map-placement-popover__close:hover,
+        .stand-map-placement-popover__close:focus-visible {
+            color: #005b91;
+            text-decoration: underline;
+        }
+
+        .stand-map-placement-popover .stand-company-search {
+            margin: 0.75rem 0 0.55rem;
+        }
+
+        .stand-map-placement-popover label {
+            display: block;
+            margin-bottom: 0.25rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .stand-map-placement-popover select,
+        .stand-map-placement-popover input {
+            width: 100%;
+        }
+
+        .stand-map-placement-popover__advanced {
+            margin-top: 0.75rem;
+            border-top: 1px solid #dbe5eb;
+        }
+
+        .stand-map-placement-popover__advanced summary {
+            padding: 0.6rem 0;
+            color: #425466;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .stand-map-placement-popover__grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.65rem;
+        }
+
+        .stand-map-placement-popover__grid > div:first-child {
+            grid-column: 1 / -1;
+        }
+
+        .stand-map-placement-popover__submit {
+            width: 100%;
+            margin-top: 0.2rem;
+        }
+
+        @keyframes stand-map-popover-in {
+            from {
+                opacity: 0;
+                transform: translateY(0.25rem) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .stand-map-marker {
+                transition: none;
+            }
+
+            .stand-map-placement-popover {
+                animation: none;
+            }
+        }
     </style>
 {% endblock %}
 
 {% block content %}
     <div class="card card-outline card-primary"><div class="card-body">
-        <h3>{% blocktrans with revision=release.revision %}Revision {{ revision }}{% endblocktrans %} - {{ release.get_status_display }}</h3>
+        <h3>
+            {% blocktrans with revision=release.revision %}Versjon {{ revision }}{% endblocktrans %} -
+            {% if release.status == "draft" %}{% trans "Kladd" %}{% elif release.status == "published" %}{% trans "Publisert" %}{% else %}{% trans "Erstattet" %}{% endif %}
+        </h3>
+        {% if not release.preference.stands_published %}
+            <p class="alert alert-warning">
+                <strong>{% trans "Offentlig nettside: plassholderen vises" %}</strong><br>
+                {% trans "Vis stands er slått av under Innstillinger. Publisering av en versjon endrer ikke denne innstillingen." %}
+            </p>
+        {% elif release.status == "published" %}
+            <p class="alert alert-success">
+                <strong>{% trans "Offentlig nettside: denne versjonen vises" %}</strong><br>
+                {% trans "Opprett en ny kladd dersom det publiserte kartet må endres." %}
+            </p>
+        {% elif public_release %}
+            <p class="alert alert-info">
+                <strong>{% blocktrans with revision=public_release.revision %}Offentlig nettside: versjon {{ revision }} vises{% endblocktrans %}</strong><br>
+                {% trans "Denne versjonen er ikke synlig. Publiser kladden når den er kontrollert og klar." %}
+            </p>
+        {% else %}
+            <p class="alert alert-warning">
+                <strong>{% trans "Offentlig nettside: plassholderen vises" %}</strong><br>
+                {% trans "Ingen standkartversjon er publisert ennå. Kontroller alle kart og plasseringer før publisering." %}
+            </p>
+        {% endif %}
+        {% if release.status == "published" %}
+            {% if perms.stands.add_standmaprelease %}
+                <form method="post" action="{% url "itdagene.stand_maps.create" %}" class="mb-4">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">{% trans "Opprett redigerbar kladd" %}</button>
+                    <span class="text-muted">{% trans "Publiserte kart og plasseringer kopieres til en ny versjon som kan redigeres." %}</span>
+                </form>
+            {% endif %}
+        {% endif %}
         {% if release.status == "draft" and perms.stands.publish_standmaprelease %}
             <form method="post" action="{% url "itdagene.stand_maps.publish" release.pk %}" class="mb-4">
-                {% csrf_token %}<input type="hidden" name="lock_version" value="{{ release.lock_version }}"><button type="submit" class="btn btn-success">{% trans "Publish" %}</button>
-                <span class="text-muted">{% trans "Publishing makes this release immutable and supersedes the prior published release." %}</span>
+                {% csrf_token %}<input type="hidden" name="lock_version" value="{{ release.lock_version }}"><button type="submit" class="btn btn-success">{% trans "Publiser versjon" %}</button>
+                <span class="text-muted">{% trans "Publisering låser denne versjonen og erstatter tidligere publisert standkart. Kartet vises bare når Vis stands også er slått på." %}</span>
             </form>
         {% endif %}
-        {% if release.status != "draft" %}<p class="alert alert-info">{% trans "This historical release is read-only." %}</p>{% endif %}
+        {% if release.status == "published" %}
+            <p class="alert alert-info">{% trans "Denne publiserte versjonen kan ikke redigeres. Opprett en ny kladd for å gjøre endringer." %}</p>
+        {% elif release.status == "superseded" %}
+            <p class="alert alert-info">{% trans "Denne erstattede versjonen kan ikke redigeres." %}</p>
+        {% endif %}
     </div></div>
 
     {% if release.status == "draft" %}
         <div class="card card-outline card-secondary"><div class="card-body">
-            <h4>{% trans "Add event-day map" %}</h4>
-            <form method="post" enctype="multipart/form-data">{% csrf_token %}<input type="hidden" name="action" value="save-map"><input type="hidden" name="lock_version" value="{{ release.lock_version }}">{{ new_map_form.as_p }}<button class="btn btn-primary" type="submit">{% trans "Save map" %}</button></form>
+            <h4>{% trans "Legg til kart for messedag" %}</h4>
+            <form method="post" enctype="multipart/form-data">{% csrf_token %}<input type="hidden" name="action" value="save-map"><input type="hidden" name="lock_version" value="{{ release.lock_version }}">{{ new_map_form.as_p }}<button class="btn btn-primary" type="submit">{% trans "Lagre kart" %}</button></form>
         </div></div>
     {% endif %}
 
     {% for editor_map in editor_maps %}
         <div class="card card-outline card-primary"><div class="card-header"><h4 class="card-title">{{ editor_map.stand_map.date }}{% if editor_map.stand_map.label %}: {{ editor_map.stand_map.label }}{% endif %}</h4></div><div class="card-body">
             {% if release.status == "draft" %}
-                <details><summary>{% trans "Edit map details" %}</summary><form method="post" enctype="multipart/form-data">{% csrf_token %}<input type="hidden" name="action" value="save-map"><input type="hidden" name="map_id" value="{{ editor_map.stand_map.pk }}"><input type="hidden" name="lock_version" value="{{ release.lock_version }}">{{ editor_map.map_form.as_p }}<button class="btn btn-primary" type="submit">{% trans "Save map" %}</button></form></details>
+                <details><summary>{% trans "Rediger kartdetaljer" %}</summary><form method="post" enctype="multipart/form-data">{% csrf_token %}<input type="hidden" name="action" value="save-map"><input type="hidden" name="map_id" value="{{ editor_map.stand_map.pk }}"><input type="hidden" name="lock_version" value="{{ release.lock_version }}">{{ editor_map.map_form.as_p }}<button class="btn btn-primary" type="submit">{% trans "Lagre kart" %}</button></form></details>
+                <p class="stand-map-instructions mt-3" id="stand-map-instructions-{{ editor_map.stand_map.pk }}">
+                    {% trans "Klikk i kartet for å plassere en ny stand. Velg deretter bedriften og lagre. Eksisterende markører kan dras eller finjusteres med koordinatene under kartet." %}
+                </p>
+                <button type="button" class="btn btn-link stand-map-coordinate-entry" id="stand-map-coordinate-entry-{{ editor_map.stand_map.pk }}" data-open-placement-for="{{ editor_map.stand_map.pk }}">{% trans "Plasser med koordinater" %}</button>
             {% endif %}
-            <div class="stand-map-canvas" data-map-id="{{ editor_map.stand_map.pk }}" data-editable="{% if release.status == "draft" %}true{% else %}false{% endif %}"><img src="{{ editor_map.stand_map.background.url }}" alt="{% blocktrans with date=editor_map.stand_map.date %}Stand map for {{ date }}{% endblocktrans %}">
-                {% for placement, placement_form in editor_map.placement_forms %}{% if release.status == "draft" %}<button type="button" class="stand-map-marker" data-placement="{{ placement.pk }}" style="left: {{ placement.x_percent|unlocalize }}%; top: {{ placement.y_percent|unlocalize }}%;" aria-label="{% blocktrans with company=placement.company_name %}Move {{ company }} marker{% endblocktrans %}" title="{{ placement.company_name }}">{{ placement.stand_number }}</button>{% else %}<span class="stand-map-marker" style="left: {{ placement.x_percent|unlocalize }}%; top: {{ placement.y_percent|unlocalize }}%;" title="{{ placement.company_name }}">{{ placement.stand_number }}</span>{% endif %}{% endfor %}
+            <div id="stand-map-{{ editor_map.stand_map.pk }}" class="stand-map-canvas" data-map-id="{{ editor_map.stand_map.pk }}" data-editable="{% if release.status == "draft" %}true{% else %}false{% endif %}" data-new-placement-popover="new-placement-popover-{{ editor_map.stand_map.pk }}" data-new-placement-form="new-placement-form-{{ editor_map.stand_map.pk }}"{% if release.status == "draft" %} aria-describedby="stand-map-instructions-{{ editor_map.stand_map.pk }}"{% endif %}><img src="{{ editor_map.stand_map.background.url }}" alt="{% blocktrans with date=editor_map.stand_map.date %}Standkart for {{ date }}{% endblocktrans %}">
+                {% for placement, placement_form in editor_map.placement_forms %}{% if release.status == "draft" %}<button type="button" class="stand-map-marker" data-placement="{{ placement.pk }}" style="left: {{ placement.x_percent|unlocalize }}%; top: {{ placement.y_percent|unlocalize }}%;" aria-label="{% blocktrans with company=placement.company_name %}Flytt markøren for {{ company }}{% endblocktrans %}" title="{{ placement.company_name }}">{{ placement.stand_number }}</button>{% else %}<span class="stand-map-marker" style="left: {{ placement.x_percent|unlocalize }}%; top: {{ placement.y_percent|unlocalize }}%;" title="{{ placement.company_name }}">{{ placement.stand_number }}</span>{% endif %}{% endfor %}
+                {% if release.status == "draft" %}{% include "stands/maps/_placement_popover.html" %}{% endif %}
             </div>
             {% for placement, placement_form in editor_map.placement_forms %}
-                <form method="post" class="border-top pt-3 mt-3 placement-form" id="placement-form-{{ placement.pk }}">{% csrf_token %}<input type="hidden" name="action" value="save-placement"><input type="hidden" name="map_id" value="{{ editor_map.stand_map.pk }}"><input type="hidden" name="placement_id" value="{{ placement.pk }}"><input type="hidden" name="lock_version" value="{{ release.lock_version }}">{{ placement_form.as_p }}{% if release.status == "draft" %}<button class="btn btn-primary" type="submit">{% trans "Save placement" %}</button>{% endif %}</form>
-                {% if release.status == "draft" %}<form method="post" class="mt-1">{% csrf_token %}<input type="hidden" name="action" value="delete-placement"><input type="hidden" name="placement_id" value="{{ placement.pk }}"><input type="hidden" name="lock_version" value="{{ release.lock_version }}"><button class="btn btn-link text-danger" type="submit">{% trans "Remove marker" %}</button></form>{% endif %}
+                {% if release.status == "draft" %}
+                    <form method="post" class="border-top pt-3 mt-3 placement-form" data-marker-placement="{{ placement.pk }}" id="placement-form-{{ placement.pk }}">{% csrf_token %}<input type="hidden" name="action" value="save-placement"><input type="hidden" name="map_id" value="{{ editor_map.stand_map.pk }}"><input type="hidden" name="placement_id" value="{{ placement.pk }}"><input type="hidden" name="lock_version" value="{{ release.lock_version }}">{{ placement_form.as_p }}<p class="text-muted">{% trans "Flytt markøren eller endre koordinatene, og lagre plasseringen." %}</p><button class="btn btn-primary" type="submit">{% trans "Lagre plassering" %}</button></form>
+                    <form method="post" class="mt-1">{% csrf_token %}<input type="hidden" name="action" value="delete-placement"><input type="hidden" name="placement_id" value="{{ placement.pk }}"><input type="hidden" name="lock_version" value="{{ release.lock_version }}"><button class="btn btn-link text-danger" type="submit">{% trans "Fjern markør" %}</button></form>
+                {% else %}
+                    <dl class="stand-map-readonly">
+                        <div><dt>{% trans "Bedrift" %}</dt><dd>{{ placement.company_name }}</dd></div>
+                        <div><dt>{% trans "Standnummer" %}</dt><dd>{{ placement.stand_number }}</dd></div>
+                        <div><dt>{% trans "X-posisjon" %}</dt><dd>{{ placement.x_percent|unlocalize }}%</dd></div>
+                        <div><dt>{% trans "Y-posisjon" %}</dt><dd>{{ placement.y_percent|unlocalize }}%</dd></div>
+                    </dl>
+                {% endif %}
             {% endfor %}
             {% if release.status == "draft" %}
-                <details class="mt-4"><summary>{% trans "Add placement marker" %}</summary><form method="post" class="placement-form">{% csrf_token %}<input type="hidden" name="action" value="save-placement"><input type="hidden" name="map_id" value="{{ editor_map.stand_map.pk }}"><input type="hidden" name="lock_version" value="{{ release.lock_version }}">{{ editor_map.new_placement_form.as_p }}<button class="btn btn-primary" type="submit">{% trans "Add marker" %}</button></form></details>
-                <form method="post" class="mt-3">{% csrf_token %}<input type="hidden" name="action" value="delete-map"><input type="hidden" name="map_id" value="{{ editor_map.stand_map.pk }}"><input type="hidden" name="lock_version" value="{{ release.lock_version }}"><button class="btn btn-danger" type="submit">{% trans "Remove map" %}</button></form>
+                <form method="post" class="mt-3">{% csrf_token %}<input type="hidden" name="action" value="delete-map"><input type="hidden" name="map_id" value="{{ editor_map.stand_map.pk }}"><input type="hidden" name="lock_version" value="{{ release.lock_version }}"><button class="btn btn-danger" type="submit">{% trans "Fjern kart" %}</button></form>
             {% endif %}
         </div></div>
     {% endfor %}
 {% endblock %}
 
 {% block inline-scripts %}
+    {% trans "Posisjonen er valgt." as position_selected_message %}
+    {% trans "Ingen bedrifter funnet." as no_companies_message %}
+    {% trans "er valgt." as company_selected_message %}
+    {% trans "bedrifter funnet." as companies_found_message %}
     <script>
         (function () {
-            function updateMarker(marker, event) {
-                var canvas = marker.parentElement, bounds = canvas.getBoundingClientRect();
+            function coordinatesFor(canvas, event) {
+                var bounds = canvas.getBoundingClientRect();
                 var x = Math.max(0, Math.min(100, ((event.clientX - bounds.left) / bounds.width) * 100));
                 var y = Math.max(0, Math.min(100, ((event.clientY - bounds.top) / bounds.height) * 100));
-                marker.style.left = x + "%"; marker.style.top = y + "%";
-                var form = document.getElementById("placement-form-" + marker.dataset.placement);
-                if (form) { form.querySelector("[name=x_percent]").value = x.toFixed(2); form.querySelector("[name=y_percent]").value = y.toFixed(2); }
+
+                return { x: x, y: y };
             }
+
+            function setCoordinates(form, coordinates) {
+                var xInput = form.querySelector('[data-stand-field="x_percent"]');
+                var yInput = form.querySelector('[data-stand-field="y_percent"]');
+
+                if (xInput) { xInput.value = coordinates.x.toFixed(2); }
+                if (yInput) { yInput.value = coordinates.y.toFixed(2); }
+            }
+
+            function positionPopover(canvas, popover, coordinates) {
+                var gap = 12;
+                var edge = 8;
+                var canvasBounds = canvas.getBoundingClientRect();
+                var popoverWidth = popover.offsetWidth;
+                var popoverHeight = popover.offsetHeight;
+                var viewportWidth = window.visualViewport ? window.visualViewport.width : window.innerWidth;
+                var viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+                var pointX = canvasBounds.left + ((coordinates.x / 100) * canvas.clientWidth);
+                var pointY = canvasBounds.top + ((coordinates.y / 100) * canvas.clientHeight);
+                var preferredLeft = pointX + gap;
+
+                if (preferredLeft + popoverWidth > viewportWidth - edge) {
+                    preferredLeft = pointX - popoverWidth - gap;
+                }
+
+                var left = Math.max(
+                    edge,
+                    Math.min(viewportWidth - popoverWidth - edge, preferredLeft)
+                );
+                var top = Math.max(
+                    edge,
+                    Math.min(
+                        viewportHeight - popoverHeight - edge,
+                        pointY - (popoverHeight / 2)
+                    )
+                );
+
+                popover.style.left = left + "px";
+                popover.style.top = top + "px";
+            }
+
+            function closePlacement(canvas, popover) {
+                var returnFocusId = popover.dataset.returnFocusId;
+                canvas.removeAttribute("data-placing");
+                popover.hidden = true;
+                popover.removeAttribute("data-return-focus-id");
+                var preview = canvas.querySelector(".stand-map-marker--preview");
+                if (preview) { preview.remove(); }
+
+                if (returnFocusId) {
+                    var returnFocus = document.getElementById(returnFocusId);
+                    if (returnFocus) { returnFocus.focus(); }
+                }
+            }
+
+            function openPlacement(canvas, popover, form, coordinates, returnFocus) {
+                setCoordinates(form, coordinates);
+                canvas.dataset.placing = "true";
+                if (returnFocus && returnFocus.id) {
+                    popover.dataset.returnFocusId = returnFocus.id;
+                } else {
+                    popover.removeAttribute("data-return-focus-id");
+                }
+
+                var preview = canvas.querySelector(".stand-map-marker--preview");
+                if (!preview) {
+                    preview = document.createElement("span");
+                    preview.className = "stand-map-marker stand-map-marker--preview";
+                    preview.setAttribute("aria-hidden", "true");
+                    canvas.appendChild(preview);
+                }
+                preview.style.left = coordinates.x + "%";
+                preview.style.top = coordinates.y + "%";
+
+                popover.hidden = false;
+                positionPopover(canvas, popover, coordinates);
+
+                var status = form.querySelector(".stand-map-coordinate-status");
+                if (status) {
+                    status.textContent = "{{ position_selected_message|escapejs }}";
+                }
+
+                var companyFilter = form.querySelector("[data-company-filter]");
+                var companyField = form.querySelector('[data-stand-field="company"]');
+                if (companyFilter) {
+                    companyFilter.focus();
+                    companyFilter.select();
+                } else if (companyField) {
+                    companyField.focus();
+                }
+
+                if (window.requestAnimationFrame) {
+                    window.requestAnimationFrame(function () {
+                        positionPopover(canvas, popover, coordinates);
+                    });
+                }
+            }
+
+            function updateMarker(marker, event) {
+                var canvas = marker.parentElement;
+                var coordinates = coordinatesFor(canvas, event);
+                marker.style.left = coordinates.x + "%";
+                marker.style.top = coordinates.y + "%";
+                var form = document.getElementById("placement-form-" + marker.dataset.placement);
+
+                if (form) { setCoordinates(form, coordinates); }
+            }
+
+            function previewMarkerFromForm(form) {
+                var marker = document.querySelector('[data-placement="' + form.dataset.markerPlacement + '"]');
+                var xInput = form.querySelector('[data-stand-field="x_percent"]');
+                var yInput = form.querySelector('[data-stand-field="y_percent"]');
+                if (!marker || !xInput || !yInput) { return; }
+
+                var x = Number(String(xInput.value).replace(",", "."));
+                var y = Number(String(yInput.value).replace(",", "."));
+                if (Number.isFinite(x) && x >= 0 && x <= 100) { marker.style.left = x + "%"; }
+                if (Number.isFinite(y) && y >= 0 && y <= 100) { marker.style.top = y + "%"; }
+            }
+
+            function initializeCompanyFilter(form) {
+                var filter = form.querySelector("[data-company-filter]");
+                var select = form.querySelector('[data-stand-field="company"]');
+                var status = form.querySelector("[data-company-filter-status]");
+                if (!filter || !select) { return; }
+
+                var options = Array.prototype.map.call(select.options, function (option) {
+                    return {
+                        disabled: option.disabled,
+                        text: option.text,
+                        value: option.value
+                    };
+                });
+
+                filter.addEventListener("input", function () {
+                    var previousValue = select.value;
+                    var query = filter.value.trim().toLowerCase();
+                    var matchingCompanies = options.filter(function (option) {
+                        return option.value && option.text.toLowerCase().indexOf(query) !== -1;
+                    });
+                    var visibleOptions = options.filter(function (option) {
+                        return !option.value || option.text.toLowerCase().indexOf(query) !== -1;
+                    });
+
+                    select.innerHTML = "";
+                    visibleOptions.forEach(function (optionData) {
+                        var option = document.createElement("option");
+                        option.value = optionData.value;
+                        option.text = optionData.text;
+                        option.disabled = optionData.disabled;
+                        select.appendChild(option);
+                    });
+
+                    if (matchingCompanies.length === 1) {
+                        select.value = matchingCompanies[0].value;
+                    } else if (visibleOptions.some(function (option) { return option.value === previousValue; })) {
+                        select.value = previousValue;
+                    } else {
+                        select.value = "";
+                    }
+                    select.dispatchEvent(new Event("change", { bubbles: true }));
+
+                    if (!status || !query) {
+                        if (status) { status.textContent = ""; }
+                    } else if (matchingCompanies.length === 0) {
+                        status.textContent = "{{ no_companies_message|escapejs }}";
+                    } else if (matchingCompanies.length === 1) {
+                        status.textContent = matchingCompanies[0].text + " {{ company_selected_message|escapejs }}";
+                    } else {
+                        status.textContent = matchingCompanies.length + " {{ companies_found_message|escapejs }}";
+                    }
+                });
+
+                filter.addEventListener("keydown", function (event) {
+                    if (event.key !== "Enter" || !select.value) { return; }
+
+                    event.preventDefault();
+                    if (form.requestSubmit) {
+                        form.requestSubmit();
+                    } else {
+                        form.submit();
+                    }
+                });
+            }
+
             document.querySelectorAll(".stand-map-marker").forEach(function (marker) {
                 if (marker.parentElement.dataset.editable !== "true") { return; }
                 marker.addEventListener("pointerdown", function (event) {
                     event.preventDefault();
-                    function move(moveEvent) { updateMarker(marker, moveEvent); }
-                    function up() {
+                    event.stopPropagation();
+                    var pointerId = event.pointerId;
+                    marker.dataset.dragging = "true";
+                    if (marker.setPointerCapture) {
+                        try { marker.setPointerCapture(pointerId); } catch (error) { /* Pointer capture is an enhancement. */ }
+                    }
+                    function move(moveEvent) {
+                        if (moveEvent.pointerId !== pointerId) { return; }
+                        updateMarker(marker, moveEvent);
+                    }
+                    function up(upEvent) {
+                        if (upEvent.pointerId !== pointerId) { return; }
+                        marker.dataset.dragging = "false";
+                        if (marker.releasePointerCapture && marker.hasPointerCapture && marker.hasPointerCapture(pointerId)) {
+                            marker.releasePointerCapture(pointerId);
+                        }
                         window.removeEventListener("pointermove", move);
                         window.removeEventListener("pointerup", up);
                         window.removeEventListener("pointercancel", up);
@@ -72,6 +564,98 @@
                     window.addEventListener("pointermove", move);
                     window.addEventListener("pointerup", up);
                     window.addEventListener("pointercancel", up);
+                });
+            });
+
+            document.querySelectorAll(".placement-form[data-marker-placement]").forEach(function (form) {
+                form.querySelectorAll('[data-stand-field="x_percent"], [data-stand-field="y_percent"]').forEach(function (input) {
+                    input.addEventListener("input", function () { previewMarkerFromForm(form); });
+                });
+            });
+
+            document.querySelectorAll(".placement-form").forEach(initializeCompanyFilter);
+
+            document.querySelectorAll('.stand-map-canvas[data-editable="true"]').forEach(function (canvas) {
+                var popover = document.getElementById(canvas.dataset.newPlacementPopover);
+                var form = document.getElementById(canvas.dataset.newPlacementForm);
+                if (!form || !popover) { return; }
+
+                popover.addEventListener("click", function (event) {
+                    event.stopPropagation();
+                });
+                popover.addEventListener("keydown", function (event) {
+                    if (event.key !== "Escape") { return; }
+                    event.preventDefault();
+                    closePlacement(canvas, popover);
+                });
+                popover.querySelectorAll("[data-placement-close]").forEach(function (button) {
+                    button.addEventListener("click", function () {
+                        closePlacement(canvas, popover);
+                    });
+                });
+
+                var standNumberInput = form.querySelector('[data-stand-field="stand_number"]');
+                var proposedStandNumber = popover.querySelector("[data-proposed-stand-number]");
+                if (standNumberInput && proposedStandNumber) {
+                    standNumberInput.addEventListener("input", function () {
+                        proposedStandNumber.textContent = standNumberInput.value;
+                    });
+                }
+
+                var coordinateEntry = document.querySelector('[data-open-placement-for="' + canvas.dataset.mapId + '"]');
+                if (coordinateEntry) {
+                    coordinateEntry.addEventListener("click", function () {
+                        var xInput = form.querySelector('[data-stand-field="x_percent"]');
+                        var yInput = form.querySelector('[data-stand-field="y_percent"]');
+                        var rawX = String(xInput.value).trim();
+                        var rawY = String(yInput.value).trim();
+                        var x = rawX ? Number(rawX.replace(",", ".")) : NaN;
+                        var y = rawY ? Number(rawY.replace(",", ".")) : NaN;
+                        var coordinates = {
+                            x: Number.isFinite(x) && x >= 0 && x <= 100 ? x : 50,
+                            y: Number.isFinite(y) && y >= 0 && y <= 100 ? y : 50
+                        };
+                        openPlacement(canvas, popover, form, coordinates, coordinateEntry);
+                    });
+                }
+
+                function repositionOpenPopover() {
+                    if (popover.hidden) { return; }
+                    var xInput = form.querySelector('[data-stand-field="x_percent"]');
+                    var yInput = form.querySelector('[data-stand-field="y_percent"]');
+                    var x = Number(String(xInput.value).replace(",", "."));
+                    var y = Number(String(yInput.value).replace(",", "."));
+                    if (!Number.isFinite(x) || !Number.isFinite(y)) { return; }
+                    positionPopover(canvas, popover, { x: x, y: y });
+                }
+                window.addEventListener("resize", repositionOpenPopover);
+                window.addEventListener("scroll", repositionOpenPopover, { passive: true });
+                if (window.visualViewport) {
+                    window.visualViewport.addEventListener("resize", repositionOpenPopover);
+                    window.visualViewport.addEventListener("scroll", repositionOpenPopover, { passive: true });
+                }
+
+                form.querySelectorAll('[data-stand-field="x_percent"], [data-stand-field="y_percent"]').forEach(function (input) {
+                    input.addEventListener("input", function () {
+                        var xInput = form.querySelector('[data-stand-field="x_percent"]');
+                        var yInput = form.querySelector('[data-stand-field="y_percent"]');
+                        var x = Number(String(xInput.value).replace(",", "."));
+                        var y = Number(String(yInput.value).replace(",", "."));
+                        if (!Number.isFinite(x) || !Number.isFinite(y) || x < 0 || x > 100 || y < 0 || y > 100) { return; }
+
+                        var preview = canvas.querySelector(".stand-map-marker--preview");
+                        if (!preview) { return; }
+                        preview.style.left = x + "%";
+                        preview.style.top = y + "%";
+                        positionPopover(canvas, popover, { x: x, y: y });
+                    });
+                });
+
+                canvas.addEventListener("click", function (event) {
+                    if (event.target.closest(".stand-map-marker, .stand-map-placement-popover")) { return; }
+
+                    var coordinates = coordinatesFor(canvas, event);
+                    openPlacement(canvas, popover, form, coordinates, null);
                 });
             });
         }());
