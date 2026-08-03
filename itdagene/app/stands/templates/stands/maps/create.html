@@ -1,0 +1,9 @@
+{% extends "base_admin.html" %}
+{% load i18n %}
+
+{% block content %}
+    <div class="card card-outline card-primary"><div class="card-body">
+        <p>{% blocktrans with year=preference.year %}Opprett en ny kladd for {{ year }}. Kart og plasseringer kan bare redigeres før kladden publiseres.{% endblocktrans %}</p>
+        <form method="post">{% csrf_token %}<button class="btn btn-primary" type="submit">{% trans "Opprett kladd" %}</button></form>
+    </div></div>
+{% endblock %}

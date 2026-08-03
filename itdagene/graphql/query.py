@@ -1,13 +1,14 @@
 from typing import Any, Optional
 
-from django.utils.timezone import now
 from graphene import ID, Boolean, Field, Int, List, NonNull, ObjectType, String
 from graphene.relay import Node
 from graphene_django.filter import DjangoFilterConnectionField
 
+from itdagene.app.stands.models import StandMapRelease
 from itdagene.core.models import Preference
 from itdagene.graphql.filters import JoblistingFilter
 from itdagene.graphql.object_types import (
+    CurrentStandMap,
     Event,
     Joblisting,
     MetaData,
@@ -100,6 +101,10 @@ class Query(ObjectType):
     current_meta_data = Field(
         NonNull(MetaData), description="Metadata about the current years event"
     )
+    current_stand_map = Field(
+        CurrentStandMap,
+        description="Published stand map for the current edition.",
+    )
 
     page = Field(
         Page,
@@ -163,10 +168,10 @@ class Query(ObjectType):
         return _search(query, types)
 
     def resolve_joblisting(self, info: Any, slug: str):
-        return Joblisting.get_queryset().get(slug=slug)
+        return Joblisting.get_queryset().filter(slug=slug).first()
 
     def resolve_page(self, info: Any, language: str, slug: str):
-        return Page.get_queryset().get(language=language, slug=slug)
+        return Page.get_queryset().filter(language=language, slug=slug).first()
 
     def resolve_pages(
         self,
@@ -193,14 +198,28 @@ class Query(ObjectType):
     def resolve_current_meta_data(self, info: Any):
         return Preference.current_preference()
 
+    def resolve_current_stand_map(self, info: Any):
+        preference = Preference.current_preference()
+        if not preference.stands_published:
+            return None
+        return (
+            StandMapRelease.objects.filter(
+                preference=preference,
+                status=StandMapRelease.PUBLISHED,
+            )
+            .prefetch_related("maps__placements")
+            .order_by("-revision")
+            .first()
+        )
+
     def resolve_resolve_count(self, info, **kwargs):
         return info.context.count
 
     def resolve_events(self, info: Any):
-        return Event.get_queryset().filter(date__year=now().year, is_internal=False)
+        return Event.get_queryset()
 
     def resolve_stand(self, info: Any, slug: str):
-        return Stand.get_queryset().get(slug=slug)
+        return Stand.get_queryset().filter(slug=slug).first()
 
     def resolve_stands(self, info: Any, shuffle: bool = False):
         if shuffle:

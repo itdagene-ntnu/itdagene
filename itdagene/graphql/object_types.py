@@ -1,7 +1,18 @@
 from typing import Any, Optional
 
 from django.db.models import Q
-from graphene import Boolean, Field, Int, List, NonNull, String, Union
+from django.urls import reverse
+from graphene import (
+    Boolean,
+    Field,
+    Float,
+    Int,
+    List,
+    NonNull,
+    ObjectType,
+    String,
+    Union,
+)
 from graphene.relay import Node
 from graphene_django import DjangoObjectType
 from graphene_django.registry import Registry
@@ -161,11 +172,27 @@ class Event(DjangoObjectType):
         interfaces = (Node,)
 
     @classmethod
+    def get_public_queryset(cls):
+        """Return events that may be exposed by the public GraphQL API."""
+        preference = Preference.current_preference()
+        if not preference.program_published:
+            return ItdageneEvent.objects.none()
+        return ItdageneEvent.objects.filter(
+            date__year=preference.year,
+            is_internal=False,
+        )
+
+    @classmethod
     def get_queryset(cls):
-        """When fetching all events, we do not want stand events, unless
-        they are of the type 'promoted stand event' (7).
-        """
-        return ItdageneEvent.objects.filter(Q(stand=None) | Q(type=7))
+        """Return the public program, excluding non-promoted stand events."""
+        return cls.get_public_queryset().filter(Q(stand=None) | Q(type=7))
+
+    @classmethod
+    def get_node(cls, context: Any, id: Any):
+        try:
+            return cls.get_public_queryset().get(pk=id)
+        except (ItdageneEvent.DoesNotExist, TypeError, ValueError):
+            return None
 
 
 class Question(DjangoObjectType):
@@ -213,11 +240,12 @@ class Stand(DjangoObjectType):
         return info.context.loaders.Companyloader.load(self.company_id)
 
     def resolve_events(self, info: Any, **kwargs):
-        return ItdageneEvent.objects.filter(stand=self)
+        return Event.get_public_queryset().filter(stand=self)
 
     @classmethod
     def get_queryset(cls):
-        return ItdageneStand.objects.filter(active=True)
+        companies = ItdageneCompany.get_first_day() | ItdageneCompany.get_last_day()
+        return ItdageneStand.objects.filter(active=True, company__in=companies)
 
 
 class KeyInformation(DjangoObjectType):
@@ -368,8 +396,59 @@ class MetaData(DjangoObjectType):
             "main_collaborator",
             "board_members",
             "interest_form",
+            "program_published",
+            "stands_published",
+            "venue",
+            "event_start_time",
         )
         interfaces = (Node,)
+
+
+class CurrentStandMapPlacement(ObjectType):
+    stand_number = NonNull(String)
+    company_name = NonNull(String)
+    company_slug = NonNull(String)
+    x_percent = NonNull(Float)
+    y_percent = NonNull(Float)
+
+    def resolve_x_percent(self, info: Any):
+        return float(self.x_percent)
+
+    def resolve_y_percent(self, info: Any):
+        return float(self.y_percent)
+
+
+class CurrentStandMapDay(ObjectType):
+    date = NonNull(String)
+    label = NonNull(String)
+    location = NonNull(String)
+    background_image = NonNull(String)
+    placements = NonNull(List(NonNull(CurrentStandMapPlacement)))
+
+    def resolve_date(self, info: Any):
+        return self.date.isoformat()
+
+    def resolve_background_image(self, info: Any):
+        url = reverse("itdagene.stands.map_background", args=[self.pk])
+        request = getattr(info, "context", None)
+        if request is not None and hasattr(request, "build_absolute_uri"):
+            return request.build_absolute_uri(url)
+        return url
+
+    def resolve_placements(self, info: Any):
+        return self.placements.all()
+
+
+class CurrentStandMap(ObjectType):
+    edition = NonNull(Int)
+    revision = NonNull(Int)
+    maps = NonNull(List(NonNull(CurrentStandMapDay)))
+
+    def resolve_edition(self, info: Any):
+        return self.preference.year
+
+    def resolve_maps(self, info: Any):
+        return self.maps.all().order_by("date")
 
 
 class SearchResult(Union):

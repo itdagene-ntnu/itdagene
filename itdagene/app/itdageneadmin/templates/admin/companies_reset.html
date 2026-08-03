@@ -6,21 +6,21 @@
 <div class="col-lg-12">
     <div class="card card-outline card-danger card-solid">
         <div class="card-header">
-            <h3 class="card-title">{% trans "Danger Zone" %}</h3>
+            <h3 class="card-title">{% trans "Faresone" %}</h3>
         </div>
         <div class="card-body">
-          <form method="post" onsubmit="return confirm('{% trans "Are you sure?" %}')" action="{% url "itdagene.itdageneadmin.companies_reset" %}">
+          <form method="post" onsubmit="return confirm('{% trans "Er du sikker?" %}')" action="{% url "itdagene.itdageneadmin.companies_reset" %}">
                 {% csrf_token %}
-                <p>{% blocktrans %}Are you sure you want to purge the company data?
-                  This will clear all year specfic fields on all companies. This includes:{% endblocktrans %}</p>
+                <p>{% blocktrans %}Er du sikker på at du vil nullstille bedriftsdataene?
+                  Dette fjerner alle årsspesifikke felt for alle bedrifter, inkludert:{% endblocktrans %}</p>
                 <ul>
-                  <li>{% trans "Company status" %}</li>
-                  <li>{% trans "Itdagene contact" %}</li>
-                  <li>{% trans "Current package" %}</li>
-                  <li>{% trans "Waiting lists" %}</li>
-                  <li>{% trans "Collaborator status" %}</li>
+                  <li>{% trans "Bedriftsstatus" %}</li>
+                  <li>{% trans "Kontaktperson i itDAGENE" %}</li>
+                  <li>{% trans "Valgt pakke" %}</li>
+                  <li>{% trans "Ventelister" %}</li>
+                  <li>{% trans "Samarbeidspartnerstatus" %}</li>
                 </ul>
-                <p><button type="submit" class="btn btn-danger">{% trans "Reset companies" %}</button></p>
+                <p><button type="submit" class="btn btn-danger">{% trans "Nullstill bedriftsdata" %}</button></p>
             </form>
         </div>
     </div>

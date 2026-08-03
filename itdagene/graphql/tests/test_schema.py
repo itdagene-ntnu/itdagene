@@ -13,6 +13,28 @@ class TestSchema(TestCase):
         executed = client.execute("{ ping }")
         self.assertEqual({"data": {"ping": "pong"}}, executed)
 
+    def test_missing_public_detail_queries_return_null_without_errors(self) -> None:
+        client = Client(schema)
+        executed = client.execute(
+            """
+            {
+              joblisting(slug: "missing-job") { id }
+              page(slug: "missing-page") { id }
+              stand(slug: "missing-stand") { id }
+            }
+            """
+        )
+
+        self.assertIsNone(executed.get("errors"))
+        self.assertEqual(
+            {
+                "joblisting": None,
+                "page": None,
+                "stand": None,
+            },
+            executed["data"],
+        )
+
     def test_introspection_query(self) -> None:
         """Schama introspection should be successful."""
         # source https://github.com/graphql/graphiql/blob/master/src/utility/introspectionQueries.js

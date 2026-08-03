@@ -9,12 +9,12 @@
                     <table class="table table-hover tablesorter" id="myTable">
                     <thead>
                         <tr>
-                            <th>{% trans "Company" %}</th>
-                            <th>{% trans "Stand detail" %}</th>
-                            <th>{% trans "Slug" %}</th>
-                            <th>{% trans "Creator" %}</th>
-                            <th>{% trans "Active" %}</th>
-                            <th>{% trans "Actions" %}</th>
+                            <th>{% trans "Bedrift" %}</th>
+                            <th>{% trans "Standinformasjon" %}</th>
+                            <th>{% trans "Kortnavn" %}</th>
+                            <th>{% trans "Opprettet av" %}</th>
+                            <th>{% trans "Aktiv" %}</th>
+                            <th>{% trans "Handlinger" %}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -34,10 +34,10 @@
                                 <td>
                                 <span class="btn-group">
                                 {% if perms.stands.change_stand %}
-                                    <a href="{% url "itdagene.stands.edit" stand.pk %}" class="btn btn-xs btn-primary">{% trans "Edit" %}</a>
+                                    <a href="{% url "itdagene.stands.edit" stand.pk %}" class="btn btn-xs btn-primary">{% trans "Rediger" %}</a>
                                 {% endif %}
                                 {% if perms.stands.delete_stand %}
-                                    <a href="{% url "itdagene.stands.delete" stand.pk %}" class="btn btn-xs btn-danger">{% trans "Delete" %}</a>
+                                    <a href="{% url "itdagene.stands.delete" stand.pk %}" class="btn btn-xs btn-danger">{% trans "Slett" %}</a>
                                 {% endif %}
                                 </span>
                                 </td>

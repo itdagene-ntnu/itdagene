@@ -8,6 +8,11 @@ HOST_URL = "http://localhost:8000"
 ALLOWED_HOSTS = ["*"]
 TOOLBAR = True
 
+# The schema generator walks the complete introspection tree and legitimately
+# resolves more fields than a public application query. Keep production's
+# defensive resolver limit unchanged while allowing local Relay generation.
+GRAPHENE_RESOLVER_LIMIT = 100000
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",

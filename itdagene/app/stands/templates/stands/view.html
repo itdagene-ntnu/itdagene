@@ -9,31 +9,31 @@
                     <table class="table tablesorter" id="myTable">
                         <tbody>
                         <tr>
-                            <td>{% trans "Company" %}</td>
+                            <td>{% trans "Bedrift" %}</td>
                             <td><a href="{{ stand.company.get_absolute_url }}">{{ stand.company }}</a></td>
                         </tr>
                         <tr>
-                            <td>{% trans "Slug" %}</td>
+                            <td>{% trans "Kortnavn" %}</td>
                             <td>{{ stand.slug }}</td>
                         </tr>
                         <tr>
-                            <td>{% trans "Description" %}</td>
+                            <td>{% trans "Beskrivelse" %}</td>
                             <td>{{ stand.description|markdownize }}</td>
                         </tr>
                         <tr>
-                            <td>{% trans "Livesteam url" %}</td>
+                            <td>{% trans "Lenke til direktesending" %}</td>
                             <td><a href="{{ stand.livestream_url }}">{{ stand.livestream_url }}</a></td>
                         </tr>
                         <tr>
-                            <td>{% trans "Q&A url" %}</td>
+                            <td>{% trans "Lenke til spørsmål og svar" %}</td>
                             <td><a href="{{ stand.qa_url }}">{{ stand.qa_url }}</a></td>
                         </tr>
                         <tr>
-                            <td>{% trans "Chat url" %}</td>
+                            <td>{% trans "Lenke til chat" %}</td>
                             <td><a href="{{ stand.chat_url }}">{{ stand.chat_url }}</a></td>
                         </tr>
                         <tr>
-                            <td>{% trans "Is active" %}</td>
+                            <td>{% trans "Aktiv" %}</td>
                             <td>
                                 {% if stand.active %}
                                     <i style="color: green;" class="fas fa-check"></i>
@@ -54,9 +54,9 @@
 
        <div class="card card-outline card-primary">
            <div class="card-header">
-               <h3 class="card-title">{% trans "Stand events" %}</h3>
+               <h3 class="card-title">{% trans "Arrangementer på standen" %}</h3>
                 <a class="btn btn-xs btn-success float-right" href="{% url "itdagene.events.add_event" %}">
-                    {% trans "Add stand event" %}
+                    {% trans "Legg til standarrangement" %}
                 </a>
            </div>
            <div class="card-body no-padding">
@@ -67,7 +67,7 @@
                         <td>{{ event.time_start }} - {{ event.time_end }}</td>
                         <td>
                             <span class="btn-group">
-                                <a href="{% url "itdagene.events.edit_event" event.id %}" class="btn btn-xs btn-primary">{% trans "Edit" %}</a>
+                                <a href="{% url "itdagene.events.edit_event" event.id %}" class="btn btn-xs btn-primary">{% trans "Rediger" %}</a>
                             </span>
                         </td>
                     </tr>

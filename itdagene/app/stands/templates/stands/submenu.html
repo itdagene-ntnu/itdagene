@@ -4,14 +4,22 @@
 <ul class="nav nav-treeview">
     <li class="nav-item">
         <a class="nav-link {% active request 'stands/stands/$' %}" href="{% url "itdagene.stands.list" %}">
-            <i class="far fa-circle"></i> {% trans "Stands list" %}
+            <i class="far fa-circle"></i> {% trans "Standliste" %}
         </a>
     </li>
 
     {% if perms.stands.add_stand %}
         <li class="nav-item">
             <a class="nav-link {% active request 'stands/stands/add/$' %}" href="{% url "itdagene.stands.add" %}">
-                <i class="far fa-circle"></i> {% trans "Add stand" %}
+                <i class="far fa-circle"></i> {% trans "Legg til stand" %}
+            </a>
+        </li>
+    {% endif %}
+
+    {% if perms.stands.view_standmaprelease %}
+        <li class="nav-item">
+            <a class="nav-link {% active request 'admin/stand-maps' %}" href="{% url "itdagene.stand_maps.list" %}">
+                <i class="far fa-circle"></i> {% trans "Standkart" %}
             </a>
         </li>
     {% endif %}
@@ -20,14 +28,14 @@
         {% if perms.stands.change_stand %}
             <li class="nav-item">
                 <a class="nav-link {% active request 'stands/stands/[0-9]+/edit' %}" href="{% url "itdagene.stands.edit" stand.pk %}">
-                    <i class="far fa-circle"></i> {% trans "Edit stand" %}
+                    <i class="far fa-circle"></i> {% trans "Rediger stand" %}
                 </a>
             </li>
         {% endif %}
         {% if perms.stands.delete_stand %}
             <li class="nav-item">
                 <a class="nav-link {% active request 'stands/stands/[0-9]+/delete' %}" href="{% url "itdagene.stands.delete" stand.pk %}">
-                    <i class="far fa-circle"></i> {% trans "Delete stand" %}
+                    <i class="far fa-circle"></i> {% trans "Slett stand" %}
                 </a>
             </li>
         {% endif %}

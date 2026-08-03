@@ -1,7 +1,9 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
+from django.core.exceptions import ValidationError
 from django.db.models import Q
 from django.forms.models import ModelForm
+from django.utils.translation import gettext_lazy as _
 
 from itdagene.app.company import COMPANY_STATUS
 from itdagene.app.company.models import (
@@ -41,6 +43,18 @@ class CompanyForm(ModelForm):
         ]
         waiting_lists = Package.objects.filter(is_full=True, has_waiting_list=True)
         self.fields["waiting_for_package"].queryset = waiting_lists
+
+    def clean_name(self):
+        name = self.cleaned_data.get("name")
+        if (
+            Company.objects.filter(name__iexact=name)
+            .exclude(pk=self.instance.pk if self.instance else None)
+            .exists()
+        ):
+            raise ValidationError(
+                _("A company with this name has already expressed interest.")
+            )
+        return name
 
 
 class ResponsibilityForm(ModelForm):

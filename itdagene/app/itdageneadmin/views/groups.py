@@ -19,7 +19,7 @@ def list(request: HttpRequest) -> HttpResponse:
     return render(
         request,
         "admin/groups/list.html",
-        {"groups": groups, "title": _("Groups")},
+        {"groups": groups, "title": _("Grupper")},
     )
 
 
@@ -33,7 +33,7 @@ def view(request: HttpRequest, id: Any) -> HttpResponse:
         {
             "group": group,
             "members": members,
-            "title": _("View Group"),
+            "title": _("Se gruppe"),
             "description": group.name,
         },
     )
@@ -53,7 +53,7 @@ def add(request: HttpRequest) -> HttpResponse:
     return render(
         request,
         "admin/groups/edit.html",
-        {"form": form, "title": _("Add Group")},
+        {"form": form, "title": _("Legg til gruppe")},
     )
 
 
@@ -71,7 +71,7 @@ def edit(request: HttpRequest, id) -> HttpResponse:
     return render(
         request,
         "admin/groups/edit.html",
-        {"form": form, "title": _("Edit Group"), "description": group.name},
+        {"form": form, "title": _("Rediger gruppe"), "description": group.name},
     )
 
 
@@ -86,10 +86,10 @@ def add_user(request: HttpRequest, id: Any) -> HttpResponse:
                 user = User.objects.get(username=username)
                 user.groups.add(group)
             except (TypeError, User.DoesNotExist):
-                return HttpResponse("User does not exists", status=404)
+                return HttpResponse("Brukeren finnes ikke", status=404)
         users = group.user_set.all()
         output = ""
         for user in users:
             output += f"<li>{user.profile}</li>"
         return HttpResponse(output)
-    return HttpResponse("No post-data", status=500)
+    return HttpResponse("Mangler skjemadata", status=500)

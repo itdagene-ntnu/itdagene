@@ -7,6 +7,7 @@ from itdagene.app.itdageneadmin.views import (
     log,
     preferences,
 )
+from itdagene.app.stands import views_stand_maps
 
 
 urlpatterns = [
@@ -39,5 +40,25 @@ urlpatterns = [
         r"^companies_reset/$",
         companies_reset,
         name="itdagene.itdageneadmin.companies_reset",
+    ),
+    re_path(
+        r"^stand-maps/$",
+        views_stand_maps.release_list,
+        name="itdagene.stand_maps.list",
+    ),
+    re_path(
+        r"^stand-maps/create/$",
+        views_stand_maps.release_create,
+        name="itdagene.stand_maps.create",
+    ),
+    re_path(
+        r"^stand-maps/(?P<pk>\d+)/$",
+        views_stand_maps.release_edit,
+        name="itdagene.stand_maps.edit",
+    ),
+    re_path(
+        r"^stand-maps/(?P<pk>\d+)/publish/$",
+        views_stand_maps.release_publish,
+        name="itdagene.stand_maps.publish",
     ),
 ]
