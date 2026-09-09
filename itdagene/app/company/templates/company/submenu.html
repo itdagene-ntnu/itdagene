@@ -20,14 +20,6 @@
 
     {% if company.pk %}
 
-        {% if perms.company.change_company %}
-        <li class="nav-item">
-            <a class="nav-link {% active request 'companies/[0-9]+/edit/$' %}" href="{% url "itdagene.company.edit" company.pk %}">
-                <i class="nav-icon far fa-circle"></i> {% trans "Edit Company" %}
-            </a>
-        </li>
-        {% endif %}
-
         {% if perms.company.add_companycontact %}
         <li class="nav-item">
             <a class="nav-link {% active request 'contacts/[0-9]+/add' %}" href="{% url "itdagene.company.company_contacts.add_contact" company.pk %}">

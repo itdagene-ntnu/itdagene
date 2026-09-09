@@ -305,19 +305,32 @@
 
     <script type="text/javascript" src="{% static "lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.js" %}"></script>
     <script type="text/javascript" src="{% static "lib/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js" %}"></script>
+    <script>
+        /* eonasdan-bootstrap-datetimepicker targets Bootstrap 3, this admin runs
+           Bootstrap 4. It marks the open panel `.collapse.in`, which Bootstrap 4
+           renamed to `.collapse.show`, so both the date and the time panel compute
+           to display:none and the picker opens as an empty box. sideBySide renders
+           them in a .row instead, with no .collapse involved. Its icon defaults are
+           glyphicons, which Bootstrap 4 dropped, so map them onto Font Awesome. */
+        $.fn.datetimepicker.defaults.icons = {
+            time: 'fas fa-clock',
+            date: 'fas fa-calendar',
+            up: 'fas fa-arrow-up',
+            down: 'fas fa-arrow-down',
+            previous: 'fas fa-chevron-left',
+            next: 'fas fa-chevron-right',
+            today: 'fas fa-crosshairs',
+            clear: 'fas fa-trash',
+            close: 'fas fa-times'
+        };
+    </script>
     <script>$(function(){ $("#id_date").datepicker({format: 'yyyy-mm-dd'}); });</script>
-    <script>$(function(){ $("#id_deadline").datetimepicker({ format:'YYYY-MM-DD HH:mm' });});</script>
+    <script>$(function(){ $("#id_deadline").datetimepicker({format: 'YYYY-MM-DD HH:mm', sideBySide: true}); });</script>
     <script>$(function(){ $("#id_timestamp").datepicker({format: 'yyyy-mm-dd'}); });</script>
     <script>$(function(){ $("#id_start_date").datepicker({format: 'yyyy-mm-dd'}); });</script>
     <script>$(function(){ $("#id_end_date").datepicker({format: 'yyyy-mm-dd'}); });</script>
-        <script>$(function(){ $("#id_time_start").datetimepicker({format: 'LT', icons: {
-            up: 'fas fa-arrow-up',
-            down: 'fas fa-arrow-down'
-            }}); });</script>
-        <script>$(function(){ $("#id_time_end").datetimepicker({format: 'LT', icons: {
-            up: 'fas fa-arrow-up',
-            down: 'fas fa-arrow-down'
-            }}); });</script>
+    <script>$(function(){ $("#id_time_start").datetimepicker({format: 'LT'}); });</script>
+    <script>$(function(){ $("#id_time_end").datetimepicker({format: 'LT'}); });</script>
                 {% include "messsages_admin.html" %}
     {% block inline-scripts %}{% endblock %}
 {% endblock %}
