@@ -24,18 +24,18 @@
         .stand-map-marker {
             position: absolute;
             display: inline-grid;
-            width: 2rem;
-            height: 2rem;
+            width: 0.9rem;
+            height: 0.9rem;
             min-width: 0;
             min-height: 0;
             padding: 0;
             place-items: center;
             transform: translate(-50%, -50%);
-            border: 2px solid #fff;
+            border: 1px solid #fff;
             border-radius: 50%;
             background: #007bff;
             color: #fff;
-            font-size: 0.8rem;
+            font-size: 0.45rem;
             font-weight: 700;
             line-height: 1;
             touch-action: none;
@@ -44,8 +44,17 @@
             -webkit-user-select: none;
         }
 
+        /* The dot is deliberately small so it does not cover the floor plan.
+           Extend the pointer target past it so markers stay easy to grab. */
+        .stand-map-marker:not(.stand-map-marker--preview)::after {
+            position: absolute;
+            inset: -0.32rem;
+            border-radius: 50%;
+            content: "";
+        }
+
         .stand-map-canvas[data-placing="true"] .stand-map-marker:not(.stand-map-marker--preview) {
-            transform: translate(-50%, -50%) scale(0.66);
+            transform: translate(-50%, -50%) scale(0.8);
         }
 
         .stand-map-canvas[data-editable="true"] .stand-map-marker {
@@ -63,8 +72,8 @@
 
         .stand-map-marker--preview {
             z-index: 1;
-            width: 2.25rem;
-            height: 2.25rem;
+            width: 1.1rem;
+            height: 1.1rem;
             border-style: dashed;
             background: #007bff;
             pointer-events: none;
@@ -73,8 +82,8 @@
         .stand-map-marker--preview::before,
         .stand-map-marker--preview::after {
             position: absolute;
-            width: 0.75rem;
-            height: 2px;
+            width: 0.4rem;
+            height: 1px;
             border-radius: 999px;
             background: #fff;
             content: "";

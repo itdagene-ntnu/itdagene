@@ -9,6 +9,11 @@
             <div class="card card-outline card-primary">
                 <div class="card-header">
                    <h3 class="card-title">{% trans "General" %}</h3>
+                   {% if perms.company.change_company %}
+                       <a class="btn btn-sm btn-primary float-right" href="{% url "itdagene.company.edit" company.pk %}">
+                           {% trans "Edit Company" %}
+                       </a>
+                   {% endif %}
                 </div>
                 <div class="card-body">
                     <div class="row">
