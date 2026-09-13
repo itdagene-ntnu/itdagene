@@ -83,11 +83,18 @@ INTERNAL_IPS = ("127.0.0.1",)
 
 MIDDLEWARE = [
     "raven.contrib.django.raven_compat.middleware.SentryResponseErrorIdMiddleware",
+    # Must come first: without it the SECURE_* settings have no effect at all,
+    # so any HSTS or nosniff configuration in a deployment's local settings was
+    # being silently ignored.
+    "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "itdagene.core.middleware.ForceDefaultLanguageMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
+    # Sends X-Frame-Options (SAMEORIGIN by default) so the admin cannot be
+    # framed by another site.
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
@@ -162,6 +169,10 @@ MESSAGE_TAGS = {
     WARNING: "warning",
     ERROR: "danger",
 }
+
+# Django 2.2 leaves this off by default. Safe in every environment, and it
+# stops a browser from re-interpreting an uploaded file as another type.
+SECURE_CONTENT_TYPE_NOSNIFF = True
 
 CORS_ORIGIN_WHITELIST = ["https://itdagene.no"]
 GRAPHENE = {

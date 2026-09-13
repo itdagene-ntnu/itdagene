@@ -10,7 +10,7 @@ from django.urls import reverse
 from django.utils.timezone import now
 from graphene.test import Client
 
-from itdagene.app.company.models import Company
+from itdagene.app.company.models import Company, Package
 from itdagene.app.stands.models import StandMap, StandMapRelease, StandPlacement
 from itdagene.core.models import Preference, User
 from itdagene.graphql.schema import schema
@@ -33,6 +33,9 @@ class TestCurrentStandMap(TestCase):
         )
         self.company = Company.objects.create(name="Map company")
         self.client = Client(schema)
+
+    def make_package(self, name):
+        return Package.objects.create(name=name, description="", price=0)
 
     def tearDown(self):
         cache.clear()
@@ -88,7 +91,10 @@ class TestCurrentStandMap(TestCase):
                 revision
                 maps {
                   date label location backgroundImage
-                  placements { standNumber companyName companySlug xPercent yPercent }
+                  placements {
+                    standNumber companyName companySlug xPercent yPercent
+                    collaboratorTier
+                  }
                 }
               }
             }
@@ -118,8 +124,63 @@ class TestCurrentStandMap(TestCase):
                 "companySlug": "map-company",
                 "xPercent": 12.5,
                 "yPercent": 34.25,
+                "collaboratorTier": None,
             },
             result["maps"][0]["placements"][0],
+        )
+
+    def test_placements_expose_the_collaborator_tier_of_their_company(self):
+        self.company.package = self.make_package("Hovedsamarbeidspartner")
+        self.company.save()
+        partner = Company.objects.create(
+            name="Partner company", package=self.make_package("Samarbeidspartner")
+        )
+        regular = Company.objects.create(
+            name="Regular company", package=self.make_package("Bronsepakke")
+        )
+        release = StandMapRelease.objects.create(preference=self.preference, revision=1)
+        stand_map = StandMap.objects.create(
+            release=release,
+            date=self.preference.start_date,
+            label="Day one",
+            location="Realfagbygget",
+            background=SimpleUploadedFile(
+                "tiers.png", b"not-used-by-model-validation", "image/png"
+            ),
+        )
+        for index, company in enumerate((self.company, partner, regular)):
+            StandPlacement.objects.create(
+                stand_map=stand_map,
+                company=company,
+                stand_number="A{}".format(index + 1),
+                x_percent=Decimal("10.00"),
+                y_percent=Decimal("10.00"),
+            )
+        StandMapRelease.publish(release.pk, release.lock_version, self.user)
+
+        executed = self.client.execute(
+            """
+            {
+              currentStandMap {
+                maps { placements { companyName collaboratorTier } }
+              }
+            }
+            """
+        )
+
+        self.assertIsNone(executed.get("errors"))
+        self.assertEqual(
+            {
+                "Map company": "main",
+                "Partner company": "collaborator",
+                "Regular company": None,
+            },
+            {
+                placement["companyName"]: placement["collaboratorTier"]
+                for placement in executed["data"]["currentStandMap"]["maps"][0][
+                    "placements"
+                ]
+            },
         )
 
     def test_visibility_setting_hides_an_existing_published_release(self):

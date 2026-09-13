@@ -647,16 +647,30 @@ class TestStandMapAdmin(TestCase):
         cache.clear()
         response = self.client.get(background_url)
         self.assertEqual(200, response.status_code)
-        self.assertEqual(
-            "no-store, max-age=0",
-            response["Cache-Control"],
-        )
-        self.assertEqual("no-cache", response["Pragma"])
+        # Revalidate on every use, but do not re-send the file when unchanged.
+        self.assertEqual("no-cache, private", response["Cache-Control"])
+        self.assertTrue(response["ETag"])
 
+        cached = self.client.get(background_url, HTTP_IF_NONE_MATCH=response["ETag"])
+        self.assertEqual(304, cached.status_code)
+        self.assertEqual(response["ETag"], cached["ETag"])
+        self.assertEqual(b"", cached.content)
+
+        stale = self.client.get(background_url, HTTP_IF_NONE_MATCH='"stale"')
+        self.assertEqual(200, stale.status_code)
+
+        # Unpublishing still takes effect immediately, even for a client that
+        # holds the matching validator.
         self.preference.stands_published = False
         self.preference.save()
         cache.clear()
         self.assertEqual(404, self.client.get(background_url).status_code)
+        self.assertEqual(
+            404,
+            self.client.get(
+                background_url, HTTP_IF_NONE_MATCH=response["ETag"]
+            ).status_code,
+        )
 
     def test_staff_can_open_the_editor_and_publish_is_post_only(self):
         self.client.force_login(self.user)

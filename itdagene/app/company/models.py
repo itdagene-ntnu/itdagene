@@ -206,17 +206,41 @@ class Company(BaseModel):
     # This is really hacky but should work. There is really no good way of doing it
     # without adding a bunch of other fields where information is just duplicated
 
+    COLLABORATOR_PACKAGE = "Samarbeidspartner"
+    MAIN_COLLABORATOR_PACKAGE = "Hovedsamarbeidspartner"
+
+    COLLABORATOR_TIER_MAIN = "main"
+    COLLABORATOR_TIER_COLLABORATOR = "collaborator"
+
     @classmethod
     def get_collaborators(cls):
-        return cls.get_signed_with_packages().filter(package__name="Samarbeidspartner")
+        return cls.get_signed_with_packages().filter(
+            package__name=cls.COLLABORATOR_PACKAGE
+        )
 
     @classmethod
     def get_main_collaborator(cls):
         return (
             cls.get_signed_with_packages()
-            .filter(package__name="Hovedsamarbeidspartner")
+            .filter(package__name=cls.MAIN_COLLABORATOR_PACKAGE)
             .first()
         )
+
+    @property
+    def collaborator_tier(self) -> Optional[str]:
+        """Partner tier used to highlight a company, or None for a regular one.
+
+        Deliberately reads the package alone. A company only reaches a surface
+        such as the published stand map by taking part in the event, so gating
+        the tier on the signed status as well would drop the highlight whenever
+        the sales pipeline is edited after publication.
+        """
+        package_name = self.package.name if self.package_id else None
+        if package_name == self.MAIN_COLLABORATOR_PACKAGE:
+            return self.COLLABORATOR_TIER_MAIN
+        if package_name == self.COLLABORATOR_PACKAGE:
+            return self.COLLABORATOR_TIER_COLLABORATOR
+        return None
 
 
 class KeyInformation(BaseModel):
