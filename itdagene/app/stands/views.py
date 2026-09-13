@@ -1,9 +1,10 @@
+import hashlib
 import mimetypes
 from typing import Any
 
 from django.contrib.auth.decorators import permission_required
 from django.contrib.messages import SUCCESS, add_message
-from django.http import FileResponse, HttpRequest, HttpResponse
+from django.http import FileResponse, HttpRequest, HttpResponse, HttpResponseNotModified
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -23,12 +24,31 @@ def published_map_background(request: HttpRequest, pk: Any) -> HttpResponse:
         release__preference__stands_published=True,
         release__status=StandMapRelease.PUBLISHED,
     )
-    content_type = (
-        mimetypes.guess_type(stand_map.background.name)[0] or "application/octet-stream"
+
+    # Published maps are immutable and a new release gets new rows, so the bytes
+    # behind one URL never change. "no-cache" still forces a revalidation on
+    # every use, which keeps unpublishing immediate: the next request runs the
+    # lookup above and 404s. What it avoids is re-sending a megabyte of PNG on
+    # every page view and every day switch.
+    etag = '"{}"'.format(
+        hashlib.sha1(
+            "{}:{}".format(stand_map.pk, stand_map.background.name).encode("utf-8")
+        ).hexdigest()
     )
-    response = FileResponse(stand_map.background.open("rb"), content_type=content_type)
-    response["Cache-Control"] = "no-store, max-age=0"
-    response["Pragma"] = "no-cache"
+
+    if request.META.get("HTTP_IF_NONE_MATCH") == etag:
+        response: HttpResponse = HttpResponseNotModified()
+    else:
+        content_type = (
+            mimetypes.guess_type(stand_map.background.name)[0]
+            or "application/octet-stream"
+        )
+        response = FileResponse(
+            stand_map.background.open("rb"), content_type=content_type
+        )
+
+    response["ETag"] = etag
+    response["Cache-Control"] = "no-cache, private"
     return response
 
 

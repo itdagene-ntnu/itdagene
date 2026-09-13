@@ -410,12 +410,21 @@ class CurrentStandMapPlacement(ObjectType):
     company_slug = NonNull(String)
     x_percent = NonNull(Float)
     y_percent = NonNull(Float)
+    collaborator_tier = String(
+        description=(
+            'Partner tier of the company, "main" for the main collaborator and '
+            '"collaborator" for a collaborator. Null for a regular company.'
+        )
+    )
 
     def resolve_x_percent(self, info: Any):
         return float(self.x_percent)
 
     def resolve_y_percent(self, info: Any):
         return float(self.y_percent)
+
+    def resolve_collaborator_tier(self, info: Any):
+        return self.company.collaborator_tier
 
 
 class CurrentStandMapDay(ObjectType):
@@ -436,7 +445,9 @@ class CurrentStandMapDay(ObjectType):
         return url
 
     def resolve_placements(self, info: Any):
-        return self.placements.all()
+        # The collaborator tier is read per placement, so pull the package in
+        # with the same query instead of one lookup per stand.
+        return self.placements.select_related("company__package")
 
 
 class CurrentStandMap(ObjectType):
